@@ -1,0 +1,113 @@
+VITACASE – PRIVACY POLICY
+Last updated: April 20, 2026
+This Privacy Policy describes how Limanex Software ("we", "us", or "our") collects, uses, stores, and protects your information when you use the VitaCase mobile application ("App", "Service").
+1. 📱 ABOUT THE APPLICATION
+VitaCase is a personal document management application designed to allow users to:
+Store and organize documents (including health records, prescriptions, invoices, and personal files)
+Track medications and appointments
+Manage personal notes and important information
+⚠️ Important Notice:
+VitaCase is not a medical or healthcare provider and does not provide medical advice, diagnosis, or treatment.
+2. 📊 INFORMATION WE COLLECT
+A. Information You Provide
+We may process information that you voluntarily provide, including:
+Documents and files uploaded by you
+Health-related records (if you choose to store them)
+Notes, medications, and appointments
+👉 Important:
+We do not access, read, analyze, or interpret your documents
+All content remains under your control
+B. Automatically Collected Information
+We may automatically collect limited technical data such as:
+Device information (model, OS, device ID)
+IP address
+Usage data (interactions within the app)
+Crash logs and diagnostic data
+C. Information We Do NOT Collect
+We do not intentionally collect:
+Personal data from third parties
+Biometric data (face ID, fingerprint, etc.)
+Financial/payment information
+Social media data
+3. 🧠 SENSITIVE INFORMATION
+The App may store sensitive data provided by users, including:
+Health-related information
+Personal documents and files
+👉 However:
+This data is user-provided only
+We do not process, analyze, or interpret this data
+We do not use this data for profiling or decision-making
+4. ⚙️ HOW WE USE INFORMATION
+We process information only to:
+Provide and maintain app functionality
+Enable document storage and organization
+Improve app performance and stability
+Detect and fix technical issues
+Ensure security and prevent misuse
+5. 🚫 WHAT WE DO NOT DO
+We explicitly do not:
+Sell personal data
+Access or review user documents
+Use data for profiling or behavioral analysis
+Use personal data for targeted advertising
+👉 We do not use user data for advertising profiling purposes.
+6. 📢 DATA SHARING AND THIRD PARTIES
+We may share limited technical data with trusted third-party service providers:
+Examples:
+Advertising services (e.g., AdMob)
+Crash reporting and analytics tools (e.g., Sentry)
+👉 Important:
+No personal documents are shared
+No health data is shared
+No sensitive content is transmitted
+7. 🍪 COOKIES AND TRACKING TECHNOLOGIES
+VitaCase does not use cookies.
+We may use limited tracking technologies only for:
+App performance monitoring
+Error tracking and diagnostics
+8. 🌍 INTERNATIONAL DATA TRANSFERS
+Your information may be processed in countries outside your residence.
+We ensure:
+Appropriate safeguards
+Industry-standard protection measures
+Compliance with applicable data protection laws
+9. ⏳ DATA RETENTION
+We retain data:
+👉 For as long as the user continues to use the app
+Users can:
+Delete their files at any time
+Remove stored information manually
+Technical data (e.g., crash logs) may be retained for a limited period for performance and security purposes.
+10. 🔐 DATA SECURITY
+We implement appropriate technical and organizational measures, including:
+Secure storage mechanisms
+Access control systems
+Industry-standard security practices
+⚠️ However, no system is completely secure.
+11. 👶 CHILDREN’S PRIVACY
+The App is not intended for children under 13.
+We do not knowingly collect personal data from children.
+12. 📩 YOUR PRIVACY RIGHTS
+Depending on your location, you may have the right to:
+Access your data
+Request deletion
+Request correction
+Object to certain processing
+You may contact us to exercise these rights.
+13. 📬 CONTACT INFORMATION
+For any privacy-related inquiries:
+📧 limanexsoftware@outlook.com
+14. ⚠️ MEDICAL DISCLAIMER
+VitaCase is not a healthcare provider.
+The App does not provide medical advice
+It does not diagnose or treat medical conditions
+It should not be used as a substitute for professional healthcare
+Users should always consult qualified healthcare professionals.
+15. 📄 DATA RESPONSIBILITY
+Users are solely responsible for:
+The content they upload
+The accuracy of their information
+We do not verify, validate, or interpret user data.
+16. 🔄 POLICY UPDATES
+We may update this Privacy Policy from time to time.
+Users are encouraged to review this page periodically.

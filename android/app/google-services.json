@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "504853986138",
+    "project_id": "vitacase-edbda",
+    "storage_bucket": "vitacase-edbda.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504853986138:android:8a592c0c96a7fe4b4c1163",
+        "android_client_info": {
+          "package_name": "com.limanex.vitacase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvQ6czO8-kTEsHHBUS6SUKmUI8DO0iCnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
