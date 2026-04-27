@@ -120,7 +120,6 @@ class SmartNotificationService {
       body: _service.safeMedicationBody(medName),
       channelId: 'medicine_reminders',
       channelName: 'Medicine Reminders',
-      bypassQuietHours: true,
     );
   }
 
@@ -132,13 +131,11 @@ class SmartNotificationService {
   static Future<void> scheduleCloseReminder() async {
     if (!_canShowEngagement()) return;
 
-    await _service.scheduleSimple(
-      id: 9999,
+    await NotificationService.schedule(
+      id: 'smart_engagement_close',
       date: DateTime.now().add(const Duration(hours: 6)),
       title: 'VitaCase',
       body: _translate('smart_default'),
-      channelId: 'smart_engagement',
-      channelName: 'Engagement',
     );
     // Note: We don't update _lastEngagementAt here because it's scheduled, 
     // it will be updated when it actually fires (if we had a callback) or 

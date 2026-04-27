@@ -26,8 +26,6 @@ class AppSettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
-  int _versionTapCount = 0;
-
   @override
   Widget build(BuildContext context) {
     final ref = this.ref;
@@ -971,27 +969,13 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() => _versionTapCount++);
-                        if (_versionTapCount >= 10) {
-                          _versionTapCount = 0;
-                          SmartNotificationService.showNow(
-                            context.l10n('test_notification_body'),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Easter Egg: Test notification sent! 🚀")),
-                          );
-                        }
-                      },
-                      child: Text(
-                        context.l10n('free_secure_release').toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 2,
-                        ),
+                    Text(
+                      context.l10n('free_secure_release').toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2,
                       ),
                     ),
                     Container(

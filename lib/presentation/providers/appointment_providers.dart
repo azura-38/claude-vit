@@ -2,15 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/di/repository_providers.dart';
 import '../../domain/entities/appointment.dart';
 import '../../domain/enums/appointment_status.dart';
-import '../../core/l10n/translations.dart';
 import '../../domain/usecases/base_usecase.dart';
 import '../../domain/usecases/appointments/get_appointments_usecase.dart';
 import '../../domain/usecases/appointments/add_appointment_usecase.dart';
-import 'locale_provider.dart';
 import '../../core/di/service_providers.dart';
 import '../../core/types/runtime_types.dart';
 import '../../data/services/analytics_service.dart';
 import '../../data/services/notification_service.dart';
+import 'medicine_providers.dart';
 
 final calendarViewTypeProvider = NotifierProvider<CalendarViewTypeNotifier, String>(CalendarViewTypeNotifier.new);
 
@@ -90,9 +89,8 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
 
     try {
-      await _cancelReminders(appointment.id);
       await repo.update(appointment);
-      await _scheduleReminders(appointment);
+      await _rebuildAllNotifications();
     } catch (e) {
       await refresh();
       rethrow;
@@ -111,45 +109,47 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
 
     final now = DateTime.now();
-    
-    DateTime? appDateTime;
-    try {
-      appDateTime = DateTime.parse('${app.date} ${app.time}');
-    } catch (e) {
-      return;
-    }
-
-    final locale = ref.read(localeProvider);
-    final lang = locale.languageCode;
-    final trans = Translations.data[lang] ?? Translations.data['en']!;
-
-    final intervals = {
-      '24 Saat': const Duration(hours: 24),
-      '1 Saat': const Duration(hours: 1),
-    };
-
-    int i = 0;
-    for (var entry in intervals.entries) {
-      final scheduledDate = appDateTime.subtract(entry.value);
-      if (scheduledDate.isAfter(now)) {
-        final notificationId = NotificationService.getStableId(app.id, (i + 1) * 10000);
-        final timeLabel = entry.key == '24 Saat' ? (lang == 'tr' ? '24 saat' : '24 hours') : (lang == 'tr' ? '1 saat' : '1 hour');
-        
-        await NotificationService.scheduleAppointment(
-          id: "${app.id}_$i",
-          title: app.doctor,
-          date: scheduledDate,
+    for (final reminderDate in _generatedReminderDates(app)) {
+      if (reminderDate.isAfter(now)) {
+        await NotificationService.schedule(
+          id: app.id,
+          title: "📅 Appointment",
+          body: "📅 Upcoming appointment",
+          date: reminderDate,
         );
       }
-      i++;
     }
   }
 
-  Future<void> _cancelReminders(String appointmentId) async {
-    final notifier = ref.read(notificationServiceProvider);
-    for (int i = 0; i < 3; i++) {
-        final notificationId = NotificationService.getStableId(appointmentId, (i + 1) * 10000);
-        await notifier.cancelNotification(notificationId);
+  Future<void> rescheduleAllNotifications(List<Appointment> appointments) async {
+    for (final appointment in appointments) {
+      await _scheduleReminders(appointment);
+    }
+  }
+
+  List<DateTime> _generatedReminderDates(Appointment app) {
+    final reminderTime = app.reminderTime;
+    if (reminderTime == null || reminderTime.isEmpty) return [];
+
+    final offset = _reminderOffset(reminderTime);
+    final reminderDate = app.fullDateTime.subtract(offset);
+    return [reminderDate];
+  }
+
+  Duration _reminderOffset(String reminderTime) {
+    switch (reminderTime) {
+      case 'reminder_1d':
+      case '1 gün önce':
+      case '24 Saat':
+        return const Duration(days: 1);
+      case 'reminder_1h':
+      case '1 saat önce':
+      case '1 Saat':
+        return const Duration(hours: 1);
+      case 'reminder_10m':
+      case '10 dk önce':
+      default:
+        return const Duration(minutes: 10);
     }
   }
 
@@ -179,11 +179,25 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
 
     try {
-      await _cancelReminders(id);
       await repo.delete(id);
+      await _rebuildAllNotifications();
     } catch (e) {
       await refresh();
       rethrow;
     }
+  }
+
+  Future<void> _rebuildAllNotifications() async {
+    await NotificationService.cancelAll();
+
+    final appointments = state.hasValue
+        ? state.value!
+        : await ref.read(appointmentListProvider.future);
+    final medicines = await ref.read(medicineListProvider.future);
+
+    await ref
+        .read(medicineListProvider.notifier)
+        .rescheduleAllNotifications(medicines);
+    await rescheduleAllNotifications(appointments);
   }
 }

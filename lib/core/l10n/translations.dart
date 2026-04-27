@@ -183,6 +183,7 @@ class Translations {
       // Daily Missions
       'mission_doc_daily': 'Add 1 Document',
       'mission_ad_daily': 'Watch 1 Ad',
+      'mission_app_daily': 'Schedule 1 Appointment',
       'mission_med_daily': 'Add 1 Medicine',
 
       'export_data_zip': 'Export Data (.zip)',
@@ -1007,6 +1008,7 @@ class Translations {
       // Daily Missions
       'mission_doc_daily': '1 Belge Ekle',
       'mission_ad_daily': '1 Reklam İzle',
+      'mission_app_daily': '1 Randevu Planla',
       'mission_med_daily': '1 İlaç Ekle',
 
       'export_data_zip': 'Verileri Dışa Aktar (.zip)',

@@ -56,8 +56,8 @@ class DailyMissionNotifier extends AsyncNotifier<List<DailyMission>> {
       case 'doc_daily':
         limitNotifier.increaseExtraDocs(5);
         break;
-      case 'ad_daily':
-        limitNotifier.increaseExtraDocs(3);
+      case 'app_daily':
+        limitNotifier.increaseExtraDocs(2);
         break;
       case 'med_daily':
         limitNotifier.increaseExtraMedicine(2);

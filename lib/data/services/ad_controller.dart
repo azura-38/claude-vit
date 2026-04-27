@@ -12,6 +12,8 @@ class AdController {
   final SharedPreferences _prefs;
   static const String _countKey = 'ad_action_count';
   static const String _timeKey = 'ad_last_time';
+  static const String _firstOpenKey = 'ad_first_open_time';
+  static const String _onboardingKey = 'onboarding_completed';
 
   AdController(this._prefs);
 
@@ -35,14 +37,25 @@ class AdController {
     final now = DateTime.now();
     final lastTime = _lastAdTime;
     
-    // 2-minute cooldown between interstitials
-    if (lastTime == null || now.difference(lastTime).inMinutes >= 2) {
+    if (lastTime == null || now.difference(lastTime).inMinutes >= 10) {
       AdService.showInterstitial();
       await _prefs.setInt(_timeKey, now.millisecondsSinceEpoch);
     }
   }
 
-  void onAppOpen() {
+  Future<void> onAppOpen() async {
+    if (!(_prefs.getBool(_onboardingKey) ?? false)) return;
+
+    final now = DateTime.now();
+    final firstOpenMillis = _prefs.getInt(_firstOpenKey);
+    if (firstOpenMillis == null) {
+      await _prefs.setInt(_firstOpenKey, now.millisecondsSinceEpoch);
+      return;
+    }
+
+    final firstOpen = DateTime.fromMillisecondsSinceEpoch(firstOpenMillis);
+    if (now.difference(firstOpen).inDays < 7) return;
+
     AdService.showAppOpenAd();
   }
 }

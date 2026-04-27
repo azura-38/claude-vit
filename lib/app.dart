@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
@@ -11,7 +13,6 @@ import 'presentation/providers/document_providers.dart';
 import 'data/services/smart_notification_system.dart';
 import 'presentation/providers/user_behavior_provider.dart';
 import 'data/services/ad_controller.dart';
-import 'dart:ui';
 
 class VitaCaseApp extends ConsumerStatefulWidget {
   const VitaCaseApp({super.key});
@@ -33,7 +34,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       _initLockState();
       final user = ref.read(userBehaviorProvider);
       NotificationTriggers.onAppOpen(user);
-      ref.read(adControllerProvider).onAppOpen();
+      unawaited(ref.read(adControllerProvider).onAppOpen());
     });
   }
 
@@ -69,7 +70,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       NotificationTriggers.onAppClose();
     } else if (state == AppLifecycleState.resumed) {
       ref.read(fileStorageServiceProvider).cleanupAllTempFiles();
-      ref.read(adControllerProvider).onAppOpen();
+      unawaited(ref.read(adControllerProvider).onAppOpen());
 
       if (lockEnabled && _lastPausedTime != null) {
         final timeout = ref.read(lockTimeoutProvider);

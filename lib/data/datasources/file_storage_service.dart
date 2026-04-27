@@ -10,6 +10,10 @@ import 'package:open_filex/open_filex.dart';
 class FileStorageService {
   static const String _documentsSubDir = 'documents';
 
+  Future<void> init() async {
+    await cleanupAllTempFiles();
+  }
+
   /// Returns the app-private documents directory, creating it if needed.
   Future<Directory> _getDocumentsDir() async {
     final appDir = await getApplicationDocumentsDirectory();

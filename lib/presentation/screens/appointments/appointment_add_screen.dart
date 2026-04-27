@@ -368,7 +368,7 @@ class _AppointmentAddScreenState extends ConsumerState<AppointmentAddScreen> {
     }
 
     final notifTitle = context.l10n('notif_app_created_title');
-    final notifBody = context.l10n('notif_app_created_body', extra: {'title': _titleController.text});
+    const notifBody = 'Appointment saved';
 
     if (widget.appointment != null) {
       final appointment = Appointment(
@@ -409,10 +409,6 @@ class _AppointmentAddScreenState extends ConsumerState<AppointmentAddScreen> {
       ref.read(achievementProvider.notifier).track("app_added", value: 1);
       ref.read(dailyMissionProvider.notifier).track("app_daily");
 
-      if (reminder) {
-        _scheduleNotification(selectedDateTime, _titleController.text);
-      }
-
       ref.read(notificationServiceProvider).showNotification(
             id: 111,
             title: notifTitle,
@@ -426,38 +422,6 @@ class _AppointmentAddScreenState extends ConsumerState<AppointmentAddScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n('success'))));
       context.pop();
     }
-  }
-
-  Future<void> _scheduleNotification(DateTime dateTime, String title) async {
-    final now = DateTime.now();
-    if (dateTime.isBefore(now)) return;
-
-    Duration delay;
-    switch (reminderTime) {
-      case "reminder_10m":
-        delay = const Duration(minutes: 10);
-        break;
-      case "reminder_1h":
-        delay = const Duration(hours: 1);
-        break;
-      case "reminder_1d":
-        delay = const Duration(days: 1);
-        break;
-      default:
-        delay = const Duration(minutes: 10);
-    }
-
-    final scheduledAt = dateTime.subtract(delay);
-    if (scheduledAt.isBefore(now)) return;
-
-    await ref.read(notificationServiceProvider).scheduleNotification(
-          id: dateTime.millisecondsSinceEpoch ~/ 1000,
-          title: context.l10n('notif_app_reminder_title'),
-          body: context.l10n('notif_app_reminder_body', extra: {'title': title}),
-          scheduledDate: scheduledAt,
-          channelId: "appointment_reminders",
-          channelName: "Appointment Reminders",
-        );
   }
 
   Widget _buildLabel(String text) {

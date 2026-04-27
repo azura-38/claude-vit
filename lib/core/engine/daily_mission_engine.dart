@@ -49,8 +49,8 @@ class DailyMissionEngine {
         isCompleted: false,
       ),
       DailyMission(
-        id: 'ad_daily',
-        title: 'mission_ad_daily',
+        id: 'app_daily',
+        title: 'mission_app_daily',
         target: 1,
         progress: 0,
         isCompleted: false,

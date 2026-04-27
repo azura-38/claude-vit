@@ -10,15 +10,12 @@ import 'app.dart';
 import 'core/config/app_config.dart';
 import 'core/utils/uid_manager.dart';
 import 'core/di/service_providers.dart';
-import 'core/types/runtime_types.dart';
-import 'data/datasources/file_storage_service.dart';
 import 'data/datasources/sembast_database.dart';
 import 'presentation/providers/shared_prefs_provider.dart';
+import 'presentation/providers/document_providers.dart';
 import 'data/services/smart_notification_system.dart';
-import 'data/services/consent_service.dart';
 import 'presentation/providers/appointment_providers.dart';
 import 'presentation/providers/medicine_providers.dart';
-import 'core/l10n/translations.dart';
 import 'data/services/notification_service.dart';
 
 void main() async {
@@ -49,15 +46,7 @@ void main() async {
           initializeDateFormatting('tr_TR', null),
           initializeDateFormatting('en_US', null),
           sembastDb.init(encryptionService),
-          NotificationService.init().then((_) async {
-            // Step 4: Test notification (Standardized Static Call)
-            await NotificationService.schedule(
-              id: "debug_test",
-              title: "VitaCase Engine",
-              body: "Notification system is ONLINE! ✅",
-              date: DateTime.now().add(const Duration(seconds: 30)),
-            );
-          }),
+          NotificationService.init(),
         ]);
       } catch (e) {
         debugPrint('[Bootstrap] Error: $e');
@@ -77,31 +66,20 @@ void main() async {
 
       // 6. Launch Application
       await SmartNotificationService.loadSettings();
-      NotificationService.setContainer(container);
+      SmartNotificationService.configure(notificationService);
+      NotificationService.setMedicineActionHandlers(
+        onTaken: (id) =>
+            container.read(medicineListProvider.notifier).markAsTaken(id),
+        onSkipped: (id) =>
+            container.read(medicineListProvider.notifier).markAsSkipped(id),
+      );
 
       // 7. Startup Reschedule (Production Fix)
       Future.microtask(() async {
         try {
-          final meds = await container.read(medicineListProvider.future);
-          final appts = await container.read(appointmentListProvider.future);
-          
-          final items = [
-            ...meds.map((m) => {
-                  "id": m.id,
-                  "title": "💊 Medication",
-                  "body": m.name,
-                  "date": m.nextReminderTime,
-                }),
-            ...appts.map((a) => {
-                  "id": a.id,
-                  "title": "📅 Appointment",
-                  "body": a.doctor,
-                  "date": a.fullDateTime,
-                }),
-          ];
-          
-          await NotificationService.rescheduleAll(items);
-          debugPrint('[NotificationReschedule] Sync completed for ${items.length} items');
+          await NotificationService.cancelAll();
+          await scheduleAllFromProviders(container);
+          debugPrint('[NotificationReschedule] Sync completed');
         } catch (e) {
           debugPrint('[NotificationReschedule] Failed: $e');
         }
@@ -115,4 +93,16 @@ void main() async {
       );
     },
   );
+}
+
+Future<void> scheduleAllFromProviders(ProviderContainer container) async {
+  final meds = await container.read(medicineListProvider.future);
+  final appts = await container.read(appointmentListProvider.future);
+
+  await container
+      .read(medicineListProvider.notifier)
+      .rescheduleAllNotifications(meds);
+  await container
+      .read(appointmentListProvider.notifier)
+      .rescheduleAllNotifications(appts);
 }
