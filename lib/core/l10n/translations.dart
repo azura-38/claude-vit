@@ -178,6 +178,17 @@ class Translations {
       'lock_timeout_15min': '15 Minutes',
 
       'lock_timeout': 'Lock Timeout',
+      'change_pin': 'Change PIN',
+      'biometric_login': 'Biometric Login',
+      'biometric_unavailable': 'Biometric authentication is not available on this device.',
+      'digits': 'digits',
+      'lock_skip_desc': 'You can set this up later from Settings.',
+      'setup_pin_later': 'Set up later from Settings',
+      'skip_pin_setup': 'Skip',
+      'setup_app_lock': 'Set Up App Lock',
+      'setup_app_lock_desc': 'Protect your data with a 6-digit PIN.',
+      'step_profile': 'Profile',
+      'step_security': 'Security',
 
       'daily_missions': 'DAILY MISSIONS',
       // Daily Missions
@@ -820,6 +831,12 @@ class Translations {
       'notif_test_body': 'Your notifications are working perfectly!',
       'notif_appointment_reminder_title': '📅 Appointment Reminder',
       'notif_appointment_reminder_body': 'Your appointment for {doctor} is approaching.',
+      // Missing keys found during audit
+      'get_directions': 'Get Directions',
+      'view_details': 'View Details',
+      'no_scheduled_meds_today': 'No medications scheduled for today.',
+      'add_appointment': 'Add Appointment',
+      'add_document': 'Add Document',
     },
 
     'tr': {
@@ -1176,6 +1193,17 @@ class Translations {
       'lock_title': 'VitaCase Kilitli',
       'lock_subtitle': 'Erişmek için lütfen doğrulayın',
       'unlock': 'Kilidi Aç',
+      'change_pin': 'PIN Değiştir',
+      'biometric_login': 'Biyometrik Giriş',
+      'biometric_unavailable': 'Bu cihazda biyometrik doğrulama mevcut değil.',
+      'digits': 'haneli',
+      'lock_skip_desc': 'Bunu daha sonra Ayarlar\'dan yapabilirsiniz.',
+      'setup_pin_later': 'Daha sonra Ayarlar\'dan belirle',
+      'skip_pin_setup': 'Atla',
+      'setup_app_lock': 'Uygulama Kilidi Kur',
+      'setup_app_lock_desc': 'Verilerinizi 6 haneli PIN ile koruyun.',
+      'step_profile': 'Profil',
+      'step_security': 'Güvenlik',
       'bmi_underweight': 'Zayıf',
       'bmi_normal': 'Normal (İdeal)',
       'bmi_overweight': 'Fazla Kilolu',
@@ -1643,6 +1671,12 @@ class Translations {
       'notif_test_body': 'Bildirimleriniz mükemmel çalışıyor!',
       'notif_appointment_reminder_title': '📅 Randevu Hatırlatıcı',
       'notif_appointment_reminder_body': '{doctor} için randevunuz yaklaşıyor.',
+      // Missing keys found during audit
+      'get_directions': 'Yol Tarifi Al',
+      'view_details': 'Detayları Gör',
+      'no_scheduled_meds_today': 'Bugün için planlanmış ilaç yok.',
+      'add_appointment': 'Randevu Ekle',
+      'add_document': 'Belge Ekle',
     },
 
     'de': {

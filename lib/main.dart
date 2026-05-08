@@ -10,13 +10,12 @@ import 'app.dart';
 import 'core/config/app_config.dart';
 import 'core/utils/uid_manager.dart';
 import 'core/di/service_providers.dart';
-import 'data/datasources/sembast_database.dart';
-import 'presentation/providers/shared_prefs_provider.dart';
-import 'presentation/providers/document_providers.dart';
-import 'data/services/smart_notification_system.dart';
-import 'presentation/providers/appointment_providers.dart';
-import 'presentation/providers/medicine_providers.dart';
-import 'data/services/notification_service.dart';
+import 'shared/providers/shared_prefs_provider.dart';
+import 'shared/providers/document_providers.dart';
+import 'shared/data/services/smart_notification_system.dart';
+import 'features/appointments/presentation/providers/appointment_providers.dart';
+import 'shared/providers/medicine_providers.dart';
+import 'shared/data/services/notification_service.dart';
 
 void main() async {
   await SentryFlutter.init(
@@ -32,7 +31,7 @@ void main() async {
       // 1. Core Services (Critical Path)
       final prefs = await SharedPreferences.getInstance();
       final container = ProviderContainer(
-        overrides: [sharedPrefsProvider.overrideWithValue(prefs)],
+        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
       );
 
       final sembastDb = container.read(sembastDatabaseProvider);
@@ -46,7 +45,12 @@ void main() async {
           initializeDateFormatting('tr_TR', null),
           initializeDateFormatting('en_US', null),
           sembastDb.init(encryptionService),
-          NotificationService.init(),
+          NotificationService.init(
+            onMedicineTaken: (id) =>
+                container.read(medicineListProvider.notifier).markAsTaken(id),
+            onMedicineSkipped: (id) =>
+                container.read(medicineListProvider.notifier).markAsSkipped(id),
+          ),
         ]);
       } catch (e) {
         debugPrint('[Bootstrap] Error: $e');
@@ -67,12 +71,6 @@ void main() async {
       // 6. Launch Application
       await SmartNotificationService.loadSettings();
       SmartNotificationService.configure(notificationService);
-      NotificationService.setMedicineActionHandlers(
-        onTaken: (id) =>
-            container.read(medicineListProvider.notifier).markAsTaken(id),
-        onSkipped: (id) =>
-            container.read(medicineListProvider.notifier).markAsSkipped(id),
-      );
 
       // 7. Startup Reschedule (Production Fix)
       Future.microtask(() async {

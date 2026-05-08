@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/entities/season_pass.dart';
+import '../../shared/domain/entities/season_pass.dart';
 
 class XPEngine {
   final SharedPreferences prefs;

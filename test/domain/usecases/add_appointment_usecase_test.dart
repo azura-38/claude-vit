@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vitacase/domain/entities/appointment.dart';
-import 'package:vitacase/domain/enums/common_enums.dart';
-import 'package:vitacase/domain/enums/appointment_status.dart';
-import 'package:vitacase/domain/repositories/appointment_repository.dart';
-import 'package:vitacase/domain/usecases/appointments/add_appointment_usecase.dart';
+import 'package:vitacase/features/appointments/domain/entities/appointment.dart';
+import 'package:vitacase/shared/domain/enums/common_enums.dart';
+import 'package:vitacase/shared/domain/enums/appointment_status.dart';
+import 'package:vitacase/shared/domain/repositories/appointment_repository.dart';
+import 'package:vitacase/shared/domain/usecases/appointments/add_appointment_usecase.dart';
 
 class MockAppointmentRepository implements AppointmentRepository {
   bool didThrowError = false;

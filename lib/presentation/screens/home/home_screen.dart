@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../widgets/app_bottom_nav.dart';
-import '../../widgets/explore_menu.dart';
-import '../../widgets/banner_ad_container.dart';
-import '../../providers/navigation_provider.dart';
-import '../../providers/behavior_notifier.dart';
+import '../../../shared/widgets/navigation/app_bottom_nav.dart';
+import '../../../shared/widgets/navigation/explore_menu.dart';
+import '../../../shared/widgets/misc/banner_ad_container.dart';
+import '../../../shared/providers/navigation_provider.dart';
+import '../../../shared/providers/behavior_notifier.dart';
 
 
 class HomeScreen extends ConsumerWidget {

@@ -3,50 +3,53 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 // Providers
-import '../../presentation/providers/onboarding_provider.dart';
-import '../../presentation/providers/auth_providers.dart';
-import '../../presentation/providers/profile_provider.dart';
+import '../../shared/providers/onboarding_provider.dart';
+import '../../features/auth/presentation/providers/auth_providers.dart';
 
 // Screens
-import '../../presentation/screens/appointments/appointment_add_screen.dart';
-import '../../presentation/screens/appointments/appointments_screen.dart';
-import '../../presentation/screens/dashboard/dashboard_screen.dart';
-import '../../presentation/screens/doctors/doctor_add_screen.dart';
-import '../../presentation/screens/doctors/doctors_screen.dart';
-import '../../presentation/screens/documents/documents_screen.dart';
-import '../../presentation/screens/health/health_data_add_screen.dart';
-import '../../presentation/screens/health/health_stats_screen.dart';
+import '../../features/appointments/presentation/screens/create_appointment_screen.dart';
+import '../../features/appointments/presentation/screens/appointments_screen.dart';
+import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../features/doctors/presentation/screens/doctor_add_screen.dart';
+import '../../features/doctors/presentation/screens/doctors_screen.dart';
+import '../../features/vault/presentation/screens/document_vault_screen.dart';
+import '../../features/health_stats/presentation/screens/health_data_add_screen.dart';
+import '../../features/health_stats/presentation/screens/health_stats_screen.dart';
 import '../../presentation/screens/home/home_screen.dart';
-import '../../presentation/screens/lock/lock_screen.dart';
-import '../../presentation/screens/medicines/medicine_add_screen.dart';
-import '../../presentation/screens/medicines/medicines_screen.dart';
-import '../../presentation/screens/onboarding/onboarding_screen.dart';
-import '../../presentation/screens/profile/app_settings_screen.dart';
-import '../../presentation/screens/profile/medical_info_screen.dart';
-import '../../presentation/screens/profile/personal_info_screen.dart';
-import '../../presentation/screens/profile/profile_create_screen.dart';
-import '../../presentation/screens/profile/profile_edit_screen.dart';
-import '../../presentation/screens/profile/profile_screen.dart';
-import '../../presentation/screens/legal/disclaimer_screen.dart';
-import '../../presentation/screens/legal/privacy_policy_screen.dart';
-import '../../presentation/screens/legal/terms_conditions_screen.dart';
-import '../../presentation/screens/profile/theme_selection_screen.dart';
-import '../../presentation/screens/error/error_screen.dart';
-import '../../presentation/screens/documents/document_detail_screen.dart';
-import '../../presentation/screens/doctors/doctor_detail_screen.dart';
-import '../../presentation/screens/achievements/achievements_screen.dart';
-import '../../presentation/screens/season_pass/season_pass_screen.dart';
+import '../../features/auth/presentation/screens/lock/lock_screen.dart';
+import '../../features/medications/presentation/screens/add_medication_screen.dart';
+import '../../features/medications/presentation/screens/medicines_screen.dart';
+import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/profile/presentation/screens/app_settings_screen.dart';
+import '../../features/profile/presentation/screens/edit_profile_screen.dart';
+import '../../features/profile/presentation/screens/profile_create_screen.dart';
+
+import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../../features/profile/presentation/screens/personal_information_screen.dart';
+import '../../features/onboarding/presentation/screens/legal/disclaimer_screen.dart';
+import '../../features/onboarding/presentation/screens/legal/privacy_policy_screen.dart';
+import '../../features/onboarding/presentation/screens/legal/terms_conditions_screen.dart';
+import '../../features/profile/presentation/screens/theme_selection_screen.dart';
+import '../error/presentation/screens/error_screen.dart';
+import '../../features/doctors/presentation/screens/doctor_detail_screen.dart';
+import '../../features/gamification/presentation/screens/achievements/achievements_screen.dart';
+import '../../features/gamification/presentation/screens/season_pass/season_pass_screen.dart';
+import '../../features/explore/presentation/screens/coming_soon_screen.dart';
+
+// Notifications
+import '../../features/notifications/presentation/screens/medication_lock_notification.dart';
+import '../../features/notifications/presentation/screens/appointment_lock_notification.dart';
+import '../../features/notifications/presentation/screens/refill_banner_notification.dart';
 
 
 
 // Domain
-import '../../domain/entities/appointment.dart';
-import '../../domain/entities/medicine.dart';
 
 // Core
-import '../../presentation/widgets/app_lock_gate.dart';
+import '../../features/auth/presentation/widgets/app_lock_gate.dart';
 import '../constants/app_routes.dart';
 import '../types/runtime_types.dart';
+import 'package:vitacase/features/profile/presentation/providers/legacy_providers.dart';
 
 /// Centralized Scale-Proof Router Configuration
 class AppRouter {
@@ -132,6 +135,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'profileCreate',
         builder: (context, state) => const ProfileCreateScreen(),
       ),
+      
+      // Notifications
+      GoRoute(
+        path: '/notification/medication',
+        builder: (context, state) => const MedicationLockNotificationScreen(),
+      ),
+      GoRoute(
+        path: '/notification/appointment',
+        builder: (context, state) => const AppointmentLockNotificationScreen(),
+      ),
+      GoRoute(
+        path: '/notification/refill',
+        builder: (context, state) => const RefillBannerNotificationScreen(),
+      ),
 
       // Main App Shell (Protected)
       ShellRoute(
@@ -156,18 +173,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.documents,
                     name: 'documents',
-                    builder: (context, state) => const DocumentsScreen(),
-                    routes: [
-                      GoRoute(
-                        path: ':id',
-                        name: 'documentDetail',
-                        builder: (context, state) {
-                          final id = state.pathParameters['id'];
-                          if (id == null || id.isEmpty) return const ErrorScreen(message: 'Invalid Document ID');
-                          return DocumentDetailScreen(id: id);
-                        },
-                      ),
-                    ],
+                    builder: (context, state) => const DocumentVaultScreen(),
                   ),
                 ],
               ),
@@ -175,7 +181,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(
                     path: '/explore-placeholder',
-                    builder: (context, state) => const SizedBox.shrink(),
+                    builder: (context, state) => const ComingSoonScreen(),
                   ),
                 ],
               ),
@@ -189,7 +195,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       GoRoute(
                         path: 'add',
                         name: 'appointmentAdd',
-                        builder: (context, state) => AppointmentAddScreen(appointment: state.extra as Appointment?),
+                        builder: (context, state) => const CreateAppointmentScreen(),
                       ),
                     ],
                   ),
@@ -205,7 +211,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       GoRoute(
                         path: 'edit',
                         name: 'profileEdit',
-                        builder: (context, state) => ProfileEditScreen(initialData: state.extra as ProfileData?),
+                        builder: (context, state) => const EditProfileScreen(),
                       ),
                     ],
                   ),
@@ -237,7 +243,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'add',
                 name: 'medicineAdd',
-                builder: (context, state) => MedicineAddScreen(medicine: state.extra as Medicine?),
+                builder: (context, state) => const AddMedicationScreen(),
               ),
 
             ],
@@ -280,12 +286,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.personalInfo,
             name: 'personalInfo',
-            builder: (context, state) => const PersonalInfoScreen(),
+            builder: (context, state) => const PersonalInformationScreen(),
           ),
           GoRoute(
             path: AppRoutes.medicalInfo,
             name: 'medicalInfo',
-            builder: (context, state) => const MedicalInfoScreen(),
+            builder: (context, state) => const EditProfileScreen(),
           ),
           GoRoute(
             path: AppRoutes.healthStats,

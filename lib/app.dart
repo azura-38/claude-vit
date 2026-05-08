@@ -3,16 +3,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
-import 'presentation/providers/theme_provider.dart';
-import 'presentation/providers/auth_providers.dart';
+import 'core/theme/theme_provider.dart';
+import 'features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/l10n/app_localizations.dart';
-import 'presentation/providers/locale_provider.dart';
+import 'shared/providers/locale_provider.dart';
 import 'core/router/app_router.dart';
-import 'presentation/providers/document_providers.dart';
-import 'data/services/smart_notification_system.dart';
-import 'presentation/providers/user_behavior_provider.dart';
-import 'data/services/ad_controller.dart';
+import 'shared/providers/document_providers.dart';
+import 'shared/data/services/smart_notification_system.dart';
+import 'shared/providers/user_behavior_provider.dart';
+import 'shared/data/services/ad_controller.dart';
 
 class VitaCaseApp extends ConsumerStatefulWidget {
   const VitaCaseApp({super.key});

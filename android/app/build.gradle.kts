@@ -14,8 +14,12 @@ import java.io.FileInputStream
 val dartDefinesString = project.findProperty("dart-defines") as String?
 val dartDefines = mutableMapOf<String, String>()
 if (dartDefinesString != null) {
-    dartDefinesString.split(",").forEach {
-        val decoded = String(Base64.getDecoder().decode(it))
+    dartDefinesString.split(",").filter { it.isNotEmpty() }.forEach {
+        val decoded = try {
+            String(Base64.getDecoder().decode(it))
+        } catch (e: Exception) {
+            it
+        }
         val parts = decoded.split("=")
         if (parts.size == 2) {
             dartDefines[parts[0]] = parts[1]
@@ -82,7 +86,7 @@ android {
             ndk {
                 abiFilters.add("armeabi-v7a")
                 abiFilters.add("arm64-v8a")
-                abiFilters.add("x86_64")
+
             }
             
             proguardFiles(

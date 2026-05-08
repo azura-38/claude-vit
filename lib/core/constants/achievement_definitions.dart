@@ -1,4 +1,4 @@
-import '../../domain/entities/achievement.dart';
+import '../../shared/domain/entities/achievement.dart';
 
 class AchievementDefinitions {
   static List<Achievement> get all => [

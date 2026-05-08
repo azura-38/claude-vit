@@ -1,5 +1,5 @@
-import '../../domain/entities/achievement.dart';
-import '../../domain/repositories/achievement_repository.dart';
+import '../../shared/domain/entities/achievement.dart';
+import '../../shared/domain/repositories/achievement_repository.dart';
 import '../constants/achievement_definitions.dart';
 
 class AchievementEngine {

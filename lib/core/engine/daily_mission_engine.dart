@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/entities/daily_mission.dart';
+import '../../shared/domain/entities/daily_mission.dart';
 
 class DailyMissionEngine {
   final SharedPreferences prefs;
