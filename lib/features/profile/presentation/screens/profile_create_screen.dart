@@ -113,6 +113,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       profileNotifier.updateBirthDate(_birthDate!);
     }
     profileNotifier.updateGender(_genderFromSelection(_selectedGender));
+    profileNotifier.updatePhotoPath(_pickedImagePath);
     await profileNotifier.saveToDatabase();
     if (_selectedLanguageCode != null) {
       await ref.read(localeProvider.notifier).setLocale(_selectedLanguageCode!);

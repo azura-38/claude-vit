@@ -45,6 +45,10 @@ class ProfileNotifier extends StateNotifier<UserProfile> {
     state = state.copyWith(phone: value);
   }
 
+  void updatePhotoPath(String? value) {
+    state = state.copyWith(photoPath: value);
+  }
+
   void updateHeight(double value) {
     state = state.copyWith(height: value);
   }
@@ -104,6 +108,7 @@ class ProfileNotifier extends StateNotifier<UserProfile> {
       'fullName': p.fullName,
       'email': p.email,
       'phone': p.phone,
+      'photoPath': p.photoPath,
       'height': p.height,
       'weight': p.weight,
       'bloodType': p.bloodType,
@@ -126,6 +131,7 @@ class ProfileNotifier extends StateNotifier<UserProfile> {
       fullName: m['fullName'] as String? ?? '',
       email: m['email'] as String? ?? '',
       phone: m['phone'] as String? ?? '',
+      photoPath: m['photoPath'] as String?,
       height: (m['height'] as num?)?.toDouble() ?? 0,
       weight: (m['weight'] as num?)?.toDouble() ?? 0,
       bloodType: m['bloodType'] as String? ?? '',

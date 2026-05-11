@@ -32,8 +32,8 @@ final profileAgeProvider = Provider<int>((ref) {
   return DateTime.now().year - birthDate.year;
 });
 final profilePhotoProvider = Provider<String?>(
-  (ref) => null,
-); // TODO: Add photoPath field to UserProfile when photo persistence is implemented
+  (ref) => ref.watch(profileProvider).photoPath,
+);
 final profileBloodTypeProvider = Provider<String>(
   (ref) {
     final bloodType = ref.watch(profileProvider).bloodType.trim();

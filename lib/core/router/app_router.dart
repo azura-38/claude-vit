@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-// Providers
-import '../../shared/providers/onboarding_provider.dart';
-import '../../features/auth/presentation/providers/auth_providers.dart';
-import '../notifications/notification_navigation.dart';
+import 'route_guards.dart';
 
 // Screens
 import '../../features/appointments/presentation/screens/create_appointment_screen.dart';
@@ -47,8 +44,6 @@ import '../../features/notifications/presentation/screens/refill_banner_notifica
 // Core
 import '../../features/auth/presentation/widgets/app_lock_gate.dart';
 import '../constants/app_routes.dart';
-import '../types/runtime_types.dart';
-import 'package:vitacase/features/profile/presentation/providers/legacy_providers.dart';
 
 /// Centralized Scale-Proof Router Configuration
 class AppRouter {
@@ -57,11 +52,7 @@ class AppRouter {
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  // Watch auth & onboarding state for reactive redirects
-  final onboardingCompleted = ref.watch(onboardingCompletedProvider);
-  final lockState = ref.watch(appLockStateProvider);
-  final isLockEnabled = ref.watch(appLockEnabledProvider);
-  final pendingNotificationRoute = ref.watch(pendingNotificationRouteProvider);
+  final guard = ref.watch(routeGuardStateProvider);
 
   return GoRouter(
     navigatorKey: AppRouter.navigatorKey,
@@ -69,70 +60,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
     // Global App Brain: Logic Control Center
     redirect: (context, state) {
-      final isGoingToLock = state.matchedLocation == AppRoutes.lock;
-      final isGoingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
-      final isGoingToProfileCreate =
-          state.matchedLocation == AppRoutes.profileCreate;
-
-      if (pendingNotificationRoute != null &&
-          lockState == AppLockState.unlocked &&
-          onboardingCompleted &&
-          state.matchedLocation != pendingNotificationRoute) {
-        Future.microtask(
-          () => ref.read(pendingNotificationRouteProvider.notifier).clear(),
-        );
-        return pendingNotificationRoute;
-      }
-
-      if (lockState == AppLockState.unknown && !isGoingToLock) {
-        return AppRoutes.lock;
-      }
-
-      // 1. Force Lock Screen if app lock is enabled and session is locked
-      if (isLockEnabled && lockState != AppLockState.unlocked) {
-        if (!isGoingToLock) return AppRoutes.lock;
-        return null;
-      }
-      if (isGoingToLock &&
-          (!isLockEnabled || lockState == AppLockState.unlocked)) {
-        return AppRoutes.home;
-      }
-
-      // 2. Force Onboarding if not completed
-      if (!onboardingCompleted) {
-        if (!isGoingToOnboarding && !isGoingToProfileCreate) {
-          return AppRoutes.onboarding;
-        }
-        return null;
-      }
-
-      final profileCreated = ref.read(profileCreatedProvider);
-      if (!profileCreated && !isGoingToProfileCreate) {
-        return AppRoutes.profileCreate;
-      }
-
-      // 3. Force Legal Acceptance if not done
-      // This is critical for medical compliance (Score 100)
-      final legalAccepted = ref.read(legalAcceptedProvider);
-      if (!legalAccepted) {
-        final isGoingToLegal =
-            state.matchedLocation.contains('terms') ||
-            state.matchedLocation.contains('privacy') ||
-            state.matchedLocation.contains('disclaimer');
-        if (!isGoingToLegal && !isGoingToProfileCreate) {
-          return AppRoutes
-              .profileCreate; // Force them back to profile create to accept
-        }
-      }
-
-      // 4. Prevent going back to onboarding if done
-      if (isGoingToOnboarding || isGoingToProfileCreate) {
-        // If they already have a name, they don't need profile create again
-        final hasName = ref.read(profileNameProvider) != null;
-        if (hasName && legalAccepted) return AppRoutes.home;
-      }
-
-      return null;
+      return notificationRedirect(ref, state, guard) ??
+          lockRedirect(state, guard) ??
+          onboardingRedirect(state, guard) ??
+          profileRedirect(ref, state) ??
+          legalRedirect(ref, state) ??
+          completedEntryRedirect(ref, state);
     },
 
     // Handling 404s

@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../providers/legacy_providers.dart';
-import '../../data/services/mock_profile_service.dart';
+import '../providers/profile_provider.dart';
 import '../../../../shared/providers/health_providers.dart';
 import '../../../../shared/providers/medical_info_providers.dart';
 import 'package:go_router/go_router.dart';
@@ -188,9 +188,9 @@ class ProfileScreen extends ConsumerWidget {
     );
 
     if (result != null && result.files.single.path != null) {
-      await ref
-          .read(profileServiceProvider)
-          .updateProfilePhoto(result.files.single.path!);
+      final notifier = ref.read(profileProvider.notifier);
+      notifier.updatePhotoPath(result.files.single.path!);
+      await notifier.saveToDatabase();
       if (context.mounted) {
         ScaffoldMessenger.of(
           context,

@@ -4,6 +4,7 @@ class UserProfile {
   final String fullName;
   final String email;
   final String phone;
+  final String? photoPath;
   final double height;
   final double weight;
   final String bloodType;
@@ -26,6 +27,7 @@ class UserProfile {
     this.fullName = '',
     this.email = '',
     this.phone = '',
+    this.photoPath,
     this.height = 0,
     this.weight = 0,
     this.bloodType = '',
@@ -76,6 +78,7 @@ class UserProfile {
     String? fullName,
     String? email,
     String? phone,
+    String? photoPath,
     double? height,
     double? weight,
     String? bloodType,
@@ -95,6 +98,7 @@ class UserProfile {
       fullName: fullName ?? this.fullName,
       email: email ?? this.email,
       phone: phone ?? this.phone,
+      photoPath: photoPath ?? this.photoPath,
       height: height ?? this.height,
       weight: weight ?? this.weight,
       bloodType: bloodType ?? this.bloodType,
