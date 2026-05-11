@@ -6,9 +6,10 @@ import 'limit_providers.dart';
 import 'season_providers.dart';
 import '../data/services/analytics_service.dart';
 
-
 final dailyMissionProvider =
-    AsyncNotifierProvider<DailyMissionNotifier, List<DailyMission>>(DailyMissionNotifier.new);
+    AsyncNotifierProvider<DailyMissionNotifier, List<DailyMission>>(
+      DailyMissionNotifier.new,
+    );
 
 class DailyMissionNotifier extends AsyncNotifier<List<DailyMission>> {
   late DailyMissionEngine _engine;
@@ -22,28 +23,28 @@ class DailyMissionNotifier extends AsyncNotifier<List<DailyMission>> {
 
   Future<void> track(String id) async {
     if (!state.hasValue) return;
-    
+
     bool newlyCompleted = false;
-    final updated = state.requireValue.map((m) {
-      if (m.id != id || m.isCompleted) return m;
+    final updated =
+        state.requireValue.map((m) {
+          if (m.id != id || m.isCompleted) return m;
 
-      final newProgress = m.progress + 1;
-      final isDone = newProgress >= m.target;
-      
-      if (isDone) newlyCompleted = true;
+          final newProgress = m.progress + 1;
+          final isDone = newProgress >= m.target;
 
-      return m.copyWith(
-        progress: newProgress,
-        isCompleted: isDone,
-      );
-    }).toList();
+          if (isDone) newlyCompleted = true;
+
+          return m.copyWith(progress: newProgress, isCompleted: isDone);
+        }).toList();
 
     state = AsyncData(updated);
     await _engine.save(updated);
 
     if (newlyCompleted) {
       _applyReward(id);
-      AnalyticsService.log(AnalyticsService.missionCompleted, {'mission_id': id});
+      AnalyticsService.log(AnalyticsService.missionCompleted, {
+        'mission_id': id,
+      });
       // Daily missions also contribute to XP
       ref.read(seasonProvider.notifier).addXP(15);
     }
@@ -51,7 +52,7 @@ class DailyMissionNotifier extends AsyncNotifier<List<DailyMission>> {
 
   void _applyReward(String id) {
     final limitNotifier = ref.read(limitProvider.notifier);
-    
+
     switch (id) {
       case 'doc_daily':
         limitNotifier.increaseExtraDocs(5);

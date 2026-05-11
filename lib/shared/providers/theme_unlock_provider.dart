@@ -23,12 +23,8 @@ class ThemeUnlockState {
     return diff.isNegative ? 0 : diff.inDays;
   }
 
-  ThemeUnlockState copyWith({
-    Map<AppThemeType, DateTime>? unlocked,
-  }) {
-    return ThemeUnlockState(
-      unlocked: unlocked ?? this.unlocked,
-    );
+  ThemeUnlockState copyWith({Map<AppThemeType, DateTime>? unlocked}) {
+    return ThemeUnlockState(unlocked: unlocked ?? this.unlocked);
   }
 }
 
@@ -39,12 +35,12 @@ class ThemeUnlockNotifier extends Notifier<ThemeUnlockState> {
   ThemeUnlockState build() {
     final prefs = ref.watch(sharedPreferencesProvider);
     String? jsonStr = prefs.getString(_unlocksKey);
-    
+
     // Migration: check old key if new one is missing
     jsonStr ??= prefs.getString('app_theme_unlocks');
-    
+
     if (jsonStr == null || jsonStr.isEmpty) jsonStr = '{}';
-    
+
     final Map<AppThemeType, DateTime> unlocked = {};
     try {
       final Map<String, dynamic> data = json.decode(jsonStr);
@@ -55,7 +51,7 @@ class ThemeUnlockNotifier extends Notifier<ThemeUnlockState> {
         }
       });
     } catch (_) {}
-    
+
     return ThemeUnlockState(unlocked: unlocked);
   }
 
@@ -73,9 +69,9 @@ class ThemeUnlockNotifier extends Notifier<ThemeUnlockState> {
     newMap[type] = DateTime.now().add(Duration(days: days));
     state = state.copyWith(unlocked: newMap);
     _saveToPrefs();
-    
+
     try {
-       ref.read(userBehaviorProvider.notifier).trackAdWatched();
+      ref.read(userBehaviorProvider.notifier).trackAdWatched();
     } catch (_) {}
   }
 
@@ -88,6 +84,7 @@ class ThemeUnlockNotifier extends Notifier<ThemeUnlockState> {
   }
 }
 
-final themeUnlockProvider = NotifierProvider<ThemeUnlockNotifier, ThemeUnlockState>(
-  ThemeUnlockNotifier.new,
-);
+final themeUnlockProvider =
+    NotifierProvider<ThemeUnlockNotifier, ThemeUnlockState>(
+      ThemeUnlockNotifier.new,
+    );

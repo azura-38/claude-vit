@@ -1,8 +1,8 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'package:go_router/go_router.dart';
 import '../../providers/navigation_provider.dart';
 import '../../../core/utils/external_launcher.dart';
@@ -70,84 +70,95 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
                       vertical: 16,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    AppColors.exploreFabStart,
-                                    AppColors.exploreFabEnd,
-                                  ],
+                            Row(
+                              children: [
+                                Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            AppColors.exploreFabStart,
+                                            AppColors.exploreFabEnd,
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Icon(
+                                        Icons.explore_rounded,
+                                        color: Colors.white,
+                                        size: 22,
+                                      ),
+                                    )
+                                    .animate(
+                                      onPlay: (c) => c.repeat(reverse: true),
+                                    )
+                                    .rotate(
+                                      begin: -0.02,
+                                      end: 0.02,
+                                      duration: 2000.ms,
+                                      curve: Curves.easeInOut,
+                                    ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  context.l10n.explore.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1.5,
+                                    color:
+                                        isDark
+                                            ? Colors.white
+                                            : AppColors.textPrimary,
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Icon(
-                                Icons.explore_rounded,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                            )
-                                .animate(
-                                  onPlay: (c) => c.repeat(reverse: true),
-                                )
-                                .rotate(
-                                  begin: -0.02,
-                                  end: 0.02,
-                                  duration: 2000.ms,
-                                  curve: Curves.easeInOut,
-                                ),
-                            const SizedBox(width: 12),
-                            Text(
-                              context.l10n('explore').toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: 1.5,
-                                color:
-                                    isDark
-                                        ? Colors.white
-                                        : AppColors.textPrimary,
-                              ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: widget.onClose,
+                              child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          isDark
+                                              ? Colors.white.withValues(
+                                                alpha: 0.1,
+                                              )
+                                              : Colors.black.withValues(
+                                                alpha: 0.05,
+                                              ),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.close_rounded,
+                                      size: 22,
+                                      color:
+                                          isDark
+                                              ? Colors.white70
+                                              : AppColors.textSecondary,
+                                    ),
+                                  )
+                                  .animate()
+                                  .fadeIn(duration: 200.ms)
+                                  .rotate(
+                                    begin: 0.25,
+                                    end: 0,
+                                    duration: 300.ms,
+                                  ),
                             ),
                           ],
+                        )
+                        .animate()
+                        .fadeIn(duration: 300.ms)
+                        .slideY(
+                          begin: -0.3,
+                          end: 0,
+                          duration: 400.ms,
+                          curve: Curves.easeOutCubic,
                         ),
-                        GestureDetector(
-                          onTap: widget.onClose,
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color:
-                                  isDark
-                                      ? Colors.white.withValues(alpha: 0.1)
-                                      : Colors.black.withValues(alpha: 0.05),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.close_rounded,
-                              size: 22,
-                              color:
-                                  isDark
-                                      ? Colors.white70
-                                      : AppColors.textSecondary,
-                            ),
-                          )
-                              .animate()
-                              .fadeIn(duration: 200.ms)
-                              .rotate(begin: 0.25, end: 0, duration: 300.ms),
-                        ),
-                      ],
-                    ).animate().fadeIn(duration: 300.ms).slideY(
-                      begin: -0.3,
-                      end: 0,
-                      duration: 400.ms,
-                      curve: Curves.easeOutCubic,
-                    ),
                   ),
 
                   // Scrollable sections
@@ -192,26 +203,24 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Health & Vitals ──
       _SectionData(
         icon: Icons.favorite_rounded,
-        title: context.l10n('health_data'),
+        title: context.l10n.healthData,
         color: const Color(0xFF14B8A6),
         items: [
           _MenuItem(
             icon: Icons.monitor_heart_rounded,
-            label: context.l10n('health_stats'),
-            subtitle: context.l10n('health_stats_desc'),
+            label: context.l10n.healthStats,
+            subtitle: context.l10n.healthStatsDesc,
             color: const Color(0xFF14B8A6),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('healthStats'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('healthStats')),
           ),
           _MenuItem(
             icon: Icons.add_chart_rounded,
-            label: context.l10n('add_health_data'),
-            subtitle: context.l10n('add_data'),
+            label: context.l10n.addHealthData,
+            subtitle: context.l10n.addData,
             color: const Color(0xFF0D9488),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('healthAdd'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('healthAdd')),
           ),
         ],
       ),
@@ -219,26 +228,24 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Medicines ──
       _SectionData(
         icon: Icons.medication_rounded,
-        title: context.l10n('medicines'),
+        title: context.l10n.medicines,
         color: AppColors.orange400,
         items: [
           _MenuItem(
             icon: Icons.medication_liquid_rounded,
-            label: context.l10n('my_medicines'),
-            subtitle: context.l10n('medicine_cabinet'),
+            label: context.l10n.myMedicines,
+            subtitle: context.l10n.medicineCabinet,
             color: AppColors.orange500,
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('medicines'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('medicines')),
           ),
           _MenuItem(
             icon: Icons.add_circle_rounded,
-            label: context.l10n('add_medicine'),
-            subtitle: context.l10n('med_cabinet_add'),
+            label: context.l10n.addMedicine,
+            subtitle: context.l10n.medCabinetAdd,
             color: AppColors.orange400,
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('medicineAdd'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('medicineAdd')),
           ),
         ],
       ),
@@ -246,17 +253,18 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Documents & Records ──
       _SectionData(
         icon: Icons.description_rounded,
-        title: context.l10n('vault'),
+        title: context.l10n.vault,
         color: AppColors.medicalBlue,
         items: [
           _MenuItem(
             icon: Icons.folder_special_rounded,
-            label: context.l10n('all_records'),
-            subtitle: context.l10n('docs_title'),
+            label: context.l10n.allRecords,
+            subtitle: context.l10n.docsTitle,
             color: AppColors.medicalBlue,
-            onTap: () => _navigateAndClose(() {
-              ref.read(navigationProvider.notifier).setIndex(1);
-            }),
+            onTap:
+                () => _navigateAndClose(() {
+                  ref.read(navigationProvider.notifier).setIndex(1);
+                }),
           ),
         ],
       ),
@@ -264,26 +272,28 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Schedule & Plans ──
       _SectionData(
         icon: Icons.calendar_month_rounded,
-        title: context.l10n('appointments'),
+        title: context.l10n.appointments,
         color: const Color(0xFFF43F5E),
         items: [
           _MenuItem(
             icon: Icons.event_note_rounded,
-            label: context.l10n('my_appointments'),
-            subtitle: context.l10n('create_today_plan'),
+            label: context.l10n.myAppointments,
+            subtitle: context.l10n.createTodayPlan,
             color: const Color(0xFFF43F5E),
-            onTap: () => _navigateAndClose(() {
-              ref.read(navigationProvider.notifier).setIndex(3);
-            }),
+            onTap:
+                () => _navigateAndClose(() {
+                  ref.read(navigationProvider.notifier).setIndex(3);
+                }),
           ),
           _MenuItem(
             icon: Icons.add_alarm_rounded,
-            label: context.l10n('add_new_appointment'),
-            subtitle: context.l10n('plan_time_desc'),
+            label: context.l10n.addNewAppointment,
+            subtitle: context.l10n.planTimeDesc,
             color: const Color(0xFFE11D48),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('appointmentAdd'),
-            ),
+            onTap:
+                () => _navigateAndClose(
+                  () => context.pushNamed('appointmentAdd'),
+                ),
           ),
         ],
       ),
@@ -291,37 +301,34 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── People & Contacts ──
       _SectionData(
         icon: Icons.people_alt_rounded,
-        title: context.l10n('suggest_doctor'),
+        title: context.l10n.suggestDoctor,
         color: AppColors.teal500,
         items: [
           _MenuItem(
             icon: Icons.medical_services_rounded,
-            label: context.l10n('suggest_doctor'),
-            subtitle: context.l10n('doctor_info'),
+            label: context.l10n.suggestDoctor,
+            subtitle: context.l10n.doctorInfo,
             color: AppColors.teal500,
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('doctors'),
-            ),
+            onTap: () => _navigateAndClose(() => context.pushNamed('doctors')),
           ),
           _MenuItem(
             icon: Icons.person_add_alt_1_rounded,
-            label: context.l10n('add_doctor'),
-            subtitle: context.l10n('add_doctor_desc'),
+            label: context.l10n.addDoctor,
+            subtitle: context.l10n.addDoctorDesc,
             color: AppColors.teal600,
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('doctorAdd'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('doctorAdd')),
           ),
           _MenuItem(
             icon: Icons.location_on_rounded,
-            label: context.l10n('pharmacies'),
+            label: context.l10n.pharmacies,
             subtitle: '📍 Google Maps',
             color: AppColors.success,
-            onTap: () => _navigateAndClose(
-              () => ExternalLauncher.launchMapSearch(
-                context.l10n('pharmacies'),
-              ),
-            ),
+            onTap:
+                () => _navigateAndClose(
+                  () =>
+                      ExternalLauncher.launchMapSearch(context.l10n.pharmacies),
+                ),
           ),
         ],
       ),
@@ -329,26 +336,25 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Medical Info ──
       _SectionData(
         icon: Icons.info_rounded,
-        title: context.l10n('important_info'),
+        title: context.l10n.importantInfo,
         color: const Color(0xFFEF4444),
         items: [
           _MenuItem(
             icon: Icons.emergency_rounded,
-            label: context.l10n('emergency_info'),
-            subtitle: context.l10n('emergency_card'),
+            label: context.l10n.emergencyInfo,
+            subtitle: context.l10n.emergencyCard,
             color: const Color(0xFFEF4444),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('medicalInfo'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('medicalInfo')),
           ),
           _MenuItem(
             icon: Icons.badge_rounded,
-            label: context.l10n('personal_info'),
-            subtitle: context.l10n('identity_contact'),
+            label: context.l10n.personalInfo,
+            subtitle: context.l10n.identityContact,
             color: const Color(0xFFDC2626),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('personalInfo'),
-            ),
+            onTap:
+                () =>
+                    _navigateAndClose(() => context.pushNamed('personalInfo')),
           ),
         ],
       ),
@@ -356,26 +362,25 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Rewards & Progress ──
       _SectionData(
         icon: Icons.emoji_events_rounded,
-        title: context.l10n('medals_trophies'),
+        title: context.l10n.medalsTrophies,
         color: Colors.amber,
         items: [
           _MenuItem(
             icon: Icons.military_tech_rounded,
-            label: context.l10n('medals_trophies'),
-            subtitle: context.l10n('progress'),
+            label: context.l10n.medalsTrophies,
+            subtitle: context.l10n.progress,
             color: Colors.amber,
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('achievements'),
-            ),
+            onTap:
+                () =>
+                    _navigateAndClose(() => context.pushNamed('achievements')),
           ),
           _MenuItem(
             icon: Icons.stars_rounded,
-            label: context.l10n('season_pass'),
-            subtitle: context.l10n('daily_missions'),
+            label: context.l10n.seasonPass,
+            subtitle: context.l10n.dailyMissions,
             color: const Color(0xFFD97706),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('seasonPass'),
-            ),
+            onTap:
+                () => _navigateAndClose(() => context.pushNamed('seasonPass')),
           ),
         ],
       ),
@@ -383,35 +388,34 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
       // ── Profile & Settings ──
       _SectionData(
         icon: Icons.person_rounded,
-        title: context.l10n('profile'),
+        title: context.l10n.profile,
         color: AppColors.primaryIndigo,
         items: [
           _MenuItem(
             icon: Icons.account_circle_rounded,
-            label: context.l10n('profile'),
-            subtitle: context.l10n('personal_health_data'),
+            label: context.l10n.profile,
+            subtitle: context.l10n.personalHealthData,
             color: AppColors.primaryIndigo,
-            onTap: () => _navigateAndClose(() {
-              ref.read(navigationProvider.notifier).setIndex(4);
-            }),
+            onTap:
+                () => _navigateAndClose(() {
+                  ref.read(navigationProvider.notifier).setIndex(4);
+                }),
           ),
           _MenuItem(
             icon: Icons.settings_rounded,
-            label: context.l10n('account_settings'),
-            subtitle: context.l10n('app_settings'),
+            label: context.l10n.accountSettings,
+            subtitle: context.l10n.appSettings,
             color: AppColors.primaryViolet,
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('settings'),
-            ),
+            onTap: () => _navigateAndClose(() => context.pushNamed('settings')),
           ),
           _MenuItem(
             icon: Icons.palette_rounded,
-            label: context.l10n('theme_boutique'),
-            subtitle: context.l10n('theme_settings'),
+            label: context.l10n.themeBoutique,
+            subtitle: context.l10n.themeSettings,
             color: const Color(0xFF8B5CF6),
-            onTap: () => _navigateAndClose(
-              () => context.pushNamed('settingsTheme'),
-            ),
+            onTap:
+                () =>
+                    _navigateAndClose(() => context.pushNamed('settingsTheme')),
           ),
         ],
       ),
@@ -428,135 +432,139 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu>
     final isExpanded = _expandedSections.contains(sectionIndex);
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color:
-            isDark
-                ? AppColors.surfaceDark.withValues(alpha: 0.6)
-                : Colors.white.withValues(alpha: 0.85),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color:
-              isDark
-                  ? Colors.white.withValues(alpha: 0.08)
-                  : Colors.black.withValues(alpha: 0.04),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: section.color.withValues(alpha: isExpanded ? 0.08 : 0.03),
-            blurRadius: isExpanded ? 20 : 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Section header (always visible)
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(24),
-              onTap: () => _toggleSection(sectionIndex),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
+          margin: const EdgeInsets.only(bottom: 12),
+          decoration: BoxDecoration(
+            color:
+                isDark
+                    ? AppColors.surfaceDark.withValues(alpha: 0.6)
+                    : Colors.white.withValues(alpha: 0.85),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color:
+                  isDark
+                      ? Colors.white.withValues(alpha: 0.08)
+                      : Colors.black.withValues(alpha: 0.04),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: section.color.withValues(
+                  alpha: isExpanded ? 0.08 : 0.03,
                 ),
-                child: Row(
-                  children: [
-                    // Animated icon container
-                    _AnimatedSectionIcon(
-                      icon: section.icon,
-                      color: section.color,
-                      isExpanded: isExpanded,
+                blurRadius: isExpanded ? 20 : 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              // Section header (always visible)
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(24),
+                  onTap: () => _toggleSection(sectionIndex),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
                     ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Text(
-                        section.title.toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 1.2,
-                          color:
-                              isDark
-                                  ? Colors.white.withValues(alpha: 0.9)
-                                  : AppColors.textPrimary,
-                        ),
-                      ),
-                    ),
-                    // Item count badge
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: section.color.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        '${section.items.length}',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
+                    child: Row(
+                      children: [
+                        // Animated icon container
+                        _AnimatedSectionIcon(
+                          icon: section.icon,
                           color: section.color,
+                          isExpanded: isExpanded,
                         ),
-                      ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Text(
+                            section.title.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.2,
+                              color:
+                                  isDark
+                                      ? Colors.white.withValues(alpha: 0.9)
+                                      : AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                        // Item count badge
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
+                          decoration: BoxDecoration(
+                            color: section.color.withValues(alpha: 0.12),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            '${section.items.length}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: section.color,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        AnimatedRotation(
+                          turns: isExpanded ? 0.5 : 0,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOutCubic,
+                          child: Icon(
+                            Icons.expand_more_rounded,
+                            size: 22,
+                            color:
+                                isDark
+                                    ? Colors.white54
+                                    : AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    AnimatedRotation(
-                      turns: isExpanded ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOutCubic,
-                      child: Icon(
-                        Icons.expand_more_rounded,
-                        size: 22,
-                        color:
-                            isDark ? Colors.white54 : AppColors.textSecondary,
+                  ),
+                ),
+              ),
+
+              // Expandable items
+              AnimatedCrossFade(
+                firstChild: const SizedBox(width: double.infinity),
+                secondChild: Column(
+                  children: [
+                    Divider(
+                      height: 1,
+                      indent: 20,
+                      endIndent: 20,
+                      color:
+                          isDark
+                              ? Colors.white.withValues(alpha: 0.06)
+                              : Colors.black.withValues(alpha: 0.04),
+                    ),
+                    ...section.items.asMap().entries.map(
+                      (entry) => _buildMenuItem(
+                        context,
+                        entry.value,
+                        entry.key,
+                        isDark,
+                        isLast: entry.key == section.items.length - 1,
                       ),
                     ),
                   ],
                 ),
+                crossFadeState:
+                    isExpanded
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                duration: const Duration(milliseconds: 300),
+                sizeCurve: Curves.easeOutCubic,
               ),
-            ),
+            ],
           ),
-
-          // Expandable items
-          AnimatedCrossFade(
-            firstChild: const SizedBox(width: double.infinity),
-            secondChild: Column(
-              children: [
-                Divider(
-                  height: 1,
-                  indent: 20,
-                  endIndent: 20,
-                  color:
-                      isDark
-                          ? Colors.white.withValues(alpha: 0.06)
-                          : Colors.black.withValues(alpha: 0.04),
-                ),
-                ...section.items.asMap().entries.map(
-                  (entry) => _buildMenuItem(
-                    context,
-                    entry.value,
-                    entry.key,
-                    isDark,
-                    isLast: entry.key == section.items.length - 1,
-                  ),
-                ),
-              ],
-            ),
-            crossFadeState:
-                isExpanded
-                    ? CrossFadeState.showSecond
-                    : CrossFadeState.showFirst,
-            duration: const Duration(milliseconds: 300),
-            sizeCurve: Curves.easeOutCubic,
-          ),
-        ],
-      ),
-    )
+        )
         .animate()
         .fadeIn(delay: (sectionIndex * 60).ms, duration: 350.ms)
         .slideX(
@@ -651,27 +659,27 @@ class _AnimatedSectionIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeOutCubic,
-      width: isExpanded ? 44 : 40,
-      height: isExpanded ? 44 : 40,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [color, color.withValues(alpha: 0.7)],
-        ),
-        borderRadius: BorderRadius.circular(isExpanded ? 14 : 12),
-        boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: isExpanded ? 0.4 : 0.2),
-            blurRadius: isExpanded ? 16 : 8,
-            offset: const Offset(0, 3),
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeOutCubic,
+          width: isExpanded ? 44 : 40,
+          height: isExpanded ? 44 : 40,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [color, color.withValues(alpha: 0.7)],
+            ),
+            borderRadius: BorderRadius.circular(isExpanded ? 14 : 12),
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: isExpanded ? 0.4 : 0.2),
+                blurRadius: isExpanded ? 16 : 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Icon(icon, color: Colors.white, size: isExpanded ? 22 : 20),
-    )
+          child: Icon(icon, color: Colors.white, size: isExpanded ? 22 : 20),
+        )
         .animate(target: isExpanded ? 1 : 0)
         .scale(
           begin: const Offset(1, 1),
@@ -693,14 +701,14 @@ class _AnimatedMenuIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      width: 36,
-      height: 36,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: isDark ? 0.2 : 0.1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(icon, color: color, size: 18),
-    )
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: isDark ? 0.2 : 0.1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, color: color, size: 18),
+        )
         .animate(onPlay: (c) => c.repeat(reverse: true))
         .scale(
           begin: const Offset(1.0, 1.0),

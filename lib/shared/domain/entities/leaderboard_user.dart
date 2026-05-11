@@ -10,10 +10,7 @@ class LeaderboardUser {
   });
 
   Map<String, dynamic> toMap() {
-    return {
-      'xp': xp,
-      'updated_at': updatedAt.toIso8601String(),
-    };
+    return {'xp': xp, 'updated_at': updatedAt.toIso8601String()};
   }
 
   factory LeaderboardUser.fromMap(String id, Map<String, dynamic> map) {

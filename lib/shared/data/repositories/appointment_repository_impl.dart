@@ -24,7 +24,6 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
     await _store.record(appointment.id).put(db, model.toMap());
   }
 
-
   @override
   Future<Appointment?> getById(String id) async {
     final db = await _db;
@@ -36,8 +35,13 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
   @override
   Future<List<Appointment>> getAll() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('date', true)]));
-    return records.map((r) => AppointmentModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('date', true)]),
+    );
+    return records
+        .map((r) => AppointmentModel.fromMap(r.value).toEntity())
+        .toList();
   }
 
   @override
@@ -61,23 +65,26 @@ class AppointmentRepositoryImpl implements AppointmentRepository {
   Future<Appointment?> getNextUpcoming() async {
     final db = await _db;
     final todayStr = DateTime.now().toIso8601String().substring(0, 10);
-    
-    final records = await _store.find(db, finder: Finder(
-      filter: Filter.and([
-        Filter.greaterThanOrEquals('date', todayStr),
-        Filter.equals('status', AppointmentStatus.upcoming.name)
-      ])
-    ));
-    
+
+    final records = await _store.find(
+      db,
+      finder: Finder(
+        filter: Filter.and([
+          Filter.greaterThanOrEquals('date', todayStr),
+          Filter.equals('status', AppointmentStatus.upcoming.name),
+        ]),
+      ),
+    );
+
     if (records.isEmpty) return null;
-    
+
     var apts = records.map((r) => AppointmentModel.fromMap(r.value)).toList();
     apts.sort((a, b) {
       int c = a.date.compareTo(b.date);
       if (c == 0) return a.time.compareTo(b.time);
       return c;
     });
-    
+
     return apts.first.toEntity();
   }
 }

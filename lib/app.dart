@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
+import 'core/security/security_controller.dart';
+import 'core/security/session_lock_service.dart';
 import 'features/auth/presentation/providers/auth_providers.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'core/l10n/app_localizations.dart';
+import 'package:vitacase/l10n/app_localizations.dart';
 import 'shared/providers/locale_provider.dart';
 import 'core/router/app_router.dart';
 import 'shared/providers/document_providers.dart';
@@ -25,6 +26,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     with WidgetsBindingObserver {
   DateTime? _lastPausedTime;
   bool _obscureScreen = false;
+  final _sessionLockService = SessionLockService();
 
   @override
   void initState() {
@@ -32,9 +34,14 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initLockState();
+      unawaited(
+        ref.read(securityControllerProvider.notifier).applySecureScreenPolicy(),
+      );
       final user = ref.read(userBehaviorProvider);
       NotificationTriggers.onAppOpen(user);
-      unawaited(ref.read(adControllerProvider).onAppOpen());
+      if (!ref.read(appLockEnabledProvider)) {
+        unawaited(ref.read(adControllerProvider).onAppOpen());
+      }
     });
   }
 
@@ -58,27 +65,29 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
 
     // Obscure the screen when inactive or paused to prevent OS Snapshot leak
     setState(() {
-      _obscureScreen =
-          lockEnabled &&
-          (state == AppLifecycleState.inactive ||
-              state == AppLifecycleState.paused ||
-              state == AppLifecycleState.hidden);
+      _obscureScreen = _sessionLockService.shouldObscure(
+        lockEnabled: lockEnabled,
+        state: state,
+      );
     });
 
     if (state == AppLifecycleState.paused) {
       _lastPausedTime = DateTime.now();
+      _sessionLockService.markPaused();
       NotificationTriggers.onAppClose();
     } else if (state == AppLifecycleState.resumed) {
       ref.read(fileStorageServiceProvider).cleanupAllTempFiles();
-      unawaited(ref.read(adControllerProvider).onAppOpen());
 
       if (lockEnabled && _lastPausedTime != null) {
         final timeout = ref.read(lockTimeoutProvider);
-        final diff = DateTime.now().difference(_lastPausedTime!);
 
-        if (diff >= timeout.duration) {
+        if (_sessionLockService.shouldLockOnResume(timeout.duration)) {
           ref.read(appLockStateProvider.notifier).setLocked();
+        } else {
+          unawaited(ref.read(adControllerProvider).onAppOpen());
         }
+      } else {
+        unawaited(ref.read(adControllerProvider).onAppOpen());
       }
     }
   }
@@ -94,24 +103,8 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getThemeByType(selectedTheme),
       locale: currentLocale,
-      localizationsDelegates: const [
-        AppLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('tr'),
-        Locale('de'),
-        Locale('es'),
-        Locale('fr'),
-        Locale('pt'),
-        Locale('ar'),
-        Locale('zh'),
-        Locale('ja'),
-        Locale('ko'),
-      ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
       builder: (context, child) {
         return Stack(

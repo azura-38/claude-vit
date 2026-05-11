@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import '../../../core/l10n/app_localizations.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class SeasonReward {
   final int level;
@@ -44,7 +44,8 @@ class UserSeasonProgress {
       xp: xp ?? this.xp,
       level: level ?? this.level,
       claimedFreeRewards: claimedFreeRewards ?? this.claimedFreeRewards,
-      claimedPremiumRewards: claimedPremiumRewards ?? this.claimedPremiumRewards,
+      claimedPremiumRewards:
+          claimedPremiumRewards ?? this.claimedPremiumRewards,
     );
   }
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,26 +12,23 @@ import '../widgets/privacy_toggle_tile.dart';
 import '../widgets/save_profile_button.dart';
 import '../widgets/security_info_card.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
 
   @override
-  ConsumerState<EditProfileScreen> createState() =>
-      _EditProfileScreenState();
+  ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState
-    extends ConsumerState<EditProfileScreen> {
+class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   int expanded = 0;
 
   @override
   Widget build(BuildContext context) {
     final profile = ref.watch(profileProvider);
-    final notifier =
-        ref.read(profileProvider.notifier);
+    final notifier = ref.read(profileProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -40,13 +37,7 @@ class _EditProfileScreenState
         child: Stack(
           children: [
             ListView(
-              padding:
-                  const EdgeInsets.fromLTRB(
-                20,
-                20,
-                20,
-                140,
-              ),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 140),
               children: [
                 Row(
                   children: [
@@ -54,9 +45,7 @@ class _EditProfileScreenState
                       onPressed: () {
                         context.pop();
                       },
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                      ),
+                      icon: const Icon(Icons.arrow_back_ios_new_rounded),
                     ),
                     const Expanded(
                       child: Text(
@@ -67,9 +56,7 @@ class _EditProfileScreenState
                         ),
                       ),
                     ),
-                    const CircleAvatar(
-                      radius: 22,
-                    )
+                    const CircleAvatar(radius: 22),
                   ],
                 ),
 
@@ -78,25 +65,19 @@ class _EditProfileScreenState
                 BmiSummaryCard(
                   bmi: profile.bmi,
                   status: profile.bmiStatus,
-                )
-                    .animate()
-                    .fadeIn()
-                    .slideY(begin: .2),
+                ).animate().fadeIn().slideY(begin: .2),
 
                 const SizedBox(height: 24),
 
                 LinearProgressIndicator(
                   value: profile.completion,
                   minHeight: 10,
-                  borderRadius:
-                      BorderRadius.circular(999),
+                  borderRadius: BorderRadius.circular(999),
                 ),
 
                 const SizedBox(height: 8),
 
-                Text(
-                  '${(profile.completion * 100).toInt()}% Completed',
-                ),
+                Text('${(profile.completion * 100).toInt()}% Completed'),
 
                 const SizedBox(height: 28),
 
@@ -113,28 +94,20 @@ class _EditProfileScreenState
                       FloatingInputField(
                         label: 'Height',
                         hint: '170',
-                        keyboardType:
-                            TextInputType.number,
+                        keyboardType: TextInputType.number,
                         onChanged: (value) {
-                          notifier.updateHeight(
-                            double.tryParse(value) ??
-                                170,
-                          );
+                          notifier.updateHeight(double.tryParse(value) ?? 170);
                         },
                       ),
                       const SizedBox(height: 14),
                       FloatingInputField(
                         label: 'Weight',
                         hint: '65',
-                        keyboardType:
-                            TextInputType.number,
+                        keyboardType: TextInputType.number,
                         onChanged: (value) {
-                          notifier.updateWeight(
-                            double.tryParse(value) ??
-                                65,
-                          );
+                          notifier.updateWeight(double.tryParse(value) ?? 65);
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -152,15 +125,13 @@ class _EditProfileScreenState
                       FloatingInputField(
                         label: 'Full Name',
                         hint: 'Sarah Jenkins',
-                        onChanged:
-                            notifier.updateName,
+                        onChanged: notifier.updateName,
                       ),
                       const SizedBox(height: 14),
                       GenderSelector(
                         selected: profile.gender,
-                        onChanged:
-                            notifier.updateGender,
-                      )
+                        onChanged: notifier.updateGender,
+                      ),
                     ],
                   ),
                 ),
@@ -178,20 +149,16 @@ class _EditProfileScreenState
                       FloatingInputField(
                         label: 'Email',
                         hint: 'example@email.com',
-                        keyboardType:
-                            TextInputType.emailAddress,
-                        onChanged:
-                            notifier.updateEmail,
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: notifier.updateEmail,
                       ),
                       const SizedBox(height: 14),
                       FloatingInputField(
                         label: 'Phone',
                         hint: '+1 555 000',
-                        keyboardType:
-                            TextInputType.phone,
-                        onChanged:
-                            notifier.updatePhone,
-                      )
+                        keyboardType: TextInputType.phone,
+                        onChanged: notifier.updatePhone,
+                      ),
                     ],
                   ),
                 ),
@@ -206,8 +173,7 @@ class _EditProfileScreenState
                   },
                   child: HealthConditionChips(
                     selected: profile.conditions,
-                    onTap:
-                        notifier.toggleCondition,
+                    onTap: notifier.toggleCondition,
                   ),
                 ),
 
@@ -222,27 +188,19 @@ class _EditProfileScreenState
                   child: Column(
                     children: [
                       PrivacyToggleTile(
-                        title:
-                            'Hide sensitive notifications',
+                        title: 'Hide sensitive notifications',
                         value: profile.privacyMode,
-                        onChanged:
-                            notifier.togglePrivacy,
+                        onChanged: notifier.togglePrivacy,
                       ),
                       PrivacyToggleTile(
-                        title:
-                            'Biometric profile lock',
-                        value:
-                            profile.biometricLock,
-                        onChanged:
-                            notifier.toggleBiometric,
+                        title: 'Biometric profile lock',
+                        value: profile.biometricLock,
+                        onChanged: notifier.toggleBiometric,
                       ),
                       PrivacyToggleTile(
-                        title:
-                            'Silent notification mode',
-                        value: profile
-                            .silentNotifications,
-                        onChanged:
-                            notifier.toggleSilent,
+                        title: 'Silent notification mode',
+                        value: profile.silentNotifications,
+                        onChanged: notifier.toggleSilent,
                       ),
                     ],
                   ),
@@ -264,14 +222,14 @@ class _EditProfileScreenState
                     await ref.read(profileProvider.notifier).saveToDatabase();
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(context.l10n('profile_updated'))),
+                        SnackBar(content: Text(context.l10n.profileUpdated)),
                       );
                       context.pop();
                     }
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

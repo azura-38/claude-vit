@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app_theme.dart';
 
-final themeTypeProvider = StateNotifierProvider<ThemeTypeNotifier, AppThemeType>((ref) {
-  return ThemeTypeNotifier();
-});
+final themeTypeProvider =
+    StateNotifierProvider<ThemeTypeNotifier, AppThemeType>((ref) {
+      return ThemeTypeNotifier();
+    });
 
 class ThemeTypeNotifier extends StateNotifier<AppThemeType> {
   ThemeTypeNotifier() : super(AppThemeType.light) {

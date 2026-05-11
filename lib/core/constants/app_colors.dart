@@ -8,7 +8,9 @@ class AppColors {
   static const Color primaryIndigo = Color(0xFF6366F1);
   static const Color primaryIndigoDark = Color(0xFF4338CA);
   static const Color primaryViolet = Color(0xFF818CF8);
-  static const Color primaryGreen = Color(0xFF4CAF50); // Kept for feature-specific uses
+  static const Color primaryGreen = Color(
+    0xFF4CAF50,
+  ); // Kept for feature-specific uses
 
   // ── Medical Blue (used in appointments/nav active) ──
 
@@ -47,11 +49,15 @@ class AppColors {
   static const Color bgLight = Color(0xFFF7F9FC);
   static const Color bgDark = Color(0xFF0F172A);
   static const Color surfaceLight = Colors.white;
-  static const Color surfaceDark = Color(0xFF0F172A); // Matching background for dark mode
+  static const Color surfaceDark = Color(
+    0xFF0F172A,
+  ); // Matching background for dark mode
 
   // ── Glassmorphism & Translucency ──
   static const Color glassBg = Color(0x801E293B); // rgba(30, 41, 59, 0.5)
-  static const Color glassBorder = Color(0x3394A3B8); // slate-400 with 0.2 opacity
+  static const Color glassBorder = Color(
+    0x3394A3B8,
+  ); // slate-400 with 0.2 opacity
   static const Color glassNav = Color(0xCC0F172A); // rgba(15, 23, 42, 0.8)
 
   // ── Cards ──
@@ -81,6 +87,18 @@ class AppColors {
   static const Color blue50 = Color(0xFFEFF6FF);
 
   static const Color medicalBlue = blue600;
+
+  // Semantic aliases used by older feature screens during the rebuild.
+  static const Color primary = medicalBlue;
+  static const Color primaryLight = blue50;
+  static const Color secondary = textSecondary;
+  static const Color surface = surfaceLight;
+  static const Color border = cardBorderLight;
+  static const Color outline = cardBorderLight;
+  static const Color danger = error;
+  static const Color softBlue = blue50;
+  static const Color chipBlue = blue50;
+  static const Color glass = glassBg;
 
   // ── Tag Colors ──
   static const Color tagLabBg = Color(0xFFEFF6FF);

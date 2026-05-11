@@ -12,12 +12,24 @@ class XPEngine {
 
   Future<UserSeasonProgress> loadProgress() async {
     final jsonStr = prefs.getString(_progressKey);
-    if (jsonStr == null) return UserSeasonProgress(xp: 0, level: 0, claimedFreeRewards: [], claimedPremiumRewards: []);
+    if (jsonStr == null) {
+      return UserSeasonProgress(
+        xp: 0,
+        level: 0,
+        claimedFreeRewards: [],
+        claimedPremiumRewards: [],
+      );
+    }
 
     try {
       return UserSeasonProgress.fromMap(jsonDecode(jsonStr));
     } catch (_) {
-      return UserSeasonProgress(xp: 0, level: 0, claimedFreeRewards: [], claimedPremiumRewards: []);
+      return UserSeasonProgress(
+        xp: 0,
+        level: 0,
+        claimedFreeRewards: [],
+        claimedPremiumRewards: [],
+      );
     }
   }
 
@@ -30,21 +42,35 @@ class XPEngine {
     final newLevel = newXP ~/ xpPerLevel;
     final leveledUp = newLevel > current.level;
 
-    return (
-      current.copyWith(
-        xp: newXP,
-        level: newLevel,
-      ),
-      leveledUp
-    );
+    return (current.copyWith(xp: newXP, level: newLevel), leveledUp);
   }
 
   List<SeasonReward> getRewards() {
     return [
-      SeasonReward(level: 1, titleKey: 'reward_doc_slots', rewardType: 'doc_slots', value: 5),
-      SeasonReward(level: 5, titleKey: 'reward_doc_slots', rewardType: 'doc_slots', value: 10),
-      SeasonReward(level: 10, titleKey: 'reward_doc_slots', rewardType: 'doc_slots', value: 15),
-      SeasonReward(level: 20, titleKey: 'reward_doc_slots', rewardType: 'doc_slots', value: 25),
+      SeasonReward(
+        level: 1,
+        titleKey: 'reward_doc_slots',
+        rewardType: 'doc_slots',
+        value: 5,
+      ),
+      SeasonReward(
+        level: 5,
+        titleKey: 'reward_doc_slots',
+        rewardType: 'doc_slots',
+        value: 10,
+      ),
+      SeasonReward(
+        level: 10,
+        titleKey: 'reward_doc_slots',
+        rewardType: 'doc_slots',
+        value: 15,
+      ),
+      SeasonReward(
+        level: 20,
+        titleKey: 'reward_doc_slots',
+        rewardType: 'doc_slots',
+        value: 25,
+      ),
     ];
   }
 }

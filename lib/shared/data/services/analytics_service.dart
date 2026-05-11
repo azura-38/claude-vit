@@ -16,14 +16,16 @@ class AnalyticsService {
       );
     } catch (e) {
       if (kDebugMode) {
-        if (kDebugMode) debugPrint('[FirebaseAnalytics] Failed to log event: $e');
+        if (kDebugMode) {
+          debugPrint('[FirebaseAnalytics] Failed to log event: $e');
+        }
       }
     }
   }
 
   static const String onboardingComplete = 'onboarding_complete';
   static const String packageSelected = 'package_selected';
-  
+
   // Ad Events
   static const String rewardAdShown = 'reward_ad_shown';
   static const String rewardAdRewarded = 'reward_ad_rewarded';
@@ -48,11 +50,14 @@ class AnalyticsService {
   static const String backupImportSuccess = 'backup_import_success';
   static const String backupImportFail = 'backup_import_fail';
   static const String backupExportSuccess = 'backup_export_success';
-  static const String medicineReminderPermissionDenied = 'medicine_permission_denied';
-  static const String appointmentReminderPermissionDenied = 'appointment_permission_denied';
+  static const String medicineReminderPermissionDenied =
+      'medicine_permission_denied';
+  static const String appointmentReminderPermissionDenied =
+      'appointment_permission_denied';
 
   // Notification Events
-  static const String notificationPermissionPromptShown = 'notification_perm_prompt';
+  static const String notificationPermissionPromptShown =
+      'notification_perm_prompt';
   static const String notificationPermissionResult = 'notification_perm_result';
 
   // App Events

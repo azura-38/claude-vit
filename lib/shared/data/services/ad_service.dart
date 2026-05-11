@@ -24,7 +24,7 @@ class AdService {
   /// INIT
   Future<void> init() async {
     if (_initCompleter.isCompleted) return;
-    
+
     _prefs = await SharedPreferences.getInstance();
     final dateStr = _prefs!.getString('lastInterstitialShown');
     if (dateStr != null) {
@@ -34,7 +34,7 @@ class AdService {
     if (openDateStr != null) {
       lastAppOpenShown = DateTime.tryParse(openDateStr);
     }
-    
+
     _initCompleter.complete();
 
     if (!AppConfig.hasAdConfig) {
@@ -112,7 +112,7 @@ class AdService {
   /// SHOW APP OPEN
   static void showAppOpenAd() {
     final service = AdService();
-    
+
     // NEW: 1-hour Cooldown
     if (service.lastAppOpenShown != null) {
       final elapsed = DateTime.now().difference(service.lastAppOpenShown!);
@@ -123,7 +123,7 @@ class AdService {
       service.loadAppOpen();
       return;
     }
-    
+
     service._appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
         ad.dispose();
@@ -138,10 +138,13 @@ class AdService {
     );
     service._appOpenAd!.show();
     AnalyticsService.log(AnalyticsService.appOpenAdShown);
-    
+
     service.lastAppOpenShown = DateTime.now();
     if (service._prefs != null) {
-      service._prefs!.setString('lastAppOpenShown', service.lastAppOpenShown!.toIso8601String());
+      service._prefs!.setString(
+        'lastAppOpenShown',
+        service.lastAppOpenShown!.toIso8601String(),
+      );
     }
   }
 
@@ -154,7 +157,7 @@ class AdService {
       AnalyticsService.log('ad_skip_token_used');
       return;
     }
-    
+
     // NEW: 90s Minimum Cooldown
     if (lastInterstitialShown != null) {
       final elapsed = DateTime.now().difference(lastInterstitialShown!);
@@ -181,9 +184,12 @@ class AdService {
 
     _interstitialAd!.show();
     AnalyticsService.log(AnalyticsService.interstitialShown);
-    
+
     lastInterstitialShown = DateTime.now();
-    _prefs?.setString('lastInterstitialShown', lastInterstitialShown!.toIso8601String());
+    _prefs?.setString(
+      'lastInterstitialShown',
+      lastInterstitialShown!.toIso8601String(),
+    );
   }
 
   static Future<RewardAdResult> showRewardedForResult() async {
@@ -226,13 +232,15 @@ class AdService {
     );
 
     try {
-      await service._rewardedAd!.show(onUserEarnedReward: (ad, reward) {
-        rewardEarned = true;
-        AnalyticsService.log(AnalyticsService.rewardAdRewarded, {
-          'amount': reward.amount,
-          'type': reward.type,
-        });
-      });
+      await service._rewardedAd!.show(
+        onUserEarnedReward: (ad, reward) {
+          rewardEarned = true;
+          AnalyticsService.log(AnalyticsService.rewardAdRewarded, {
+            'amount': reward.amount,
+            'type': reward.type,
+          });
+        },
+      );
       return completer.future;
     } catch (_) {
       if (!completer.isCompleted) {

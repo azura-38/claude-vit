@@ -10,10 +10,7 @@ class SecurityBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF005DA7),
-            Color(0xFFBFD9FF),
-          ],
+          colors: [Color(0xFF005DA7), Color(0xFFBFD9FF)],
         ),
       ),
       child: Stack(
@@ -26,8 +23,7 @@ class SecurityBanner extends StatelessWidget {
               height: 180,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color:
-                    Colors.white.withValues(alpha: 0.08),
+                color: Colors.white.withValues(alpha: 0.08),
               ),
             ),
           ),
@@ -35,10 +31,8 @@ class SecurityBanner extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(24),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              mainAxisAlignment:
-                  MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   "Your Data is Vaulted",
@@ -53,14 +47,11 @@ class SecurityBanner extends StatelessWidget {
 
                 Text(
                   "Bank-grade encryption for all medical records.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    height: 1.6,
-                  ),
-                )
+                  style: TextStyle(color: Colors.white, height: 1.6),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

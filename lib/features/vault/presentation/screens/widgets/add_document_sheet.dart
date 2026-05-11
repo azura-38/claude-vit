@@ -1,11 +1,11 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/constants/app_colors.dart';
-import '../../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../../core/utils/date_formatter.dart';
 import '../../../../../shared/domain/entities/document.dart';
 import '../../../../../shared/domain/enums/document_category.dart';
@@ -14,8 +14,6 @@ import '../../../../../shared/providers/document_providers.dart';
 import '../../../../../shared/providers/shared_prefs_provider.dart';
 import '../../../../gamification/presentation/providers/achievement_providers.dart';
 import '../../../../../shared/providers/daily_mission_providers.dart';
-
-
 
 class AddDocumentSheet extends ConsumerStatefulWidget {
   final DocumentCategory? initialCategory;
@@ -68,7 +66,9 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Container(
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.85,
+        ),
         decoration: BoxDecoration(
           color: isDark ? AppColors.surfaceDark : Colors.white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
@@ -78,20 +78,35 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 12),
-              Container(width: 40, height: 4, decoration: BoxDecoration(color: isDark ? Colors.white12 : Colors.black12, borderRadius: BorderRadius.circular(2))),
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.white12 : Colors.black12,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
               const SizedBox(height: 12),
-              
+
               _buildSecureHeader(isDark),
               const SizedBox(height: 8),
-              Text(context.l10n('docs_add_title'), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: isDark ? Colors.white : AppColors.textPrimary)),
+              Text(
+                context.l10n.docsAddTitle,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900,
+                  color: isDark ? Colors.white : AppColors.textPrimary,
+                ),
+              ),
               const SizedBox(height: 16),
 
               Flexible(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: (_selectedFile == null && widget.document == null) 
-                    ? _buildFilePicker(!hasUploadedBefore) 
-                    : _buildForm(!hasUploadedBefore),
+                  child:
+                      (_selectedFile == null && widget.document == null)
+                          ? _buildFilePicker(!hasUploadedBefore)
+                          : _buildForm(!hasUploadedBefore),
                 ),
               ),
 
@@ -106,18 +121,36 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
                         backgroundColor: AppColors.primaryIndigo,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         elevation: 0,
                       ),
-                      child: _isUploading
-                          ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                          : Text(context.l10n('save').toUpperCase(), style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1)),
+                      child:
+                          _isUploading
+                              ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                              : Text(
+                                context.l10n.save.toUpperCase(),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: 1,
+                                ),
+                              ),
                     ),
                   ),
                 ),
-              
+
               // Extra safety for bottom nav bars/safe areas
-              SizedBox(height: MediaQuery.of(context).padding.bottom > 0 ? 0 : 16),
+              SizedBox(
+                height: MediaQuery.of(context).padding.bottom > 0 ? 0 : 16,
+              ),
             ],
           ),
         ),
@@ -131,9 +164,14 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
-        color: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF9FAFB),
+        color:
+            isDark
+                ? Colors.white.withValues(alpha: 0.05)
+                : const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+        border: Border.all(
+          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+        ),
       ),
       child: Row(
         children: [
@@ -143,7 +181,11 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
               color: AppColors.medicalBlue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(Icons.shield_rounded, color: AppColors.medicalBlue, size: 18),
+            child: Icon(
+              Icons.shield_rounded,
+              color: AppColors.medicalBlue,
+              size: 18,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -151,7 +193,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  context.l10n('docs_secure_storage_title'),
+                  context.l10n.docsSecureStorageTitle,
                   style: TextStyle(
                     color: isDark ? Colors.white : AppColors.textPrimary,
                     fontSize: 13,
@@ -159,7 +201,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
                   ),
                 ),
                 Text(
-                  context.l10n('docs_secure_storage_desc'),
+                  context.l10n.docsSecureStorageDesc,
                   style: TextStyle(
                     color: isDark ? Colors.white54 : AppColors.textSecondary,
                     fontSize: 11,
@@ -181,13 +223,22 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
         if (showWarning) const SizedBox(height: 20),
         PickerButton(
           icon: Icons.upload_file_rounded,
-          label: context.l10n('docs_add_pick'),
+          label: context.l10n.docsAddPick,
           color: AppColors.medicalBlue,
-          bgColor: isDark ? AppColors.medicalBlue.withValues(alpha: 0.1) : AppColors.blue50,
+          bgColor:
+              isDark
+                  ? AppColors.medicalBlue.withValues(alpha: 0.1)
+                  : AppColors.blue50,
           onTap: () => _pickFile(),
         ),
         const SizedBox(height: 16),
-        Text(context.l10n('docs_error_size'), style: TextStyle(fontSize: 12, color: isDark ? Colors.white38 : AppColors.textSecondary)),
+        Text(
+          context.l10n.docsErrorSize,
+          style: TextStyle(
+            fontSize: 12,
+            color: isDark ? Colors.white38 : AppColors.textSecondary,
+          ),
+        ),
         const SizedBox(height: 20),
       ],
     );
@@ -208,7 +259,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              context.l10n('docs_sensitive_warning'),
+              context.l10n.docsSensitiveWarning,
               style: const TextStyle(
                 fontSize: 11,
                 color: Colors.orange,
@@ -224,13 +275,14 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
 
   Widget _buildForm(bool isFirstUpload) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final isSensitive = _selectedCategory == DocumentCategory.healthPrescriptions ||
-                      _selectedCategory == DocumentCategory.healthReports ||
-                      _selectedCategory == DocumentCategory.healthTestResults ||
-                      _selectedCategory == DocumentCategory.healthImages ||
-                      _selectedCategory == DocumentCategory.identity ||
-                      _selectedCategory == DocumentCategory.legal;
-    
+    final isSensitive =
+        _selectedCategory == DocumentCategory.healthPrescriptions ||
+        _selectedCategory == DocumentCategory.healthReports ||
+        _selectedCategory == DocumentCategory.healthTestResults ||
+        _selectedCategory == DocumentCategory.healthImages ||
+        _selectedCategory == DocumentCategory.identity ||
+        _selectedCategory == DocumentCategory.legal;
+
     final showWarning = isFirstUpload || isSensitive;
 
     return Column(
@@ -240,25 +292,37 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
           _buildPrivacyWarning(isDark),
           const SizedBox(height: 16),
         ],
-        
-        _buildTextField(context.l10n('docs_add_file_selected'), _fileNameController, context.l10n('hint_name')),
+
+        _buildTextField(
+          context.l10n.docsAddFileSelected,
+          _fileNameController,
+          context.l10n.hintName,
+        ),
         const SizedBox(height: 16),
-        
+
         _buildCategorySelector(isDark),
         const SizedBox(height: 12),
         _buildTagSelector(isDark),
         const SizedBox(height: 12),
-        
-        _buildTextField(context.l10n('docs_add_source'), _hospitalController, context.l10n('hint_institution')),
-        const SizedBox(height: 12),
-        _buildTextField(context.l10n('docs_add_person'), _doctorController, context.l10n('hint_person_detail')),
-        const SizedBox(height: 12),
-        
+
         _buildTextField(
-          context.l10n('docs_add_note'), 
-          _noteController, 
-          context.l10n('hint_add_note'), 
-          maxLines: null, 
+          context.l10n.docsAddSource,
+          _hospitalController,
+          context.l10n.hintInstitution,
+        ),
+        const SizedBox(height: 12),
+        _buildTextField(
+          context.l10n.docsAddPerson,
+          _doctorController,
+          context.l10n.hintPersonDetail,
+        ),
+        const SizedBox(height: 12),
+
+        _buildTextField(
+          context.l10n.docsAddNote,
+          _noteController,
+          context.l10n.hintAddNote,
+          maxLines: null,
           keyboardType: TextInputType.multiline,
           minLines: 2,
         ),
@@ -267,8 +331,19 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
         const SizedBox(height: 8),
         if (widget.document == null)
           GestureDetector(
-            onTap: () => setState(() { _selectedFile = null; _fileName = null; _fileNameController.clear(); }),
-            child: Text(context.l10n('docs_add_pick_diff'), style: TextStyle(fontSize: 13, color: isDark ? Colors.white54 : AppColors.textSecondary)),
+            onTap:
+                () => setState(() {
+                  _selectedFile = null;
+                  _fileName = null;
+                  _fileNameController.clear();
+                }),
+            child: Text(
+              context.l10n.docsAddPickDiff,
+              style: TextStyle(
+                fontSize: 13,
+                color: isDark ? Colors.white54 : AppColors.textSecondary,
+              ),
+            ),
           ),
         const SizedBox(height: 16),
       ],
@@ -279,39 +354,71 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n('docs_add_cat'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: isDark ? Colors.white : AppColors.textPrimary)),
+        Text(
+          context.l10n.docsAddCat,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w800,
+            color: isDark ? Colors.white : AppColors.textPrimary,
+          ),
+        ),
         const SizedBox(height: 8),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: DocumentCategory.values.map((cat) {
-              final isSelected = _selectedCategory == cat;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedCategory = cat;
-                    // Auto-select first available tag for this category if current tag is not valid
-                    final available = _getAvailableTags();
-                    if (!available.any((t) => t.id == _selectedTagId)) {
-                      _selectedTagId = available.first.id;
-                    }
-                  });
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: isSelected ? AppColors.primaryIndigo.withValues(alpha: 0.1) : (isDark ? AppColors.cardBorderDark : AppColors.bgLight),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: isSelected ? AppColors.primaryIndigo : (isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight)),
-                  ),
-                  child: Text(
-                    _getCategoryName(cat).toUpperCase(),
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: isSelected ? AppColors.primaryIndigo : (isDark ? Colors.white54 : AppColors.textSecondary)),
-                  ),
-                ),
-              );
-            }).toList(),
+            children:
+                DocumentCategory.values.map((cat) {
+                  final isSelected = _selectedCategory == cat;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedCategory = cat;
+                        // Auto-select first available tag for this category if current tag is not valid
+                        final available = _getAvailableTags();
+                        if (!available.any((t) => t.id == _selectedTagId)) {
+                          _selectedTagId = available.first.id;
+                        }
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color:
+                            isSelected
+                                ? AppColors.primaryIndigo.withValues(alpha: 0.1)
+                                : (isDark
+                                    ? AppColors.cardBorderDark
+                                    : AppColors.bgLight),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color:
+                              isSelected
+                                  ? AppColors.primaryIndigo
+                                  : (isDark
+                                      ? AppColors.cardBorderDark
+                                      : AppColors.cardBorderLight),
+                        ),
+                      ),
+                      child: Text(
+                        _getCategoryName(cat).toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color:
+                              isSelected
+                                  ? AppColors.primaryIndigo
+                                  : (isDark
+                                      ? Colors.white54
+                                      : AppColors.textSecondary),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
           ),
         ),
       ],
@@ -338,33 +445,67 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n('docs_add_type'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: isDark ? Colors.white : AppColors.textPrimary)),
+        Text(
+          context.l10n.docsAddType,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w800,
+            color: isDark ? Colors.white : AppColors.textPrimary,
+          ),
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: availableTags.map((tag) {
-            final isSelected = _selectedTagId == tag.id;
-            return GestureDetector(
-              onTap: () => setState(() => _selectedTagId = isSelected ? null : tag.id),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: isSelected ? AppColors.medicalBlue.withValues(alpha: 0.1) : (isDark ? AppColors.cardBorderDark : AppColors.bgLight),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: isSelected ? AppColors.medicalBlue : (isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(tag.icon, style: const TextStyle(fontSize: 14)),
-                    const SizedBox(width: 6),
-                    Text(tag.localizedLabel(context), style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary)),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
+          children:
+              availableTags.map((tag) {
+                final isSelected = _selectedTagId == tag.id;
+                return GestureDetector(
+                  onTap:
+                      () => setState(
+                        () => _selectedTagId = isSelected ? null : tag.id,
+                      ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          isSelected
+                              ? AppColors.medicalBlue.withValues(alpha: 0.1)
+                              : (isDark
+                                  ? AppColors.cardBorderDark
+                                  : AppColors.bgLight),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color:
+                            isSelected
+                                ? AppColors.medicalBlue
+                                : (isDark
+                                    ? AppColors.cardBorderDark
+                                    : AppColors.cardBorderLight),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(tag.icon, style: const TextStyle(fontSize: 14)),
+                        const SizedBox(width: 6),
+                        Text(
+                          tag.localizedLabel(context),
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color:
+                                isDark ? Colors.white : AppColors.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
         ),
       ],
     );
@@ -374,37 +515,70 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.1) : AppColors.blue50,
+        color:
+            isDark
+                ? AppColors.primaryIndigo.withValues(alpha: 0.1)
+                : AppColors.blue50,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          const Icon(Icons.lock_rounded, size: 16, color: AppColors.primaryIndigo),
+          const Icon(
+            Icons.lock_rounded,
+            size: 16,
+            color: AppColors.primaryIndigo,
+          ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(context.l10n('docs_add_secure'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: isDark ? Colors.white70 : AppColors.textPrimary)),
+            child: Text(
+              context.l10n.docsAddSecure,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.white70 : AppColors.textPrimary,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, String hint, {int? maxLines = 1, int? minLines, TextInputType? keyboardType}) {
+  Widget _buildTextField(
+    String label,
+    TextEditingController controller,
+    String hint, {
+    int? maxLines = 1,
+    int? minLines,
+    TextInputType? keyboardType,
+  }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: isDark ? Colors.white : AppColors.textPrimary)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w800,
+            color: isDark ? Colors.white : AppColors.textPrimary,
+          ),
+        ),
         const SizedBox(height: 6),
         TextField(
           controller: controller,
           maxLines: maxLines,
           minLines: minLines,
           keyboardType: keyboardType,
-          style: TextStyle(fontSize: 14, color: isDark ? Colors.white : AppColors.textPrimary),
+          style: TextStyle(
+            fontSize: 14,
+            color: isDark ? Colors.white : AppColors.textPrimary,
+          ),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: isDark ? Colors.white38 : AppColors.textTertiary),
+            hintStyle: TextStyle(
+              color: isDark ? Colors.white38 : AppColors.textTertiary,
+            ),
           ),
         ),
       ],
@@ -413,16 +587,26 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
 
   String _getCategoryName(DocumentCategory category) {
     switch (category) {
-      case DocumentCategory.documents: return context.l10n('docs_title');
-      case DocumentCategory.healthPrescriptions: return context.l10n('docs_category_prescriptions');
-      case DocumentCategory.healthReports: return context.l10n('docs_category_reports');
-      case DocumentCategory.healthTestResults: return context.l10n('docs_category_test_results');
-      case DocumentCategory.healthImages: return context.l10n('docs_category_images');
-      case DocumentCategory.identity: return context.l10n('docs_category_identity');
-      case DocumentCategory.finance: return context.l10n('docs_category_finance');
-      case DocumentCategory.legal: return context.l10n('docs_category_legal');
-      case DocumentCategory.notes: return context.l10n('docs_category_notes');
-      case DocumentCategory.other: return context.l10n('docs_category_other');
+      case DocumentCategory.documents:
+        return context.l10n.docsTitle;
+      case DocumentCategory.healthPrescriptions:
+        return context.l10n.docsCategoryPrescriptions;
+      case DocumentCategory.healthReports:
+        return context.l10n.docsCategoryReports;
+      case DocumentCategory.healthTestResults:
+        return context.l10n.docsCategoryTestResults;
+      case DocumentCategory.healthImages:
+        return context.l10n.docsCategoryImages;
+      case DocumentCategory.identity:
+        return context.l10n.docsCategoryIdentity;
+      case DocumentCategory.finance:
+        return context.l10n.docsCategoryFinance;
+      case DocumentCategory.legal:
+        return context.l10n.docsCategoryLegal;
+      case DocumentCategory.notes:
+        return context.l10n.docsCategoryNotes;
+      case DocumentCategory.other:
+        return context.l10n.docsCategoryOther;
     }
   }
 
@@ -435,80 +619,116 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
       final file = File(result.files.single.path!);
       final size = await file.length();
       if (size > 10 * 1024 * 1024) {
-        if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n('docs_error_size'))));
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(context.l10n.docsErrorSize)));
+        }
         return;
       }
       setState(() {
         _selectedFile = file;
         _fileName = result.files.single.name;
         _fileNameController.text = _fileName!.split('.').first;
-        _fileType = _fileName!.toLowerCase().endsWith('.pdf') ? DocumentFileType.pdf : DocumentFileType.image;
+        _fileType =
+            _fileName!.toLowerCase().endsWith('.pdf')
+                ? DocumentFileType.pdf
+                : DocumentFileType.image;
       });
     }
   }
 
   Future<void> _handleUpload() async {
     if (_fileNameController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n('hint_name'))));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.hintName)));
       return;
     }
 
-    final needsSource = _selectedCategory == DocumentCategory.healthPrescriptions ||
-                      _selectedCategory == DocumentCategory.healthReports ||
-                      _selectedCategory == DocumentCategory.healthTestResults;
+    final needsSource =
+        _selectedCategory == DocumentCategory.healthPrescriptions ||
+        _selectedCategory == DocumentCategory.healthReports ||
+        _selectedCategory == DocumentCategory.healthTestResults;
     if (needsSource && _hospitalController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n('docs_error_source'))));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.docsErrorSource)));
       return;
     }
     setState(() => _isUploading = true);
     try {
       final tag = DocumentTag.fromId(_selectedTagId);
-      final finalFileName = _fileNameController.text.trim() + (_fileName != null ? ".${_fileName!.split('.').last}" : "");
-      
+      final finalFileName =
+          _fileNameController.text.trim() +
+          (_fileName != null ? ".${_fileName!.split('.').last}" : "");
+
       Document? resultDoc;
       if (widget.document != null) {
-          final updated = widget.document!.copyWith(
-              fileName: _fileNameController.text.trim(),
+        final updated = widget.document!.copyWith(
+          fileName: _fileNameController.text.trim(),
+          category: _selectedCategory,
+          hospitalName: _hospitalController.text.trim(),
+          doctorName:
+              _doctorController.text.trim().isEmpty
+                  ? null
+                  : _doctorController.text.trim(),
+          tagId: _selectedTagId,
+          tagLabel: tag?.localizedLabel(context),
+          note:
+              _noteController.text.trim().isEmpty
+                  ? null
+                  : _noteController.text.trim(),
+        );
+        await ref.read(documentListProvider.notifier).updateDocument(updated);
+        resultDoc = updated;
+      } else {
+        resultDoc = await ref
+            .read(documentListProvider.notifier)
+            .uploadDocument(
+              file: _selectedFile!,
+              fileName: finalFileName,
+              fileType: _fileType,
               category: _selectedCategory,
               hospitalName: _hospitalController.text.trim(),
-              doctorName: _doctorController.text.trim().isEmpty ? null : _doctorController.text.trim(),
+              doctorName:
+                  _doctorController.text.trim().isEmpty
+                      ? null
+                      : _doctorController.text.trim(),
+              documentDate: _date,
               tagId: _selectedTagId,
               tagLabel: tag?.localizedLabel(context),
-              note: _noteController.text.trim().isEmpty ? null : _noteController.text.trim(),
-          );
-          await ref.read(documentListProvider.notifier).updateDocument(updated);
-          resultDoc = updated;
-      } else {
-          resultDoc = await ref.read(documentListProvider.notifier).uploadDocument(
-            file: _selectedFile!,
-            fileName: finalFileName,
-            fileType: _fileType,
-            category: _selectedCategory,
-            hospitalName: _hospitalController.text.trim(),
-            doctorName: _doctorController.text.trim().isEmpty ? null : _doctorController.text.trim(),
-            documentDate: _date,
-            tagId: _selectedTagId,
-            tagLabel: tag?.localizedLabel(context),
-            note: _noteController.text.trim().isEmpty ? null : _noteController.text.trim(),
-          );
+              note:
+                  _noteController.text.trim().isEmpty
+                      ? null
+                      : _noteController.text.trim(),
+            );
       }
       if (mounted) {
         // Track first upload
-        ref.read(sharedPreferencesProvider).setBool('has_uploaded_before', true);
-        
+        ref
+            .read(sharedPreferencesProvider)
+            .setBool('has_uploaded_before', true);
+
         // AI Ad Engine: Track action
-        
+
         // Achievement: Track document added
         ref.read(achievementProvider.notifier).track("doc_added", value: 1);
         // Mission: Track document
         ref.read(dailyMissionProvider.notifier).track("doc_daily");
 
         context.pop(resultDoc);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n('docs_success'))));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(context.l10n.docsSuccess)));
         _triggerReviewengangement();
       }
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n('docs_error_save'))));
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(context.l10n.docsErrorSave)));
+      }
     } finally {
       if (mounted) setState(() => _isUploading = false);
     }
@@ -542,7 +762,14 @@ class PickerButton extends StatelessWidget {
   final Color color;
   final Color bgColor;
   final VoidCallback onTap;
-  const PickerButton({super.key, required this.icon, required this.label, required this.color, required this.bgColor, required this.onTap});
+  const PickerButton({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.bgColor,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -550,12 +777,23 @@ class PickerButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 24),
-        decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: color.withValues(alpha: 0.2))),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
+        ),
         child: Column(
           children: [
             Icon(icon, size: 28, color: color),
             const SizedBox(height: 12),
-            Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: color)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
+                color: color,
+              ),
+            ),
           ],
         ),
       ),

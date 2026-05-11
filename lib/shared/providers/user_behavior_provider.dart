@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/user_behavior.dart';
 import 'shared_prefs_provider.dart';
 
-final userBehaviorProvider = NotifierProvider<UserBehaviorNotifier, UserBehavior>(
-  UserBehaviorNotifier.new,
-);
+final userBehaviorProvider =
+    NotifierProvider<UserBehaviorNotifier, UserBehavior>(
+      UserBehaviorNotifier.new,
+    );
 
 class UserBehaviorNotifier extends Notifier<UserBehavior> {
   static const _key = 'user_behavior_v1';
@@ -34,16 +35,16 @@ class UserBehaviorNotifier extends Notifier<UserBehavior> {
   }
 
   void trackAction() {
-    _save(state.copyWith(
-      actionsCount: state.actionsCount + 1,
-      lastActionTime: DateTime.now(),
-    ));
+    _save(
+      state.copyWith(
+        actionsCount: state.actionsCount + 1,
+        lastActionTime: DateTime.now(),
+      ),
+    );
   }
 
   void trackAdWatched() {
-    _save(state.copyWith(
-      adsWatched: state.adsWatched + 1,
-    ));
+    _save(state.copyWith(adsWatched: state.adsWatched + 1));
   }
 
   void updateActiveDays(int days) {

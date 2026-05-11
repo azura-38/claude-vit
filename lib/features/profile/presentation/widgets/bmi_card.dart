@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/models/user_profile.dart';
-import '../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 import 'metric_box.dart';
 
 class BmiCard extends StatelessWidget {
   final UserProfile profile;
 
-  const BmiCard({
-    super.key,
-    required this.profile,
-  });
+  const BmiCard({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +16,7 @@ class BmiCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: VitaColors.border,
-        ),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         children: [
@@ -37,8 +32,7 @@ class BmiCard extends StatelessWidget {
 
               MetricBox(
                 title: "HEIGHT",
-                value:
-                    profile.height.toInt().toString(),
+                value: profile.height.toInt().toString(),
                 unit: "cm",
               ),
             ],
@@ -49,14 +43,11 @@ class BmiCard extends StatelessWidget {
           Row(
             children: [
               Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     "BMI INDEX",
-                    style: TextStyle(
-                      color: VitaColors.secondary,
-                    ),
+                    style: TextStyle(color: AppColors.secondary),
                   ),
 
                   const SizedBox(height: 6),
@@ -66,32 +57,28 @@ class BmiCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 34,
                       fontWeight: FontWeight.w700,
-                      color: VitaColors.primary,
+                      color: AppColors.primary,
                     ),
-                  )
+                  ),
                 ],
               ),
 
               const Spacer(),
 
               Container(
-                padding:
-                    const EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: VitaColors.softBlue,
-                  borderRadius:
-                      BorderRadius.circular(999),
+                  color: AppColors.softBlue,
+                  borderRadius: BorderRadius.circular(999),
                 ),
                 child: Text(
                   profile.bmiStatus,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-              )
+              ),
             ],
           ),
 
@@ -100,8 +87,7 @@ class BmiCard extends StatelessWidget {
           Container(
             height: 12,
             decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(999),
+              borderRadius: BorderRadius.circular(999),
               gradient: const LinearGradient(
                 colors: [
                   Color(0xFF60A5FA),
@@ -116,13 +102,8 @@ class BmiCard extends StatelessWidget {
           const SizedBox(height: 14),
 
           const Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-            children: [
-              Text("18.5"),
-              Text("25"),
-              Text("30"),
-            ],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text("18.5"), Text("25"), Text("30")],
           ),
 
           const SizedBox(height: 22),
@@ -130,9 +111,7 @@ class BmiCard extends StatelessWidget {
           const Text.rich(
             TextSpan(
               children: [
-                TextSpan(
-                  text: "Your BMI is in the ",
-                ),
+                TextSpan(text: "Your BMI is in the "),
                 TextSpan(
                   text: "healthy range",
                   style: TextStyle(
@@ -141,16 +120,12 @@ class BmiCard extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text:
-                      ". You are at a lower risk for cardiovascular issues.",
-                )
+                  text: ". You are at a lower risk for cardiovascular issues.",
+                ),
               ],
             ),
-            style: TextStyle(
-              height: 1.6,
-              color: VitaColors.secondary,
-            ),
-          )
+            style: TextStyle(height: 1.6, color: AppColors.secondary),
+          ),
         ],
       ),
     );

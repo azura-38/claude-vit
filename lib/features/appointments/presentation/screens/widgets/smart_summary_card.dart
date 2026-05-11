@@ -6,10 +6,7 @@ import '../models/appointment_form_model.dart';
 class SmartSummaryCard extends StatelessWidget {
   final AppointmentFormModel model;
 
-  const SmartSummaryCard({
-    super.key,
-    required this.model,
-  });
+  const SmartSummaryCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +16,7 @@ class SmartSummaryCard extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF005DA7),
-            Color(0xFF2976C7),
-          ],
+          colors: [Color(0xFF005DA7), Color(0xFF2976C7)],
         ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
@@ -30,7 +24,7 @@ class SmartSummaryCard extends StatelessWidget {
             color: Color.fromRGBO(0, 93, 167, 0.25),
             blurRadius: 24,
             offset: Offset(0, 12),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -38,15 +32,11 @@ class SmartSummaryCard extends StatelessWidget {
         children: [
           const Text(
             'Appointment Summary',
-            style: TextStyle(
-              color: Colors.white70,
-            ),
+            style: TextStyle(color: Colors.white70),
           ),
           const SizedBox(height: 10),
           Text(
-            model.title.isEmpty
-                ? 'Your appointment preview'
-                : model.title,
+            model.title.isEmpty ? 'Your appointment preview' : model.title,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -58,24 +48,20 @@ class SmartSummaryCard extends StatelessWidget {
             children: [
               const Icon(Icons.schedule, color: Colors.white70),
               const SizedBox(width: 8),
-              Text(
-                formatted,
-                style: const TextStyle(color: Colors.white),
-              )
+              Text(formatted, style: const TextStyle(color: Colors.white)),
             ],
           ),
           const SizedBox(height: 10),
           Row(
             children: [
-              const Icon(Icons.notifications_active_outlined,
-                  color: Colors.white70),
+              const Icon(
+                Icons.notifications_active_outlined,
+                color: Colors.white70,
+              ),
               const SizedBox(width: 8),
-              Text(
-                model.reminder,
-                style: const TextStyle(color: Colors.white),
-              )
+              Text(model.reminder, style: const TextStyle(color: Colors.white)),
             ],
-          )
+          ),
         ],
       ),
     );

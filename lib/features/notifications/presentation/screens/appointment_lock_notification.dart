@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 import '../widgets/notification_glass_card.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,10 +15,7 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Color(0xFFDDE8FF),
-                  Color(0xFFC9D8F7),
-                ],
+                colors: [Color(0xFFDDE8FF), Color(0xFFC9D8F7)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -28,18 +25,11 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 120),
-                const Icon(
-                  Icons.lock_outline,
-                  color: Colors.white,
-                  size: 30,
-                ),
+                const Icon(Icons.lock_outline, color: Colors.white, size: 30),
                 const SizedBox(height: 18),
                 const Text(
                   "Wednesday, October 25",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
                 const Text(
                   "09:41",
@@ -64,7 +54,7 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
                                 width: 26,
                                 height: 26,
                                 decoration: BoxDecoration(
-                                  color: VitaColors.primary,
+                                  color: AppColors.primary,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: const Icon(
@@ -82,7 +72,7 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
                                 ),
                               ),
                               const Spacer(),
-                              const Text("now")
+                              const Text("now"),
                             ],
                           ),
                           const SizedBox(height: 22),
@@ -102,7 +92,7 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
                             child: Text(
                               "In 30 minutes at City Medical Center",
                               style: TextStyle(
-                                color: VitaColors.secondary,
+                                color: AppColors.secondary,
                                 fontSize: 17,
                               ),
                             ),
@@ -126,7 +116,7 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -135,7 +125,7 @@ class AppointmentLockNotificationScreen extends StatelessWidget {
                 const SizedBox(height: 60),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/achievement_providers.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../shared/domain/entities/achievement.dart';
-import '../../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../widgets/achievements/achievement_card.dart';
 
 class AchievementsScreen extends ConsumerWidget {
@@ -17,13 +17,17 @@ class AchievementsScreen extends ConsumerWidget {
     return achievementsAsync.when(
       data: (achievements) {
         if (achievements.isEmpty) {
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         }
 
         // Stats Calculation
         final unlockedCount = achievements.where((a) => a.unlocked).length;
-        final totalXP = achievements.where((a) => a.unlocked).fold(0, (sum, a) => sum + a.xpReward);
-        
+        final totalXP = achievements
+            .where((a) => a.unlocked)
+            .fold(0, (sum, a) => sum + a.xpReward);
+
         // Grouping items by category
         final Map<AchievementCategory, List<Achievement>> grouped = {};
         for (var a in achievements) {
@@ -31,7 +35,8 @@ class AchievementsScreen extends ConsumerWidget {
         }
 
         return Scaffold(
-          backgroundColor: isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+          backgroundColor:
+              isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
           body: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
@@ -40,11 +45,15 @@ class AchievementsScreen extends ConsumerWidget {
                 expandedHeight: 220,
                 pinned: true,
                 stretch: true,
-                backgroundColor: isDark ? const Color(0xFF1E293B) : AppColors.medicalBlue,
+                backgroundColor:
+                    isDark ? const Color(0xFF1E293B) : AppColors.medicalBlue,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
                     context.l10n("medals_trophies"),
-                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16,
+                    ),
                   ),
                   centerTitle: true,
                   background: Stack(
@@ -54,15 +63,22 @@ class AchievementsScreen extends ConsumerWidget {
                       Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: isDark 
-                              ? [const Color(0xFF1E293B), const Color(0xFF334155)] 
-                              : [AppColors.medicalBlue, const Color(0xFF1E40AF)],
+                            colors:
+                                isDark
+                                    ? [
+                                      const Color(0xFF1E293B),
+                                      const Color(0xFF334155),
+                                    ]
+                                    : [
+                                      AppColors.medicalBlue,
+                                      const Color(0xFF1E40AF),
+                                    ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                         ),
                       ),
-                      
+
                       // Stats Overlay
                       Center(
                         child: Column(
@@ -70,16 +86,25 @@ class AchievementsScreen extends ConsumerWidget {
                           children: [
                             const SizedBox(height: 40),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 12,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(30),
-                                border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                ),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.stars_rounded, color: Colors.amber, size: 28),
+                                  const Icon(
+                                    Icons.stars_rounded,
+                                    color: Colors.amber,
+                                    size: 28,
+                                  ),
                                   const SizedBox(width: 12),
                                   Text(
                                     "$totalXP XP",
@@ -131,41 +156,43 @@ class AchievementsScreen extends ConsumerWidget {
                               fontSize: 14,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 1.5,
-                              color: isDark ? Colors.white60 : Colors.blueGrey[800],
+                              color:
+                                  isDark
+                                      ? Colors.white60
+                                      : Colors.blueGrey[800],
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  
+
                   SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final a = grouped[category]![index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: AchievementCard(
-                              achievement: a,
-                              isUnlocked: a.unlocked,
-                              currentSteps: a.progress,
-                            ),
-                          );
-                        },
-                        childCount: grouped[category]!.length,
-                      ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final a = grouped[category]![index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: AchievementCard(
+                            achievement: a,
+                            isUnlocked: a.unlocked,
+                            currentSteps: a.progress,
+                          ),
+                        );
+                      }, childCount: grouped[category]!.length),
                     ),
                   ),
                 ],
-                
+
               const SliverToBoxAdapter(child: SizedBox(height: 50)),
             ],
           ),
         );
       },
-      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      loading:
+          () =>
+              const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (err, _) => Scaffold(body: Center(child: Text(err.toString()))),
     );
   }

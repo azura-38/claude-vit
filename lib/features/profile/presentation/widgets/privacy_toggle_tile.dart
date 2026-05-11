@@ -26,15 +26,10 @@ class PrivacyToggleTile extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
-          Switch(
-            value: value,
-            onChanged: onChanged,
-          )
+          Switch(value: value, onChanged: onChanged),
         ],
       ),
     );

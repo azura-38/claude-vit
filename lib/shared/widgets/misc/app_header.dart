@@ -26,7 +26,8 @@ class AppHeader extends StatelessWidget {
         color: isDark ? AppColors.surfaceDark : Colors.white,
         border: Border(
           bottom: BorderSide(
-            color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+            color:
+                isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
           ),
         ),
       ),
@@ -55,7 +56,11 @@ class AppHeader extends StatelessWidget {
                     color: AppColors.primaryIndigo.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(leadIcon, color: AppColors.primaryIndigo, size: 20),
+                  child: Icon(
+                    leadIcon,
+                    color: AppColors.primaryIndigo,
+                    size: 20,
+                  ),
                 ),
               )
             else

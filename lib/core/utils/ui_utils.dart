@@ -8,7 +8,7 @@ class UiUtils {
 
   /// Standardized Floating Snackbar designed for VitaCase
   static void showCustomSnackBar(
-    BuildContext context, 
+    BuildContext context,
     String message, {
     bool isError = false,
   }) {

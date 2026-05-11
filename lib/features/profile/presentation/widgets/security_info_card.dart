@@ -9,28 +9,20 @@ class SecurityInfoCard extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFFEAF2FF),
-            Color(0xFFDDEBFF),
-          ],
+          colors: [Color(0xFFEAF2FF), Color(0xFFDDEBFF)],
         ),
         borderRadius: BorderRadius.circular(22),
       ),
       child: const Row(
         children: [
-          Icon(
-            Icons.lock_outline_rounded,
-            color: Color(0xFF005DA7),
-          ),
+          Icon(Icons.lock_outline_rounded, color: Color(0xFF005DA7)),
           SizedBox(width: 12),
           Expanded(
             child: Text(
               'AES-256 Protected • Stored locally on your device',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
-          )
+          ),
         ],
       ),
     );

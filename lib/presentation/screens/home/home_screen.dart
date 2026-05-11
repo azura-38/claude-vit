@@ -7,14 +7,10 @@ import '../../../shared/widgets/misc/banner_ad_container.dart';
 import '../../../shared/providers/navigation_provider.dart';
 import '../../../shared/providers/behavior_notifier.dart';
 
-
 class HomeScreen extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
 
-  const HomeScreen({
-    super.key,
-    required this.navigationShell,
-  });
+  const HomeScreen({super.key, required this.navigationShell});
 
   static void showExploreMenu(BuildContext context) {
     showGeneralDialog(
@@ -22,9 +18,7 @@ class HomeScreen extends ConsumerWidget {
       barrierColor: Colors.transparent,
       transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (context, animation, secondaryAnimation) {
-        return ExploreMenu(
-          onClose: () => Navigator.of(context).pop(),
-        );
+        return ExploreMenu(onClose: () => Navigator.of(context).pop());
       },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(
@@ -49,7 +43,10 @@ class HomeScreen extends ConsumerWidget {
 
     ref.listen<int>(navigationProvider, (previous, next) {
       if (next != navigationShell.currentIndex && next != 2) {
-        navigationShell.goBranch(next, initialLocation: next == navigationShell.currentIndex);
+        navigationShell.goBranch(
+          next,
+          initialLocation: next == navigationShell.currentIndex,
+        );
       }
     });
 
@@ -65,12 +62,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       extendBody: true,
       body: Column(
-        children: [
-          const BannerAdContainer(),
-          Expanded(
-            child: navigationShell,
-          ),
-        ],
+        children: [const BannerAdContainer(), Expanded(child: navigationShell)],
       ),
       bottomNavigationBar: AppBottomNav(
         currentIndex: currentIndex,

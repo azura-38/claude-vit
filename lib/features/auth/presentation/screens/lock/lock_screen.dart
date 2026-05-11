@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../providers/auth_providers.dart';
 import '../../../../../core/constants/app_colors.dart';
-import '../../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../../shared/providers/shared_prefs_provider.dart';
 import '../../../../../shared/data/services/analytics_service.dart';
 
@@ -15,7 +15,8 @@ class LockScreen extends ConsumerStatefulWidget {
   ConsumerState<LockScreen> createState() => _LockScreenState();
 }
 
-class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProviderStateMixin {
+class _LockScreenState extends ConsumerState<LockScreen>
+    with SingleTickerProviderStateMixin {
   bool _isAuthenticating = false;
   String _enteredPin = "";
   bool _isSetupMode = false;
@@ -118,10 +119,14 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
       final remaining = _lockoutUntil!.difference(DateTime.now()).inSeconds;
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(
-          context.l10n('lock_too_many_attempts')
-              .replaceFirst('{seconds}', '$remaining'),
-        )),
+        SnackBar(
+          content: Text(
+            context.l10n.lockTooManyAttempts.replaceFirst(
+              '{seconds}',
+              '$remaining',
+            ),
+          ),
+        ),
       );
       return;
     }
@@ -140,9 +145,9 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
           _setupPin = _enteredPin;
           setState(() => _enteredPin = "");
           if (!mounted) return;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.l10n('lock_confirm_pin'))),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(context.l10n.lockConfirmPin)));
         } else {
           if (_setupPin == _enteredPin) {
             await ref.read(pinServiceProvider).setPin(_enteredPin);
@@ -156,12 +161,14 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
             });
             if (!mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n('lock_pin_mismatch'))),
+              SnackBar(content: Text(context.l10n.lockPinMismatch)),
             );
           }
         }
       } else {
-        final success = await ref.read(pinServiceProvider).verifyPin(_enteredPin);
+        final success = await ref
+            .read(pinServiceProvider)
+            .verifyPin(_enteredPin);
         if (success) {
           _failedAttempts = 0;
           _lockoutUntil = null;
@@ -169,7 +176,9 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
           ref.read(appLockStateProvider.notifier).setUnlocked();
         } else {
           _failedAttempts++;
-          AnalyticsService.log(AnalyticsService.appLockAuthFail, {'attempts': _failedAttempts});
+          AnalyticsService.log(AnalyticsService.appLockAuthFail, {
+            'attempts': _failedAttempts,
+          });
           final lockoutDuration = _getLockoutDuration();
           if (lockoutDuration > Duration.zero) {
             _lockoutUntil = DateTime.now().add(lockoutDuration);
@@ -185,14 +194,18 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
 
           if (_lockoutUntil != null) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(
-                context.l10n('lock_too_many_attempts')
-                    .replaceFirst('{seconds}', '${lockoutDuration.inSeconds}'),
-              )),
+              SnackBar(
+                content: Text(
+                  context.l10n.lockTooManyAttempts.replaceFirst(
+                    '{seconds}',
+                    '${lockoutDuration.inSeconds}',
+                  ),
+                ),
+              ),
             );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n('lock_pin_incorrect'))),
+              SnackBar(content: Text(context.l10n.lockPinIncorrect)),
             );
           }
         }
@@ -211,9 +224,10 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: isDark
-                ? [const Color(0xFF0A1628), const Color(0xFF162544)]
-                : [const Color(0xFF1A56DB), const Color(0xFF3B82F6)],
+            colors:
+                isDark
+                    ? [const Color(0xFF0A1628), const Color(0xFF162544)]
+                    : [const Color(0xFF1A56DB), const Color(0xFF3B82F6)],
           ),
         ),
         child: SafeArea(
@@ -240,19 +254,19 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
                   color: Colors.white,
                 ),
               ).animate().scale(
-                    begin: const Offset(0.8, 0.8),
-                    end: const Offset(1, 1),
-                    duration: 500.ms,
-                    curve: Curves.easeOutBack,
-                  ),
+                begin: const Offset(0.8, 0.8),
+                end: const Offset(1, 1),
+                duration: 500.ms,
+                curve: Curves.easeOutBack,
+              ),
               const SizedBox(height: 24),
               // Title
               Text(
                 _isSetupMode
                     ? (_setupPin.isEmpty
-                        ? context.l10n('lock_set_pin')
-                        : context.l10n('lock_confirm_pin'))
-                    : context.l10n('lock_title'),
+                        ? context.l10n.lockSetPin
+                        : context.l10n.lockConfirmPin)
+                    : context.l10n.lockTitle,
                 style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w800,
@@ -264,7 +278,7 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
               if (_isSetupMode) ...[
                 const SizedBox(height: 8),
                 Text(
-                  '6 ${context.l10n('digits')}',
+                  '6 ${context.l10n.digits}',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white.withValues(alpha: 0.6),
@@ -277,11 +291,12 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
               AnimatedBuilder(
                 animation: _shakeController,
                 builder: (context, child) {
-                  final shake = _shakeController.isAnimating
-                      ? 12.0 *
-                          (0.5 - _shakeController.value).abs() *
-                          (_shakeController.value < 0.5 ? 1 : -1)
-                      : 0.0;
+                  final shake =
+                      _shakeController.isAnimating
+                          ? 12.0 *
+                              (0.5 - _shakeController.value).abs() *
+                              (_shakeController.value < 0.5 ? 1 : -1)
+                          : 0.0;
                   return Transform.translate(
                     offset: Offset(shake, 0),
                     child: child,
@@ -299,26 +314,29 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
                       height: isFilled ? 18 : 14,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: _hasError
-                            ? AppColors.error
-                            : (isFilled
-                                ? Colors.white
-                                : Colors.white.withValues(alpha: 0.2)),
+                        color:
+                            _hasError
+                                ? AppColors.error
+                                : (isFilled
+                                    ? Colors.white
+                                    : Colors.white.withValues(alpha: 0.2)),
                         border: Border.all(
-                          color: _hasError
-                              ? AppColors.error.withValues(alpha: 0.6)
-                              : Colors.white.withValues(alpha: 0.4),
+                          color:
+                              _hasError
+                                  ? AppColors.error.withValues(alpha: 0.6)
+                                  : Colors.white.withValues(alpha: 0.4),
                           width: 2,
                         ),
-                        boxShadow: isFilled
-                            ? [
-                                BoxShadow(
-                                  color: Colors.white.withValues(alpha: 0.3),
-                                  blurRadius: 8,
-                                  spreadRadius: 1,
-                                ),
-                              ]
-                            : null,
+                        boxShadow:
+                            isFilled
+                                ? [
+                                  BoxShadow(
+                                    color: Colors.white.withValues(alpha: 0.3),
+                                    blurRadius: 8,
+                                    spreadRadius: 1,
+                                  ),
+                                ]
+                                : null,
                       ),
                     );
                   }),
@@ -338,10 +356,14 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
                       color: Colors.white.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(Icons.fingerprint_rounded, color: Colors.white, size: 24),
+                    child: const Icon(
+                      Icons.fingerprint_rounded,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   label: Text(
-                    context.l10n('lock_use_biometrics'),
+                    context.l10n.lockUseBiometrics,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.8),
                       fontWeight: FontWeight.w600,
@@ -370,12 +392,15 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
               padding: const EdgeInsets.only(bottom: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: row
-                    .map((key) => _KeyButton(
-                          val: key,
-                          onTap: () => _handleKeyPress(key),
-                        ))
-                    .toList(),
+                children:
+                    row
+                        .map(
+                          (key) => _KeyButton(
+                            val: key,
+                            onTap: () => _handleKeyPress(key),
+                          ),
+                        )
+                        .toList(),
               ),
             ),
           Padding(
@@ -390,7 +415,10 @@ class _LockScreenState extends ConsumerState<LockScreen> with SingleTickerProvid
                     if (_enteredPin.isNotEmpty) {
                       HapticFeedback.lightImpact();
                       setState(() {
-                        _enteredPin = _enteredPin.substring(0, _enteredPin.length - 1);
+                        _enteredPin = _enteredPin.substring(
+                          0,
+                          _enteredPin.length - 1,
+                        );
                         _hasError = false;
                       });
                     }

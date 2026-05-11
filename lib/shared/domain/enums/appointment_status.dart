@@ -1,6 +1,1 @@
-enum AppointmentStatus {
-  upcoming,
-  completed,
-  cancelled,
-  missed;
-}
+enum AppointmentStatus { upcoming, completed, cancelled, missed }

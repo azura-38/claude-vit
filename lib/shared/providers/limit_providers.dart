@@ -46,7 +46,9 @@ class LimitData {
   }
 }
 
-final limitProvider = NotifierProvider<LimitNotifier, LimitData>(LimitNotifier.new);
+final limitProvider = NotifierProvider<LimitNotifier, LimitData>(
+  LimitNotifier.new,
+);
 
 class LimitNotifier extends Notifier<LimitData> {
   @override
@@ -62,7 +64,8 @@ class LimitNotifier extends Notifier<LimitData> {
 
   Future<void> _load() async {
     final db = await _db;
-    final json = await _store.record(_limitKey).get(db) as Map<String, dynamic>?;
+    final json =
+        await _store.record(_limitKey).get(db) as Map<String, dynamic>?;
     if (json != null) {
       state = LimitData.fromJson(json);
     }
@@ -73,16 +76,10 @@ class LimitNotifier extends Notifier<LimitData> {
     await _save();
   }
 
-
-
-
   Future<void> increaseExtraMedicine(int amount) async {
     state = state.copyWith(extraMedicine: state.extraMedicine + amount);
     await _save();
   }
-
-
-
 
   Future<void> increaseExtraAppointment(int amount) async {
     state = state.copyWith(extraAppointment: state.extraAppointment + amount);
@@ -94,9 +91,6 @@ class LimitNotifier extends Notifier<LimitData> {
     ref.read(dailyMissionProvider.notifier).track("ad_daily");
     ref.read(seasonProvider.notifier).addXP(5);
   }
-
-
-
 
   Future<void> _save() async {
     final db = await _db;
@@ -111,7 +105,9 @@ class LimitNotifier extends Notifier<LimitData> {
       extra: state.extraDocs,
       isPremium: ref.read(premiumProvider),
     );
-    if (!can) AnalyticsService.log(AnalyticsService.limitReached, {'type': 'document'});
+    if (!can) {
+      AnalyticsService.log(AnalyticsService.limitReached, {'type': 'document'});
+    }
     return can;
   }
 
@@ -122,7 +118,9 @@ class LimitNotifier extends Notifier<LimitData> {
       extra: state.extraMedicine,
       isPremium: ref.read(premiumProvider),
     );
-    if (!can) AnalyticsService.log(AnalyticsService.limitReached, {'type': 'medicine'});
+    if (!can) {
+      AnalyticsService.log(AnalyticsService.limitReached, {'type': 'medicine'});
+    }
     return can;
   }
 
@@ -133,7 +131,11 @@ class LimitNotifier extends Notifier<LimitData> {
       extra: state.extraAppointment,
       isPremium: ref.read(premiumProvider),
     );
-    if (!can) AnalyticsService.log(AnalyticsService.limitReached, {'type': 'appointment'});
+    if (!can) {
+      AnalyticsService.log(AnalyticsService.limitReached, {
+        'type': 'appointment',
+      });
+    }
     return can;
   }
 }

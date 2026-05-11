@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 /// Bottom navigation matching the React BottomNavigation component:
 /// 5 tabs with a floating Keşfet FAB in the center.
@@ -25,7 +25,8 @@ class AppBottomNav extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         border: Border(
           top: BorderSide(
-            color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+            color:
+                isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
           ),
         ),
         boxShadow: [
@@ -39,19 +40,24 @@ class AppBottomNav extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 8,
+            bottom: 8,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _NavItem(
                 icon: Icons.home_rounded,
-                label: context.l10n('home'),
+                label: context.l10n.home,
                 isActive: currentIndex == 0,
                 onTap: () => onTap(0),
               ),
               _NavItem(
                 icon: Icons.description_rounded,
-                label: context.l10n('vault'),
+                label: context.l10n.vault,
                 isActive: currentIndex == 1,
                 onTap: () => onTap(1),
               ),
@@ -79,7 +85,9 @@ class AppBottomNav extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primaryIndigo.withValues(alpha: 0.25),
+                          color: AppColors.primaryIndigo.withValues(
+                            alpha: 0.25,
+                          ),
                           blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
@@ -88,9 +96,13 @@ class AppBottomNav extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.explore_rounded, color: Colors.white, size: 24),
+                        const Icon(
+                          Icons.explore_rounded,
+                          color: Colors.white,
+                          size: 24,
+                        ),
                         Text(
-                          context.l10n('explore').toUpperCase(),
+                          context.l10n.explore.toUpperCase(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 7,
@@ -105,13 +117,13 @@ class AppBottomNav extends StatelessWidget {
               ),
               _NavItem(
                 icon: Icons.calendar_today_rounded,
-                label: context.l10n('appointments'),
+                label: context.l10n.appointments,
                 isActive: currentIndex == 3,
                 onTap: () => onTap(3),
               ),
               _NavItem(
                 icon: Icons.person_outline_rounded,
-                label: context.l10n('profile'),
+                label: context.l10n.profile,
                 isActive: currentIndex == 4,
                 onTap: () => onTap(4),
               ),

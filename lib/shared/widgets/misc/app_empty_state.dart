@@ -45,7 +45,10 @@ class AppEmptyState extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: isDark ? Colors.white.withValues(alpha: 0.03) : AppColors.blue50,
+                color:
+                    isDark
+                        ? Colors.white.withValues(alpha: 0.03)
+                        : AppColors.blue50,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -104,7 +107,8 @@ class AppEmptyState extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 12,
                 alignment: WrapAlignment.center,
-                children: shortcuts!.map((s) => _buildShortcut(s, isDark)).toList(),
+                children:
+                    shortcuts!.map((s) => _buildShortcut(s, isDark)).toList(),
               ).animate().fadeIn(delay: 800.ms),
             ],
           ],
@@ -123,7 +127,8 @@ class AppEmptyState extends StatelessWidget {
           color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+            color:
+                isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
           ),
         ),
         child: Row(

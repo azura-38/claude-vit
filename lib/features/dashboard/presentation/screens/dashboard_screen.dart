@@ -1,10 +1,10 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/external_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/navigation_provider.dart';
 import '../../../../shared/providers/health_providers.dart';
 import '../../../appointments/presentation/providers/appointment_providers.dart';
@@ -16,9 +16,6 @@ import '../../../../shared/providers/season_providers.dart';
 import '../../../../shared/widgets/dialogs/reward_dialog.dart';
 import '../../../../shared/widgets/misc/app_empty_state.dart';
 import 'package:vitacase/features/profile/presentation/providers/legacy_providers.dart';
-
-
-
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -36,27 +33,26 @@ class DashboardScreen extends ConsumerWidget {
       if (previous != null && next != null && next.level > previous.level) {
         RewardDialog.show(
           context,
-          title: context.l10n('congratulations').toUpperCase(),
-          description: context.l10n('level_up_desc', extra: {'level': next.level.toString()}),
+          title: context.l10n.congratulations.toUpperCase(),
+          description: context.l10n.levelUpDesc(level: next.level.toString()),
           icon: Icons.auto_awesome_rounded,
         );
       }
     });
 
     return Scaffold(
-
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       body: SafeArea(
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           children: [
-            _TopAppBar(userName: userName ?? context.l10n('guest_user'), isDark: isDark),
+            _TopAppBar(
+              userName: userName ?? context.l10n.guestUser,
+              isDark: isDark,
+            ),
             const SizedBox(height: 24),
-            if (isGuest) ...[
-              const _GuestBanner(),
-              const SizedBox(height: 24),
-            ],
+            if (isGuest) ...[const _GuestBanner(), const SizedBox(height: 24)],
             const _CtaFeatureCard(),
             const SizedBox(height: 24),
             const _MetricsGrid(),
@@ -85,10 +81,10 @@ class _TopAppBar extends ConsumerWidget {
 
   String _getGreeting(BuildContext context) {
     final hour = DateTime.now().hour;
-    if (hour < 12) return context.l10n('good_morning');
-    if (hour < 17) return context.l10n('good_afternoon');
-    if (hour < 21) return context.l10n('good_evening');
-    return context.l10n('good_night');
+    if (hour < 12) return context.l10n.goodMorning;
+    if (hour < 17) return context.l10n.goodAfternoon;
+    if (hour < 21) return context.l10n.goodEvening;
+    return context.l10n.goodNight;
   }
 
   @override
@@ -110,18 +106,19 @@ class _TopAppBar extends ConsumerWidget {
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
-                  )
+                  ),
                 ],
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
-                child: photo != null && !photo.startsWith('http')
-                    ? Image.file(
-                        File(photo),
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, _, _) => _buildAvatarPlaceholder(),
-                      )
-                    : _buildAvatarPlaceholder(),
+                child:
+                    photo != null && !photo.startsWith('http')
+                        ? Image.file(
+                          File(photo),
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => _buildAvatarPlaceholder(),
+                        )
+                        : _buildAvatarPlaceholder(),
               ),
             ),
             const SizedBox(width: 12),
@@ -158,7 +155,11 @@ class _TopAppBar extends ConsumerWidget {
   Widget _buildAvatarPlaceholder() {
     return Container(
       color: AppColors.medicalBlue.withValues(alpha: 0.1),
-      child: const Icon(Icons.person_rounded, color: AppColors.medicalBlue, size: 28),
+      child: const Icon(
+        Icons.person_rounded,
+        color: AppColors.medicalBlue,
+        size: 28,
+      ),
     );
   }
 }
@@ -191,7 +192,7 @@ class _GuestBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  context.l10n('guest_mode'),
+                  context.l10n.guestMode,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -200,10 +201,13 @@ class _GuestBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  context.l10n('guest_desc'),
+                  context.l10n.guestDesc,
                   style: TextStyle(
                     fontSize: 12,
-                    color: isDark ? Colors.white70 : AppColors.guestBannerText.withValues(alpha: 0.9),
+                    color:
+                        isDark
+                            ? Colors.white70
+                            : AppColors.guestBannerText.withValues(alpha: 0.9),
                     height: 1.4,
                   ),
                 ),
@@ -237,7 +241,7 @@ class _CtaFeatureCard extends ConsumerWidget {
               color: AppColors.gradBlueStart.withValues(alpha: 0.3),
               blurRadius: 20,
               offset: const Offset(0, 10),
-            )
+            ),
           ],
         ),
         child: Stack(
@@ -246,11 +250,18 @@ class _CtaFeatureCard extends ConsumerWidget {
               right: -20,
               bottom: -20,
               child: Icon(
-                Icons.filter_none_rounded,
-                size: 150,
-                color: Colors.white.withValues(alpha: 0.1),
-              ).animate(onPlay: (controller) => controller.repeat(reverse: true))
-               .scale(begin: const Offset(1, 1), end: const Offset(1.1, 1.1), duration: 5.seconds),
+                    Icons.filter_none_rounded,
+                    size: 150,
+                    color: Colors.white.withValues(alpha: 0.1),
+                  )
+                  .animate(
+                    onPlay: (controller) => controller.repeat(reverse: true),
+                  )
+                  .scale(
+                    begin: const Offset(1, 1),
+                    end: const Offset(1.1, 1.1),
+                    duration: 5.seconds,
+                  ),
             ),
             Padding(
               padding: const EdgeInsets.all(24),
@@ -267,7 +278,10 @@ class _CtaFeatureCard extends ConsumerWidget {
                           color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: const Icon(Icons.filter_none_rounded, color: Colors.white),
+                        child: const Icon(
+                          Icons.filter_none_rounded,
+                          color: Colors.white,
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),
@@ -275,7 +289,10 @@ class _CtaFeatureCard extends ConsumerWidget {
                           color: Colors.white.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.chevron_right_rounded, color: Colors.white),
+                        child: const Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -283,7 +300,7 @@ class _CtaFeatureCard extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.l10n('all_records'),
+                        context.l10n.allRecords,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
@@ -292,8 +309,8 @@ class _CtaFeatureCard extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                       Text(
-                        context.l10n('vault_desc'),
+                      Text(
+                        context.l10n.vaultDesc,
                         style: const TextStyle(
                           fontSize: 13,
                           color: Colors.white70,
@@ -328,36 +345,36 @@ class _MetricsGrid extends ConsumerWidget {
       childAspectRatio: 1.1,
       children: [
         _MetricCard(
-          title: context.l10n('steps'),
+          title: context.l10n.steps,
           value: progress['steps']?.toInt().toString() ?? "0",
-          unit: context.l10n('steps'),
+          unit: context.l10n.steps,
           icon: Icons.directions_walk_rounded,
           gradient: const [AppColors.gradOrangeStart, AppColors.gradOrangeEnd],
           delay: 400.ms,
           onTap: () => context.pushNamed('healthStats'),
         ),
         _MetricCard(
-          title: context.l10n('heart'),
+          title: context.l10n.heart,
           value: progress['heartRate']?.toInt().toString() ?? "0",
-          unit: context.l10n('bpm'),
+          unit: context.l10n.bpm,
           icon: Icons.favorite_rounded,
           gradient: const [AppColors.gradPinkStart, AppColors.gradPinkEnd],
           delay: 500.ms,
           onTap: () => context.pushNamed('healthStats'),
         ),
         _MetricCard(
-          title: context.l10n('sleep'),
+          title: context.l10n.sleep,
           value: progress['sleep']?.toInt().toString() ?? "0",
-          unit: context.l10n('hours'),
+          unit: context.l10n.hours,
           icon: Icons.dark_mode_rounded,
           gradient: const [AppColors.gradNavyStart, AppColors.gradNavyEnd],
           delay: 600.ms,
           onTap: () => context.pushNamed('healthStats'),
         ),
         _MetricCard(
-          title: context.l10n('water'),
+          title: context.l10n.water,
           value: progress['water']?.toInt().toString() ?? "0",
-          unit: context.l10n('ml'),
+          unit: context.l10n.ml,
           icon: Icons.water_drop_rounded,
           gradient: const [AppColors.gradWaterStart, AppColors.gradWaterEnd],
           delay: 700.ms,
@@ -406,70 +423,81 @@ class _MetricCard extends StatelessWidget {
               color: gradient[0].withValues(alpha: 0.2),
               blurRadius: 15,
               offset: const Offset(0, 8),
-            )
+            ),
           ],
         ),
         child: Stack(
-        children: [
-          Positioned(
-            right: -20,
-            bottom: -20,
-            child: Icon(
-              icon,
-              size: 100,
-              color: Colors.white.withValues(alpha: 0.15),
-            ).animate(onPlay: (controller) => controller.repeat(reverse: true))
-             .scale(begin: const Offset(1, 1), end: const Offset(1.2, 1.2), duration: 2.seconds)
-             .rotate(begin: 0, end: 0.05, duration: 2.seconds),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(icon, color: Colors.white.withValues(alpha: 0.8), size: 18),
-                  Text(
-                    title.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w900,
+          children: [
+            Positioned(
+              right: -20,
+              bottom: -20,
+              child: Icon(
+                    icon,
+                    size: 100,
+                    color: Colors.white.withValues(alpha: 0.15),
+                  )
+                  .animate(
+                    onPlay: (controller) => controller.repeat(reverse: true),
+                  )
+                  .scale(
+                    begin: const Offset(1, 1),
+                    end: const Offset(1.2, 1.2),
+                    duration: 2.seconds,
+                  )
+                  .rotate(begin: 0, end: 0.05, duration: 2.seconds),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      icon,
                       color: Colors.white.withValues(alpha: 0.8),
-                      letterSpacing: 0.5,
+                      size: 18,
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    value,
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      fontFamily: 'Inter',
+                    Text(
+                      title.toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white.withValues(alpha: 0.8),
+                        letterSpacing: 0.5,
+                      ),
                     ),
-                  ),
-                  Text(
-                    unit,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white.withValues(alpha: 0.8),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      value,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        fontFamily: 'Inter',
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                    Text(
+                      unit,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
-  ).animate().fadeIn(delay: delay).slideY(begin: 0.2);
-}
+    ).animate().fadeIn(delay: delay).slideY(begin: 0.2);
+  }
 }
 
 class _QuickAccess extends ConsumerWidget {
@@ -491,7 +519,7 @@ class _QuickAccess extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.l10n('quick_access'),
+                  context.l10n.quickAccess,
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w900,
@@ -499,7 +527,11 @@ class _QuickAccess extends ConsumerWidget {
                     letterSpacing: 1.5,
                   ),
                 ),
-                Icon(Icons.add_rounded, size: 20, color: isDark ? Colors.white38 : Colors.black38),
+                Icon(
+                  Icons.add_rounded,
+                  size: 20,
+                  color: isDark ? Colors.white38 : Colors.black38,
+                ),
               ],
             ),
           ),
@@ -507,12 +539,14 @@ class _QuickAccess extends ConsumerWidget {
         const SizedBox(height: 24),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _QuickActionItem(
-                label: context.l10n('vault'),
+                label: context.l10n.vault,
                 icon: Icons.description_rounded,
                 color: const Color(0xFF3B82F6),
                 onTap: () => ref.read(navigationProvider.notifier).setIndex(1),
@@ -520,15 +554,18 @@ class _QuickAccess extends ConsumerWidget {
               ),
               const SizedBox(width: 20),
               _QuickActionItem(
-                label: context.l10n('pharmacies'),
+                label: context.l10n.pharmacies,
                 icon: Icons.location_on_rounded,
                 color: const Color(0xFF10B981),
-                onTap: () => ExternalLauncher.launchMapSearch(context.l10n('pharmacies')),
+                onTap:
+                    () => ExternalLauncher.launchMapSearch(
+                      context.l10n.pharmacies,
+                    ),
                 delay: 1000.ms,
               ),
               const SizedBox(width: 20),
               _QuickActionItem(
-                label: context.l10n('medicines'),
+                label: context.l10n.medicines,
                 icon: Icons.medication_rounded,
                 color: const Color(0xFFF97316),
                 onTap: () => context.pushNamed('medicines'),
@@ -536,7 +573,7 @@ class _QuickAccess extends ConsumerWidget {
               ),
               const SizedBox(width: 20),
               _QuickActionItem(
-                label: context.l10n('appointments'),
+                label: context.l10n.appointments,
                 icon: Icons.calendar_today_rounded,
                 color: const Color(0xFFA855F7),
                 onTap: () => ref.read(navigationProvider.notifier).setIndex(3),
@@ -584,7 +621,7 @@ class _QuickActionItem extends StatelessWidget {
                   color: color.withValues(alpha: 0.2),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
-                )
+                ),
               ],
             ),
             child: Icon(icon, color: Colors.white, size: 28),
@@ -603,6 +640,7 @@ class _QuickActionItem extends StatelessWidget {
     ).animate().fadeIn(delay: delay).scale(begin: const Offset(0.8, 0.8));
   }
 }
+
 class _UpcomingAppointments extends ConsumerWidget {
   const _UpcomingAppointments();
 
@@ -618,7 +656,7 @@ class _UpcomingAppointments extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              context.l10n('upcoming_appointment'),
+              context.l10n.upcomingAppointment,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w900,
@@ -629,7 +667,7 @@ class _UpcomingAppointments extends ConsumerWidget {
             GestureDetector(
               onTap: () => ref.read(navigationProvider.notifier).setIndex(3),
               child: Text(
-                context.l10n('all_records_title').toUpperCase(),
+                context.l10n.allRecordsTitle.toUpperCase(),
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w900,
@@ -643,15 +681,18 @@ class _UpcomingAppointments extends ConsumerWidget {
         appointmentsAsync.when(
           data: (list) {
             final now = DateTime.now();
-            final upcoming = list.where((a) {
-              try {
-                final dt = DateTime.parse("${a.date} ${a.time}");
-                return dt.isAfter(now);
-              } catch (e) {
-                debugPrint("🚨 [CRASH_PREVENTION] Malformed appointment date: ${a.date}");
-                return false;
-              }
-            }).toList();
+            final upcoming =
+                list.where((a) {
+                  try {
+                    final dt = DateTime.parse("${a.date} ${a.time}");
+                    return dt.isAfter(now);
+                  } catch (e) {
+                    debugPrint(
+                      "🚨 [CRASH_PREVENTION] Malformed appointment date: ${a.date}",
+                    );
+                    return false;
+                  }
+                }).toList();
 
             upcoming.sort((a, b) {
               try {
@@ -666,15 +707,20 @@ class _UpcomingAppointments extends ConsumerWidget {
             if (upcoming.isEmpty) {
               return AppEmptyState(
                 icon: Icons.calendar_today_rounded,
-                title: context.l10n('no_more_appointments'),
-                subtitle: context.l10n('no_more_appointments'),
-                actionLabel: context.l10n('add_new_appointment'),
-                onAction: () => ref.read(navigationProvider.notifier).setIndex(3),
+                title: context.l10n.noMoreAppointments,
+                subtitle: context.l10n.noMoreAppointments,
+                actionLabel: context.l10n.addNewAppointment,
+                onAction:
+                    () => ref.read(navigationProvider.notifier).setIndex(3),
               );
             }
 
             return Column(
-              children: upcoming.take(2).map((a) => _AppointmentCard(a, isDark)).toList(),
+              children:
+                  upcoming
+                      .take(2)
+                      .map((a) => _AppointmentCard(a, isDark))
+                      .toList(),
             );
           },
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -705,7 +751,7 @@ class _AppointmentCard extends StatelessWidget {
               color: Colors.black.withValues(alpha: 0.02),
               blurRadius: 10,
               offset: const Offset(0, 4),
-            )
+            ),
         ],
       ),
       child: Row(
@@ -716,7 +762,11 @@ class _AppointmentCard extends StatelessWidget {
               color: AppColors.medicalBlue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(Icons.calendar_today_rounded, color: AppColors.medicalBlue, size: 20),
+            child: const Icon(
+              Icons.calendar_today_rounded,
+              color: AppColors.medicalBlue,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -725,11 +775,18 @@ class _AppointmentCard extends StatelessWidget {
               children: [
                 Text(
                   appointment.hospital,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 Text(
                   "${appointment.department} • ${appointment.doctor}",
-                  style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
@@ -739,16 +796,29 @@ class _AppointmentCard extends StatelessWidget {
             children: [
               Text(
                 appointment.time,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, fontFamily: 'Inter'),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Inter',
+                ),
               ),
               () {
                 try {
                   return Text(
-                    DateFormat('dd/MM').format(DateTime.parse(appointment.date)),
-                    style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.medicalBlue),
+                    DateFormat(
+                      'dd/MM',
+                    ).format(DateTime.parse(appointment.date)),
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.medicalBlue,
+                    ),
                   );
                 } catch (_) {
-                  return const Text("N/A", style: TextStyle(fontSize: 10, color: AppColors.error));
+                  return const Text(
+                    "N/A",
+                    style: TextStyle(fontSize: 10, color: AppColors.error),
+                  );
                 }
               }(),
             ],
@@ -783,7 +853,7 @@ class _SeasonProgressSection extends ConsumerWidget {
                     color: Colors.black.withValues(alpha: 0.02),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
-                  )
+                  ),
               ],
             ),
             child: Column(
@@ -793,17 +863,28 @@ class _SeasonProgressSection extends ConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.stars_rounded, color: Colors.amber, size: 20),
+                        const Icon(
+                          Icons.stars_rounded,
+                          color: Colors.amber,
+                          size: 20,
+                        ),
                         const SizedBox(width: 8),
                         Text(
                           "Level ${progress.level}",
-                          style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16,
+                          ),
                         ),
                       ],
                     ),
                     Text(
                       "${progress.xp % 100} / 100 XP",
-                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -814,7 +895,9 @@ class _SeasonProgressSection extends ConsumerWidget {
                     value: progressInLevel.clamp(0.0, 1.0),
                     minHeight: 10,
                     backgroundColor: isDark ? Colors.white10 : Colors.grey[100],
-                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.medicalBlue),
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      AppColors.medicalBlue,
+                    ),
                   ),
                 ),
               ],
@@ -843,7 +926,7 @@ class _DailyMissionsSection extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              context.l10n('daily_missions').toUpperCase(),
+              context.l10n.dailyMissions.toUpperCase(),
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w900,
@@ -884,11 +967,16 @@ class _MissionCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: mission.isCompleted ? Colors.green.withValues(alpha: 0.1) : AppColors.medicalBlue.withValues(alpha: 0.1),
+              color:
+                  mission.isCompleted
+                      ? Colors.green.withValues(alpha: 0.1)
+                      : AppColors.medicalBlue.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
-              mission.isCompleted ? Icons.check_circle_rounded : Icons.task_alt_rounded,
+              mission.isCompleted
+                  ? Icons.check_circle_rounded
+                  : Icons.task_alt_rounded,
               color: mission.isCompleted ? Colors.green : AppColors.medicalBlue,
               size: 20,
             ),
@@ -900,7 +988,10 @@ class _MissionCard extends StatelessWidget {
               children: [
                 Text(
                   context.l10n(mission.title),
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 ClipRRect(
@@ -909,7 +1000,11 @@ class _MissionCard extends StatelessWidget {
                     value: progress.clamp(0.0, 1.0),
                     minHeight: 4,
                     backgroundColor: isDark ? Colors.white10 : Colors.grey[100],
-                    valueColor: AlwaysStoppedAnimation<Color>(mission.isCompleted ? Colors.green : AppColors.medicalBlue),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      mission.isCompleted
+                          ? Colors.green
+                          : AppColors.medicalBlue,
+                    ),
                   ),
                 ),
               ],
@@ -918,7 +1013,11 @@ class _MissionCard extends StatelessWidget {
           const SizedBox(width: 16),
           Text(
             "${mission.progress}/${mission.target}",
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textSecondary),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              color: AppColors.textSecondary,
+            ),
           ),
         ],
       ),
@@ -928,99 +1027,103 @@ class _MissionCard extends StatelessWidget {
 
 void _showQuickActionsMenu(BuildContext context, WidgetRef ref) {
   final isDark = Theme.of(context).brightness == Brightness.dark;
-  
+
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
-    builder: (ctx) => Container(
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF0F172A) : Colors.white,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 40,
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.grey.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(2),
-            ),
+    builder:
+        (ctx) => Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: isDark ? const Color(0xFF0F172A) : Colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
           ),
-          const SizedBox(height: 32),
-          Text(
-            context.l10n('quick_actions'),
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-          ),
-          const SizedBox(height: 32),
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              _MenuActionItem(
-                label: context.l10n('add_medicine'),
-                icon: Icons.medication_rounded,
-                color: Colors.blue,
-                onTap: () {
-                  Navigator.pop(ctx);
-                  context.push('/medicines/add');
-                },
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-              _MenuActionItem(
-                label: context.l10n('add_appointment'),
-                icon: Icons.calendar_today_rounded,
-                color: Colors.indigo,
-                onTap: () {
-                  Navigator.pop(ctx);
-                  context.push('/appointments/add');
-                },
+              const SizedBox(height: 32),
+              Text(
+                context.l10n.quickActions,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
-              _MenuActionItem(
-                label: context.l10n('add_doctor'),
-                icon: Icons.person_add_rounded,
-                color: Colors.teal,
-                onTap: () {
-                  Navigator.pop(ctx);
-                  context.push('/doctors/add');
-                },
+              const SizedBox(height: 32),
+              GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                children: [
+                  _MenuActionItem(
+                    label: context.l10n.addMedicine,
+                    icon: Icons.medication_rounded,
+                    color: Colors.blue,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      context.push('/medicines/add');
+                    },
+                  ),
+                  _MenuActionItem(
+                    label: context.l10n.addAppointment,
+                    icon: Icons.calendar_today_rounded,
+                    color: Colors.indigo,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      context.push('/appointments/add');
+                    },
+                  ),
+                  _MenuActionItem(
+                    label: context.l10n.addDoctor,
+                    icon: Icons.person_add_rounded,
+                    color: Colors.teal,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      context.push('/doctors/add');
+                    },
+                  ),
+                  _MenuActionItem(
+                    label: context.l10n.addDocument,
+                    icon: Icons.upload_file_rounded,
+                    color: Colors.orange,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      ref.read(navigationProvider.notifier).setIndex(1);
+                    },
+                  ),
+                  _MenuActionItem(
+                    label: context.l10n.addData,
+                    icon: Icons.analytics_rounded,
+                    color: Colors.pink,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      context.push('/health/add');
+                    },
+                  ),
+                  _MenuActionItem(
+                    label: context.l10n.settings,
+                    icon: Icons.settings_rounded,
+                    color: Colors.grey,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      context.push('/settings');
+                    },
+                  ),
+                ],
               ),
-              _MenuActionItem(
-                label: context.l10n('add_document'),
-                icon: Icons.upload_file_rounded,
-                color: Colors.orange,
-                onTap: () {
-                  Navigator.pop(ctx);
-                  ref.read(navigationProvider.notifier).setIndex(1);
-                },
-              ),
-              _MenuActionItem(
-                label: context.l10n('add_data'),
-                icon: Icons.analytics_rounded,
-                color: Colors.pink,
-                onTap: () {
-                  Navigator.pop(ctx);
-                  context.push('/health/add');
-                },
-              ),
-              _MenuActionItem(
-                label: context.l10n('settings'),
-                icon: Icons.settings_rounded,
-                color: Colors.grey,
-                onTap: () {
-                  Navigator.pop(ctx);
-                  context.push('/settings');
-                },
-              ),
+              const SizedBox(height: 20),
             ],
           ),
-          const SizedBox(height: 20),
-        ],
-      ),
-    ),
+        ),
   );
 }
 
@@ -1040,7 +1143,7 @@ class _MenuActionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return Column(
       children: [
         InkWell(
@@ -1071,4 +1174,3 @@ class _MenuActionItem extends StatelessWidget {
     );
   }
 }
-

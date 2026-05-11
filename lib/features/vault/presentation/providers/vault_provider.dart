@@ -2,8 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/models/vault_document.dart';
 
-final vaultProvider =
-    Provider<List<VaultDocument>>((ref) {
+final vaultProvider = Provider<List<VaultDocument>>((ref) {
   return [
     VaultDocument(
       id: "1",
@@ -24,8 +23,7 @@ final vaultProvider =
       category: "Referral",
       physician: "Dr. Alan Turing",
       patient: "Alex Smith",
-      notes:
-          "MRI scan requested for further neurological analysis.",
+      notes: "MRI scan requested for further neurological analysis.",
       pending: true,
       date: DateTime(2026, 9, 28),
     ),

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/onboarding_provider.dart';
 import '../../../../core/di/service_providers.dart';
 import '../../../../shared/data/services/analytics_service.dart';
@@ -47,9 +47,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   // Page 1: Welcome
                   _ModernPage(
                     visual: _AnimatedLogo(isDark: isDark),
-                    title: context.l10n('ob_1_title'),
-                    subtitle: context.l10n('ob_1_subtitle'),
-                    description: context.l10n('ob_1_desc'),
+                    title: context.l10n.ob1Title,
+                    subtitle: context.l10n.ob1Subtitle,
+                    description: context.l10n.ob1Desc,
                     isDark: isDark,
                   ),
                   // Page 2: Documents
@@ -59,8 +59,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       color: const Color(0xFF3B82F6),
                       isDark: isDark,
                     ),
-                    title: context.l10n('ob_2_title'),
-                    description: context.l10n('ob_2_desc'),
+                    title: context.l10n.ob2Title,
+                    description: context.l10n.ob2Desc,
                     isDark: isDark,
                   ),
                   // Page 3: Appointments
@@ -70,8 +70,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       color: const Color(0xFF8B5CF6),
                       isDark: isDark,
                     ),
-                    title: context.l10n('ob_3_title'),
-                    description: context.l10n('ob_3_desc'),
+                    title: context.l10n.ob3Title,
+                    description: context.l10n.ob3Desc,
                     isDark: isDark,
                   ),
                   // Page 4: Medicines
@@ -81,31 +81,31 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       color: const Color(0xFF10B981),
                       isDark: isDark,
                     ),
-                    title: context.l10n('ob_4_title'),
-                    description: context.l10n('ob_4_desc'),
+                    title: context.l10n.ob4Title,
+                    description: context.l10n.ob4Desc,
                     isDark: isDark,
                   ),
                   // Page 5: Security & Privacy
                   _ModernPage(
                     visual: _SecurityVisual(isDark: isDark),
-                    title: context.l10n('ob_5_title'),
-                    description: context.l10n('ob_5_desc'),
+                    title: context.l10n.ob5Title,
+                    description: context.l10n.ob5Desc,
                     isDark: isDark,
                     features: [
                       _FeatureRow(
                         icon: Icons.lock_rounded,
-                        title: context.l10n('ob_feature_1_title'),
-                        desc: context.l10n('ob_feature_1_desc'),
+                        title: context.l10n.obFeature1Title,
+                        desc: context.l10n.obFeature1Desc,
                       ),
                       _FeatureRow(
                         icon: Icons.notifications_active_rounded,
-                        title: context.l10n('ob_feature_2_title'),
-                        desc: context.l10n('ob_feature_2_desc'),
+                        title: context.l10n.obFeature2Title,
+                        desc: context.l10n.obFeature2Desc,
                       ),
                       _FeatureRow(
                         icon: Icons.cloud_done_rounded,
-                        title: context.l10n('ob_feature_3_title'),
-                        desc: context.l10n('ob_feature_3_desc'),
+                        title: context.l10n.obFeature3Title,
+                        desc: context.l10n.obFeature3Desc,
                       ),
                     ],
                   ),
@@ -143,16 +143,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ? Icons.notifications_active_rounded
                   : Icons.notifications_outlined,
               size: 64,
-              color: _notificationsGranted
-                  ? const Color(0xFF10B981)
-                  : const Color(0xFF3B82F6),
+              color:
+                  _notificationsGranted
+                      ? const Color(0xFF10B981)
+                      : const Color(0xFF3B82F6),
             ),
           ).animate().scale(
-                begin: const Offset(0.8, 0.8),
-                end: const Offset(1, 1),
-                duration: 500.ms,
-                curve: Curves.easeOutBack,
-              ),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1, 1),
+            duration: 500.ms,
+            curve: Curves.easeOutBack,
+          ),
           const SizedBox(height: 32),
           Text(
             _notificationsGranted ? '🎉' : '🔔',
@@ -161,8 +162,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 16),
           Text(
             _notificationsGranted
-                ? context.l10n('notifications_active_msg')
-                : context.l10n('ob_feature_2_title'),
+                ? context.l10n.notificationsActiveMsg
+                : context.l10n.obFeature2Title,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -173,7 +174,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ).animate().fadeIn(delay: 200.ms),
           const SizedBox(height: 12),
           Text(
-            context.l10n('ob_feature_2_desc'),
+            context.l10n.obFeature2Desc,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
@@ -197,15 +198,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 },
                 icon: const Icon(Icons.notifications_active_rounded),
                 label: Text(
-                  context.l10n('ob_feature_2_title'),
+                  context.l10n.obFeature2Title,
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w800),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF3B82F6),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   elevation: 0,
                 ),
               ),
@@ -217,16 +221,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 color: const Color(0xFF10B981).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                    color: const Color(0xFF10B981).withValues(alpha: 0.3)),
+                  color: const Color(0xFF10B981).withValues(alpha: 0.3),
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.check_circle_rounded,
-                      color: Color(0xFF10B981)),
+                  const Icon(
+                    Icons.check_circle_rounded,
+                    color: Color(0xFF10B981),
+                  ),
                   const SizedBox(width: 12),
                   Text(
-                    context.l10n('notifications_active_msg'),
+                    context.l10n.notificationsActiveMsg,
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF10B981),
@@ -263,21 +270,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: isLast
-                    ? AppColors.primaryIndigo
-                    : const Color(0xFF005DA7),
+                backgroundColor:
+                    isLast ? AppColors.primaryIndigo : const Color(0xFF005DA7),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 elevation: 0,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    isLast
-                        ? context.l10n('let_start')
-                        : context.l10n('continue'),
+                    isLast ? context.l10n.letStart : context.l10n.continue_btn,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
@@ -286,10 +291,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   const SizedBox(width: 8),
                   Icon(
-                      isLast
-                          ? Icons.rocket_launch_rounded
-                          : Icons.arrow_forward_rounded,
-                      size: 20),
+                    isLast
+                        ? Icons.rocket_launch_rounded
+                        : Icons.arrow_forward_rounded,
+                    size: 20,
+                  ),
                 ],
               ),
             ),
@@ -306,11 +312,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 height: 8,
                 margin: const EdgeInsets.only(right: 6),
                 decoration: BoxDecoration(
-                  color: _currentPage == index
-                      ? const Color(0xFF005DA7)
-                      : (isDark
-                          ? Colors.white10
-                          : Colors.black.withValues(alpha: 0.08)),
+                  color:
+                      _currentPage == index
+                          ? const Color(0xFF005DA7)
+                          : (isDark
+                              ? Colors.white10
+                              : Colors.black.withValues(alpha: 0.08)),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
@@ -411,14 +418,21 @@ class _ModernPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(f.title,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w800)),
-                Text(f.desc,
-                    style: const TextStyle(
-                        fontSize: 12,
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.w500)),
+                Text(
+                  f.title,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  f.desc,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
             ),
           ),
@@ -444,40 +458,41 @@ class _AnimatedLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160,
-      height: 160,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF1A56DB), Color(0xFF3B82F6)],
-        ),
-        borderRadius: BorderRadius.circular(48),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF1A56DB).withValues(alpha: 0.35),
-            blurRadius: 40,
-            offset: const Offset(0, 20),
+          width: 160,
+          height: 160,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF1A56DB), Color(0xFF3B82F6)],
+            ),
+            borderRadius: BorderRadius.circular(48),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF1A56DB).withValues(alpha: 0.35),
+                blurRadius: 40,
+                offset: const Offset(0, 20),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: const Center(
-        child: Text(
-          "V",
-          style: TextStyle(
-            fontSize: 88,
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            fontFamily: 'Manrope',
+          child: const Center(
+            child: Text(
+              "V",
+              style: TextStyle(
+                fontSize: 88,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                fontFamily: 'Manrope',
+              ),
+            ),
           ),
-        ),
-      ),
-    )
+        )
         .animate(onPlay: (c) => c.repeat(reverse: true))
         .scale(
-            begin: const Offset(1, 1),
-            end: const Offset(1.04, 1.04),
-            duration: 2500.ms);
+          begin: const Offset(1, 1),
+          end: const Offset(1.04, 1.04),
+          duration: 2500.ms,
+        );
   }
 }
 
@@ -485,8 +500,11 @@ class _FeatureVisual extends StatelessWidget {
   final IconData icon;
   final Color color;
   final bool isDark;
-  const _FeatureVisual(
-      {required this.icon, required this.color, required this.isDark});
+  const _FeatureVisual({
+    required this.icon,
+    required this.color,
+    required this.isDark,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -509,10 +527,10 @@ class _FeatureVisual extends StatelessWidget {
         ],
       ),
       child: Center(child: Icon(icon, size: 72, color: Colors.white)),
-    )
-        .animate()
-        .fadeIn()
-        .scale(begin: const Offset(0.85, 0.85), duration: 600.ms);
+    ).animate().fadeIn().scale(
+      begin: const Offset(0.85, 0.85),
+      duration: 600.ms,
+    );
   }
 }
 
@@ -523,62 +541,74 @@ class _SecurityVisual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: 140,
-          height: 140,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF1A56DB), Color(0xFF3B82F6)],
-            ),
-            borderRadius: BorderRadius.circular(40),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF1A56DB).withValues(alpha: 0.3),
-                blurRadius: 30,
-                offset: const Offset(0, 15),
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: 140,
+              height: 140,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1A56DB), Color(0xFF3B82F6)],
+                ),
+                borderRadius: BorderRadius.circular(40),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1A56DB).withValues(alpha: 0.3),
+                    blurRadius: 30,
+                    offset: const Offset(0, 15),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: const Icon(Icons.shield_rounded, color: Colors.white, size: 64),
-        ),
-        Transform.translate(
-          offset: const Offset(-55, 45),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: isDark ? AppColors.surfaceDark : Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 12)
-              ],
+              child: const Icon(
+                Icons.shield_rounded,
+                color: Colors.white,
+                size: 64,
+              ),
             ),
-            child:
-                const Icon(Icons.lock_rounded, color: Color(0xFF10B981), size: 22),
-          ),
-        ),
-        Transform.translate(
-          offset: const Offset(55, -45),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: isDark ? AppColors.surfaceDark : Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 12)
-              ],
+            Transform.translate(
+              offset: const Offset(-55, 45),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.surfaceDark : Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.08),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.lock_rounded,
+                  color: Color(0xFF10B981),
+                  size: 22,
+                ),
+              ),
             ),
-            child: const Icon(Icons.verified_user_rounded,
-                color: Color(0xFF3B82F6), size: 22),
-          ),
-        ),
-      ],
-    )
+            Transform.translate(
+              offset: const Offset(55, -45),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.surfaceDark : Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.08),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.verified_user_rounded,
+                  color: Color(0xFF3B82F6),
+                  size: 22,
+                ),
+              ),
+            ),
+          ],
+        )
         .animate(onPlay: (c) => c.repeat(reverse: true))
         .slideY(begin: 0, end: 0.08, duration: 3.seconds);
   }

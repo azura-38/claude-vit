@@ -27,8 +27,13 @@ class MedicineRepositoryImpl implements MedicineRepository {
   @override
   Future<List<Medicine>> getAll() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('createdAt', false)]));
-    return records.map((r) => MedicineModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('createdAt', false)]),
+    );
+    return records
+        .map((r) => MedicineModel.fromMap(r.value).toEntity())
+        .toList();
   }
 
   @override

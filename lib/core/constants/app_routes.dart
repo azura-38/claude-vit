@@ -31,7 +31,7 @@ class AppRoutes {
   static const String personalInfo = '/profile/personal-info';
   static const String medicalInfo = '/profile/medical';
   static const String healthStats = '/profile/health-stats';
-  
+
   static const String settings = '/settings';
   static const String settingsTheme = '/settings/theme';
   static const String settingsTerms = '/settings/terms';

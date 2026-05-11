@@ -1,17 +1,13 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class RadialBmiGauge extends StatelessWidget {
   final double bmi;
   final String category;
 
-  const RadialBmiGauge({
-    super.key,
-    required this.bmi,
-    required this.category,
-  });
+  const RadialBmiGauge({super.key, required this.bmi, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +42,7 @@ class RadialBmiGauge extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'BMI ${context.l10n('index').toUpperCase()}',
+                'BMI ${context.l10n.index.toUpperCase()}',
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
@@ -83,7 +79,11 @@ class _BmiGaugePainter extends CustomPainter {
   final Color color;
   final bool isDark;
 
-  _BmiGaugePainter({required this.value, required this.color, required this.isDark});
+  _BmiGaugePainter({
+    required this.value,
+    required this.color,
+    required this.isDark,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -94,14 +94,18 @@ class _BmiGaugePainter extends CustomPainter {
     const sweepAngle = 1.4 * math.pi;
 
     // Background Arc
-    final bgPaint = Paint()
-      ..color = isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round;
+    final bgPaint =
+        Paint()
+          ..color =
+              isDark
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : Colors.black.withValues(alpha: 0.05)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius - strokeWidth/2),
+      Rect.fromCircle(center: center, radius: radius - strokeWidth / 2),
       startAngle,
       sweepAngle,
       false,
@@ -109,18 +113,19 @@ class _BmiGaugePainter extends CustomPainter {
     );
 
     // Value Arc
-    final valuePaint = Paint()
-      ..shader = LinearGradient(
-        colors: [color.withValues(alpha: 0.7), color],
-        begin: Alignment.bottomLeft,
-        end: Alignment.topRight,
-      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round;
+    final valuePaint =
+        Paint()
+          ..shader = LinearGradient(
+            colors: [color.withValues(alpha: 0.7), color],
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+          ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius - strokeWidth/2),
+      Rect.fromCircle(center: center, radius: radius - strokeWidth / 2),
       startAngle,
       sweepAngle * value,
       false,

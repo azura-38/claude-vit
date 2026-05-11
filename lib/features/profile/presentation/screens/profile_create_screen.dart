@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/locale_provider.dart';
 import '../providers/legacy_providers.dart';
 import '../../data/services/mock_profile_service.dart';
@@ -88,15 +88,15 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   void _goToSecurityStep() {
     if (!_profileValid) {
       if (_nameController.text.trim().isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n('please_enter_name'))),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(context.l10n.pleaseEnterName)));
         return;
       }
       if (!_agreedPrivacy || !_agreedTerms || !_agreedDisclaimer) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n('must_agree'))),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(context.l10n.mustAgree)));
         return;
       }
     }
@@ -107,11 +107,11 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     final name = _nameController.text.trim();
 
     await ref.read(profileServiceProvider).saveProfile({
-          'name': name,
-          'gender': _selectedGender ?? context.l10n('not_set'),
-          'birthDate': _birthDate?.toIso8601String().substring(0, 10),
-          'photoPath': _pickedImagePath,
-        });
+      'name': name,
+      'gender': _selectedGender ?? context.l10n.notSet,
+      'birthDate': _birthDate?.toIso8601String().substring(0, 10),
+      'photoPath': _pickedImagePath,
+    });
     if (_selectedLanguageCode != null) {
       await ref.read(localeProvider.notifier).setLocale(_selectedLanguageCode!);
     }
@@ -145,9 +145,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             _pinConfirm = '';
             _pinHasError = true;
           });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.l10n('lock_pin_mismatch'))),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(context.l10n.lockPinMismatch)));
         }
       }
     } else {
@@ -180,7 +180,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     await ref.read(appLockEnabledProvider.notifier).setEnabled(true);
     ref.read(appLockStateProvider.notifier).setUnlocked();
     setState(() => _pinSetupComplete = true);
-    
+
     // Small delay to show success state
     await Future.delayed(const Duration(milliseconds: 600));
     await _saveAndFinish();
@@ -200,18 +200,20 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         automaticallyImplyLeading: false,
-        leading: _currentStep == 1
-            ? IconButton(
-                icon: const Icon(Icons.chevron_left_rounded, size: 32),
-                onPressed: () => setState(() {
-                  _currentStep = 0;
-                  _pinEntry = '';
-                  _pinConfirm = '';
-                  _isConfirmingPin = false;
-                  _pinHasError = false;
-                }),
-              )
-            : null,
+        leading:
+            _currentStep == 1
+                ? IconButton(
+                  icon: const Icon(Icons.chevron_left_rounded, size: 32),
+                  onPressed:
+                      () => setState(() {
+                        _currentStep = 0;
+                        _pinEntry = '';
+                        _pinConfirm = '';
+                        _isConfirmingPin = false;
+                        _pinHasError = false;
+                      }),
+                )
+                : null,
         title: const Text(
           "VitaCase",
           style: TextStyle(
@@ -243,20 +245,25 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               children: [
                 // Step indicator
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 8,
+                  ),
                   child: Row(
                     children: [
-                      _buildStepDot(0, context.l10n('step_profile')),
+                      _buildStepDot(0, context.l10n.stepProfile),
                       Expanded(
                         child: Container(
                           height: 2,
-                          color: _currentStep >= 1
-                              ? AppColors.medicalBlue
-                              : (isDark ? Colors.white12 : Colors.grey[300]),
+                          color:
+                              _currentStep >= 1
+                                  ? AppColors.medicalBlue
+                                  : (isDark
+                                      ? Colors.white12
+                                      : Colors.grey[300]),
                         ),
                       ),
-                      _buildStepDot(1, context.l10n('step_security')),
+                      _buildStepDot(1, context.l10n.stepSecurity),
                     ],
                   ),
                 ),
@@ -264,9 +271,10 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                 Expanded(
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 350),
-                    child: _currentStep == 0
-                        ? _buildProfileStep(isDark)
-                        : _buildSecurityStep(isDark),
+                    child:
+                        _currentStep == 0
+                            ? _buildProfileStep(isDark)
+                            : _buildSecurityStep(isDark),
                   ),
                 ),
               ],
@@ -280,8 +288,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: (isDark ? Colors.black : Colors.white)
-                      .withValues(alpha: 0.9),
+                  color: (isDark ? Colors.black : Colors.white).withValues(
+                    alpha: 0.9,
+                  ),
                   border: Border(
                     top: BorderSide(
                       color: isDark ? Colors.white10 : Colors.black12,
@@ -300,14 +309,15 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        disabledBackgroundColor:
-                            Colors.grey.withValues(alpha: 0.3),
+                        disabledBackgroundColor: Colors.grey.withValues(
+                          alpha: 0.3,
+                        ),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            context.l10n('continue'),
+                            context.l10n.continue_btn,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
@@ -320,7 +330,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      context.l10n('security_badge_label'),
+                      context.l10n.securityBadgeLabel,
                       style: const TextStyle(
                         fontSize: 9,
                         color: Colors.grey,
@@ -347,23 +357,30 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isActive ? AppColors.medicalBlue : Colors.grey[300],
-            border: isCurrent
-                ? Border.all(
-                    color: AppColors.medicalBlue.withValues(alpha: 0.3),
-                    width: 3)
-                : null,
+            border:
+                isCurrent
+                    ? Border.all(
+                      color: AppColors.medicalBlue.withValues(alpha: 0.3),
+                      width: 3,
+                    )
+                    : null,
           ),
           child: Center(
-            child: isActive && !isCurrent
-                ? const Icon(Icons.check_rounded, color: Colors.white, size: 18)
-                : Text(
-                    '${step + 1}',
-                    style: TextStyle(
-                      color: isActive ? Colors.white : Colors.grey,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
+            child:
+                isActive && !isCurrent
+                    ? const Icon(
+                      Icons.check_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    )
+                    : Text(
+                      '${step + 1}',
+                      style: TextStyle(
+                        color: isActive ? Colors.white : Colors.grey,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
           ),
         ),
         const SizedBox(height: 4),
@@ -372,11 +389,12 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           style: TextStyle(
             fontSize: 10,
             fontWeight: isCurrent ? FontWeight.w800 : FontWeight.w500,
-            color: isActive
-                ? AppColors.medicalBlue
-                : (Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white38
-                    : Colors.grey),
+            color:
+                isActive
+                    ? AppColors.medicalBlue
+                    : (Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white38
+                        : Colors.grey),
           ),
         ),
       ],
@@ -394,7 +412,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         _buildPhotoPicker(isDark),
         const SizedBox(height: 24),
         _buildFormInput(
-          label: context.l10n('full_name'),
+          label: context.l10n.fullName,
           child: TextField(
             controller: _nameController,
             onChanged: (_) => setState(() {}),
@@ -402,7 +420,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               color: isDark ? Colors.white : AppColors.textPrimary,
             ),
             decoration: _inputDecoration(
-              hint: context.l10n('hint_name'),
+              hint: context.l10n.hintName,
               icon: Icons.badge_outlined,
               isDark: isDark,
             ),
@@ -413,24 +431,27 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           children: [
             Expanded(
               child: _buildFormInput(
-                label: context.l10n('gender'),
+                label: context.l10n.gender,
                 child: DropdownButtonFormField<String>(
                   initialValue: _selectedGender,
                   decoration: _inputDecoration(
-                    hint: context.l10n('hint_select'),
+                    hint: context.l10n.hintSelect,
                     icon: Icons.person_outline,
                     isDark: isDark,
                   ),
                   items: [
                     DropdownMenuItem(
-                        value: "Female",
-                        child: Text(context.l10n('gender_female'))),
+                      value: "Female",
+                      child: Text(context.l10n.genderFemale),
+                    ),
                     DropdownMenuItem(
-                        value: "Male",
-                        child: Text(context.l10n('gender_male'))),
+                      value: "Male",
+                      child: Text(context.l10n.genderMale),
+                    ),
                     DropdownMenuItem(
-                        value: "Other",
-                        child: Text(context.l10n('gender_other'))),
+                      value: "Other",
+                      child: Text(context.l10n.genderOther),
+                    ),
                   ],
                   onChanged: (val) => setState(() => _selectedGender = val),
                 ),
@@ -439,7 +460,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             const SizedBox(width: 14),
             Expanded(
               child: _buildFormInput(
-                label: context.l10n('birth_date'),
+                label: context.l10n.birthDate,
                 child: TextField(
                   controller: _dateController,
                   readOnly: true,
@@ -449,9 +470,11 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                   onTap: () async {
                     final date = await showDatePicker(
                       context: context,
-                      initialDate: _birthDate ??
-                          DateTime.now()
-                              .subtract(const Duration(days: 365 * 25)),
+                      initialDate:
+                          _birthDate ??
+                          DateTime.now().subtract(
+                            const Duration(days: 365 * 25),
+                          ),
                       firstDate: DateTime(1900),
                       lastDate: DateTime.now(),
                     );
@@ -464,7 +487,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                     }
                   },
                   decoration: _inputDecoration(
-                    hint: context.l10n('date_format_hint'),
+                    hint: context.l10n.dateFormatHint,
                     icon: Icons.calendar_today_rounded,
                     isDark: isDark,
                   ),
@@ -475,22 +498,24 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         ),
         const SizedBox(height: 14),
         _buildFormInput(
-          label: context.l10n('select_language'),
+          label: context.l10n.selectLanguage,
           child: DropdownButtonFormField<String>(
             initialValue: _selectedLanguageCode,
             decoration: _inputDecoration(
-              hint: context.l10n('select_language'),
+              hint: context.l10n.selectLanguage,
               icon: Icons.language_rounded,
               isDark: isDark,
             ),
-            items: supportedLanguages
-                .map((language) => DropdownMenuItem(
-                      value: language.code,
-                      child: Text(language.name),
-                    ))
-                .toList(),
-            onChanged: (value) =>
-                setState(() => _selectedLanguageCode = value),
+            items:
+                supportedLanguages
+                    .map(
+                      (language) => DropdownMenuItem(
+                        value: language.code,
+                        child: Text(language.name),
+                      ),
+                    )
+                    .toList(),
+            onChanged: (value) => setState(() => _selectedLanguageCode = value),
           ),
         ),
         const SizedBox(height: 14),
@@ -514,17 +539,20 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                 color: const Color(0xFF10B981).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.check_circle_rounded,
-                  color: Color(0xFF10B981), size: 64),
+              child: const Icon(
+                Icons.check_circle_rounded,
+                color: Color(0xFF10B981),
+                size: 64,
+              ),
             ).animate().scale(
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1, 1),
-                  duration: 400.ms,
-                  curve: Curves.easeOutBack,
-                ),
+              begin: const Offset(0.5, 0.5),
+              end: const Offset(1, 1),
+              duration: 400.ms,
+              curve: Curves.easeOutBack,
+            ),
             const SizedBox(height: 24),
             Text(
-              context.l10n('success'),
+              context.l10n.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
@@ -556,13 +584,13 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               color: isDark ? Colors.white70 : AppColors.medicalBlue,
             ),
           ).animate().scale(
-                begin: const Offset(0.8, 0.8),
-                end: const Offset(1, 1),
-                duration: 400.ms,
-              ),
+            begin: const Offset(0.8, 0.8),
+            end: const Offset(1, 1),
+            duration: 400.ms,
+          ),
           const SizedBox(height: 20),
           Text(
-            context.l10n('setup_app_lock'),
+            context.l10n.setupAppLock,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w900,
@@ -571,7 +599,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            context.l10n('setup_app_lock_desc'),
+            context.l10n.setupAppLockDesc,
             style: TextStyle(
               fontSize: 14,
               color: isDark ? Colors.white54 : Colors.blueGrey,
@@ -580,8 +608,8 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           const SizedBox(height: 8),
           Text(
             _isConfirmingPin
-                ? context.l10n('lock_confirm_pin')
-                : context.l10n('lock_set_pin'),
+                ? context.l10n.lockConfirmPin
+                : context.l10n.lockSetPin,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
@@ -601,13 +629,14 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                 height: isFilled ? 16 : 12,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _pinHasError
-                      ? AppColors.error
-                      : (isFilled
-                          ? (isDark ? Colors.white : AppColors.medicalBlue)
-                          : (isDark
-                              ? Colors.white12
-                              : Colors.grey.withValues(alpha: 0.2))),
+                  color:
+                      _pinHasError
+                          ? AppColors.error
+                          : (isFilled
+                              ? (isDark ? Colors.white : AppColors.medicalBlue)
+                              : (isDark
+                                  ? Colors.white12
+                                  : Colors.grey.withValues(alpha: 0.2))),
                 ),
               );
             }),
@@ -620,14 +649,14 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           TextButton.icon(
             onPressed: _skipPinSetup,
             icon: const Icon(Icons.skip_next_rounded, size: 20),
-            label: Text(context.l10n('skip_pin_setup')),
+            label: Text(context.l10n.skipPinSetup),
             style: TextButton.styleFrom(
               foregroundColor: isDark ? Colors.white38 : Colors.blueGrey,
             ),
           ),
           const SizedBox(height: 4),
           Text(
-            context.l10n('lock_skip_desc'),
+            context.l10n.lockSkipDesc,
             style: TextStyle(
               fontSize: 11,
               color: isDark ? Colors.white24 : Colors.grey,
@@ -651,9 +680,12 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             padding: const EdgeInsets.only(bottom: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: row
-                  .map((k) => _compactKey(k, () => _handlePinKey(k), isDark))
-                  .toList(),
+              children:
+                  row
+                      .map(
+                        (k) => _compactKey(k, () => _handlePinKey(k), isDark),
+                      )
+                      .toList(),
             ),
           ),
         Padding(
@@ -668,8 +700,11 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                 height: 56,
                 child: IconButton(
                   onPressed: _handlePinBackspace,
-                  icon: Icon(Icons.backspace_outlined,
-                      color: isDark ? Colors.white54 : Colors.grey, size: 22),
+                  icon: Icon(
+                    Icons.backspace_outlined,
+                    color: isDark ? Colors.white54 : Colors.grey,
+                    size: 22,
+                  ),
                 ),
               ),
             ],
@@ -692,9 +727,10 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isDark
-                ? Colors.white.withValues(alpha: 0.06)
-                : Colors.grey.withValues(alpha: 0.08),
+            color:
+                isDark
+                    ? Colors.white.withValues(alpha: 0.06)
+                    : Colors.grey.withValues(alpha: 0.08),
           ),
           child: Text(
             val,
@@ -715,7 +751,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     return Column(
       children: [
         Text(
-          context.l10n('create_profile'),
+          context.l10n.createProfile,
           style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.w900,
@@ -724,7 +760,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          context.l10n('profile_desc'),
+          context.l10n.profileDesc,
           style: TextStyle(
             fontSize: 14,
             color: isDark ? Colors.white70 : AppColors.textSecondary,
@@ -753,13 +789,14 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                 color: isDark ? Colors.white10 : Colors.grey[200],
               ),
               child: ClipOval(
-                child: _pickedImagePath != null
-                    ? Image.file(File(_pickedImagePath!), fit: BoxFit.cover)
-                    : const Icon(
-                        Icons.person_rounded,
-                        size: 56,
-                        color: AppColors.medicalBlue,
-                      ),
+                child:
+                    _pickedImagePath != null
+                        ? Image.file(File(_pickedImagePath!), fit: BoxFit.cover)
+                        : const Icon(
+                          Icons.person_rounded,
+                          size: 56,
+                          color: AppColors.medicalBlue,
+                        ),
               ),
             ),
             Positioned(
@@ -768,8 +805,11 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               child: CircleAvatar(
                 backgroundColor: AppColors.medicalBlue,
                 radius: 16,
-                child: const Icon(Icons.add_a_photo_rounded,
-                    color: Colors.white, size: 16),
+                child: const Icon(
+                  Icons.add_a_photo_rounded,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
             ),
           ],
@@ -816,19 +856,19 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     return Column(
       children: [
         _legalItem(
-          context.l10n('privacy_policy'),
+          context.l10n.privacyPolicy,
           _agreedPrivacy,
           (v) => setState(() => _agreedPrivacy = v ?? false),
           () => context.pushNamed('settingsPrivacy'),
         ),
         _legalItem(
-          context.l10n('terms_conditions'),
+          context.l10n.termsConditions,
           _agreedTerms,
           (v) => setState(() => _agreedTerms = v ?? false),
           () => context.pushNamed('settingsTerms'),
         ),
         _legalItem(
-          context.l10n('legal_disclaimer'),
+          context.l10n.legalDisclaimer,
           _agreedDisclaimer,
           (v) => setState(() => _agreedDisclaimer = v ?? false),
           () => context.pushNamed('settingsDisclaimer'),
@@ -849,7 +889,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       title: Row(
         children: [
           Text(
-            "${context.l10n('i_agree_to')} ",
+            "${context.l10n.iAgreeTo} ",
             style: const TextStyle(fontSize: 13),
           ),
           GestureDetector(

@@ -51,9 +51,15 @@ class DocumentModel {
     return Document(
       id: id,
       fileName: fileName,
-      fileType: DocumentFileType.values.firstWhere((e) => e.name == fileType, orElse: () => DocumentFileType.image),
+      fileType: DocumentFileType.values.firstWhere(
+        (e) => e.name == fileType,
+        orElse: () => DocumentFileType.image,
+      ),
       localPath: localPath,
-      category: DocumentCategory.values.firstWhere((e) => e.name == category, orElse: () => DocumentCategory.other),
+      category: DocumentCategory.values.firstWhere(
+        (e) => e.name == category,
+        orElse: () => DocumentCategory.other,
+      ),
       hospitalName: hospitalName,
       doctorName: doctorName,
       documentDate: documentDate,

@@ -63,7 +63,7 @@ class DailyMissionEngine {
         isCompleted: false,
       ),
     ];
-    
+
     await save(missions);
     await prefs.setString(_lastResetKey, dateStr);
     return missions;

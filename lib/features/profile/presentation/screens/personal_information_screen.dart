@@ -1,42 +1,28 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/profile_provider.dart';
-import '../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 import '../widgets/bmi_card.dart';
 import '../widgets/detail_section_card.dart';
 import '../../../../shared/widgets/premium_appbar.dart';
 import '../widgets/security_banner.dart';
 import '../../../../shared/widgets/vitacase_bottom_nav.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
-class PersonalInformationScreen
-    extends ConsumerWidget {
-  const PersonalInformationScreen({
-    super.key,
-  });
+class PersonalInformationScreen extends ConsumerWidget {
+  const PersonalInformationScreen({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
-    final profile =
-        ref.watch(profileProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(profileProvider);
 
     return Scaffold(
-      bottomNavigationBar:
-          const VitaCaseBottomNav(),
+      bottomNavigationBar: const VitaCaseBottomNav(),
       body: SafeArea(
         child: ListView(
-          padding:
-              const EdgeInsets.fromLTRB(
-            20,
-            14,
-            20,
-            120,
-          ),
+          padding: const EdgeInsets.fromLTRB(20, 14, 20, 120),
           children: [
             const PremiumAppbar(),
 
@@ -49,50 +35,38 @@ class PersonalInformationScreen
                     profile.name,
                     style: const TextStyle(
                       fontSize: 34,
-                      fontWeight:
-                          FontWeight.w700,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
 
                   const SizedBox(height: 6),
 
                   Text(
-                    context.l10n('vita_badge'),
-                    style: const TextStyle(
-                      color:
-                          VitaColors.secondary,
-                    ),
+                    context.l10n.vitaBadge,
+                    style: const TextStyle(color: AppColors.secondary),
                   ),
                 ],
               ),
-            )
-                .animate()
-                .fadeIn()
-                .slideY(begin: .2),
+            ).animate().fadeIn().slideY(begin: .2),
 
             const SizedBox(height: 36),
 
             Row(
-              mainAxisAlignment:
-                  MainAxisAlignment
-                      .spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.l10n('height_label'),
+                  context.l10n.heightLabel,
                   style: const TextStyle(
                     fontSize: 26,
-                    fontWeight:
-                        FontWeight.w700,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
 
                 const Text(
                   "Last sync: 2h ago",
                   style: TextStyle(
-                    color:
-                        VitaColors.primary,
-                    fontWeight:
-                        FontWeight.w600,
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -100,116 +74,100 @@ class PersonalInformationScreen
 
             const SizedBox(height: 18),
 
-            BmiCard(profile: profile)
-                .animate()
-                .fadeIn(
-                  delay: 100.ms,
-                )
-                .slideY(begin: .15),
+            BmiCard(
+              profile: profile,
+            ).animate().fadeIn(delay: 100.ms).slideY(begin: .15),
 
             const SizedBox(height: 36),
 
             Text(
-              context.l10n('personal_info'),
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight:
-                    FontWeight.w700,
-              ),
+              context.l10n.personalInfo,
+              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
             ),
 
             const SizedBox(height: 18),
 
             DetailSectionCard(
-              icon:
-                  Icons.person_outline_rounded,
-              iconColor:
-                  VitaColors.primary,
-              title:
-                  context.l10n('identity_contact'),
+              icon: Icons.person_outline_rounded,
+              iconColor: AppColors.primary,
+              title: context.l10n.identityContact,
               rows: [
                 {
-                  "label": context.l10n('email_address'),
-                  "value": profile.email.isNotEmpty ? profile.email : context.l10n('not_added'),
+                  "label": context.l10n.emailAddress,
+                  "value":
+                      profile.email.isNotEmpty
+                          ? profile.email
+                          : context.l10n.notAdded,
                 },
                 {
-                  "label": context.l10n('phone_number'),
-                  "value": profile.phone.isNotEmpty ? profile.phone : context.l10n('not_added'),
+                  "label": context.l10n.phoneNumber,
+                  "value":
+                      profile.phone.isNotEmpty
+                          ? profile.phone
+                          : context.l10n.notAdded,
                 },
                 {
-                  "label": context.l10n('birth_date'),
-                  "value": profile.birthDate != null
-                      ? "${profile.birthDate!.day.toString().padLeft(2, '0')}.${profile.birthDate!.month.toString().padLeft(2, '0')}.${profile.birthDate!.year}"
-                      : context.l10n('not_added'),
+                  "label": context.l10n.birthDate,
+                  "value":
+                      profile.birthDate != null
+                          ? "${profile.birthDate!.day.toString().padLeft(2, '0')}.${profile.birthDate!.month.toString().padLeft(2, '0')}.${profile.birthDate!.year}"
+                          : context.l10n.notAdded,
                 },
               ],
-            ).animate().fadeIn(
-                  delay: 200.ms,
-                ),
+            ).animate().fadeIn(delay: 200.ms),
 
             const SizedBox(height: 20),
 
             DetailSectionCard(
-              icon:
-                  Icons.medical_services_outlined,
-              iconColor:
-                  VitaColors.primary,
-              title:
-                  context.l10n('important_info'),
+              icon: Icons.medical_services_outlined,
+              iconColor: AppColors.primary,
+              title: context.l10n.importantInfo,
               rows: [
+                {"label": context.l10n.bloodType, "value": profile.bloodType},
                 {
-                  "label": context.l10n('blood_type'),
-                  "value":
-                      profile.bloodType,
-                },
-                {
-                  "label": context.l10n('allergies'),
+                  "label": context.l10n.allergies,
                   "value":
                       profile.allergies.isNotEmpty
                           ? profile.allergies.join(", ")
-                          : context.l10n('none'),
+                          : context.l10n.none,
                 },
                 {
-                  "label": context.l10n('medicines'),
+                  "label": context.l10n.medicines,
                   "value":
                       profile.medications.isNotEmpty
                           ? profile.medications.join(", ")
-                          : context.l10n('none'),
+                          : context.l10n.none,
                 },
               ],
-            ).animate().fadeIn(
-                  delay: 300.ms,
-                ),
+            ).animate().fadeIn(delay: 300.ms),
 
             const SizedBox(height: 20),
 
             DetailSectionCard(
               icon: Icons.emergency,
               iconColor: Colors.red,
-              title:
-                  context.l10n('emergency_contact'),
+              title: context.l10n.emergencyContact,
               rows: [
                 {
-                  "label": context.l10n('emergency_contact_name'),
+                  "label": context.l10n.emergencyContactName,
                   "value":
-                      profile.emergencyName.isNotEmpty ? profile.emergencyName : context.l10n('not_added'),
+                      profile.emergencyName.isNotEmpty
+                          ? profile.emergencyName
+                          : context.l10n.notAdded,
                 },
                 {
-                  "label": context.l10n('phone_number'),
-                  "value": profile.emergencyPhone.isNotEmpty ? profile.emergencyPhone : context.l10n('not_added'),
+                  "label": context.l10n.phoneNumber,
+                  "value":
+                      profile.emergencyPhone.isNotEmpty
+                          ? profile.emergencyPhone
+                          : context.l10n.notAdded,
                 },
               ],
-            ).animate().fadeIn(
-                  delay: 400.ms,
-                ),
+            ).animate().fadeIn(delay: 400.ms),
 
             const SizedBox(height: 28),
 
-            const SecurityBanner()
-                .animate()
-                .fadeIn(
-                  delay: 500.ms,
-                ),
+            const SecurityBanner().animate().fadeIn(delay: 500.ms),
           ],
         ),
       ),

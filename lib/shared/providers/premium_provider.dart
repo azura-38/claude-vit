@@ -5,7 +5,6 @@ import 'shared_prefs_provider.dart';
 import '../../core/config/app_config.dart';
 import '../../core/types/runtime_types.dart';
 
-
 /// Provider to track the user's premium status.
 /// Using a Notifier for modern, robust state management.
 class PremiumNotifier extends Notifier<bool> {
@@ -17,7 +16,7 @@ class PremiumNotifier extends Notifier<bool> {
   @override
   bool build() {
     final prefs = ref.watch(sharedPreferencesProvider);
-    
+
     if (!AppConfig.premiumEnabled) {
       return false;
     }
@@ -36,7 +35,7 @@ class PremiumNotifier extends Notifier<bool> {
 
     return false;
   }
-  
+
   String _generateChecksum(String data) {
     final key = utf8.encode(_hmacSecret);
     final bytes = utf8.encode(data);
@@ -65,7 +64,7 @@ class PremiumNotifier extends Notifier<bool> {
 
     final prefs = ref.read(sharedPreferencesProvider);
     final currentExpiryStr = prefs.getString(_expiryKey);
-    
+
     DateTime base = DateTime.now();
     if (currentExpiryStr != null) {
       final currentExpiry = DateTime.tryParse(currentExpiryStr);
@@ -73,7 +72,7 @@ class PremiumNotifier extends Notifier<bool> {
         base = currentExpiry;
       }
     }
-    
+
     final newExpiry = base.add(Duration(days: days));
     final newExpiryStr = newExpiry.toIso8601String();
     await prefs.setString(_expiryKey, newExpiryStr);
@@ -82,8 +81,9 @@ class PremiumNotifier extends Notifier<bool> {
   }
 }
 
-
-final premiumProvider = NotifierProvider<PremiumNotifier, bool>(PremiumNotifier.new);
+final premiumProvider = NotifierProvider<PremiumNotifier, bool>(
+  PremiumNotifier.new,
+);
 
 final premiumAvailabilityProvider = Provider<PremiumAvailability>((ref) {
   return AppConfig.premiumEnabled

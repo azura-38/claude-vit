@@ -16,29 +16,10 @@ class SupportedLanguage {
 const List<SupportedLanguage> supportedLanguages = [
   SupportedLanguage('en', 'English'),
   SupportedLanguage('tr', 'Turkce'),
-  SupportedLanguage('de', 'Deutsch'),
-  SupportedLanguage('es', 'Espanol'),
-  SupportedLanguage('fr', 'Francais'),
-  SupportedLanguage('pt', 'Portugues (Brasil)'),
-  SupportedLanguage('ar', 'العربية'),
-  SupportedLanguage('zh', '中文'),
-  SupportedLanguage('ja', '日本語'),
-  SupportedLanguage('ko', '한국어'),
 ];
 
 class LocaleNotifier extends Notifier<Locale> {
-  static const _supportedLocales = [
-    'en',
-    'tr',
-    'de',
-    'es',
-    'fr',
-    'pt',
-    'ar',
-    'zh',
-    'ja',
-    'ko',
-  ];
+  static const _supportedLocales = ['en', 'tr'];
 
   @override
   Locale build() {

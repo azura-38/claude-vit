@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/providers/shared_prefs_provider.dart';
 import '../../../../shared/data/services/app_lock_service.dart';
 import '../../../../shared/data/services/pin_service.dart';
 import '../../../../core/types/runtime_types.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 final appLockServiceProvider = Provider((ref) => AppLockService());
 final pinServiceProvider = Provider((ref) => PinService());
@@ -14,7 +14,9 @@ final hasPinProvider = FutureProvider<bool>((ref) async {
 });
 
 final appLockStateProvider =
-    NotifierProvider<AppLockStateNotifier, AppLockState>(AppLockStateNotifier.new);
+    NotifierProvider<AppLockStateNotifier, AppLockState>(
+      AppLockStateNotifier.new,
+    );
 
 class AppLockStateNotifier extends Notifier<AppLockState> {
   @override
@@ -36,7 +38,9 @@ class AppLockStateNotifier extends Notifier<AppLockState> {
   }
 }
 
-final appLockEnabledProvider = NotifierProvider<AppLockEnabledNotifier, bool>(AppLockEnabledNotifier.new);
+final appLockEnabledProvider = NotifierProvider<AppLockEnabledNotifier, bool>(
+  AppLockEnabledNotifier.new,
+);
 
 class AppLockEnabledNotifier extends Notifier<bool> {
   static const _key = 'app_lock_enabled';
@@ -60,7 +64,10 @@ class AppLockEnabledNotifier extends Notifier<bool> {
   }
 }
 
-final biometricEnabledProvider = NotifierProvider<BiometricEnabledNotifier, bool>(BiometricEnabledNotifier.new);
+final biometricEnabledProvider =
+    NotifierProvider<BiometricEnabledNotifier, bool>(
+      BiometricEnabledNotifier.new,
+    );
 
 class BiometricEnabledNotifier extends Notifier<bool> {
   static const _key = 'biometric_enabled';
@@ -78,7 +85,6 @@ class BiometricEnabledNotifier extends Notifier<bool> {
   }
 }
 
-
 enum LockTimeout {
   instant(Duration.zero, 'lock_timeout_instant'),
   oneMinute(Duration(minutes: 1), 'lock_timeout_1m'),
@@ -92,7 +98,9 @@ enum LockTimeout {
   String localizedLabel(BuildContext context) => context.l10n(key);
 }
 
-final lockTimeoutProvider = NotifierProvider<LockTimeoutNotifier, LockTimeout>(LockTimeoutNotifier.new);
+final lockTimeoutProvider = NotifierProvider<LockTimeoutNotifier, LockTimeout>(
+  LockTimeoutNotifier.new,
+);
 
 class LockTimeoutNotifier extends Notifier<LockTimeout> {
   static const _key = 'app_lock_timeout';
@@ -111,7 +119,9 @@ class LockTimeoutNotifier extends Notifier<LockTimeout> {
   }
 }
 
-final quickActionsProvider = NotifierProvider<QuickActionsNotifier, bool>(QuickActionsNotifier.new);
+final quickActionsProvider = NotifierProvider<QuickActionsNotifier, bool>(
+  QuickActionsNotifier.new,
+);
 
 class QuickActionsNotifier extends Notifier<bool> {
   static const _key = 'quick_actions_enabled';
@@ -130,7 +140,9 @@ class QuickActionsNotifier extends Notifier<bool> {
 }
 
 final engagementRemindersProvider =
-    NotifierProvider<EngagementRemindersNotifier, bool>(EngagementRemindersNotifier.new);
+    NotifierProvider<EngagementRemindersNotifier, bool>(
+      EngagementRemindersNotifier.new,
+    );
 
 class EngagementRemindersNotifier extends Notifier<bool> {
   static const _key = 'engagement_reminders_enabled';

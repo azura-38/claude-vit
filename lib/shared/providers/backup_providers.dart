@@ -6,7 +6,9 @@ import '../data/services/analytics_service.dart';
 
 final backupServiceProvider = Provider((ref) => BackupService());
 
-final backupActionProvider = AsyncNotifierProvider<BackupActionNotifier, void>(BackupActionNotifier.new);
+final backupActionProvider = AsyncNotifierProvider<BackupActionNotifier, void>(
+  BackupActionNotifier.new,
+);
 
 class BackupActionNotifier extends AsyncNotifier<void> {
   @override
@@ -19,9 +21,11 @@ class BackupActionNotifier extends AsyncNotifier<void> {
     try {
       final service = ref.read(backupServiceProvider);
       final zipPath = await service.exportBackup();
-      
+
       // Prompt user to save the file
-      final fileName = BackupService.backupFileName.substring(1); // vitacase_backup.zip
+      final fileName = BackupService.backupFileName.substring(
+        1,
+      ); // vitacase_backup.zip
       final result = await FilePicker.saveFile(
         dialogTitle: 'Yedeği Kaydet',
         fileName: fileName,
@@ -32,15 +36,15 @@ class BackupActionNotifier extends AsyncNotifier<void> {
       if (result != null) {
         final zipFile = File(zipPath);
         final bytes = await zipFile.readAsBytes();
-        
+
         final targetFile = File(result);
         await targetFile.writeAsBytes(bytes);
-        
+
         // Cleanup temp file
         await zipFile.delete();
         AnalyticsService.log(AnalyticsService.backupCreated);
         AnalyticsService.log(AnalyticsService.backupExportSuccess);
-        
+
         state = const AsyncData(null);
       } else {
         state = const AsyncData(null);

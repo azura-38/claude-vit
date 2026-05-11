@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/types/runtime_types.dart';
@@ -52,24 +52,16 @@ class _LimitDialogState extends ConsumerState<LimitDialog> {
         break;
       case RewardAdResult.shownNoReward:
         messenger.showSnackBar(
-          SnackBar(
-            content: Text(context.l10n('ad_reward_not_earned')),
-          ),
+          SnackBar(content: Text(context.l10n.adRewardNotEarned)),
         );
         break;
       case RewardAdResult.unavailable:
         messenger.showSnackBar(
-          SnackBar(
-            content: Text(context.l10n('ad_unavailable')),
-          ),
+          SnackBar(content: Text(context.l10n.adUnavailable)),
         );
         break;
       case RewardAdResult.failed:
-        messenger.showSnackBar(
-          SnackBar(
-            content: Text(context.l10n('ad_failed')),
-          ),
-        );
+        messenger.showSnackBar(SnackBar(content: Text(context.l10n.adFailed)));
         break;
     }
   }
@@ -139,29 +131,31 @@ class _LimitDialogState extends ConsumerState<LimitDialog> {
                     ),
                     elevation: 0,
                   ),
-                  child: _isLoadingReward
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
+                  child:
+                      _isLoadingReward
+                          ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                          : Text(
+                            context.l10n.adWatchBtn,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
-                        )
-                      : Text(
-                          context.l10n('ad_watch_btn'),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
                 ),
                 const SizedBox(height: 12),
                 TextButton(
-                  onPressed: _isLoadingReward
-                      ? null
-                      : () => Navigator.of(context).pop(),
-                  child: Text(context.l10n('btn_not_now')),
+                  onPressed:
+                      _isLoadingReward
+                          ? null
+                          : () => Navigator.of(context).pop(),
+                  child: Text(context.l10n.btnNotNow),
                 ),
               ],
             ),
@@ -182,10 +176,11 @@ void showLimitDialog(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (context) => LimitDialog(
-      title: title,
-      description: description,
-      onRewardEarned: onRewardEarned,
-    ),
+    builder:
+        (context) => LimitDialog(
+          title: title,
+          description: description,
+          onRewardEarned: onRewardEarned,
+        ),
   );
 }

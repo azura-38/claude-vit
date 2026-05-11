@@ -13,10 +13,7 @@ class DailyMission {
     required this.isCompleted,
   });
 
-  DailyMission copyWith({
-    int? progress,
-    bool? isCompleted,
-  }) {
+  DailyMission copyWith({int? progress, bool? isCompleted}) {
     return DailyMission(
       id: id,
       title: title,

@@ -12,20 +12,21 @@ class UserBehavior {
   });
 
   Map<String, dynamic> toJson() => {
-        'lastActiveDays': lastActiveDays,
-        'adsWatched': adsWatched,
-        'actionsCount': actionsCount,
-        'lastActionTime': lastActionTime.toIso8601String(),
-      };
+    'lastActiveDays': lastActiveDays,
+    'adsWatched': adsWatched,
+    'actionsCount': actionsCount,
+    'lastActionTime': lastActionTime.toIso8601String(),
+  };
 
   factory UserBehavior.fromJson(Map<String, dynamic> json) {
     return UserBehavior(
       lastActiveDays: json['lastActiveDays'] as int? ?? 0,
       adsWatched: json['adsWatched'] as int? ?? 0,
       actionsCount: json['actionsCount'] as int? ?? 0,
-      lastActionTime: json['lastActionTime'] != null
-          ? DateTime.parse(json['lastActionTime'] as String)
-          : DateTime.now(),
+      lastActionTime:
+          json['lastActionTime'] != null
+              ? DateTime.parse(json['lastActionTime'] as String)
+              : DateTime.now(),
     );
   }
 

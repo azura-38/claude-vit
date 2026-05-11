@@ -46,9 +46,15 @@ class AppSearchBar extends StatelessWidget {
               color: isDark ? Colors.white38 : AppColors.textTertiary,
             ),
           ),
-          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+          prefixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
         ),
       ),
     );

@@ -79,7 +79,10 @@ class AppointmentModel {
       person: person,
       date: date,
       time: time,
-      status: AppointmentStatus.values.firstWhere((e) => e.name == status, orElse: () => AppointmentStatus.upcoming),
+      status: AppointmentStatus.values.firstWhere(
+        (e) => e.name == status,
+        orElse: () => AppointmentStatus.upcoming,
+      ),
       type: type,
       location: location,
       meetingLink: meetingLink,
@@ -88,7 +91,10 @@ class AppointmentModel {
       reminderTime: reminderTime,
       selectedReminders: selectedReminders,
       notificationIds: notificationIds,
-      importance: ImportanceLevel.values.firstWhere((e) => e.name == importance, orElse: () => ImportanceLevel.medium),
+      importance: ImportanceLevel.values.firstWhere(
+        (e) => e.name == importance,
+        orElse: () => ImportanceLevel.medium,
+      ),
       createdAt: createdAt,
     );
   }

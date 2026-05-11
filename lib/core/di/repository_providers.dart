@@ -41,7 +41,9 @@ final healthRepositoryProvider = Provider<HealthRepository>((ref) {
   return HealthRepositoryImpl();
 });
 
-final medicalRecordRepositoryProvider = Provider<MedicalRecordRepository>((ref) {
+final medicalRecordRepositoryProvider = Provider<MedicalRecordRepository>((
+  ref,
+) {
   return MedicalRecordRepositoryImpl();
 });
 

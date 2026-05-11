@@ -9,8 +9,8 @@ final doctorRepositoryProvider = Provider<DoctorRepository>((ref) {
 
 final doctorListProvider =
     AsyncNotifierProvider<DoctorListNotifier, List<Doctor>>(
-  DoctorListNotifier.new,
-);
+      DoctorListNotifier.new,
+    );
 
 class DoctorListNotifier extends AsyncNotifier<List<Doctor>> {
   @override
@@ -21,7 +21,9 @@ class DoctorListNotifier extends AsyncNotifier<List<Doctor>> {
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => ref.read(doctorRepositoryProvider).getAll());
+    state = await AsyncValue.guard(
+      () => ref.read(doctorRepositoryProvider).getAll(),
+    );
   }
 
   Future<void> addDoctor(Doctor doctor) async {

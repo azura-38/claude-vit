@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class DocumentTypeCard extends StatelessWidget {
   final bool active;
@@ -21,31 +21,22 @@ class DocumentTypeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration:
-            const Duration(milliseconds: 250),
-        padding:
-            const EdgeInsets.all(18),
+        duration: const Duration(milliseconds: 250),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: active
-              ? VitaColors.primary.withValues(alpha: .06)
-              : Colors.white,
-          borderRadius:
-              BorderRadius.circular(22),
+          color:
+              active ? AppColors.primary.withValues(alpha: .06) : Colors.white,
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(
-            color: active
-                ? VitaColors.primary
-                : VitaColors.border,
+            color: active ? AppColors.primary : AppColors.border,
           ),
         ),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
-              color: active
-                  ? VitaColors.primary
-                  : VitaColors.secondary,
+              color: active ? AppColors.primary : AppColors.secondary,
               size: 32,
             ),
 
@@ -55,13 +46,10 @@ class DocumentTypeCard extends StatelessWidget {
               label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight:
-                    FontWeight.w600,
-                color: active
-                    ? VitaColors.primary
-                    : VitaColors.secondary,
+                fontWeight: FontWeight.w600,
+                color: active ? AppColors.primary : AppColors.secondary,
               ),
-            )
+            ),
           ],
         ),
       ),

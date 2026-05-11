@@ -18,7 +18,9 @@ class DatabaseRecoveryRequiredException implements Exception {
 class SembastDatabase {
   Database? _db;
   Database get db {
-    if (_db == null) throw StateError('SembastDatabase not initialized. Call init() first.');
+    if (_db == null) {
+      throw StateError('SembastDatabase not initialized. Call init() first.');
+    }
     return _db!;
   }
 

@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class ExpandableNotes extends StatefulWidget {
   final ValueChanged<String>? onChanged;
 
-  const ExpandableNotes({
-    super.key,
-    this.onChanged,
-  });
+  const ExpandableNotes({super.key, this.onChanged});
 
   @override
   State<ExpandableNotes> createState() => _ExpandableNotesState();
@@ -23,9 +20,7 @@ class _ExpandableNotesState extends State<ExpandableNotes> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
       ),
       child: Column(
         children: [
@@ -42,16 +37,14 @@ class _ExpandableNotesState extends State<ExpandableNotes> {
                 const Expanded(
                   child: Text(
                     'Add Notes',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 AnimatedRotation(
                   turns: expanded ? .5 : 0,
                   duration: const Duration(milliseconds: 220),
                   child: const Icon(Icons.expand_more),
-                )
+                ),
               ],
             ),
           ),
@@ -73,11 +66,10 @@ class _ExpandableNotesState extends State<ExpandableNotes> {
                 ),
               ),
             ),
-            crossFadeState: expanded
-                ? CrossFadeState.showSecond
-                : CrossFadeState.showFirst,
+            crossFadeState:
+                expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 220),
-          )
+          ),
         ],
       ),
     );

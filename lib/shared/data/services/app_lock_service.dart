@@ -13,14 +13,14 @@ class AppLockService {
     }
   }
 
-  Future<bool> authenticate() async {
+  Future<bool> authenticate({String? reason}) async {
     try {
       if (!await isAvailable()) {
         return false;
       }
 
       return await _auth.authenticate(
-        localizedReason: 'Authenticate to unlock VitaCase',
+        localizedReason: reason ?? 'Authenticate to unlock VitaCase',
         biometricOnly: false,
         persistAcrossBackgrounding: true,
       );

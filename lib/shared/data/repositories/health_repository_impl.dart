@@ -19,8 +19,13 @@ class HealthRepositoryImpl implements HealthRepository {
   @override
   Future<List<HealthMetric>> getAll() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('timestamp', false)]));
-    return records.map((r) => HealthMetricModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('timestamp', false)]),
+    );
+    return records
+        .map((r) => HealthMetricModel.fromMap(r.value).toEntity())
+        .toList();
   }
 
   @override

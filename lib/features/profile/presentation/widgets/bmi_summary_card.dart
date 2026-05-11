@@ -4,11 +4,7 @@ class BmiSummaryCard extends StatelessWidget {
   final double bmi;
   final String status;
 
-  const BmiSummaryCard({
-    super.key,
-    required this.bmi,
-    required this.status,
-  });
+  const BmiSummaryCard({super.key, required this.bmi, required this.status});
 
   Color get statusColor {
     switch (status) {
@@ -30,10 +26,7 @@ class BmiSummaryCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            statusColor,
-            statusColor.withValues(alpha: .8),
-          ],
+          colors: [statusColor, statusColor.withValues(alpha: .8)],
         ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
@@ -41,22 +34,18 @@ class BmiSummaryCard extends StatelessWidget {
             color: statusColor.withValues(alpha: .25),
             blurRadius: 24,
             offset: const Offset(0, 12),
-          )
+          ),
         ],
       ),
       child: Row(
         children: [
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'CURRENT BMI',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    letterSpacing: 1.2,
-                  ),
+                  style: TextStyle(color: Colors.white70, letterSpacing: 1.2),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -70,11 +59,8 @@ class BmiSummaryCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   status,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                )
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ],
             ),
           ),
@@ -82,7 +68,7 @@ class BmiSummaryCard extends StatelessWidget {
             Icons.favorite_outline_rounded,
             color: Colors.white,
             size: 38,
-          )
+          ),
         ],
       ),
     );

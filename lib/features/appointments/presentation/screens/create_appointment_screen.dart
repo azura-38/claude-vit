@@ -41,16 +41,15 @@ class CreateAppointmentScreen extends ConsumerWidget {
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
-                    )
+                    ),
                   ],
                 ),
 
                 const SizedBox(height: 28),
 
-                SmartSummaryCard(model: state)
-                    .animate()
-                    .fadeIn()
-                    .slideY(begin: .15),
+                SmartSummaryCard(
+                  model: state,
+                ).animate().fadeIn().slideY(begin: .15),
 
                 const SizedBox(height: 24),
 
@@ -74,19 +73,15 @@ class CreateAppointmentScreen extends ConsumerWidget {
                           children: [
                             const Text(
                               'Type',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
+                              style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(height: 16),
                             AppointmentTypeCard(
                               title: 'Doctor',
                               icon: Icons.medical_services_outlined,
-                              selected:
-                                  state.type == AppointmentType.doctor,
+                              selected: state.type == AppointmentType.doctor,
                               onTap: () {
-                                notifier.updateType(
-                                    AppointmentType.doctor);
+                                notifier.updateType(AppointmentType.doctor);
                               },
                             ),
                             const SizedBox(height: 12),
@@ -97,7 +92,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               onTap: () {
                                 notifier.updateType(AppointmentType.test);
                               },
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -110,9 +105,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                           children: [
                             const Text(
                               'Priority',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
+                              style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(height: 16),
                             PrioritySelector(
@@ -123,7 +116,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               color: Colors.red,
                               onTap: () {
                                 notifier.updatePriority(
-                                    AppointmentPriority.high);
+                                  AppointmentPriority.high,
+                                );
                               },
                             ),
                             const SizedBox(height: 12),
@@ -131,18 +125,18 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               title: 'Normal',
                               icon: Icons.low_priority_rounded,
                               selected:
-                                  state.priority ==
-                                      AppointmentPriority.normal,
+                                  state.priority == AppointmentPriority.normal,
                               color: const Color(0xFF6B7280),
                               onTap: () {
                                 notifier.updatePriority(
-                                    AppointmentPriority.normal);
+                                  AppointmentPriority.normal,
+                                );
                               },
-                            )
+                            ),
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ).animate(delay: 220.ms).fadeIn().slideY(begin: .15),
 
@@ -154,9 +148,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                     children: [
                       const Text(
                         'Date & Time',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 18),
                       Row(
@@ -164,20 +156,20 @@ class CreateAppointmentScreen extends ConsumerWidget {
                           Expanded(
                             child: _dateButton(
                               icon: Icons.calendar_month_rounded,
-                              text: DateFormat('MMM d, yyyy')
-                                  .format(state.date),
+                              text: DateFormat(
+                                'MMM d, yyyy',
+                              ).format(state.date),
                             ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: _dateButton(
                               icon: Icons.schedule_rounded,
-                              text: DateFormat('hh:mm a')
-                                  .format(state.date),
+                              text: DateFormat('hh:mm a').format(state.date),
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ).animate(delay: 320.ms).fadeIn().slideY(begin: .15),
@@ -203,9 +195,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                       const Expanded(
                         child: Text(
                           'Reminder',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ),
                       DropdownButton<String>(
@@ -230,7 +220,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                             notifier.updateReminder(value);
                           }
                         },
-                      )
+                      ),
                     ],
                   ),
                 ).animate(delay: 520.ms).fadeIn().slideY(begin: .15),
@@ -251,17 +241,17 @@ class CreateAppointmentScreen extends ConsumerWidget {
                   ),
                   child: const Row(
                     children: [
-                      Icon(Icons.auto_awesome_rounded,
-                          color: Color(0xFF005DA7)),
+                      Icon(
+                        Icons.auto_awesome_rounded,
+                        color: Color(0xFF005DA7),
+                      ),
                       SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           'Morning appointments usually reduce missed reminders and delays.',
-                          style: TextStyle(
-                            height: 1.4,
-                          ),
+                          style: TextStyle(height: 1.4),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ).animate(delay: 720.ms).fadeIn(),
@@ -274,13 +264,25 @@ class CreateAppointmentScreen extends ConsumerWidget {
               bottom: 28,
               child: SafeArea(
                 child: FloatingSubmitButton(
-                  onTap: () {},
-                )
-                    .animate()
-                    .fadeIn(delay: 820.ms)
-                    .slideY(begin: 1),
+                  onTap: () async {
+                    try {
+                      await notifier.submit();
+                      if (context.mounted) {
+                        context.pop();
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Failed to create appointment.'),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                ).animate().fadeIn(delay: 820.ms).slideY(begin: 1),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -293,30 +295,22 @@ class CreateAppointmentScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 93, 167, 0.04),
             blurRadius: 24,
             offset: Offset(0, 10),
-          )
+          ),
         ],
       ),
       child: child,
     );
   }
 
-  Widget _dateButton({
-    required IconData icon,
-    required String text,
-  }) {
+  Widget _dateButton({required IconData icon, required String text}) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: const Color(0xFFF2F3FB),
         borderRadius: BorderRadius.circular(18),
@@ -325,12 +319,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
         children: [
           Icon(icon, color: const Color(0xFF6B7280)),
           const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-            ),
-          )
+          Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
         ],
       ),
     );

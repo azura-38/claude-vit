@@ -12,31 +12,33 @@ class NotificationService {
   static SharedPreferences? _prefs;
   static Future<void> Function(String id)? _onMedicineTaken;
   static Future<void> Function(String id)? _onMedicineSkipped;
+  static void Function(String payload)? _onNotificationRoute;
   static const int engagementId = 9999;
-  static final FlutterLocalNotificationsPlugin _plugin = FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _plugin =
+      FlutterLocalNotificationsPlugin();
   static const AndroidNotificationDetails _androidDetails =
       AndroidNotificationDetails(
-    'vitacase_channel',
-    'VitaCase Notifications',
-    importance: Importance.max,
-    priority: Priority.high,
-    icon: '@drawable/ic_notification',
-    visibility: NotificationVisibility.private,
-  );
+        'vitacase_channel',
+        'VitaCase Notifications',
+        importance: Importance.max,
+        priority: Priority.high,
+        icon: '@drawable/ic_notification',
+        visibility: NotificationVisibility.private,
+      );
   static const AndroidNotificationDetails _medicationAndroidDetails =
       AndroidNotificationDetails(
-    'med_channel',
-    'Medication',
-    importance: Importance.max,
-    priority: Priority.high,
-    icon: '@drawable/ic_notification',
-    visibility: NotificationVisibility.private,
-    actions: [
-      AndroidNotificationAction('TAKEN', 'Taken'),
-      AndroidNotificationAction('SKIPPED', 'Skipped'),
-    ],
-  );
-  
+        'med_channel',
+        'Medication',
+        importance: Importance.max,
+        priority: Priority.high,
+        icon: '@drawable/ic_notification',
+        visibility: NotificationVisibility.private,
+        actions: [
+          AndroidNotificationAction('TAKEN', 'Taken'),
+          AndroidNotificationAction('SKIPPED', 'Skipped'),
+        ],
+      );
+
   static bool _isInitialized = false;
 
   NotificationService(SharedPreferences prefs) {
@@ -52,6 +54,10 @@ class NotificationService {
     _onMedicineSkipped = onSkipped;
   }
 
+  static void setRouteHandler(void Function(String payload) onRoute) {
+    _onNotificationRoute = onRoute;
+  }
+
   static NotificationService? get instance => _instance;
 
   // 🔥 CORE INIT (Updated with Race Condition Fix)
@@ -64,12 +70,17 @@ class NotificationService {
 
     if (_isInitialized) return;
     _prefs ??= await SharedPreferences.getInstance();
-    
-    const androidSettings = AndroidInitializationSettings('@drawable/ic_notification');
+
+    const androidSettings = AndroidInitializationSettings(
+      '@drawable/ic_notification',
+    );
     const ios = DarwinInitializationSettings();
-    
+
     await _plugin.initialize(
-      settings: const InitializationSettings(android: androidSettings, iOS: ios),
+      settings: const InitializationSettings(
+        android: androidSettings,
+        iOS: ios,
+      ),
       onDidReceiveNotificationResponse: _onTap,
     );
 
@@ -83,14 +94,19 @@ class NotificationService {
     }
 
     // 🔥 PERMISSIONS (Garantili Fix)
-    final android = _plugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
+    final android =
+        _plugin
+            .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin
+            >();
 
     await android?.requestNotificationsPermission();
     await android?.requestExactAlarmsPermission();
 
     _isInitialized = true;
-    if (kDebugMode) debugPrint("Notification Engine Initialized & Permissions Requested ✅");
+    if (kDebugMode) {
+      debugPrint("Notification Engine Initialized & Permissions Requested ✅");
+    }
   }
 
   // ⚡ INSTANCE METHODS
@@ -100,31 +116,42 @@ class NotificationService {
     final hide = _prefs?.getBool('notification_hide_sensitive_content') ?? true;
     if (hide) {
       final lang = _prefs?.getString('app_locale') ?? 'en';
-      return Translations.data[lang]?['notification_details_hidden'] ?? 
-             Translations.data['en']?['notification_details_hidden'] ?? 
-             'You have a reminder';
+      return Translations.data[lang]?['notification_details_hidden'] ??
+          Translations.data['en']?['notification_details_hidden'] ??
+          'You have a reminder';
     }
     return text;
   }
 
-  String safeMedicationBody(String name) => NotificationService.safeMedicationBodyStatic(name);
+  String safeMedicationBody(String name) =>
+      NotificationService.safeMedicationBodyStatic(name);
 
   Future<void> setHideSensitiveContent(bool hide) async {
     await _prefs?.setBool('notification_hide_sensitive_content', hide);
   }
 
-  Future<NotificationPermissionState> requestPermissions({bool requestExactAlarm = false}) async {
-    final android = _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+  Future<NotificationPermissionState> requestPermissions({
+    bool requestExactAlarm = false,
+  }) async {
+    final android =
+        _plugin
+            .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin
+            >();
     final granted = await android?.requestNotificationsPermission() ?? true;
     if (requestExactAlarm) await android?.requestExactAlarmsPermission();
-    return granted ? NotificationPermissionState.granted : NotificationPermissionState.denied;
+    return granted
+        ? NotificationPermissionState.granted
+        : NotificationPermissionState.denied;
   }
 
   // 🔔 STATIC METHODS (Positional Argument Fix for v21.0.0)
   static int getStableIdStatic(String uuid, [int offset = 0]) {
     int hash = 0x811c9dc5;
     for (int i = 0; i < uuid.length; i++) {
-      hash ^= uuid.codeUnitAt(i); hash *= 0x01000193; hash &= 0xFFFFFFFF;
+      hash ^= uuid.codeUnitAt(i);
+      hash *= 0x01000193;
+      hash &= 0xFFFFFFFF;
     }
     return ((hash.abs() ^ (offset * 0x01000193)) & 0x7FFFFFFF);
   }
@@ -133,7 +160,9 @@ class NotificationService {
     final hide = _prefs?.getBool('notification_hide_sensitive_content') ?? true;
     if (hide) {
       final lang = _prefs?.getString('app_locale') ?? 'en';
-      return Translations.data[lang]?['notification_details_hidden'] ?? Translations.data['en']?['notification_details_hidden'] ?? 'Details hidden';
+      return Translations.data[lang]?['notification_details_hidden'] ??
+          Translations.data['en']?['notification_details_hidden'] ??
+          'Details hidden';
     }
     return name;
   }
@@ -150,9 +179,12 @@ class NotificationService {
   }) async {
     await init();
     if (kDebugMode) debugPrint("Scheduling notification at: $date");
-    
+
     // 🔥 SPAM FIX: Use fixed ID for engagement notifications
-    final notifId = id.contains('engagement') ? engagementId : getStableIdStatic(buildKey(id, date));
+    final notifId =
+        id.contains('engagement')
+            ? engagementId
+            : getStableIdStatic(buildKey(id, date));
 
     await _plugin.zonedSchedule(
       id: notifId,
@@ -180,13 +212,17 @@ class NotificationService {
       title: title,
       body: safeMedicationBodyStatic(body),
       scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: const NotificationDetails(android: _medicationAndroidDetails),
+      notificationDetails: const NotificationDetails(
+        android: _medicationAndroidDetails,
+      ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       payload: id,
     );
   }
 
-  static Future<void> cancel(String id) async { await _plugin.cancel(id: getStableIdStatic(id)); }
+  static Future<void> cancel(String id) async {
+    await _plugin.cancel(id: getStableIdStatic(id));
+  }
 
   static Future<void> cancelOccurrence({
     required String id,
@@ -201,15 +237,48 @@ class NotificationService {
     await _plugin.cancel(id: id);
   }
 
-  static Future<void> cancelAll() async { await _plugin.cancelAll(); }
+  static Future<void> cancelAll() async {
+    await _plugin.cancelAll();
+  }
 
   // 🎯 ENGAGEMENT (Instance)
-  Future<void> showStreakWarning() async => showNotification(id: 9991, title: 'Streak!', body: 'Keep it up!', channelId: 'engagement', channelName: 'Engagement');
-  Future<void> showMissionReminder() async => showNotification(id: 9992, title: 'Mission!', body: 'Daily tasks!', channelId: 'engagement', channelName: 'Engagement');
-  Future<void> showLimitReachedPush() async => showNotification(id: 9993, title: 'Limit!', body: 'Vault full!', channelId: 'engagement', channelName: 'Engagement');
+  Future<void> showStreakWarning() async => showNotification(
+    id: 9991,
+    title: 'Streak!',
+    body: 'Keep it up!',
+    channelId: 'engagement',
+    channelName: 'Engagement',
+  );
+  Future<void> showMissionReminder() async => showNotification(
+    id: 9992,
+    title: 'Mission!',
+    body: 'Daily tasks!',
+    channelId: 'engagement',
+    channelName: 'Engagement',
+  );
+  Future<void> showLimitReachedPush() async => showNotification(
+    id: 9993,
+    title: 'Limit!',
+    body: 'Vault full!',
+    channelId: 'engagement',
+    channelName: 'Engagement',
+  );
 
-  Future<void> showNotification({required int id, required String title, required String body, required String channelId, required String channelName}) async {
-    final android = AndroidNotificationDetails(channelId, channelName, importance: Importance.max, priority: Priority.high, icon: '@drawable/ic_notification', visibility: NotificationVisibility.private);
+  Future<void> showNotification({
+    required int id,
+    required String title,
+    required String body,
+    required String channelId,
+    required String channelName,
+  }) async {
+    final android = AndroidNotificationDetails(
+      channelId,
+      channelName,
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@drawable/ic_notification',
+      visibility: NotificationVisibility.private,
+    );
     await _plugin.show(
       id: id,
       title: title,
@@ -228,6 +297,11 @@ class NotificationService {
 
     if (response.actionId == 'SKIPPED') {
       _onMedicineSkipped?.call(payload);
+      return;
     }
+
+    if (response.actionId == 'TAKEN') return;
+
+    _onNotificationRoute?.call(payload);
   }
 }

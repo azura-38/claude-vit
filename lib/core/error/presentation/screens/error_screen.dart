@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../constants/app_colors.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../extensions/l10n_extension.dart';
 
 class ErrorScreen extends StatelessWidget {
   final String? message;
@@ -34,7 +34,7 @@ class ErrorScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                context.l10n('error'),
+                context.l10n.error,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
@@ -44,7 +44,7 @@ class ErrorScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                message ?? context.l10n('page_not_found'),
+                message ?? context.l10n.pageNotFound,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -61,12 +61,17 @@ class ErrorScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.medicalBlue,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     elevation: 0,
                   ),
                   child: Text(
-                    context.l10n('back'),
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    context.l10n.back,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

@@ -53,7 +53,10 @@ class DoctorModel {
       hospital: hospital,
       phone: phone,
       email: email,
-      gender: Gender.values.firstWhere((e) => e.name == gender, orElse: () => Gender.male),
+      gender: Gender.values.firstWhere(
+        (e) => e.name == gender,
+        orElse: () => Gender.male,
+      ),
       notes: notes,
       createdAt: createdAt,
       isVerified: isVerified,

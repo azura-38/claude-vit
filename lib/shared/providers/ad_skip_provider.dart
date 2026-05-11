@@ -2,7 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'shared_prefs_provider.dart';
 import '../data/services/analytics_service.dart';
 
-final adSkipProvider = NotifierProvider<AdSkipNotifier, int>(AdSkipNotifier.new);
+final adSkipProvider = NotifierProvider<AdSkipNotifier, int>(
+  AdSkipNotifier.new,
+);
 
 class AdSkipNotifier extends Notifier<int> {
   static const String _tokenKey = 'ad_skip_tokens';
@@ -23,7 +25,7 @@ class AdSkipNotifier extends Notifier<int> {
 
   Future<bool> useToken() async {
     if (state <= 0) return false;
-    
+
     final prefs = ref.read(sharedPreferencesProvider);
     final newVal = state - 1;
     state = newVal;

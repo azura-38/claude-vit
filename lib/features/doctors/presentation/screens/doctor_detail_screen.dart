@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/domain/entities/doctor.dart';
 import '../../../../shared/providers/doctor_providers.dart';
 import '../../../../core/theme/theme_provider.dart';
@@ -23,14 +23,14 @@ class DoctorDetailScreen extends ConsumerWidget {
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       body: doctorsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(context.l10n('error'))),
+        error: (e, _) => Center(child: Text(context.l10n.error)),
         data: (doctors) {
           final doctor = doctors.where((d) => d.id == id).firstOrNull;
           if (doctor == null) {
-            return Center(child: Text(context.l10n('page_not_found')));
+            return Center(child: Text(context.l10n.pageNotFound));
           }
 
-// ...
+          // ...
           return SafeArea(
             bottom: false,
             child: Column(
@@ -49,42 +49,68 @@ class DoctorDetailScreen extends ConsumerWidget {
                         const SizedBox(height: 32),
                         _buildSection(
                           context,
-                          label: context.l10n('basic_info'),
+                          label: context.l10n.basicInfo,
                           isDark: isDark,
                           children: [
-                            _infoTile(context, Icons.local_hospital_rounded, context.l10n('doctors_add_hospital'), doctor.hospital, isDark),
-                            _infoTile(context, Icons.category_rounded, context.l10n('doctors_add_dept'), doctor.department, isDark),
+                            _infoTile(
+                              context,
+                              Icons.local_hospital_rounded,
+                              context.l10n.doctorsAddHospital,
+                              doctor.hospital,
+                              isDark,
+                            ),
+                            _infoTile(
+                              context,
+                              Icons.category_rounded,
+                              context.l10n.doctorsAddDept,
+                              doctor.department,
+                              isDark,
+                            ),
                             if (doctor.subSpecialty != null)
-                              _infoTile(context, Icons.stars_rounded, context.l10n('doctors_add_sub'), doctor.subSpecialty!, isDark),
+                              _infoTile(
+                                context,
+                                Icons.stars_rounded,
+                                context.l10n.doctorsAddSub,
+                                doctor.subSpecialty!,
+                                isDark,
+                              ),
                           ],
                         ),
                         const SizedBox(height: 24),
                         _buildSection(
                           context,
-                          label: context.l10n('contact_info'),
+                          label: context.l10n.contactInfo,
                           isDark: isDark,
                           children: [
                             if (doctor.phone != null)
                               _infoTile(
-                                context, 
-                                Icons.phone_rounded, 
-                                context.l10n('phone'), 
-                                doctor.phone!, 
+                                context,
+                                Icons.phone_rounded,
+                                context.l10n.phone,
+                                doctor.phone!,
                                 isDark,
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.call, color: AppColors.primaryIndigo, size: 20),
+                                  icon: const Icon(
+                                    Icons.call,
+                                    color: AppColors.primaryIndigo,
+                                    size: 20,
+                                  ),
                                   onPressed: () => _launchCaller(doctor.phone!),
                                 ),
                               ),
                             if (doctor.email != null)
                               _infoTile(
-                                context, 
-                                Icons.email_rounded, 
-                                context.l10n('email'), 
-                                doctor.email!, 
+                                context,
+                                Icons.email_rounded,
+                                context.l10n.email,
+                                doctor.email!,
                                 isDark,
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.mail_rounded, color: AppColors.medicalBlue, size: 20),
+                                  icon: const Icon(
+                                    Icons.mail_rounded,
+                                    color: AppColors.medicalBlue,
+                                    size: 20,
+                                  ),
                                   onPressed: () => _launchEmail(doctor.email!),
                                 ),
                               ),
@@ -94,22 +120,33 @@ class DoctorDetailScreen extends ConsumerWidget {
                         if (doctor.notes != null && doctor.notes!.isNotEmpty)
                           _buildSection(
                             context,
-                            label: context.l10n('docs_add_note'),
+                            label: context.l10n.docsAddNote,
                             isDark: isDark,
                             children: [
                               Container(
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
-                                  color: isDark ? AppColors.surfaceDark : Colors.white,
+                                  color:
+                                      isDark
+                                          ? AppColors.surfaceDark
+                                          : Colors.white,
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight),
+                                  border: Border.all(
+                                    color:
+                                        isDark
+                                            ? AppColors.cardBorderDark
+                                            : AppColors.cardBorderLight,
+                                  ),
                                 ),
                                 child: Text(
                                   doctor.notes!,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: isDark ? Colors.white70 : AppColors.textSecondary,
+                                    color:
+                                        isDark
+                                            ? Colors.white70
+                                            : AppColors.textSecondary,
                                     height: 1.5,
                                   ),
                                 ),
@@ -138,7 +175,10 @@ class DoctorDetailScreen extends ConsumerWidget {
           decoration: BoxDecoration(
             color: AppColors.medicalBlue.withValues(alpha: 0.1),
             shape: BoxShape.circle,
-            border: Border.all(color: AppColors.medicalBlue.withValues(alpha: 0.2), width: 4),
+            border: Border.all(
+              color: AppColors.medicalBlue.withValues(alpha: 0.2),
+              width: 4,
+            ),
           ),
           child: Center(
             child: Icon(
@@ -154,11 +194,19 @@ class DoctorDetailScreen extends ConsumerWidget {
           children: [
             Text(
               '${doctor.localizedTitle(context)} ${doctor.name}',
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, fontFamily: 'Manrope'),
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+                fontFamily: 'Manrope',
+              ),
             ),
             if (doctor.isVerified) ...[
               const SizedBox(width: 8),
-              const Icon(Icons.verified_rounded, color: AppColors.primaryIndigo, size: 20),
+              const Icon(
+                Icons.verified_rounded,
+                color: AppColors.primaryIndigo,
+                size: 20,
+              ),
             ],
           ],
         ),
@@ -174,7 +222,12 @@ class DoctorDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSection(BuildContext context, {required String label, required List<Widget> children, required bool isDark}) {
+  Widget _buildSection(
+    BuildContext context, {
+    required String label,
+    required List<Widget> children,
+    required bool isDark,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -207,7 +260,14 @@ class DoctorDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _infoTile(BuildContext context, IconData icon, String label, String value, bool isDark, {Widget? trailing}) {
+  Widget _infoTile(
+    BuildContext context,
+    IconData icon,
+    String label,
+    String value,
+    bool isDark, {
+    Widget? trailing,
+  }) {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
@@ -217,8 +277,18 @@ class DoctorDetailScreen extends ConsumerWidget {
         ),
         child: Icon(icon, size: 18, color: AppColors.medicalBlue),
       ),
-      title: Text(label, style: TextStyle(fontSize: 11, color: isDark ? Colors.white38 : AppColors.textTertiary, fontWeight: FontWeight.w600)),
-      subtitle: Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
+      title: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          color: isDark ? Colors.white38 : AppColors.textTertiary,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      subtitle: Text(
+        value,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+      ),
       trailing: trailing,
     );
   }

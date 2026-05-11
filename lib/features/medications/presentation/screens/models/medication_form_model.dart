@@ -1,8 +1,4 @@
-enum MedicationFrequency {
-  daily,
-  weekly,
-  custom,
-}
+enum MedicationFrequency { daily, weekly, custom }
 
 class MedicationFormModel {
   final String medicineName;

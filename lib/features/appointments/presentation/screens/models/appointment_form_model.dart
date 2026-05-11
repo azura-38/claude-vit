@@ -1,15 +1,6 @@
-enum AppointmentType {
-  doctor,
-  test,
-  personal,
-  meeting,
-}
+enum AppointmentType { doctor, test, personal, meeting }
 
-enum AppointmentPriority {
-  low,
-  normal,
-  high,
-}
+enum AppointmentPriority { low, normal, high }
 
 class AppointmentFormModel {
   final String title;

@@ -29,7 +29,7 @@ class ComboEngine {
     ComboReward(
       id: "starter_combo",
       title: "🚀 Starter Health Bundle",
-      requiredAchievements: ["doc_1", "login_1"], 
+      requiredAchievements: ["doc_1", "login_1"],
     ),
     ComboReward(
       id: "health_combo",
@@ -49,31 +49,40 @@ class ComboEngine {
     ComboReward(
       id: "security_combo",
       title: "🔐 Fortress Bundle",
-      requiredAchievements: ["profile_completed", "emergency_complete", "security_master"],
+      requiredAchievements: [
+        "profile_completed",
+        "emergency_complete",
+        "security_master",
+      ],
     ),
   ];
 
-  static Future<void> checkCombos(List<Achievement> activeAchievements, Ref ref) async {
+  static Future<void> checkCombos(
+    List<Achievement> activeAchievements,
+    Ref ref,
+  ) async {
     final prefs = ref.read(sharedPreferencesProvider);
     final unlockedSet = prefs.getStringList(_prefKey)?.toSet() ?? {};
 
-    final currentUnlockedIds = activeAchievements
-        .where((a) => a.unlocked)
-        .map((a) => a.id)
-        .toSet();
+    final currentUnlockedIds =
+        activeAchievements.where((a) => a.unlocked).map((a) => a.id).toSet();
 
     bool changed = false;
 
     for (var combo in combos) {
       if (unlockedSet.contains(combo.id)) continue;
 
-      bool allDone = combo.requiredAchievements.every((id) => currentUnlockedIds.contains(id));
+      bool allDone = combo.requiredAchievements.every(
+        (id) => currentUnlockedIds.contains(id),
+      );
 
       if (allDone) {
         unlockedSet.add(combo.id);
         changed = true;
         _unlockCombo(combo, ref);
-        AnalyticsService.log(AnalyticsService.comboUnlocked, {'combo_id': combo.id});
+        AnalyticsService.log(AnalyticsService.comboUnlocked, {
+          'combo_id': combo.id,
+        });
       }
     }
 
@@ -99,7 +108,8 @@ class ComboEngine {
       final comboAch = Achievement(
         id: combo.id,
         title: "COMBO: ${combo.title}",
-        description: "You've unlocked a massive storage bonus by completing this achievement chain!",
+        description:
+            "You've unlocked a massive storage bonus by completing this achievement chain!",
         tier: AchievementTier.special,
         difficulty: AchievementDifficulty.hard,
         emoji: "🔥",
@@ -115,10 +125,11 @@ class ComboEngine {
         context: context,
         barrierDismissible: false,
         useSafeArea: false,
-        builder: (context) => AchievementCelebration(
-          achievement: comboAch,
-          onClose: () => context.pop(),
-        ),
+        builder:
+            (context) => AchievementCelebration(
+              achievement: comboAch,
+              onClose: () => context.pop(),
+            ),
       );
     }
   }

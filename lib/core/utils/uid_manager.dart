@@ -9,7 +9,7 @@ class UIDManager {
   static Future<String> getUID() async {
     // 1. Try to get from Secure Storage (High Security)
     String? uid = await _storage.read(key: _uidKey);
-    
+
     if (uid != null) return uid;
 
     // 2. Migration Fallback: Try to get from old SharedPreferences

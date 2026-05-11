@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class VitaCaseBottomNav extends StatelessWidget {
   const VitaCaseBottomNav({super.key});
@@ -9,43 +9,21 @@ class VitaCaseBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 96,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(34),
-        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: .04),
-            blurRadius: 30,
-          )
+          BoxShadow(color: Colors.black.withValues(alpha: .04), blurRadius: 30),
         ],
       ),
       child: const Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _NavItem(
-            icon: Icons.home_outlined,
-            label: "HOME",
-          ),
-          _NavItem(
-            icon: Icons.folder_outlined,
-            label: "VAULT",
-          ),
-          _NavItem(
-            icon: Icons.shield_outlined,
-            label: "SECURITY",
-          ),
-          _NavItem(
-            icon: Icons.settings,
-            label: "SETTINGS",
-            active: true,
-          ),
+          _NavItem(icon: Icons.home_outlined, label: "HOME"),
+          _NavItem(icon: Icons.folder_outlined, label: "VAULT"),
+          _NavItem(icon: Icons.shield_outlined, label: "SECURITY"),
+          _NavItem(icon: Icons.settings, label: "SETTINGS", active: true),
         ],
       ),
     );
@@ -66,28 +44,16 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration:
-          const Duration(milliseconds: 220),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 10,
-      ),
+      duration: const Duration(milliseconds: 220),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: active
-            ? VitaColors.softBlue
-            : Colors.transparent,
-        borderRadius:
-            BorderRadius.circular(20),
+        color: active ? AppColors.softBlue : Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: active
-                ? VitaColors.primary
-                : VitaColors.secondary,
-          ),
+          Icon(icon, color: active ? AppColors.primary : AppColors.secondary),
 
           const SizedBox(height: 4),
 
@@ -96,11 +62,9 @@ class _NavItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w600,
-              color: active
-                  ? VitaColors.primary
-                  : VitaColors.secondary,
+              color: active ? AppColors.primary : AppColors.secondary,
             ),
-          )
+          ),
         ],
       ),
     );

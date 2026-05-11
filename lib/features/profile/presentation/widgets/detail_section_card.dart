@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class DetailSectionCard extends StatelessWidget {
   final IconData icon;
@@ -23,9 +23,7 @@ class DetailSectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: VitaColors.border,
-        ),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         children: [
@@ -49,35 +47,27 @@ class DetailSectionCard extends StatelessWidget {
 
           ...rows.map(
             (row) => Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     row["label"]!,
-                    style: const TextStyle(
-                      color: VitaColors.secondary,
-                    ),
+                    style: const TextStyle(color: AppColors.secondary),
                   ),
 
                   Flexible(
                     child: Text(
                       row["value"]!,
                       textAlign: TextAlign.end,
-                      style: const TextStyle(
-                        fontWeight:
-                            FontWeight.w600,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

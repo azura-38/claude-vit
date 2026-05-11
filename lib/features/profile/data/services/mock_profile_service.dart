@@ -6,4 +6,6 @@ class MockProfileService {
   Future<void> updateProfilePhoto(String path) async {}
 }
 
-final profileServiceProvider = Provider<MockProfileService>((ref) => MockProfileService());
+final profileServiceProvider = Provider<MockProfileService>(
+  (ref) => MockProfileService(),
+);

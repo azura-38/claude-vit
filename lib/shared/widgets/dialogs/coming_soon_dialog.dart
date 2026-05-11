@@ -9,7 +9,7 @@ class ComingSoonDialog extends StatelessWidget {
 
   static void show(BuildContext context) {
     AnalyticsService.log(AnalyticsService.premiumClickDisabled);
-    
+
     showDialog(
       context: context,
       builder: (context) => const ComingSoonDialog(),
@@ -33,7 +33,7 @@ class ComingSoonDialog extends StatelessWidget {
               color: AppColors.primaryIndigo.withValues(alpha: 0.15),
               blurRadius: 40,
               spreadRadius: 5,
-            )
+            ),
           ],
         ),
         child: Column(
@@ -41,19 +41,20 @@ class ComingSoonDialog extends StatelessWidget {
           children: [
             // 🚀 Icon
             Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: AppColors.primaryIndigo.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.rocket_launch_rounded,
-                color: AppColors.primaryIndigo,
-                size: 64,
-              ),
-            ).animate(onPlay: (c) => c.repeat())
-             .shimmer(duration: 2.seconds)
-             .shake(duration: 2.seconds, curve: Curves.easeInOut),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryIndigo.withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.rocket_launch_rounded,
+                    color: AppColors.primaryIndigo,
+                    size: 64,
+                  ),
+                )
+                .animate(onPlay: (c) => c.repeat())
+                .shimmer(duration: 2.seconds)
+                .shake(duration: 2.seconds, curve: Curves.easeInOut),
 
             const SizedBox(height: 32),
 
@@ -99,12 +100,17 @@ class ComingSoonDialog extends StatelessWidget {
                   backgroundColor: AppColors.primaryIndigo,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                   elevation: 0,
                 ),
                 child: const Text(
                   "STAY TUNED! 🔥",
-                  style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1,
+                  ),
                 ),
               ),
             ),

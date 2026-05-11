@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'providers/medication_form_provider.dart';
-import '../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 import 'widgets/animated_segmented_control.dart';
 import 'widgets/premium_card.dart';
 import 'widgets/quantity_stepper.dart';
@@ -35,13 +35,8 @@ class AddMedicationScreen extends ConsumerWidget {
                     const Spacer(),
                     Text(
                       'VitaCase',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(
-                            fontSize: 24,
-                            color: VitaColors.primary,
-                          ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(fontSize: 24, color: AppColors.primary),
                     ),
                     const Spacer(),
                   ],
@@ -69,9 +64,7 @@ class AddMedicationScreen extends ConsumerWidget {
                     children: [
                       const Text(
                         'Medicine Name',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 14),
                       TextField(
@@ -80,14 +73,15 @@ class AddMedicationScreen extends ConsumerWidget {
                           hintText: 'Search or enter medicine name',
                           prefixIcon: const Icon(Icons.medication_outlined),
                           filled: true,
-                          fillColor:
-                              VitaColors.primaryLight.withValues(alpha: 0.18),
+                          fillColor: AppColors.primaryLight.withValues(
+                            alpha: 0.18,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ).animate().fadeIn().slideY(begin: .15),
@@ -100,15 +94,13 @@ class AddMedicationScreen extends ConsumerWidget {
                     children: [
                       const Text(
                         'Frequency',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 14),
                       AnimatedSegmentedControl(
                         selected: state.frequency,
                         onChanged: notifier.updateFrequency,
-                      )
+                      ),
                     ],
                   ),
                 ).animate(delay: 120.ms).fadeIn().slideY(begin: .15),
@@ -123,9 +115,7 @@ class AddMedicationScreen extends ConsumerWidget {
                         children: [
                           const Text(
                             'Current Supply',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                           Text(
                             'Lasts ~12 days',
@@ -149,8 +139,9 @@ class AddMedicationScreen extends ConsumerWidget {
                                 vertical: 16,
                               ),
                               decoration: BoxDecoration(
-                                color: VitaColors.primaryLight
-                                    .withValues(alpha: 0.18),
+                                color: AppColors.primaryLight.withValues(
+                                  alpha: 0.18,
+                                ),
                                 borderRadius: BorderRadius.circular(18),
                               ),
                               child: const Row(
@@ -158,13 +149,13 @@ class AddMedicationScreen extends ConsumerWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('tablet'),
-                                  Icon(Icons.expand_more_rounded)
+                                  Icon(Icons.expand_more_rounded),
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ).animate(delay: 240.ms).fadeIn().slideY(begin: .15),
@@ -180,13 +171,9 @@ class AddMedicationScreen extends ConsumerWidget {
                         children: [
                           const Text(
                             'Reminder Times',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: TextStyle(fontWeight: FontWeight.w700),
                           ),
-                          Text(
-                            '${state.reminderTimes.length} times a day',
-                          )
+                          Text('${state.reminderTimes.length} times a day'),
                         ],
                       ),
                       const SizedBox(height: 18),
@@ -214,7 +201,7 @@ class AddMedicationScreen extends ConsumerWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(999),
                                 border: Border.all(
-                                  color: VitaColors.outline,
+                                  color: AppColors.outline,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -227,9 +214,9 @@ class AddMedicationScreen extends ConsumerWidget {
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ).animate(delay: 360.ms).fadeIn().slideY(begin: .15),
@@ -249,7 +236,7 @@ class AddMedicationScreen extends ConsumerWidget {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                )
+                ),
               ],
             ),
 
@@ -259,18 +246,33 @@ class AddMedicationScreen extends ConsumerWidget {
               bottom: 28,
               child: SafeArea(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    try {
+                      await notifier.submit();
+                      if (context.mounted) {
+                        context.pop();
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Failed to add medication.'),
+                          ),
+                        );
+                      }
+                    }
+                  },
                   child: Container(
                     height: 62,
                     decoration: BoxDecoration(
-                      color: VitaColors.primary,
+                      color: AppColors.primary,
                       borderRadius: BorderRadius.circular(22),
                       boxShadow: const [
                         BoxShadow(
                           color: Color.fromRGBO(0, 93, 167, 0.24),
                           blurRadius: 24,
                           offset: Offset(0, 12),
-                        )
+                        ),
                       ],
                     ),
                     child: const Center(
@@ -286,7 +288,7 @@ class AddMedicationScreen extends ConsumerWidget {
                   ),
                 ).animate().fadeIn(delay: 600.ms).slideY(begin: 1),
               ),
-            )
+            ),
           ],
         ),
       ),

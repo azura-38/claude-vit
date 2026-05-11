@@ -19,7 +19,8 @@ class VitaPressable extends StatefulWidget {
   State<VitaPressable> createState() => _VitaPressableState();
 }
 
-class _VitaPressableState extends State<VitaPressable> with SingleTickerProviderStateMixin {
+class _VitaPressableState extends State<VitaPressable>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -33,8 +34,15 @@ class _VitaPressableState extends State<VitaPressable> with SingleTickerProvider
     );
 
     // Spring-like easing
-    _scaleAnimation = Tween<double>(begin: 1.0, end: widget.scaleDownTo).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic, reverseCurve: Curves.easeInCubic),
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: widget.scaleDownTo,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOutCubic,
+        reverseCurve: Curves.easeInCubic,
+      ),
     );
   }
 
@@ -72,10 +80,7 @@ class _VitaPressableState extends State<VitaPressable> with SingleTickerProvider
       child: AnimatedBuilder(
         animation: _scaleAnimation,
         builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: child,
-          );
+          return Transform.scale(scale: _scaleAnimation.value, child: child);
         },
         child: widget.child,
       ),

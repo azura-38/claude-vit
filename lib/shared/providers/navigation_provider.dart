@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final navigationProvider = NotifierProvider<NavigationNotifier, int>(NavigationNotifier.new);
+final navigationProvider = NotifierProvider<NavigationNotifier, int>(
+  NavigationNotifier.new,
+);
 
 class NavigationNotifier extends Notifier<int> {
   @override

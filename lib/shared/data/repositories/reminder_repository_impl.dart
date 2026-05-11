@@ -19,18 +19,28 @@ class ReminderRepositoryImpl implements ReminderRepository {
   @override
   Future<List<Reminder>> getAll() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('time', true)]));
-    return records.map((r) => ReminderModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('time', true)]),
+    );
+    return records
+        .map((r) => ReminderModel.fromMap(r.value).toEntity())
+        .toList();
   }
 
   @override
   Future<List<Reminder>> getPending() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(
-      filter: Filter.equals('isActive', true),
-      sortOrders: [SortOrder('time', true)]
-    ));
-    return records.map((r) => ReminderModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(
+        filter: Filter.equals('isActive', true),
+        sortOrders: [SortOrder('time', true)],
+      ),
+    );
+    return records
+        .map((r) => ReminderModel.fromMap(r.value).toEntity())
+        .toList();
   }
 
   @override

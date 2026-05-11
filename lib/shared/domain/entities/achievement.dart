@@ -13,7 +13,7 @@ enum AchievementCategory {
   health,
   engagement,
   premium,
-  powerUser
+  powerUser,
 }
 
 class Achievement {
@@ -51,10 +51,7 @@ class Achievement {
     this.imagePath,
   });
 
-  Achievement copyWith({
-    int? progress,
-    bool? unlocked,
-  }) {
+  Achievement copyWith({int? progress, bool? unlocked}) {
     return Achievement(
       id: id,
       title: title,
@@ -115,7 +112,10 @@ class Achievement {
         (e) => e.name == map['category'],
         orElse: () => AchievementCategory.streak,
       ),
-      reward: map['reward'] != null ? Map<String, dynamic>.from(map['reward']) : null,
+      reward:
+          map['reward'] != null
+              ? Map<String, dynamic>.from(map['reward'])
+              : null,
       imagePath: map['imagePath'],
     );
   }

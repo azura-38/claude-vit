@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import '../../../core/l10n/app_localizations.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class PaywallScreen extends StatelessWidget {
   const PaywallScreen({super.key});
@@ -19,16 +19,13 @@ class PaywallScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              context.l10n('premium_unavailable_title'),
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-              ),
+              context.l10n.premiumUnavailableTitle,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              context.l10n('premium_unavailable_desc'),
+              context.l10n.premiumUnavailableDesc,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -36,7 +33,7 @@ class PaywallScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(context.l10n('btn_close')),
+                child: Text(context.l10n.btnClose),
               ),
             ),
           ],

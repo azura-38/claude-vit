@@ -1,11 +1,11 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../domain/entities/medicine.dart';
 import '../../../../shared/providers/medicine_providers.dart';
 import '../../../../core/utils/date_formatter.dart';
@@ -28,7 +28,7 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final medsAsync = ref.watch(medicineListProvider);
-    final userName = ref.watch(profileNameProvider) ?? context.l10n('guest_user');
+    final userName = ref.watch(profileNameProvider) ?? context.l10n.guestUser;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
@@ -41,8 +41,16 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                 _buildSliverAppBar(context, isDark),
                 SliverToBoxAdapter(
                   child: medsAsync.when(
-                    loading: () => const Center(child: Padding(padding: EdgeInsets.all(40), child: CircularProgressIndicator())),
-                    error: (e, _) => Center(child: Text('${context.l10n('error')}: $e')),
+                    loading:
+                        () => const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(40),
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                    error:
+                        (e, _) =>
+                            Center(child: Text('${context.l10n.error}: $e')),
                     data: (medicines) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -80,7 +88,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(
-              colors: [AppColors.medicalBlue, AppColors.medicalBlue.withValues(alpha: 0.8)],
+              colors: [
+                AppColors.medicalBlue,
+                AppColors.medicalBlue.withValues(alpha: 0.8),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -89,12 +100,16 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                 color: const Color(0xFF005DA7).withValues(alpha: 0.3),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
-              )
+              ),
             ],
           ),
           child: const Icon(Icons.add_rounded, color: Colors.white, size: 32),
         ),
-      ).animate().scale(delay: 400.ms, duration: 400.ms, curve: Curves.easeOutBack),
+      ).animate().scale(
+        delay: 400.ms,
+        duration: 400.ms,
+        curve: Curves.easeOutBack,
+      ),
     );
   }
 
@@ -104,13 +119,15 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       floating: true,
       pinned: true,
       elevation: 0,
-      backgroundColor: (isDark ? Colors.black : Colors.white).withValues(alpha: 0.8),
+      backgroundColor: (isDark ? Colors.black : Colors.white).withValues(
+        alpha: 0.8,
+      ),
       surfaceTintColor: Colors.transparent,
       title: Row(
         children: [
           const SizedBox(width: 12),
           Text(
-            context.l10n('my_medicines'),
+            context.l10n.myMedicines,
             style: const TextStyle(
               fontFamily: 'Manrope',
               fontWeight: FontWeight.w800,
@@ -122,7 +139,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       ),
       actions: [
         IconButton(
-          icon: Icon(Icons.notifications_none_rounded, color: Colors.blueGrey.shade600),
+          icon: Icon(
+            Icons.notifications_none_rounded,
+            color: Colors.blueGrey.shade600,
+          ),
           onPressed: () {},
         ),
       ],
@@ -141,9 +161,13 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
     }
 
     final lowStockMed = meds.cast<Medicine?>().firstWhere(
-          (m) => m != null && m.currentStock != null && m.totalStock != null && (m.currentStock! / m.totalStock! < 0.2),
-          orElse: () => null,
-        );
+      (m) =>
+          m != null &&
+          m.currentStock != null &&
+          m.totalStock != null &&
+          (m.currentStock! / m.totalStock! < 0.2),
+      orElse: () => null,
+    );
 
     return Container(
       width: double.infinity,
@@ -151,7 +175,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
-          colors: [AppColors.medicalBlue, AppColors.medicalBlue.withValues(alpha: 0.8)],
+          colors: [
+            AppColors.medicalBlue,
+            AppColors.medicalBlue.withValues(alpha: 0.8),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -160,7 +187,7 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
             color: const Color(0xFF005DA7).withValues(alpha: 0.2),
             blurRadius: 20,
             offset: const Offset(0, 10),
-          )
+          ),
         ],
       ),
       child: Stack(
@@ -191,7 +218,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                context.l10n('med_count_desc').replaceFirst('{count}', meds.length.toString()),
+                context.l10n.medCountDesc.replaceFirst(
+                  '{count}',
+                  meds.length.toString(),
+                ),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -215,7 +245,11 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                               color: Colors.red.withValues(alpha: 0.1),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.warning_rounded, color: Colors.red, size: 20),
+                            child: const Icon(
+                              Icons.warning_rounded,
+                              color: Colors.red,
+                              size: 20,
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -223,12 +257,21 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  context.l10n('low_stock_warning'),
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                                  context.l10n.lowStockWarning,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
                                 ),
                                 Text(
-                                  context.l10n('critical_level').replaceFirst('{name}', lowStockMed.name),
-                                  style: const TextStyle(fontSize: 11, color: Colors.black54),
+                                  context.l10n.criticalLevel.replaceFirst(
+                                    '{name}',
+                                    lowStockMed.name,
+                                  ),
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black54,
+                                  ),
                                 ),
                               ],
                             ),
@@ -238,17 +281,27 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF005DA7),
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
-                            child: Text(context.l10n('refill'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-                          )
+                            child: Text(
+                              context.l10n.refill,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                )
-              ]
+                ),
+              ],
             ],
           ),
         ],
@@ -259,12 +312,12 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
   Widget _buildIntakeChart(bool isDark) {
     final medsAsync = ref.watch(medicineListProvider);
     final meds = medsAsync.asData?.value ?? [];
-    
+
     // Calculate real compliance for today
     final now = DateTime.now();
     int todayTotal = 0;
     int todayTaken = 0;
-    
+
     for (var med in meds) {
       bool isToday = false;
       if (med.frequency == 'daily') {
@@ -272,24 +325,32 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       } else if (med.frequency == 'weekly') {
         isToday = now.weekday == med.createdAt.weekday;
       } else {
-        isToday = DateFormatter.formatIso(now) == DateFormatter.formatIso(med.createdAt);
+        isToday =
+            DateFormatter.formatIso(now) ==
+            DateFormatter.formatIso(med.createdAt);
       }
-      
+
       if (isToday) {
         todayTotal += med.reminderTimes.length;
         if (med.isTaken) todayTaken += med.reminderTimes.length;
       }
     }
-    
-    final compliancePercent = todayTotal > 0 ? ((todayTaken / todayTotal) * 100).round() : 0;
-    final progressValue = todayTotal > 0 ? (todayTaken / todayTotal).clamp(0.0, 1.0) : 0.0;
+
+    final compliancePercent =
+        todayTotal > 0 ? ((todayTaken / todayTotal) * 100).round() : 0;
+    final progressValue =
+        todayTotal > 0 ? (todayTaken / todayTotal).clamp(0.0, 1.0) : 0.0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          context.l10n('intake_chart'),
-          style: const TextStyle(fontFamily: 'Manrope', fontSize: 18, fontWeight: FontWeight.w800),
+          context.l10n.intakeChart,
+          style: const TextStyle(
+            fontFamily: 'Manrope',
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         const SizedBox(height: 16),
         Container(
@@ -304,7 +365,12 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: isDark ? Colors.white10 : AppColors.medicalBlue.withValues(alpha: 0.1)),
+            border: Border.all(
+              color:
+                  isDark
+                      ? Colors.white10
+                      : AppColors.medicalBlue.withValues(alpha: 0.1),
+            ),
           ),
           child: Column(
             children: [
@@ -313,18 +379,20 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                   Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: compliancePercent == 100
-                          ? const Color(0xFF10B981).withValues(alpha: 0.15)
-                          : AppColors.medicalBlue.withValues(alpha: 0.12),
+                      color:
+                          compliancePercent == 100
+                              ? const Color(0xFF10B981).withValues(alpha: 0.15)
+                              : AppColors.medicalBlue.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Icon(
                       compliancePercent == 100
                           ? Icons.check_circle_rounded
                           : Icons.medication_rounded,
-                      color: compliancePercent == 100
-                          ? const Color(0xFF10B981)
-                          : AppColors.medicalBlue,
+                      color:
+                          compliancePercent == 100
+                              ? const Color(0xFF10B981)
+                              : AppColors.medicalBlue,
                       size: 28,
                     ),
                   ),
@@ -334,7 +402,7 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          context.l10n('today_summary'),
+                          context.l10n.todaySummary,
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w900,
@@ -347,16 +415,25 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                           text: TextSpan(
                             style: TextStyle(
                               fontFamily: 'Manrope',
-                              color: isDark ? Colors.white : AppColors.textPrimary,
+                              color:
+                                  isDark ? Colors.white : AppColors.textPrimary,
                             ),
                             children: [
                               TextSpan(
                                 text: '$todayTaken',
-                                style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+                                style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w900,
+                                ),
                               ),
                               TextSpan(
                                 text: ' / $todayTotal',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: isDark ? Colors.white54 : Colors.blueGrey),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      isDark ? Colors.white54 : Colors.blueGrey,
+                                ),
                               ),
                             ],
                           ),
@@ -365,11 +442,15 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
-                      color: compliancePercent == 100
-                          ? const Color(0xFF10B981).withValues(alpha: 0.15)
-                          : AppColors.medicalBlue.withValues(alpha: 0.12),
+                      color:
+                          compliancePercent == 100
+                              ? const Color(0xFF10B981).withValues(alpha: 0.15)
+                              : AppColors.medicalBlue.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -377,9 +458,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w900,
-                        color: compliancePercent == 100
-                            ? const Color(0xFF10B981)
-                            : AppColors.medicalBlue,
+                        color:
+                            compliancePercent == 100
+                                ? const Color(0xFF10B981)
+                                : AppColors.medicalBlue,
                       ),
                     ),
                   ),
@@ -391,17 +473,25 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                 child: LinearProgressIndicator(
                   value: progressValue,
                   minHeight: 8,
-                  backgroundColor: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+                  backgroundColor:
+                      isDark
+                          ? Colors.white10
+                          : Colors.black.withValues(alpha: 0.05),
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    compliancePercent == 100 ? const Color(0xFF10B981) : AppColors.medicalBlue,
+                    compliancePercent == 100
+                        ? const Color(0xFF10B981)
+                        : AppColors.medicalBlue,
                   ),
                 ),
               ),
               if (todayTotal == 0) ...[
                 const SizedBox(height: 16),
                 Text(
-                  context.l10n('no_more_appointments'),
-                  style: TextStyle(fontSize: 12, color: isDark ? Colors.white38 : Colors.blueGrey),
+                  context.l10n.noMoreAppointments,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isDark ? Colors.white38 : Colors.blueGrey,
+                  ),
                 ),
               ],
             ],
@@ -410,7 +500,6 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       ],
     ).animate().fadeIn(delay: 200.ms);
   }
-
 
   Widget _buildMedicineCabinet(List<Medicine> meds, bool isDark) {
     return Column(
@@ -422,15 +511,33 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(context.l10n('medicine_cabinet'), style: const TextStyle(fontFamily: 'Manrope', fontSize: 18, fontWeight: FontWeight.w800)),
-                Text(context.l10n('active_inventory'), style: TextStyle(fontSize: 13, color: isDark ? Colors.white60 : Colors.black54)),
+                Text(
+                  context.l10n.medicineCabinet,
+                  style: const TextStyle(
+                    fontFamily: 'Manrope',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  context.l10n.activeInventory,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? Colors.white60 : Colors.black54,
+                  ),
+                ),
               ],
             ),
             TextButton.icon(
               onPressed: () => _showAddMedicine(context),
               icon: const Icon(Icons.add, size: 18),
-              label: Text(context.l10n('add'), style: const TextStyle(fontWeight: FontWeight.w800)),
-              style: TextButton.styleFrom(foregroundColor: const Color(0xFF005DA7)),
+              label: Text(
+                context.l10n.add,
+                style: const TextStyle(fontWeight: FontWeight.w800),
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFF005DA7),
+              ),
             ),
           ],
         ),
@@ -468,7 +575,12 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
         color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
-          if (!isDark) BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 10, offset: const Offset(0, 4)),
+          if (!isDark)
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.02),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
         ],
       ),
       child: Stack(
@@ -477,7 +589,11 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
             top: -4,
             right: -12,
             child: PopupMenuButton<String>(
-              icon: const Icon(Icons.more_vert_rounded, size: 18, color: Colors.blueGrey),
+              icon: const Icon(
+                Icons.more_vert_rounded,
+                size: 18,
+                color: Colors.blueGrey,
+              ),
               onSelected: (val) {
                 if (val == 'edit') {
                   context.push(AppRoutes.medicineAdd, extra: med);
@@ -485,10 +601,36 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                   _showDeleteConfirm(context, ref, med);
                 }
               },
-              itemBuilder: (context) => [
-                PopupMenuItem(value: 'edit', child: Row(children: [const Icon(Icons.edit_rounded, size: 18), const SizedBox(width: 8), Text(context.l10n('edit'))])),
-                PopupMenuItem(value: 'delete', child: Row(children: [const Icon(Icons.delete_rounded, size: 18, color: Colors.red), const SizedBox(width: 8), Text(context.l10n('delete'), style: const TextStyle(color: Colors.red))])),
-              ],
+              itemBuilder:
+                  (context) => [
+                    PopupMenuItem(
+                      value: 'edit',
+                      child: Row(
+                        children: [
+                          const Icon(Icons.edit_rounded, size: 18),
+                          const SizedBox(width: 8),
+                          Text(context.l10n.edit),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'delete',
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.delete_rounded,
+                            size: 18,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            context.l10n.delete,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
             ),
           ),
           Column(
@@ -501,7 +643,8 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
-                  med.dosage.toLowerCase().contains("syrup") || med.dosage.toLowerCase().contains("şurup")
+                  med.dosage.toLowerCase().contains("syrup") ||
+                          med.dosage.toLowerCase().contains("şurup")
                       ? Icons.vaccines_rounded
                       : Icons.medication_rounded,
                   color: AppColors.medicalBlue,
@@ -509,8 +652,23 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              Text(med.name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14), maxLines: 1, overflow: TextOverflow.ellipsis),
-              Text(med.dosage, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.blueGrey)),
+              Text(
+                med.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 14,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                med.dosage,
+                style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blueGrey,
+                ),
+              ),
               const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -519,7 +677,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                     borderRadius: BorderRadius.circular(4),
                     child: LinearProgressIndicator(
                       value: progress,
-                      backgroundColor: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+                      backgroundColor:
+                          isDark
+                              ? Colors.white10
+                              : Colors.black.withValues(alpha: 0.05),
                       color: isLow ? Colors.red : const Color(0xFF005DA7),
                       minHeight: 6,
                     ),
@@ -527,8 +688,11 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                   const SizedBox(height: 6),
                   Text(
                     isLow
-                        ? context.l10n('low_stock_warning').toUpperCase()
-                        : context.l10n('stock_left').replaceFirst('{count}', current.toString()),
+                        ? context.l10n.lowStockWarning.toUpperCase()
+                        : context.l10n.stockLeft.replaceFirst(
+                          '{count}',
+                          current.toString(),
+                        ),
                     style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.w900,
@@ -551,16 +715,28 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.blueGrey.withValues(alpha: 0.2), width: 2, style: BorderStyle.solid),
+          border: Border.all(
+            color: Colors.blueGrey.withValues(alpha: 0.2),
+            width: 2,
+            style: BorderStyle.solid,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add_circle_outline_rounded, size: 32, color: Colors.blueGrey.withValues(alpha: 0.4)),
+            Icon(
+              Icons.add_circle_outline_rounded,
+              size: 32,
+              color: Colors.blueGrey.withValues(alpha: 0.4),
+            ),
             const SizedBox(height: 8),
             Text(
-              context.l10n('med_cabinet_add'),
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: Colors.blueGrey.withValues(alpha: 0.6)),
+              context.l10n.medCabinetAdd,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                color: Colors.blueGrey.withValues(alpha: 0.6),
+              ),
             ),
           ],
         ),
@@ -583,10 +759,12 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
         // Simple logic: if today is same weekday as creation
         isToday = now.weekday == med.createdAt.weekday;
       } else {
-        // For custom or others, we might need more logic, 
-        // but for now let's assume if it's not daily/weekly, 
+        // For custom or others, we might need more logic,
+        // but for now let's assume if it's not daily/weekly,
         // it only shows on the day it was created (one-time logic).
-        isToday = DateFormatter.formatIso(now) == DateFormatter.formatIso(med.createdAt);
+        isToday =
+            DateFormatter.formatIso(now) ==
+            DateFormatter.formatIso(med.createdAt);
       }
 
       if (!isToday) continue;
@@ -603,20 +781,53 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       }
     }
 
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n('daily_routine'), style: const TextStyle(fontFamily: 'Manrope', fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          context.l10n.dailyRoutine,
+          style: const TextStyle(
+            fontFamily: 'Manrope',
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         const SizedBox(height: 24),
-        if (morning.isNotEmpty) _buildRoutineSection(context.l10n('morning'), Icons.wb_sunny_rounded, morning, true, isDark),
-        if (afternoon.isNotEmpty) _buildRoutineSection(context.l10n('afternoon'), Icons.light_mode_rounded, afternoon, night.isNotEmpty, isDark),
-        if (night.isNotEmpty) _buildRoutineSection(context.l10n('night'), Icons.bedtime_rounded, night, false, isDark),
+        if (morning.isNotEmpty)
+          _buildRoutineSection(
+            context.l10n.morning,
+            Icons.wb_sunny_rounded,
+            morning,
+            true,
+            isDark,
+          ),
+        if (afternoon.isNotEmpty)
+          _buildRoutineSection(
+            context.l10n.afternoon,
+            Icons.light_mode_rounded,
+            afternoon,
+            night.isNotEmpty,
+            isDark,
+          ),
+        if (night.isNotEmpty)
+          _buildRoutineSection(
+            context.l10n.night,
+            Icons.bedtime_rounded,
+            night,
+            false,
+            isDark,
+          ),
       ],
     ).animate().fadeIn(delay: 400.ms);
   }
 
-  Widget _buildRoutineSection(String title, IconData icon, List<Medicine> meds, bool showLine, bool isDark) {
+  Widget _buildRoutineSection(
+    String title,
+    IconData icon,
+    List<Medicine> meds,
+    bool showLine,
+    bool isDark,
+  ) {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -626,7 +837,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
               Container(
                 width: 48,
                 height: 48,
-                decoration: const BoxDecoration(color: AppColors.medicalBlue, shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  color: AppColors.medicalBlue,
+                  shape: BoxShape.circle,
+                ),
                 child: Icon(icon, color: Colors.white, size: 24),
               ),
               if (showLine)
@@ -634,7 +848,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                   child: Container(
                     width: 4,
                     margin: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(color: const Color(0xFFD4E3FF), borderRadius: BorderRadius.circular(2)),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD4E3FF),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                 ),
             ],
@@ -644,12 +861,21 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Color(0xFF005DA7))),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF005DA7),
+                  ),
+                ),
                 const SizedBox(height: 12),
-                ...meds.map((m) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: _buildRoutineCard(m, isDark),
-                )),
+                ...meds.map(
+                  (m) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildRoutineCard(m, isDark),
+                  ),
+                ),
                 const SizedBox(height: 24),
               ],
             ),
@@ -669,14 +895,27 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.medication_rounded, color: Colors.blueGrey, size: 20),
+          const Icon(
+            Icons.medication_rounded,
+            color: Colors.blueGrey,
+            size: 20,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(med.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                Text("${med.hungerStatus.label}, ${med.dosage}", style: const TextStyle(fontSize: 11, color: Colors.blueGrey)),
+                Text(
+                  med.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  "${med.hungerStatus.label}, ${med.dosage}",
+                  style: const TextStyle(fontSize: 11, color: Colors.blueGrey),
+                ),
               ],
             ),
           ),
@@ -693,13 +932,19 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: med.isTaken 
-                    ? AppColors.medicalBlue.withValues(alpha: 0.1) 
-                    : Colors.transparent,
+                color:
+                    med.isTaken
+                        ? AppColors.medicalBlue.withValues(alpha: 0.1)
+                        : Colors.transparent,
               ),
               child: Icon(
-                med.isTaken ? Icons.check_circle_rounded : Icons.circle_outlined, 
-                color: med.isTaken ? AppColors.medicalBlue : Colors.blueGrey.withValues(alpha: 0.4), 
+                med.isTaken
+                    ? Icons.check_circle_rounded
+                    : Icons.circle_outlined,
+                color:
+                    med.isTaken
+                        ? AppColors.medicalBlue
+                        : Colors.blueGrey.withValues(alpha: 0.4),
                 size: 28,
               ),
             ),
@@ -712,20 +957,32 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
   void _showDeleteConfirm(BuildContext context, WidgetRef ref, Medicine med) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(context.l10n('delete'), style: const TextStyle(color: AppColors.error)),
-        content: Text(context.l10n('delete_medicine_confirm')),
-        actions: [
-          TextButton(onPressed: () => context.pop(), child: Text(context.l10n('cancel'))),
-          TextButton(
-            onPressed: () {
-              ref.read(medicineListProvider.notifier).deleteMedicine(med.id);
-              context.pop();
-            },
-            child: Text(context.l10n('delete'), style: const TextStyle(color: AppColors.error)),
+      builder:
+          (ctx) => AlertDialog(
+            title: Text(
+              context.l10n.delete,
+              style: const TextStyle(color: AppColors.error),
+            ),
+            content: Text(context.l10n.deleteMedicineConfirm),
+            actions: [
+              TextButton(
+                onPressed: () => context.pop(),
+                child: Text(context.l10n.cancel),
+              ),
+              TextButton(
+                onPressed: () {
+                  ref
+                      .read(medicineListProvider.notifier)
+                      .deleteMedicine(med.id);
+                  context.pop();
+                },
+                child: Text(
+                  context.l10n.delete,
+                  style: const TextStyle(color: AppColors.error),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -742,8 +999,8 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
     if (!canAdd) {
       showLimitDialog(
         context,
-        title: context.l10n('limit_medicine_title'),
-        description: context.l10n('limit_medicine_desc'),
+        title: context.l10n.limitMedicineTitle,
+        description: context.l10n.limitMedicineDesc,
         onRewardEarned: () {
           ref.read(limitProvider.notifier).increaseExtraMedicine(5);
           ref.read(limitProvider.notifier).onRewardedAdCompleted();
@@ -752,7 +1009,9 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       return;
     }
 
-    context.push(AppRoutes.medicineAdd).then((_) => ref.read(medicineListProvider.notifier).refresh());
+    context
+        .push(AppRoutes.medicineAdd)
+        .then((_) => ref.read(medicineListProvider.notifier).refresh());
   }
 
   Widget _buildStickyDisclaimer(bool isDark) {
@@ -760,18 +1019,31 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : Colors.white,
-        border: Border(top: BorderSide(color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05))),
+        border: Border(
+          top: BorderSide(
+            color:
+                isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
+          ),
+        ),
       ),
       child: SafeArea(
         top: false,
         child: Row(
           children: [
-            Icon(Icons.info_outline_rounded, size: 14, color: const Color(0xFF005DA7)),
+            Icon(
+              Icons.info_outline_rounded,
+              size: 14,
+              color: const Color(0xFF005DA7),
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                context.l10n('safety_footer_med'),
-                style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.blueGrey),
+                context.l10n.safetyFooterMed,
+                style: const TextStyle(
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueGrey,
+                ),
               ),
             ),
           ],

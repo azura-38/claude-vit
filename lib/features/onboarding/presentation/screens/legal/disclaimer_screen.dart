@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import '../../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../../core/constants/app_colors.dart';
 
 class DisclaimerScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class DisclaimerScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : Colors.white,
       appBar: AppBar(
-        title: Text(context.l10n('disclaimer')),
+        title: Text(context.l10n.disclaimer),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,

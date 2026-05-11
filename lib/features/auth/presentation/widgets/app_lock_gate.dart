@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/types/runtime_types.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../providers/auth_providers.dart';
 
 class AppLockGate extends ConsumerStatefulWidget {
@@ -33,7 +33,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     if (lockEnabled && lockState == AppLockState.locked && !_isAuthenticating) {
       // Only attempt biometric if it's enabled
       if (!biometricEnabled) return;
-      
+
       setState(() => _isAuthenticating = true);
       final success = await ref.read(appLockServiceProvider).authenticate();
       if (success && mounted) {
@@ -62,16 +62,18 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+      backgroundColor:
+          isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: isDark 
-              ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
-              : [const Color(0xFFF8FAFC), const Color(0xFFF1F5F9)],
+            colors:
+                isDark
+                    ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
+                    : [const Color(0xFFF8FAFC), const Color(0xFFF1F5F9)],
           ),
         ),
         child: Column(
@@ -84,14 +86,14 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.lock_rounded, 
-                size: 64, 
-                color: isDark ? Colors.blue.shade400 : Colors.blue.shade700
+                Icons.lock_rounded,
+                size: 64,
+                color: isDark ? Colors.blue.shade400 : Colors.blue.shade700,
               ),
             ),
             const SizedBox(height: 32),
             Text(
-              context.l10n('lock_gate_title'),
+              context.l10n.lockGateTitle,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
@@ -103,7 +105,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 48),
               child: Text(
-                context.l10n('lock_gate_desc'),
+                context.l10n.lockGateDesc,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -118,12 +120,17 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
               ElevatedButton.icon(
                 onPressed: _checkAndAuth,
                 icon: const Icon(Icons.fingerprint_rounded),
-                label: Text(context.l10n('lock_gate_unlock')),
+                label: Text(context.l10n.lockGateUnlock),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade600,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   elevation: 8,
                   shadowColor: Colors.blue.withValues(alpha: 0.3),
                 ),

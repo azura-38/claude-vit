@@ -15,15 +15,10 @@ class VaultTagChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 14,
-        vertical: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius:
-            BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
         label,

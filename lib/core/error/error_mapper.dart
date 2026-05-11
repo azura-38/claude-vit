@@ -25,7 +25,7 @@ class ErrorMapper {
     }
     // Note: Sembast sometimes throws normal exceptions for missing Codec etc.
     final exceptionStr = exception.toString().toLowerCase();
-    
+
     if (exceptionStr.contains('crypto') || exceptionStr.contains('mac check')) {
       return const CryptoFailure('Failed to encrypt or decrypt data');
     }

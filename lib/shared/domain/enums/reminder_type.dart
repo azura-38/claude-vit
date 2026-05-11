@@ -1,4 +1,1 @@
-enum ReminderType {
-  medicine,
-  appointment;
-}
+enum ReminderType { medicine, appointment }

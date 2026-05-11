@@ -10,13 +10,21 @@ import '../../shared/data/services/ad_service.dart';
 /// Core Service Providers for Dependency Injection (DI)
 /// Migrating away from direct Singleton access to improve testability and architecture score.
 
-final notificationServiceProvider = Provider<NotificationService>((ref) => NotificationService(ref.watch(sharedPreferencesProvider)));
+final notificationServiceProvider = Provider<NotificationService>(
+  (ref) => NotificationService(ref.watch(sharedPreferencesProvider)),
+);
 
-final encryptionServiceProvider = Provider<EncryptionService>((ref) => EncryptionService());
+final encryptionServiceProvider = Provider<EncryptionService>(
+  (ref) => EncryptionService(),
+);
 
-final sembastDatabaseProvider = Provider<SembastDatabase>((ref) => SembastDatabase());
+final sembastDatabaseProvider = Provider<SembastDatabase>(
+  (ref) => SembastDatabase(),
+);
 
-final appLockServiceProvider = Provider<AppLockService>((ref) => AppLockService());
+final appLockServiceProvider = Provider<AppLockService>(
+  (ref) => AppLockService(),
+);
 
 final comboEngineProvider = Provider<ComboEngine>((ref) => ComboEngine());
 

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../shared/data/services/ad_service.dart';
@@ -13,7 +13,8 @@ class ThemeSelectionScreen extends ConsumerStatefulWidget {
   const ThemeSelectionScreen({super.key});
 
   @override
-  ConsumerState<ThemeSelectionScreen> createState() => _ThemeSelectionScreenState();
+  ConsumerState<ThemeSelectionScreen> createState() =>
+      _ThemeSelectionScreenState();
 }
 
 class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
@@ -67,15 +68,32 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    context.l10n('standard_modes'),
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                    context.l10n.standardModes,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(child: _buildStandardCard(context, AppThemeType.light, activeTheme, isDark)),
+                      Expanded(
+                        child: _buildStandardCard(
+                          context,
+                          AppThemeType.light,
+                          activeTheme,
+                          isDark,
+                        ),
+                      ),
                       const SizedBox(width: 16),
-                      Expanded(child: _buildStandardCard(context, AppThemeType.dark, activeTheme, isDark)),
+                      Expanded(
+                        child: _buildStandardCard(
+                          context,
+                          AppThemeType.dark,
+                          activeTheme,
+                          isDark,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 40),
@@ -83,18 +101,28 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.l10n('premium_palettes'),
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                        context.l10n.premiumPalettes,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.amber.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          context.l10n('premium_soon'),
-                          style: const TextStyle(color: Colors.amber, fontSize: 10, fontWeight: FontWeight.w900),
+                          context.l10n.premiumSoon,
+                          style: const TextStyle(
+                            color: Colors.amber,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
                       ),
                     ],
@@ -102,30 +130,46 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                   const SizedBox(height: 16),
                   ThemeItemWidget(
                     type: AppThemeType.purple,
-                    imageUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop',
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop',
                     isSelected: activeTheme == AppThemeType.purple,
-                    onSelected: () => setState(() => _pendingSelection = AppThemeType.purple),
+                    onSelected:
+                        () => setState(
+                          () => _pendingSelection = AppThemeType.purple,
+                        ),
                     onPreview: _previewTheme,
                   ),
                   ThemeItemWidget(
                     type: AppThemeType.nature,
-                    imageUrl: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=600&auto=format&fit=crop',
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=600&auto=format&fit=crop',
                     isSelected: activeTheme == AppThemeType.nature,
-                    onSelected: () => setState(() => _pendingSelection = AppThemeType.nature),
+                    onSelected:
+                        () => setState(
+                          () => _pendingSelection = AppThemeType.nature,
+                        ),
                     onPreview: _previewTheme,
                   ),
                   ThemeItemWidget(
                     type: AppThemeType.ocean,
-                    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop',
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop',
                     isSelected: activeTheme == AppThemeType.ocean,
-                    onSelected: () => setState(() => _pendingSelection = AppThemeType.ocean),
+                    onSelected:
+                        () => setState(
+                          () => _pendingSelection = AppThemeType.ocean,
+                        ),
                     onPreview: _previewTheme,
                   ),
                   ThemeItemWidget(
                     type: AppThemeType.amber,
-                    imageUrl: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=600&auto=format&fit=crop',
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=600&auto=format&fit=crop',
                     isSelected: activeTheme == AppThemeType.amber,
-                    onSelected: () => setState(() => _pendingSelection = AppThemeType.amber),
+                    onSelected:
+                        () => setState(
+                          () => _pendingSelection = AppThemeType.amber,
+                        ),
                     onPreview: _previewTheme,
                   ),
                   const SizedBox(height: 100),
@@ -136,17 +180,21 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: _pendingSelection != null && _pendingSelection != currentTheme
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              width: double.infinity,
-              child: FloatingActionButton.extended(
-                onPressed: _applyTheme,
-                backgroundColor: AppColors.primaryIndigo,
-                label: Text(context.l10n('apply_theme'), style: const TextStyle(fontWeight: FontWeight.w900)),
-              ),
-            ).animate().slideY(begin: 1, end: 0)
-          : null,
+      floatingActionButton:
+          _pendingSelection != null && _pendingSelection != currentTheme
+              ? Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                width: double.infinity,
+                child: FloatingActionButton.extended(
+                  onPressed: _applyTheme,
+                  backgroundColor: AppColors.primaryIndigo,
+                  label: Text(
+                    context.l10n.applyTheme,
+                    style: const TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ).animate().slideY(begin: 1, end: 0)
+              : null,
     );
   }
 
@@ -156,9 +204,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
       data: theme,
       child: Container(
         padding: const EdgeInsets.fromLTRB(40, 60, 40, 20),
-        decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-        ),
+        decoration: BoxDecoration(color: theme.scaffoldBackgroundColor),
         child: Column(
           children: [
             Container(
@@ -166,7 +212,9 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
               decoration: BoxDecoration(
                 color: theme.cardTheme.color,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: theme.dividerTheme.color ?? Colors.transparent),
+                border: Border.all(
+                  color: theme.dividerTheme.color ?? Colors.transparent,
+                ),
               ),
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -175,13 +223,19 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                   Container(
                     width: 100,
                     height: 12,
-                    decoration: BoxDecoration(color: theme.colorScheme.primary, borderRadius: BorderRadius.circular(6)),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primary,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                   ),
                   const SizedBox(height: 12),
                   Container(
                     width: 180,
                     height: 8,
-                    decoration: BoxDecoration(color: theme.disabledColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(
+                      color: theme.disabledColor.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ],
               ),
@@ -190,11 +244,20 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(backgroundColor: theme.colorScheme.primary, radius: 24),
+                CircleAvatar(
+                  backgroundColor: theme.colorScheme.primary,
+                  radius: 24,
+                ),
                 const SizedBox(width: 16),
-                CircleAvatar(backgroundColor: theme.colorScheme.secondary, radius: 24),
+                CircleAvatar(
+                  backgroundColor: theme.colorScheme.secondary,
+                  radius: 24,
+                ),
                 const SizedBox(width: 16),
-                CircleAvatar(backgroundColor: theme.colorScheme.tertiary, radius: 24),
+                CircleAvatar(
+                  backgroundColor: theme.colorScheme.tertiary,
+                  radius: 24,
+                ),
               ],
             ),
           ],
@@ -203,7 +266,12 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     );
   }
 
-  Widget _buildStandardCard(BuildContext context, AppThemeType type, AppThemeType active, bool isDark) {
+  Widget _buildStandardCard(
+    BuildContext context,
+    AppThemeType type,
+    AppThemeType active,
+    bool isDark,
+  ) {
     final isSelected = active == type;
     final isTypeDark = type == AppThemeType.dark;
 
@@ -215,7 +283,10 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
         decoration: BoxDecoration(
           color: isTypeDark ? const Color(0xFF0F172A) : Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: isSelected ? Colors.blue : Colors.transparent, width: 2),
+          border: Border.all(
+            color: isSelected ? Colors.blue : Colors.transparent,
+            width: 2,
+          ),
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -224,14 +295,18 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  isTypeDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                  isTypeDark
+                      ? Icons.dark_mode_rounded
+                      : Icons.light_mode_rounded,
                   color: isTypeDark ? Colors.indigoAccent : Colors.amber,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  type.localizedLabel(context).split(' ')[0], // 'Luxe' or 'Midnight'
+                  type
+                      .localizedLabel(context)
+                      .split(' ')[0], // 'Luxe' or 'Midnight'
                   style: TextStyle(
-                    fontWeight: FontWeight.w900, 
+                    fontWeight: FontWeight.w900,
                     fontSize: 14,
                     color: isTypeDark ? Colors.white : Colors.black87,
                   ),
@@ -239,7 +314,15 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
               ],
             ),
             if (isSelected)
-              const Positioned(top: 8, right: 8, child: Icon(Icons.check_circle_rounded, color: Colors.blue, size: 18)),
+              const Positioned(
+                top: 8,
+                right: 8,
+                child: Icon(
+                  Icons.check_circle_rounded,
+                  color: Colors.blue,
+                  size: 18,
+                ),
+              ),
           ],
         ),
       ),

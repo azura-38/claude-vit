@@ -9,15 +9,19 @@ import '../../../../core/di/service_providers.dart';
 import '../../../../core/types/runtime_types.dart';
 import '../../../../shared/data/services/analytics_service.dart';
 import '../../../../shared/data/services/notification_service.dart';
-import '../../../../shared/providers/medicine_providers.dart';
 
-final calendarViewTypeProvider = NotifierProvider<CalendarViewTypeNotifier, String>(CalendarViewTypeNotifier.new);
+enum CalendarViewType { monthly, weekly }
 
-class CalendarViewTypeNotifier extends Notifier<String> {
+final calendarViewTypeProvider =
+    NotifierProvider<CalendarViewTypeNotifier, CalendarViewType>(
+      CalendarViewTypeNotifier.new,
+    );
+
+class CalendarViewTypeNotifier extends Notifier<CalendarViewType> {
   @override
-  String build() => 'Aylık';
-  
-  void set(String val) => state = val;
+  CalendarViewType build() => CalendarViewType.monthly;
+
+  void set(CalendarViewType val) => state = val;
 }
 
 // documentRepositoryProvider and appointmentRepositoryProvider are now in core/di/repository_providers.dart
@@ -32,8 +36,8 @@ final addAppointmentUseCaseProvider = Provider<AddAppointmentUseCase>((ref) {
 
 final appointmentListProvider =
     AsyncNotifierProvider<AppointmentListNotifier, List<Appointment>>(
-  AppointmentListNotifier.new,
-);
+      AppointmentListNotifier.new,
+    );
 
 final nextAppointmentProvider = FutureProvider<Appointment?>((ref) async {
   final repo = ref.read(appointmentRepositoryProvider);
@@ -51,13 +55,15 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   Future<void> refresh() async {
     state = await AsyncValue.guard(() {
       final useCase = ref.read(getAppointmentsUseCaseProvider);
-      return useCase.call(NoParams()).then((value) => value.fold((l) => throw l, (r) => r));
+      return useCase
+          .call(NoParams())
+          .then((value) => value.fold((l) => throw l, (r) => r));
     });
   }
 
   Future<void> addAppointment(Appointment appointment) async {
     final useCase = ref.read(addAppointmentUseCaseProvider);
-    
+
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
@@ -73,7 +79,7 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
       (_) async {
         await _scheduleReminders(appointment);
         AnalyticsService.log(AnalyticsService.appointmentAdded);
-        // Refresh called locally to sync any ID changes from repo if needed, 
+        // Refresh called locally to sync any ID changes from repo if needed,
         // but the optimistic update already handled UI.
       },
     );
@@ -81,16 +87,26 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
 
   Future<void> updateAppointment(Appointment appointment) async {
     final repo = ref.read(appointmentRepositoryProvider);
-    
+
+    Appointment? oldAppointment;
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
-      state = AsyncData(currentList.map((a) => a.id == appointment.id ? appointment : a).toList());
+      oldAppointment =
+          currentList.where((a) => a.id == appointment.id).firstOrNull;
+      state = AsyncData(
+        currentList
+            .map((a) => a.id == appointment.id ? appointment : a)
+            .toList(),
+      );
     }
 
     try {
       await repo.update(appointment);
-      await _rebuildAllNotifications();
+      if (oldAppointment != null) {
+        await _cancelReminders(oldAppointment);
+      }
+      await _scheduleReminders(appointment);
     } catch (e) {
       await refresh();
       rethrow;
@@ -99,12 +115,16 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
 
   Future<void> _scheduleReminders(Appointment app) async {
     final notifier = ref.read(notificationServiceProvider);
-    
+
     // PERMISSION UX FIX (Moment of Need)
     // Request permission here before scheduling if not already granted.
-    final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
+    final permissionState = await notifier.requestPermissions(
+      requestExactAlarm: true,
+    );
     if (permissionState != NotificationPermissionState.granted) {
-      AnalyticsService.log(AnalyticsService.appointmentReminderPermissionDenied);
+      AnalyticsService.log(
+        AnalyticsService.appointmentReminderPermissionDenied,
+      );
       return;
     }
 
@@ -121,7 +141,9 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
   }
 
-  Future<void> rescheduleAllNotifications(List<Appointment> appointments) async {
+  Future<void> rescheduleAllNotifications(
+    List<Appointment> appointments,
+  ) async {
     for (final appointment in appointments) {
       await _scheduleReminders(appointment);
     }
@@ -155,11 +177,15 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
 
   Future<void> updateStatus(String id, AppointmentStatus status) async {
     final repo = ref.read(appointmentRepositoryProvider);
-    
+
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
-      state = AsyncData(currentList.map((a) => a.id == id ? a.copyWith(status: status) : a).toList());
+      state = AsyncData(
+        currentList
+            .map((a) => a.id == id ? a.copyWith(status: status) : a)
+            .toList(),
+      );
     }
 
     try {
@@ -173,31 +199,28 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   Future<void> deleteAppointment(String id) async {
     final repo = ref.read(appointmentRepositoryProvider);
 
+    Appointment? oldAppointment;
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
-      state = AsyncData(state.value!.where((a) => a.id != id).toList());
+      final currentList = state.value!;
+      oldAppointment = currentList.where((a) => a.id == id).firstOrNull;
+      state = AsyncData(currentList.where((a) => a.id != id).toList());
     }
 
     try {
       await repo.delete(id);
-      await _rebuildAllNotifications();
+      if (oldAppointment != null) {
+        await _cancelReminders(oldAppointment);
+      }
     } catch (e) {
       await refresh();
       rethrow;
     }
   }
 
-  Future<void> _rebuildAllNotifications() async {
-    await NotificationService.cancelAll();
-
-    final appointments = state.hasValue
-        ? state.value!
-        : await ref.read(appointmentListProvider.future);
-    final medicines = await ref.read(medicineListProvider.future);
-
-    await ref
-        .read(medicineListProvider.notifier)
-        .rescheduleAllNotifications(medicines);
-    await rescheduleAllNotifications(appointments);
+  Future<void> _cancelReminders(Appointment app) async {
+    for (final date in _generatedReminderDates(app)) {
+      await NotificationService.cancelOccurrence(id: app.id, date: date);
+    }
   }
 }

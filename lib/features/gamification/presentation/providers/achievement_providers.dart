@@ -21,7 +21,9 @@ final achievementRepositoryProvider = Provider<AchievementRepository>((ref) {
 });
 
 final achievementProvider =
-    AsyncNotifierProvider<AchievementNotifier, List<Achievement>>(AchievementNotifier.new);
+    AsyncNotifierProvider<AchievementNotifier, List<Achievement>>(
+      AchievementNotifier.new,
+    );
 
 class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
   late AchievementEngine _engine;
@@ -35,11 +37,11 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
 
   Future<void> track(String id, {int value = 1, int? setAbsolute}) async {
     if (!state.hasValue) return;
-    
+
     final (updatedList, newlyUnlocked) = await _engine.track(
-      state.requireValue, 
-      id, 
-      value, 
+      state.requireValue,
+      id,
+      value,
       setAbsolute: setAbsolute,
     );
     state = AsyncData(updatedList);
@@ -47,7 +49,7 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
     if (newlyUnlocked != null) {
       _applyReward(newlyUnlocked);
       _notifyUnlock(newlyUnlocked);
-      
+
       // Add dynamic XP Reward from achievement
       if (newlyUnlocked.xpReward > 0) {
         ref.read(seasonProvider.notifier).addXP(newlyUnlocked.xpReward);
@@ -96,7 +98,10 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
   bool _isShowingNotification = false;
 
   void _notifyUnlock(Achievement achievement) {
-    AnalyticsService.log(AnalyticsService.achievementUnlocked, {'id': achievement.id, 'tier': achievement.tier.name});
+    AnalyticsService.log(AnalyticsService.achievementUnlocked, {
+      'id': achievement.id,
+      'tier': achievement.tier.name,
+    });
     _notificationQueue.add(achievement);
     _showNextNotification();
   }
@@ -117,15 +122,19 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
       context: context,
       barrierDismissible: false,
       useSafeArea: false,
-      builder: (context) => AchievementCelebration(
-        achievement: achievement,
-        onClose: () {
-          context.pop();
-          _isShowingNotification = false;
-          // Delay next show to allow popup animation to complete
-          Future.delayed(const Duration(milliseconds: 300), _showNextNotification);
-        },
-      ),
+      builder:
+          (context) => AchievementCelebration(
+            achievement: achievement,
+            onClose: () {
+              context.pop();
+              _isShowingNotification = false;
+              // Delay next show to allow popup animation to complete
+              Future.delayed(
+                const Duration(milliseconds: 300),
+                _showNextNotification,
+              );
+            },
+          ),
     );
   }
 }

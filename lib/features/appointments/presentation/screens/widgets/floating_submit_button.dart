@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class FloatingSubmitButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const FloatingSubmitButton({
-    super.key,
-    required this.onTap,
-  });
+  const FloatingSubmitButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,7 @@ class FloatingSubmitButton extends StatelessWidget {
               color: Color.fromRGBO(0, 93, 167, 0.24),
               blurRadius: 28,
               offset: Offset(0, 12),
-            )
+            ),
           ],
         ),
         child: const Center(

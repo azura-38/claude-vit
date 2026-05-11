@@ -24,15 +24,9 @@ class PrioritySelector extends StatelessWidget {
         duration: const Duration(milliseconds: 220),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: selected
-              ? color.withValues(alpha: 0.1)
-              : Colors.transparent,
+          color: selected ? color.withValues(alpha: 0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: selected
-                ? color
-                : const Color(0xFFE5E7EB),
-          ),
+          border: Border.all(color: selected ? color : const Color(0xFFE5E7EB)),
         ),
         child: Row(
           children: [
@@ -40,11 +34,8 @@ class PrioritySelector extends StatelessWidget {
             const SizedBox(width: 12),
             Text(
               title,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: color,
-              ),
-            )
+              style: TextStyle(fontWeight: FontWeight.w600, color: color),
+            ),
           ],
         ),
       ),

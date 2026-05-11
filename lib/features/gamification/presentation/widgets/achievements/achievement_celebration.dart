@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:ui';
 import '../../../../../shared/domain/entities/achievement.dart';
-import '../../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class AchievementCelebration extends StatefulWidget {
   final Achievement achievement;
@@ -25,8 +25,9 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
   @override
   void initState() {
     super.initState();
-    _confettiController =
-        ConfettiController(duration: const Duration(seconds: 3));
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 3),
+    );
     _confettiController.play();
   }
 
@@ -94,9 +95,7 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
             onTap: widget.onClose,
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-              child: Container(
-                color: Colors.black.withValues(alpha: 0.75),
-              ),
+              child: Container(color: Colors.black.withValues(alpha: 0.75)),
             ),
           ),
 
@@ -151,65 +150,68 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
 
                   // 3D Reddit-style Badge
                   Container(
-                    width: 140,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: gradient,
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: tierColor.withValues(alpha: 0.4),
-                          blurRadius: 30,
-                          spreadRadius: 5,
-                        ),
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.3),
-                          blurRadius: 15,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // Inner gloss reflection (3D effect)
-                        Positioned(
-                          top: 6,
-                          left: 16,
-                          right: 16,
-                          height: 24,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Colors.white54, Colors.transparent],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                              borderRadius: BorderRadius.circular(30),
+                        width: 140,
+                        height: 140,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: gradient,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: tierColor.withValues(alpha: 0.4),
+                              blurRadius: 30,
+                              spreadRadius: 5,
                             ),
-                          ),
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.3),
+                              blurRadius: 15,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        // Achievement icon or emoji
-                        Text(
-                          widget.achievement.emoji,
-                          style: TextStyle(
-                            fontSize: 56,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withValues(alpha: 0.5),
-                                blurRadius: 15,
-                                offset: const Offset(0, 6),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // Inner gloss reflection (3D effect)
+                            Positioned(
+                              top: 6,
+                              left: 16,
+                              right: 16,
+                              height: 24,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Colors.white54,
+                                      Colors.transparent,
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            // Achievement icon or emoji
+                            Text(
+                              widget.achievement.emoji,
+                              style: TextStyle(
+                                fontSize: 56,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withValues(alpha: 0.5),
+                                    blurRadius: 15,
+                                    offset: const Offset(0, 6),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )
+                      )
                       .animate(onPlay: (controller) => controller.repeat())
                       .shimmer(duration: 2.seconds, color: Colors.white24)
                       .animate()
@@ -263,11 +265,15 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
                   // XP Reward
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 12),
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: tierColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: tierColor.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: tierColor.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -302,8 +308,10 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
                     ),
                     child: const Text(
                       "AWESOME!",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ).animate().fadeIn(delay: 900.ms),
                 ],

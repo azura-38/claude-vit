@@ -10,9 +10,7 @@ import '../../core/di/service_providers.dart';
 import '../data/services/notification_service.dart';
 import '../../core/types/runtime_types.dart';
 import '../data/services/analytics_service.dart';
-import '../../features/appointments/presentation/providers/appointment_providers.dart';
 import 'package:flutter/foundation.dart';
-
 
 // REPOSITORY PROVIDER REMOVED - Using centralized repository_providers.dart
 
@@ -26,8 +24,8 @@ final addMedicineUseCaseProvider = Provider<AddMedicineUseCase>((ref) {
 
 final medicineListProvider =
     AsyncNotifierProvider<MedicineListNotifier, List<Medicine>>(
-  MedicineListNotifier.new,
-);
+      MedicineListNotifier.new,
+    );
 
 class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   @override
@@ -40,13 +38,15 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   Future<void> refresh() async {
     state = await AsyncValue.guard(() {
       final useCase = ref.read(getMedicinesUseCaseProvider);
-      return useCase.call(NoParams()).then((value) => value.fold((l) => throw l, (r) => r));
+      return useCase
+          .call(NoParams())
+          .then((value) => value.fold((l) => throw l, (r) => r));
     });
   }
 
   Future<void> addMedicine(Medicine medicine) async {
     final useCase = ref.read(addMedicineUseCaseProvider);
-    
+
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
@@ -54,13 +54,13 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     }
 
     final result = await useCase.call(medicine);
-    
+
     if (result.isLeft) {
       await refresh();
       result.fold((l) => throw l, (_) {});
       return;
     }
-    
+
     // Track mission & XP
     ref.read(dailyMissionProvider.notifier).track("med_daily");
     ref.read(seasonProvider.notifier).addXP(15);
@@ -75,11 +75,12 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
     if (state.hasValue) {
       final currentList = state.value!;
-      final updatedList = currentList.map((m) {
-        if (m.id != id) return m;
-        updatedMedicine = m.copyWith(isTaken: true);
-        return updatedMedicine!;
-      }).toList();
+      final updatedList =
+          currentList.map((m) {
+            if (m.id != id) return m;
+            updatedMedicine = m.copyWith(isTaken: true);
+            return updatedMedicine!;
+          }).toList();
       state = AsyncData(updatedList);
     }
 
@@ -95,11 +96,12 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
     if (state.hasValue) {
       final currentList = state.value!;
-      final updatedList = currentList.map((m) {
-        if (m.id != id) return m;
-        updatedMedicine = m.copyWith(isTaken: false);
-        return updatedMedicine!;
-      }).toList();
+      final updatedList =
+          currentList.map((m) {
+            if (m.id != id) return m;
+            updatedMedicine = m.copyWith(isTaken: false);
+            return updatedMedicine!;
+          }).toList();
       state = AsyncData(updatedList);
     }
 
@@ -112,7 +114,9 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
   Future<void> _scheduleNotifications(Medicine medicine) async {
     final notifier = ref.read(notificationServiceProvider);
-    final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
+    final permissionState = await notifier.requestPermissions(
+      requestExactAlarm: true,
+    );
     if (permissionState != NotificationPermissionState.granted) {
       AnalyticsService.log(AnalyticsService.medicineReminderPermissionDenied);
       return;
@@ -148,7 +152,13 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
       if (medicine.frequency == 'weekly' && medicine.daysOfWeek != null) {
         for (final day in medicine.daysOfWeek!) {
-          var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
+          var scheduledDate = DateTime(
+            now.year,
+            now.month,
+            now.day,
+            hour,
+            minute,
+          );
           while (scheduledDate.weekday != day) {
             scheduledDate = scheduledDate.add(const Duration(days: 1));
           }
@@ -158,7 +168,13 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
           dates.add(scheduledDate);
         }
       } else if (medicine.frequency == 'custom' && medicine.interval != null) {
-        var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
+        var scheduledDate = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          hour,
+          minute,
+        );
         if (!scheduledDate.isAfter(now)) {
           scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
         }
@@ -167,7 +183,13 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
           scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
         }
       } else {
-        var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
+        var scheduledDate = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          hour,
+          minute,
+        );
         if (!scheduledDate.isAfter(now)) {
           scheduledDate = scheduledDate.add(const Duration(days: 1));
         }
@@ -178,19 +200,25 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     return dates;
   }
 
-
   Future<void> updateMedicine(Medicine medicine) async {
     final repo = ref.read(medicineRepositoryProvider);
-    
+
+    Medicine? oldMedicine;
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
-      state = AsyncData(currentList.map((m) => m.id == medicine.id ? medicine : m).toList());
+      oldMedicine = currentList.where((m) => m.id == medicine.id).firstOrNull;
+      state = AsyncData(
+        currentList.map((m) => m.id == medicine.id ? medicine : m).toList(),
+      );
     }
 
     try {
       await repo.update(medicine);
-      await _rebuildAllNotifications();
+      if (oldMedicine != null) {
+        await _cancelNotifications(oldMedicine);
+      }
+      await _scheduleNotifications(medicine);
     } catch (e) {
       await refresh();
       rethrow;
@@ -199,33 +227,29 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
   Future<void> deleteMedicine(String id) async {
     final repo = ref.read(medicineRepositoryProvider);
-    
+
+    Medicine? oldMedicine;
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
+      oldMedicine = currentList.where((m) => m.id == id).firstOrNull;
       state = AsyncData(currentList.where((m) => m.id != id).toList());
     }
 
     try {
       await repo.delete(id);
-      await _rebuildAllNotifications();
+      if (oldMedicine != null) {
+        await _cancelNotifications(oldMedicine);
+      }
     } catch (e) {
       await refresh();
       rethrow;
     }
   }
 
-  Future<void> _rebuildAllNotifications() async {
-    await NotificationService.cancelAll();
-
-    final medicines = state.hasValue
-        ? state.value!
-        : await ref.read(medicineListProvider.future);
-    final appointments = await ref.read(appointmentListProvider.future);
-
-    await rescheduleAllNotifications(medicines);
-    await ref
-        .read(appointmentListProvider.notifier)
-        .rescheduleAllNotifications(appointments);
+  Future<void> _cancelNotifications(Medicine medicine) async {
+    for (final date in _generatedDates(medicine)) {
+      await NotificationService.cancelOccurrence(id: medicine.id, date: date);
+    }
   }
 }

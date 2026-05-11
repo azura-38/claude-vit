@@ -23,9 +23,7 @@ class CollapsibleProfileSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: const Color(0xFFE5E7EB),
-        ),
+        border: Border.all(color: const Color(0xFFE5E7EB)),
       ),
       child: Column(
         children: [
@@ -43,26 +41,23 @@ class CollapsibleProfileSection extends StatelessWidget {
                   ),
                 ),
                 AnimatedRotation(
-                  duration:
-                      const Duration(milliseconds: 220),
+                  duration: const Duration(milliseconds: 220),
                   turns: expanded ? .5 : 0,
                   child: const Icon(Icons.expand_more),
-                )
+                ),
               ],
             ),
           ),
           AnimatedCrossFade(
-            duration:
-                const Duration(milliseconds: 260),
-            crossFadeState: expanded
-                ? CrossFadeState.showSecond
-                : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 260),
+            crossFadeState:
+                expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             firstChild: const SizedBox.shrink(),
             secondChild: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: child,
             ),
-          )
+          ),
         ],
       ),
     );

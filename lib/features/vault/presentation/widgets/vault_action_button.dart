@@ -25,12 +25,10 @@ class VaultActionButton extends StatelessWidget {
           height: 58,
           decoration: BoxDecoration(
             color: bg,
-            borderRadius:
-                BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(18),
           ),
           child: Row(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, color: text),
 
@@ -38,12 +36,8 @@ class VaultActionButton extends StatelessWidget {
 
               Text(
                 label,
-                style: TextStyle(
-                  color: text,
-                  fontWeight:
-                      FontWeight.w700,
-                ),
-              )
+                style: TextStyle(color: text, fontWeight: FontWeight.w700),
+              ),
             ],
           ),
         ),

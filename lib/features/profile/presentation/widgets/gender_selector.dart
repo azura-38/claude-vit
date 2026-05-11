@@ -21,41 +21,36 @@ class GenderSelector extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
-        children: Gender.values.map((gender) {
-          final isSelected = selected == gender;
+        children:
+            Gender.values.map((gender) {
+              final isSelected = selected == gender;
 
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => onChanged(gender),
-              child: AnimatedContainer(
-                duration:
-                    const Duration(milliseconds: 220),
-                padding:
-                    const EdgeInsets.symmetric(
-                  vertical: 14,
-                ),
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? Colors.white
-                      : Colors.transparent,
-                  borderRadius:
-                      BorderRadius.circular(14),
-                ),
-                child: Center(
-                  child: Text(
-                    gender.name.toUpperCase(),
-                    style: TextStyle(
-                      color: isSelected
-                          ? const Color(0xFF005DA7)
-                          : const Color(0xFF6B7280),
-                      fontWeight: FontWeight.w600,
+              return Expanded(
+                child: GestureDetector(
+                  onTap: () => onChanged(gender),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 220),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                      color: isSelected ? Colors.white : Colors.transparent,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Center(
+                      child: Text(
+                        gender.name.toUpperCase(),
+                        style: TextStyle(
+                          color:
+                              isSelected
+                                  ? const Color(0xFF005DA7)
+                                  : const Color(0xFF6B7280),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          );
-        }).toList(),
+              );
+            }).toList(),
       ),
     );
   }

@@ -1,8 +1,4 @@
-enum Gender {
-  female,
-  male,
-  other,
-}
+enum Gender { female, male, other }
 
 class UserProfile {
   final String fullName;
@@ -105,15 +101,13 @@ class UserProfile {
       birthDate: birthDate ?? this.birthDate,
       emergencyName: emergencyName ?? this.emergencyName,
       emergencyPhone: emergencyPhone ?? this.emergencyPhone,
-      emergencyRelation:
-          emergencyRelation ?? this.emergencyRelation,
+      emergencyRelation: emergencyRelation ?? this.emergencyRelation,
       conditions: conditions ?? this.conditions,
       allergies: allergies ?? this.allergies,
       medications: medications ?? this.medications,
       privacyMode: privacyMode ?? this.privacyMode,
       biometricLock: biometricLock ?? this.biometricLock,
-      silentNotifications:
-          silentNotifications ?? this.silentNotifications,
+      silentNotifications: silentNotifications ?? this.silentNotifications,
     );
   }
 }

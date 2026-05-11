@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/l10n/translations.dart';
 import '../models/user_behavior.dart';
 import 'notification_service.dart';
-import '../../../core/l10n/app_localizations.dart';
 
 final smartNotificationServiceProvider = Provider(
   (ref) => SmartNotificationService(),
@@ -40,7 +40,16 @@ class SmartNotificationService {
   static DateTime? _lastEngagementAt;
 
   static String _translate(String key, {Map<String, String>? extra}) {
-    return AppLocalizations(Locale(_currentLang)).translate(key, extra: extra);
+    var value =
+        Translations.data[_currentLang]?[key] ??
+        Translations.data['en']?[key] ??
+        key;
+    if (extra != null) {
+      for (final entry in extra.entries) {
+        value = value.replaceAll('{${entry.key}}', entry.value);
+      }
+    }
+    return value;
   }
 
   static void configure(NotificationService notificationService) {
@@ -63,7 +72,7 @@ class SmartNotificationService {
     final prefs = await SharedPreferences.getInstance();
     enabled = prefs.getBool(_enabledKey) ?? true;
     _currentLang = prefs.getString('app_locale') ?? 'en';
-    
+
     final lastTime = prefs.getInt(_lastEngagementKey);
     if (lastTime != null) {
       _lastEngagementAt = DateTime.fromMillisecondsSinceEpoch(lastTime);
@@ -76,12 +85,16 @@ class SmartNotificationService {
     await prefs.setBool(_enabledKey, value);
   }
 
-  static String safeMedicationBody(String name) => _service.safeMedicationBody(name);
+  static String safeMedicationBody(String name) =>
+      _service.safeMedicationBody(name);
 
   static Future<void> _updateLastEngagement() async {
     _lastEngagementAt = DateTime.now();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_lastEngagementKey, _lastEngagementAt!.millisecondsSinceEpoch);
+    await prefs.setInt(
+      _lastEngagementKey,
+      _lastEngagementAt!.millisecondsSinceEpoch,
+    );
   }
 
   static bool _canShowEngagement() {
@@ -149,8 +162,8 @@ class SmartNotificationService {
       title: 'VitaCase',
       body: _translate('smart_default'),
     );
-    // Note: We don't update _lastEngagementAt here because it's scheduled, 
-    // it will be updated when it actually fires (if we had a callback) or 
+    // Note: We don't update _lastEngagementAt here because it's scheduled,
+    // it will be updated when it actually fires (if we had a callback) or
     // we just consider scheduling as an engagement attempt.
     // For now, let's treat scheduling as one too.
     await _updateLastEngagement();

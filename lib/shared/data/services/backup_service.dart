@@ -21,20 +21,21 @@ class BackupManifest {
   });
 
   Map<String, dynamic> toJson() => {
-        'version': version,
-        'scope': scope,
-        'device_uid': deviceUid,
-        'includes': includes,
-      };
+    'version': version,
+    'scope': scope,
+    'device_uid': deviceUid,
+    'includes': includes,
+  };
 
   factory BackupManifest.fromJson(Map<String, dynamic> json) {
     return BackupManifest(
       version: json['version'] as int? ?? 1,
       scope: json['scope'] as String? ?? 'same_device_only',
       deviceUid: json['device_uid'] as String? ?? '',
-      includes: (json['includes'] as List<dynamic>? ?? const [])
-          .map((item) => item.toString())
-          .toList(),
+      includes:
+          (json['includes'] as List<dynamic>? ?? const [])
+              .map((item) => item.toString())
+              .toList(),
     );
   }
 }
@@ -48,7 +49,7 @@ class BackupService {
     final docsDir = await getApplicationDocumentsDirectory();
     final tempDir = await getTemporaryDirectory();
     final uid = await UIDManager.getUID();
-    
+
     final dbPath = p.join(docsDir.path, "vitacase.db");
     final documentsPath = p.join(docsDir.path, "documents");
     final outputPath = p.join(tempDir.path, backupFileName);
@@ -67,7 +68,7 @@ class BackupService {
 
     // Run the heavy lifting in a background isolate
     await Isolate.run(() => _exportTask(data));
-    
+
     return outputPath;
   }
 
@@ -76,7 +77,7 @@ class BackupService {
   Future<void> importBackup(String zipPath) async {
     final docsDir = await getApplicationDocumentsDirectory();
     final uid = await UIDManager.getUID();
-    
+
     final data = _RestoreTaskData(
       zipPath: zipPath,
       targetDocsPath: docsDir.path,
@@ -135,11 +136,9 @@ void _exportTask(_BackupTaskData data) {
 
   // 3. Add a manifest so restore code can validate version/scope
   final manifest = jsonEncode(data.manifest.toJson());
-  encoder.addArchiveFile(ArchiveFile(
-    'vitacase_manifest.json',
-    manifest.length,
-    manifest.codeUnits,
-  ));
+  encoder.addArchiveFile(
+    ArchiveFile('vitacase_manifest.json', manifest.length, manifest.codeUnits),
+  );
 
   encoder.close();
 }
@@ -154,7 +153,7 @@ void _importTask(_RestoreTaskData data) {
     throw const FileSystemException('Backup manifest is missing.');
   }
 
-  // MVP FIX: Allow cross-device restore for now. 
+  // MVP FIX: Allow cross-device restore for now.
   // Note: manifest variable removed to resolve 'unused' warning while this check is disabled.
   // TODO: Add password/manifest validation in the next phase.
   /*
@@ -183,7 +182,9 @@ void _importTask(_RestoreTaskData data) {
     final normalized = p.normalize(file.name).replaceAll('\\', '/');
 
     // SECURITY: Reject entries that escape the target directory.
-    if (p.isAbsolute(normalized) || normalized.contains('../') || normalized.startsWith('..')) {
+    if (p.isAbsolute(normalized) ||
+        normalized.contains('../') ||
+        normalized.startsWith('..')) {
       continue;
     }
 
@@ -210,20 +211,36 @@ void _importTask(_RestoreTaskData data) {
   final oldDocsPath = p.join(data.targetDocsPath, "documents_old");
   final newDocsPath = p.join(tempDirPath, "documents");
 
-  if (File(dbPath).existsSync()) File(dbPath).renameSync(oldDbPath);
-  if (Directory(docsPath).existsSync()) Directory(docsPath).renameSync(oldDocsPath);
+  if (File(dbPath).existsSync()) {
+    File(dbPath).renameSync(oldDbPath);
+  }
+  if (Directory(docsPath).existsSync()) {
+    Directory(docsPath).renameSync(oldDocsPath);
+  }
 
-  if (File(newDbPath).existsSync()) File(newDbPath).renameSync(dbPath);
-  if (Directory(newDocsPath).existsSync()) Directory(newDocsPath).renameSync(docsPath);
+  if (File(newDbPath).existsSync()) {
+    File(newDbPath).renameSync(dbPath);
+  }
+  if (Directory(newDocsPath).existsSync()) {
+    Directory(newDocsPath).renameSync(docsPath);
+  }
 
   // 4. Cleanup
-  if (File(oldDbPath).existsSync()) File(oldDbPath).deleteSync();
-  if (Directory(oldDocsPath).existsSync()) Directory(oldDocsPath).deleteSync(recursive: true);
+  if (File(oldDbPath).existsSync()) {
+    File(oldDbPath).deleteSync();
+  }
+  if (Directory(oldDocsPath).existsSync()) {
+    Directory(oldDocsPath).deleteSync(recursive: true);
+  }
   if (tempDir.existsSync()) tempDir.deleteSync(recursive: true);
 }
 
 /// Synchronous directory adding for use in isolates
-void _addDirectoryToZipSync(ZipFileEncoder encoder, Directory dir, String zipPath) {
+void _addDirectoryToZipSync(
+  ZipFileEncoder encoder,
+  Directory dir,
+  String zipPath,
+) {
   final List<FileSystemEntity> entities = dir.listSync();
   for (final entity in entities) {
     final String name = p.basename(entity.path);

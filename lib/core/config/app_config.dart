@@ -10,7 +10,7 @@ class AppConfig {
     'ADMOB_APP_ID',
     defaultValue: '',
   );
-  
+
   // Production AdMob Unit IDs
   static const bannerAdId = 'ca-app-pub-5877011177866406/1864503785';
   static const interstitialAdId = 'ca-app-pub-5877011177866406/9551422118';
@@ -20,7 +20,7 @@ class AppConfig {
 
   // Premium Configuration Placeholders
   static const premiumEnabled = false;
-  static const revenueCatApiKey = ''; 
+  static const revenueCatApiKey = '';
   static const premiumMonthlyProductId = 'vitacase_premium_monthly';
   static const premiumAnnualProductId = 'vitacase_premium_annual';
 
@@ -33,13 +33,10 @@ class AppConfig {
 
   /// Whether all required config is present
   static bool get hasAdConfig =>
-      admobAppId.isNotEmpty &&
-      bannerAdId.isNotEmpty &&
-      rewardedAdId.isNotEmpty;
+      admobAppId.isNotEmpty && bannerAdId.isNotEmpty && rewardedAdId.isNotEmpty;
 
   static bool get isConfigured => hasAdConfig;
 
   /// Environment status
   static const isProduction = bool.fromEnvironment('dart.vm.product');
 }
-

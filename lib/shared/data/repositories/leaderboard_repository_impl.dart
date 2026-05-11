@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/leaderboard_user.dart';
 
-final leaderboardRepositoryProvider = Provider((ref) => LeaderboardRepository());
+final leaderboardRepositoryProvider = Provider(
+  (ref) => LeaderboardRepository(),
+);
 
 class LeaderboardRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -22,11 +24,12 @@ class LeaderboardRepository {
 
   Future<List<LeaderboardUser>> getTopUsers({int limit = 20}) async {
     try {
-      final snapshot = await _firestore
-          .collection(_collectionPath)
-          .orderBy('xp', descending: true)
-          .limit(limit)
-          .get();
+      final snapshot =
+          await _firestore
+              .collection(_collectionPath)
+              .orderBy('xp', descending: true)
+              .limit(limit)
+              .get();
 
       return snapshot.docs
           .map((doc) => LeaderboardUser.fromMap(doc.id, doc.data()))

@@ -6,6 +6,7 @@ class Medicine {
   final String name;
   final String dosage;
   final String startDate;
+  final String? endDate;
   final String frequency;
   final HungerStatus hungerStatus;
   final int? totalStock;
@@ -21,6 +22,7 @@ class Medicine {
     required this.name,
     required this.dosage,
     required this.startDate,
+    this.endDate,
     required this.frequency,
     required this.hungerStatus,
     this.totalStock,
@@ -33,28 +35,30 @@ class Medicine {
   });
 
   DateTime get nextReminderTime {
-    if (reminderTimes.isEmpty) return DateTime.now().add(const Duration(days: 365));
-    
+    if (reminderTimes.isEmpty) {
+      return DateTime.now().add(const Duration(days: 365));
+    }
+
     final now = DateTime.now();
     DateTime? soonest;
 
     for (final timeStr in reminderTimes) {
       final parts = timeStr.split(':');
       if (parts.length != 2) continue;
-      
+
       final hour = int.parse(parts[0]);
       final minute = int.parse(parts[1]);
-      
+
       var scheduled = DateTime(now.year, now.month, now.day, hour, minute);
       if (scheduled.isBefore(now)) {
         scheduled = scheduled.add(const Duration(days: 1));
       }
-      
+
       if (soonest == null || scheduled.isBefore(soonest)) {
         soonest = scheduled;
       }
     }
-    
+
     return soonest ?? now.add(const Duration(days: 1));
   }
 
@@ -63,6 +67,7 @@ class Medicine {
     String? name,
     String? dosage,
     String? startDate,
+    String? endDate,
     String? frequency,
     HungerStatus? hungerStatus,
     int? totalStock,
@@ -78,6 +83,7 @@ class Medicine {
       name: name ?? this.name,
       dosage: dosage ?? this.dosage,
       startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
       frequency: frequency ?? this.frequency,
       hungerStatus: hungerStatus ?? this.hungerStatus,
       totalStock: totalStock ?? this.totalStock,

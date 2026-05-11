@@ -11,14 +11,15 @@ class AchievementEngine {
     final stored = await repo.getAll();
     final Map<String, Achievement> storedMap = {for (var a in stored) a.id: a};
 
-    final List<Achievement> integrated = AchievementDefinitions.all.map((def) {
-      final existing = storedMap[def.id];
+    final List<Achievement> integrated =
+        AchievementDefinitions.all.map((def) {
+          final existing = storedMap[def.id];
 
-      return def.copyWith(
-        progress: existing?.progress ?? 0,
-        unlocked: existing?.unlocked ?? false,
-      );
-    }).toList();
+          return def.copyWith(
+            progress: existing?.progress ?? 0,
+            unlocked: existing?.unlocked ?? false,
+          );
+        }).toList();
 
     // Save back if there are new items or schema changed
     if (stored.length != integrated.length) {
@@ -37,28 +38,30 @@ class AchievementEngine {
     int? setAbsolute,
   }) async {
     Achievement? newlyUnlocked;
-    
-    final updated = current.map((a) {
-      if (a.id != id) return a;
-      if (a.unlocked) return a; // Already done
 
-      int newProgress = (setAbsolute != null) ? setAbsolute : (a.progress + (value ?? 0));
-      
-      // If totalSteps is null, it's a one-shot achievement (target is handled by value >= 1)
-      final int target = a.totalSteps ?? 1;
-      final isUnlocked = newProgress >= target;
-      
-      final updatedA = a.copyWith(
-        progress: newProgress,
-        unlocked: isUnlocked,
-      );
+    final updated =
+        current.map((a) {
+          if (a.id != id) return a;
+          if (a.unlocked) return a; // Already done
 
-      if (isUnlocked && !a.unlocked) {
-        newlyUnlocked = updatedA;
-      }
+          int newProgress =
+              (setAbsolute != null) ? setAbsolute : (a.progress + (value ?? 0));
 
-      return updatedA;
-    }).toList();
+          // If totalSteps is null, it's a one-shot achievement (target is handled by value >= 1)
+          final int target = a.totalSteps ?? 1;
+          final isUnlocked = newProgress >= target;
+
+          final updatedA = a.copyWith(
+            progress: newProgress,
+            unlocked: isUnlocked,
+          );
+
+          if (isUnlocked && !a.unlocked) {
+            newlyUnlocked = updatedA;
+          }
+
+          return updatedA;
+        }).toList();
 
     await repo.saveAll(updated);
 

@@ -27,7 +27,10 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<List<Doctor>> getAll() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('createdAt', false)]));
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('createdAt', false)]),
+    );
     return records.map((r) => DoctorModel.fromMap(r.value).toEntity()).toList();
   }
 
@@ -41,7 +44,10 @@ class DoctorRepositoryImpl implements DoctorRepository {
   Future<List<Doctor>> search(String queryStr) async {
     final db = await _db;
     final q = queryStr.toLowerCase();
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('createdAt', false)]));
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('createdAt', false)]),
+    );
     final result = <Doctor>[];
     for (var r in records) {
       final map = r.value;

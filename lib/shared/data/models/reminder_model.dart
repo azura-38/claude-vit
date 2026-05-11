@@ -33,7 +33,10 @@ class ReminderModel {
     return Reminder(
       id: id,
       title: title,
-      type: ReminderType.values.firstWhere((e) => e.name == type, orElse: () => ReminderType.medicine),
+      type: ReminderType.values.firstWhere(
+        (e) => e.name == type,
+        orElse: () => ReminderType.medicine,
+      ),
       remindAt: remindAt,
       sent: sent,
       createdAt: createdAt,

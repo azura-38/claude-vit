@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/app_colors.dart';
 
-import '../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 enum AppThemeType {
   light,
@@ -14,23 +14,35 @@ enum AppThemeType {
 
   String localizedLabel(BuildContext context) {
     switch (this) {
-      case AppThemeType.light: return context.l10n('theme_luxe_sanctuary');
-      case AppThemeType.dark: return context.l10n('theme_midnight_neon');
-      case AppThemeType.purple: return context.l10n('theme_amethyst_aura');
-      case AppThemeType.nature: return context.l10n('theme_emerald_garden');
-      case AppThemeType.ocean: return context.l10n('theme_ocean_serenity');
-      case AppThemeType.amber: return context.l10n('theme_amber_glow');
+      case AppThemeType.light:
+        return context.l10n.themeLuxeSanctuary;
+      case AppThemeType.dark:
+        return context.l10n.themeMidnightNeon;
+      case AppThemeType.purple:
+        return context.l10n.themeAmethystAura;
+      case AppThemeType.nature:
+        return context.l10n.themeEmeraldGarden;
+      case AppThemeType.ocean:
+        return context.l10n.themeOceanSerenity;
+      case AppThemeType.amber:
+        return context.l10n.themeAmberGlow;
     }
   }
 
   String get label {
     switch (this) {
-      case AppThemeType.light: return 'Luxe Sanctuary';
-      case AppThemeType.dark: return 'Midnight Neon';
-      case AppThemeType.purple: return 'Amethyst Aura';
-      case AppThemeType.nature: return 'Emerald Garden';
-      case AppThemeType.ocean: return 'Ocean Serenity';
-      case AppThemeType.amber: return 'Amber Glow';
+      case AppThemeType.light:
+        return 'Luxe Sanctuary';
+      case AppThemeType.dark:
+        return 'Midnight Neon';
+      case AppThemeType.purple:
+        return 'Amethyst Aura';
+      case AppThemeType.nature:
+        return 'Emerald Garden';
+      case AppThemeType.ocean:
+        return 'Ocean Serenity';
+      case AppThemeType.amber:
+        return 'Amber Glow';
     }
   }
 }
@@ -67,7 +79,10 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.bgLight,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: AppColors.cardBorderLight),
@@ -119,12 +134,12 @@ class AppTheme {
   }
 
   static ThemeData get dark => _buildTheme(
-        brightness: Brightness.dark,
-        primary: AppColors.medicalBlue,
-        background: AppColors.bgDark,
-        surface: AppColors.surfaceDark,
-        isAmoled: false,
-      );
+    brightness: Brightness.dark,
+    primary: AppColors.medicalBlue,
+    background: AppColors.bgDark,
+    surface: AppColors.surfaceDark,
+    isAmoled: false,
+  );
 
   static ThemeData getThemeByType(AppThemeType type) {
     switch (type) {
@@ -171,26 +186,28 @@ class AppTheme {
     bool isAmoled = false,
   }) {
     final isDark = brightness == Brightness.dark;
-    final baseTextTheme = isDark ? ThemeData.dark().textTheme : ThemeData.light().textTheme;
+    final baseTextTheme =
+        isDark ? ThemeData.dark().textTheme : ThemeData.light().textTheme;
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       scaffoldBackgroundColor: background,
-      colorScheme: isDark
-          ? ColorScheme.dark(
-              primary: primary,
-              secondary: primary.withValues(alpha: 0.8),
-              surface: surface,
-              onSurface: Colors.white,
-              error: AppColors.error,
-            )
-          : ColorScheme.fromSeed(
-              seedColor: primary,
-              brightness: Brightness.light,
-              surface: surface,
-              primary: primary,
-            ),
+      colorScheme:
+          isDark
+              ? ColorScheme.dark(
+                primary: primary,
+                secondary: primary.withValues(alpha: 0.8),
+                surface: surface,
+                onSurface: Colors.white,
+                error: AppColors.error,
+              )
+              : ColorScheme.fromSeed(
+                seedColor: primary,
+                brightness: Brightness.light,
+                surface: surface,
+                primary: primary,
+              ),
       textTheme: GoogleFonts.interTextTheme(baseTextTheme).copyWith(
         titleLarge: GoogleFonts.manrope(
           fontWeight: FontWeight.w800,
@@ -204,7 +221,10 @@ class AppTheme {
         centerTitle: false,
       ),
       cardTheme: CardThemeData(
-        color: isDark ? (isAmoled ? Colors.black : AppColors.glassBg) : Colors.white,
+        color:
+            isDark
+                ? (isAmoled ? Colors.black : AppColors.glassBg)
+                : Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
@@ -217,14 +237,21 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: isDark ? AppColors.glassBg : AppColors.bgLight,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight),
+          borderSide: BorderSide(
+            color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight),
+          borderSide: BorderSide(
+            color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -234,7 +261,10 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primary,
-          foregroundColor: isDark && !isAmoled ? Colors.white : (isAmoled ? Colors.black : Colors.white),
+          foregroundColor:
+              isDark && !isAmoled
+                  ? Colors.white
+                  : (isAmoled ? Colors.black : Colors.white),
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(

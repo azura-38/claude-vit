@@ -15,13 +15,13 @@ final fileStorageServiceProvider = Provider<FileStorageService>((ref) {
   return FileStorageService();
 });
 
-// Removed direct repository provider definition here. 
+// Removed direct repository provider definition here.
 // Now using documentRepositoryProvider from core/di/repository_providers.dart
 
 final documentListProvider =
     AsyncNotifierProvider<DocumentListNotifier, List<Document>>(
-  DocumentListNotifier.new,
-);
+      DocumentListNotifier.new,
+    );
 
 class DocumentListNotifier extends AsyncNotifier<List<Document>> {
   @override
@@ -32,7 +32,9 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
 
   Future<void> refresh() async {
     // state = const AsyncLoading(); // Removed Loading force for smoother transitions
-    state = await AsyncValue.guard(() => ref.read(documentRepositoryProvider).getAll());
+    state = await AsyncValue.guard(
+      () => ref.read(documentRepositoryProvider).getAll(),
+    );
   }
 
   Future<Document> uploadDocument({
@@ -85,23 +87,23 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
       ref.read(seasonProvider.notifier).addXP(10);
       AnalyticsService.log(AnalyticsService.documentAdded);
     } catch (e) {
-
-
       // Rollback on error
       await refresh();
       rethrow;
     }
-    
+
     return document;
   }
 
   Future<void> updateDocument(Document document) async {
     final repo = ref.read(documentRepositoryProvider);
-    
+
     // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
-      state = AsyncData(currentList.map((d) => d.id == document.id ? document : d).toList());
+      state = AsyncData(
+        currentList.map((d) => d.id == document.id ? document : d).toList(),
+      );
     }
 
     try {
@@ -111,7 +113,6 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
       rethrow;
     }
   }
-
 
   Future<void> deleteDocument(String id) async {
     final storage = ref.read(fileStorageServiceProvider);

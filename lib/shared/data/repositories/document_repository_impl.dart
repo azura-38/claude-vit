@@ -23,7 +23,6 @@ class DocumentRepositoryImpl implements DocumentRepository {
     await _store.record(document.id).put(db, model.toMap());
   }
 
-
   @override
   Future<Document?> getById(String id) async {
     final db = await _db;
@@ -35,8 +34,13 @@ class DocumentRepositoryImpl implements DocumentRepository {
   @override
   Future<List<Document>> getAll() async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('createdAt', false)]));
-    return records.map((r) => DocumentModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('createdAt', false)]),
+    );
+    return records
+        .map((r) => DocumentModel.fromMap(r.value).toEntity())
+        .toList();
   }
 
   @override
@@ -49,12 +53,16 @@ class DocumentRepositoryImpl implements DocumentRepository {
   Future<List<Document>> search(String queryStr) async {
     final db = await _db;
     final q = queryStr.toLowerCase();
-    final records = await _store.find(db, finder: Finder(sortOrders: [SortOrder('createdAt', false)]));
+    final records = await _store.find(
+      db,
+      finder: Finder(sortOrders: [SortOrder('createdAt', false)]),
+    );
     final result = <Document>[];
     for (var r in records) {
       final map = r.value;
       final fileName = (map['fileName'] as String).toLowerCase();
-      final hospitalName = (map['hospitalName'] as String?)?.toLowerCase() ?? '';
+      final hospitalName =
+          (map['hospitalName'] as String?)?.toLowerCase() ?? '';
       if (fileName.contains(q) || hospitalName.contains(q)) {
         result.add(DocumentModel.fromMap(map).toEntity());
       }
@@ -65,10 +73,15 @@ class DocumentRepositoryImpl implements DocumentRepository {
   @override
   Future<List<Document>> getByCategory(String tagId) async {
     final db = await _db;
-    final records = await _store.find(db, finder: Finder(
-      filter: Filter.equals('tagId', tagId),
-      sortOrders: [SortOrder('createdAt', false)]
-    ));
-    return records.map((r) => DocumentModel.fromMap(r.value).toEntity()).toList();
+    final records = await _store.find(
+      db,
+      finder: Finder(
+        filter: Filter.equals('tagId', tagId),
+        sortOrders: [SortOrder('createdAt', false)],
+      ),
+    );
+    return records
+        .map((r) => DocumentModel.fromMap(r.value).toEntity())
+        .toList();
   }
 }

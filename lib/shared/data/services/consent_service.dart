@@ -6,7 +6,7 @@ class ConsentService {
   Future<void> initializeAdsWithConsent() async {
     try {
       final params = ConsentRequestParameters();
-      
+
       // Request consent information update from the Google Mobile Ads SDK.
       ConsentInformation.instance.requestConsentInfoUpdate(
         params,
@@ -20,18 +20,28 @@ class ConsentService {
                 await AdService().init();
               }
             } else {
-              if (kDebugMode) debugPrint('[ConsentService] Form error: ${formError.message}');
+              if (kDebugMode) {
+                debugPrint('[ConsentService] Form error: ${formError.message}');
+              }
             }
           });
         },
         (FormError error) {
           // Consent info update failure.
-          if (kDebugMode) debugPrint('[ConsentService] Consent info update error: ${error.message}');
+          if (kDebugMode) {
+            debugPrint(
+              '[ConsentService] Consent info update error: ${error.message}',
+            );
+          }
         },
       );
     } catch (e) {
       // SECURITY: Fail closed. Do NOT initialize ads when the consent flow fails.
-      if (kDebugMode) debugPrint('[ConsentService] Unexpected consent error – ads suppressed: $e');
+      if (kDebugMode) {
+        debugPrint(
+          '[ConsentService] Unexpected consent error – ads suppressed: $e',
+        );
+      }
     }
   }
 }

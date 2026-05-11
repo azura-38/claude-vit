@@ -22,34 +22,30 @@ class AppointmentTypeCard extends StatelessWidget {
         duration: const Duration(milliseconds: 220),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: selected
-              ? const Color(0xFFE8F1FF)
-              : Colors.transparent,
+          color: selected ? const Color(0xFFE8F1FF) : Colors.transparent,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: selected
-                ? const Color(0xFF005DA7)
-                : const Color(0xFFE5E7EB),
+            color: selected ? const Color(0xFF005DA7) : const Color(0xFFE5E7EB),
           ),
         ),
         child: Row(
           children: [
             Icon(
               icon,
-              color: selected
-                  ? const Color(0xFF005DA7)
-                  : const Color(0xFF6B7280),
+              color:
+                  selected ? const Color(0xFF005DA7) : const Color(0xFF6B7280),
             ),
             const SizedBox(width: 12),
             Text(
               title,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: selected
-                    ? const Color(0xFF005DA7)
-                    : const Color(0xFF374151),
+                color:
+                    selected
+                        ? const Color(0xFF005DA7)
+                        : const Color(0xFF374151),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/theme/vitacase_theme.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class QuantityStepper extends StatelessWidget {
   final int value;
@@ -18,7 +18,7 @@ class QuantityStepper extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: VitaColors.primaryLight.withValues(alpha: 0.25),
+        color: AppColors.primaryLight.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
@@ -29,10 +29,7 @@ class QuantityStepper extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               '$value',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
             ),
           ),
           _button(Icons.add, onPlus),

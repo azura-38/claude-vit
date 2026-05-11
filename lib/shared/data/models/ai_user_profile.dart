@@ -35,14 +35,15 @@ class AIUserProfile {
       actions: map['actions'] ?? 0,
       sessions: map['sessions'] ?? 0,
       paywallClicks: map['paywallClicks'] ?? 0,
-      creationDate: map['creationDate'] != null 
-          ? DateTime.tryParse(map['creationDate']) 
-          : null,
+      creationDate:
+          map['creationDate'] != null
+              ? DateTime.tryParse(map['creationDate'])
+              : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory AIUserProfile.fromJson(String source) => 
+  factory AIUserProfile.fromJson(String source) =>
       AIUserProfile.fromMap(json.decode(source));
 }

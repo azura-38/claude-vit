@@ -5,4 +5,6 @@ final selectedTypeProvider = StateProvider<String>((ref) => "Tax Return");
 
 enum UploadState { idle, reading, compressing, encrypting, success }
 
-final uploadStateProvider = StateProvider<UploadState>((ref) => UploadState.idle);
+final uploadStateProvider = StateProvider<UploadState>(
+  (ref) => UploadState.idle,
+);

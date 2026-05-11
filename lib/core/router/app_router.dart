@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 // Providers
 import '../../shared/providers/onboarding_provider.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
+import '../notifications/notification_navigation.dart';
 
 // Screens
 import '../../features/appointments/presentation/screens/create_appointment_screen.dart';
@@ -41,8 +42,6 @@ import '../../features/notifications/presentation/screens/medication_lock_notifi
 import '../../features/notifications/presentation/screens/appointment_lock_notification.dart';
 import '../../features/notifications/presentation/screens/refill_banner_notification.dart';
 
-
-
 // Domain
 
 // Core
@@ -53,7 +52,8 @@ import 'package:vitacase/features/profile/presentation/providers/legacy_provider
 
 /// Centralized Scale-Proof Router Configuration
 class AppRouter {
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -61,16 +61,28 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final onboardingCompleted = ref.watch(onboardingCompletedProvider);
   final lockState = ref.watch(appLockStateProvider);
   final isLockEnabled = ref.watch(appLockEnabledProvider);
+  final pendingNotificationRoute = ref.watch(pendingNotificationRouteProvider);
 
   return GoRouter(
     navigatorKey: AppRouter.navigatorKey,
     initialLocation: AppRoutes.home,
-    
+
     // Global App Brain: Logic Control Center
     redirect: (context, state) {
       final isGoingToLock = state.matchedLocation == AppRoutes.lock;
       final isGoingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
-      final isGoingToProfileCreate = state.matchedLocation == AppRoutes.profileCreate;
+      final isGoingToProfileCreate =
+          state.matchedLocation == AppRoutes.profileCreate;
+
+      if (pendingNotificationRoute != null &&
+          lockState == AppLockState.unlocked &&
+          onboardingCompleted &&
+          state.matchedLocation != pendingNotificationRoute) {
+        Future.microtask(
+          () => ref.read(pendingNotificationRouteProvider.notifier).clear(),
+        );
+        return pendingNotificationRoute;
+      }
 
       if (lockState == AppLockState.unknown && !isGoingToLock) {
         return AppRoutes.lock;
@@ -81,7 +93,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         if (!isGoingToLock) return AppRoutes.lock;
         return null;
       }
-      if (isGoingToLock && (!isLockEnabled || lockState == AppLockState.unlocked)) {
+      if (isGoingToLock &&
+          (!isLockEnabled || lockState == AppLockState.unlocked)) {
         return AppRoutes.home;
       }
 
@@ -97,11 +110,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // This is critical for medical compliance (Score 100)
       final legalAccepted = ref.read(legalAcceptedProvider);
       if (!legalAccepted) {
-        final isGoingToLegal = state.matchedLocation.contains('terms') || 
-                               state.matchedLocation.contains('privacy') || 
-                               state.matchedLocation.contains('disclaimer');
+        final isGoingToLegal =
+            state.matchedLocation.contains('terms') ||
+            state.matchedLocation.contains('privacy') ||
+            state.matchedLocation.contains('disclaimer');
         if (!isGoingToLegal && !isGoingToProfileCreate) {
-          return AppRoutes.profileCreate; // Force them back to profile create to accept
+          return AppRoutes
+              .profileCreate; // Force them back to profile create to accept
         }
       }
 
@@ -116,7 +131,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
 
     // Handling 404s
-    errorBuilder: (context, state) => ErrorScreen(message: state.error?.message),
+    errorBuilder:
+        (context, state) => ErrorScreen(message: state.error?.message),
 
     routes: [
       // Auth & Entry Flow
@@ -135,7 +151,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'profileCreate',
         builder: (context, state) => const ProfileCreateScreen(),
       ),
-      
+
       // Notifications
       GoRoute(
         path: '/notification/medication',
@@ -162,7 +178,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    path: AppRoutes.home, // Maps to Dashboard via HomeScreen logic or redirection
+                    path:
+                        AppRoutes
+                            .home, // Maps to Dashboard via HomeScreen logic or redirection
                     name: 'home',
                     builder: (context, state) => const DashboardScreen(),
                   ),
@@ -195,7 +213,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       GoRoute(
                         path: 'add',
                         name: 'appointmentAdd',
-                        builder: (context, state) => const CreateAppointmentScreen(),
+                        builder:
+                            (context, state) => const CreateAppointmentScreen(),
                       ),
                     ],
                   ),
@@ -206,7 +225,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.profile,
                     name: 'profile',
-                     builder: (context, state) => const ProfileScreen(),
+                    builder: (context, state) => const ProfileScreen(),
                     routes: [
                       GoRoute(
                         path: 'edit',
@@ -232,8 +251,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const AchievementsScreen(),
           ),
 
-
-
           // Features (Scale-Proof Hierarchical Routes)
           GoRoute(
             path: AppRoutes.medicines,
@@ -245,10 +262,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 name: 'medicineAdd',
                 builder: (context, state) => const AddMedicationScreen(),
               ),
-
             ],
           ),
-          
+
           GoRoute(
             path: AppRoutes.doctors,
             name: 'doctors',
@@ -264,7 +280,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 name: 'doctorDetail',
                 builder: (context, state) {
                   final id = state.pathParameters['id'];
-                  if (id == null) return const ErrorScreen(message: 'Doctor not found');
+                  if (id == null) {
+                    return const ErrorScreen(message: 'Doctor not found');
+                  }
                   return DoctorDetailScreen(id: id);
                 },
               ),

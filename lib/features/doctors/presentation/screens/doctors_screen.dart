@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/domain/entities/doctor.dart';
 import '../../../../shared/providers/doctor_providers.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +29,7 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final docsAsync = ref.watch(doctorListProvider);
-    _selectedCategory ??= context.l10n('all');
+    _selectedCategory ??= context.l10n.all;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
@@ -41,27 +41,45 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
           Expanded(
             child: docsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('${context.l10n('error')}: $e')),
+              error: (e, _) => Center(child: Text('${context.l10n.error}: $e')),
               data: (doctors) {
-                final departments = [context.l10n('all'), ...doctors.map((d) => d.department).toSet()];
-                final filtered = doctors.where((d) {
-                  final matchesSearch = d.name.toLowerCase().contains(_searchTerm.toLowerCase()) ||
-                      d.department.toLowerCase().contains(_searchTerm.toLowerCase());
-                  final matchesCategory = _selectedCategory == context.l10n('all') || d.department == _selectedCategory;
-                  return matchesSearch && matchesCategory;
-                }).toList();
+                final departments = <String>[
+                  context.l10n.all,
+                  ...doctors.map((d) => d.department.toString()).toSet(),
+                ];
+                final filtered =
+                    doctors.where((d) {
+                      final matchesSearch =
+                          d.name.toLowerCase().contains(
+                            _searchTerm.toLowerCase(),
+                          ) ||
+                          d.department.toLowerCase().contains(
+                            _searchTerm.toLowerCase(),
+                          );
+                      final matchesCategory =
+                          _selectedCategory == context.l10n.all ||
+                          d.department == _selectedCategory;
+                      return matchesSearch && matchesCategory;
+                    }).toList();
 
                 return Column(
                   children: [
                     _buildCategoryChips(departments, isDark),
                     Expanded(
-                      child: filtered.isEmpty
-                          ? _buildEmptyState(context, isDark)
-                          : ListView.builder(
-                              padding: const EdgeInsets.all(24).copyWith(bottom: 100),
-                              itemCount: filtered.length,
-                              itemBuilder: (ctx, idx) => _DoctorCard(doctor: filtered[idx], index: idx),
-                            ),
+                      child:
+                          filtered.isEmpty
+                              ? _buildEmptyState(context, isDark)
+                              : ListView.builder(
+                                padding: const EdgeInsets.all(
+                                  24,
+                                ).copyWith(bottom: 100),
+                                itemCount: filtered.length,
+                                itemBuilder:
+                                    (ctx, idx) => _DoctorCard(
+                                      doctor: filtered[idx],
+                                      index: idx,
+                                    ),
+                              ),
                     ),
                   ],
                 );
@@ -85,7 +103,7 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       title: Text(
-        context.l10n('doctors'),
+        context.l10n.doctors,
         style: const TextStyle(
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w800,
@@ -107,18 +125,31 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9),
+          color:
+              isDark
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : const Color(0xFFF1F5F9),
           borderRadius: BorderRadius.circular(20),
         ),
         child: TextField(
           onChanged: (v) => setState(() => _searchTerm = v),
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
           decoration: InputDecoration(
-            hintText: context.l10n('search'),
-            hintStyle: const TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.w400),
-            prefixIcon: const Icon(Icons.search_rounded, color: Colors.blueGrey, size: 20),
+            hintText: context.l10n.search,
+            hintStyle: const TextStyle(
+              color: Colors.blueGrey,
+              fontWeight: FontWeight.w400,
+            ),
+            prefixIcon: const Icon(
+              Icons.search_rounded,
+              color: Colors.blueGrey,
+              size: 20,
+            ),
             border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
           ),
         ),
       ),
@@ -141,9 +172,17 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
               onTap: () => setState(() => _selectedCategory = cat),
               child: AnimatedContainer(
                 duration: 300.ms,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF005DA7) : (isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9)),
+                  color:
+                      isSelected
+                          ? const Color(0xFF005DA7)
+                          : (isDark
+                              ? Colors.white.withValues(alpha: 0.05)
+                              : const Color(0xFFF1F5F9)),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -167,19 +206,28 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.medical_services_outlined, size: 64, color: Colors.blueGrey.withValues(alpha: 0.2)),
+          Icon(
+            Icons.medical_services_outlined,
+            size: 64,
+            color: Colors.blueGrey.withValues(alpha: 0.2),
+          ),
           const SizedBox(height: 16),
           Text(
-            context.l10n('no_doctors_found'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blueGrey),
+            context.l10n.noDoctorsFound,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.blueGrey,
+            ),
           ),
           const SizedBox(height: 16),
           TextButton(
-            onPressed: () => setState(() {
-              _searchTerm = '';
-              _selectedCategory = context.l10n('all');
-            }),
-            child: Text(context.l10n('clear_filters')),
+            onPressed:
+                () => setState(() {
+                  _searchTerm = '';
+                  _selectedCategory = context.l10n.all;
+                }),
+            child: Text(context.l10n.clearFilters),
           ),
         ],
       ),
@@ -187,7 +235,9 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
   }
 
   void _showAddDoctor(BuildContext context) {
-    context.push(AppRoutes.doctorAdd).then((_) => ref.read(doctorListProvider.notifier).refresh());
+    context
+        .push(AppRoutes.doctorAdd)
+        .then((_) => ref.read(doctorListProvider.notifier).refresh());
   }
 }
 
@@ -199,27 +249,35 @@ class _DoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : Colors.white,
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
-          if (!isDark) BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
+          if (!isDark)
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            ),
         ],
-        border: Border.all(color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.02)),
+        border: Border.all(
+          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.02),
+        ),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(32),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                'doctorDetail',
+                pathParameters: {'id': doctor.id},
+              );
+            },
             child: Padding(
               padding: const EdgeInsets.all(24),
               child: Row(
@@ -233,7 +291,9 @@ class _DoctorCard extends StatelessWidget {
                     ),
                     child: Center(
                       child: Icon(
-                        doctor.gender.index == 0 ? Icons.face_retouching_natural_rounded : Icons.face_rounded,
+                        doctor.gender.index == 0
+                            ? Icons.face_retouching_natural_rounded
+                            : Icons.face_rounded,
                         color: AppColors.medicalBlue,
                         size: 32,
                       ),
@@ -249,46 +309,79 @@ class _DoctorCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 "${doctor.localizedTitle(context)} ${doctor.name}",
-                                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900, fontFamily: 'Manrope'),
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: 'Manrope',
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            if (doctor.isVerified) 
-                              const Icon(Icons.verified_rounded, color: Color(0xFF14B8A6), size: 16),
+                            if (doctor.isVerified)
+                              const Icon(
+                                Icons.verified_rounded,
+                                color: Color(0xFF14B8A6),
+                                size: 16,
+                              ),
                             const SizedBox(width: 8),
                             Consumer(
-                              builder: (context, ref, _) => PopupMenuButton<String>(
-                                icon: const Icon(Icons.more_vert_rounded, size: 20, color: AppColors.textTertiary),
-                                onSelected: (val) {
-                                  if (val == 'delete') {
-                                    ref.read(doctorListProvider.notifier).deleteDoctor(doctor.id);
-                                  }
-                                },
-                                itemBuilder: (ctx) => [
-                                  PopupMenuItem(
-                                    value: 'delete',
-                                    child: Text(context.l10n('delete'), style: const TextStyle(color: AppColors.error)),
+                              builder:
+                                  (context, ref, _) => PopupMenuButton<String>(
+                                    icon: const Icon(
+                                      Icons.more_vert_rounded,
+                                      size: 20,
+                                      color: AppColors.textTertiary,
+                                    ),
+                                    onSelected: (val) {
+                                      if (val == 'delete') {
+                                        ref
+                                            .read(doctorListProvider.notifier)
+                                            .deleteDoctor(doctor.id);
+                                      }
+                                    },
+                                    itemBuilder:
+                                        (ctx) => [
+                                          PopupMenuItem(
+                                            value: 'delete',
+                                            child: Text(
+                                              context.l10n.delete,
+                                              style: const TextStyle(
+                                                color: AppColors.error,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                   ),
-                                ],
-                              ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 4),
                         Text(
                           doctor.department,
-                          style: const TextStyle(fontSize: 13, color: AppColors.medicalBlue, fontWeight: FontWeight.w800),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: AppColors.medicalBlue,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            const Icon(Icons.apartment_rounded, size: 14, color: Colors.blueGrey),
+                            const Icon(
+                              Icons.apartment_rounded,
+                              size: 14,
+                              color: Colors.blueGrey,
+                            ),
                             const SizedBox(width: 6),
                             Expanded(
                               child: Text(
                                 doctor.hospital,
-                                style: const TextStyle(fontSize: 12, color: Colors.blueGrey, fontWeight: FontWeight.w600),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.blueGrey,
+                                  fontWeight: FontWeight.w600,
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),

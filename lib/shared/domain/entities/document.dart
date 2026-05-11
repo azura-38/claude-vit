@@ -12,7 +12,7 @@ class Document {
   final String? tagId;
   final String? tagLabel;
   final String? note;
-   final DocumentCategory category;
+  final DocumentCategory category;
   final DateTime createdAt;
 
   const Document({

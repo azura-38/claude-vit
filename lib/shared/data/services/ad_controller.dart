@@ -26,7 +26,7 @@ class AdController {
   Future<void> onActionTriggered() async {
     final newCount = _actionCount + 1;
     await _prefs.setInt(_countKey, newCount);
-    
+
     // Show interstitial every 5 significant actions
     if (newCount % 5 == 0) {
       _tryShowAd();
@@ -36,7 +36,7 @@ class AdController {
   Future<void> _tryShowAd() async {
     final now = DateTime.now();
     final lastTime = _lastAdTime;
-    
+
     if (lastTime == null || now.difference(lastTime).inMinutes >= 10) {
       AdService.showInterstitial();
       await _prefs.setInt(_timeKey, now.millisecondsSinceEpoch);

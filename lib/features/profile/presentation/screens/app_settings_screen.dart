@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
@@ -7,7 +7,7 @@ import '../../../../shared/providers/onboarding_provider.dart';
 import '../../../../shared/providers/locale_provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/data/services/wipe_service.dart';
 import '../../../../shared/data/services/smart_notification_system.dart';
 import 'package:vitacase/core/di/service_providers.dart'
@@ -30,7 +30,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
     final ref = this.ref;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isLockEnabled = ref.watch(appLockEnabledProvider);
-    final currentThemeMode = ref.watch(themeModeProvider);
+    final currentThemeMode = ref.watch(themeTypeProvider);
     final currentTimeout = ref.watch(lockTimeoutProvider);
     final quickActions = ref.watch(quickActionsProvider);
     final notificationSettings = ref.watch(notificationSettingsProvider);
@@ -40,7 +40,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          context.l10n('app_settings'),
+          context.l10n.appSettings,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -56,21 +56,21 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                   _buildTrustCard(context, isDark),
                   const SizedBox(height: 32),
                   // --- APPEARANCE SECTION ---
-                  _buildSectionTitle(context.l10n('appearance'), isDark),
+                  _buildSectionTitle(context.l10n.appearance, isDark),
                   const SizedBox(height: 12),
                   _buildSectionCard([
                     _buildSettingTile(
                       icon: Icons.palette_rounded,
                       iconColor: Colors.purple,
-                      title: context.l10n('theme_settings'),
-                      subtitle: context.l10n('theme_${currentThemeMode.name}'),
+                      title: context.l10n.themeSettings,
+                      subtitle: currentThemeMode.localizedLabel(context),
                       onTap: () => context.pushNamed('settingsTheme'),
                       isDark: isDark,
                     ),
                     _buildSettingTile(
                       icon: Icons.language_rounded,
                       iconColor: Colors.teal,
-                      title: context.l10n('select_language'),
+                      title: context.l10n.selectLanguage,
                       subtitle: _getLanguageName(
                         ref.watch(localeProvider).languageCode,
                       ),
@@ -80,8 +80,8 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     _buildSettingTile(
                       icon: Icons.restore_rounded,
                       iconColor: Colors.indigo,
-                      title: context.l10n('backup_restore'),
-                      subtitle: context.l10n('backup_desc_settings'),
+                      title: context.l10n.backupRestore,
+                      subtitle: context.l10n.backupDescSettings,
                       onTap: () => _showBackupSelector(context, ref),
                       isDark: isDark,
                       isLast: true,
@@ -90,14 +90,14 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
 
                   const SizedBox(height: 32),
                   // --- APP LOGIC SECTION ---
-                  _buildSectionTitle(context.l10n('app_section'), isDark),
+                  _buildSectionTitle(context.l10n.appSection, isDark),
                   const SizedBox(height: 12),
                   _buildSectionCard([
                     _buildSettingTile(
                       icon: Icons.bolt_rounded,
                       iconColor: Colors.amber,
-                      title: context.l10n('quick_actions'),
-                      subtitle: quickActions ? context.l10n('active') : context.l10n('inactive'),
+                      title: context.l10n.quickActions,
+                      subtitle: quickActions ? context.l10n.active : context.l10n.inactive,
                       onTap:
                           () => ref
                               .read(quickActionsProvider.notifier)
@@ -114,19 +114,19 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     _buildSettingTile(
                       icon: Icons.text_fields_rounded,
                       iconColor: Colors.indigo,
-                      title: context.l10n('text_size'),
-                      subtitle: context.l10n('text_size_medium'),
+                      title: context.l10n.textSize,
+                      subtitle: context.l10n.textSizeMedium,
                       onTap: () => _showTextSizeSelector(context),
                       isDark: isDark,
                     ),
                     _buildSettingTile(
                       icon: Icons.notifications_active_outlined,
                       iconColor: Colors.blue,
-                      title: context.l10n('smart_notifications'),
+                      title: context.l10n.smartNotifications,
                       subtitle:
                           notificationSettings.smartNotificationsEnabled
-                              ? '${context.l10n('active')} 🔔'
-                              : context.l10n('inactive'),
+                              ? '${context.l10n.active} 🔔'
+                              : context.l10n.inactive,
                       trailing: Switch(
                         value: notificationSettings.smartNotificationsEnabled,
                         onChanged: (value) async {
@@ -141,7 +141,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                           if (value && context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(context.l10n('notifications_active_msg')),
+                                content: Text(context.l10n.notificationsActiveMsg),
                               ),
                             );
                           }
@@ -152,11 +152,11 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     _buildSettingTile(
                       icon: Icons.visibility_off_outlined,
                       iconColor: Colors.deepOrange,
-                      title: context.l10n('show_sensitive_details'),
+                      title: context.l10n.showSensitiveDetails,
                       subtitle:
                           notificationSettings.showSensitiveDetails
-                              ? context.l10n('sensitive_details_visible')
-                              : context.l10n('sensitive_details_hidden'),
+                              ? context.l10n.sensitiveDetailsVisible
+                              : context.l10n.sensitiveDetailsHidden,
                       trailing: Switch(
                         value: notificationSettings.showSensitiveDetails,
                         onChanged: (value) async {
@@ -177,11 +177,11 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     _buildSettingTile(
                       icon: Icons.do_not_disturb_on_rounded,
                       iconColor: Colors.deepPurple,
-                      title: context.l10n('quiet_hours'),
+                      title: context.l10n.quietHours,
                       subtitle:
                           notificationSettings.quietHoursEnabled
                               ? '${_timeLabel(notificationSettings.quietHoursStart, notificationSettings.quietHoursStartMinute).format(context)} - ${_timeLabel(notificationSettings.quietHoursEnd, notificationSettings.quietHoursEndMinute).format(context)}'
-                              : '${context.l10n('inactive')} 🌙',
+                              : '${context.l10n.inactive} 🌙',
                       onTap: () => _showQuietHoursSelector(context, ref),
                       trailing: Switch(
                         value: notificationSettings.quietHoursEnabled,
@@ -196,7 +196,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                           if (value && context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(context.l10n('quiet_hours_msg')),
+                                content: Text(context.l10n.quietHoursMsg),
                               ),
                             );
                           }
@@ -207,8 +207,8 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     _buildSettingTile(
                       icon: Icons.bug_report_outlined,
                       iconColor: Colors.orange,
-                      title: context.l10n('test_notification'),
-                      subtitle: context.l10n('test_notification_desc'),
+                      title: context.l10n.testNotification,
+                      subtitle: context.l10n.testNotificationDesc,
                       onTap: () {
                         SmartNotificationService.testNotification();
                       },
@@ -219,17 +219,17 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
 
                   const SizedBox(height: 32),
                   // --- SECURITY SECTION ---
-                  _buildSectionTitle(context.l10n('data_security'), isDark),
+                  _buildSectionTitle(context.l10n.dataSecurity, isDark),
                   const SizedBox(height: 12),
                   _buildSectionCard([
                     _buildSettingTile(
                       icon: Icons.lock_rounded,
                       iconColor: Colors.green,
-                      title: context.l10n('app_lock'),
+                      title: context.l10n.appLock,
                       subtitle:
                           isLockEnabled
-                              ? context.l10n('active')
-                              : context.l10n('inactive'),
+                              ? context.l10n.active
+                              : context.l10n.inactive,
                       trailing: Switch(
                         value: isLockEnabled,
                         onChanged: (val) async {
@@ -266,18 +266,18 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                       _buildSettingTile(
                         icon: Icons.pin_outlined,
                         iconColor: Colors.indigo,
-                        title: context.l10n('change_pin'),
-                        subtitle: '6 ${context.l10n('digits')}',
+                        title: context.l10n.changePin,
+                        subtitle: '6 ${context.l10n.digits}',
                         onTap: () => _showPinChangeDialog(context, ref),
                         isDark: isDark,
                       ),
                       _buildSettingTile(
                         icon: Icons.fingerprint_rounded,
                         iconColor: Colors.teal,
-                        title: context.l10n('biometric_login'),
+                        title: context.l10n.biometricLogin,
                         subtitle: ref.watch(biometricEnabledProvider)
-                            ? context.l10n('active')
-                            : context.l10n('inactive'),
+                            ? context.l10n.active
+                            : context.l10n.inactive,
                         trailing: Switch(
                           value: ref.watch(biometricEnabledProvider),
                           onChanged: (val) async {
@@ -287,7 +287,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                               if (!available) {
                                 if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(context.l10n('biometric_unavailable'))),
+                                    SnackBar(content: Text(context.l10n.biometricUnavailable)),
                                   );
                                 }
                                 return;
@@ -303,7 +303,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                       _buildSettingTile(
                         icon: Icons.timer_outlined,
                         iconColor: Colors.orange,
-                        title: context.l10n('lock_timeout'),
+                        title: context.l10n.lockTimeout,
                         subtitle: currentTimeout.localizedLabel(context),
                         onTap: () => _showTimeoutSelector(context, ref),
                         isDark: isDark,
@@ -312,7 +312,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     _buildSettingTile(
                       icon: Icons.delete_forever_rounded,
                       iconColor: Colors.red,
-                      title: context.l10n('clear_all_data'),
+                      title: context.l10n.clearAllData,
                       onTap: () => _showWipeDialog(context, ref),
                       isDark: isDark,
                       isLast: true,
@@ -321,27 +321,27 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
 
                   const SizedBox(height: 32),
                   // --- LEGAL SECTION ---
-                  _buildSectionTitle(context.l10n('legal'), isDark),
+                  _buildSectionTitle(context.l10n.legal, isDark),
                   const SizedBox(height: 12),
                   _buildSectionCard([
                     _buildSettingTile(
                       icon: Icons.article_outlined,
                       iconColor: Colors.grey,
-                      title: context.l10n('privacy_policy'),
+                      title: context.l10n.privacyPolicy,
                       onTap: () => context.pushNamed('settingsPrivacy'),
                       isDark: isDark,
                     ),
                     _buildSettingTile(
                       icon: Icons.gavel_rounded,
                       iconColor: Colors.grey,
-                      title: context.l10n('terms_conditions'),
+                      title: context.l10n.termsConditions,
                       onTap: () => context.pushNamed('settingsTerms'),
                       isDark: isDark,
                     ),
                     _buildSettingTile(
                       icon: Icons.info_outline_rounded,
                       iconColor: Colors.grey,
-                      title: context.l10n('legal_disclaimer'),
+                      title: context.l10n.legalDisclaimer,
                       onTap: () => context.pushNamed('settingsDisclaimer'),
                       isDark: isDark,
                       isLast: true,
@@ -383,12 +383,12 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    context.l10n('backup_restore'),
+                    context.l10n.backupRestore,
                     style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    context.l10n('backup_restore_desc'),
+                    context.l10n.backupRestoreDesc,
                     style: const TextStyle(
                       fontSize: 13,
                       color: Colors.grey,
@@ -400,12 +400,12 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     context: context,
                     icon: Icons.cloud_upload_rounded,
                     color: Colors.blue,
-                    title: context.l10n('backup_export'),
-                    subtitle: context.l10n('backup_export_desc'),
+                    title: context.l10n.backupExport,
+                    subtitle: context.l10n.backupExportDesc,
                     isComingSoon: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(context.l10n('coming_soon'))),
+                        SnackBar(content: Text(context.l10n.comingSoon)),
                       );
                     },
                   ),
@@ -414,12 +414,12 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     context: context,
                     icon: Icons.cloud_download_rounded,
                     color: Colors.green,
-                    title: context.l10n('backup_import'),
-                    subtitle: context.l10n('backup_import_desc'),
+                    title: context.l10n.backupImport,
+                    subtitle: context.l10n.backupImportDesc,
                     isComingSoon: true,
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(context.l10n('coming_soon'))),
+                        SnackBar(content: Text(context.l10n.comingSoon)),
                       );
                     },
                   ),
@@ -477,7 +477,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                             border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
                           ),
                           child: Text(
-                            context.l10n('coming_soon').toUpperCase(),
+                            context.l10n.comingSoon.toUpperCase(),
                             style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.orange),
                           ),
                         ),
@@ -532,12 +532,12 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  context.l10n('quiet_hours'),
+                  context.l10n.quietHours,
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 24),
                 ListTile(
-                  title: Text(context.l10n('start_time')),
+                  title: Text(context.l10n.startTime),
                   subtitle: Text(startTime.format(context)),
                   onTap: () async {
                     final time = await showTimePicker(
@@ -557,7 +557,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                   },
                 ),
                 ListTile(
-                  title: Text(context.l10n('end_time')),
+                  title: Text(context.l10n.endTime),
                   subtitle: Text(endTime.format(context)),
                   onTap: () async {
                     final time = await showTimePicker(
@@ -579,7 +579,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () => Navigator.pop(ctx),
-                  child: Text(context.l10n('ok')),
+                  child: Text(context.l10n.ok),
                 ),
               ],
             ),
@@ -907,17 +907,17 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              context.l10n('text_size'),
+              context.l10n.textSize,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 16),
             ListTile(
-              title: Text(context.l10n('text_size_small')),
+              title: Text(context.l10n.textSizeSmall),
               leading: const Icon(Icons.text_fields),
               onTap: () => context.pop(),
             ),
             ListTile(
-              title: Text(context.l10n('text_size_medium')),
+              title: Text(context.l10n.textSizeMedium),
               leading: const Icon(Icons.text_fields, size: 28),
               trailing: const Icon(
                 Icons.check_circle_rounded,
@@ -926,7 +926,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
               onTap: () => context.pop(),
             ),
             ListTile(
-              title: Text(context.l10n('text_size_large')),
+              title: Text(context.l10n.textSizeLarge),
               leading: const Icon(Icons.text_fields, size: 36),
               onTap: () => context.pop(),
             ),
@@ -976,7 +976,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      context.l10n('free_secure_release').toUpperCase(),
+                      context.l10n.freeSecureRelease.toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 10,
@@ -994,7 +994,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        context.l10n('premium_soon'),
+                        context.l10n.premiumSoon,
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.w900,
@@ -1057,7 +1057,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                       hasError = true;
                     });
                     ScaffoldMessenger.of(ctx).showSnackBar(
-                      SnackBar(content: Text(context.l10n('lock_pin_mismatch'))),
+                      SnackBar(content: Text(context.l10n.lockPinMismatch)),
                     );
                   }
                 }
@@ -1090,12 +1090,12 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     Icon(Icons.lock_rounded, size: 36, color: isDark ? Colors.white70 : AppColors.medicalBlue),
                     const SizedBox(height: 16),
                     Text(
-                      isConfirming ? context.l10n('lock_confirm_pin') : context.l10n('lock_set_pin'),
+                      isConfirming ? context.l10n.lockConfirmPin : context.l10n.lockSetPin,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '6 ${context.l10n('digits')}',
+                      '6 ${context.l10n.digits}',
                       style: TextStyle(fontSize: 13, color: isDark ? Colors.white38 : Colors.grey),
                     ),
                     const SizedBox(height: 24),
@@ -1119,7 +1119,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
                     const SizedBox(height: 8),
                     TextButton(
                       onPressed: () => Navigator.pop(ctx, false),
-                      child: Text(context.l10n('cancel')),
+                      child: Text(context.l10n.cancel),
                     ),
                   ],
                 ),
@@ -1141,7 +1141,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
     final success = await _showPinSetupDialog(context, ref);
     if (success && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n('success'))),
+        SnackBar(content: Text(context.l10n.success)),
       );
     }
   }

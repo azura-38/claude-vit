@@ -22,7 +22,7 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final width = MediaQuery.of(context).size.width;
-    
+
     // Only re-init if width has changed (e.g., orientation change)
     if (_lastWidth != width) {
       _lastWidth = width;
@@ -41,18 +41,19 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
     // Dispose previous ad if it exists
     await _bannerAd?.dispose();
     if (!mounted) return;
-    
+
     setState(() {
       _bannerAd = null;
       _isLoaded = false;
     });
 
     final adWidth = size.width.truncate();
-    
-    final adSize = await AdSize.getLargeAnchoredAdaptiveBannerAdSizeWithOrientation(
-      orientation,
-      adWidth,
-    );
+
+    final adSize =
+        await AdSize.getLargeAnchoredAdaptiveBannerAdSizeWithOrientation(
+          orientation,
+          adWidth,
+        );
 
     if (adSize == null) return;
 

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import '../../../core/l10n/app_localizations.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../enums/common_enums.dart';
 
 /// Pure domain entity for a doctor record.

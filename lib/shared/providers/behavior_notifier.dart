@@ -25,11 +25,15 @@ class BehaviorNotifier {
       final lastLogin = DateTime.tryParse(lastLoginStr);
       if (lastLogin != null) {
         final diff = now.difference(lastLogin);
-        
+
         // If they returned after a while, clear old notifications
         if (diff.inHours > 1) {
-          ref.read(notificationServiceProvider).cancelNotification(9991); // Streak
-          ref.read(notificationServiceProvider).cancelNotification(9992); // Mission
+          ref
+              .read(notificationServiceProvider)
+              .cancelNotification(9991); // Streak
+          ref
+              .read(notificationServiceProvider)
+              .cancelNotification(9992); // Mission
         }
       }
     }
@@ -43,7 +47,7 @@ class BehaviorNotifier {
       ref.read(notificationServiceProvider).cancelNotification(9991);
       ref.read(notificationServiceProvider).cancelNotification(9992);
     }
-    
+
     // Listen for mission changes
     _listenToMissions();
     _listenToReminderPreference();
@@ -60,7 +64,9 @@ class BehaviorNotifier {
       if (missions != null) {
         final allDone = missions.every((m) => m.isCompleted);
         if (allDone) {
-          ref.read(notificationServiceProvider).cancelNotification(9992); // Mission reminder
+          ref
+              .read(notificationServiceProvider)
+              .cancelNotification(9992); // Mission reminder
         }
       }
     });

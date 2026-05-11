@@ -1,14 +1,31 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class PinService {
   final _storage = const FlutterSecureStorage();
   static const _pinKey = 'app_pin_code';
-  static const _salt = 'vitacase_pin_salt_f8a2';
+  static const _pinSaltKey = 'app_pin_salt';
+  static const _legacySalt = 'vitacase_pin_salt_f8a2';
 
-  String _hashPin(String pin) {
-    return sha256.convert(utf8.encode('$_salt$pin')).toString();
+  Future<String> _getOrCreateSalt() async {
+    final stored = await _storage.read(key: _pinSaltKey);
+    if (stored != null && stored.isNotEmpty) return stored;
+
+    final random = Random.secure();
+    final bytes = List<int>.generate(32, (_) => random.nextInt(256));
+    final salt = base64UrlEncode(bytes);
+    await _storage.write(key: _pinSaltKey, value: salt);
+    return salt;
+  }
+
+  String _hashPin(String pin, String salt) {
+    return sha256.convert(utf8.encode('$salt:$pin')).toString();
+  }
+
+  String _legacyHashPin(String pin) {
+    return sha256.convert(utf8.encode('$_legacySalt$pin')).toString();
   }
 
   Future<bool> hasPin() async {
@@ -18,27 +35,34 @@ class PinService {
 
   Future<void> setPin(String pin) async {
     if (pin.length != 6) throw Exception("PIN must be 6 digits");
-    await _storage.write(key: _pinKey, value: _hashPin(pin));
+    final salt = await _getOrCreateSalt();
+    await _storage.write(key: _pinKey, value: _hashPin(pin, salt));
   }
 
   Future<bool> verifyPin(String input) async {
     final stored = await _storage.read(key: _pinKey);
     if (stored == null) return false;
 
-    // Migration: if stored value is exactly 4 chars, it's plaintext from old version
-    if (stored.length == 4) {
+    if (stored.length == 4 || stored.length == 6) {
       final isMatch = stored == input;
       if (isMatch) {
-        // Auto-migrate to hashed storage
         await setPin(input);
       }
       return isMatch;
     }
 
-    return stored == _hashPin(input);
+    final salt = await _getOrCreateSalt();
+    if (stored == _hashPin(input, salt)) return true;
+
+    final legacyMatch = stored == _legacyHashPin(input);
+    if (legacyMatch) {
+      await setPin(input);
+    }
+    return legacyMatch;
   }
 
   Future<void> clearPin() async {
     await _storage.delete(key: _pinKey);
+    await _storage.delete(key: _pinSaltKey);
   }
 }

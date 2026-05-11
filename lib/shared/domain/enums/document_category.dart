@@ -8,10 +8,7 @@ enum DocumentCategory {
   finance,
   legal,
   notes,
-  other;
+  other,
 }
 
-enum DocumentFileType {
-  pdf,
-  image;
-}
+enum DocumentFileType { pdf, image }

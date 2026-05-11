@@ -1,29 +1,9 @@
-enum AppBootstrapState {
-  ready,
-  degraded,
-}
+enum AppBootstrapState { ready, degraded }
 
-enum AppLockState {
-  unknown,
-  locked,
-  unlocked,
-}
+enum AppLockState { unknown, locked, unlocked }
 
-enum NotificationPermissionState {
-  unknown,
-  granted,
-  denied,
-  unsupported,
-}
+enum NotificationPermissionState { unknown, granted, denied, unsupported }
 
-enum RewardAdResult {
-  shownRewarded,
-  shownNoReward,
-  unavailable,
-  failed,
-}
+enum RewardAdResult { shownRewarded, shownNoReward, unavailable, failed }
 
-enum PremiumAvailability {
-  disabled,
-  enabled,
-}
+enum PremiumAvailability { disabled, enabled }

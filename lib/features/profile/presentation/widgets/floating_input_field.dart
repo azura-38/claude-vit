@@ -24,8 +24,7 @@ class FloatingInputField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon:
-            icon != null ? Icon(icon) : null,
+        prefixIcon: icon != null ? Icon(icon) : null,
         filled: true,
         fillColor: const Color(0xFFF2F3FB),
         border: OutlineInputBorder(

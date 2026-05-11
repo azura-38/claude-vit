@@ -29,7 +29,10 @@ class OnboardingChecklist {
   }
 }
 
-final onboardingChecklistProvider = NotifierProvider<OnboardingChecklistNotifier, OnboardingChecklist>(OnboardingChecklistNotifier.new);
+final onboardingChecklistProvider =
+    NotifierProvider<OnboardingChecklistNotifier, OnboardingChecklist>(
+      OnboardingChecklistNotifier.new,
+    );
 
 class OnboardingChecklistNotifier extends Notifier<OnboardingChecklist> {
   @override
@@ -40,7 +43,10 @@ class OnboardingChecklistNotifier extends Notifier<OnboardingChecklist> {
   }
 }
 
-final onboardingCompletedProvider = NotifierProvider<OnboardingCompletedNotifier, bool>(OnboardingCompletedNotifier.new);
+final onboardingCompletedProvider =
+    NotifierProvider<OnboardingCompletedNotifier, bool>(
+      OnboardingCompletedNotifier.new,
+    );
 
 class OnboardingCompletedNotifier extends Notifier<bool> {
   @override

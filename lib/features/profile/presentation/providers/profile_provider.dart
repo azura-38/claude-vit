@@ -3,8 +3,9 @@ import 'package:sembast/sembast.dart';
 import '../../domain/models/user_profile.dart';
 import '../../../../shared/data/datasources/sembast_database.dart';
 
-final profileProvider =
-    StateNotifierProvider<ProfileNotifier, UserProfile>((ref) {
+final profileProvider = StateNotifierProvider<ProfileNotifier, UserProfile>((
+  ref,
+) {
   return ProfileNotifier(SembastDatabase());
 });
 
@@ -132,9 +133,10 @@ class ProfileNotifier extends StateNotifier<UserProfile> {
         (g) => g.name == (m['gender'] as String?),
         orElse: () => Gender.female,
       ),
-      birthDate: m['birthDate'] != null
-          ? DateTime.tryParse(m['birthDate'] as String)
-          : null,
+      birthDate:
+          m['birthDate'] != null
+              ? DateTime.tryParse(m['birthDate'] as String)
+              : null,
       emergencyName: m['emergencyName'] as String? ?? '',
       emergencyPhone: m['emergencyPhone'] as String? ?? '',
       emergencyRelation: m['emergencyRelation'] as String? ?? '',

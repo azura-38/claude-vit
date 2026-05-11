@@ -17,7 +17,8 @@ class RewardDialog extends StatelessWidget {
     this.color = Colors.amber,
   });
 
-  static void show(BuildContext context, {
+  static void show(
+    BuildContext context, {
     required String title,
     required String description,
     IconData icon = Icons.emoji_events_rounded,
@@ -26,12 +27,13 @@ class RewardDialog extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (_) => RewardDialog(
-        title: title,
-        description: description,
-        icon: icon,
-        color: color,
-      ),
+      builder:
+          (_) => RewardDialog(
+            title: title,
+            description: description,
+            icon: icon,
+            color: color,
+          ),
     );
   }
 
@@ -52,7 +54,7 @@ class RewardDialog extends StatelessWidget {
               color: color.withValues(alpha: 0.2),
               blurRadius: 30,
               spreadRadius: 5,
-            )
+            ),
           ],
         ),
         child: Column(
@@ -60,18 +62,19 @@ class RewardDialog extends StatelessWidget {
           children: [
             // 🌟 Animated Icon
             Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: color, size: 64),
-            ).animate(onPlay: (c) => c.repeat())
-             .shimmer(duration: 2.seconds)
-             .scale(duration: 1.seconds, curve: Curves.elasticOut),
-            
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: color, size: 64),
+                )
+                .animate(onPlay: (c) => c.repeat())
+                .shimmer(duration: 2.seconds)
+                .scale(duration: 1.seconds, curve: Curves.elasticOut),
+
             const SizedBox(height: 24),
-            
+
             // 🎉 Text Info
             Text(
               "CONGRATULATIONS!",
@@ -86,10 +89,7 @@ class RewardDialog extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w900,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 12),
             Text(
@@ -101,9 +101,9 @@ class RewardDialog extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // ✅ Action Button
             SizedBox(
               width: double.infinity,
@@ -113,12 +113,17 @@ class RewardDialog extends StatelessWidget {
                   backgroundColor: AppColors.medicalBlue,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   elevation: 0,
                 ),
                 child: const Text(
                   "AWESOME!",
-                  style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1,
+                  ),
                 ),
               ),
             ),

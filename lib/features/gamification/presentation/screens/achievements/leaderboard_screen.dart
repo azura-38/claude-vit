@@ -30,7 +30,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
     final repo = ref.read(leaderboardRepositoryProvider);
     final uid = await UIDManager.getUID();
     final top = await repo.getTopUsers();
-    
+
     if (mounted) {
       setState(() {
         _myUid = uid;
@@ -51,7 +51,11 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.leaderboard_rounded, size: 64, color: AppColors.medicalBlue.withValues(alpha: 0.2)),
+              Icon(
+                Icons.leaderboard_rounded,
+                size: 64,
+                color: AppColors.medicalBlue.withValues(alpha: 0.2),
+              ),
               const SizedBox(height: 24),
               const Text(
                 "Ranking Temporarily Hidden",
@@ -85,9 +89,15 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: isMe ? AppColors.medicalBlue.withValues(alpha: 0.1) : (isDark ? AppColors.surfaceDark : Colors.white),
+              color:
+                  isMe
+                      ? AppColors.medicalBlue.withValues(alpha: 0.1)
+                      : (isDark ? AppColors.surfaceDark : Colors.white),
               borderRadius: BorderRadius.circular(20),
-              border: isMe ? Border.all(color: AppColors.medicalBlue, width: 2) : null,
+              border:
+                  isMe
+                      ? Border.all(color: AppColors.medicalBlue, width: 2)
+                      : null,
             ),
             child: Row(
               children: [
@@ -101,19 +111,30 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
                         isMe ? "YOU" : user.displayName,
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
-                          color: isMe ? AppColors.medicalBlue : (isDark ? Colors.white : AppColors.textPrimary),
+                          color:
+                              isMe
+                                  ? AppColors.medicalBlue
+                                  : (isDark
+                                      ? Colors.white
+                                      : AppColors.textPrimary),
                         ),
                       ),
                       Text(
                         "Vita Scout",
-                        style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 Text(
                   "${user.xp} XP",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Inter'),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Inter',
+                  ),
                 ),
               ],
             ),
@@ -124,16 +145,37 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   }
 
   Widget _buildRankIcon(int rank) {
-    if (rank == 1) return const Icon(Icons.emoji_events_rounded, color: Colors.amber, size: 28);
-    if (rank == 2) return const Icon(Icons.emoji_events_rounded, color: Color(0xFFC0C0C0), size: 24);
-    if (rank == 3) return const Icon(Icons.emoji_events_rounded, color: Color(0xFFCD7F32), size: 22);
-    
+    if (rank == 1) {
+      return const Icon(
+        Icons.emoji_events_rounded,
+        color: Colors.amber,
+        size: 28,
+      );
+    }
+    if (rank == 2) {
+      return const Icon(
+        Icons.emoji_events_rounded,
+        color: Color(0xFFC0C0C0),
+        size: 24,
+      );
+    }
+    if (rank == 3) {
+      return const Icon(
+        Icons.emoji_events_rounded,
+        color: Color(0xFFCD7F32),
+        size: 22,
+      );
+    }
+
     return SizedBox(
       width: 28,
       child: Center(
         child: Text(
           "$rank",
-          style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.grey),
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
+            color: Colors.grey,
+          ),
         ),
       ),
     );

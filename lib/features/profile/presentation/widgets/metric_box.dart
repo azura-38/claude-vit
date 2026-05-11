@@ -22,8 +22,7 @@ class MetricBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
@@ -37,8 +36,7 @@ class MetricBox extends StatelessWidget {
             const SizedBox(height: 10),
 
             Row(
-              crossAxisAlignment:
-                  CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   value,
@@ -51,12 +49,11 @@ class MetricBox extends StatelessWidget {
                 const SizedBox(width: 4),
 
                 Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.only(bottom: 8),
                   child: Text(unit),
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/providers/theme_unlock_provider.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/data/services/ad_service.dart';
-import '../../../../core/l10n/app_localizations.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class ThemeItemWidget extends ConsumerWidget {
   final AppThemeType type;
@@ -59,9 +59,21 @@ class ThemeItemWidget extends ConsumerWidget {
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
+                  image: DecorationImage(
+                    image: NetworkImage(imageUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: !unlocked ? Container(color: Colors.black45, child: const Icon(Icons.lock_rounded, color: Colors.white)) : null,
+                child:
+                    !unlocked
+                        ? Container(
+                          color: Colors.black45,
+                          child: const Icon(
+                            Icons.lock_rounded,
+                            color: Colors.white,
+                          ),
+                        )
+                        : null,
               ),
               const SizedBox(width: 16),
               // Text
@@ -70,37 +82,58 @@ class ThemeItemWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16,
+                      ),
+                    ),
                     if (unlocked)
-                      Text(context.l10n('remaining_days', extra: {'days': days.toString()}), 
-                        style: const TextStyle(fontSize: 12, color: Colors.green, fontWeight: FontWeight.bold))
+                      Text(
+                        context.l10n.remainingDays(days: days.toString()),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
                     else
-                      Text(context.l10n('watch_to_unlock'), style: const TextStyle(fontSize: 11, color: Colors.grey)),
+                      Text(
+                        context.l10n.watchToUnlock,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey,
+                        ),
+                      ),
                   ],
                 ),
               ),
               // Buttons
               Padding(
                 padding: const EdgeInsets.only(right: 12),
-                child: unlocked
-                    ? TextButton(
-                        onPressed: () async {
-                          final ok = await AdService.showRewardedAd();
-                          if (ok) {
-                            notifier.extend(type, days: 1);
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(context.l10n('add_1_day_success'))),
-                              );
+                child:
+                    unlocked
+                        ? TextButton(
+                          onPressed: () async {
+                            final ok = await AdService.showRewardedAd();
+                            if (ok) {
+                              notifier.extend(type, days: 1);
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(context.l10n.add1DaySuccess),
+                                  ),
+                                );
+                              }
                             }
-                          }
-                        },
-                        child: Text(context.l10n('plus_1_day')),
-                      )
-                    : TextButton(
-                        onPressed: () => _showDialog(context, notifier, name),
-                        child: Text(context.l10n('watch')),
-                      ),
+                          },
+                          child: Text(context.l10n.plus1Day),
+                        )
+                        : TextButton(
+                          onPressed: () => _showDialog(context, notifier, name),
+                          child: Text(context.l10n.watch),
+                        ),
               ),
             ],
           ),
@@ -109,50 +142,74 @@ class ThemeItemWidget extends ConsumerWidget {
     );
   }
 
-  void _showDialog(BuildContext context, ThemeUnlockNotifier notifier, String name) {
+  void _showDialog(
+    BuildContext context,
+    ThemeUnlockNotifier notifier,
+    String name,
+  ) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(
-          color: Theme.of(ctx).brightness == Brightness.dark ? const Color(0xFF0F172A) : Colors.white,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
-            const SizedBox(height: 12),
-            Text(context.l10n('unlock_theme_question'), textAlign: TextAlign.center),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () async {
-                Navigator.pop(ctx);
-                final ok = await AdService.showRewardedAd();
-                if (ok) {
-                  notifier.unlock(type, days: 5);
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 64),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
+      builder:
+          (ctx) => Container(
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color:
+                  Theme.of(ctx).brightness == Brightness.dark
+                      ? const Color(0xFF0F172A)
+                      : Colors.white,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(32),
               ),
-              child: Text(context.l10n('watch_ad_plus_5')),
             ),
-            const SizedBox(height: 12),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-                onPreview(type);
-              },
-              child: Text(context.l10n('preview_5s'), style: const TextStyle(fontWeight: FontWeight.w900)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  context.l10n.unlockThemeQuestion,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                    final ok = await AdService.showRewardedAd();
+                    if (ok) {
+                      notifier.unlock(type, days: 5);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 64),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Text(context.l10n.watchAdPlus5),
+                ),
+                const SizedBox(height: 12),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    onPreview(type);
+                  },
+                  child: Text(
+                    context.l10n.preview5S,
+                    style: const TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }

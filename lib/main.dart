@@ -16,6 +16,7 @@ import 'shared/data/services/smart_notification_system.dart';
 import 'features/appointments/presentation/providers/appointment_providers.dart';
 import 'shared/providers/medicine_providers.dart';
 import 'shared/data/services/notification_service.dart';
+import 'core/notifications/notification_navigation.dart';
 
 void main() async {
   await SentryFlutter.init(
@@ -27,7 +28,7 @@ void main() async {
     },
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();
-      
+
       // 1. Core Services (Critical Path)
       final prefs = await SharedPreferences.getInstance();
       final container = ProviderContainer(
@@ -46,10 +47,14 @@ void main() async {
           initializeDateFormatting('en_US', null),
           sembastDb.init(encryptionService),
           NotificationService.init(
-            onMedicineTaken: (id) =>
-                container.read(medicineListProvider.notifier).markAsTaken(id),
-            onMedicineSkipped: (id) =>
-                container.read(medicineListProvider.notifier).markAsSkipped(id),
+            onMedicineTaken:
+                (id) => container
+                    .read(medicineListProvider.notifier)
+                    .markAsTaken(id),
+            onMedicineSkipped:
+                (id) => container
+                    .read(medicineListProvider.notifier)
+                    .markAsSkipped(id),
           ),
         ]);
       } catch (e) {
@@ -58,7 +63,7 @@ void main() async {
 
       // 3. Crashlytics & Analytics
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-      
+
       // 4. File Storage Setup
       await container.read(fileStorageServiceProvider).init();
 
@@ -71,6 +76,11 @@ void main() async {
       // 6. Launch Application
       await SmartNotificationService.loadSettings();
       SmartNotificationService.configure(notificationService);
+      NotificationService.setRouteHandler(
+        (payload) => container
+            .read(pendingNotificationRouteProvider.notifier)
+            .setFromPayload(payload),
+      );
 
       // 7. Startup Reschedule (Production Fix)
       Future.microtask(() async {
