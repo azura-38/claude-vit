@@ -126,12 +126,12 @@ class ProfileNotifier extends StateNotifier<UserProfile> {
       fullName: m['fullName'] as String? ?? '',
       email: m['email'] as String? ?? '',
       phone: m['phone'] as String? ?? '',
-      height: (m['height'] as num?)?.toDouble() ?? 170,
-      weight: (m['weight'] as num?)?.toDouble() ?? 65,
-      bloodType: m['bloodType'] as String? ?? 'A+',
+      height: (m['height'] as num?)?.toDouble() ?? 0,
+      weight: (m['weight'] as num?)?.toDouble() ?? 0,
+      bloodType: m['bloodType'] as String? ?? '',
       gender: Gender.values.firstWhere(
         (g) => g.name == (m['gender'] as String?),
-        orElse: () => Gender.female,
+        orElse: () => Gender.other,
       ),
       birthDate:
           m['birthDate'] != null

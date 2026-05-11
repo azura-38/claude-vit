@@ -26,10 +26,10 @@ class UserProfile {
     this.fullName = '',
     this.email = '',
     this.phone = '',
-    this.height = 170,
-    this.weight = 65,
-    this.bloodType = 'A+',
-    this.gender = Gender.female,
+    this.height = 0,
+    this.weight = 0,
+    this.bloodType = '',
+    this.gender = Gender.other,
     this.birthDate,
     this.emergencyName = '',
     this.emergencyPhone = '',
@@ -45,6 +45,7 @@ class UserProfile {
   String get name => fullName;
 
   double get bmi {
+    if (height <= 0 || weight <= 0) return 0;
     return weight / ((height / 100) * (height / 100));
   }
 

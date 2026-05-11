@@ -38,3 +38,8 @@ final themeModeProvider = Provider<ThemeMode>((ref) {
       return ThemeMode.light;
   }
 });
+
+final themeControllerProvider =
+    StateNotifierProvider<ThemeTypeNotifier, AppThemeType>((ref) {
+      return ref.watch(themeTypeProvider.notifier);
+    });

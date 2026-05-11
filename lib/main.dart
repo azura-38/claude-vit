@@ -85,7 +85,6 @@ void main() async {
       // 7. Startup Reschedule (Production Fix)
       Future.microtask(() async {
         try {
-          await NotificationService.cancelAll();
           await scheduleAllFromProviders(container);
           debugPrint('[NotificationReschedule] Sync completed');
         } catch (e) {

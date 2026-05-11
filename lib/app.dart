@@ -95,6 +95,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
   @override
   Widget build(BuildContext context) {
     final selectedTheme = ref.watch(themeTypeProvider);
+    final themeMode = ref.watch(themeModeProvider);
     final currentLocale = ref.watch(localeProvider);
     final router = ref.watch(appRouterProvider);
 
@@ -102,6 +103,8 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       title: 'VitaCase',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getThemeByType(selectedTheme),
+      darkTheme: AppTheme.dark,
+      themeMode: themeMode,
       locale: currentLocale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

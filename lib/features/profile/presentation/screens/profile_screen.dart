@@ -21,8 +21,8 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final name = ref.watch(profileNameProvider) ?? context.l10n.guestUser;
-    final gender = ref.watch(profileGenderProvider) ?? context.l10n.notSet;
+    final name = ref.watch(profileNameProvider) ?? context.l10n.createProfile;
+    final gender = ref.watch(profileGenderProvider);
     final age = ref.watch(profileAgeProvider);
     final photo = ref.watch(profilePhotoProvider);
 
@@ -201,7 +201,7 @@ class ProfileScreen extends ConsumerWidget {
 
   Widget _buildUserHero(
     String name,
-    String gender,
+    String? gender,
     int? age,
     String? photo,
     bool isDark,
@@ -271,14 +271,20 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          '$gender • ${age ?? "?"} ${context.l10n.yearsOld}',
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColors.textSecondary,
-            fontWeight: FontWeight.w600,
+        if (gender != null || (age != null && age > 0)) ...[
+          const SizedBox(height: 4),
+          Text(
+            [
+              if (gender != null) context.l10n(gender),
+              if (age != null && age > 0) '$age ${context.l10n.yearsOld}',
+            ].join(' - '),
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppColors.textSecondary,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
+        ],
       ],
     ).animate().fadeIn().slideY(begin: 0.1);
   }
@@ -288,7 +294,9 @@ class ProfileScreen extends ConsumerWidget {
         ref.watch(medicalRecordListProvider).asData?.value ?? [];
 
     // 🧠 Bind directly to profile providers for consistency
-    final bloodType = ref.watch(profileBloodTypeProvider);
+    final rawBloodType = ref.watch(profileBloodTypeProvider);
+    final bloodType =
+        rawBloodType == 'not_added' ? context.l10n.notAdded : rawBloodType;
     final emergencyContact = ref.watch(profileEmergencyContactProvider);
     final emergencyPhone = ref.watch(profileEmergencyPhoneProvider);
 

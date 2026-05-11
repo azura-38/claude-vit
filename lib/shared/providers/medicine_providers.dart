@@ -9,6 +9,7 @@ import 'season_providers.dart';
 import '../../core/di/service_providers.dart';
 import '../data/services/notification_service.dart';
 import '../../core/types/runtime_types.dart';
+import '../../core/notifications/app_notification_payload.dart';
 import '../data/services/analytics_service.dart';
 import 'package:flutter/foundation.dart';
 
@@ -128,6 +129,11 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
         title: "💊 Medication Reminder",
         body: NotificationService.safeMedicationBodyStatic(medicine.name),
         date: date,
+        payload: AppNotificationPayload(
+          type: NotificationType.medication,
+          entityId: medicine.id,
+          occurrenceAt: date,
+        ),
       );
     }
   }

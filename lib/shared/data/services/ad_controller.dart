@@ -2,20 +2,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ad_service.dart';
 import '../../providers/shared_prefs_provider.dart';
+import '../../../core/ads/ad_visibility_policy.dart';
 
 final adControllerProvider = Provider((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
-  return AdController(prefs);
+  final policy = ref.watch(adVisibilityPolicyProvider);
+  return AdController(prefs, policy);
 });
 
 class AdController {
   final SharedPreferences _prefs;
+  final AdVisibilityPolicy _policy;
   static const String _countKey = 'ad_action_count';
   static const String _timeKey = 'ad_last_time';
   static const String _firstOpenKey = 'ad_first_open_time';
   static const String _onboardingKey = 'onboarding_completed';
 
-  AdController(this._prefs);
+  AdController(this._prefs, this._policy);
 
   int get _actionCount => _prefs.getInt(_countKey) ?? 0;
   DateTime? get _lastAdTime {
@@ -28,7 +31,7 @@ class AdController {
     await _prefs.setInt(_countKey, newCount);
 
     // Show interstitial every 5 significant actions
-    if (newCount % 5 == 0) {
+    if (_policy.canShowInterstitial && newCount % 5 == 0) {
       _tryShowAd();
     }
   }
@@ -45,6 +48,7 @@ class AdController {
 
   Future<void> onAppOpen() async {
     if (!(_prefs.getBool(_onboardingKey) ?? false)) return;
+    if (!_policy.canShowAppOpen) return;
 
     final now = DateTime.now();
     final firstOpenMillis = _prefs.getInt(_firstOpenKey);

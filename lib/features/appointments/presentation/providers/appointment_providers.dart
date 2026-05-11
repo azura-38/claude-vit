@@ -9,6 +9,7 @@ import '../../../../core/di/service_providers.dart';
 import '../../../../core/types/runtime_types.dart';
 import '../../../../shared/data/services/analytics_service.dart';
 import '../../../../shared/data/services/notification_service.dart';
+import '../../../../core/notifications/app_notification_payload.dart';
 
 enum CalendarViewType { monthly, weekly }
 
@@ -136,6 +137,11 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
           title: "📅 Appointment",
           body: "📅 Upcoming appointment",
           date: reminderDate,
+          payload: AppNotificationPayload(
+            type: NotificationType.appointment,
+            entityId: app.id,
+            occurrenceAt: reminderDate,
+          ),
         );
       }
     }
@@ -164,6 +170,10 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
       case '1 gün önce':
       case '24 Saat':
         return const Duration(days: 1);
+      case 'reminder_7d':
+      case '7 gün önce':
+      case '7 Gün':
+        return const Duration(days: 7);
       case 'reminder_1h':
       case '1 saat önce':
       case '1 Saat':

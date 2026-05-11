@@ -10,7 +10,7 @@ class SmartSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatted = DateFormat('MMM d • hh:mm a').format(model.date);
+    final formatted = DateFormat('MMM d - hh:mm a').format(model.date);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -59,7 +59,10 @@ class SmartSummaryCard extends StatelessWidget {
                 color: Colors.white70,
               ),
               const SizedBox(width: 8),
-              Text(model.reminder, style: const TextStyle(color: Colors.white)),
+              Text(
+                model.reminder.label,
+                style: const TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ],

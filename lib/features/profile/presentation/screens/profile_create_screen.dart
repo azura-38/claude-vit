@@ -10,7 +10,8 @@ import '../../../../core/constants/app_routes.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/locale_provider.dart';
 import '../providers/legacy_providers.dart';
-import '../../data/services/mock_profile_service.dart';
+import '../providers/profile_provider.dart';
+import '../../domain/models/user_profile.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
 
 class ProfileCreateScreen extends ConsumerStatefulWidget {
@@ -106,12 +107,13 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   Future<void> _saveAndFinish() async {
     final name = _nameController.text.trim();
 
-    await ref.read(profileServiceProvider).saveProfile({
-      'name': name,
-      'gender': _selectedGender ?? context.l10n.notSet,
-      'birthDate': _birthDate?.toIso8601String().substring(0, 10),
-      'photoPath': _pickedImagePath,
-    });
+    final profileNotifier = ref.read(profileProvider.notifier);
+    profileNotifier.updateName(name);
+    if (_birthDate != null) {
+      profileNotifier.updateBirthDate(_birthDate!);
+    }
+    profileNotifier.updateGender(_genderFromSelection(_selectedGender));
+    await profileNotifier.saveToDatabase();
     if (_selectedLanguageCode != null) {
       await ref.read(localeProvider.notifier).setLocale(_selectedLanguageCode!);
     }
@@ -125,6 +127,17 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       } else {
         context.go(AppRoutes.home);
       }
+    }
+  }
+
+  Gender _genderFromSelection(String? value) {
+    switch (value) {
+      case 'Female':
+        return Gender.female;
+      case 'Male':
+        return Gender.male;
+      default:
+        return Gender.other;
     }
   }
 

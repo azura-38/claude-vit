@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../core/config/app_config.dart';
+import '../../../core/ads/ad_visibility_policy.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../providers/premium_provider.dart';
 
 class BannerAdContainer extends ConsumerStatefulWidget {
   const BannerAdContainer({super.key});
@@ -89,8 +89,8 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final isPremium = ref.watch(premiumProvider);
-    if (isPremium) return const SizedBox.shrink();
+    final policy = ref.watch(adVisibilityPolicyProvider);
+    if (!policy.canShowBanner) return const SizedBox.shrink();
 
     if (_bannerAd == null || !_isLoaded) {
       return const SizedBox.shrink();
@@ -100,7 +100,10 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
       width: double.infinity,
       height: _bannerAd!.size.height.toDouble(),
       alignment: Alignment.center,
-      color: Colors.transparent,
+      color:
+          Theme.of(context).brightness == Brightness.dark
+              ? const Color(0xFF0F172A)
+              : const Color(0xFFF8FAFC),
       child: SafeArea(
         bottom: false, // Scaffold handles bottom safe area if needed
         child: AdWidget(ad: _bannerAd!),

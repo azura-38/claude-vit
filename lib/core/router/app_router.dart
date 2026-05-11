@@ -106,6 +106,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return null;
       }
 
+      final profileCreated = ref.read(profileCreatedProvider);
+      if (!profileCreated && !isGoingToProfileCreate) {
+        return AppRoutes.profileCreate;
+      }
+
       // 3. Force Legal Acceptance if not done
       // This is critical for medical compliance (Score 100)
       final legalAccepted = ref.read(legalAcceptedProvider);

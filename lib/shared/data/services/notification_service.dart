@@ -5,6 +5,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/foundation.dart';
 import '../../../core/l10n/translations.dart';
+import '../../../core/notifications/app_notification_payload.dart';
 import '../../../core/types/runtime_types.dart';
 
 class NotificationService {
@@ -176,6 +177,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime date,
+    AppNotificationPayload? payload,
   }) async {
     await init();
     if (kDebugMode) debugPrint("Scheduling notification at: $date");
@@ -193,7 +195,7 @@ class NotificationService {
       scheduledDate: tz.TZDateTime.from(date, tz.local),
       notificationDetails: const NotificationDetails(android: _androidDetails),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: id,
+      payload: payload?.encode() ?? id,
     );
   }
 
@@ -202,6 +204,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime date,
+    AppNotificationPayload? payload,
   }) async {
     await init();
     if (kDebugMode) debugPrint("Scheduling medication notification at: $date");
@@ -216,7 +219,7 @@ class NotificationService {
         android: _medicationAndroidDetails,
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: id,
+      payload: payload?.encode() ?? id,
     );
   }
 
@@ -290,13 +293,16 @@ class NotificationService {
   static void _onTap(NotificationResponse response) {
     final payload = response.payload;
     if (payload == null || payload.isEmpty) return;
+    final decoded = AppNotificationPayload.decode(payload);
+    final entityId = decoded.entityId.isEmpty ? payload : decoded.entityId;
 
     if (response.actionId == 'TAKEN') {
-      _onMedicineTaken?.call(payload);
+      _onMedicineTaken?.call(entityId);
+      return;
     }
 
     if (response.actionId == 'SKIPPED') {
-      _onMedicineSkipped?.call(payload);
+      _onMedicineSkipped?.call(entityId);
       return;
     }
 

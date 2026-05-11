@@ -16,6 +16,45 @@ import 'package:go_router/go_router.dart';
 class CreateAppointmentScreen extends ConsumerWidget {
   const CreateAppointmentScreen({super.key});
 
+  Future<void> _pickDate(
+    BuildContext context,
+    AppointmentFormNotifier notifier,
+    DateTime current,
+  ) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: current,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2035),
+    );
+
+    if (picked == null) return;
+    notifier.updateDate(
+      DateTime(
+        picked.year,
+        picked.month,
+        picked.day,
+        current.hour,
+        current.minute,
+      ),
+    );
+  }
+
+  Future<void> _pickTime(
+    BuildContext context,
+    AppointmentFormNotifier notifier,
+    DateTime current,
+  ) async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(current),
+    );
+
+    if (picked != null) {
+      notifier.updateTime(picked);
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appointmentFormProvider);
@@ -35,7 +74,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                       icon: const Icon(Icons.arrow_back_ios_new_rounded),
                     ),
                     const SizedBox(width: 4),
-                    const Text(
+                    Text(
                       'Create Appointment',
                       style: TextStyle(
                         fontSize: 24,
@@ -76,22 +115,23 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(height: 16),
-                            AppointmentTypeCard(
-                              title: 'Doctor',
-                              icon: Icons.medical_services_outlined,
-                              selected: state.type == AppointmentType.doctor,
-                              onTap: () {
-                                notifier.updateType(AppointmentType.doctor);
-                              },
-                            ),
-                            const SizedBox(height: 12),
-                            AppointmentTypeCard(
-                              title: 'Test',
-                              icon: Icons.monitor_heart_outlined,
-                              selected: state.type == AppointmentType.test,
-                              onTap: () {
-                                notifier.updateType(AppointmentType.test);
-                              },
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children:
+                                  AppointmentType.values.map((type) {
+                                    return SizedBox(
+                                      width: 132,
+                                      child: AppointmentTypeCard(
+                                        title: type.label,
+                                        icon: _typeIcon(type),
+                                        selected: state.type == type,
+                                        onTap: () {
+                                          notifier.updateType(type);
+                                        },
+                                      ),
+                                    );
+                                  }).toList(),
                             ),
                           ],
                         ),
@@ -159,6 +199,12 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               text: DateFormat(
                                 'MMM d, yyyy',
                               ).format(state.date),
+                              onTap:
+                                  () => _pickDate(
+                                    context,
+                                    notifier,
+                                    state.date,
+                                  ),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -166,6 +212,12 @@ class CreateAppointmentScreen extends ConsumerWidget {
                             child: _dateButton(
                               icon: Icons.schedule_rounded,
                               text: DateFormat('hh:mm a').format(state.date),
+                              onTap:
+                                  () => _pickTime(
+                                    context,
+                                    notifier,
+                                    state.date,
+                                  ),
                             ),
                           ),
                         ],
@@ -198,23 +250,18 @@ class CreateAppointmentScreen extends ConsumerWidget {
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ),
-                      DropdownButton<String>(
+                      DropdownButton<AppointmentReminder>(
                         value: state.reminder,
                         underline: const SizedBox.shrink(),
-                        items: const [
-                          DropdownMenuItem(
-                            value: '1 hour before',
-                            child: Text('1 hour before'),
-                          ),
-                          DropdownMenuItem(
-                            value: '1 day before',
-                            child: Text('1 day before'),
-                          ),
-                          DropdownMenuItem(
-                            value: '30 minutes before',
-                            child: Text('30 minutes before'),
-                          ),
-                        ],
+                        items:
+                            AppointmentReminder.values
+                                .map(
+                                  (reminder) => DropdownMenuItem(
+                                    value: reminder,
+                                    child: Text(reminder.label),
+                                  ),
+                                )
+                                .toList(),
                         onChanged: (value) {
                           if (value != null) {
                             notifier.updateReminder(value);
@@ -264,22 +311,33 @@ class CreateAppointmentScreen extends ConsumerWidget {
               bottom: 28,
               child: SafeArea(
                 child: FloatingSubmitButton(
-                  onTap: () async {
-                    try {
-                      await notifier.submit();
-                      if (context.mounted) {
-                        context.pop();
-                      }
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Failed to create appointment.'),
-                          ),
-                        );
-                      }
-                    }
-                  },
+                  isLoading: state.isSubmitting,
+                  onTap:
+                      state.isValid
+                          ? () async {
+                            try {
+                              await notifier.submit();
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Appointment created.'),
+                                  ),
+                                );
+                                context.pop();
+                              }
+                            } catch (e) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Failed to create appointment.',
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
+                          }
+                          : null,
                 ).animate().fadeIn(delay: 820.ms).slideY(begin: 1),
               ),
             ),
@@ -308,20 +366,51 @@ class CreateAppointmentScreen extends ConsumerWidget {
     );
   }
 
-  Widget _dateButton({required IconData icon, required String text}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF2F3FB),
+  Widget _dateButton({
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: const Color(0xFFF2F3FB),
+      borderRadius: BorderRadius.circular(18),
+      child: InkWell(
         borderRadius: BorderRadius.circular(18),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: const Color(0xFF6B7280)),
-          const SizedBox(width: 10),
-          Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
-        ],
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Row(
+            children: [
+              Icon(icon, color: const Color(0xFF6B7280)),
+              const SizedBox(width: 10),
+              Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
+            ],
+          ),
+        ),
       ),
     );
+  }
+
+  IconData _typeIcon(AppointmentType type) {
+    switch (type) {
+      case AppointmentType.medical:
+        return Icons.medical_services_outlined;
+      case AppointmentType.finance:
+        return Icons.account_balance_wallet_outlined;
+      case AppointmentType.legal:
+        return Icons.gavel_outlined;
+      case AppointmentType.insurance:
+        return Icons.verified_user_outlined;
+      case AppointmentType.meeting:
+        return Icons.groups_outlined;
+      case AppointmentType.personal:
+        return Icons.person_outline;
+      case AppointmentType.travel:
+        return Icons.flight_takeoff_outlined;
+      case AppointmentType.reminder:
+        return Icons.notifications_active_outlined;
+      case AppointmentType.other:
+        return Icons.more_horiz_outlined;
+    }
   }
 }

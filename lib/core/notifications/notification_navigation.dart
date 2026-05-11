@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'app_notification_payload.dart';
+
 final pendingNotificationRouteProvider =
     NotifierProvider<PendingNotificationRouteNotifier, String?>(
       PendingNotificationRouteNotifier.new,
@@ -10,16 +12,23 @@ class PendingNotificationRouteNotifier extends Notifier<String?> {
   String? build() => null;
 
   void setFromPayload(String payload) {
-    if (payload.startsWith('medicine') || payload.startsWith('med_')) {
+    final decoded = AppNotificationPayload.decode(payload);
+    switch (decoded.type) {
+      case NotificationType.medication:
       state = '/notification/medication';
       return;
-    }
-    if (payload.startsWith('appointment') || payload.startsWith('appt_')) {
+      case NotificationType.appointment:
       state = '/notification/appointment';
       return;
-    }
-    if (payload.startsWith('refill')) {
+      case NotificationType.refill:
       state = '/notification/refill';
+        return;
+      case NotificationType.emergency:
+        state = '/profile';
+        return;
+      case NotificationType.engagement:
+      case NotificationType.unknown:
+        state = '/';
     }
   }
 
