@@ -24,6 +24,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 
   PlatformFile? _selectedFile;
   DocumentCategory _category = DocumentCategory.healthReports;
+  DocumentSubcategory _subcategory = DocumentSubcategory.report;
   bool _isSaving = false;
 
   @override
@@ -47,10 +48,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
     );
 
     if (result == null || result.files.isEmpty) return;
-
-    setState(() {
-      _selectedFile = result.files.single;
-    });
+    setState(() => _selectedFile = result.files.single);
   }
 
   DocumentFileType _fileTypeFor(String fileName) {
@@ -78,8 +76,8 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             doctorName: _emptyToNull(_doctorController.text),
             note: _emptyToNull(_noteController.text),
             documentDate: DateTime.now().toIso8601String(),
-            tagId: _category.name,
-            tagLabel: _labelFor(_category),
+            tagId: _subcategory.name,
+            tagLabel: _subcategory.label,
           );
 
       if (!mounted) return;
@@ -97,31 +95,6 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
     return trimmed.isEmpty ? null : trimmed;
   }
 
-  String _labelFor(DocumentCategory category) {
-    switch (category) {
-      case DocumentCategory.healthPrescriptions:
-        return 'Prescription';
-      case DocumentCategory.healthReports:
-        return 'Report';
-      case DocumentCategory.healthTestResults:
-        return 'Test Result';
-      case DocumentCategory.healthImages:
-        return 'Medical Image';
-      case DocumentCategory.identity:
-        return 'Identity';
-      case DocumentCategory.finance:
-        return 'Finance';
-      case DocumentCategory.legal:
-        return 'Legal';
-      case DocumentCategory.notes:
-        return 'Note';
-      case DocumentCategory.documents:
-        return 'Document';
-      case DocumentCategory.other:
-        return 'Other';
-    }
-  }
-
   void _showSnack(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
@@ -130,6 +103,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final subcategories = subcategoriesForDocumentCategory(_category);
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
@@ -152,20 +126,36 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
               children: [
                 DropdownButtonFormField<DocumentCategory>(
                   value: _category,
-                  decoration: const InputDecoration(
-                    labelText: 'Category',
-                    border: OutlineInputBorder(),
-                  ),
+                  decoration: const InputDecoration(labelText: 'Category'),
                   items: DocumentCategory.values
-                      .map(
-                        (category) => DropdownMenuItem(
-                          value: category,
-                          child: Text(_labelFor(category)),
-                        ),
-                      )
+                      .map((category) => DropdownMenuItem(
+                            value: category,
+                            child: Text(category.label),
+                          ))
                       .toList(),
                   onChanged: (value) {
-                    if (value != null) setState(() => _category = value);
+                    if (value == null) return;
+                    final nextSubs = subcategoriesForDocumentCategory(value);
+                    setState(() {
+                      _category = value;
+                      _subcategory = nextSubs.first;
+                    });
+                  },
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<DocumentSubcategory>(
+                  value: subcategories.contains(_subcategory)
+                      ? _subcategory
+                      : subcategories.first,
+                  decoration: const InputDecoration(labelText: 'Subcategory'),
+                  items: subcategories
+                      .map((subcategory) => DropdownMenuItem(
+                            value: subcategory,
+                            child: Text(subcategory.label),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    if (value != null) setState(() => _subcategory = value);
                   },
                 ),
                 const SizedBox(height: 16),
@@ -173,7 +163,6 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                   controller: _hospitalController,
                   decoration: const InputDecoration(
                     labelText: 'Hospital / Institution',
-                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -181,7 +170,6 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                   controller: _doctorController,
                   decoration: const InputDecoration(
                     labelText: 'Doctor / Contact',
-                    border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -191,7 +179,6 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                   decoration: const InputDecoration(
                     labelText: 'Notes',
                     alignLabelWithHint: true,
-                    border: OutlineInputBorder(),
                   ),
                 ),
               ],
@@ -252,29 +239,15 @@ class _SecureUploadCard extends StatelessWidget {
                 : Colors.green.withValues(alpha: 0.35),
             width: 1.2,
           ),
-          boxShadow: [
-            if (!isDark)
-              BoxShadow(
-                color: AppColors.medicalBlue.withValues(alpha: 0.08),
-                blurRadius: 24,
-                offset: const Offset(0, 12),
-              ),
-          ],
         ),
         child: Column(
           children: [
-            Container(
-              width: 68,
-              height: 68,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.medicalBlue.withValues(alpha: 0.1),
-              ),
-              child: Icon(
-                selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded,
-                color: selectedFile == null ? AppColors.medicalBlue : Colors.green,
-                size: 34,
-              ),
+            Icon(
+              selectedFile == null
+                  ? Icons.upload_file_rounded
+                  : Icons.verified_rounded,
+              color: selectedFile == null ? AppColors.medicalBlue : Colors.green,
+              size: 52,
             ),
             const SizedBox(height: 16),
             Text(
@@ -313,9 +286,7 @@ class _SectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: isDark ? Colors.white10 : AppColors.cardBorderLight,
-        ),
+        border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
       ),
       child: Column(children: children),
     );
