@@ -43,7 +43,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
       return;
     }
 
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       allowMultiple: false,
       type: FileType.custom,
       allowedExtensions: const ['pdf', 'png', 'jpg', 'jpeg'],
@@ -129,7 +129,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
               isDark: isDark,
               children: [
                 DropdownButtonFormField<DocumentCategory>(
-                  value: _category,
+                  initialValue: _category,
                   decoration: InputDecoration(labelText: strings.category),
                   items: DocumentCategory.values
                       .map((category) => DropdownMenuItem(
@@ -148,7 +148,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<DocumentSubcategory>(
-                  value: subcategories.contains(_subcategory)
+                  initialValue: subcategories.contains(_subcategory)
                       ? _subcategory
                       : subcategories.first,
                   decoration: InputDecoration(labelText: strings.subcategory),
