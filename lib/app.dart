@@ -19,6 +19,8 @@ class VitaCaseApp extends ConsumerStatefulWidget {
 
 class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     with WidgetsBindingObserver {
+  static const _v1SupportedLocales = [Locale('en'), Locale('tr')];
+
   @override
   void initState() {
     super.initState();
@@ -56,7 +58,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       themeMode: themeMode,
       locale: currentLocale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      supportedLocales: _v1SupportedLocales,
       routerConfig: router,
       builder: (context, child) {
         final appBody = Column(
