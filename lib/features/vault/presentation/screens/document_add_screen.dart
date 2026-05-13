@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/l10n/vita_strings.dart';
 import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
 
@@ -36,8 +37,9 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   }
 
   Future<void> _pickFile() async {
+    final strings = VitaStrings.of(context);
     if (kIsWeb) {
-      _showSnack('File vault upload is available on Android/iOS builds.');
+      _showSnack(strings.webUploadInfo);
       return;
     }
 
@@ -58,9 +60,10 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   }
 
   Future<void> _save() async {
+    final strings = VitaStrings.of(context);
     final file = _selectedFile;
     if (file == null || file.path == null) {
-      _showSnack('Please choose a PDF or image first.');
+      _showSnack(strings.chooseFileFirst);
       return;
     }
 
@@ -81,10 +84,10 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
           );
 
       if (!mounted) return;
-      _showSnack('Document saved securely.');
+      _showSnack(strings.documentSaved);
       context.pop();
     } catch (e) {
-      _showSnack('Could not save document: $e');
+      _showSnack(strings.saveDocumentFailed(e));
     } finally {
       if (mounted) setState(() => _isSaving = false);
     }
@@ -102,13 +105,14 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = VitaStrings.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final subcategories = subcategoriesForDocumentCategory(_category);
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       appBar: AppBar(
-        title: const Text('Add Document'),
+        title: Text(strings.addDocument),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -126,7 +130,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
               children: [
                 DropdownButtonFormField<DocumentCategory>(
                   value: _category,
-                  decoration: const InputDecoration(labelText: 'Category'),
+                  decoration: InputDecoration(labelText: strings.category),
                   items: DocumentCategory.values
                       .map((category) => DropdownMenuItem(
                             value: category,
@@ -147,7 +151,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                   value: subcategories.contains(_subcategory)
                       ? _subcategory
                       : subcategories.first,
-                  decoration: const InputDecoration(labelText: 'Subcategory'),
+                  decoration: InputDecoration(labelText: strings.subcategory),
                   items: subcategories
                       .map((subcategory) => DropdownMenuItem(
                             value: subcategory,
@@ -161,23 +165,19 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   controller: _hospitalController,
-                  decoration: const InputDecoration(
-                    labelText: 'Hospital / Institution',
-                  ),
+                  decoration: InputDecoration(labelText: strings.hospitalInstitution),
                 ),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _doctorController,
-                  decoration: const InputDecoration(
-                    labelText: 'Doctor / Contact',
-                  ),
+                  decoration: InputDecoration(labelText: strings.doctorContact),
                 ),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _noteController,
                   maxLines: 4,
-                  decoration: const InputDecoration(
-                    labelText: 'Notes',
+                  decoration: InputDecoration(
+                    labelText: strings.notes,
                     alignLabelWithHint: true,
                   ),
                 ),
@@ -203,7 +203,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.lock_rounded),
-              label: Text(_isSaving ? 'Saving...' : 'Save Securely'),
+              label: Text(_isSaving ? strings.saving : strings.saveSecurely),
             ),
           ),
         ),
@@ -225,6 +225,7 @@ class _SecureUploadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = VitaStrings.of(context);
     return InkWell(
       onTap: onPickFile,
       borderRadius: BorderRadius.circular(28),
@@ -251,15 +252,13 @@ class _SecureUploadCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              selectedFile?.name ?? 'Choose PDF or Image',
+              selectedFile?.name ?? strings.choosePdfOrImage,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 8),
             Text(
-              kIsWeb
-                  ? 'Web preview does not store encrypted files. Use Android/iOS for vault upload.'
-                  : 'Your file will be encrypted and stored locally on this device.',
+              kIsWeb ? strings.webPreviewNoUpload : strings.encryptedLocalFileInfo,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: isDark ? Colors.white60 : AppColors.textSecondary,
@@ -300,6 +299,7 @@ class _PrivacyNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = VitaStrings.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -315,7 +315,7 @@ class _PrivacyNotice extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'VitaCase is a local document organizer. It does not diagnose, analyze, or provide medical advice.',
+              strings.localOrganizerDisclaimer,
               style: TextStyle(
                 fontSize: 12,
                 height: 1.45,
