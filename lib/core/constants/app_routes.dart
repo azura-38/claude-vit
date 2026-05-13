@@ -20,6 +20,7 @@ class AppRoutes {
   static const String doctorDetail = '/doctors/:id';
 
   // Adding/Editing
+  static const String documentAdd = '/documents/add';
   static const String appointmentAdd = '/appointments/add';
   static const String medicineAdd = '/medicines/add';
   static const String doctorAdd = '/doctors/add';
