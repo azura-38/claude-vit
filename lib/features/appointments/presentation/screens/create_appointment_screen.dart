@@ -18,43 +18,20 @@ import 'package:vitacase/core/extensions/l10n_extension.dart';
 class CreateAppointmentScreen extends ConsumerWidget {
   const CreateAppointmentScreen({super.key});
 
-  Future<void> _pickDate(
-    BuildContext context,
-    AppointmentFormNotifier notifier,
-    DateTime current,
-  ) async {
+  Future<void> _pickDate(BuildContext context, AppointmentFormNotifier notifier, DateTime current) async {
     final picked = await showDatePicker(
       context: context,
       initialDate: current,
       firstDate: DateTime.now(),
       lastDate: DateTime(2035),
     );
-
     if (picked == null) return;
-    notifier.updateDate(
-      DateTime(
-        picked.year,
-        picked.month,
-        picked.day,
-        current.hour,
-        current.minute,
-      ),
-    );
+    notifier.updateDate(DateTime(picked.year, picked.month, picked.day, current.hour, current.minute));
   }
 
-  Future<void> _pickTime(
-    BuildContext context,
-    AppointmentFormNotifier notifier,
-    DateTime current,
-  ) async {
-    final picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(current),
-    );
-
-    if (picked != null) {
-      notifier.updateTime(picked);
-    }
+  Future<void> _pickTime(BuildContext context, AppointmentFormNotifier notifier, DateTime current) async {
+    final picked = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(current));
+    if (picked != null) notifier.updateTime(picked);
   }
 
   @override
@@ -62,6 +39,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
     final state = ref.watch(appointmentFormProvider);
     final notifier = ref.read(appointmentFormProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final subcategories = subcategoriesForAppointmentType(state.type);
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
@@ -74,10 +52,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    _CircleIconButton(
-                      icon: Icons.arrow_back_ios_new_rounded,
-                      onTap: () => context.pop(),
-                    ),
+                    _CircleIconButton(icon: Icons.arrow_back_ios_new_rounded, onTap: () => context.pop()),
                     const Spacer(),
                     _LogoMark(label: context.l10n.appName),
                     const Spacer(),
@@ -85,13 +60,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
                   ],
                 ).animate().fadeIn().slideY(begin: -.12),
                 const SizedBox(height: 22),
-
-                SmartSummaryCard(
-                  model: state,
-                ).animate().fadeIn().slideY(begin: .15),
-
+                SmartSummaryCard(model: state).animate().fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
-
                 _card(
                   child: PremiumInput(
                     label: context.l10n.appointmentTitle,
@@ -100,112 +70,81 @@ class CreateAppointmentScreen extends ConsumerWidget {
                     onChanged: notifier.updateTitle,
                   ),
                 ).animate(delay: 120.ms).fadeIn().slideY(begin: .15),
-
                 const SizedBox(height: 24),
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: _card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              context.l10n.type,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Wrap(
-                              spacing: 10,
-                              runSpacing: 10,
-                              children:
-                                  AppointmentType.values.map((type) {
-                                    return SizedBox(
-                                      width: 132,
-                                      child: AppointmentTypeCard(
-                                        title: _localizedType(context, type),
-                                        icon: _typeIcon(type),
-                                        selected: state.type == type,
-                                        onTap: () {
-                                          notifier.updateType(type);
-                                        },
-                                      ),
-                                    );
-                                  }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: _card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              context.l10n.priority,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            PrioritySelector(
-                              title: context.l10n.importanceHigh,
-                              icon: Icons.priority_high_rounded,
-                              selected:
-                                  state.priority == AppointmentPriority.high,
-                              color: Colors.red,
-                              onTap: () {
-                                notifier.updatePriority(
-                                  AppointmentPriority.high,
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 12),
-                            PrioritySelector(
-                              title: context.l10n.importanceLow,
-                              icon: Icons.low_priority_rounded,
-                              selected:
-                                  state.priority == AppointmentPriority.normal,
-                              color: const Color(0xFF6B7280),
-                              onTap: () {
-                                notifier.updatePriority(
-                                  AppointmentPriority.normal,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ).animate(delay: 220.ms).fadeIn().slideY(begin: .15),
-
-                const SizedBox(height: 24),
-
                 _card(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        context.l10n.labelDateTime,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                      Text(context.l10n.type, style: const TextStyle(fontWeight: FontWeight.w800)),
+                      const SizedBox(height: 16),
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: AppointmentType.values.map((type) {
+                          return SizedBox(
+                            width: 132,
+                            child: AppointmentTypeCard(
+                              title: _localizedType(context, type),
+                              icon: _typeIcon(type),
+                              selected: state.type == type,
+                              onTap: () => notifier.updateType(type),
+                            ),
+                          );
+                        }).toList(),
                       ),
+                      const SizedBox(height: 18),
+                      DropdownButtonFormField<AppointmentSubcategory>(
+                        value: subcategories.contains(state.subcategory) ? state.subcategory : subcategories.first,
+                        decoration: const InputDecoration(labelText: 'Subcategory'),
+                        items: subcategories
+                            .map((subcategory) => DropdownMenuItem(value: subcategory, child: Text(subcategory.label)))
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) notifier.updateSubcategory(value);
+                        },
+                      ),
+                    ],
+                  ),
+                ).animate(delay: 220.ms).fadeIn().slideY(begin: .15),
+                const SizedBox(height: 24),
+                _card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.l10n.priority, style: const TextStyle(fontWeight: FontWeight.w800)),
+                      const SizedBox(height: 16),
+                      PrioritySelector(
+                        title: context.l10n.importanceHigh,
+                        icon: Icons.priority_high_rounded,
+                        selected: state.priority == AppointmentPriority.high,
+                        color: Colors.red,
+                        onTap: () => notifier.updatePriority(AppointmentPriority.high),
+                      ),
+                      const SizedBox(height: 12),
+                      PrioritySelector(
+                        title: context.l10n.importanceLow,
+                        icon: Icons.low_priority_rounded,
+                        selected: state.priority == AppointmentPriority.normal,
+                        color: const Color(0xFF6B7280),
+                        onTap: () => notifier.updatePriority(AppointmentPriority.normal),
+                      ),
+                    ],
+                  ),
+                ).animate(delay: 260.ms).fadeIn().slideY(begin: .15),
+                const SizedBox(height: 24),
+                _card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.l10n.labelDateTime, style: const TextStyle(fontWeight: FontWeight.w700)),
                       const SizedBox(height: 18),
                       Row(
                         children: [
                           Expanded(
                             child: _dateButton(
                               icon: Icons.calendar_month_rounded,
-                              text: DateFormat(
-                                'MMM d, yyyy',
-                              ).format(state.date),
-                              onTap:
-                                  () =>
-                                      _pickDate(context, notifier, state.date),
+                              text: DateFormat('MMM d, yyyy').format(state.date),
+                              onTap: () => _pickDate(context, notifier, state.date),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -213,9 +152,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                             child: _dateButton(
                               icon: Icons.schedule_rounded,
                               text: DateFormat('hh:mm a').format(state.date),
-                              onTap:
-                                  () =>
-                                      _pickTime(context, notifier, state.date),
+                              onTap: () => _pickTime(context, notifier, state.date),
                             ),
                           ),
                         ],
@@ -223,9 +160,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                     ],
                   ),
                 ).animate(delay: 320.ms).fadeIn().slideY(begin: .15),
-
                 const SizedBox(height: 24),
-
                 _card(
                   child: PremiumInput(
                     label: context.l10n.location,
@@ -234,86 +169,48 @@ class CreateAppointmentScreen extends ConsumerWidget {
                     onChanged: notifier.updateLocation,
                   ),
                 ).animate(delay: 420.ms).fadeIn().slideY(begin: .15),
-
                 const SizedBox(height: 24),
-
                 _card(
                   child: Row(
                     children: [
                       const Icon(Icons.notifications_active_outlined),
                       const SizedBox(width: 14),
-                      Expanded(
-                        child: Text(
-                          context.l10n.labelReminder,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
+                      Expanded(child: Text(context.l10n.labelReminder, style: const TextStyle(fontWeight: FontWeight.w600))),
                       DropdownButton<AppointmentReminder>(
                         value: state.reminder,
                         underline: const SizedBox.shrink(),
-                        items:
-                            AppointmentReminder.values
-                                .map(
-                                  (reminder) => DropdownMenuItem(
-                                    value: reminder,
-                                    child: Text(
-                                      _localizedReminder(context, reminder),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                        items: AppointmentReminder.values
+                            .map((reminder) => DropdownMenuItem(value: reminder, child: Text(_localizedReminder(context, reminder))))
+                            .toList(),
                         onChanged: (value) {
-                          if (value != null) {
-                            notifier.updateReminder(value);
-                          }
+                          if (value != null) notifier.updateReminder(value);
                         },
                       ),
                     ],
                   ),
                 ).animate(delay: 520.ms).fadeIn().slideY(begin: .15),
-
                 const SizedBox(height: 24),
-
-                ExpandableNotes(
-                  onChanged: notifier.updateNotes,
-                ).animate(delay: 620.ms).fadeIn().slideY(begin: .15),
-
+                ExpandableNotes(onChanged: notifier.updateNotes).animate(delay: 620.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
-
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color:
-                        isDark
-                            ? Colors.white.withValues(alpha: 0.06)
-                            : AppColors.brandMist,
+                    color: isDark ? Colors.white.withValues(alpha: 0.06) : AppColors.brandMist,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color:
-                          isDark
-                              ? Colors.white.withValues(alpha: 0.08)
-                              : AppColors.brandBlue.withValues(alpha: 0.12),
+                      color: isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.brandBlue.withValues(alpha: 0.12),
                     ),
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.notifications_active_rounded,
-                        color: AppColors.brandBlue,
-                      ),
+                      const Icon(Icons.notifications_active_rounded, color: AppColors.brandBlue),
                       const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          context.l10n.morningTipAppointment,
-                          style: const TextStyle(height: 1.4),
-                        ),
-                      ),
+                      Expanded(child: Text(context.l10n.morningTipAppointment, style: const TextStyle(height: 1.4))),
                     ],
                   ),
                 ).animate(delay: 720.ms).fadeIn(),
               ],
             ),
-
             Positioned(
               left: 20,
               right: 20,
@@ -321,34 +218,25 @@ class CreateAppointmentScreen extends ConsumerWidget {
               child: SafeArea(
                 child: FloatingSubmitButton(
                   isLoading: state.isSubmitting,
-                  onTap:
-                      state.isValid
-                          ? () async {
-                            try {
-                              await notifier.submit();
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      context.l10n.appointmentCreatedSuccess,
-                                    ),
-                                  ),
-                                );
-                                context.pop();
-                              }
-                            } catch (e) {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      context.l10n.failedCreateAppointment,
-                                    ),
-                                  ),
-                                );
-                              }
+                  onTap: state.isValid
+                      ? () async {
+                          try {
+                            await notifier.submit();
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(context.l10n.appointmentCreatedSuccess)),
+                              );
+                              context.pop();
+                            }
+                          } catch (_) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(context.l10n.failedCreateAppointment)),
+                              );
                             }
                           }
-                          : null,
+                        }
+                      : null,
                 ).animate().fadeIn(delay: 820.ms).slideY(begin: 1),
               ),
             ),
@@ -358,68 +246,52 @@ class CreateAppointmentScreen extends ConsumerWidget {
     );
   }
 
-  Widget _card({required Widget child}) {
-    return Builder(
-      builder: (context) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
-
-        return Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: isDark ? AppColors.surfaceDark : Colors.white,
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(
-              color:
-                  isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+  Widget _card({required Widget child}) => Builder(
+        builder: (context) {
+          final isDark = Theme.of(context).brightness == Brightness.dark;
+          return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.surfaceDark : Colors.white,
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight),
+              boxShadow: [
+                if (!isDark)
+                  BoxShadow(
+                    color: AppColors.brandBlue.withValues(alpha: 0.05),
+                    blurRadius: 24,
+                    offset: const Offset(0, 10),
+                  ),
+              ],
             ),
-            boxShadow: [
-              if (!isDark)
-                BoxShadow(
-                  color: AppColors.brandBlue.withValues(alpha: 0.05),
-                  blurRadius: 24,
-                  offset: const Offset(0, 10),
-                ),
-            ],
-          ),
-          child: child,
-        );
-      },
-    );
-  }
+            child: child,
+          );
+        },
+      );
 
-  Widget _dateButton({
-    required IconData icon,
-    required String text,
-    required VoidCallback onTap,
-  }) {
-    return Builder(
-      builder: (context) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
-
-        return Material(
-          color:
-              isDark
-                  ? Colors.white.withValues(alpha: 0.05)
-                  : AppColors.brandMist,
-          borderRadius: BorderRadius.circular(18),
-          child: InkWell(
+  Widget _dateButton({required IconData icon, required String text, required VoidCallback onTap}) => Builder(
+        builder: (context) {
+          final isDark = Theme.of(context).brightness == Brightness.dark;
+          return Material(
+            color: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.brandMist,
             borderRadius: BorderRadius.circular(18),
-            onTap: onTap,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Row(
-                children: [
-                  Icon(icon, color: AppColors.brandBlue),
-                  const SizedBox(width: 10),
-                  Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
-                ],
+            child: InkWell(
+              borderRadius: BorderRadius.circular(18),
+              onTap: onTap,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Row(
+                  children: [
+                    Icon(icon, color: AppColors.brandBlue),
+                    const SizedBox(width: 10),
+                    Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
-    );
-  }
+          );
+        },
+      );
 
   IconData _typeIcon(AppointmentType type) {
     switch (type) {
@@ -465,10 +337,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
     }
   }
 
-  String _localizedReminder(
-    BuildContext context,
-    AppointmentReminder reminder,
-  ) {
+  String _localizedReminder(BuildContext context, AppointmentReminder reminder) {
     switch (reminder) {
       case AppointmentReminder.tenMinutes:
         return context.l10n.reminder10m;
@@ -485,13 +354,11 @@ class CreateAppointmentScreen extends ConsumerWidget {
 class _CircleIconButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
-
   const _CircleIconButton({required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Material(
       color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
       borderRadius: BorderRadius.circular(16),
@@ -506,7 +373,6 @@ class _CircleIconButton extends StatelessWidget {
 
 class _LogoMark extends StatelessWidget {
   final String label;
-
   const _LogoMark({required this.label});
 
   @override
@@ -514,12 +380,7 @@ class _LogoMark extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          'assets/images/vitacase_brand_logo.png',
-          width: 28,
-          height: 28,
-          fit: BoxFit.contain,
-        ),
+        Image.asset('assets/images/vitacase_brand_logo.png', width: 28, height: 28, fit: BoxFit.contain),
         const SizedBox(width: 8),
         Text(
           label,
