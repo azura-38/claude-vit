@@ -25,14 +25,17 @@ class ThemeController extends Notifier<AppThemeType> {
 
 typedef ThemeTypeNotifier = ThemeController;
 
-/// Backwards-compatible alias used in app_settings_screen and doctor_detail_screen
+/// Global ThemeMode for the entire app.
+///
+/// Custom palettes are light palettes, dark is dark, and system follows the OS.
 final themeModeProvider = Provider<ThemeMode>((ref) {
   final type = ref.watch(themeTypeProvider);
   switch (type) {
+    case AppThemeType.system:
+      return ThemeMode.system;
     case AppThemeType.dark:
       return ThemeMode.dark;
     default:
       return ThemeMode.light;
   }
 });
-
