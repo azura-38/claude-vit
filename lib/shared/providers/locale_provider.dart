@@ -13,18 +13,15 @@ class SupportedLanguage {
   const SupportedLanguage(this.code, this.name);
 }
 
+/// V1 keeps only fully maintained translations enabled.
+/// Additional locales can be re-enabled after every visible string is translated.
 const List<SupportedLanguage> supportedLanguages = [
   SupportedLanguage('en', 'English'),
   SupportedLanguage('tr', 'Türkçe'),
-  SupportedLanguage('de', 'Deutsch'),
-  SupportedLanguage('fr', 'Français'),
-  SupportedLanguage('es', 'Español'),
-  SupportedLanguage('it', 'Italiano'),
-  SupportedLanguage('pt', 'Português'),
 ];
 
 class LocaleNotifier extends Notifier<Locale> {
-  static const _supportedLocales = ['en', 'tr', 'de', 'fr', 'es', 'it', 'pt'];
+  static const _supportedLocales = ['en', 'tr'];
 
   @override
   Locale build() {
@@ -33,7 +30,7 @@ class LocaleNotifier extends Notifier<Locale> {
       data: (p) => p.locale,
       orElse: () => null,
     );
-    
+
     if (code != null && _supportedLocales.contains(code)) {
       return Locale(code);
     }
@@ -47,9 +44,7 @@ class LocaleNotifier extends Notifier<Locale> {
   }
 
   Future<void> setLocale(String languageCode) async {
-    if (!_supportedLocales.contains(languageCode)) {
-      return;
-    }
+    if (!_supportedLocales.contains(languageCode)) return;
     await ref.read(userPreferencesControllerProvider.notifier).updateLocale(languageCode);
   }
 }
