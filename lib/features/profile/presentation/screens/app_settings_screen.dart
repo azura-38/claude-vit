@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../shared/providers/app_info_provider.dart';
-import '../../../../shared/widgets/misc/banner_ad_container.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../widgets/settings/appearance_section.dart';
@@ -26,32 +25,25 @@ class AppSettingsScreen extends ConsumerWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(
-        children: [
-          const BannerAdContainer(),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTrustCard(context, isDark),
-                  const SizedBox(height: 32),
-                  AppearanceSection(isDark: isDark),
-                  const SizedBox(height: 32),
-                  AppLogicSection(isDark: isDark),
-                  const SizedBox(height: 32),
-                  SecuritySection(isDark: isDark),
-                  const SizedBox(height: 32),
-                  LegalSection(isDark: isDark),
-                  const SizedBox(height: 40),
-                  _buildVersionFooter(context, ref, isDark),
-                  const SizedBox(height: 60),
-                ],
-              ),
-            ),
-          ),
-        ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTrustCard(context, isDark),
+            const SizedBox(height: 32),
+            AppearanceSection(isDark: isDark),
+            const SizedBox(height: 32),
+            AppLogicSection(isDark: isDark),
+            const SizedBox(height: 32),
+            SecuritySection(isDark: isDark),
+            const SizedBox(height: 32),
+            LegalSection(isDark: isDark),
+            const SizedBox(height: 40),
+            _buildVersionFooter(context, ref, isDark),
+            const SizedBox(height: 60),
+          ],
+        ),
       ),
     );
   }
@@ -61,7 +53,7 @@ class AppSettingsScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: isDark 
+          colors: isDark
               ? [AppColors.medicalBlue.withValues(alpha: 0.1), Colors.transparent]
               : [AppColors.medicalBlue.withValues(alpha: 0.05), Colors.white],
           begin: Alignment.topLeft,
