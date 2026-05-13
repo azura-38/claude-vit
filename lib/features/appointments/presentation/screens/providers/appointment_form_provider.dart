@@ -24,7 +24,12 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
   }
 
   void updateType(AppointmentType type) {
-    state = state.copyWith(type: type);
+    final subs = subcategoriesForAppointmentType(type);
+    state = state.copyWith(type: type, subcategory: subs.first);
+  }
+
+  void updateSubcategory(AppointmentSubcategory subcategory) {
+    state = state.copyWith(subcategory: subcategory);
   }
 
   void updatePriority(AppointmentPriority priority) {
@@ -60,15 +65,12 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
   }
 
   Future<void> submit() async {
-    if (!state.isValid || state.isSubmitting) {
-      return;
-    }
+    if (!state.isValid || state.isSubmitting) return;
 
     state = state.copyWith(isSubmitting: true);
-    final importance =
-        state.priority == AppointmentPriority.high
-            ? ImportanceLevel.high
-            : state.priority == AppointmentPriority.low
+    final importance = state.priority == AppointmentPriority.high
+        ? ImportanceLevel.high
+        : state.priority == AppointmentPriority.low
             ? ImportanceLevel.low
             : ImportanceLevel.medium;
 
@@ -79,7 +81,7 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
         id: generateUuid(),
         title: title,
         doctor: title,
-        department: state.type.department,
+        department: state.subcategory.label,
         hospital: location,
         date: state.date.toIso8601String().substring(0, 10),
         time:
@@ -94,9 +96,7 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
         createdAt: DateTime.now(),
       );
 
-      await ref
-          .read(appointmentListProvider.notifier)
-          .addAppointment(appointment);
+      await ref.read(appointmentListProvider.notifier).addAppointment(appointment);
     } finally {
       state = state.copyWith(isSubmitting: false);
     }
