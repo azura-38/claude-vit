@@ -66,5 +66,10 @@ void main() async {
 void unawaited(Future<void> future) {
   future.catchError((Object e, StackTrace st) {
     debugPrint('[main] Unawaited future error: $e');
+    debugPrintStack(stackTrace: st);
+
+    try {
+      Sentry.captureException(e, stackTrace: st);
+    } catch (_) {}
   });
 }
