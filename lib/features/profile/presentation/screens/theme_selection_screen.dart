@@ -35,7 +35,8 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     }
 
     await ref.read(themeTypeProvider.notifier).setTheme(type);
-    if (mounted) context.pop();
+    if (!mounted) return;
+    context.pop();
   }
 
   Future<void> _unlockWithAd(AppThemeType type) async {
@@ -47,16 +48,18 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     if (!mounted) return;
     setState(() => _loadingAd = false);
 
+    final messenger = ScaffoldMessenger.of(context);
+    final router = GoRouter.of(context);
+
     if (ok) {
       await ref.read(themeTypeProvider.notifier).setTheme(type);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Theme unlocked. Each extra ad adds +1 day.')),
-        );
-        context.pop();
-      }
+      if (!mounted) return;
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Theme unlocked. Each extra ad adds +1 day.')),
+      );
+      router.pop();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         const SnackBar(content: Text('Ad unavailable. Please try again later.')),
       );
     }
@@ -137,7 +140,8 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                       final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
                       if (!mounted) return;
                       setState(() => _loadingAd = false);
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      final messenger = ScaffoldMessenger.of(context);
+                      messenger.showSnackBar(
                         SnackBar(content: Text(ok ? '+1 day added.' : 'Ad unavailable.')),
                       );
                     },
