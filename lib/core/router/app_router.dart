@@ -65,7 +65,9 @@ class _RouterRefreshNotifier extends ChangeNotifier {
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final guard = ref.watch(routeGuardStateProvider);
+  // Keep the router provider subscribed so changes in guard state rebuild the
+  // router when needed. Redirect itself reads the latest snapshot below.
+  ref.watch(routeGuardStateProvider);
   final refreshNotifier = _RouterRefreshNotifier(ref);
 
   // Dispose the notifier when the provider is disposed
@@ -78,16 +80,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
     // Global App Brain: Logic Control Center
     redirect: (context, state) {
+      final currentGuard = ref.read(routeGuardStateProvider);
+
       // While bootstrap is still running, do not redirect at all.
       // BootstrapScreen handles the UI — the navigator hasn't rendered yet.
-      if (!guard.isBootstrapped) return null;
+      if (!currentGuard.isBootstrapped) return null;
 
-      return notificationRedirect(ref, state, guard) ??
-          lockRedirect(state, guard) ??
-          onboardingRedirect(state, guard) ??
-          profileRedirect(state, guard) ??
-          legalRedirect(state, guard) ??
-          completedEntryRedirect(state, guard);
+      return notificationRedirect(ref, state, currentGuard) ??
+          onboardingRedirect(state, currentGuard) ??
+          profileRedirect(state, currentGuard) ??
+          legalRedirect(state, currentGuard) ??
+          lockRedirect(state, currentGuard) ??
+          completedEntryRedirect(state, currentGuard);
     },
 
     // Handling 404s
