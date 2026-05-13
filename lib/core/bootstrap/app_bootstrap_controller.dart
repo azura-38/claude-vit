@@ -8,6 +8,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../firebase_options.dart';
 import '../../shared/providers/document_providers.dart';
+import '../../shared/data/services/ad_service.dart';
 import '../../shared/data/services/notification_engine.dart';
 import '../../shared/data/services/notification_service.dart';
 import '../../shared/providers/medicine_providers.dart';
@@ -17,14 +18,9 @@ import '../../core/di/service_providers.dart';
 import '../../core/utils/uid_manager.dart';
 import '../../shared/providers/shared_prefs_provider.dart';
 
-/// Key used to gate notification reschedule (avoid running every cold start).
 const _kLastRescheduleKey = 'last_notification_reschedule_ts';
-
-/// Minimum gap (in minutes) between reschedule runs.
 const _kRescheduleGapMinutes = 30;
 
-/// The global bootstrap provider.
-/// Watched by [BootstrapScreen] to decide what UI to show.
 final appBootstrapProvider = AsyncNotifierProvider<AppBootstrapController, void>(
   AppBootstrapController.new,
 );
@@ -35,7 +31,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
     // Startup is kicked off from main() because it needs the ProviderContainer.
   }
 
-  /// Called from main() with the ProviderContainer — kicks off all phases.
   Future<void> run(ProviderContainer container) async {
     state = const AsyncLoading();
 
@@ -56,17 +51,12 @@ class AppBootstrapController extends AsyncNotifier<void> {
     _setupErrorHandlers();
     _log('Phase 0: Error handlers installed');
 
-    // Web preview does not support all native plugins used by the mobile vault
-    // stack (path_provider documents directory, native secure screen, local
-    // notification scheduling). Keep web usable for UI review, while Android/iOS
-    // continue to run the full production bootstrap.
     if (kIsWeb) {
       _log('Web preview detected — skipping mobile-only bootstrap phases ✅');
       await _initializeLocalizationOnly();
       return;
     }
 
-    // ── Phase 1: Encrypted database (encryption key → DB open) ────────────
     _log('Phase 1: Opening encrypted database...');
     final encryptionService = container.read(encryptionServiceProvider);
     final sembastDb = container.read(sembastDatabaseProvider);
@@ -84,9 +74,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
     _log('Phase 1: Database ready ✅');
 
-    // ── Phase 2: Firebase + localization ─────────────────────────────────
     _log('Phase 2: Firebase + localization...');
-
     try {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
@@ -103,25 +91,22 @@ class AppBootstrapController extends AsyncNotifier<void> {
     await _initializeLocalizationOnly();
     _log('Phase 2: Firebase + localization ✅');
 
-    // ── Phase 3: Notification CORE only (no permission requests) ──────────
-    _log('Phase 3: Notification core init...');
+    _log('Phase 3: Ads + notification core init...');
     await Future.wait([
+      _safeRun('ads_init', AdService().init()),
       _safeRun('notif_service_core', NotificationService.initCore()),
       _safeRun('notif_engine_core', NotificationEngine.initializeCore()),
     ]);
-    _log('Phase 3: Notification core ✅');
+    _log('Phase 3: Ads + notification core ✅');
 
-    // ── Phase 4: File storage cleanup ─────────────────────────────────────
     _log('Phase 4: File storage init...');
     await _safeRun('file_storage', container.read(fileStorageServiceProvider).init());
     _log('Phase 4: File storage ✅');
 
-    // ── Phase 5: Crashlytics handler (Firebase must be ready first) ────────
     _log('Phase 5: Crashlytics...');
     await _safeRun('crashlytics', _setupCrashlytics());
     _log('Phase 5: Crashlytics ✅');
 
-    // ── Phase 6: Sentry user identity ─────────────────────────────────────
     _log('Phase 6: Identity...');
     await _safeRun('identity', _configureIdentity());
     _log('Phase 6: Identity ✅');
@@ -141,8 +126,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
       _safeRun('date_pt', initializeDateFormatting('pt_PT', null)),
     ]);
   }
-
-  // ── Error Handlers ────────────────────────────────────────────────────────
 
   void _setupErrorHandlers() {
     FlutterError.onError = (details) {
@@ -176,8 +159,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
       scope.setUser(SentryUser(id: uid));
     });
   }
-
-  // ── Deferred Post-Frame Work ──────────────────────────────────────────────
 
   void _schedulePostFrameWork(ProviderContainer container) {
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -251,8 +232,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
     await prefs.setInt(_kLastRescheduleKey, DateTime.now().millisecondsSinceEpoch);
     _log('Reschedule complete ✅');
   }
-
-  // ── Utilities ─────────────────────────────────────────────────────────────
 
   Future<void> _safeRun(String tag, Future<void> future) async {
     try {
