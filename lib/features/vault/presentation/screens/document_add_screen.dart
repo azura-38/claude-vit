@@ -1,0 +1,360 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/constants/app_colors.dart';
+import '../../../../shared/domain/enums/document_category.dart';
+import '../../../../shared/providers/document_providers.dart';
+
+class DocumentAddScreen extends ConsumerStatefulWidget {
+  const DocumentAddScreen({super.key});
+
+  @override
+  ConsumerState<DocumentAddScreen> createState() => _DocumentAddScreenState();
+}
+
+class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
+  final _hospitalController = TextEditingController();
+  final _doctorController = TextEditingController();
+  final _noteController = TextEditingController();
+
+  PlatformFile? _selectedFile;
+  DocumentCategory _category = DocumentCategory.healthReports;
+  bool _isSaving = false;
+
+  @override
+  void dispose() {
+    _hospitalController.dispose();
+    _doctorController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickFile() async {
+    if (kIsWeb) {
+      _showSnack('File vault upload is available on Android/iOS builds.');
+      return;
+    }
+
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: const ['pdf', 'png', 'jpg', 'jpeg'],
+    );
+
+    if (result == null || result.files.isEmpty) return;
+
+    setState(() {
+      _selectedFile = result.files.single;
+    });
+  }
+
+  DocumentFileType _fileTypeFor(String fileName) {
+    final lower = fileName.toLowerCase();
+    if (lower.endsWith('.pdf')) return DocumentFileType.pdf;
+    return DocumentFileType.image;
+  }
+
+  Future<void> _save() async {
+    final file = _selectedFile;
+    if (file == null || file.path == null) {
+      _showSnack('Please choose a PDF or image first.');
+      return;
+    }
+
+    setState(() => _isSaving = true);
+
+    try {
+      await ref.read(documentListProvider.notifier).uploadDocument(
+            file: File(file.path!),
+            fileName: file.name,
+            fileType: _fileTypeFor(file.name),
+            category: _category,
+            hospitalName: _emptyToNull(_hospitalController.text),
+            doctorName: _emptyToNull(_doctorController.text),
+            note: _emptyToNull(_noteController.text),
+            documentDate: DateTime.now().toIso8601String(),
+            tagId: _category.name,
+            tagLabel: _labelFor(_category),
+          );
+
+      if (!mounted) return;
+      _showSnack('Document saved securely.');
+      context.pop();
+    } catch (e) {
+      _showSnack('Could not save document: $e');
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
+  }
+
+  String? _emptyToNull(String value) {
+    final trimmed = value.trim();
+    return trimmed.isEmpty ? null : trimmed;
+  }
+
+  String _labelFor(DocumentCategory category) {
+    switch (category) {
+      case DocumentCategory.healthPrescriptions:
+        return 'Prescription';
+      case DocumentCategory.healthReports:
+        return 'Report';
+      case DocumentCategory.healthTestResults:
+        return 'Test Result';
+      case DocumentCategory.healthImages:
+        return 'Medical Image';
+      case DocumentCategory.identity:
+        return 'Identity';
+      case DocumentCategory.finance:
+        return 'Finance';
+      case DocumentCategory.legal:
+        return 'Legal';
+      case DocumentCategory.notes:
+        return 'Note';
+      case DocumentCategory.documents:
+        return 'Document';
+      case DocumentCategory.other:
+        return 'Other';
+    }
+  }
+
+  void _showSnack(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Scaffold(
+      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
+      appBar: AppBar(
+        title: const Text('Add Document'),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
+          children: [
+            _SecureUploadCard(
+              selectedFile: _selectedFile,
+              onPickFile: _pickFile,
+              isDark: isDark,
+            ),
+            const SizedBox(height: 24),
+            _SectionCard(
+              isDark: isDark,
+              children: [
+                DropdownButtonFormField<DocumentCategory>(
+                  value: _category,
+                  decoration: const InputDecoration(
+                    labelText: 'Category',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: DocumentCategory.values
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(_labelFor(category)),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    if (value != null) setState(() => _category = value);
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _hospitalController,
+                  decoration: const InputDecoration(
+                    labelText: 'Hospital / Institution',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _doctorController,
+                  decoration: const InputDecoration(
+                    labelText: 'Doctor / Contact',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _noteController,
+                  maxLines: 4,
+                  decoration: const InputDecoration(
+                    labelText: 'Notes',
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _PrivacyNotice(isDark: isDark),
+          ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: SizedBox(
+            height: 54,
+            child: FilledButton.icon(
+              onPressed: _isSaving ? null : _save,
+              icon: _isSaving
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.lock_rounded),
+              label: Text(_isSaving ? 'Saving...' : 'Save Securely'),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SecureUploadCard extends StatelessWidget {
+  const _SecureUploadCard({
+    required this.selectedFile,
+    required this.onPickFile,
+    required this.isDark,
+  });
+
+  final PlatformFile? selectedFile;
+  final VoidCallback onPickFile;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPickFile,
+      borderRadius: BorderRadius.circular(28),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: isDark ? AppColors.surfaceDark : Colors.white,
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(
+            color: selectedFile == null
+                ? AppColors.medicalBlue.withValues(alpha: 0.18)
+                : Colors.green.withValues(alpha: 0.35),
+            width: 1.2,
+          ),
+          boxShadow: [
+            if (!isDark)
+              BoxShadow(
+                color: AppColors.medicalBlue.withValues(alpha: 0.08),
+                blurRadius: 24,
+                offset: const Offset(0, 12),
+              ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: 68,
+              height: 68,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.medicalBlue.withValues(alpha: 0.1),
+              ),
+              child: Icon(
+                selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded,
+                color: selectedFile == null ? AppColors.medicalBlue : Colors.green,
+                size: 34,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              selectedFile?.name ?? 'Choose PDF or Image',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              kIsWeb
+                  ? 'Web preview does not store encrypted files. Use Android/iOS for vault upload.'
+                  : 'Your file will be encrypted and stored locally on this device.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: isDark ? Colors.white60 : AppColors.textSecondary,
+                height: 1.4,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({required this.children, required this.isDark});
+
+  final List<Widget> children;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.surfaceDark : Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: isDark ? Colors.white10 : AppColors.cardBorderLight,
+        ),
+      ),
+      child: Column(children: children),
+    );
+  }
+}
+
+class _PrivacyNotice extends StatelessWidget {
+  const _PrivacyNotice({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.white.withValues(alpha: 0.05)
+            : AppColors.medicalBlue.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.info_outline_rounded, color: AppColors.medicalBlue),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'VitaCase is a local document organizer. It does not diagnose, analyze, or provide medical advice.',
+              style: TextStyle(
+                fontSize: 12,
+                height: 1.45,
+                color: isDark ? Colors.white70 : AppColors.textSecondary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
