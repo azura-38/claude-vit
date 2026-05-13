@@ -94,7 +94,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 18),
                       DropdownButtonFormField<AppointmentSubcategory>(
-                        value: subcategories.contains(state.subcategory) ? state.subcategory : subcategories.first,
+                        initialValue: subcategories.contains(state.subcategory) ? state.subcategory : subcategories.first,
                         decoration: const InputDecoration(labelText: 'Subcategory'),
                         items: subcategories
                             .map((subcategory) => DropdownMenuItem(value: subcategory, child: Text(subcategory.label)))
