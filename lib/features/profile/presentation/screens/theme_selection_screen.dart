@@ -1,340 +1,282 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../core/constants/app_colors.dart';
-import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_provider.dart';
-import '../../../../shared/data/services/ad_service.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import '../widgets/theme_item_widget.dart';
+import '../../../../core/theme/theme_unlock_provider.dart';
 
 class ThemeSelectionScreen extends ConsumerStatefulWidget {
   const ThemeSelectionScreen({super.key});
 
   @override
-  ConsumerState<ThemeSelectionScreen> createState() =>
-      _ThemeSelectionScreenState();
+  ConsumerState<ThemeSelectionScreen> createState() => _ThemeSelectionScreenState();
 }
 
 class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
-  AppThemeType? _pendingSelection;
+  AppThemeType? _previewTheme;
+  bool _loadingAd = false;
 
-  @override
-  void initState() {
-    super.initState();
-    AdService().loadRewarded();
+  bool _isRewardTheme(AppThemeType type) {
+    return type == AppThemeType.purple ||
+        type == AppThemeType.nature ||
+        type == AppThemeType.ocean ||
+        type == AppThemeType.amber;
   }
 
-  void _previewTheme(AppThemeType type) {
-    setState(() => _pendingSelection = type);
+  Future<void> _apply(AppThemeType type) async {
+    final unlock = ref.read(themeUnlockProvider.notifier);
+    final isLocked = _isRewardTheme(type) && !unlock.isUnlocked;
+
+    if (isLocked) {
+      await _unlockWithAd(type);
+      return;
+    }
+
+    await ref.read(themeTypeProvider.notifier).setTheme(type);
+    if (mounted) context.pop();
+  }
+
+  Future<void> _unlockWithAd(AppThemeType type) async {
+    if (_loadingAd) return;
+    setState(() => _loadingAd = true);
+
+    final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
+
+    if (!mounted) return;
+    setState(() => _loadingAd = false);
+
+    if (ok) {
+      await ref.read(themeTypeProvider.notifier).setTheme(type);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Theme unlocked. Each extra ad adds +1 day.')),
+        );
+        context.pop();
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Ad unavailable. Please try again later.')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final currentTheme = ref.watch(themeTypeProvider);
+    final unlockUntil = ref.watch(themeUnlockProvider);
+    final unlockNotifier = ref.read(themeUnlockProvider.notifier);
+    final activePreview = _previewTheme ?? currentTheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final activeTheme = _pendingSelection ?? currentTheme;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF7F9FC),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 280,
-            pinned: true,
-            stretch: true,
-            backgroundColor: isDark ? const Color(0xFF0F172A) : Colors.white,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_rounded, color: Colors.blue),
-              onPressed: () => context.pop(),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                activeTheme.localizedLabel(context),
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black87,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
-                ),
-              ),
-              background: _buildThemePreview(activeTheme),
-            ),
+      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
+      appBar: AppBar(
+        title: const Text('Theme'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
+        children: [
+          _ThemePreview(type: activePreview),
+          const SizedBox(height: 20),
+          if (unlockUntil != null)
+            _UnlockStatusCard(days: unlockNotifier.remainingDays),
+          if (unlockUntil != null) const SizedBox(height: 20),
+          _SectionTitle(title: 'Free themes'),
+          const SizedBox(height: 12),
+          _ThemeTile(
+            type: AppThemeType.light,
+            selected: currentTheme == AppThemeType.light,
+            locked: false,
+            onPreview: () => setState(() => _previewTheme = AppThemeType.light),
+            onApply: () => _apply(AppThemeType.light),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.l10n.standardModes,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildStandardCard(
-                          context,
-                          AppThemeType.light,
-                          activeTheme,
-                          isDark,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: _buildStandardCard(
-                          context,
-                          AppThemeType.dark,
-                          activeTheme,
-                          isDark,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        context.l10n.premiumPalettes,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.amber.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          context.l10n.premiumSoon,
-                          style: const TextStyle(
-                            color: Colors.amber,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  ThemeItemWidget(
-                    type: AppThemeType.purple,
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop',
-                    isSelected: activeTheme == AppThemeType.purple,
-                    onSelected:
-                        () => setState(
-                          () => _pendingSelection = AppThemeType.purple,
-                        ),
-                    onPreview: _previewTheme,
-                  ),
-                  ThemeItemWidget(
-                    type: AppThemeType.nature,
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=600&auto=format&fit=crop',
-                    isSelected: activeTheme == AppThemeType.nature,
-                    onSelected:
-                        () => setState(
-                          () => _pendingSelection = AppThemeType.nature,
-                        ),
-                    onPreview: _previewTheme,
-                  ),
-                  ThemeItemWidget(
-                    type: AppThemeType.ocean,
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop',
-                    isSelected: activeTheme == AppThemeType.ocean,
-                    onSelected:
-                        () => setState(
-                          () => _pendingSelection = AppThemeType.ocean,
-                        ),
-                    onPreview: _previewTheme,
-                  ),
-                  ThemeItemWidget(
-                    type: AppThemeType.amber,
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=600&auto=format&fit=crop',
-                    isSelected: activeTheme == AppThemeType.amber,
-                    onSelected:
-                        () => setState(
-                          () => _pendingSelection = AppThemeType.amber,
-                        ),
-                    onPreview: _previewTheme,
-                  ),
-                  const SizedBox(height: 100),
-                ],
-              ),
-            ),
+          _ThemeTile(
+            type: AppThemeType.dark,
+            selected: currentTheme == AppThemeType.dark,
+            locked: false,
+            onPreview: () => setState(() => _previewTheme = AppThemeType.dark),
+            onApply: () => _apply(AppThemeType.dark),
           ),
+          const SizedBox(height: 24),
+          _SectionTitle(title: 'Reward themes'),
+          const SizedBox(height: 8),
+          Text(
+            'Watch one rewarded ad to unlock these themes for 3 days. Every extra ad adds +1 day.',
+            style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary),
+          ),
+          const SizedBox(height: 12),
+          for (final type in const [
+            AppThemeType.purple,
+            AppThemeType.nature,
+            AppThemeType.ocean,
+            AppThemeType.amber,
+          ])
+            _ThemeTile(
+              type: type,
+              selected: currentTheme == type,
+              locked: !unlockNotifier.isUnlocked,
+              loading: _loadingAd,
+              onPreview: () => setState(() => _previewTheme = type),
+              onApply: () => _apply(type),
+            ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-          _pendingSelection != null && _pendingSelection != currentTheme
-              ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                width: double.infinity,
-                child: FloatingActionButton.extended(
-                  onPressed: _applyTheme,
-                  backgroundColor: AppColors.primaryIndigo,
-                  label: Text(
-                    context.l10n.applyTheme,
-                    style: const TextStyle(fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ).animate().slideY(begin: 1, end: 0)
-              : null,
+      floatingActionButton: unlockNotifier.isUnlocked
+          ? FloatingActionButton.extended(
+              onPressed: _loadingAd
+                  ? null
+                  : () async {
+                      setState(() => _loadingAd = true);
+                      final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
+                      if (!mounted) return;
+                      setState(() => _loadingAd = false);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(ok ? '+1 day added.' : 'Ad unavailable.')),
+                      );
+                    },
+              icon: _loadingAd
+                  ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                  : const Icon(Icons.play_circle_outline_rounded),
+              label: const Text('Add +1 day'),
+            )
+          : null,
     );
   }
+}
 
-  Widget _buildThemePreview(AppThemeType type) {
+class _ThemePreview extends StatelessWidget {
+  const _ThemePreview({required this.type});
+
+  final AppThemeType type;
+
+  @override
+  Widget build(BuildContext context) {
     final theme = AppTheme.getThemeByType(type);
     return Theme(
       data: theme,
       child: Container(
-        padding: const EdgeInsets.fromLTRB(40, 60, 40, 20),
-        decoration: BoxDecoration(color: theme.scaffoldBackgroundColor),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: theme.scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(color: theme.dividerTheme.color ?? Colors.transparent),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(type.label, style: theme.textTheme.titleLarge),
+            const SizedBox(height: 16),
             Container(
-              height: 100,
+              height: 86,
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: theme.cardTheme.color,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: theme.dividerTheme.color ?? Colors.transparent,
-                ),
+                borderRadius: BorderRadius.circular(22),
               ),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Container(
-                    width: 100,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primary,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    width: 180,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: theme.disabledColor.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(4),
+                  CircleAvatar(backgroundColor: theme.colorScheme.primary),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(width: 140, height: 10, color: theme.colorScheme.primary),
+                        const SizedBox(height: 10),
+                        Container(width: 210, height: 8, color: theme.colorScheme.primary.withValues(alpha: 0.18)),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: theme.colorScheme.primary,
-                  radius: 24,
-                ),
-                const SizedBox(width: 16),
-                CircleAvatar(
-                  backgroundColor: theme.colorScheme.secondary,
-                  radius: 24,
-                ),
-                const SizedBox(width: 16),
-                CircleAvatar(
-                  backgroundColor: theme.colorScheme.tertiary,
-                  radius: 24,
-                ),
-              ],
-            ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildStandardCard(
-    BuildContext context,
-    AppThemeType type,
-    AppThemeType active,
-    bool isDark,
-  ) {
-    final isSelected = active == type;
-    final isTypeDark = type == AppThemeType.dark;
+class _ThemeTile extends StatelessWidget {
+  const _ThemeTile({
+    required this.type,
+    required this.selected,
+    required this.locked,
+    required this.onPreview,
+    required this.onApply,
+    this.loading = false,
+  });
 
-    return GestureDetector(
-      onTap: () => setState(() => _pendingSelection = type),
-      child: AnimatedContainer(
-        duration: 300.ms,
-        height: 110,
-        decoration: BoxDecoration(
-          color: isTypeDark ? const Color(0xFF0F172A) : Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected ? Colors.blue : Colors.transparent,
-            width: 2,
-          ),
+  final AppThemeType type;
+  final bool selected;
+  final bool locked;
+  final bool loading;
+  final VoidCallback onPreview;
+  final VoidCallback onApply;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
+        onTap: onPreview,
+        leading: CircleAvatar(
+          backgroundColor: AppTheme.getThemeByType(type).colorScheme.primary,
+          child: locked ? const Icon(Icons.lock_rounded, color: Colors.white, size: 18) : null,
         ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  isTypeDark
-                      ? Icons.dark_mode_rounded
-                      : Icons.light_mode_rounded,
-                  color: isTypeDark ? Colors.indigoAccent : Colors.amber,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  type
-                      .localizedLabel(context)
-                      .split(' ')[0], // 'Luxe' or 'Midnight'
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14,
-                    color: isTypeDark ? Colors.white : Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-            if (isSelected)
-              const Positioned(
-                top: 8,
-                right: 8,
-                child: Icon(
-                  Icons.check_circle_rounded,
-                  color: Colors.blue,
-                  size: 18,
-                ),
-              ),
-          ],
+        title: Text(type.label, style: const TextStyle(fontWeight: FontWeight.w800)),
+        subtitle: Text(locked ? 'Watch ad to unlock' : selected ? 'Active' : 'Tap to preview'),
+        trailing: FilledButton(
+          onPressed: loading ? null : onApply,
+          child: Text(locked ? 'Unlock' : selected ? 'Active' : 'Apply'),
         ),
+        tileColor: isDark ? AppColors.surfaceDark : Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
     );
   }
+}
 
-  bool isLocked(bool unlocked) => !unlocked;
+class _UnlockStatusCard extends StatelessWidget {
+  const _UnlockStatusCard({required this.days});
 
-  void _applyTheme() {
-    if (_pendingSelection != null) {
-      ref.read(themeTypeProvider.notifier).setTheme(_pendingSelection!);
-      context.pop();
-    }
+  final int days;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.medicalBlue.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.verified_rounded, color: AppColors.medicalBlue),
+          const SizedBox(width: 12),
+          Expanded(child: Text('Reward themes active for $days day(s).')),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900));
   }
 }
