@@ -16,9 +16,10 @@ enum AppointmentType {
 }
 
 enum AppointmentReminder {
-  oneHourBefore('reminder_1h', '1 hour before', Duration(hours: 1)),
-  oneDayBefore('reminder_1d', '1 day before', Duration(days: 1)),
-  sevenDaysBefore('reminder_7d', '7 days before', Duration(days: 7));
+  tenMinutes('reminder_10m', '10 minutes before', Duration(minutes: 10)),
+  oneHour('reminder_1h', '1 hour before', Duration(hours: 1)),
+  oneDay('reminder_1d', '1 day before', Duration(days: 1)),
+  sevenDays('reminder_7d', '7 days before', Duration(days: 7));
 
   const AppointmentReminder(this.key, this.label, this.offset);
 
@@ -45,7 +46,7 @@ class AppointmentFormModel {
     this.priority = AppointmentPriority.normal,
     required this.date,
     this.location = '',
-    this.reminder = AppointmentReminder.oneHourBefore,
+    this.reminder = AppointmentReminder.oneHour,
     this.notes = '',
     this.isSubmitting = false,
   });

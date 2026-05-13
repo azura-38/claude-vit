@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class SecureBanner extends StatelessWidget {
   const SecureBanner({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: const Color(0xFFF2F3FB),
+        color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(
+          color:
+              isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.border,
+        ),
       ),
       child: Row(
         children: [
@@ -28,20 +34,25 @@ class SecureBanner extends StatelessWidget {
 
           const SizedBox(width: 16),
 
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Secure Local Storage",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  context.l10n.docsSecureStorageTitle,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
 
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
 
                 Text(
-                  "Your file will be encrypted before saving.",
-                  style: TextStyle(color: AppColors.secondary),
+                  context.l10n.docsSecureStorageDesc,
+                  style: TextStyle(
+                    color: isDark ? Colors.white60 : AppColors.secondary,
+                  ),
                 ),
               ],
             ),

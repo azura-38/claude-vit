@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../domain/models/user_profile.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'metric_box.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class BmiCard extends StatelessWidget {
   final UserProfile profile;
@@ -23,7 +24,7 @@ class BmiCard extends StatelessWidget {
           Row(
             children: [
               MetricBox(
-                title: "CURRENT\nWEIGHT",
+                title: context.l10n.currentWeight,
                 value: profile.weight.toString(),
                 unit: "kg",
               ),
@@ -31,7 +32,7 @@ class BmiCard extends StatelessWidget {
               const SizedBox(width: 16),
 
               MetricBox(
-                title: "HEIGHT",
+                title: context.l10n.height,
                 value: profile.height.toInt().toString(),
                 unit: "cm",
               ),
@@ -45,9 +46,9 @@ class BmiCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "BMI INDEX",
-                    style: TextStyle(color: AppColors.secondary),
+                  Text(
+                    context.l10n.bmiIndex,
+                    style: const TextStyle(color: AppColors.secondary),
                   ),
 
                   const SizedBox(height: 6),
@@ -108,23 +109,23 @@ class BmiCard extends StatelessWidget {
 
           const SizedBox(height: 22),
 
-          const Text.rich(
+          Text.rich(
             TextSpan(
               children: [
-                TextSpan(text: "Your BMI is in the "),
+                TextSpan(text: context.l10n.bmiRangePrefix),
                 TextSpan(
-                  text: "healthy range",
-                  style: TextStyle(
+                  text: context.l10n.bmiRangeHealthy,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
                   ),
                 ),
                 TextSpan(
-                  text: ". You are at a lower risk for cardiovascular issues.",
+                  text: context.l10n.bmiRangeSuffix,
                 ),
               ],
             ),
-            style: TextStyle(height: 1.6, color: AppColors.secondary),
+            style: const TextStyle(height: 1.6, color: AppColors.secondary),
           ),
         ],
       ),

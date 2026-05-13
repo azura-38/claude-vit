@@ -13,7 +13,7 @@ import '../../features/doctors/presentation/screens/doctors_screen.dart';
 import '../../features/vault/presentation/screens/document_vault_screen.dart';
 import '../../features/health_stats/presentation/screens/health_data_add_screen.dart';
 import '../../features/health_stats/presentation/screens/health_stats_screen.dart';
-import '../../presentation/screens/home/home_screen.dart';
+import '../../features/dashboard/presentation/screens/home_screen.dart';
 import '../../features/auth/presentation/screens/lock/lock_screen.dart';
 import '../../features/medications/presentation/screens/add_medication_screen.dart';
 import '../../features/medications/presentation/screens/medicines_screen.dart';
@@ -21,7 +21,6 @@ import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/app_settings_screen.dart';
 import '../../features/profile/presentation/screens/edit_profile_screen.dart';
 import '../../features/profile/presentation/screens/profile_create_screen.dart';
-
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/profile/presentation/screens/personal_information_screen.dart';
 import '../../features/onboarding/presentation/screens/legal/disclaimer_screen.dart';
@@ -39,8 +38,6 @@ import '../../features/notifications/presentation/screens/medication_lock_notifi
 import '../../features/notifications/presentation/screens/appointment_lock_notification.dart';
 import '../../features/notifications/presentation/screens/refill_banner_notification.dart';
 
-// Domain
-
 // Core
 import '../../features/auth/presentation/widgets/app_lock_gate.dart';
 import '../constants/app_routes.dart';
@@ -51,21 +48,46 @@ class AppRouter {
       GlobalKey<NavigatorState>();
 }
 
+/// A [ChangeNotifier] that triggers GoRouter to re-evaluate redirects
+/// whenever [RouteGuardState] changes (e.g., async providers settle from
+/// loading → data).
+///
+/// Without this, GoRouter only runs redirects on navigation events,
+/// which means it never re-evaluates when async state resolves.
+class _RouterRefreshNotifier extends ChangeNotifier {
+  _RouterRefreshNotifier(Ref ref) {
+    // Watch the guard state — any change causes notifyListeners(),
+    // which triggers GoRouter to re-run its redirect logic.
+    ref.listen<RouteGuardState>(routeGuardStateProvider, (prev, next) {
+      notifyListeners();
+    });
+  }
+}
+
 final appRouterProvider = Provider<GoRouter>((ref) {
   final guard = ref.watch(routeGuardStateProvider);
+  final refreshNotifier = _RouterRefreshNotifier(ref);
+
+  // Dispose the notifier when the provider is disposed
+  ref.onDispose(refreshNotifier.dispose);
 
   return GoRouter(
     navigatorKey: AppRouter.navigatorKey,
     initialLocation: AppRoutes.home,
+    refreshListenable: refreshNotifier,
 
     // Global App Brain: Logic Control Center
     redirect: (context, state) {
+      // While bootstrap is still running, do not redirect at all.
+      // BootstrapScreen handles the UI — the navigator hasn't rendered yet.
+      if (!guard.isBootstrapped) return null;
+
       return notificationRedirect(ref, state, guard) ??
           lockRedirect(state, guard) ??
           onboardingRedirect(state, guard) ??
-          profileRedirect(ref, state) ??
-          legalRedirect(ref, state) ??
-          completedEntryRedirect(ref, state);
+          profileRedirect(state, guard) ??
+          legalRedirect(state, guard) ??
+          completedEntryRedirect(state, guard);
     },
 
     // Handling 404s
@@ -116,9 +138,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    path:
-                        AppRoutes
-                            .home, // Maps to Dashboard via HomeScreen logic or redirection
+                    path: AppRoutes.home,
                     name: 'home',
                     builder: (context, state) => const DashboardScreen(),
                   ),

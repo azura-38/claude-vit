@@ -4,6 +4,7 @@ import 'package:path/path.dart' as p;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../datasources/sembast_database.dart';
+import 'notification_engine.dart';
 
 class WipeService {
   static const _storage = FlutterSecureStorage();
@@ -11,6 +12,11 @@ class WipeService {
   static Future<void> fullWipe() async {
     // 1. Close and Delete Database
     await SembastDatabase().deleteDatabaseFile();
+
+    // 2. Clear Notifications
+    try {
+      await NotificationEngine.cancelAll();
+    } catch (_) {}
 
     // 2. Clear Shared Preferences (preserve app settings)
     final prefs = await SharedPreferences.getInstance();

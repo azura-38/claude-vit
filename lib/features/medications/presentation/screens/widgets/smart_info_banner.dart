@@ -8,17 +8,37 @@ class SmartInfoBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColors.primaryLight.withValues(alpha: 0.45),
+        color:
+            isDark ? Colors.white.withValues(alpha: 0.06) : AppColors.brandMist,
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color:
+              isDark
+                  ? Colors.white.withValues(alpha: 0.08)
+                  : AppColors.brandBlue.withValues(alpha: 0.12),
+        ),
       ),
       child: Row(
         children: [
-          const Icon(Icons.info_outline_rounded),
+          const Icon(
+            Icons.notifications_active_rounded,
+            color: AppColors.brandBlue,
+          ),
           const SizedBox(width: 14),
-          Expanded(child: Text(text, style: const TextStyle(height: 1.4))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                height: 1.4,
+                color: isDark ? Colors.white70 : AppColors.brandNavy,
+              ),
+            ),
+          ),
         ],
       ),
     );

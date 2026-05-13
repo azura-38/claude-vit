@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -23,6 +23,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   bool _notificationsGranted = false;
 
   static const _totalPages = 6;
+  static const _brandLogoAsset = 'assets/images/vitacase_brand_logo.png';
+  static const _featureOverviewAsset =
+      'assets/images/vitacase_feature_overview.png';
 
   void _goToProfileCreate() {
     ref.read(onboardingCompletedProvider.notifier).completeOnboarding();
@@ -35,7 +38,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : Colors.white,
+      backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF7FAFF),
       body: SafeArea(
         child: Column(
           children: [
@@ -46,7 +49,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 children: [
                   // Page 1: Welcome
                   _ModernPage(
-                    visual: _AnimatedLogo(isDark: isDark),
+                    visual: const _BrandLogoVisual(assetPath: _brandLogoAsset),
                     title: context.l10n.ob1Title,
                     subtitle: context.l10n.ob1Subtitle,
                     description: context.l10n.ob1Desc,
@@ -54,10 +57,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   // Page 2: Documents
                   _ModernPage(
-                    visual: _FeatureVisual(
-                      icon: Icons.folder_rounded,
-                      color: const Color(0xFF3B82F6),
-                      isDark: isDark,
+                    visual: const _FeatureOverviewVisual(
+                      assetPath: _featureOverviewAsset,
                     ),
                     title: context.l10n.ob2Title,
                     description: context.l10n.ob2Desc,
@@ -87,7 +88,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   // Page 5: Security & Privacy
                   _ModernPage(
-                    visual: _SecurityVisual(isDark: isDark),
+                    visual: const _BrandLogoVisual(
+                      assetPath: _brandLogoAsset,
+                      compact: true,
+                    ),
                     title: context.l10n.ob5Title,
                     description: context.l10n.ob5Desc,
                     isDark: isDark,
@@ -132,8 +136,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFF3B82F6).withValues(alpha: 0.12),
-                  const Color(0xFF8B5CF6).withValues(alpha: 0.08),
+                  AppColors.brandBlue.withValues(alpha: 0.12),
+                  AppColors.brandCyan.withValues(alpha: 0.08),
                 ],
               ),
               shape: BoxShape.circle,
@@ -146,7 +150,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               color:
                   _notificationsGranted
                       ? const Color(0xFF10B981)
-                      : const Color(0xFF3B82F6),
+                      : AppColors.brandBlue,
             ),
           ).animate().scale(
             begin: const Offset(0.8, 0.8),
@@ -205,7 +209,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3B82F6),
+                  backgroundColor: AppColors.brandBlue,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -271,7 +275,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    isLast ? AppColors.primaryIndigo : const Color(0xFF005DA7),
+                    isLast ? AppColors.brandNavy : AppColors.brandBlue,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -314,7 +318,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 decoration: BoxDecoration(
                   color:
                       _currentPage == index
-                          ? const Color(0xFF005DA7)
+                          ? AppColors.brandBlue
                           : (isDark
                               ? Colors.white10
                               : Colors.black.withValues(alpha: 0.08)),
@@ -362,9 +366,8 @@ class _ModernPage extends StatelessWidget {
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w900,
-              color: isDark ? Colors.white : const Color(0xFF0F172A),
+              color: isDark ? Colors.white : AppColors.brandNavy,
               fontFamily: 'Manrope',
-              letterSpacing: -0.5,
             ),
           ).animate().fadeIn().slideY(begin: 0.1),
           if (subtitle != null) ...[
@@ -375,7 +378,7 @@ class _ModernPage extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
-                color: Color(0xFF3B82F6),
+                color: AppColors.brandBlue,
               ),
             ).animate().fadeIn(delay: 100.ms),
           ],
@@ -385,7 +388,7 @@ class _ModernPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
-              color: isDark ? Colors.white54 : Colors.blueGrey,
+              color: isDark ? Colors.white60 : const Color(0xFF546179),
               height: 1.6,
               fontWeight: FontWeight.w500,
             ),
@@ -408,10 +411,10 @@ class _ModernPage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: const Color(0xFF3B82F6).withValues(alpha: 0.1),
+              color: AppColors.brandBlue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(f.icon, color: const Color(0xFF3B82F6), size: 20),
+            child: Icon(f.icon, color: AppColors.brandBlue, size: 20),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -451,48 +454,70 @@ class _FeatureRow {
 
 // --- Visual Widgets ---
 
-class _AnimatedLogo extends StatelessWidget {
-  final bool isDark;
-  const _AnimatedLogo({required this.isDark});
+class _BrandLogoVisual extends StatelessWidget {
+  final String assetPath;
+  final bool compact;
+
+  const _BrandLogoVisual({required this.assetPath, this.compact = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-          width: 160,
-          height: 160,
+          width: compact ? 190 : 230,
+          height: compact ? 190 : 230,
+          padding: EdgeInsets.all(compact ? 16 : 20),
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0xFF1A56DB), Color(0xFF3B82F6)],
-            ),
-            borderRadius: BorderRadius.circular(48),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(compact ? 42 : 52),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF1A56DB).withValues(alpha: 0.35),
-                blurRadius: 40,
-                offset: const Offset(0, 20),
+                color: AppColors.brandBlue.withValues(alpha: 0.16),
+                blurRadius: 34,
+                offset: const Offset(0, 18),
               ),
             ],
           ),
-          child: const Center(
-            child: Text(
-              "V",
-              style: TextStyle(
-                fontSize: 88,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-                fontFamily: 'Manrope',
-              ),
-            ),
-          ),
+          child: Image.asset(assetPath, fit: BoxFit.contain),
         )
         .animate(onPlay: (c) => c.repeat(reverse: true))
         .scale(
           begin: const Offset(1, 1),
-          end: const Offset(1.04, 1.04),
-          duration: 2500.ms,
+          end: const Offset(1.03, 1.03),
+          duration: 2600.ms,
         );
+  }
+}
+
+class _FeatureOverviewVisual extends StatelessWidget {
+  final String assetPath;
+
+  const _FeatureOverviewVisual({required this.assetPath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+          constraints: const BoxConstraints(maxWidth: 360),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.brandBlue.withValues(alpha: 0.14),
+                blurRadius: 28,
+                offset: const Offset(0, 16),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(28),
+            child: AspectRatio(
+              aspectRatio: 1.75,
+              child: Image.asset(assetPath, fit: BoxFit.cover),
+            ),
+          ),
+        )
+        .animate()
+        .fadeIn(duration: 500.ms)
+        .scale(begin: const Offset(0.96, 0.96), duration: 600.ms);
   }
 }
 
@@ -531,85 +556,5 @@ class _FeatureVisual extends StatelessWidget {
       begin: const Offset(0.85, 0.85),
       duration: 600.ms,
     );
-  }
-}
-
-class _SecurityVisual extends StatelessWidget {
-  final bool isDark;
-  const _SecurityVisual({required this.isDark});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 140,
-              height: 140,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF1A56DB), Color(0xFF3B82F6)],
-                ),
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF1A56DB).withValues(alpha: 0.3),
-                    blurRadius: 30,
-                    offset: const Offset(0, 15),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.shield_rounded,
-                color: Colors.white,
-                size: 64,
-              ),
-            ),
-            Transform.translate(
-              offset: const Offset(-55, 45),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: isDark ? AppColors.surfaceDark : Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 12,
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.lock_rounded,
-                  color: Color(0xFF10B981),
-                  size: 22,
-                ),
-              ),
-            ),
-            Transform.translate(
-              offset: const Offset(55, -45),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: isDark ? AppColors.surfaceDark : Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 12,
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.verified_user_rounded,
-                  color: Color(0xFF3B82F6),
-                  size: 22,
-                ),
-              ),
-            ),
-          ],
-        )
-        .animate(onPlay: (c) => c.repeat(reverse: true))
-        .slideY(begin: 0, end: 0.08, duration: 3.seconds);
   }
 }

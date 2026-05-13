@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-import 'package:vitacase/core/constants/app_colors.dart';
-
 class NotificationGlassCard extends StatelessWidget {
   final Widget child;
 
@@ -16,9 +14,9 @@ class NotificationGlassCard extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.glass,
+            color: Colors.white.withValues(alpha: 0.84),
             borderRadius: BorderRadius.circular(28),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.55)),
             boxShadow: [
               BoxShadow(
                 blurRadius: 30,

@@ -1,4 +1,4 @@
-﻿// Generated from lib/l10n/app_*.arb for runtime key lookup.
+// Generated from lib/l10n/app_*.arb for runtime key lookup.
 // Keep source text in ARB files; regenerate this map when adding dynamic keys.
 class Translations {
   Translations._();
@@ -14,6 +14,13 @@ class Translations {
       'cancel': 'Cancel',
       'error': 'Error',
       'success': 'Success',
+      'current_weight': 'CURRENT\nWEIGHT',
+      'height': 'HEIGHT',
+      'bmi_index': 'BMI INDEX',
+      'bmi_range_prefix': 'Your BMI is in the ',
+      'bmi_range_healthy': 'healthy range',
+      'bmi_range_suffix':
+          '. You are at a lower risk for cardiovascular issues.',
       'loading': 'Loading...',
       'active': 'Active',
       'inactive': 'Inactive',
@@ -60,15 +67,20 @@ class Translations {
       'let_start': 'Let\'s Start',
       'ob_1_title': 'VitaCase',
       'ob_1_subtitle': 'All Your Files in One Place',
-      'ob_1_desc': 'Store your documents, appointments, and medications safely, always carry them with you.',
+      'ob_1_desc':
+          'Store your documents, appointments, and medications safely, always carry them with you.',
       'ob_2_title': 'Organize All Your Files',
-      'ob_2_desc': 'Upload your documents, categorize them, and manage them easily.',
+      'ob_2_desc':
+          'Upload your documents, categorize them, and manage them easily.',
       'ob_3_title': 'Save Your Appointments',
-      'ob_3_desc': 'Keep all your appointments in one place, never miss one with reminders.',
+      'ob_3_desc':
+          'Keep all your appointments in one place, never miss one with reminders.',
       'ob_4_title': 'Save and Track Your Medications',
-      'ob_4_desc': 'Record your medications and usage times, don’t forget to use them regularly with reminders.',
+      'ob_4_desc':
+          'Record your medications and usage times, don’t forget to use them regularly with reminders.',
       'ob_5_title': 'Save, Don’t Lose',
-      'ob_5_desc': 'Keep your appointments and medications safe, you stay relaxed.',
+      'ob_5_desc':
+          'Keep your appointments and medications safe, you stay relaxed.',
       'ob_feature_1_title': 'Secure Storage',
       'ob_feature_1_desc': 'Your data is encrypted and only belongs to you.',
       'ob_feature_2_title': 'Reminders',
@@ -86,7 +98,8 @@ class Translations {
       'guest_user': 'Guest User',
       'all_records': 'Secure Archive',
       'vault_is_empty': 'Your Vault is Ready',
-      'vault_desc': 'Store and organize your most important records in a private sanctuary.',
+      'vault_desc':
+          'Store and organize your most important records in a private sanctuary.',
       'quick_access': 'QUICK ACCESS',
       'steps': 'Steps',
       'heart': 'Heart',
@@ -119,11 +132,14 @@ class Translations {
       'add_health_data': 'Add Health Data',
       'step_unit': 'steps',
       'privacy_guarantee': 'Your data is safe',
-      'privacy_box_desc': 'Your information is securely stored and never shared.',
-      'privacy_box_warning': 'Your data is private and stored securely on your device. Please avoid uploading highly sensitive information. You are responsible for the data you store.',
+      'privacy_box_desc':
+          'Your information is securely stored and never shared.',
+      'privacy_box_warning':
+          'Your data is private and stored securely on your device. Please avoid uploading highly sensitive information. You are responsible for the data you store.',
       'docs_secure_storage_title': 'Secure Local Storage 🔒',
       'docs_secure_storage_desc': 'Your data stays on your device',
-      'docs_sensitive_warning': 'Avoid storing highly sensitive information. You are responsible for your data.',
+      'docs_sensitive_warning':
+          'Avoid storing highly sensitive information. You are responsible for your data.',
       'gender_female': 'Female',
       'gender_male': 'Male',
       'gender_other': 'Other',
@@ -148,7 +164,8 @@ class Translations {
       'legal_disclaimer': 'Legal Disclaimer',
       'legal': 'LEGAL',
       'lock_gate_title': 'VitaCase Locked',
-      'lock_gate_desc': 'Please authenticate to access your secure document vault.',
+      'lock_gate_desc':
+          'Please authenticate to access your secure document vault.',
       'lock_gate_unlock': 'Unlock with Biometrics',
       'lock_set_pin': 'Set Secure PIN',
       'lock_confirm_pin': 'Confirm PIN',
@@ -163,8 +180,12 @@ class Translations {
       'lock_timeout': 'Lock Timeout',
       'change_pin': 'Change PIN',
       'biometric_login': 'Biometric Login',
-      'biometric_unavailable': 'Biometric authentication is not available on this device.',
+      'biometric_unavailable':
+          'Biometric authentication is not available on this device.',
       'digits': 'digits',
+      'times_a_day': 'times a day',
+      'priority': 'Priority',
+      'type': 'Type',
       'lock_skip_desc': 'You can set this up later from Settings.',
       'setup_pin_later': 'Set up later from Settings',
       'skip_pin_setup': 'Skip',
@@ -193,6 +214,23 @@ class Translations {
       'refill': 'Refill',
       'intake_chart': 'Intake Compliance Chart',
       'weekly_avg': 'Weekly Avg: {perc}%',
+      'stay_consistent_desc': 'Stay consistent with your treatment',
+      'search_med_hint': 'Search or enter medicine name',
+      'lasts_approx_days': 'Lasts ~{count} days',
+      'add_time': 'Add Time',
+      'supply_reminder_desc':
+          'We’ll remind you before your supply runs out based on your current inventory.',
+      'notification_now': 'now',
+      'notification_dose_note': 'Take with food',
+      'notification_appointment_title': 'Annual Checkup',
+      'notification_appointment_location':
+          'In 30 minutes at City Medical Center',
+      'daily_reminder_summary': 'You will be reminded at {times} daily.',
+      'failed_add_medication': 'Failed to add medication.',
+      'failed_create_appointment': 'Failed to create appointment.',
+      'appointment_created_success': 'Appointment created.',
+      'morning_tip_appointment':
+          'Morning appointments usually reduce missed reminders and delays.',
       'medicine_cabinet': 'Medicine Cabinet',
       'active_inventory': 'Your active inventory',
       'add': 'Add',
@@ -207,21 +245,27 @@ class Translations {
       'activity': 'Activity',
       'step_counter': 'Step Counter',
       'water_tracker': 'Water Tracker',
-      'safety_footer_med': 'VitaCase is a management tool. It does not provide medical advice or dosage recommendations. Always follow your doctor\'s instructions.',
-      'safety_footer_health': 'Health data is for informational purposes only. Consult a professional for diagnosis.',
-      'medical_device_warning': 'VitaCase is not a medical device. Always consult a professional.',
-      'management_tool_warning': 'VitaCase is a management tool, not a diagnostic service.',
+      'safety_footer_med':
+          'VitaCase is a management tool. It does not provide medical advice or dosage recommendations. Always follow your doctor\'s instructions.',
+      'safety_footer_health':
+          'Health data is for informational purposes only. Consult a professional for diagnosis.',
+      'medical_device_warning':
+          'VitaCase is not a medical device. Always consult a professional.',
+      'management_tool_warning':
+          'VitaCase is a management tool, not a diagnostic service.',
       'hint_name': 'e.g. John Doe',
       'hint_emergency': 'Full Name / Phone',
       'docs_title': 'Documents',
       'docs_search_hint': 'Search your vault (document, note, identity...)',
-      'docs_info_secure': 'Your documents are stored securely and are exclusive to you.',
+      'docs_info_secure':
+          'Your documents are stored securely and are exclusive to you.',
       'docs_info_encrypted': 'Your data is protected locally with encryption.',
       'docs_sort_all': 'All',
       'docs_sort_newest': 'Newest',
       'docs_sort_oldest': 'Oldest',
       'docs_empty_title': 'It\'s Empty Here',
-      'docs_empty_subtitle': 'Start organizing your vault by adding your first document.',
+      'docs_empty_subtitle':
+          'Start organizing your vault by adding your first document.',
       'docs_category_health': 'Health',
       'docs_category_identity': 'Identity',
       'docs_category_finance': 'Finance',
@@ -253,7 +297,8 @@ class Translations {
       'docs_no_filter_match': 'No documents found for the selected filter.',
       'docs_show_all': 'SHOW ALL',
       'privacy_warning_title': 'Privacy Warning',
-      'privacy_warning_desc': 'The sole responsibility for any sensitive information and uploaded documents belongs entirely to the user. Please be cautious when storing high-risk data.',
+      'privacy_warning_desc':
+          'The sole responsibility for any sensitive information and uploaded documents belongs entirely to the user. Please be cautious when storing high-risk data.',
       'hint_select': 'Select',
       'hint_institution': 'e.g. City Hospital, Bank, Notary',
       'hint_person_detail': 'e.g. Dr. Mehmet, Lawyer Ahmet, Tax No',
@@ -288,7 +333,8 @@ class Translations {
       'speed_up': 'SPEED UP',
       'stay_fresh': 'STAY FRESH',
       'target_label': 'Target',
-      'logout_desc_safe': 'Are you sure you want to log out? Your data will remain securely stored on your device.',
+      'logout_desc_safe':
+          'Are you sure you want to log out? Your data will remain securely stored on your device.',
       'years_old': 'years old',
       'add_medicine': 'Add Medicine',
       'medicine_name': 'Medicine Name',
@@ -312,9 +358,12 @@ class Translations {
       'capsule': 'Capsule',
       'drops': 'Drops',
       'limit_title': 'Storage Full! 🚀',
-      'limit_desc': 'Your current limit is {count} documents. Would you like to watch a short video to gain +5 more slots?',
-      'limit_desc_meds': 'Your current limit is {count} medicines. Would you like to watch a short video to gain +5 more slots?',
-      'limit_desc_appts': 'Your current limit is {count} appointments. Would you like to watch a short video to gain +5 more slots?',
+      'limit_desc':
+          'Your current limit is {count} documents. Would you like to watch a short video to gain +5 more slots?',
+      'limit_desc_meds':
+          'Your current limit is {count} medicines. Would you like to watch a short video to gain +5 more slots?',
+      'limit_desc_appts':
+          'Your current limit is {count} appointments. Would you like to watch a short video to gain +5 more slots?',
       'limit_close': 'CLOSE',
       'limit_reward_btn': 'WATCH AND GAIN',
       'limit_reward_success': 'Congratulations! +10 document slots added.',
@@ -328,13 +377,17 @@ class Translations {
       'bmi_overweight': 'Overweight',
       'bmi_obese': 'Obese',
       'page_not_found': 'Page not found or an error occurred.',
-      'legal_onboarding_clause': 'I acknowledge that VitaCase is an offline-first vault. I bear sole responsibility for the security of my device and the sensitive health data stored within it.',
+      'legal_onboarding_clause':
+          'I acknowledge that VitaCase is an offline-first vault. I bear sole responsibility for the security of my device and the sensitive health data stored within it.',
       'delete_all_data': 'Delete All Data',
-      'wipe_confirm_1': 'All your data, documents, and settings will be permanently deleted. This action cannot be undone. Do you want to continue?',
-      'wipe_confirm_2': 'Are you ABSOLUTELY sure? All your medical archive and encrypted records will be wiped from this device.',
+      'wipe_confirm_1':
+          'All your data, documents, and settings will be permanently deleted. This action cannot be undone. Do you want to continue?',
+      'wipe_confirm_2':
+          'Are you ABSOLUTELY sure? All your medical archive and encrypted records will be wiped from this device.',
       'final_warning': 'Final Security Warning',
       'wipe_btn_final': 'YES, DELETE EVERYTHING',
-      'all_data_deleted': 'All your data has been wiped. The app will now restart.',
+      'all_data_deleted':
+          'All your data has been wiped. The app will now restart.',
       'edit': 'Edit',
       'delete': 'Delete',
       'theme_selection_title': 'Theme Selection',
@@ -345,16 +398,20 @@ class Translations {
       'category': 'Category',
       'fill_required_fields': 'Please fill required fields',
       'error_doctor_data': 'Please enter doctor name and department',
-      'error_appointment_data': 'Please fill in the title and hospital/center fields',
+      'error_appointment_data':
+          'Please fill in the title and hospital/center fields',
       'appointment_reminder_title': 'Appointment Reminder',
-      'appointment_reminder_body': 'You have an appointment in {time}: {doctor} ({dept})',
+      'appointment_reminder_body':
+          'You have an appointment in {time}: {doctor} ({dept})',
       'select_language': 'Select Language / Dil Seçin',
       'ok': 'OK',
       'text_size_small': 'Small',
       'text_size_medium': 'Medium',
       'text_size_large': 'Large',
-      'support_contact': 'To contact our support team: limanexsoftware@outlook.com',
-      'quick_actions_optimized': 'Quick Actions are already optimized for your profile.',
+      'support_contact':
+          'To contact our support team: limanexsoftware@outlook.com',
+      'quick_actions_optimized':
+          'Quick Actions are already optimized for your profile.',
       'medication_reminder': 'Medication Reminder',
       'medication_reminder_body': 'Time for {name} ({dose})',
       'no_doctors_found': 'No matching doctors found',
@@ -372,7 +429,8 @@ class Translations {
       'clinical_note': 'Clinical Note',
       'last_control': 'Last Control',
       'bmi_ideal': 'Ideal Weight Range',
-      'medical_info_desc_empty': 'Store your critical medical information here to carry it with you always.',
+      'medical_info_desc_empty':
+          'Store your critical medical information here to carry it with you always.',
       'category_critical': 'CRITICAL INFORMATION',
       'category_important': 'IMPORTANT NOTES',
       'category_general': 'GENERAL INFORMATION',
@@ -384,7 +442,8 @@ class Translations {
       'critical': 'Critical',
       'important': 'Important',
       'general': 'General',
-      'theme_unlock_desc': 'You can try this theme or watch an ad to unlock it permanently.',
+      'theme_unlock_desc':
+          'You can try this theme or watch an ad to unlock it permanently.',
       'theme_previewing': 'Theme is being previewed for 10 seconds...',
       'preview_10s': 'Preview (10s)',
       'congratulations': 'Congratulations!',
@@ -426,7 +485,8 @@ class Translations {
       'day_friday_very_short': 'F',
       'day_saturday_very_short': 'S',
       'day_sunday_very_short': 'S',
-      'delete_medicine_confirm': 'Are you sure you want to delete this medicine?',
+      'delete_medicine_confirm':
+          'Are you sure you want to delete this medicine?',
       'i_agree_to': 'I have read and agree to the',
       'read_privacy_policy': 'Privacy Policy',
       'read_terms': 'Terms of Service',
@@ -458,161 +518,237 @@ class Translations {
       'unlocked': 'Unlocked',
       'progress': 'Progress',
       'ach_hidden_desc': 'Keep playing to discover this secret achievement.',
-      'ach_login_1_desc': 'Every legendary journey begins with a single step. You ignited your first streak!',
+      'ach_login_1_desc':
+          'Every legendary journey begins with a single step. You ignited your first streak!',
       'ach_login_3_title': 'Warming Up',
-      'ach_login_3_desc': 'Warm-up laps are over. You\'ve been here for 3 days straight, not bad at all! 🔥',
+      'ach_login_3_desc':
+          'Warm-up laps are over. You\'ve been here for 3 days straight, not bad at all! 🔥',
       'ach_login_7_title': 'Consistent',
-      'ach_login_7_desc': 'A whole week! You\'ve learned the ropes and lit the campfire.',
+      'ach_login_7_desc':
+          'A whole week! You\'ve learned the ropes and lit the campfire.',
       'ach_login_14_title': 'Habitual',
-      'ach_login_14_desc': 'Two weeks straight! This is how habits are forged. Congrats.',
+      'ach_login_14_desc':
+          'Two weeks straight! This is how habits are forged. Congrats.',
       'ach_login_30_title': 'Addicted',
-      'ach_login_30_desc': 'A whole month! We both know this is more than just a hobby now.',
+      'ach_login_30_desc':
+          'A whole month! We both know this is more than just a hobby now.',
       'ach_login_60_title': 'Loyal User',
-      'ach_login_60_desc': 'Two months... Are you paying rent, friend? Welcome to your second home. 🏠',
+      'ach_login_60_desc':
+          'Two months... Are you paying rent, friend? Welcome to your second home. 🏠',
       'ach_login_100_title': 'Expert',
-      'ach_login_100_desc': 'Century! No power can break a massive 100-day streak. 💯',
+      'ach_login_100_desc':
+          'Century! No power can break a massive 100-day streak. 💯',
       'ach_login_200_title': 'Legend',
-      'ach_login_200_desc': '200 days. People are starting to suspect you\'re an AI bot. 🤖',
+      'ach_login_200_desc':
+          '200 days. People are starting to suspect you\'re an AI bot. 🤖',
       'ach_login_365_title': 'Legendary Year',
-      'ach_login_365_desc': 'A full Solar year! You\'ve been here through everything. Coronation tomorrow. 👑',
+      'ach_login_365_desc':
+          'A full Solar year! You\'ve been here through everything. Coronation tomorrow. 👑',
       'ach_ads_1_title': 'First Ad',
-      'ach_ads_1_desc': 'Ads are good... sometimes. Thanks for the tiny support!',
+      'ach_ads_1_desc':
+          'Ads are good... sometimes. Thanks for the tiny support!',
       'ach_ads_5_title': 'Supporter',
       'ach_ads_5_desc': 'You seem to love our sponsors as much as we do.',
       'ach_ads_15_title': 'Loyal Viewer',
-      'ach_ads_15_desc': 'Grab your popcorn, you completed a 15-ad marathon. 🍿',
+      'ach_ads_15_desc':
+          'Grab your popcorn, you completed a 15-ad marathon. 🍿',
       'ach_ads_30_title': 'Keep it Up',
-      'ach_ads_30_desc': 'Like watching TV! Your support is worth its weight in gold.',
+      'ach_ads_30_desc':
+          'Like watching TV! Your support is worth its weight in gold.',
       'ach_ads_50_title': 'Power User',
-      'ach_ads_50_desc': 'You can now predict which ad is coming to the second.',
+      'ach_ads_50_desc':
+          'You can now predict which ad is coming to the second.',
       'ach_ads_100_title': 'Addicted',
-      'ach_ads_100_desc': '100 ads! We owe you a special medal for your patience.',
+      'ach_ads_100_desc':
+          '100 ads! We owe you a special medal for your patience.',
       'ach_ads_250_title': 'Ad Master',
-      'ach_ads_250_desc': 'A marketing genius lost on the screen. Your support reached the sky.',
+      'ach_ads_250_desc':
+          'A marketing genius lost on the screen. Your support reached the sky.',
       'ach_ads_500_title': 'Monetization King',
-      'ach_ads_500_desc': 'Are you a financier? You\'re single-handedly running the market! 📉',
+      'ach_ads_500_desc':
+          'Are you a financier? You\'re single-handedly running the market! 📉',
       'ach_doc_1_title': 'First Document',
-      'ach_doc_1_desc': 'Not a government office, but you successfully filed your first document. 📇',
+      'ach_doc_1_desc':
+          'Not a government office, but you successfully filed your first document. 📇',
       'ach_doc_5_title': 'Beginning',
-      'ach_doc_5_desc': 'Your first folder is almost full. You\'re getting organized.',
+      'ach_doc_5_desc':
+          'Your first folder is almost full. You\'re getting organized.',
       'ach_doc_10_title': 'Regular User',
-      'ach_doc_10_desc': 'Files are piling up. Lost and Found would love to work with you.',
+      'ach_doc_10_desc':
+          'Files are piling up. Lost and Found would love to work with you.',
       'ach_doc_25_title': 'Archivist',
-      'ach_doc_25_desc': 'Paperwork and all... You blew through 25 documents in your archive.',
+      'ach_doc_25_desc':
+          'Paperwork and all... You blew through 25 documents in your archive.',
       'ach_doc_50_title': 'Professional',
-      'ach_doc_50_desc': 'Forget secretarial work, this is what a professional filing knight looks like.',
+      'ach_doc_50_desc':
+          'Forget secretarial work, this is what a professional filing knight looks like.',
       'ach_doc_100_title': 'Vault Master',
-      'ach_doc_100_desc': '100 documents? Time to appoint a librarian for this massive archive. 📚',
+      'ach_doc_100_desc':
+          '100 documents? Time to appoint a librarian for this massive archive. 📚',
       'ach_doc_250_title': 'Data Collector',
       'ach_doc_250_desc': 'Welcome to Big Data scenarios. You rule the stacks.',
       'ach_doc_500_title': 'Digital Archive Expert',
-      'ach_doc_500_desc': 'Digital Library of Alexandria! Your archives will live for generations.',
+      'ach_doc_500_desc':
+          'Digital Library of Alexandria! Your archives will live for generations.',
       'ach_med_1_title': 'First Med',
-      'ach_med_1_desc': 'You started valuing yourself. A great milestone for your health.',
+      'ach_med_1_desc':
+          'You started valuing yourself. A great milestone for your health.',
       'ach_med_3_title': 'Tracking Started',
-      'ach_med_3_desc': 'Loyal to your prescription. Sip water and never miss reminders.',
+      'ach_med_3_desc':
+          'Loyal to your prescription. Sip water and never miss reminders.',
       'ach_med_5_title': 'Regular User',
-      'ach_med_5_desc': 'Pharmacists\' favorite customer! You maintain your form carefully.',
+      'ach_med_5_desc':
+          'Pharmacists\' favorite customer! You maintain your form carefully.',
       'ach_med_10_title': 'Disciplined',
-      'ach_med_10_desc': 'Meds on time, your body works like a clock. 10 times confirmed!',
+      'ach_med_10_desc':
+          'Meds on time, your body works like a clock. 10 times confirmed!',
       'ach_med_25_title': 'Health Expert',
-      'ach_med_25_desc': 'You understand your body\'s language. Med log became an art for you.',
+      'ach_med_25_desc':
+          'You understand your body\'s language. Med log became an art for you.',
       'ach_med_50_title': 'Health Master',
-      'ach_med_50_desc': 'Even doctors envy your discipline. You are the master of your body chemistry! 🧬',
+      'ach_med_50_desc':
+          'Even doctors envy your discipline. You are the master of your body chemistry! 🧬',
       'ach_app_1_title': 'First Appt',
-      'ach_app_1_desc': 'No success without naturally planning! First calendar entry safely taken.',
+      'ach_app_1_desc':
+          'No success without naturally planning! First calendar entry safely taken.',
       'ach_app_3_title': 'Planning',
-      'ach_app_3_desc': 'Time Management 101. You rise by staying loyal to your plans.',
+      'ach_app_3_desc':
+          'Time Management 101. You rise by staying loyal to your plans.',
       'ach_app_5_title': 'Organized',
-      'ach_app_5_desc': 'Your agenda is filling up. That busy but charismatic person is definitely you.',
+      'ach_app_5_desc':
+          'Your agenda is filling up. That busy but charismatic person is definitely you.',
       'ach_app_10_title': 'Disciplined Planner',
-      'ach_app_10_desc': 'No need for alarms, there\'s an atomic clock inside your head.',
+      'ach_app_10_desc':
+          'No need for alarms, there\'s an atomic clock inside your head.',
       'ach_app_20_title': 'Planner Pro',
-      'ach_app_20_desc': 'Everything is clear to the minute... You\'re like a digital assistant!',
+      'ach_app_20_desc':
+          'Everything is clear to the minute... You\'re like a digital assistant!',
       'ach_app_30_title': 'Master Planner',
-      'ach_app_30_desc': 'Time bender! It seems impossible for one person to manage these appts... but it wasn\'t.',
+      'ach_app_30_desc':
+          'Time bender! It seems impossible for one person to manage these appts... but it wasn\'t.',
       'ach_profile_created_title': 'Profile Created',
-      'ach_profile_created_desc': 'Officially joined us. You already made your digital mark!',
+      'ach_profile_created_desc':
+          'Officially joined us. You already made your digital mark!',
       'ach_profile_completed_title': 'Profile Completed',
-      'ach_profile_completed_desc': 'You hate missing gaps, right? All info is perfectly full.',
+      'ach_profile_completed_desc':
+          'You hate missing gaps, right? All info is perfectly full.',
       'ach_profile_updated_title': 'Profile Updated',
-      'ach_profile_updated_desc': 'Change is progress! You stayed in the game by refreshing yourself.',
+      'ach_profile_updated_desc':
+          'Change is progress! You stayed in the game by refreshing yourself.',
       'ach_profile_with_photo_title': 'Profile Photo',
-      'ach_profile_with_photo_desc': 'Saved from being a faceless avatar. Smile for the camera! 📸',
+      'ach_profile_with_photo_desc':
+          'Saved from being a faceless avatar. Smile for the camera! 📸',
       'ach_profile_master_title': 'Profile Master',
-      'ach_profile_master_desc': 'With your identity and bio, you are the sleekest user in the system.',
+      'ach_profile_master_desc':
+          'With your identity and bio, you are the sleekest user in the system.',
       'ach_emergency_added_title': 'Emergency Card Added',
-      'ach_emergency_added_desc': 'Precaution is never left behind. Your emergency shield is active.',
+      'ach_emergency_added_desc':
+          'Precaution is never left behind. Your emergency shield is active.',
       'ach_emergency_contact_title': 'Emergency Contact',
-      'ach_emergency_contact_desc': 'It\'s clear who to call in tough times. Circle of trust created. 📞',
+      'ach_emergency_contact_desc':
+          'It\'s clear who to call in tough times. Circle of trust created. 📞',
       'ach_emergency_complete_title': 'Completed',
-      'ach_emergency_complete_desc': 'Ready for scenarios. Security level at the highest.',
+      'ach_emergency_complete_desc':
+          'Ready for scenarios. Security level at the highest.',
       'ach_emergency_ready_title': 'Ready',
-      'ach_emergency_ready_desc': 'Everything will work like a clock in red alert. Safely secured.',
+      'ach_emergency_ready_desc':
+          'Everything will work like a clock in red alert. Safely secured.',
       'ach_emergency_master_title': 'Emergency Master',
-      'ach_emergency_master_desc': 'Tough and cool enough to manage first aid before an ambulance arrives!',
+      'ach_emergency_master_desc':
+          'Tough and cool enough to manage first aid before an ambulance arrives!',
       'ach_health_1_title': 'First Data',
-      'ach_health_1_desc': 'You did yourself a favor today. Your body thanks you from the inside.',
+      'ach_health_1_desc':
+          'You did yourself a favor today. Your body thanks you from the inside.',
       'ach_health_5_title': 'Tracking Started',
-      'ach_health_5_desc': 'Data is piling up, you are advancing your conversation with your biorhythm.',
+      'ach_health_5_desc':
+          'Data is piling up, you are advancing your conversation with your biorhythm.',
       'ach_health_10_title': 'Health Conscious',
-      'ach_health_10_desc': 'You are a statistical wonder! Your body reads like an encrypted book. 📈',
+      'ach_health_10_desc':
+          'You are a statistical wonder! Your body reads like an encrypted book. 📈',
       'ach_health_20_title': 'Regular Tracking',
-      'ach_health_20_desc': 'You are like a machine. Pulse, metrics, steps... none escape your sensors.',
+      'ach_health_20_desc':
+          'You are like a machine. Pulse, metrics, steps... none escape your sensors.',
       'ach_health_50_title': 'Health Expert',
-      'ach_health_50_desc': 'Approaching Cyborg level. The bond between you and your bio-data is unbreakable.',
+      'ach_health_50_desc':
+          'Approaching Cyborg level. The bond between you and your bio-data is unbreakable.',
       'ach_health_master_title': 'Health Master',
-      'ach_health_master_desc': 'High priest of the temple! You established absolute mastery over your own body. 🧘',
+      'ach_health_master_desc':
+          'High priest of the temple! You established absolute mastery over your own body. 🧘',
       'ach_first_login_title': 'Welcome',
-      'ach_first_login_desc': 'The actual adventure is just beginning. You just stepped inside.',
+      'ach_first_login_desc':
+          'The actual adventure is just beginning. You just stepped inside.',
       'ach_first_upload_title': 'Explorer',
-      'ach_first_upload_desc': 'Left your first permanent mark. You are engraved here now.',
+      'ach_first_upload_desc':
+          'Left your first permanent mark. You are engraved here now.',
       'ach_first_ad_title': 'Free User',
-      'ach_first_ad_desc': 'First ad interaction! You gave lifeblood to the ecosystem.',
+      'ach_first_ad_desc':
+          'First ad interaction! You gave lifeblood to the ecosystem.',
       'ach_first_premium_title': 'Premium User',
-      'ach_first_premium_desc': 'A matter of vision. Enjoy the VIP lounge, the red carpet is rolled out! 🎟️',
+      'ach_first_premium_desc':
+          'A matter of vision. Enjoy the VIP lounge, the red carpet is rolled out! 🎟️',
       'ach_active_3_days_title': 'Active',
-      'ach_active_3_days_desc': 'Cables are warming up, engines started. We feel your energy.',
+      'ach_active_3_days_desc':
+          'Cables are warming up, engines started. We feel your energy.',
       'ach_active_7_days_title': 'Loyal',
-      'ach_active_7_days_desc': 'Synchronized with the system for a whole week. Things got electric!',
+      'ach_active_7_days_desc':
+          'Synchronized with the system for a whole week. Things got electric!',
       'ach_active_30_days_title': 'Core User',
-      'ach_active_30_days_desc': 'Practically honorary staff now. This place wouldn\'t be the same without you.',
+      'ach_active_30_days_desc':
+          'Practically honorary staff now. This place wouldn\'t be the same without you.',
       'ach_streak_saved_title': 'Streak Savior',
-      'ach_streak_saved_desc': 'Returned from the edge! Saving that beautiful streak was a great reflex.',
+      'ach_streak_saved_desc':
+          'Returned from the edge! Saving that beautiful streak was a great reflex.',
       'ach_streak_saved_5_title': 'Resilient',
-      'ach_streak_saved_5_desc': 'Not falling despite battle scars, you know how to rise when you stumble.',
+      'ach_streak_saved_5_desc':
+          'Not falling despite battle scars, you know how to rise when you stumble.',
       'ach_streak_saved_10_title': 'Never Gives Up',
-      'ach_streak_saved_10_desc': 'Are you a Phoenix? Rising from ashes is just a typical Tuesday activity for you. 🐦🔥',
+      'ach_streak_saved_10_desc':
+          'Are you a Phoenix? Rising from ashes is just a typical Tuesday activity for you. 🐦🔥',
       'ach_streak_perfect_30_title': 'Perfect Streak',
-      'ach_streak_perfect_30_desc': 'Not a single miss. You were perfect for 30 whole days, like a Swiss watch!',
+      'ach_streak_perfect_30_desc':
+          'Not a single miss. You were perfect for 30 whole days, like a Swiss watch!',
       'ach_premium_trial_used_title': 'Premium Experience',
-      'ach_premium_trial_used_desc': 'Opened the door to privileges. The view is mesmerizing, isn\'t it?',
+      'ach_premium_trial_used_desc':
+          'Opened the door to privileges. The view is mesmerizing, isn\'t it?',
       'ach_limit_breaker_title': 'Limit Breaker',
-      'ach_limit_breaker_desc': 'Rules and limits are meant to be bent. You stepped out of the Matrix! 💥',
+      'ach_limit_breaker_desc':
+          'Rules and limits are meant to be bent. You stepped out of the Matrix! 💥',
       'ach_ad_skip_used_title': 'Ad Skip',
-      'ach_ad_skip_used_desc': 'You said I have no time for this, fast-forwarded time with one click.',
+      'ach_ad_skip_used_desc':
+          'You said I have no time for this, fast-forwarded time with one click.',
       'ach_reward_collector_title': 'Reward Collector',
-      'ach_reward_collector_desc': 'Scavenged every reward in corner. A true loot hunter! 🎁',
+      'ach_reward_collector_desc':
+          'Scavenged every reward in corner. A true loot hunter! 🎁',
       'ach_multi_feature_user_title': 'Multi Feature User',
-      'ach_multi_feature_user_desc': 'Not a single button left untouched, curious explorer!',
+      'ach_multi_feature_user_desc':
+          'Not a single button left untouched, curious explorer!',
       'ach_data_master_title': 'Data Master',
-      'ach_data_master_desc': 'Bytes and bits take shape around you. Absolute master of system data.',
+      'ach_data_master_desc':
+          'Bytes and bits take shape around you. Absolute master of system data.',
       'ach_organized_master_title': 'Ultra Organized',
-      'ach_organized_master_desc': 'Marie Kondo would tip her hat to your order. Everything is millimetric.',
+      'ach_organized_master_desc':
+          'Marie Kondo would tip her hat to your order. Everything is millimetric.',
       'ach_security_master_title': 'Security Expert',
-      'ach_security_master_desc': 'Your account is a fortress, your passwords a cyber army. Intrusion is impossible! 🔐',
+      'ach_security_master_desc':
+          'Your account is a fortress, your passwords a cyber army. Intrusion is impossible! 🔐',
       'ach_daily_master_title': 'Daily Master',
-      'ach_daily_master_desc': 'Legendary loyal user who sees the sun and stars with us every day.',
+      'ach_daily_master_desc':
+          'Legendary loyal user who sees the sun and stars with us every day.',
       'backup_restore': 'Backup & Restore',
       'backup_desc_settings': 'Encrypted local backup for this device only',
       'smart_notifications': 'Smart Notifications',
-      'smart_streak_warning': '🔥 Streak is about to be lost! Why not check your data?',
-      'smart_ad_reward': '🎁 Watch 1 ad → +5 limit! A new opportunity for you today.',
-      'smart_doc_bonus': '📂 Add 1 document today → get a bonus! Keep everything safe.',
-      'smart_default': '👀 A small update is waiting for you, what can we do today?',
+      'smart_streak_warning':
+          '🔥 Streak is about to be lost! Why not check your data?',
+      'smart_ad_reward':
+          '🎁 Watch 1 ad → +5 limit! A new opportunity for you today.',
+      'smart_doc_bonus':
+          '📂 Add 1 document today → get a bonus! Keep everything safe.',
+      'smart_default':
+          '👀 A small update is waiting for you, what can we do today?',
       'notif_bonus_ready': '🎁 Bonus waiting for you! Thanks for your help.',
       'notif_doc_safe': '🔥 Good job, your documents are safe! Keep going!',
-      'level_up_desc': 'You reached Level {level}! Check your Season Pass for new rewards.',
+      'level_up_desc':
+          'You reached Level {level}! Check your Season Pass for new rewards.',
       'notifications_active_msg': 'Notifications are active 🔔',
       'show_sensitive_details': 'Show details in notification',
       'sensitive_details_visible': 'Medicine name is visible',
@@ -623,13 +759,15 @@ class Translations {
       'test_notification_desc': 'Test the system immediately',
       'test_notification_body': 'This is a test notification',
       'app_lock_unavailable': 'App lock is unavailable on this device.',
-      'backup_restore_desc': 'You can backup or restore your data encrypted. Backups are stored only on your device.',
+      'backup_restore_desc':
+          'You can backup or restore your data encrypted. Backups are stored only on your device.',
       'backup_export': 'Export Backup',
       'backup_export_desc': 'Create an encrypted ZIP backup',
       'backup_import': 'Import Backup',
       'backup_import_desc': 'Restore from an existing ZIP backup',
       'warning': 'Warning',
-      'import_warning_desc': 'Restoring a backup will DELETE your current data and cannot be undone. Do you want to continue?',
+      'import_warning_desc':
+          'Restoring a backup will DELETE your current data and cannot be undone. Do you want to continue?',
       'yes_restore': 'Yes, Restore',
       'start_time': 'Start Time',
       'end_time': 'End Time',
@@ -643,11 +781,13 @@ class Translations {
       'add_1_day_success': '+1 day added! 🎉',
       'plus_1_day': '+1 Day',
       'watch': 'WATCH',
-      'unlock_theme_question': 'Would you like to use this theme for 5 days for free?',
+      'unlock_theme_question':
+          'Would you like to use this theme for 5 days for free?',
       'watch_ad_plus_5': 'WATCH AD (+5 days)',
       'preview_5s': 'Preview (5s)',
       'free_secure_release': 'Free secure release',
-      'encrypted_local_desc': 'Your encrypted documents stay local on this device. Ads support the free version.',
+      'encrypted_local_desc':
+          'Your encrypted documents stay local on this device. Ads support the free version.',
       'premium_soon': 'PREMIUM SOON',
       'label_title': 'TITLE',
       'label_location': 'LOCATION / INSTITUTION (OPTIONAL)',
@@ -695,7 +835,8 @@ class Translations {
       'claim': 'CLAIM',
       'reward_doc_slots': '+{value} Docs',
       'premium_unavailable_title': 'Premium is not available in this release.',
-      'premium_unavailable_desc': 'VitaCase currently ships as a free app with local encrypted storage, ads, and optional reminders.',
+      'premium_unavailable_desc':
+          'VitaCase currently ships as a free app with local encrypted storage, ads, and optional reminders.',
       'btn_close': 'Close',
       'accept': 'Accept',
       'btn_save': 'Save',
@@ -711,8 +852,10 @@ class Translations {
       'hint_email': 'john.doe@hospital.com',
       'hint_address': 'Main St. No:12...',
       'hint_personal_notes': 'Notes about the doctor...',
-      'ad_reward_not_earned': 'Reward not earned. Please finish the ad to continue.',
-      'ad_unavailable': 'No rewarded ad is available right now. Please try again later.',
+      'ad_reward_not_earned':
+          'Reward not earned. Please finish the ad to continue.',
+      'ad_unavailable':
+          'No rewarded ad is available right now. Please try again later.',
       'ad_failed': 'The rewarded ad could not be shown. Please try again.',
       'ad_watch_btn': 'Continue for free (watch ad)',
       'btn_not_now': 'Not now',
@@ -728,11 +871,14 @@ class Translations {
       'notif_app_reminder_title': '📅 Appointment Reminder',
       'notif_app_reminder_body': 'Your appointment for {title} is approaching.',
       'no_appointments_found': 'No appointments found',
-      'empty_appointments_desc': 'You haven\'t added any appointments yet. Tap the + button to add one.',
-      'empty_appointments_filter_desc': 'No appointments found in this category.',
+      'empty_appointments_desc':
+          'You haven\'t added any appointments yet. Tap the + button to add one.',
+      'empty_appointments_filter_desc':
+          'No appointments found in this category.',
       'btn_add_appointment': 'ADD APPOINTMENT',
       'btn_clear_filters': 'CLEAR FILTERS',
-      'delete_confirm_appointment': 'Are you sure you want to delete this appointment?',
+      'delete_confirm_appointment':
+          'Are you sure you want to delete this appointment?',
       'create_today_plan': 'Create Today\'s Plan',
       'plan_time_desc': 'Organize your health schedule with ease.',
       'docs_add_short': 'Add',
@@ -765,17 +911,22 @@ class Translations {
       'db_recovery_retry': 'Try Again',
       'db_recovery_reset': 'Reset',
       'notif_streak_warning_title': 'Check your daily plan',
-      'notif_streak_warning_body': 'Open VitaCase to review today\'s reminders and saved items.',
+      'notif_streak_warning_body':
+          'Open VitaCase to review today\'s reminders and saved items.',
       'notif_mission_reminder_title': '🎯 Daily Missions Pending',
-      'notif_mission_reminder_body': 'Don\'t miss out on your daily rewards! Complete your tasks now.',
+      'notif_mission_reminder_body':
+          'Don\'t miss out on your daily rewards! Complete your tasks now.',
       'notif_limit_reached_title': '🚀 Limit Reached',
-      'notif_limit_reached_body': 'You\'ve reached your free limit. Watch a rewarded ad to continue.',
+      'notif_limit_reached_body':
+          'You\'ve reached your free limit. Watch a rewarded ad to continue.',
       'notif_good_morning_title': '🌞 Good Morning!',
-      'notif_good_morning_body': 'Start your day with VitaCase, check your daily tasks.',
+      'notif_good_morning_body':
+          'Start your day with VitaCase, check your daily tasks.',
       'notif_test_title': 'Test Notification',
       'notif_test_body': 'Your notifications are working perfectly!',
       'notif_appointment_reminder_title': '📅 Appointment Reminder',
-      'notif_appointment_reminder_body': 'Your appointment for {doctor} is approaching.',
+      'notif_appointment_reminder_body':
+          'Your appointment for {doctor} is approaching.',
       'get_directions': 'Get Directions',
       'view_details': 'View Details',
       'no_scheduled_meds_today': 'No medications scheduled for today.',
@@ -793,11 +944,19 @@ class Translations {
       'cancel': 'İptal',
       'error': 'Hata',
       'success': 'Başarılı',
+      'current_weight': 'GÜNCEL\nAĞIRLIK',
+      'height': 'BOY',
+      'bmi_index': 'BMI ENDEKSİ',
+      'bmi_range_prefix': 'VKİ değeriniz ',
+      'bmi_range_healthy': 'sağlıklı aralıkta',
+      'bmi_range_suffix':
+          '. Kardiyovasküler sorunlar için daha düşük risk altındasınız.',
       'loading': 'Yükleniyor...',
       'active': 'Aktif',
       'inactive': 'Pasif',
       'premium_feature': 'Premium Özellik 🌟',
-      'premium_required_desc': 'Uygulama Kilidi için Premium üyeliğinizin olması gerekmektedir.',
+      'premium_required_desc':
+          'Uygulama Kilidi için Premium üyeliğinizin olması gerekmektedir.',
       'go_premium': 'Premium\'a Geç',
       'view_weekly': 'Haftalık',
       'view_monthly': 'Aylık',
@@ -819,7 +978,8 @@ class Translations {
       'personal_notes': 'Kişisel Notlar',
       'save_and_list': 'Kaydet ve Listele',
       'doctor_info': 'Doktor Bilgileri',
-      'add_doctor_desc': 'Hızlı erişim için doktorlarınızın iletişim bilgilerini saklayın.',
+      'add_doctor_desc':
+          'Hızlı erişim için doktorlarınızın iletişim bilgilerini saklayın.',
       'basic_info': 'Temel Bilgiler',
       'institution_contact': 'Kurum ve İletişim',
       'notes_bio': 'Notlar ve Biyografi',
@@ -839,15 +999,20 @@ class Translations {
       'let_start': 'Başlayalım',
       'ob_1_title': 'VitaCase',
       'ob_1_subtitle': 'Tüm Dosyalarınız Tek Yerde',
-      'ob_1_desc': 'Belgelerinizi, randevularınızı ve ilaçlarınızı güvenle saklayın, her zaman yanınızda taşıyın.',
+      'ob_1_desc':
+          'Belgelerinizi, randevularınızı ve ilaçlarınızı güvenle saklayın, her zaman yanınızda taşıyın.',
       'ob_2_title': 'Tüm Dosyalarınızı Düzenleyin',
-      'ob_2_desc': 'Belgelerinizi yükleyin, kategorilere ayırın ve kolayca yönetin.',
+      'ob_2_desc':
+          'Belgelerinizi yükleyin, kategorilere ayırın ve kolayca yönetin.',
       'ob_3_title': 'Randevularınızı Kaydedin',
-      'ob_3_desc': 'Tüm randevularınızı tek yerde tutun, hatırlatmalarla hiçbirini kaçırmayın.',
+      'ob_3_desc':
+          'Tüm randevularınızı tek yerde tutun, hatırlatmalarla hiçbirini kaçırmayın.',
       'ob_4_title': 'İlaçlarınızı Kaydedin ve Takip Edin',
-      'ob_4_desc': 'İlaçlarınızı ve kullanım saatlerinizi kaydedin, hatırlatmalarla düzenli kullanmayı unutmayın.',
+      'ob_4_desc':
+          'İlaçlarınızı ve kullanım saatlerinizi kaydedin, hatırlatmalarla düzenli kullanmayı unutmayın.',
       'ob_5_title': 'Kaydedin, Kaybetmeyin',
-      'ob_5_desc': 'Randevularınız ve ilaçlarınız güvende olsun, siz rahat olun.',
+      'ob_5_desc':
+          'Randevularınız ve ilaçlarınız güvende olsun, siz rahat olun.',
       'ob_feature_1_title': 'Güvenli Saklama',
       'ob_feature_1_desc': 'Verileriniz şifrelenir ve sadece size aittir.',
       'ob_feature_2_title': 'Hatırlatmalar',
@@ -865,7 +1030,8 @@ class Translations {
       'guest_user': 'Misafir Kullanıcı',
       'all_records': 'Güvenli Arşiv',
       'vault_is_empty': 'Kasanız Hazır',
-      'vault_desc': 'En önemli kayıtlarınızı özel bir sığınakta düzenleyin ve saklayın.',
+      'vault_desc':
+          'En önemli kayıtlarınızı özel bir sığınakta düzenleyin ve saklayın.',
       'quick_access': 'HIZLI ERİŞİM',
       'steps': 'Adım',
       'heart': 'Nabız',
@@ -884,7 +1050,8 @@ class Translations {
       'health_data': 'Sağlık Verisi',
       'important_info': 'Önemli Bilgi',
       'create_profile': 'Profilinizi Oluşturun',
-      'profile_desc': 'Yolculuğunuzu kişiselleştirmek için birkaç bilgiye ihtiyacımız var.',
+      'profile_desc':
+          'Yolculuğunuzu kişiselleştirmek için birkaç bilgiye ihtiyacımız var.',
       'full_name': 'AD SOYAD',
       'gender': 'CİNSİYET',
       'birth_date': 'DOĞUM TARİHİ',
@@ -898,11 +1065,14 @@ class Translations {
       'add_health_data': 'Sağlık Verisi Ekle',
       'step_unit': 'adım',
       'privacy_guarantee': 'Verileriniz güvende',
-      'privacy_box_desc': 'Bilgileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.',
-      'privacy_box_warning': 'Verileriniz gizlidir ve cihazınızda güvenli bir şekilde saklanır. Lütfen çok hassas bilgiler yüklemekten kaçının. Sakladığınız verilerden siz sorumlusunuz.',
+      'privacy_box_desc':
+          'Bilgileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.',
+      'privacy_box_warning':
+          'Verileriniz gizlidir ve cihazınızda güvenli bir şekilde saklanır. Lütfen çok hassas bilgiler yüklemekten kaçının. Sakladığınız verilerden siz sorumlusunuz.',
       'docs_secure_storage_title': 'Güvenli Yerel Depolama 🔒',
       'docs_secure_storage_desc': 'Verileriniz cihazınızda kalır',
-      'docs_sensitive_warning': 'Çok hassas bilgileri saklamaktan kaçının. Verilerinizden siz sorumlusunuz.',
+      'docs_sensitive_warning':
+          'Çok hassas bilgileri saklamaktan kaçının. Verilerinizden siz sorumlusunuz.',
       'gender_female': 'Kadın',
       'gender_male': 'Erkek',
       'gender_other': 'Diğer',
@@ -927,14 +1097,16 @@ class Translations {
       'legal_disclaimer': 'Yasal Uyarı',
       'legal': 'YASAL',
       'lock_gate_title': 'VitaCase Kilitli',
-      'lock_gate_desc': 'Güvenli kasanıza erişmek için lütfen kimliğinizi doğrulayın.',
+      'lock_gate_desc':
+          'Güvenli kasanıza erişmek için lütfen kimliğinizi doğrulayın.',
       'lock_gate_unlock': 'Biyometrik ile Kilit Aç',
       'lock_set_pin': 'Güvenli PIN Belirle',
       'lock_confirm_pin': 'PIN Doğrula',
       'lock_pin_mismatch': 'PIN\'ler eşleşmiyor. Tekrar deneyin.',
       'lock_pin_incorrect': 'Hatalı PIN',
       'lock_use_biometrics': 'Biyometrik Kullan',
-      'lock_too_many_attempts': 'Çok fazla deneme. {seconds} sn sonra tekrar deneyin.',
+      'lock_too_many_attempts':
+          'Çok fazla deneme. {seconds} sn sonra tekrar deneyin.',
       'lock_timeout_instant': 'Hemen',
       'lock_timeout_1min': '1 Dakika',
       'lock_timeout_5min': '5 Dakika',
@@ -961,6 +1133,24 @@ class Translations {
       'refill': 'Yenile',
       'intake_chart': 'Zamanında Alım Grafiği',
       'weekly_avg': 'Haftalık Ort: %{perc}',
+      'stay_consistent_desc': 'Tedavinize sadık kalın',
+      'search_med_hint': 'İlaç arayın veya adını girin',
+      'lasts_approx_days': 'Yaklaşık {count} gün yeterli',
+      'add_time': 'Saat Ekle',
+      'supply_reminder_desc':
+          'Mevcut envanterinize göre stoğunuz bitmeden sizi uyaracağız.',
+      'notification_now': 'şimdi',
+      'notification_dose_note': 'Yemekle birlikte alın',
+      'notification_appointment_title': 'Yıllık Kontrol',
+      'notification_appointment_location':
+          '30 dakika sonra City Medical Center',
+      'daily_reminder_summary':
+          'Günlük {times} saatlerinde hatırlatılacaksınız.',
+      'failed_add_medication': 'İlaç eklenemedi.',
+      'failed_create_appointment': 'Randevu oluşturulamadı.',
+      'appointment_created_success': 'Randevu oluşturuldu.',
+      'morning_tip_appointment':
+          'Sabah randevuları genellikle kaçırılan hatırlatıcıları ve gecikmeleri azaltır.',
       'medicine_cabinet': 'İlaç Dolabım',
       'active_inventory': 'Aktif envanteriniz',
       'add': 'Ekle',
@@ -976,7 +1166,8 @@ class Translations {
       'frequency': 'Kullanım Sıklığı',
       'reminder_times': 'Hatırlatma Saatleri',
       'current_stock': 'Mevcut Stok',
-      'stock_warning': 'Stok 5 birimin altına düştüğünde size hatırlatıcı göndereceğiz.',
+      'stock_warning':
+          'Stok 5 birimin altına düştüğünde size hatırlatıcı göndereceğiz.',
       'hero_health_tip': 'Sağlığınız İçin',
       'hero_consistency': 'Düzenli Kullanım Önemlidir',
       'med_added_success': 'İlaç başarıyla eklendi!',
@@ -996,21 +1187,27 @@ class Translations {
       'activity': 'Aktivite',
       'step_counter': 'Adım Sayar',
       'water_tracker': 'Su Takibi',
-      'safety_footer_med': 'VitaCase bir yönetim aracıdır. Tıbbi tavsiye veya dozaj önerisi sunmaz. Daima doktorunuzun talimatlarına uyun.',
-      'safety_footer_health': 'Sağlık verileri yalnızca bilgilendirme amaçlıdır. Teşhis için bir uzmana danışın.',
-      'medical_device_warning': 'VitaCase tıbbi bir cihaz değildir. Daima bir uzmana danışın.',
-      'management_tool_warning': 'VitaCase bir yönetim aracıdır, teşhis hizmeti değildir.',
+      'safety_footer_med':
+          'VitaCase bir yönetim aracıdır. Tıbbi tavsiye veya dozaj önerisi sunmaz. Daima doktorunuzun talimatlarına uyun.',
+      'safety_footer_health':
+          'Sağlık verileri yalnızca bilgilendirme amaçlıdır. Teşhis için bir uzmana danışın.',
+      'medical_device_warning':
+          'VitaCase tıbbi bir cihaz değildir. Daima bir uzmana danışın.',
+      'management_tool_warning':
+          'VitaCase bir yönetim aracıdır, teşhis hizmeti değildir.',
       'hint_name': 'Örn. Kerem Yılmaz',
       'hint_emergency': 'Ad Soyad / Telefon',
       'docs_title': 'Belgeler',
       'docs_search_hint': 'Kasanızda arayın (belge, not, kimlik...)',
-      'docs_info_secure': 'Belgeleriniz güvenli şekilde saklanır ve yalnızca size özeldir.',
+      'docs_info_secure':
+          'Belgeleriniz güvenli şekilde saklanır ve yalnızca size özeldir.',
       'docs_info_encrypted': 'Verileriniz cihazınızda şifreli olarak korunur.',
       'docs_sort_all': 'Tümü',
       'docs_sort_newest': 'En yeni',
       'docs_sort_oldest': 'En eski',
       'docs_empty_title': 'Burası Henüz Boş',
-      'docs_empty_subtitle': 'İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.',
+      'docs_empty_subtitle':
+          'İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.',
       'docs_category_health': 'Sağlık',
       'docs_category_identity': 'Kimlik',
       'docs_category_finance': 'Finans',
@@ -1042,7 +1239,8 @@ class Translations {
       'docs_no_filter_match': 'Seçili filtre için kayıtlı belge bulunamadı.',
       'docs_show_all': 'TÜMÜNÜ GÖSTER',
       'privacy_warning_title': 'Gizlilik Uyarısı',
-      'privacy_warning_desc': 'Hassas bilgilerin ve yüklenen belgelerin tüm sorumluluğu tamamen kullanıcının kendisine aittir. Lütfen yüksek riskli verilerinizi paylaşırken dikkatli olunuz.',
+      'privacy_warning_desc':
+          'Hassas bilgilerin ve yüklenen belgelerin tüm sorumluluğu tamamen kullanıcının kendisine aittir. Lütfen yüksek riskli verilerinizi paylaşırken dikkatli olunuz.',
       'hint_select': 'Seç',
       'hint_institution': 'Örn: Şehir Hastanesi, Banka, Noter',
       'hint_person_detail': 'Örn: Dr. Mehmet, Avukat Ahmet, Vergi No',
@@ -1077,12 +1275,16 @@ class Translations {
       'speed_up': 'HIZLAN',
       'stay_fresh': 'TAZE KAL',
       'target_label': 'Hedef',
-      'logout_desc_safe': 'Uygulamadan çıkış yapmak istediğinize emin misiniz? Verileriniz güvenle saklanmaya devam edecektir.',
+      'logout_desc_safe':
+          'Uygulamadan çıkış yapmak istediğinize emin misiniz? Verileriniz güvenle saklanmaya devam edecektir.',
       'years_old': 'Yaş',
       'limit_title': 'Hafıza Dolu! 🚀',
-      'limit_desc': 'Şu anki limitiniz {count} belge. Tek bir kısa video izleyerek +10 belge alanı daha kazanmak ister misiniz?',
-      'limit_desc_meds': 'Şu anki limitiniz {count} ilaç. Tek bir kısa video izleyerek +5 ilaç alanı daha kazanmak ister misiniz?',
-      'limit_desc_appts': 'Şu anki limitiniz {count} randevu. Tek bir kısa video izleyerek +5 randevu alanı daha kazanmak ister misiniz?',
+      'limit_desc':
+          'Şu anki limitiniz {count} belge. Tek bir kısa video izleyerek +10 belge alanı daha kazanmak ister misiniz?',
+      'limit_desc_meds':
+          'Şu anki limitiniz {count} ilaç. Tek bir kısa video izleyerek +5 ilaç alanı daha kazanmak ister misiniz?',
+      'limit_desc_appts':
+          'Şu anki limitiniz {count} randevu. Tek bir kısa video izleyerek +5 randevu alanı daha kazanmak ister misiniz?',
       'limit_close': 'KAPAT',
       'limit_reward_btn': 'İZLE VE KAZAN',
       'limit_reward_success': 'Tebrikler! +10 Belge alanı eklendi.',
@@ -1095,6 +1297,9 @@ class Translations {
       'biometric_login': 'Biyometrik Giriş',
       'biometric_unavailable': 'Bu cihazda biyometrik doğrulama mevcut değil.',
       'digits': 'haneli',
+      'times_a_day': 'günde kez',
+      'priority': 'Öncelik',
+      'type': 'Tür',
       'lock_skip_desc': 'Bunu daha sonra Ayarlar\'dan yapabilirsiniz.',
       'setup_pin_later': 'Daha sonra Ayarlar\'dan belirle',
       'skip_pin_setup': 'Atla',
@@ -1107,13 +1312,17 @@ class Translations {
       'bmi_overweight': 'Fazla Kilolu',
       'bmi_obese': 'Obez',
       'page_not_found': 'Sayfa bulunamadı veya bir hata oluştu.',
-      'legal_onboarding_clause': 'VitaCase\'in çevrimdışı öncelikli bir kasa olduğunu biliyorum. Cihazımın güvenliğinden ve içindeki hassas sağlık verilerinden tamamen ben sorumluyum.',
+      'legal_onboarding_clause':
+          'VitaCase\'in çevrimdışı öncelikli bir kasa olduğunu biliyorum. Cihazımın güvenliğinden ve içindeki hassas sağlık verilerinden tamamen ben sorumluyum.',
       'delete_all_data': 'Tüm Verileri Sil',
-      'wipe_confirm_1': 'Tüm verileriniz, belgeleriniz ve ayarlarınız kalıcı olarak silinecektir. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?',
-      'wipe_confirm_2': 'KESİNLİKLE emin misiniz? Tüm tıbbi arşiviniz ve şifreli kayıtlarınız bu cihazdan temizlenecektir.',
+      'wipe_confirm_1':
+          'Tüm verileriniz, belgeleriniz ve ayarlarınız kalıcı olarak silinecektir. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?',
+      'wipe_confirm_2':
+          'KESİNLİKLE emin misiniz? Tüm tıbbi arşiviniz ve şifreli kayıtlarınız bu cihazdan temizlenecektir.',
       'final_warning': 'Son Güvenlik Uyarısı',
       'wipe_btn_final': 'EVET, HER ŞEYİ SİL',
-      'all_data_deleted': 'Tüm verileriniz temizlendi. Uygulama şimdi yeniden başlatılacak.',
+      'all_data_deleted':
+          'Tüm verileriniz temizlendi. Uygulama şimdi yeniden başlatılacak.',
       'edit': 'Düzenle',
       'delete': 'Sil',
       'theme_selection_title': 'Tema Seçimi',
@@ -1124,16 +1333,20 @@ class Translations {
       'category': 'Kategori',
       'fill_required_fields': 'Zorunlu alanları doldurunuz',
       'error_doctor_data': 'Lütfen doktor adını ve branşını giriniz',
-      'error_appointment_data': 'Lütfen başlık ve hastane/merkez alanlarını doldurunuz',
+      'error_appointment_data':
+          'Lütfen başlık ve hastane/merkez alanlarını doldurunuz',
       'appointment_reminder_title': 'Randevu Hatırlatıcı',
-      'appointment_reminder_body': '{time} sonra randevunuz var: {doctor} ({dept})',
+      'appointment_reminder_body':
+          '{time} sonra randevunuz var: {doctor} ({dept})',
       'select_language': 'Dil Seçin / Select Language',
       'ok': 'TAMAM',
       'text_size_small': 'Küçük',
       'text_size_medium': 'Orta',
       'text_size_large': 'Büyük',
-      'support_contact': 'Destek ekibimizle iletişime geçmek için: limanexsoftware@outlook.com',
-      'quick_actions_optimized': 'Hızlı İşlemler profiliniz için zaten optimize edildi.',
+      'support_contact':
+          'Destek ekibimizle iletişime geçmek için: limanexsoftware@outlook.com',
+      'quick_actions_optimized':
+          'Hızlı İşlemler profiliniz için zaten optimize edildi.',
       'medication_reminder': 'İlaç Hatırlatıcısı',
       'medication_reminder_body': '{name} vaktiniz geldi ({dose})',
       'no_doctors_found': 'Eşleşen doktor bulunamadı',
@@ -1151,7 +1364,8 @@ class Translations {
       'clinical_note': 'Klinik Not',
       'last_control': 'Son Kontrol',
       'bmi_ideal': 'İdeal Kilo Aralığı',
-      'medical_info_desc_empty': 'Kritik tıbbi bilgilerinizi buraya ekleyerek her zaman yanınızda taşıyın.',
+      'medical_info_desc_empty':
+          'Kritik tıbbi bilgilerinizi buraya ekleyerek her zaman yanınızda taşıyın.',
       'category_critical': 'KRİTİK BİLGİLER',
       'category_important': 'ÖNEMLİ NOTLAR',
       'category_general': 'GENEL BİLGİLER',
@@ -1163,7 +1377,8 @@ class Translations {
       'critical': 'Kritik',
       'important': 'Önemli',
       'general': 'Genel',
-      'theme_unlock_desc': 'Bu temayı deneyebilir veya bir reklam izleyerek kalıcı olarak açabilirsin.',
+      'theme_unlock_desc':
+          'Bu temayı deneyebilir veya bir reklam izleyerek kalıcı olarak açabilirsin.',
       'theme_previewing': 'Tema 10 saniye boyunca önizleniyor...',
       'preview_10s': 'Önizle (10s)',
       'congratulations': 'Tebrikler!',
@@ -1238,161 +1453,239 @@ class Translations {
       'progress': 'İlerleme',
       'ach_hidden_desc': 'Bu gizli başarımı keşfetmek için oynamaya devam et!',
       'ach_login_1_title': 'Başlangıç',
-      'ach_login_1_desc': 'Her efsanevi yolculuk tek bir adımla başlar. İlk serini ateşledin!',
+      'ach_login_1_desc':
+          'Her efsanevi yolculuk tek bir adımla başlar. İlk serini ateşledin!',
       'ach_login_3_title': 'Isınıyor',
-      'ach_login_3_desc': 'Isınma turları bitti. Üst üste 3 gün buradasın, hiç fena değil! 🔥',
+      'ach_login_3_desc':
+          'Isınma turları bitti. Üst üste 3 gün buradasın, hiç fena değil! 🔥',
       'ach_login_7_title': 'İstikrarlı',
-      'ach_login_7_desc': 'Koca bir hafta! Artık buraların yollarını ezberledin ve kamp ateşini yaktın.',
+      'ach_login_7_desc':
+          'Koca bir hafta! Artık buraların yollarını ezberledin ve kamp ateşini yaktın.',
       'ach_login_14_title': 'Alışkanlık',
-      'ach_login_14_desc': 'İki hafta aralıksız! Alışkanlıklar işte tam böyle şekillenir, tebrikler.',
+      'ach_login_14_desc':
+          'İki hafta aralıksız! Alışkanlıklar işte tam böyle şekillenir, tebrikler.',
       'ach_login_30_title': 'Bağımlı',
-      'ach_login_30_desc': 'Koca bir ay boyunca buradaydın. İkimiz de bunun bir hobi olmaktan çıktığını biliyoruz.',
+      'ach_login_30_desc':
+          'Koca bir ay boyunca buradaydın. İkimiz de bunun bir hobi olmaktan çıktığını biliyoruz.',
       'ach_login_60_title': 'Sadık Kullanıcı',
-      'ach_login_60_desc': 'İki ay... Kira ödüyor musun dostum? İkinci evine hoş geldin. 🏠',
+      'ach_login_60_desc':
+          'İki ay... Kira ödüyor musun dostum? İkinci evine hoş geldin. 🏠',
       'ach_login_100_title': 'Uzman',
-      'ach_login_100_desc': 'Dalya! 100 günlük devasa bir seriyi bozacak hiçbir güç yok. 💯',
+      'ach_login_100_desc':
+          'Dalya! 100 günlük devasa bir seriyi bozacak hiçbir güç yok. 💯',
       'ach_login_200_title': 'Efsane',
-      'ach_login_200_desc': '200 gün. Çevrendekiler senin bir yapay zeka botu olduğundan şüphelenmeye başlıyor. 🤖',
+      'ach_login_200_desc':
+          '200 gün. Çevrendekiler senin bir yapay zeka botu olduğundan şüphelenmeye başlıyor. 🤖',
       'ach_login_365_title': 'Efsanevi Yıl',
-      'ach_login_365_desc': 'Bir tam Güneş yılı! Bir yıldır her koşulda buradasın. Taç giyme törenin yarın. 👑',
+      'ach_login_365_desc':
+          'Bir tam Güneş yılı! Bir yıldır her koşulda buradasın. Taç giyme törenin yarın. 👑',
       'ach_ads_1_title': 'İlk Reklam',
-      'ach_ads_1_desc': 'Reklamlar iyidir... Bazen. Geliştiriciye verdiğin minik destek için teşekkürler!',
+      'ach_ads_1_desc':
+          'Reklamlar iyidir... Bazen. Geliştiriciye verdiğin minik destek için teşekkürler!',
       'ach_ads_5_title': 'Destekçi',
       'ach_ads_5_desc': 'Sponsorlarımızı bizim kadar sen de çok sevdin galiba.',
       'ach_ads_15_title': 'Sadık Reklamcı',
-      'ach_ads_15_desc': 'Patlamış mısırını al, 15 reklamlık bir maratonu tamamladın. 🍿',
+      'ach_ads_15_desc':
+          'Patlamış mısırını al, 15 reklamlık bir maratonu tamamladın. 🍿',
       'ach_ads_30_title': 'Devam Ediyor',
-      'ach_ads_30_desc': 'Televizyon izlermiş gibi! Bize olan desteğin altın değerinde.',
+      'ach_ads_30_desc':
+          'Televizyon izlermiş gibi! Bize olan desteğin altın değerinde.',
       'ach_ads_50_title': 'Güçlü Kullanıcı',
-      'ach_ads_50_desc': 'Artık hangi reklamın geleceğini saniyesinden tahmin edebiliyorsun.',
+      'ach_ads_50_desc':
+          'Artık hangi reklamın geleceğini saniyesinden tahmin edebiliyorsun.',
       'ach_ads_100_title': 'Bağımlı',
-      'ach_ads_100_desc': '100 reklam! Sabrından ötürü sana özel bir madalya borçluyuz.',
+      'ach_ads_100_desc':
+          '100 reklam! Sabrından ötürü sana özel bir madalya borçluyuz.',
       'ach_ads_250_title': 'Reklam Ustası',
-      'ach_ads_250_desc': 'Ekranda kaybolan bir pazarlama dehası. Desteklerin arşa ulaştı.',
+      'ach_ads_250_desc':
+          'Ekranda kaybolan bir pazarlama dehası. Desteklerin arşa ulaştı.',
       'ach_ads_500_title': 'Monetization King',
-      'ach_ads_500_desc': 'Sermayedar mısın mübarek? Borsayı tek başına sen döndürüyorsun! 📉',
+      'ach_ads_500_desc':
+          'Sermayedar mısın mübarek? Borsayı tek başına sen döndürüyorsun! 📉',
       'ach_doc_1_title': 'İlk Belge',
-      'ach_doc_1_desc': 'Devlet dairesi değiliz ama ilk belgeni başarıyla rafa kaldırdın. 📇',
+      'ach_doc_1_desc':
+          'Devlet dairesi değiliz ama ilk belgeni başarıyla rafa kaldırdın. 📇',
       'ach_doc_5_title': 'Başlangıç',
-      'ach_doc_5_desc': 'İlk klasörün dolmak üzere. Düzenli olmaya başlıyorsun.',
+      'ach_doc_5_desc':
+          'İlk klasörün dolmak üzere. Düzenli olmaya başlıyorsun.',
       'ach_doc_10_title': 'Düzenli Kullanıcı',
-      'ach_doc_10_desc': 'Dosyalar birikiyor. Kayıp ve Buluntu departmanı seninle çalışmak isterdi.',
+      'ach_doc_10_desc':
+          'Dosyalar birikiyor. Kayıp ve Buluntu departmanı seninle çalışmak isterdi.',
       'ach_doc_25_title': 'Arşivci',
-      'ach_doc_25_desc': 'Evrak falan işleri... Arşivindeki 25 belgeyle tozu dumana kattın.',
+      'ach_doc_25_desc':
+          'Evrak falan işleri... Arşivindeki 25 belgeyle tozu dumana kattın.',
       'ach_doc_50_title': 'Profesyonel',
-      'ach_doc_50_desc': 'Sekreterya falan hikaye, profesyonel dosyalama şövalyesi işte budur.',
+      'ach_doc_50_desc':
+          'Sekreterya falan hikaye, profesyonel dosyalama şövalyesi işte budur.',
       'ach_doc_100_title': 'Vault Master',
-      'ach_doc_100_desc': '100 belge mi? Bu devasa arşive bir kütüphaneci atamanın vakti geldi. 📚',
+      'ach_doc_100_desc':
+          '100 belge mi? Bu devasa arşive bir kütüphaneci atamanın vakti geldi. 📚',
       'ach_doc_250_title': 'Veri Koleksiyoncusu',
-      'ach_doc_250_desc': 'Büyük Veri (Big Data) senaryolarına hoş geldin. Yığınlara hükmediyorsun.',
+      'ach_doc_250_desc':
+          'Büyük Veri (Big Data) senaryolarına hoş geldin. Yığınlara hükmediyorsun.',
       'ach_doc_500_title': 'Dijital Arşiv Uzmanı',
-      'ach_doc_500_desc': 'Dijital İskenderiye Kütüphanesi! Arşivlerin nesiller boyu yaşayacak.',
+      'ach_doc_500_desc':
+          'Dijital İskenderiye Kütüphanesi! Arşivlerin nesiller boyu yaşayacak.',
       'ach_med_1_title': 'İlk İlaç',
-      'ach_med_1_desc': 'Kendine değer vermeye başladın, sağlığına dikkat etmek için harika bir milat.',
+      'ach_med_1_desc':
+          'Kendine değer vermeye başladın, sağlığına dikkat etmek için harika bir milat.',
       'ach_med_3_title': 'Takip Başladı',
-      'ach_med_3_desc': 'Reçetene sadıksın. Suları yudumla ve hatırlatmaları asla kaçırma.',
+      'ach_med_3_desc':
+          'Reçetene sadıksın. Suları yudumla ve hatırlatmaları asla kaçırma.',
       'ach_med_5_title': 'Düzenli Kullanıcı',
-      'ach_med_5_desc': 'Eczacıların favori müşterisi! Formunu özenle koruyorsun.',
+      'ach_med_5_desc':
+          'Eczacıların favori müşterisi! Formunu özenle koruyorsun.',
       'ach_med_10_title': 'Disiplinli',
-      'ach_med_10_desc': 'İlaçlar saatinde, bedenin tıkır tıkır işliyor. 10 kez teyit edildi!',
+      'ach_med_10_desc':
+          'İlaçlar saatinde, bedenin tıkır tıkır işliyor. 10 kez teyit edildi!',
       'ach_med_25_title': 'Sağlık Uzmanı',
-      'ach_med_25_desc': 'Vücudunun dilinden anlıyorsun. İlaç günlüğü senin için bir sanat oldu.',
+      'ach_med_25_desc':
+          'Vücudunun dilinden anlıyorsun. İlaç günlüğü senin için bir sanat oldu.',
       'ach_med_50_title': 'Health Master',
-      'ach_med_50_desc': 'Doktorlar bile disiplinini kıskanıyor. Vücudut kimyanın efendisi sensin! 🧬',
+      'ach_med_50_desc':
+          'Doktorlar bile disiplinini kıskanıyor. Vücudut kimyanın efendisi sensin! 🧬',
       'ach_app_1_title': 'İlk Randevu',
-      'ach_app_1_desc': 'Plan yapmadan başarı gelmez! İlk takvim kaydın güvenle alınan.',
+      'ach_app_1_desc':
+          'Plan yapmadan başarı gelmez! İlk takvim kaydın güvenle alınan.',
       'ach_app_3_title': 'Planlıyor',
-      'ach_app_3_desc': 'Zaman yönetimi 101. Planlarına sadık kalarak yükseliyorsun.',
+      'ach_app_3_desc':
+          'Zaman yönetimi 101. Planlarına sadık kalarak yükseliyorsun.',
       'ach_app_5_title': 'Organize',
-      'ach_app_5_desc': 'Ajandan dolmaya başladı. O meşgul ama karizmatik kişi kesinlikle sensin.',
+      'ach_app_5_desc':
+          'Ajandan dolmaya başladı. O meşgul ama karizmatik kişi kesinlikle sensin.',
       'ach_app_10_title': 'Disiplinli Planlayıcı',
-      'ach_app_10_desc': 'Alarm kurmana bile gerek yok, kafanın içinde bir atom saati var sanki.',
+      'ach_app_10_desc':
+          'Alarm kurmana bile gerek yok, kafanın içinde bir atom saati var sanki.',
       'ach_app_20_title': 'Planner Pro',
-      'ach_app_20_desc': 'Her şey dakikası dakikasına belli... Dijital bir asistan gibisin!',
+      'ach_app_20_desc':
+          'Her şey dakikası dakikasına belli... Dijital bir asistan gibisin!',
       'ach_app_30_title': 'Master Planner',
-      'ach_app_30_desc': 'Zaman bükücü! Bir insanın bu kadar randevuyu çakışmadan yönetmesi imkansız... değilmiş.',
+      'ach_app_30_desc':
+          'Zaman bükücü! Bir insanın bu kadar randevuyu çakışmadan yönetmesi imkansız... değilmiş.',
       'ach_profile_created_title': 'Profil Oluşturuldu',
-      'ach_profile_created_desc': 'Aramıza resmi olarak katıldın. Dijital imzanı attın bile!',
+      'ach_profile_created_desc':
+          'Aramıza resmi olarak katıldın. Dijital imzanı attın bile!',
       'ach_profile_completed_title': 'Profil Tamamlandı',
-      'ach_profile_completed_desc': 'Boşluklardan nefret ediyorsun değil mi? Tüm bilgilerin tastamam dolu.',
+      'ach_profile_completed_desc':
+          'Boşluklardan nefret ediyorsun değil mi? Tüm bilgilerin tastamam dolu.',
       'ach_profile_updated_title': 'Profil Güncellendi',
-      'ach_profile_updated_desc': 'Değişim gelişmektir! Kendini tazeleyerek hep oyunun içinde kaldın.',
+      'ach_profile_updated_desc':
+          'Değişim gelişmektir! Kendini tazeleyerek hep oyunun içinde kaldın.',
       'ach_profile_with_photo_title': 'Profil Fotoğrafı',
-      'ach_profile_with_photo_desc': 'Yüzsüz bir djiital avatar olmaktan kurtuldun. Kameraya gülümse! 📸',
+      'ach_profile_with_photo_desc':
+          'Yüzsüz bir djiital avatar olmaktan kurtuldun. Kameraya gülümse! 📸',
       'ach_profile_master_title': 'Profil Ustası',
-      'ach_profile_master_desc': 'Kimliğin, biyon ve detaylarınla sistemin en janti kullanıcısısın.',
+      'ach_profile_master_desc':
+          'Kimliğin, biyon ve detaylarınla sistemin en janti kullanıcısısın.',
       'ach_emergency_added_title': 'Acil Kart Eklendi',
-      'ach_emergency_added_desc': 'Tedbir hiçbir zaman elden bırakılmaz. Acil durum kalkanın devrede.',
+      'ach_emergency_added_desc':
+          'Tedbir hiçbir zaman elden bırakılmaz. Acil durum kalkanın devrede.',
       'ach_emergency_contact_title': 'Acil Kişi',
-      'ach_emergency_contact_desc': 'Zor zamanlarda kimin aranacağı belli. Güven çemberi oluşturuldu. 📞',
+      'ach_emergency_contact_desc':
+          'Zor zamanlarda kimin aranacağı belli. Güven çemberi oluşturuldu. 📞',
       'ach_emergency_complete_title': 'Tamamlandı',
-      'ach_emergency_complete_desc': 'Senaryolara hazırlıklısın. Güvenlik seviyesi en üst düzeyde.',
+      'ach_emergency_complete_desc':
+          'Senaryolara hazırlıklısın. Güvenlik seviyesi en üst düzeyde.',
       'ach_emergency_ready_title': 'Hazır',
-      'ach_emergency_ready_desc': 'Kırmızı alarm durumunda her şey tıkır tıkır işleyecek. Sağlama alındın.',
+      'ach_emergency_ready_desc':
+          'Kırmızı alarm durumunda her şey tıkır tıkır işleyecek. Sağlama alındın.',
       'ach_emergency_master_title': 'Emergency Master',
-      'ach_emergency_master_desc': 'Ambulans gelmeden ilk yardımı yönetecek kadar sağlam ve serin kanlı!',
+      'ach_emergency_master_desc':
+          'Ambulans gelmeden ilk yardımı yönetecek kadar sağlam ve serin kanlı!',
       'ach_health_1_title': 'İlk Veri',
-      'ach_health_1_desc': 'Bugün kendine bir iyilik yaptın. Vücudun içeriden sana teşekkür ediyor.',
+      'ach_health_1_desc':
+          'Bugün kendine bir iyilik yaptın. Vücudun içeriden sana teşekkür ediyor.',
       'ach_health_5_title': 'Takip Başladı',
-      'ach_health_5_desc': 'Veriler birikiyor, biyoritminle olan sohbetini ilerletiyorsun.',
+      'ach_health_5_desc':
+          'Veriler birikiyor, biyoritminle olan sohbetini ilerletiyorsun.',
       'ach_health_10_title': 'Sağlık Bilinci',
-      'ach_health_10_desc': 'Artık bir istatistik harikasısın! Vücudun şifreli bvir kitap gibi okunuyor. 📈',
+      'ach_health_10_desc':
+          'Artık bir istatistik harikasısın! Vücudun şifreli bvir kitap gibi okunuyor. 📈',
       'ach_health_20_title': 'Düzenli Takip',
-      'ach_health_20_desc': 'Makine gibisin. Nabız, metrikler, adımlar... Hiçbiri sensörlerinden kaçmıyor.',
+      'ach_health_20_desc':
+          'Makine gibisin. Nabız, metrikler, adımlar... Hiçbiri sensörlerinden kaçmıyor.',
       'ach_health_50_title': 'Sağlık Uzmanı',
-      'ach_health_50_desc': 'Cyborg seviyesine yaklaştın. Bio-verilerinle arandaki bağ koparılamaz.',
+      'ach_health_50_desc':
+          'Cyborg seviyesine yaklaştın. Bio-verilerinle arandaki bağ koparılamaz.',
       'ach_health_master_title': 'Health Master',
-      'ach_health_master_desc': 'Tapınağın baş rahibi! Kendi bedenin üzerinde mutlak bir ustalık kurdun. 🧘',
+      'ach_health_master_desc':
+          'Tapınağın baş rahibi! Kendi bedenin üzerinde mutlak bir ustalık kurdun. 🧘',
       'ach_first_login_title': 'Hoş Geldin',
-      'ach_first_login_desc': 'Kapıyı itip içeri ilk adımını attın, işte asıl macera şimdi yepyeni başlıyor.',
+      'ach_first_login_desc':
+          'Kapıyı itip içeri ilk adımını attın, işte asıl macera şimdi yepyeni başlıyor.',
       'ach_first_upload_title': 'Explorer',
-      'ach_first_upload_desc': 'Sisteme ilk kalıcı izini bıraktın. Artık buralara kazındın.',
+      'ach_first_upload_desc':
+          'Sisteme ilk kalıcı izini bıraktın. Artık buralara kazındın.',
       'ach_first_ad_title': 'Free User',
-      'ach_first_ad_desc': 'Emeğe saygı kuşağı! İlk reklam etkileşiminle ekosisteme can suyu verdin.',
+      'ach_first_ad_desc':
+          'Emeğe saygı kuşağı! İlk reklam etkileşiminle ekosisteme can suyu verdin.',
       'ach_first_premium_title': 'Premium User',
-      'ach_first_premium_desc': 'İşte vizyon meselesi. VIP locasına buyrun, kırmızı halınız serildi! 🎟️',
+      'ach_first_premium_desc':
+          'İşte vizyon meselesi. VIP locasına buyrun, kırmızı halınız serildi! 🎟️',
       'ach_active_3_days_title': 'Aktif',
-      'ach_active_3_days_desc': 'Kablolar ısınıyor, motorlar çalıştı. Enerjini hissetmeye başladık.',
+      'ach_active_3_days_desc':
+          'Kablolar ısınıyor, motorlar çalıştı. Enerjini hissetmeye başladık.',
       'ach_active_7_days_title': 'Sadık',
-      'ach_active_7_days_desc': 'Tam bir haftadır sistemle senkronizesin. Ortam epey elektriklendi!',
+      'ach_active_7_days_desc':
+          'Tam bir haftadır sistemle senkronizesin. Ortam epey elektriklendi!',
       'ach_active_30_days_title': 'Core User',
-      'ach_active_30_days_desc': 'Adeta çekirdek kadroya alındın. Sensiz buraların tadı tuzu kalmazdı.',
+      'ach_active_30_days_desc':
+          'Adeta çekirdek kadroya alındın. Sensiz buraların tadı tuzu kalmazdı.',
       'ach_streak_saved_title': 'Streak Savior',
-      'ach_streak_saved_desc': 'Uçurumun kenarından döndün! O güzelim seriyi kurtarmak harika bir refleksti.',
+      'ach_streak_saved_desc':
+          'Uçurumun kenarından döndün! O güzelim seriyi kurtarmak harika bir refleksti.',
       'ach_streak_saved_5_title': 'Dirençli',
-      'ach_streak_saved_5_desc': 'Savaş yaralarına rağmen düşmüyor, tökezlesen de kalkmasını biliyorsun.',
+      'ach_streak_saved_5_desc':
+          'Savaş yaralarına rağmen düşmüyor, tökezlesen de kalkmasını biliyorsun.',
       'ach_streak_saved_10_title': 'Asla Pes Etmez',
-      'ach_streak_saved_10_desc': 'Zümrüdüanka mısın? Küllerinden doğmak sıradan bir salı günü aktivitesi. 🐦🔥',
+      'ach_streak_saved_10_desc':
+          'Zümrüdüanka mısın? Küllerinden doğmak sıradan bir salı günü aktivitesi. 🐦🔥',
       'ach_streak_perfect_30_title': 'Kusursuz Seri',
-      'ach_streak_perfect_30_desc': 'Tek bir pas, tek bir sekme yok. 30 koca gün boyunca İsviçre saati gibi mükemmeldin!',
+      'ach_streak_perfect_30_desc':
+          'Tek bir pas, tek bir sekme yok. 30 koca gün boyunca İsviçre saati gibi mükemmeldin!',
       'ach_premium_trial_used_title': 'Premium Deneyimi',
-      'ach_premium_trial_used_desc': 'Ayrıcalıklar dünyasının kapısını araladın. Manzara büyüleyici, değil mi?',
+      'ach_premium_trial_used_desc':
+          'Ayrıcalıklar dünyasının kapısını araladın. Manzara büyüleyici, değil mi?',
       'ach_limit_breaker_title': 'Limit Aşıldı',
-      'ach_limit_breaker_desc': 'Kurallar ve sınırlar bükülmek içindir. Matrix\'in dışına çıktın! 💥',
+      'ach_limit_breaker_desc':
+          'Kurallar ve sınırlar bükülmek içindir. Matrix\'in dışına çıktın! 💥',
       'ach_ad_skip_used_title': 'Reklam Atlama',
-      'ach_ad_skip_used_desc': 'Buna ayıracak hiç zamanım yok dedin, tek tuşla zamanı ileri sardın.',
+      'ach_ad_skip_used_desc':
+          'Buna ayıracak hiç zamanım yok dedin, tek tuşla zamanı ileri sardın.',
       'ach_reward_collector_title': 'Ödül Toplayıcı',
-      'ach_reward_collector_desc': 'Kuytu köşelerdeki ne kadar ödül varsa sömürdün. Tam bir ganimet avcısı! 🎁',
+      'ach_reward_collector_desc':
+          'Kuytu köşelerdeki ne kadar ödül varsa sömürdün. Tam bir ganimet avcısı! 🎁',
       'ach_multi_feature_user_title': 'Tüm Özellikler',
-      'ach_multi_feature_user_desc': 'Uygulamada dokunmadığın, kurcalamadığın tek bir düğme kalmadı meraklı gezgin!',
+      'ach_multi_feature_user_desc':
+          'Uygulamada dokunmadığın, kurcalamadığın tek bir düğme kalmadı meraklı gezgin!',
       'ach_data_master_title': 'Veri Ustası',
-      'ach_data_master_desc': 'Baytlar ve bitler senin etrafında şekilleniyor. Sistem verilerinin mutlak efendisisin.',
+      'ach_data_master_desc':
+          'Baytlar ve bitler senin etrafında şekilleniyor. Sistem verilerinin mutlak efendisisin.',
       'ach_organized_master_title': 'Ultra Düzenli',
-      'ach_organized_master_desc': 'Marie Kondo gelse senin düzenine şapka çıkarırdı. Her şey milimetrik.',
+      'ach_organized_master_desc':
+          'Marie Kondo gelse senin düzenine şapka çıkarırdı. Her şey milimetrik.',
       'ach_security_master_title': 'Güvenlik Uzmanı',
-      'ach_security_master_desc': 'Hesabın bir kale, şifrelerin bir siber ordu. Sızmak neredeyse imkansız! 🔐',
+      'ach_security_master_desc':
+          'Hesabın bir kale, şifrelerin bir siber ordu. Sızmak neredeyse imkansız! 🔐',
       'ach_daily_master_title': 'Daily Master',
-      'ach_daily_master_desc': 'Güneşi bizimle doğuran, yıldızları bizimle gören o efsanevi sadık kullanıcı sensin.',
+      'ach_daily_master_desc':
+          'Güneşi bizimle doğuran, yıldızları bizimle gören o efsanevi sadık kullanıcı sensin.',
       'backup_restore': 'Yedekle & Geri Yükle',
       'backup_desc_settings': 'Yalnızca bu cihaz için şifreli yerel yedekleme',
       'smart_notifications': 'Akıllı Bildirimler',
-      'smart_streak_warning': '🔥 Streak kaybolmak üzere! Geri dönüp verilerini kontrol etmeye ne dersin?',
-      'smart_ad_reward': '🎁 1 reklam izle → +5 limit kazan! Bugün senin için yeni bir fırsat var.',
-      'smart_doc_bonus': '📂 Bugün 1 belge ekle → bonus kazan! Her şey güvende kalsın.',
-      'smart_default': '👀 Küçük bir güncelleme seni bekliyor, bugün neler yapabiliriz?',
-      'notif_bonus_ready': '🎁 Bonus seni bekliyor! Yardımların için teşekkürler.',
+      'smart_streak_warning':
+          '🔥 Streak kaybolmak üzere! Geri dönüp verilerini kontrol etmeye ne dersin?',
+      'smart_ad_reward':
+          '🎁 1 reklam izle → +5 limit kazan! Bugün senin için yeni bir fırsat var.',
+      'smart_doc_bonus':
+          '📂 Bugün 1 belge ekle → bonus kazan! Her şey güvende kalsın.',
+      'smart_default':
+          '👀 Küçük bir güncelleme seni bekliyor, bugün neler yapabiliriz?',
+      'notif_bonus_ready':
+          '🎁 Bonus seni bekliyor! Yardımların için teşekkürler.',
       'notif_doc_safe': '🔥 Güzel gidiyorsun, belgelerin güvende! Devam et!',
-      'level_up_desc': 'Seviye {level} oldun! Yeni ödüller için Sezon Bileti\'ni kontrol et.',
+      'level_up_desc':
+          'Seviye {level} oldun! Yeni ödüller için Sezon Bileti\'ni kontrol et.',
       'notifications_active_msg': 'Bildirimler aktif 🔔',
       'show_sensitive_details': 'Bildirimde detay göster',
       'sensitive_details_visible': 'İlaç adı görünür',
@@ -1403,13 +1696,15 @@ class Translations {
       'test_notification_desc': 'Sistemi hemen test et',
       'test_notification_body': 'Bu bir test bildirimidir',
       'app_lock_unavailable': 'Uygulama kilidi bu cihazda kullanılamıyor.',
-      'backup_restore_desc': 'Verilerinizi şifreli olarak yedekleyebilir veya geri yükleyebilirsiniz. Yedekler yalnızca sizin cihazınızda saklanır.',
+      'backup_restore_desc':
+          'Verilerinizi şifreli olarak yedekleyebilir veya geri yükleyebilirsiniz. Yedekler yalnızca sizin cihazınızda saklanır.',
       'backup_export': 'Yedeği Dışa Aktar',
       'backup_export_desc': 'Şifreli bir ZIP yedeği oluşturun',
       'backup_import': 'Yedeği İçe Aktar',
       'backup_import_desc': 'Mevcut bir ZIP yedeğinden geri yükleyin',
       'warning': 'Dikkat',
-      'import_warning_desc': 'Yedek geri yükleme işlemi mevcut verilerinizi SİLECEK ve geri alınamaz. Devam etmek istiyor musunuz?',
+      'import_warning_desc':
+          'Yedek geri yükleme işlemi mevcut verilerinizi SİLECEK ve geri alınamaz. Devam etmek istiyor musunuz?',
       'yes_restore': 'Evet, Geri Yükle',
       'start_time': 'Baslangic Saati',
       'end_time': 'Bitis Saati',
@@ -1423,11 +1718,13 @@ class Translations {
       'add_1_day_success': '+1 gün eklendi! 🎉',
       'plus_1_day': '+1 Gün',
       'watch': 'İZLE',
-      'unlock_theme_question': 'Bu temayı 5 gün boyunca ücretsiz kullanmak ister misiniz?',
+      'unlock_theme_question':
+          'Bu temayı 5 gün boyunca ücretsiz kullanmak ister misiniz?',
       'watch_ad_plus_5': 'REKLAM İZLE (+5 gün)',
       'preview_5s': 'Önizle (5 sn)',
       'free_secure_release': 'Ücretsiz güvenli sürüm',
-      'encrypted_local_desc': 'Şifrelenmiş belgeleriniz bu cihazda yerel olarak kalır. Reklamlar ücretsiz sürümü destekler.',
+      'encrypted_local_desc':
+          'Şifrelenmiş belgeleriniz bu cihazda yerel olarak kalır. Reklamlar ücretsiz sürümü destekler.',
       'premium_soon': 'YAKINDA PREMIUM',
       'label_title': 'BAŞLIK',
       'label_location': 'YER / KURUM (OPSİYONEL)',
@@ -1475,7 +1772,8 @@ class Translations {
       'claim': 'AL',
       'reward_doc_slots': '+{value} Belge Alanı',
       'premium_unavailable_title': 'Premium bu sürümde mevcut değildir.',
-      'premium_unavailable_desc': 'VitaCase şu anda yerel şifreli depolama, reklamlar ve isteğe bağlı hatırlatıcılar içeren ücretsiz bir uygulama olarak sunulmaktadır.',
+      'premium_unavailable_desc':
+          'VitaCase şu anda yerel şifreli depolama, reklamlar ve isteğe bağlı hatırlatıcılar içeren ücretsiz bir uygulama olarak sunulmaktadır.',
       'btn_close': 'Kapat',
       'accept': 'Kabul Ediyorum',
       'btn_save': 'Kaydet',
@@ -1491,8 +1789,10 @@ class Translations {
       'hint_email': 'ahmet.yilmaz@hastane.com',
       'hint_address': 'Merkez Mah. Sağlık Sok. No:12...',
       'hint_personal_notes': 'Doktor hakkında notlar...',
-      'ad_reward_not_earned': 'Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.',
-      'ad_unavailable': 'Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.',
+      'ad_reward_not_earned':
+          'Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.',
+      'ad_unavailable':
+          'Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.',
       'ad_failed': 'Ödüllü reklam gösterilemedi. Lütfen tekrar deneyin.',
       'ad_watch_btn': 'Ücretsiz devam et (reklam izle)',
       'btn_not_now': 'Şimdi değil',
@@ -1503,7 +1803,8 @@ class Translations {
       'lock_timeout_5m': '5 Dakika',
       'lock_timeout_15m': '15 Dakika',
       'no_appointments_found': 'Randevu bulunamadı',
-      'empty_appointments_desc': 'Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.',
+      'empty_appointments_desc':
+          'Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.',
       'empty_appointments_filter_desc': 'Bu kategoride randevu bulunamadı.',
       'btn_add_appointment': 'RANDEVU EKLE',
       'btn_clear_filters': 'FİLTRELERİ TEMİZLE',
@@ -1511,7 +1812,8 @@ class Translations {
       'notif_app_created_body': '{title} planlandı.',
       'notif_app_reminder_title': '📅 Randevu Hatırlatıcı',
       'notif_app_reminder_body': '{title} için randevunuz yaklaşıyor.',
-      'delete_confirm_appointment': 'Bu randevuyu silmek istediğinize emin misiniz?',
+      'delete_confirm_appointment':
+          'Bu randevuyu silmek istediğinize emin misiniz?',
       'create_today_plan': 'Günün Planını Oluştur',
       'plan_time_desc': 'Sağlık takviminizi kolayca düzenleyin.',
       'error_title_required': 'Başlık zorunlu',
@@ -1541,17 +1843,22 @@ class Translations {
       'theme_ocean_serenity': 'Ocean Serenity',
       'theme_amber_glow': 'Amber Glow',
       'db_recovery_title': 'Veri Hatası',
-      'db_recovery_desc': 'Verilere erişilemedi. Yeniden denemek ister misiniz?',
+      'db_recovery_desc':
+          'Verilere erişilemedi. Yeniden denemek ister misiniz?',
       'db_recovery_retry': 'Tekrar Dene',
       'db_recovery_reset': 'Sıfırla',
       'notif_streak_warning_title': 'Günlük planını kontrol et',
-      'notif_streak_warning_body': 'Bugünkü hatırlatıcılarını ve kayıtlı öğelerini incelemek için VitaCase\'i aç.',
+      'notif_streak_warning_body':
+          'Bugünkü hatırlatıcılarını ve kayıtlı öğelerini incelemek için VitaCase\'i aç.',
       'notif_mission_reminder_title': '🎯 Günlük Görevler Bekliyor',
-      'notif_mission_reminder_body': 'Günlük ödüllerini kaçırma! Görevlerini şimdi tamamla.',
+      'notif_mission_reminder_body':
+          'Günlük ödüllerini kaçırma! Görevlerini şimdi tamamla.',
       'notif_limit_reached_title': '🚀 Limite Ulaşıldı',
-      'notif_limit_reached_body': 'Ücretsiz limitine ulaştın. Devam etmek için ödüllü reklam izle.',
+      'notif_limit_reached_body':
+          'Ücretsiz limitine ulaştın. Devam etmek için ödüllü reklam izle.',
       'notif_good_morning_title': '🌞 Günaydın!',
-      'notif_good_morning_body': 'Güne VitaCase ile başla, günlük görevlerini kontrol et.',
+      'notif_good_morning_body':
+          'Güne VitaCase ile başla, günlük görevlerini kontrol et.',
       'notif_test_title': 'Test Bildirimi',
       'notif_test_body': 'Bildirimleriniz mükemmel çalışıyor!',
       'notif_appointment_reminder_title': '📅 Randevu Hatırlatıcı',
@@ -1561,6 +1868,201 @@ class Translations {
       'no_scheduled_meds_today': 'Bugün için planlanmış ilaç yok.',
       'add_appointment': 'Randevu Ekle',
       'add_document': 'Belge Ekle',
+    },
+    'de': {
+      'app_name': 'VitaCase',
+      'skip': 'Überspringen',
+      'next': 'Weiter',
+      'start': 'Start',
+      'back': 'Zurück',
+      'save': 'Speichern',
+      'cancel': 'Abbrechen',
+      'error': 'Fehler',
+      'success': 'Erfolg',
+      'loading': 'Laden...',
+      'home': 'Startseite',
+      'vault': 'Tresor',
+      'explore': 'Entdecken',
+      'appointments': 'Termine',
+      'profile': 'Profil',
+      'medicines': 'Medikamente',
+      'health_data': 'Gesundheitsdaten',
+      'settings': 'Einstellungen',
+      'logout': 'Abmelden',
+      'today': 'Heute',
+      'tomorrow': 'Morgen',
+      'add': 'Hinzufügen',
+      'edit': 'Bearbeiten',
+      'delete': 'Löschen',
+      'confirm': 'Bestätigen',
+      'gender_female': 'Weiblich',
+      'gender_male': 'Männlich',
+      'gender_other': 'Andere',
+      'premium_feature': 'Premium-Funktion 🌟',
+      'go_premium': 'Premium werden',
+      'emergency_contact': 'Notfallkontakt',
+      'blood_type': 'Blutgruppe',
+      'unit_ml': 'ml',
+      'unit_l': 'L',
+      'unit_steps': 'Schritte',
+      'unit_hours': 'Stunden',
+      'unit_bpm': 'BPM',
+    },
+    'fr': {
+      'app_name': 'VitaCase',
+      'skip': 'Passer',
+      'next': 'Suivant',
+      'start': 'Démarrer',
+      'back': 'Retour',
+      'save': 'Enregistrer',
+      'cancel': 'Annuler',
+      'error': 'Erreur',
+      'success': 'Succès',
+      'loading': 'Chargement...',
+      'home': 'Accueil',
+      'vault': 'Coffre-fort',
+      'explore': 'Explorer',
+      'appointments': 'Rendez-vous',
+      'profile': 'Profil',
+      'medicines': 'Médicaments',
+      'health_data': 'Données de santé',
+      'settings': 'Paramètres',
+      'logout': 'Déconnexion',
+      'today': 'Aujourd\'hui',
+      'tomorrow': 'Demain',
+      'add': 'Ajouter',
+      'edit': 'Modifier',
+      'delete': 'Supprimer',
+      'confirm': 'Confirmer',
+      'gender_female': 'Femme',
+      'gender_male': 'Homme',
+      'gender_other': 'Autre',
+      'premium_feature': 'Fonctionnalité Premium 🌟',
+      'go_premium': 'Passer au Premium',
+      'emergency_contact': 'Contact d\'urgence',
+      'blood_type': 'Groupe sanguin',
+      'unit_ml': 'ml',
+      'unit_l': 'L',
+      'unit_steps': 'pas',
+      'unit_hours': 'heures',
+      'unit_bpm': 'BPM',
+    },
+    'es': {
+      'app_name': 'VitaCase',
+      'skip': 'Omitir',
+      'next': 'Siguiente',
+      'start': 'Empezar',
+      'back': 'Atrás',
+      'save': 'Guardar',
+      'cancel': 'Cancelar',
+      'error': 'Error',
+      'success': 'Éxito',
+      'loading': 'Cargando...',
+      'home': 'Inicio',
+      'vault': 'Bóveda',
+      'explore': 'Explorar',
+      'appointments': 'Citas',
+      'profile': 'Perfil',
+      'medicines': 'Medicamentos',
+      'health_data': 'Datos de salud',
+      'settings': 'Ajustes',
+      'logout': 'Cerrar sesión',
+      'today': 'Hoy',
+      'tomorrow': 'Mañana',
+      'add': 'Añadir',
+      'edit': 'Editar',
+      'delete': 'Eliminar',
+      'confirm': 'Confirmar',
+      'gender_female': 'Femenino',
+      'gender_male': 'Masculino',
+      'gender_other': 'Otro',
+      'premium_feature': 'Función Premium 🌟',
+      'go_premium': 'Hacerse Premium',
+      'emergency_contact': 'Contacto de emergencia',
+      'blood_type': 'Grupo sanguíneo',
+      'unit_ml': 'ml',
+      'unit_l': 'L',
+      'unit_steps': 'pasos',
+      'unit_hours': 'horas',
+      'unit_bpm': 'BPM',
+    },
+    'it': {
+      'app_name': 'VitaCase',
+      'skip': 'Salta',
+      'next': 'Avanti',
+      'start': 'Inizia',
+      'back': 'Indietro',
+      'save': 'Salva',
+      'cancel': 'Annulla',
+      'error': 'Errore',
+      'success': 'Successo',
+      'loading': 'Caricamento...',
+      'home': 'Home',
+      'vault': 'Cassaforte',
+      'explore': 'Esplora',
+      'appointments': 'Appuntamenti',
+      'profile': 'Profilo',
+      'medicines': 'Farmaci',
+      'health_data': 'Dati sanitari',
+      'settings': 'Impostazioni',
+      'logout': 'Disconnetti',
+      'today': 'Oggi',
+      'tomorrow': 'Domani',
+      'add': 'Aggiungi',
+      'edit': 'Modifica',
+      'delete': 'Elimina',
+      'confirm': 'Conferma',
+      'gender_female': 'Femmina',
+      'gender_male': 'Maschio',
+      'gender_other': 'Altro',
+      'premium_feature': 'Funzione Premium 🌟',
+      'go_premium': 'Passa a Premium',
+      'emergency_contact': 'Contatto di emergenza',
+      'blood_type': 'Gruppo sanguigno',
+      'unit_ml': 'ml',
+      'unit_l': 'L',
+      'unit_steps': 'passi',
+      'unit_hours': 'ore',
+      'unit_bpm': 'BPM',
+    },
+    'pt': {
+      'app_name': 'VitaCase',
+      'skip': 'Pular',
+      'next': 'Próximo',
+      'start': 'Iniciar',
+      'back': 'Voltar',
+      'save': 'Salvar',
+      'cancel': 'Cancelar',
+      'error': 'Erro',
+      'success': 'Sucesso',
+      'loading': 'Carregando...',
+      'home': 'Início',
+      'vault': 'Cofre',
+      'explore': 'Explorar',
+      'appointments': 'Consultas',
+      'profile': 'Perfil',
+      'medicines': 'Medicamentos',
+      'health_data': 'Dados de saúde',
+      'settings': 'Configurações',
+      'logout': 'Sair',
+      'today': 'Hoje',
+      'tomorrow': 'Amanhã',
+      'add': 'Adicionar',
+      'edit': 'Editar',
+      'delete': 'Excluir',
+      'confirm': 'Confirmar',
+      'gender_female': 'Feminino',
+      'gender_male': 'Masculino',
+      'gender_other': 'Outro',
+      'premium_feature': 'Recurso Premium 🌟',
+      'go_premium': 'Seja Premium',
+      'emergency_contact': 'Contato de emergência',
+      'blood_type': 'Tipo sanguíneo',
+      'unit_ml': 'ml',
+      'unit_l': 'L',
+      'unit_steps': 'passos',
+      'unit_hours': 'horas',
+      'unit_bpm': 'BPM',
     },
   };
 }

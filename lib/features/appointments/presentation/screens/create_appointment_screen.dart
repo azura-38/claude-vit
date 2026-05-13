@@ -12,6 +12,8 @@ import 'widgets/premium_input.dart';
 import 'widgets/priority_selector.dart';
 import 'widgets/smart_summary_card.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class CreateAppointmentScreen extends ConsumerWidget {
   const CreateAppointmentScreen({super.key});
@@ -59,32 +61,30 @@ class CreateAppointmentScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appointmentFormProvider);
     final notifier = ref.read(appointmentFormProvider.notifier);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       body: SafeArea(
         child: Stack(
           children: [
             ListView(
+              physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(20, 14, 20, 140),
               children: [
                 Row(
                   children: [
-                    IconButton(
-                      onPressed: () => context.pop(),
-                      icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                    _CircleIconButton(
+                      icon: Icons.arrow_back_ios_new_rounded,
+                      onTap: () => context.pop(),
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Create Appointment',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    const Spacer(),
+                    _LogoMark(label: context.l10n.appName),
+                    const Spacer(),
+                    const SizedBox(width: 44),
                   ],
-                ),
-
-                const SizedBox(height: 28),
+                ).animate().fadeIn().slideY(begin: -.12),
+                const SizedBox(height: 22),
 
                 SmartSummaryCard(
                   model: state,
@@ -94,8 +94,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
 
                 _card(
                   child: PremiumInput(
-                    label: 'Appointment Title',
-                    hint: 'e.g. Annual Checkup',
+                    label: context.l10n.appointmentTitle,
+                    hint: context.l10n.hintTitle,
                     icon: Icons.edit_calendar_rounded,
                     onChanged: notifier.updateTitle,
                   ),
@@ -110,9 +110,11 @@ class CreateAppointmentScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Type',
-                              style: TextStyle(fontWeight: FontWeight.w700),
+                            Text(
+                              context.l10n.type,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                             const SizedBox(height: 16),
                             Wrap(
@@ -123,7 +125,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                                     return SizedBox(
                                       width: 132,
                                       child: AppointmentTypeCard(
-                                        title: type.label,
+                                        title: _localizedType(context, type),
                                         icon: _typeIcon(type),
                                         selected: state.type == type,
                                         onTap: () {
@@ -143,13 +145,15 @@ class CreateAppointmentScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Priority',
-                              style: TextStyle(fontWeight: FontWeight.w700),
+                            Text(
+                              context.l10n.priority,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                             const SizedBox(height: 16),
                             PrioritySelector(
-                              title: 'High',
+                              title: context.l10n.importanceHigh,
                               icon: Icons.priority_high_rounded,
                               selected:
                                   state.priority == AppointmentPriority.high,
@@ -162,7 +166,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 12),
                             PrioritySelector(
-                              title: 'Normal',
+                              title: context.l10n.importanceLow,
                               icon: Icons.low_priority_rounded,
                               selected:
                                   state.priority == AppointmentPriority.normal,
@@ -186,9 +190,9 @@ class CreateAppointmentScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Date & Time',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                      Text(
+                        context.l10n.labelDateTime,
+                        style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 18),
                       Row(
@@ -200,11 +204,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
                                 'MMM d, yyyy',
                               ).format(state.date),
                               onTap:
-                                  () => _pickDate(
-                                    context,
-                                    notifier,
-                                    state.date,
-                                  ),
+                                  () =>
+                                      _pickDate(context, notifier, state.date),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -213,11 +214,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               icon: Icons.schedule_rounded,
                               text: DateFormat('hh:mm a').format(state.date),
                               onTap:
-                                  () => _pickTime(
-                                    context,
-                                    notifier,
-                                    state.date,
-                                  ),
+                                  () =>
+                                      _pickTime(context, notifier, state.date),
                             ),
                           ),
                         ],
@@ -230,8 +228,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
 
                 _card(
                   child: PremiumInput(
-                    label: 'Location',
-                    hint: 'City Medical Center',
+                    label: context.l10n.location,
+                    hint: context.l10n.hintLocation,
                     icon: Icons.location_on_outlined,
                     onChanged: notifier.updateLocation,
                   ),
@@ -244,10 +242,10 @@ class CreateAppointmentScreen extends ConsumerWidget {
                     children: [
                       const Icon(Icons.notifications_active_outlined),
                       const SizedBox(width: 14),
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          'Reminder',
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          context.l10n.labelReminder,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ),
                       DropdownButton<AppointmentReminder>(
@@ -258,7 +256,9 @@ class CreateAppointmentScreen extends ConsumerWidget {
                                 .map(
                                   (reminder) => DropdownMenuItem(
                                     value: reminder,
-                                    child: Text(reminder.label),
+                                    child: Text(
+                                      _localizedReminder(context, reminder),
+                                    ),
                                   ),
                                 )
                                 .toList(),
@@ -283,20 +283,29 @@ class CreateAppointmentScreen extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFDCEBFF),
+                    color:
+                        isDark
+                            ? Colors.white.withValues(alpha: 0.06)
+                            : AppColors.brandMist,
                     borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color:
+                          isDark
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : AppColors.brandBlue.withValues(alpha: 0.12),
+                    ),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(
-                        Icons.auto_awesome_rounded,
-                        color: Color(0xFF005DA7),
+                      const Icon(
+                        Icons.notifications_active_rounded,
+                        color: AppColors.brandBlue,
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          'Morning appointments usually reduce missed reminders and delays.',
-                          style: TextStyle(height: 1.4),
+                          context.l10n.morningTipAppointment,
+                          style: const TextStyle(height: 1.4),
                         ),
                       ),
                     ],
@@ -319,8 +328,10 @@ class CreateAppointmentScreen extends ConsumerWidget {
                               await notifier.submit();
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Appointment created.'),
+                                  SnackBar(
+                                    content: Text(
+                                      context.l10n.appointmentCreatedSuccess,
+                                    ),
                                   ),
                                 );
                                 context.pop();
@@ -328,9 +339,9 @@ class CreateAppointmentScreen extends ConsumerWidget {
                             } catch (e) {
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
+                                  SnackBar(
                                     content: Text(
-                                      'Failed to create appointment.',
+                                      context.l10n.failedCreateAppointment,
                                     ),
                                   ),
                                 );
@@ -348,21 +359,31 @@ class CreateAppointmentScreen extends ConsumerWidget {
   }
 
   Widget _card({required Widget child}) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromRGBO(0, 93, 167, 0.04),
-            blurRadius: 24,
-            offset: Offset(0, 10),
+    return Builder(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: isDark ? AppColors.surfaceDark : Colors.white,
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(
+              color:
+                  isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+            ),
+            boxShadow: [
+              if (!isDark)
+                BoxShadow(
+                  color: AppColors.brandBlue.withValues(alpha: 0.05),
+                  blurRadius: 24,
+                  offset: const Offset(0, 10),
+                ),
+            ],
           ),
-        ],
-      ),
-      child: child,
+          child: child,
+        );
+      },
     );
   }
 
@@ -371,23 +392,32 @@ class CreateAppointmentScreen extends ConsumerWidget {
     required String text,
     required VoidCallback onTap,
   }) {
-    return Material(
-      color: const Color(0xFFF2F3FB),
-      borderRadius: BorderRadius.circular(18),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Row(
-            children: [
-              Icon(icon, color: const Color(0xFF6B7280)),
-              const SizedBox(width: 10),
-              Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
-            ],
+    return Builder(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+
+        return Material(
+          color:
+              isDark
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : AppColors.brandMist,
+          borderRadius: BorderRadius.circular(18),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Row(
+                children: [
+                  Icon(icon, color: AppColors.brandBlue),
+                  const SizedBox(width: 10),
+                  Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -412,5 +442,95 @@ class CreateAppointmentScreen extends ConsumerWidget {
       case AppointmentType.other:
         return Icons.more_horiz_outlined;
     }
+  }
+
+  String _localizedType(BuildContext context, AppointmentType type) {
+    switch (type) {
+      case AppointmentType.meeting:
+        return context.l10n.categoryMeeting;
+      case AppointmentType.reminder:
+        return context.l10n.categoryReminder;
+      case AppointmentType.other:
+        return context.l10n.categoryOther;
+      case AppointmentType.medical:
+        return context.l10n.docsCategoryHealth;
+      case AppointmentType.finance:
+        return context.l10n.docsCategoryFinance;
+      case AppointmentType.legal:
+        return context.l10n.docsCategoryLegal;
+      case AppointmentType.personal:
+        return context.l10n.suggestPersonal;
+      default:
+        return type.label;
+    }
+  }
+
+  String _localizedReminder(
+    BuildContext context,
+    AppointmentReminder reminder,
+  ) {
+    switch (reminder) {
+      case AppointmentReminder.tenMinutes:
+        return context.l10n.reminder10m;
+      case AppointmentReminder.oneHour:
+        return context.l10n.reminder1h;
+      case AppointmentReminder.oneDay:
+        return context.l10n.reminder1d;
+      default:
+        return reminder.label;
+    }
+  }
+}
+
+class _CircleIconButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const _CircleIconButton({required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Material(
+      color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: SizedBox(width: 44, height: 44, child: Icon(icon, size: 18)),
+      ),
+    );
+  }
+}
+
+class _LogoMark extends StatelessWidget {
+  final String label;
+
+  const _LogoMark({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'assets/images/vitacase_brand_logo.png',
+          width: 28,
+          height: 28,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(width: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+            color: AppColors.brandBlue,
+            fontFamily: 'Manrope',
+          ),
+        ),
+      ],
+    );
   }
 }

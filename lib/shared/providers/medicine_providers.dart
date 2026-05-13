@@ -7,7 +7,7 @@ import '../domain/usecases/medicines/add_medicine_usecase.dart';
 import 'daily_mission_providers.dart';
 import 'season_providers.dart';
 import '../../core/di/service_providers.dart';
-import '../data/services/notification_service.dart';
+import '../data/services/notification_engine.dart';
 import '../../core/types/runtime_types.dart';
 import '../../core/notifications/app_notification_payload.dart';
 import '../data/services/analytics_service.dart';
@@ -124,16 +124,16 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     }
 
     for (final date in _generatedDates(medicine)) {
-      await NotificationService.scheduleMedication(
+      await NotificationEngine.scheduleMedicine(
         id: medicine.id,
         title: "💊 Medication Reminder",
-        body: NotificationService.safeMedicationBodyStatic(medicine.name),
-        date: date,
+        body: medicine.name,
+        scheduleTime: date,
         payload: AppNotificationPayload(
           type: NotificationType.medication,
           entityId: medicine.id,
           occurrenceAt: date,
-        ),
+        ).encode(),
       );
     }
   }
@@ -255,7 +255,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
   Future<void> _cancelNotifications(Medicine medicine) async {
     for (final date in _generatedDates(medicine)) {
-      await NotificationService.cancelOccurrence(id: medicine.id, date: date);
+      await NotificationEngine.cancel(medicine.id, date);
     }
   }
 }

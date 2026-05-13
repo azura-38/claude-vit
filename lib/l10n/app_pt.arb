@@ -1,0 +1,258 @@
+{
+  "@@locale": "pt",
+  "app_name": "VitaCase",
+  "@app_name": {
+    "description": "Translation for app_name",
+    "placeholders": {}
+  },
+  "skip": "Pular",
+  "@skip": {
+    "description": "Translation for skip",
+    "placeholders": {}
+  },
+  "next": "Próximo",
+  "@next": {
+    "description": "Translation for next",
+    "placeholders": {}
+  },
+  "start": "Iniciar",
+  "@start": {
+    "description": "Translation for start",
+    "placeholders": {}
+  },
+  "back": "Voltar",
+  "@back": {
+    "description": "Translation for back",
+    "placeholders": {}
+  },
+  "save": "Salvar",
+  "@save": {
+    "description": "Translation for save",
+    "placeholders": {}
+  },
+  "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Translation for cancel",
+    "placeholders": {}
+  },
+  "error": "Erro",
+  "@error": {
+    "description": "Translation for error",
+    "placeholders": {}
+  },
+  "success": "Sucesso",
+  "@success": {
+    "description": "Translation for success",
+    "placeholders": {}
+  },
+  "loading": "Carregando...",
+  "@loading": {
+    "description": "Translation for loading",
+    "placeholders": {}
+  },
+  "active": "Ativo",
+  "@active": {
+    "description": "Translation for active",
+    "placeholders": {}
+  },
+  "inactive": "Inativo",
+  "@inactive": {
+    "description": "Translation for inactive",
+    "placeholders": {}
+  },
+  "home": "Início",
+  "@home": {
+    "description": "Translation for home",
+    "placeholders": {}
+  },
+  "vault": "Cofre",
+  "@vault": {
+    "description": "Translation for vault",
+    "placeholders": {}
+  },
+  "explore": "Explorar",
+  "@explore": {
+    "description": "Translation for explore",
+    "placeholders": {}
+  },
+  "appointments": "Consultas",
+  "@appointments": {
+    "description": "Translation for appointments",
+    "placeholders": {}
+  },
+  "profile": "Perfil",
+  "@profile": {
+    "description": "Translation for profile",
+    "placeholders": {}
+  },
+  "medicines": "Medicamentos",
+  "@medicines": {
+    "description": "Translation for medicines",
+    "placeholders": {}
+  },
+  "health_data": "Dados de saúde",
+  "@health_data": {
+    "description": "Translation for health_data",
+    "placeholders": {}
+  },
+  "settings": "Configurações",
+  "@settings": {
+    "description": "Translation for settings",
+    "placeholders": {}
+  },
+  "logout": "Sair",
+  "@logout": {
+    "description": "Translation for logout",
+    "placeholders": {}
+  },
+  "today": "Hoje",
+  "@today": {
+    "description": "Translation for today",
+    "placeholders": {}
+  },
+  "tomorrow": "Amanhã",
+  "@tomorrow": {
+    "description": "Translation for tomorrow",
+    "placeholders": {}
+  },
+  "add": "Adicionar",
+  "@add": {
+    "description": "Translation for add",
+    "placeholders": {}
+  },
+  "edit": "Editar",
+  "@edit": {
+    "description": "Translation for edit",
+    "placeholders": {}
+  },
+  "delete": "Excluir",
+  "@delete": {
+    "description": "Translation for delete",
+    "placeholders": {}
+  },
+  "confirm": "Confirmar",
+  "@confirm": {
+    "description": "Translation for confirm",
+    "placeholders": {}
+  },
+  "save_continue": "Salvar e continuar",
+  "@save_continue": {
+    "description": "Translation for save_continue",
+    "placeholders": {}
+  },
+  "please_enter_name": "Por favor, insira um nome",
+  "@please_enter_name": {
+    "description": "Translation for please_enter_name",
+    "placeholders": {}
+  },
+  "full_name": "NOME COMPLETO",
+  "@full_name": {
+    "description": "Translation for full_name",
+    "placeholders": {}
+  },
+  "gender": "GÊNERO",
+  "@gender": {
+    "description": "Translation for gender",
+    "placeholders": {}
+  },
+  "birth_date": "DATA DE NASCIMENTO",
+  "@birth_date": {
+    "description": "Translation for birth_date",
+    "placeholders": {}
+  },
+  "gender_female": "Feminino",
+  "@gender_female": {
+    "description": "Translation for gender_female",
+    "placeholders": {}
+  },
+  "gender_male": "Masculino",
+  "@gender_male": {
+    "description": "Translation for gender_male",
+    "placeholders": {}
+  },
+  "gender_other": "Outro",
+  "@gender_other": {
+    "description": "Translation for gender_other",
+    "placeholders": {}
+  },
+  "premium_feature": "Recurso Premium 🌟",
+  "@premium_feature": {
+    "description": "Translation for premium_feature",
+    "placeholders": {}
+  },
+  "go_premium": "Seja Premium",
+  "@go_premium": {
+    "description": "Translation for go_premium",
+    "placeholders": {}
+  },
+  "privacy_policy": "Política de privacidade",
+  "@privacy_policy": {
+    "description": "Translation for privacy_policy",
+    "placeholders": {}
+  },
+  "terms_conditions": "Termos e condições",
+  "@terms_conditions": {
+    "description": "Translation for terms_conditions",
+    "placeholders": {}
+  },
+  "emergency_contact": "Contato de emergência",
+  "@emergency_contact": {
+    "description": "Translation for emergency_contact",
+    "placeholders": {}
+  },
+  "blood_type": "Tipo sanguíneo",
+  "@blood_type": {
+    "description": "Translation for blood_type",
+    "placeholders": {}
+  },
+  "step_counter": "Contador de passos",
+  "@step_counter": {
+    "description": "Translation for step_counter",
+    "placeholders": {}
+  },
+  "water_tracker": "Monitoramento de água",
+  "@water_tracker": {
+    "description": "Translation for water_tracker",
+    "placeholders": {}
+  },
+  "reminder": "Lembrete",
+  "@reminder": {
+    "description": "Translation for reminder",
+    "placeholders": {}
+  },
+  "dosage": "Dosagem",
+  "@dosage": {
+    "description": "Translation for dosage",
+    "placeholders": {}
+  },
+  "stock": "Estoque",
+  "@stock": {
+    "description": "Translation for stock",
+    "placeholders": {}
+  },
+  "unit_ml": "ml",
+  "@unit_ml": {
+    "description": "Translation for unit_ml",
+    "placeholders": {}
+  },
+  "unit_l": "L",
+  "@unit_l": {
+    "description": "Translation for unit_l",
+    "placeholders": {}
+  },
+  "unit_steps": "passos",
+  "@unit_steps": {
+    "description": "Translation for unit_steps",
+    "placeholders": {}
+  },
+  "unit_hours": "horas",
+  "@unit_hours": {
+    "description": "Translation for unit_hours",
+    "placeholders": {}
+  },
+  "unit_bpm": "BPM",
+  "@unit_bpm": {
+    "description": "Translation for unit_bpm",
+    "placeholders": {}
+  }
+}

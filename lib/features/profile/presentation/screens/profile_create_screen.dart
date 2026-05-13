@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -209,6 +209,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -228,32 +229,30 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                       }),
                 )
                 : null,
-        title: const Text(
-          "VitaCase",
-          style: TextStyle(
-            fontFamily: 'Manrope',
-            color: AppColors.medicalBlue,
-            fontWeight: FontWeight.w800,
-            fontSize: 24,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/vitacase_brand_logo.png',
+              width: 28,
+              height: 28,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              "VitaCase",
+              style: TextStyle(
+                fontFamily: 'Manrope',
+                color: AppColors.brandBlue,
+                fontWeight: FontWeight.w900,
+                fontSize: 22,
+              ),
+            ),
+          ],
         ),
       ),
       body: Stack(
         children: [
-          // Background decoration
-          Positioned(
-            top: -50,
-            right: -50,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.medicalBlue.withValues(alpha: 0.08),
-              ),
-            ),
-          ).animate().fadeIn().blurXY(end: 80),
-
           SafeArea(
             child: Column(
               children: [
@@ -271,7 +270,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                           height: 2,
                           color:
                               _currentStep >= 1
-                                  ? AppColors.medicalBlue
+                                  ? AppColors.brandBlue
                                   : (isDark
                                       ? Colors.white12
                                       : Colors.grey[300]),
@@ -317,7 +316,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                     ElevatedButton(
                       onPressed: _profileValid ? _goToSecurityStep : null,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.medicalBlue,
+                        backgroundColor: AppColors.brandBlue,
                         foregroundColor: Colors.white,
                         minimumSize: const Size(double.infinity, 56),
                         shape: RoundedRectangleBorder(
@@ -344,7 +343,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      context.l10n.securityBadgeLabel,
+                      context.l10n.freeSecureRelease,
                       style: const TextStyle(
                         fontSize: 9,
                         color: Colors.grey,
@@ -370,11 +369,11 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           height: 32,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isActive ? AppColors.medicalBlue : Colors.grey[300],
+            color: isActive ? AppColors.brandBlue : Colors.grey[300],
             border:
                 isCurrent
                     ? Border.all(
-                      color: AppColors.medicalBlue.withValues(alpha: 0.3),
+                      color: AppColors.brandBlue.withValues(alpha: 0.3),
                       width: 3,
                     )
                     : null,
@@ -405,7 +404,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             fontWeight: isCurrent ? FontWeight.w800 : FontWeight.w500,
             color:
                 isActive
-                    ? AppColors.medicalBlue
+                    ? AppColors.brandBlue
                     : (Theme.of(context).brightness == Brightness.dark
                         ? Colors.white38
                         : Colors.grey),
@@ -422,7 +421,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       children: [
         _buildHeader(isDark),
-        const SizedBox(height: 24),
+        const SizedBox(height: 22),
         _buildPhotoPicker(isDark),
         const SizedBox(height: 24),
         _buildFormInput(
@@ -550,12 +549,12 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: const Color(0xFF10B981).withValues(alpha: 0.1),
+                color: AppColors.success.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
                 Icons.check_circle_rounded,
-                color: Color(0xFF10B981),
+                color: AppColors.success,
                 size: 64,
               ),
             ).animate().scale(
@@ -570,7 +569,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                color: isDark ? Colors.white : AppColors.brandNavy,
               ),
             ),
           ],
@@ -595,7 +594,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             child: Icon(
               Icons.security_rounded,
               size: 48,
-              color: isDark ? Colors.white70 : AppColors.medicalBlue,
+              color: isDark ? Colors.white70 : AppColors.brandBlue,
             ),
           ).animate().scale(
             begin: const Offset(0.8, 0.8),
@@ -734,7 +733,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(34),
-        splashColor: AppColors.medicalBlue.withValues(alpha: 0.15),
+        splashColor: AppColors.brandBlue.withValues(alpha: 0.15),
         child: Container(
           width: 68,
           height: 56,
@@ -762,26 +761,48 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   // ─── Shared Widgets ───
 
   Widget _buildHeader(bool isDark) {
-    return Column(
-      children: [
-        Text(
-          context.l10n.createProfile,
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w900,
-            color: isDark ? Colors.white : AppColors.textPrimary,
-          ),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.surfaceDark : Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(
+          color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
         ),
-        const SizedBox(height: 8),
-        Text(
-          context.l10n.profileDesc,
-          style: TextStyle(
-            fontSize: 14,
-            color: isDark ? Colors.white70 : AppColors.textSecondary,
+        boxShadow: [
+          if (!isDark)
+            BoxShadow(
+              color: AppColors.brandBlue.withValues(alpha: 0.08),
+              blurRadius: 28,
+              offset: const Offset(0, 14),
+            ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            context.l10n.createProfile,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.w900,
+              color: isDark ? Colors.white : AppColors.brandNavy,
+              fontFamily: 'Manrope',
+            ),
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 8),
+          Text(
+            context.l10n.profileDesc,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.4,
+              color: isDark ? Colors.white70 : AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    ).animate().fadeIn().slideY(begin: .12);
   }
 
   Widget _buildPhotoPicker(bool isDark) {
@@ -800,7 +821,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               height: 110,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isDark ? Colors.white10 : Colors.grey[200],
+                color: isDark ? Colors.white10 : AppColors.brandMist,
               ),
               child: ClipOval(
                 child:
@@ -809,7 +830,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                         : const Icon(
                           Icons.person_rounded,
                           size: 56,
-                          color: AppColors.medicalBlue,
+                          color: AppColors.brandBlue,
                         ),
               ),
             ),
@@ -817,7 +838,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               bottom: 0,
               right: 0,
               child: CircleAvatar(
-                backgroundColor: AppColors.medicalBlue,
+                backgroundColor: AppColors.brandBlue,
                 radius: 16,
                 child: const Icon(
                   Icons.add_a_photo_rounded,
@@ -857,7 +878,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       hintText: hint,
       filled: true,
       fillColor:
-          isDark ? Colors.white.withValues(alpha: 0.05) : Colors.grey[100],
+          isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.brandMist,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
@@ -912,7 +933,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               label,
               style: const TextStyle(
                 fontSize: 13,
-                color: AppColors.medicalBlue,
+                color: AppColors.brandBlue,
                 decoration: TextDecoration.underline,
               ),
             ),

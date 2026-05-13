@@ -17,7 +17,7 @@ class AnimatedSegmentedControl extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.primaryLight.withValues(alpha: 0.35),
+        color: AppColors.brandMist,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -51,7 +51,7 @@ class AnimatedSegmentedControl extends StatelessWidget {
                         style: TextStyle(
                           color:
                               isSelected
-                                  ? AppColors.primary
+                                  ? AppColors.brandBlue
                                   : AppColors.textSecondary,
                           fontWeight: FontWeight.w600,
                         ),

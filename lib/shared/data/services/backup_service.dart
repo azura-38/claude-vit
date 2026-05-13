@@ -153,21 +153,7 @@ void _importTask(_RestoreTaskData data) {
     throw const FileSystemException('Backup manifest is missing.');
   }
 
-  // MVP FIX: Allow cross-device restore for now.
-  // Note: manifest variable removed to resolve 'unused' warning while this check is disabled.
-  // TODO: Add password/manifest validation in the next phase.
-  /*
-  final manifestJson = utf8.decode((manifestEntry.content as List<int>));
-  final manifest = BackupManifest.fromJson(
-    jsonDecode(manifestJson) as Map<String, dynamic>,
-  );
-  if (manifest.scope == 'same_device_only' &&
-      manifest.deviceUid != data.currentDeviceUid) {
-    throw const FileSystemException(
-      'This backup belongs to a different device and cannot be restored here.',
-    );
-  }
-  */
+  // Note: manifest validation is currently disabled to allow cross-device restore (MVP).
 
   // 1. Prepare temp directory
   final tempDirPath = p.join(data.targetDocsPath, "restore_temp");

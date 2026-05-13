@@ -1,5 +1,6 @@
 # Flutter
 .dart_tool/
+.flutter-plugins-dependencies
 .packages
 .pub/
 .pub-cache/
@@ -20,6 +21,11 @@ ios/Flutter/.last_build_id
 *.aab
 *.ap_
 *.log
+*_output.txt
+pub_get_output.txt
+build_log.txt
+full_cmd.txt
+sentry-wizard.exe
 
 # Keystore (VERY IMPORTANT)
 *.jks
@@ -37,3 +43,7 @@ Thumbs.db
 # Misc
 .env
 coverage/
+temp_achievements/
+vitacase_flutter/
+
+vitacase_v1.1.0_14.zip

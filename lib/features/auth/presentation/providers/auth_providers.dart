@@ -1,12 +1,14 @@
-﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../shared/providers/shared_prefs_provider.dart';
-import '../../../../shared/data/services/app_lock_service.dart';
 import '../../../../shared/data/services/pin_service.dart';
 import '../../../../core/types/runtime_types.dart';
-import 'package:vitacase/core/extensions/l10n_extension.dart';
+import '../../../../shared/domain/entities/lock_timeout.dart';
+import '../../../../shared/providers/notification_settings_provider.dart';
+import '../../../../shared/providers/user_preferences_controller.dart';
 
-final appLockServiceProvider = Provider((ref) => AppLockService());
+// Note: appLockServiceProvider is defined in core/di/service_providers.dart
+// and must NOT be duplicated here. Import it from there when needed.
+export '../../../../core/di/service_providers.dart' show appLockServiceProvider;
+
 final pinServiceProvider = Provider((ref) => PinService());
 
 final hasPinProvider = FutureProvider<bool>((ref) async {
@@ -21,8 +23,17 @@ final appLockStateProvider =
 class AppLockStateNotifier extends Notifier<AppLockState> {
   @override
   AppLockState build() {
-    final isEnabled = ref.watch(appLockEnabledProvider);
-    return isEnabled ? AppLockState.locked : AppLockState.unlocked;
+    final prefsAsync = ref.watch(userPreferencesControllerProvider);
+
+    // While preferences are still loading, we cannot know the lock state.
+    // Return [AppLockState.unknown] so the router shows the lock screen as
+    // a safe default (better than showing home to an unauthenticated user).
+    // Once prefs load, the provider rebuilds with the correct state.
+    return prefsAsync.maybeWhen(
+      data: (prefs) =>
+          prefs.appLockEnabled ? AppLockState.locked : AppLockState.unlocked,
+      orElse: () => AppLockState.unknown,
+    );
   }
 
   void setLocked() {
@@ -43,18 +54,19 @@ final appLockEnabledProvider = NotifierProvider<AppLockEnabledNotifier, bool>(
 );
 
 class AppLockEnabledNotifier extends Notifier<bool> {
-  static const _key = 'app_lock_enabled';
-
   @override
   bool build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    return prefs.getBool(_key) ?? false;
+    final prefs = ref.watch(userPreferencesControllerProvider);
+    return prefs.maybeWhen(
+      data: (p) => p.appLockEnabled,
+      orElse: () => false,
+    );
   }
 
   Future<void> setEnabled(bool enabled) async {
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(_key, enabled);
-    state = enabled;
+    await ref
+        .read(userPreferencesControllerProvider.notifier)
+        .updateSecurity(appLockEnabled: enabled);
     final lockState = ref.read(appLockStateProvider.notifier);
     if (enabled) {
       lockState.setLocked();
@@ -70,32 +82,20 @@ final biometricEnabledProvider =
     );
 
 class BiometricEnabledNotifier extends Notifier<bool> {
-  static const _key = 'biometric_enabled';
-
   @override
   bool build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    return prefs.getBool(_key) ?? false;
+    final prefs = ref.watch(userPreferencesControllerProvider);
+    return prefs.maybeWhen(
+      data: (p) => p.biometricEnabled,
+      orElse: () => false,
+    );
   }
 
   Future<void> setEnabled(bool enabled) async {
-    state = enabled;
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(_key, enabled);
+    await ref
+        .read(userPreferencesControllerProvider.notifier)
+        .updateSecurity(biometricEnabled: enabled);
   }
-}
-
-enum LockTimeout {
-  instant(Duration.zero, 'lock_timeout_instant'),
-  oneMinute(Duration(minutes: 1), 'lock_timeout_1m'),
-  fiveMinutes(Duration(minutes: 5), 'lock_timeout_5m'),
-  fifteenMinutes(Duration(minutes: 15), 'lock_timeout_15m');
-
-  final Duration duration;
-  final String key;
-  const LockTimeout(this.duration, this.key);
-
-  String localizedLabel(BuildContext context) => context.l10n(key);
 }
 
 final lockTimeoutProvider = NotifierProvider<LockTimeoutNotifier, LockTimeout>(
@@ -103,19 +103,19 @@ final lockTimeoutProvider = NotifierProvider<LockTimeoutNotifier, LockTimeout>(
 );
 
 class LockTimeoutNotifier extends Notifier<LockTimeout> {
-  static const _key = 'app_lock_timeout';
-
   @override
   LockTimeout build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    final index = prefs.getInt(_key) ?? 0;
-    return LockTimeout.values[index.clamp(0, LockTimeout.values.length - 1)];
+    final prefs = ref.watch(userPreferencesControllerProvider);
+    return prefs.maybeWhen(
+      data: (p) => p.lockTimeout,
+      orElse: () => LockTimeout.instant,
+    );
   }
 
   Future<void> setTimeout(LockTimeout mode) async {
-    state = mode;
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setInt(_key, mode.index);
+    await ref
+        .read(userPreferencesControllerProvider.notifier)
+        .updateSecurity(lockTimeout: mode);
   }
 }
 
@@ -124,18 +124,19 @@ final quickActionsProvider = NotifierProvider<QuickActionsNotifier, bool>(
 );
 
 class QuickActionsNotifier extends Notifier<bool> {
-  static const _key = 'quick_actions_enabled';
-
   @override
   bool build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    return prefs.getBool(_key) ?? true;
+    final prefs = ref.watch(userPreferencesControllerProvider);
+    return prefs.maybeWhen(
+      data: (p) => p.quickActionsEnabled,
+      orElse: () => true,
+    );
   }
 
   Future<void> setEnabled(bool enabled) async {
-    state = enabled;
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(_key, enabled);
+    await ref
+        .read(userPreferencesControllerProvider.notifier)
+        .toggleQuickActions(enabled);
   }
 }
 
@@ -145,17 +146,25 @@ final engagementRemindersProvider =
     );
 
 class EngagementRemindersNotifier extends Notifier<bool> {
-  static const _key = 'engagement_reminders_enabled';
-
   @override
   bool build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    return prefs.getBool(_key) ?? false;
+    final prefs = ref.watch(userPreferencesControllerProvider);
+    return prefs.maybeWhen(
+      data: (p) => p.notificationSettings.smartNotificationsEnabled,
+      orElse: () => false,
+    );
   }
 
   Future<void> setEnabled(bool enabled) async {
-    state = enabled;
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(_key, enabled);
+    final current = ref
+            .read(userPreferencesControllerProvider)
+            .value
+            ?.notificationSettings ??
+        const NotificationSettings();
+    await ref
+        .read(userPreferencesControllerProvider.notifier)
+        .updateNotifications(
+          current.copyWith(smartNotificationsEnabled: enabled),
+        );
   }
 }

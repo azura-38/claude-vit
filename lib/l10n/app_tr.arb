@@ -1,780 +1,3988 @@
 {
   "@@locale": "tr",
   "app_name": "VitaCase",
+  "@app_name": {
+    "description": "Translation for app_name",
+    "placeholders": {}
+  },
   "skip": "Atla",
+  "@skip": {
+    "description": "Translation for skip",
+    "placeholders": {}
+  },
   "next": "İleri",
+  "@next": {
+    "description": "Translation for next",
+    "placeholders": {}
+  },
   "start": "Başla",
+  "@start": {
+    "description": "Translation for start",
+    "placeholders": {}
+  },
   "back": "Geri",
+  "@back": {
+    "description": "Translation for back",
+    "placeholders": {}
+  },
   "save": "Kaydet",
+  "@save": {
+    "description": "Translation for save",
+    "placeholders": {}
+  },
   "cancel": "İptal",
+  "@cancel": {
+    "description": "Translation for cancel",
+    "placeholders": {}
+  },
   "error": "Hata",
+  "@error": {
+    "description": "Translation for error",
+    "placeholders": {}
+  },
   "success": "Başarılı",
+  "@success": {
+    "description": "Translation for success",
+    "placeholders": {}
+  },
   "loading": "Yükleniyor...",
+  "@loading": {
+    "description": "Translation for loading",
+    "placeholders": {}
+  },
   "active": "Aktif",
+  "@active": {
+    "description": "Translation for active",
+    "placeholders": {}
+  },
   "inactive": "Pasif",
+  "@inactive": {
+    "description": "Translation for inactive",
+    "placeholders": {}
+  },
   "premium_feature": "Premium Özellik 🌟",
+  "@premium_feature": {
+    "description": "Translation for premium_feature",
+    "placeholders": {}
+  },
   "premium_required_desc": "Uygulama Kilidi için Premium üyeliğinizin olması gerekmektedir.",
+  "@premium_required_desc": {
+    "description": "Translation for premium_required_desc",
+    "placeholders": {}
+  },
   "go_premium": "Premium'a Geç",
+  "@go_premium": {
+    "description": "Translation for go_premium",
+    "placeholders": {}
+  },
   "view_weekly": "Haftalık",
+  "@view_weekly": {
+    "description": "Translation for view_weekly",
+    "placeholders": {}
+  },
   "view_monthly": "Aylık",
+  "@view_monthly": {
+    "description": "Translation for view_monthly",
+    "placeholders": {}
+  },
   "phone_country_code": "Kod",
+  "@phone_country_code": {
+    "description": "Translation for phone_country_code",
+    "placeholders": {}
+  },
   "coming_soon": "Yakında",
+  "@coming_soon": {
+    "description": "Translation for coming_soon",
+    "placeholders": {}
+  },
   "coming_soon_desc": "Bu özellik bir sonraki güncellemede gelecek.",
+  "@coming_soon_desc": {
+    "description": "Translation for coming_soon_desc",
+    "placeholders": {}
+  },
   "tap_for_test": "Test bildirimi için {count} kez daha dokunun",
+  "@tap_for_test": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for tap_for_test"
+  },
   "unit_ml": "ml",
+  "@unit_ml": {
+    "description": "Translation for unit_ml",
+    "placeholders": {}
+  },
   "unit_l": "L",
+  "@unit_l": {
+    "description": "Translation for unit_l",
+    "placeholders": {}
+  },
   "metric_water": "Su",
+  "@metric_water": {
+    "description": "Translation for metric_water",
+    "placeholders": {}
+  },
   "metric_steps": "Adım",
+  "@metric_steps": {
+    "description": "Translation for metric_steps",
+    "placeholders": {}
+  },
   "metric_sleep": "Uyku",
+  "@metric_sleep": {
+    "description": "Translation for metric_sleep",
+    "placeholders": {}
+  },
   "metric_heart_rate": "Nabız",
+  "@metric_heart_rate": {
+    "description": "Translation for metric_heart_rate",
+    "placeholders": {}
+  },
   "unit_steps": "adım",
+  "@unit_steps": {
+    "description": "Translation for unit_steps",
+    "placeholders": {}
+  },
   "unit_hours": "saat",
+  "@unit_hours": {
+    "description": "Translation for unit_hours",
+    "placeholders": {}
+  },
   "unit_bpm": "BPM",
+  "@unit_bpm": {
+    "description": "Translation for unit_bpm",
+    "placeholders": {}
+  },
   "index": "Endeksi",
+  "@index": {
+    "description": "Translation for index",
+    "placeholders": {}
+  },
   "quick_actions_visibility": "Hızlı İşlemler Görünürlüğü",
+  "@quick_actions_visibility": {
+    "description": "Translation for quick_actions_visibility",
+    "placeholders": {}
+  },
   "personal_notes": "Kişisel Notlar",
+  "@personal_notes": {
+    "description": "Translation for personal_notes",
+    "placeholders": {}
+  },
   "save_and_list": "Kaydet ve Listele",
+  "@save_and_list": {
+    "description": "Translation for save_and_list",
+    "placeholders": {}
+  },
   "doctor_info": "Doktor Bilgileri",
+  "@doctor_info": {
+    "description": "Translation for doctor_info",
+    "placeholders": {}
+  },
   "add_doctor_desc": "Hızlı erişim için doktorlarınızın iletişim bilgilerini saklayın.",
+  "@add_doctor_desc": {
+    "description": "Translation for add_doctor_desc",
+    "placeholders": {}
+  },
   "basic_info": "Temel Bilgiler",
+  "@basic_info": {
+    "description": "Translation for basic_info",
+    "placeholders": {}
+  },
   "institution_contact": "Kurum ve İletişim",
+  "@institution_contact": {
+    "description": "Translation for institution_contact",
+    "placeholders": {}
+  },
   "notes_bio": "Notlar ve Biyografi",
+  "@notes_bio": {
+    "description": "Translation for notes_bio",
+    "placeholders": {}
+  },
   "unknown": "Bilinmiyor",
+  "@unknown": {
+    "description": "Translation for unknown",
+    "placeholders": {}
+  },
   "hospital_clinic_name": "Hastane / Klinik Adı",
+  "@hospital_clinic_name": {
+    "description": "Translation for hospital_clinic_name",
+    "placeholders": {}
+  },
   "phone_number": "Telefon Numarası",
+  "@phone_number": {
+    "description": "Translation for phone_number",
+    "placeholders": {}
+  },
   "email_address": "E-posta Adresi",
+  "@email_address": {
+    "description": "Translation for email_address",
+    "placeholders": {}
+  },
   "address": "Adres",
+  "@address": {
+    "description": "Translation for address",
+    "placeholders": {}
+  },
   "emergency_info": "ACİL DURUM BİLGİLERİ",
+  "@emergency_info": {
+    "description": "Translation for emergency_info",
+    "placeholders": {}
+  },
   "emergency_contact_name": "Acil Durum Kişisi (İsim)",
+  "@emergency_contact_name": {
+    "description": "Translation for emergency_contact_name",
+    "placeholders": {}
+  },
   "emergency_contact_phone": "Acil Durum Kişisi (Telefon)",
+  "@emergency_contact_phone": {
+    "description": "Translation for emergency_contact_phone",
+    "placeholders": {}
+  },
   "blood_type": "Kan Grubu",
+  "@blood_type": {
+    "description": "Translation for blood_type",
+    "placeholders": {}
+  },
   "blood_unknown": "Bilinmiyor",
+  "@blood_unknown": {
+    "description": "Translation for blood_unknown",
+    "placeholders": {}
+  },
   "profile_updated": "Profil güncellendi! ✅",
+  "@profile_updated": {
+    "description": "Translation for profile_updated",
+    "placeholders": {}
+  },
   "please_enter_name": "Lütfen isim girin",
+  "@please_enter_name": {
+    "description": "Translation for please_enter_name",
+    "placeholders": {}
+  },
   "continue_btn": "Devam Et",
+  "@continue_btn": {
+    "description": "Translation for continue_btn",
+    "placeholders": {}
+  },
   "let_start": "Başlayalım",
+  "@let_start": {
+    "description": "Translation for let_start",
+    "placeholders": {}
+  },
   "ob_1_title": "VitaCase",
+  "@ob_1_title": {
+    "description": "Translation for ob_1_title",
+    "placeholders": {}
+  },
   "ob_1_subtitle": "Tüm Dosyalarınız Tek Yerde",
+  "@ob_1_subtitle": {
+    "description": "Translation for ob_1_subtitle",
+    "placeholders": {}
+  },
   "ob_1_desc": "Belgelerinizi, randevularınızı ve ilaçlarınızı güvenle saklayın, her zaman yanınızda taşıyın.",
+  "@ob_1_desc": {
+    "description": "Translation for ob_1_desc",
+    "placeholders": {}
+  },
   "ob_2_title": "Tüm Dosyalarınızı Düzenleyin",
+  "@ob_2_title": {
+    "description": "Translation for ob_2_title",
+    "placeholders": {}
+  },
   "ob_2_desc": "Belgelerinizi yükleyin, kategorilere ayırın ve kolayca yönetin.",
+  "@ob_2_desc": {
+    "description": "Translation for ob_2_desc",
+    "placeholders": {}
+  },
   "ob_3_title": "Randevularınızı Kaydedin",
+  "@ob_3_title": {
+    "description": "Translation for ob_3_title",
+    "placeholders": {}
+  },
   "ob_3_desc": "Tüm randevularınızı tek yerde tutun, hatırlatmalarla hiçbirini kaçırmayın.",
+  "@ob_3_desc": {
+    "description": "Translation for ob_3_desc",
+    "placeholders": {}
+  },
   "ob_4_title": "İlaçlarınızı Kaydedin ve Takip Edin",
+  "@ob_4_title": {
+    "description": "Translation for ob_4_title",
+    "placeholders": {}
+  },
   "ob_4_desc": "İlaçlarınızı ve kullanım saatlerinizi kaydedin, hatırlatmalarla düzenli kullanmayı unutmayın.",
+  "@ob_4_desc": {
+    "description": "Translation for ob_4_desc",
+    "placeholders": {}
+  },
   "ob_5_title": "Kaydedin, Kaybetmeyin",
+  "@ob_5_title": {
+    "description": "Translation for ob_5_title",
+    "placeholders": {}
+  },
   "ob_5_desc": "Randevularınız ve ilaçlarınız güvende olsun, siz rahat olun.",
+  "@ob_5_desc": {
+    "description": "Translation for ob_5_desc",
+    "placeholders": {}
+  },
   "ob_feature_1_title": "Güvenli Saklama",
+  "@ob_feature_1_title": {
+    "description": "Translation for ob_feature_1_title",
+    "placeholders": {}
+  },
   "ob_feature_1_desc": "Verileriniz şifrelenir ve sadece size aittir.",
+  "@ob_feature_1_desc": {
+    "description": "Translation for ob_feature_1_desc",
+    "placeholders": {}
+  },
   "ob_feature_2_title": "Hatırlatmalar",
+  "@ob_feature_2_title": {
+    "description": "Translation for ob_feature_2_title",
+    "placeholders": {}
+  },
   "ob_feature_2_desc": "Randevu ve ilaç saatlerinizi asla kaçırmayın.",
+  "@ob_feature_2_desc": {
+    "description": "Translation for ob_feature_2_desc",
+    "placeholders": {}
+  },
   "ob_feature_3_title": "Her Yerde Erişim",
+  "@ob_feature_3_title": {
+    "description": "Translation for ob_feature_3_title",
+    "placeholders": {}
+  },
   "ob_feature_3_desc": "Tüm bilgilerinize dilediğiniz zaman ulaşın.",
+  "@ob_feature_3_desc": {
+    "description": "Translation for ob_feature_3_desc",
+    "placeholders": {}
+  },
   "hi": "Merhaba",
+  "@hi": {
+    "description": "Translation for hi",
+    "placeholders": {}
+  },
   "good_morning": "GÜNAYDIN",
+  "@good_morning": {
+    "description": "Translation for good_morning",
+    "placeholders": {}
+  },
   "good_afternoon": "TÜNAYDIN",
+  "@good_afternoon": {
+    "description": "Translation for good_afternoon",
+    "placeholders": {}
+  },
   "good_evening": "İYİ AKŞAMLAR",
+  "@good_evening": {
+    "description": "Translation for good_evening",
+    "placeholders": {}
+  },
   "good_night": "İYİ GECELER",
+  "@good_night": {
+    "description": "Translation for good_night",
+    "placeholders": {}
+  },
   "synced": "Senkronize",
+  "@synced": {
+    "description": "Translation for synced",
+    "placeholders": {}
+  },
   "guest_mode": "Misafir Modu Aktif",
+  "@guest_mode": {
+    "description": "Translation for guest_mode",
+    "placeholders": {}
+  },
   "guest_desc": "Veriler yereldedir. Yedeklemek için hesap oluşturun.",
+  "@guest_desc": {
+    "description": "Translation for guest_desc",
+    "placeholders": {}
+  },
   "guest_user": "Misafir Kullanıcı",
+  "@guest_user": {
+    "description": "Translation for guest_user",
+    "placeholders": {}
+  },
   "all_records": "Güvenli Arşiv",
+  "@all_records": {
+    "description": "Translation for all_records",
+    "placeholders": {}
+  },
   "vault_is_empty": "Kasanız Hazır",
+  "@vault_is_empty": {
+    "description": "Translation for vault_is_empty",
+    "placeholders": {}
+  },
   "vault_desc": "En önemli kayıtlarınızı özel bir sığınakta düzenleyin ve saklayın.",
+  "@vault_desc": {
+    "description": "Translation for vault_desc",
+    "placeholders": {}
+  },
   "quick_access": "HIZLI ERİŞİM",
+  "@quick_access": {
+    "description": "Translation for quick_access",
+    "placeholders": {}
+  },
   "steps": "Adım",
+  "@steps": {
+    "description": "Translation for steps",
+    "placeholders": {}
+  },
   "heart": "Nabız",
+  "@heart": {
+    "description": "Translation for heart",
+    "placeholders": {}
+  },
   "sleep": "Uyku",
+  "@sleep": {
+    "description": "Translation for sleep",
+    "placeholders": {}
+  },
   "water": "Su",
+  "@water": {
+    "description": "Translation for water",
+    "placeholders": {}
+  },
   "bpm": "BPM",
+  "@bpm": {
+    "description": "Translation for bpm",
+    "placeholders": {}
+  },
   "hours": "Saat",
+  "@hours": {
+    "description": "Translation for hours",
+    "placeholders": {}
+  },
   "ml": "ML",
+  "@ml": {
+    "description": "Translation for ml",
+    "placeholders": {}
+  },
   "home": "Ana Sayfa",
+  "@home": {
+    "description": "Translation for home",
+    "placeholders": {}
+  },
   "vault": "Kasa",
+  "@vault": {
+    "description": "Translation for vault",
+    "placeholders": {}
+  },
   "explore": "Keşfet",
+  "@explore": {
+    "description": "Translation for explore",
+    "placeholders": {}
+  },
   "appointments": "Randevu",
+  "@appointments": {
+    "description": "Translation for appointments",
+    "placeholders": {}
+  },
   "profile": "Profil",
+  "@profile": {
+    "description": "Translation for profile",
+    "placeholders": {}
+  },
   "pharmacies": "Eczaneler",
+  "@pharmacies": {
+    "description": "Translation for pharmacies",
+    "placeholders": {}
+  },
   "medicines": "İlaçlarım",
+  "@medicines": {
+    "description": "Translation for medicines",
+    "placeholders": {}
+  },
   "health_data": "Sağlık Verisi",
+  "@health_data": {
+    "description": "Translation for health_data",
+    "placeholders": {}
+  },
   "important_info": "Önemli Bilgi",
+  "@important_info": {
+    "description": "Translation for important_info",
+    "placeholders": {}
+  },
   "create_profile": "Profilinizi Oluşturun",
+  "@create_profile": {
+    "description": "Translation for create_profile",
+    "placeholders": {}
+  },
   "profile_desc": "Yolculuğunuzu kişiselleştirmek için birkaç bilgiye ihtiyacımız var.",
+  "@profile_desc": {
+    "description": "Translation for profile_desc",
+    "placeholders": {}
+  },
   "full_name": "AD SOYAD",
+  "@full_name": {
+    "description": "Translation for full_name",
+    "placeholders": {}
+  },
   "gender": "CİNSİYET",
+  "@gender": {
+    "description": "Translation for gender",
+    "placeholders": {}
+  },
   "birth_date": "DOĞUM TARİHİ",
+  "@birth_date": {
+    "description": "Translation for birth_date",
+    "placeholders": {}
+  },
   "date_format_hint": "GG.AA.YYYY",
+  "@date_format_hint": {
+    "description": "Translation for date_format_hint",
+    "placeholders": {}
+  },
   "save_continue": "Kaydet ve Devam Et",
+  "@save_continue": {
+    "description": "Translation for save_continue",
+    "placeholders": {}
+  },
   "security_badge_label": "VITACASE GELISMIS SIFRELEME v2.4",
+  "@security_badge_label": {
+    "description": "Translation for security_badge_label",
+    "placeholders": {}
+  },
   "health_stats": "Sağlık Paneli",
+  "@health_stats": {
+    "description": "Translation for health_stats",
+    "placeholders": {}
+  },
   "health_stats_desc": "Günlük sağlık verilerinizin kapsamlı özeti.",
+  "@health_stats_desc": {
+    "description": "Translation for health_stats_desc",
+    "placeholders": {}
+  },
   "recent_activity": "Son Aktiviteler",
+  "@recent_activity": {
+    "description": "Translation for recent_activity",
+    "placeholders": {}
+  },
   "no_health_records": "Henüz bir kayıt bulunamadı.",
+  "@no_health_records": {
+    "description": "Translation for no_health_records",
+    "placeholders": {}
+  },
   "add_health_data": "Sağlık Verisi Ekle",
+  "@add_health_data": {
+    "description": "Translation for add_health_data",
+    "placeholders": {}
+  },
   "step_unit": "adım",
+  "@step_unit": {
+    "description": "Translation for step_unit",
+    "placeholders": {}
+  },
   "privacy_guarantee": "Verileriniz güvende",
+  "@privacy_guarantee": {
+    "description": "Translation for privacy_guarantee",
+    "placeholders": {}
+  },
   "privacy_box_desc": "Bilgileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.",
+  "@privacy_box_desc": {
+    "description": "Translation for privacy_box_desc",
+    "placeholders": {}
+  },
   "privacy_box_warning": "Verileriniz gizlidir ve cihazınızda güvenli bir şekilde saklanır. Lütfen çok hassas bilgiler yüklemekten kaçının. Sakladığınız verilerden siz sorumlusunuz.",
+  "@privacy_box_warning": {
+    "description": "Translation for privacy_box_warning",
+    "placeholders": {}
+  },
   "docs_secure_storage_title": "Güvenli Yerel Depolama 🔒",
+  "@docs_secure_storage_title": {
+    "description": "Translation for docs_secure_storage_title",
+    "placeholders": {}
+  },
   "docs_secure_storage_desc": "Verileriniz cihazınızda kalır",
+  "@docs_secure_storage_desc": {
+    "description": "Translation for docs_secure_storage_desc",
+    "placeholders": {}
+  },
   "docs_sensitive_warning": "Çok hassas bilgileri saklamaktan kaçının. Verilerinizden siz sorumlusunuz.",
+  "@docs_sensitive_warning": {
+    "description": "Translation for docs_sensitive_warning",
+    "placeholders": {}
+  },
   "gender_female": "Kadın",
+  "@gender_female": {
+    "description": "Translation for gender_female",
+    "placeholders": {}
+  },
   "gender_male": "Erkek",
+  "@gender_male": {
+    "description": "Translation for gender_male",
+    "placeholders": {}
+  },
   "gender_other": "Diğer",
+  "@gender_other": {
+    "description": "Translation for gender_other",
+    "placeholders": {}
+  },
   "appearance": "GÖRÜNÜM",
+  "@appearance": {
+    "description": "Translation for appearance",
+    "placeholders": {}
+  },
   "theme_settings": "Tema Ayarları",
+  "@theme_settings": {
+    "description": "Translation for theme_settings",
+    "placeholders": {}
+  },
   "app_settings": "UYGULAMA AYARLARI",
+  "@app_settings": {
+    "description": "Translation for app_settings",
+    "placeholders": {}
+  },
   "text_size": "Metin Boyutu",
+  "@text_size": {
+    "description": "Translation for text_size",
+    "placeholders": {}
+  },
   "quick_actions": "Hızlı İşlemler",
+  "@quick_actions": {
+    "description": "Translation for quick_actions",
+    "placeholders": {}
+  },
   "data_security": "VERİ & GÜVENLİK",
+  "@data_security": {
+    "description": "Translation for data_security",
+    "placeholders": {}
+  },
   "app_lock": "Uygulama Kilidi",
+  "@app_lock": {
+    "description": "Translation for app_lock",
+    "placeholders": {}
+  },
   "backup_zip": "Yedekleme (ZIP)",
+  "@backup_zip": {
+    "description": "Translation for backup_zip",
+    "placeholders": {}
+  },
   "import_backup": "Yedek Iceri Aktar",
+  "@import_backup": {
+    "description": "Translation for import_backup",
+    "placeholders": {}
+  },
   "import_desc": "ZIP yedegini ice aktar",
+  "@import_desc": {
+    "description": "Translation for import_desc",
+    "placeholders": {}
+  },
   "export_desc": "Belgeleri dışa aktar",
+  "@export_desc": {
+    "description": "Translation for export_desc",
+    "placeholders": {}
+  },
   "emergency_contact": "Acil Durum Kişisi",
+  "@emergency_contact": {
+    "description": "Translation for emergency_contact",
+    "placeholders": {}
+  },
   "daily_step_goal": "Günlük Adım Hedefi",
+  "@daily_step_goal": {
+    "description": "Translation for daily_step_goal",
+    "placeholders": {}
+  },
   "support_legal": "DESTEK & YASAL",
+  "@support_legal": {
+    "description": "Translation for support_legal",
+    "placeholders": {}
+  },
   "help_center": "Yardım Merkezi",
+  "@help_center": {
+    "description": "Translation for help_center",
+    "placeholders": {}
+  },
   "report_issue": "Sorun bildir",
+  "@report_issue": {
+    "description": "Translation for report_issue",
+    "placeholders": {}
+  },
   "privacy_policy": "Gizlilik Politikası",
+  "@privacy_policy": {
+    "description": "Translation for privacy_policy",
+    "placeholders": {}
+  },
   "terms_conditions": "Kullanım Koşulları",
+  "@terms_conditions": {
+    "description": "Translation for terms_conditions",
+    "placeholders": {}
+  },
   "legal_disclaimer": "Yasal Uyarı",
+  "@legal_disclaimer": {
+    "description": "Translation for legal_disclaimer",
+    "placeholders": {}
+  },
   "legal": "YASAL",
+  "@legal": {
+    "description": "Translation for legal",
+    "placeholders": {}
+  },
   "lock_gate_title": "VitaCase Kilitli",
+  "@lock_gate_title": {
+    "description": "Translation for lock_gate_title",
+    "placeholders": {}
+  },
   "lock_gate_desc": "Güvenli kasanıza erişmek için lütfen kimliğinizi doğrulayın.",
+  "@lock_gate_desc": {
+    "description": "Translation for lock_gate_desc",
+    "placeholders": {}
+  },
   "lock_gate_unlock": "Biyometrik ile Kilit Aç",
+  "@lock_gate_unlock": {
+    "description": "Translation for lock_gate_unlock",
+    "placeholders": {}
+  },
   "lock_set_pin": "Güvenli PIN Belirle",
+  "@lock_set_pin": {
+    "description": "Translation for lock_set_pin",
+    "placeholders": {}
+  },
   "lock_confirm_pin": "PIN Doğrula",
+  "@lock_confirm_pin": {
+    "description": "Translation for lock_confirm_pin",
+    "placeholders": {}
+  },
   "lock_pin_mismatch": "PIN'ler eşleşmiyor. Tekrar deneyin.",
+  "@lock_pin_mismatch": {
+    "description": "Translation for lock_pin_mismatch",
+    "placeholders": {}
+  },
   "lock_pin_incorrect": "Hatalı PIN",
+  "@lock_pin_incorrect": {
+    "description": "Translation for lock_pin_incorrect",
+    "placeholders": {}
+  },
   "lock_use_biometrics": "Biyometrik Kullan",
+  "@lock_use_biometrics": {
+    "description": "Translation for lock_use_biometrics",
+    "placeholders": {}
+  },
   "lock_too_many_attempts": "Çok fazla deneme. {seconds} sn sonra tekrar deneyin.",
+  "@lock_too_many_attempts": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for lock_too_many_attempts"
+  },
   "lock_timeout_instant": "Hemen",
+  "@lock_timeout_instant": {
+    "description": "Translation for lock_timeout_instant",
+    "placeholders": {}
+  },
   "lock_timeout_1min": "1 Dakika",
+  "@lock_timeout_1min": {
+    "description": "Translation for lock_timeout_1min",
+    "placeholders": {}
+  },
   "lock_timeout_5min": "5 Dakika",
+  "@lock_timeout_5min": {
+    "description": "Translation for lock_timeout_5min",
+    "placeholders": {}
+  },
   "lock_timeout_15min": "15 Dakika",
+  "@lock_timeout_15min": {
+    "description": "Translation for lock_timeout_15min",
+    "placeholders": {}
+  },
   "lock_timeout": "Kilit Süresi",
+  "@lock_timeout": {
+    "description": "Translation for lock_timeout",
+    "placeholders": {}
+  },
   "daily_missions": "GÜNLÜK GÖREVLER",
+  "@daily_missions": {
+    "description": "Translation for daily_missions",
+    "placeholders": {}
+  },
   "mission_doc_daily": "1 Belge Ekle",
+  "@mission_doc_daily": {
+    "description": "Translation for mission_doc_daily",
+    "placeholders": {}
+  },
   "mission_ad_daily": "1 Reklam İzle",
+  "@mission_ad_daily": {
+    "description": "Translation for mission_ad_daily",
+    "placeholders": {}
+  },
   "mission_app_daily": "1 Randevu Planla",
+  "@mission_app_daily": {
+    "description": "Translation for mission_app_daily",
+    "placeholders": {}
+  },
   "mission_med_daily": "1 İlaç Ekle",
+  "@mission_med_daily": {
+    "description": "Translation for mission_med_daily",
+    "placeholders": {}
+  },
   "export_data_zip": "Verileri Dışa Aktar (.zip)",
+  "@export_data_zip": {
+    "description": "Translation for export_data_zip",
+    "placeholders": {}
+  },
   "clear_all_data": "Tüm Verileri Temizle",
+  "@clear_all_data": {
+    "description": "Translation for clear_all_data",
+    "placeholders": {}
+  },
   "quick_actions_desc": "Giriş ekranında hızlı kısayollar",
+  "@quick_actions_desc": {
+    "description": "Translation for quick_actions_desc",
+    "placeholders": {}
+  },
   "app_section": "UYGULAMA",
+  "@app_section": {
+    "description": "Translation for app_section",
+    "placeholders": {}
+  },
   "premium_required": "Premium Gerekli",
+  "@premium_required": {
+    "description": "Translation for premium_required",
+    "placeholders": {}
+  },
   "logout": "Oturumu Kapat",
+  "@logout": {
+    "description": "Translation for logout",
+    "placeholders": {}
+  },
   "logout_confirm": "Çıkış yapmak istediğinize emin misiniz?",
+  "@logout_confirm": {
+    "description": "Translation for logout_confirm",
+    "placeholders": {}
+  },
   "yes_logout": "Evet, Çıkış Yap",
+  "@yes_logout": {
+    "description": "Translation for yes_logout",
+    "placeholders": {}
+  },
   "version": "VERSİYON",
+  "@version": {
+    "description": "Translation for version",
+    "placeholders": {}
+  },
   "my_medicines": "İlaçlarım",
+  "@my_medicines": {
+    "description": "Translation for my_medicines",
+    "placeholders": {}
+  },
   "med_count_desc": "Bugün almanız gereken {count} ilaç var.",
+  "@med_count_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for med_count_desc"
+  },
   "low_stock_warning": "Stok Azalıyor",
+  "@low_stock_warning": {
+    "description": "Translation for low_stock_warning",
+    "placeholders": {}
+  },
   "critical_level": "{name} için kritik seviye.",
+  "@critical_level": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for critical_level"
+  },
   "refill": "Yenile",
+  "@refill": {
+    "description": "Translation for refill",
+    "placeholders": {}
+  },
   "intake_chart": "Zamanında Alım Grafiği",
+  "@intake_chart": {
+    "description": "Translation for intake_chart",
+    "placeholders": {}
+  },
   "weekly_avg": "Haftalık Ort: %{perc}",
+  "@weekly_avg": {
+    "placeholders": {
+      "perc": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for weekly_avg"
+  },
   "medicine_cabinet": "İlaç Dolabım",
+  "@medicine_cabinet": {
+    "description": "Translation for medicine_cabinet",
+    "placeholders": {}
+  },
   "active_inventory": "Aktif envanteriniz",
+  "@active_inventory": {
+    "description": "Translation for active_inventory",
+    "placeholders": {}
+  },
   "add": "Ekle",
+  "@add": {
+    "description": "Translation for add",
+    "placeholders": {}
+  },
   "daily_routine": "Günlük Rutin",
+  "@daily_routine": {
+    "description": "Translation for daily_routine",
+    "placeholders": {}
+  },
   "morning": "Sabah",
+  "@morning": {
+    "description": "Translation for morning",
+    "placeholders": {}
+  },
   "afternoon": "Öğle",
+  "@afternoon": {
+    "description": "Translation for afternoon",
+    "placeholders": {}
+  },
   "night": "Gece",
+  "@night": {
+    "description": "Translation for night",
+    "placeholders": {}
+  },
   "med_cabinet_add": "Yeni İlaç",
+  "@med_cabinet_add": {
+    "description": "Translation for med_cabinet_add",
+    "placeholders": {}
+  },
   "stock_left": "{count} ADET KALDI",
+  "@stock_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for stock_left"
+  },
   "add_medicine": "İlaç Ekle",
+  "@add_medicine": {
+    "description": "Translation for add_medicine",
+    "placeholders": {}
+  },
   "medicine_name": "İlaç Adı",
+  "@medicine_name": {
+    "description": "Translation for medicine_name",
+    "placeholders": {}
+  },
   "med_name_hint": "Örn: Aspirin",
+  "@med_name_hint": {
+    "description": "Translation for med_name_hint",
+    "placeholders": {}
+  },
   "frequency": "Kullanım Sıklığı",
+  "@frequency": {
+    "description": "Translation for frequency",
+    "placeholders": {}
+  },
   "reminder_times": "Hatırlatma Saatleri",
+  "@reminder_times": {
+    "description": "Translation for reminder_times",
+    "placeholders": {}
+  },
   "current_stock": "Mevcut Stok",
+  "@current_stock": {
+    "description": "Translation for current_stock",
+    "placeholders": {}
+  },
   "stock_warning": "Stok 5 birimin altına düştüğünde size hatırlatıcı göndereceğiz.",
+  "@stock_warning": {
+    "description": "Translation for stock_warning",
+    "placeholders": {}
+  },
   "hero_health_tip": "Sağlığınız İçin",
+  "@hero_health_tip": {
+    "description": "Translation for hero_health_tip",
+    "placeholders": {}
+  },
   "hero_consistency": "Düzenli Kullanım Önemlidir",
+  "@hero_consistency": {
+    "description": "Translation for hero_consistency",
+    "placeholders": {}
+  },
   "med_added_success": "İlaç başarıyla eklendi!",
+  "@med_added_success": {
+    "description": "Translation for med_added_success",
+    "placeholders": {}
+  },
   "med_name_error": "Lütfen ilaç adını giriniz",
+  "@med_name_error": {
+    "description": "Translation for med_name_error",
+    "placeholders": {}
+  },
   "custom_freq_title": "Özel Sıklık Belirle",
+  "@custom_freq_title": {
+    "description": "Translation for custom_freq_title",
+    "placeholders": {}
+  },
   "custom_freq_hint": "Örn: 2 haftada bir",
+  "@custom_freq_hint": {
+    "description": "Translation for custom_freq_hint",
+    "placeholders": {}
+  },
   "apply": "Uygula",
+  "@apply": {
+    "description": "Translation for apply",
+    "placeholders": {}
+  },
   "daily": "Günlük",
+  "@daily": {
+    "description": "Translation for daily",
+    "placeholders": {}
+  },
   "custom": "Özel",
+  "@custom": {
+    "description": "Translation for custom",
+    "placeholders": {}
+  },
   "tablet": "Tablet",
+  "@tablet": {
+    "description": "Translation for tablet",
+    "placeholders": {}
+  },
   "syrup": "Şurup (ml)",
+  "@syrup": {
+    "description": "Translation for syrup",
+    "placeholders": {}
+  },
   "dose": "Doz",
+  "@dose": {
+    "description": "Translation for dose",
+    "placeholders": {}
+  },
   "capsule": "Kapsül",
+  "@capsule": {
+    "description": "Translation for capsule",
+    "placeholders": {}
+  },
   "drops": "Damla",
+  "@drops": {
+    "description": "Translation for drops",
+    "placeholders": {}
+  },
   "vital_signs": "Hayati Bulgular",
+  "@vital_signs": {
+    "description": "Translation for vital_signs",
+    "placeholders": {}
+  },
   "daily_goals": "Günlük Hedefler",
+  "@daily_goals": {
+    "description": "Translation for daily_goals",
+    "placeholders": {}
+  },
   "activity": "Aktivite",
+  "@activity": {
+    "description": "Translation for activity",
+    "placeholders": {}
+  },
   "step_counter": "Adım Sayar",
+  "@step_counter": {
+    "description": "Translation for step_counter",
+    "placeholders": {}
+  },
   "water_tracker": "Su Takibi",
+  "@water_tracker": {
+    "description": "Translation for water_tracker",
+    "placeholders": {}
+  },
   "safety_footer_med": "VitaCase bir yönetim aracıdır. Tıbbi tavsiye veya dozaj önerisi sunmaz. Daima doktorunuzun talimatlarına uyun.",
+  "@safety_footer_med": {
+    "description": "Translation for safety_footer_med",
+    "placeholders": {}
+  },
   "safety_footer_health": "Sağlık verileri yalnızca bilgilendirme amaçlıdır. Teşhis için bir uzmana danışın.",
+  "@safety_footer_health": {
+    "description": "Translation for safety_footer_health",
+    "placeholders": {}
+  },
   "medical_device_warning": "VitaCase tıbbi bir cihaz değildir. Daima bir uzmana danışın.",
+  "@medical_device_warning": {
+    "description": "Translation for medical_device_warning",
+    "placeholders": {}
+  },
   "management_tool_warning": "VitaCase bir yönetim aracıdır, teşhis hizmeti değildir.",
+  "@management_tool_warning": {
+    "description": "Translation for management_tool_warning",
+    "placeholders": {}
+  },
   "hint_name": "Örn. Kerem Yılmaz",
+  "@hint_name": {
+    "description": "Translation for hint_name",
+    "placeholders": {}
+  },
   "hint_emergency": "Ad Soyad / Telefon",
+  "@hint_emergency": {
+    "description": "Translation for hint_emergency",
+    "placeholders": {}
+  },
   "docs_title": "Belgeler",
+  "@docs_title": {
+    "description": "Translation for docs_title",
+    "placeholders": {}
+  },
   "docs_search_hint": "Kasanızda arayın (belge, not, kimlik...)",
+  "@docs_search_hint": {
+    "description": "Translation for docs_search_hint",
+    "placeholders": {}
+  },
   "docs_info_secure": "Belgeleriniz güvenli şekilde saklanır ve yalnızca size özeldir.",
+  "@docs_info_secure": {
+    "description": "Translation for docs_info_secure",
+    "placeholders": {}
+  },
   "docs_info_encrypted": "Verileriniz cihazınızda şifreli olarak korunur.",
+  "@docs_info_encrypted": {
+    "description": "Translation for docs_info_encrypted",
+    "placeholders": {}
+  },
   "docs_sort_all": "Tümü",
+  "@docs_sort_all": {
+    "description": "Translation for docs_sort_all",
+    "placeholders": {}
+  },
   "docs_sort_newest": "En yeni",
+  "@docs_sort_newest": {
+    "description": "Translation for docs_sort_newest",
+    "placeholders": {}
+  },
   "docs_sort_oldest": "En eski",
+  "@docs_sort_oldest": {
+    "description": "Translation for docs_sort_oldest",
+    "placeholders": {}
+  },
   "docs_empty_title": "Burası Henüz Boş",
+  "@docs_empty_title": {
+    "description": "Translation for docs_empty_title",
+    "placeholders": {}
+  },
   "docs_empty_subtitle": "İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.",
+  "@docs_empty_subtitle": {
+    "description": "Translation for docs_empty_subtitle",
+    "placeholders": {}
+  },
   "docs_category_health": "Sağlık",
+  "@docs_category_health": {
+    "description": "Translation for docs_category_health",
+    "placeholders": {}
+  },
   "docs_category_identity": "Kimlik",
+  "@docs_category_identity": {
+    "description": "Translation for docs_category_identity",
+    "placeholders": {}
+  },
   "docs_category_finance": "Finans",
+  "@docs_category_finance": {
+    "description": "Translation for docs_category_finance",
+    "placeholders": {}
+  },
   "docs_category_legal": "Hukuk",
+  "@docs_category_legal": {
+    "description": "Translation for docs_category_legal",
+    "placeholders": {}
+  },
   "docs_category_notes": "Notlar",
+  "@docs_category_notes": {
+    "description": "Translation for docs_category_notes",
+    "placeholders": {}
+  },
   "docs_category_other": "Diğer",
+  "@docs_category_other": {
+    "description": "Translation for docs_category_other",
+    "placeholders": {}
+  },
   "docs_loading_open": "Güvenli Dosya Açılıyor...",
+  "@docs_loading_open": {
+    "description": "Translation for docs_loading_open",
+    "placeholders": {}
+  },
   "docs_loading_decrypt": "AES-256 Şifre Çözülüyor",
+  "@docs_loading_decrypt": {
+    "description": "Translation for docs_loading_decrypt",
+    "placeholders": {}
+  },
   "docs_add_btn": "BELGE EKLE",
+  "@docs_add_btn": {
+    "description": "Translation for docs_add_btn",
+    "placeholders": {}
+  },
   "docs_add_title": "Belge Ekle",
+  "@docs_add_title": {
+    "description": "Translation for docs_add_title",
+    "placeholders": {}
+  },
   "docs_add_source": "Kaynak / Kurum (opsiyonel)",
+  "@docs_add_source": {
+    "description": "Translation for docs_add_source",
+    "placeholders": {}
+  },
   "docs_add_person": "İlgili Kişi / Detay",
+  "@docs_add_person": {
+    "description": "Translation for docs_add_person",
+    "placeholders": {}
+  },
   "docs_add_cat": "Kategori",
+  "@docs_add_cat": {
+    "description": "Translation for docs_add_cat",
+    "placeholders": {}
+  },
   "docs_add_type": "Belge Türü",
+  "@docs_add_type": {
+    "description": "Translation for docs_add_type",
+    "placeholders": {}
+  },
   "docs_add_note": "Not (isteğe bağlı)",
+  "@docs_add_note": {
+    "description": "Translation for docs_add_note",
+    "placeholders": {}
+  },
   "docs_add_secure": "Bu bilgiler AES-256 ile şifrelenir.",
+  "@docs_add_secure": {
+    "description": "Translation for docs_add_secure",
+    "placeholders": {}
+  },
   "docs_add_pick_diff": "Farklı dosya seç",
+  "@docs_add_pick_diff": {
+    "description": "Translation for docs_add_pick_diff",
+    "placeholders": {}
+  },
   "docs_success": "Belge başarıyla kaydedildi!",
+  "@docs_success": {
+    "description": "Translation for docs_success",
+    "placeholders": {}
+  },
   "docs_error_save": "Belge kaydedilemedi",
+  "@docs_error_save": {
+    "description": "Translation for docs_error_save",
+    "placeholders": {}
+  },
   "docs_error_pick": "Lütfen bir dosya seçin",
+  "@docs_error_pick": {
+    "description": "Translation for docs_error_pick",
+    "placeholders": {}
+  },
   "docs_error_source": "Sağlık belgeleri için kurum adı gereklidir",
+  "@docs_error_source": {
+    "description": "Translation for docs_error_source",
+    "placeholders": {}
+  },
   "docs_error_size": "Dosya boyutu en fazla 10 MB olabilir",
+  "@docs_error_size": {
+    "description": "Translation for docs_error_size",
+    "placeholders": {}
+  },
   "docs_add_pick": "Belge / Resim Seç",
+  "@docs_add_pick": {
+    "description": "Translation for docs_add_pick",
+    "placeholders": {}
+  },
   "docs_add_file_selected": "Seçilen Dosya",
+  "@docs_add_file_selected": {
+    "description": "Translation for docs_add_file_selected",
+    "placeholders": {}
+  },
   "docs_action_delete": "Sil",
+  "@docs_action_delete": {
+    "description": "Translation for docs_action_delete",
+    "placeholders": {}
+  },
   "docs_no_results": "Sonuç bulunamadı",
+  "@docs_no_results": {
+    "description": "Translation for docs_no_results",
+    "placeholders": {}
+  },
   "docs_no_matching": "Kriterlere uygun belge yok",
+  "@docs_no_matching": {
+    "description": "Translation for docs_no_matching",
+    "placeholders": {}
+  },
   "docs_try_different": "Farklı bir anahtar kelime ile tekrar deneyin.",
+  "@docs_try_different": {
+    "description": "Translation for docs_try_different",
+    "placeholders": {}
+  },
   "docs_no_filter_match": "Seçili filtre için kayıtlı belge bulunamadı.",
+  "@docs_no_filter_match": {
+    "description": "Translation for docs_no_filter_match",
+    "placeholders": {}
+  },
   "docs_show_all": "TÜMÜNÜ GÖSTER",
+  "@docs_show_all": {
+    "description": "Translation for docs_show_all",
+    "placeholders": {}
+  },
   "privacy_warning_title": "Gizlilik Uyarısı",
+  "@privacy_warning_title": {
+    "description": "Translation for privacy_warning_title",
+    "placeholders": {}
+  },
   "privacy_warning_desc": "Hassas bilgilerin ve yüklenen belgelerin tüm sorumluluğu tamamen kullanıcının kendisine aittir. Lütfen yüksek riskli verilerinizi paylaşırken dikkatli olunuz.",
+  "@privacy_warning_desc": {
+    "description": "Translation for privacy_warning_desc",
+    "placeholders": {}
+  },
   "hint_select": "Seç",
+  "@hint_select": {
+    "description": "Translation for hint_select",
+    "placeholders": {}
+  },
   "hint_institution": "Örn: Şehir Hastanesi, Banka, Noter",
+  "@hint_institution": {
+    "description": "Translation for hint_institution",
+    "placeholders": {}
+  },
   "hint_person_detail": "Örn: Dr. Mehmet, Avukat Ahmet, Vergi No",
+  "@hint_person_detail": {
+    "description": "Translation for hint_person_detail",
+    "placeholders": {}
+  },
   "hint_add_note": "Not ekle...",
+  "@hint_add_note": {
+    "description": "Translation for hint_add_note",
+    "placeholders": {}
+  },
   "docs_category_prescriptions": "Reçete",
+  "@docs_category_prescriptions": {
+    "description": "Translation for docs_category_prescriptions",
+    "placeholders": {}
+  },
   "docs_category_reports": "Rapor",
+  "@docs_category_reports": {
+    "description": "Translation for docs_category_reports",
+    "placeholders": {}
+  },
   "docs_category_test_results": "Test Sonucu",
+  "@docs_category_test_results": {
+    "description": "Translation for docs_category_test_results",
+    "placeholders": {}
+  },
   "docs_category_images": "Tıbbi Görüntü",
+  "@docs_category_images": {
+    "description": "Translation for docs_category_images",
+    "placeholders": {}
+  },
   "upcoming_appointment": "SIRADAKİ RANDEVU",
+  "@upcoming_appointment": {
+    "description": "Translation for upcoming_appointment",
+    "placeholders": {}
+  },
   "my_appointments": "Randevularım",
+  "@my_appointments": {
+    "description": "Translation for my_appointments",
+    "placeholders": {}
+  },
   "weekly": "Haftalık",
+  "@weekly": {
+    "description": "Translation for weekly",
+    "placeholders": {}
+  },
   "monthly": "Aylık",
+  "@monthly": {
+    "description": "Translation for monthly",
+    "placeholders": {}
+  },
   "no_more_appointments": "Başka randevu bulunamadı.",
+  "@no_more_appointments": {
+    "description": "Translation for no_more_appointments",
+    "placeholders": {}
+  },
   "add_new_appointment": "Yeni Randevu Ekle",
+  "@add_new_appointment": {
+    "description": "Translation for add_new_appointment",
+    "placeholders": {}
+  },
   "join_meeting": "Toplantıya Katıl",
+  "@join_meeting": {
+    "description": "Translation for join_meeting",
+    "placeholders": {}
+  },
   "location": "Konum",
+  "@location": {
+    "description": "Translation for location",
+    "placeholders": {}
+  },
   "today": "Bugün",
+  "@today": {
+    "description": "Translation for today",
+    "placeholders": {}
+  },
   "tomorrow": "Yarın",
+  "@tomorrow": {
+    "description": "Translation for tomorrow",
+    "placeholders": {}
+  },
   "health_trend_desc": "7 Günlük Sağlık Trendi",
+  "@health_trend_desc": {
+    "description": "Translation for health_trend_desc",
+    "placeholders": {}
+  },
   "all_records_title": "Tüm Kayıtlar",
+  "@all_records_title": {
+    "description": "Translation for all_records_title",
+    "placeholders": {}
+  },
   "personal_health_data": "Kişisel Sağlık Verileri",
+  "@personal_health_data": {
+    "description": "Translation for personal_health_data",
+    "placeholders": {}
+  },
   "personal_info": "Kişisel Bilgiler",
+  "@personal_info": {
+    "description": "Translation for personal_info",
+    "placeholders": {}
+  },
   "account_settings": "Hesap & Ayarlar",
+  "@account_settings": {
+    "description": "Translation for account_settings",
+    "placeholders": {}
+  },
   "emergency_card": "Acil Durum Kartı",
+  "@emergency_card": {
+    "description": "Translation for emergency_card",
+    "placeholders": {}
+  },
   "allergies": "ALERJİLER",
+  "@allergies": {
+    "description": "Translation for allergies",
+    "placeholders": {}
+  },
   "none": "Yok",
+  "@none": {
+    "description": "Translation for none",
+    "placeholders": {}
+  },
   "not_added": "Eklenmemiş",
+  "@not_added": {
+    "description": "Translation for not_added",
+    "placeholders": {}
+  },
   "active_goals": "Aktif Hedefler",
+  "@active_goals": {
+    "description": "Translation for active_goals",
+    "placeholders": {}
+  },
   "daily_steps": "Günlük Adım",
+  "@daily_steps": {
+    "description": "Translation for daily_steps",
+    "placeholders": {}
+  },
   "water_intake": "Su Tüketimi",
+  "@water_intake": {
+    "description": "Translation for water_intake",
+    "placeholders": {}
+  },
   "liter_unit": "Litre",
+  "@liter_unit": {
+    "description": "Translation for liter_unit",
+    "placeholders": {}
+  },
   "speed_up": "HIZLAN",
+  "@speed_up": {
+    "description": "Translation for speed_up",
+    "placeholders": {}
+  },
   "stay_fresh": "TAZE KAL",
+  "@stay_fresh": {
+    "description": "Translation for stay_fresh",
+    "placeholders": {}
+  },
   "target_label": "Hedef",
+  "@target_label": {
+    "description": "Translation for target_label",
+    "placeholders": {}
+  },
   "logout_desc_safe": "Uygulamadan çıkış yapmak istediğinize emin misiniz? Verileriniz güvenle saklanmaya devam edecektir.",
+  "@logout_desc_safe": {
+    "description": "Translation for logout_desc_safe",
+    "placeholders": {}
+  },
   "years_old": "Yaş",
+  "@years_old": {
+    "description": "Translation for years_old",
+    "placeholders": {}
+  },
   "limit_title": "Hafıza Dolu! 🚀",
+  "@limit_title": {
+    "description": "Translation for limit_title",
+    "placeholders": {}
+  },
   "limit_desc": "Şu anki limitiniz {count} belge. Tek bir kısa video izleyerek +10 belge alanı daha kazanmak ister misiniz?",
+  "@limit_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc"
+  },
   "limit_desc_meds": "Şu anki limitiniz {count} ilaç. Tek bir kısa video izleyerek +5 ilaç alanı daha kazanmak ister misiniz?",
+  "@limit_desc_meds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_meds"
+  },
   "limit_desc_appts": "Şu anki limitiniz {count} randevu. Tek bir kısa video izleyerek +5 randevu alanı daha kazanmak ister misiniz?",
+  "@limit_desc_appts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_appts"
+  },
   "limit_close": "KAPAT",
+  "@limit_close": {
+    "description": "Translation for limit_close",
+    "placeholders": {}
+  },
   "limit_reward_btn": "İZLE VE KAZAN",
+  "@limit_reward_btn": {
+    "description": "Translation for limit_reward_btn",
+    "placeholders": {}
+  },
   "limit_reward_success": "Tebrikler! +10 Belge alanı eklendi.",
+  "@limit_reward_success": {
+    "description": "Translation for limit_reward_success",
+    "placeholders": {}
+  },
   "limit_ad_free_info": "Güvenli ve Şifreli Depolama 🛡️",
+  "@limit_ad_free_info": {
+    "description": "Translation for limit_ad_free_info",
+    "placeholders": {}
+  },
   "limit_slots_used": "{count}/{limit} alan kullanıldı",
+  "@limit_slots_used": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_slots_used"
+  },
   "lock_title": "VitaCase Kilitli",
+  "@lock_title": {
+    "description": "Translation for lock_title",
+    "placeholders": {}
+  },
   "lock_subtitle": "Erişmek için lütfen doğrulayın",
+  "@lock_subtitle": {
+    "description": "Translation for lock_subtitle",
+    "placeholders": {}
+  },
   "unlock": "Kilidi Aç",
+  "@unlock": {
+    "description": "Translation for unlock",
+    "placeholders": {}
+  },
   "change_pin": "PIN Değiştir",
+  "@change_pin": {
+    "description": "Translation for change_pin",
+    "placeholders": {}
+  },
   "biometric_login": "Biyometrik Giriş",
+  "@biometric_login": {
+    "description": "Translation for biometric_login",
+    "placeholders": {}
+  },
   "biometric_unavailable": "Bu cihazda biyometrik doğrulama mevcut değil.",
+  "@biometric_unavailable": {
+    "description": "Translation for biometric_unavailable",
+    "placeholders": {}
+  },
   "digits": "haneli",
+  "@digits": {
+    "description": "Translation for digits",
+    "placeholders": {}
+  },
   "lock_skip_desc": "Bunu daha sonra Ayarlar'dan yapabilirsiniz.",
+  "@lock_skip_desc": {
+    "description": "Translation for lock_skip_desc",
+    "placeholders": {}
+  },
   "setup_pin_later": "Daha sonra Ayarlar'dan belirle",
+  "@setup_pin_later": {
+    "description": "Translation for setup_pin_later",
+    "placeholders": {}
+  },
   "skip_pin_setup": "Atla",
+  "@skip_pin_setup": {
+    "description": "Translation for skip_pin_setup",
+    "placeholders": {}
+  },
   "setup_app_lock": "Uygulama Kilidi Kur",
+  "@setup_app_lock": {
+    "description": "Translation for setup_app_lock",
+    "placeholders": {}
+  },
   "setup_app_lock_desc": "Verilerinizi 6 haneli PIN ile koruyun.",
+  "@setup_app_lock_desc": {
+    "description": "Translation for setup_app_lock_desc",
+    "placeholders": {}
+  },
   "step_profile": "Profil",
+  "@step_profile": {
+    "description": "Translation for step_profile",
+    "placeholders": {}
+  },
   "step_security": "Güvenlik",
+  "@step_security": {
+    "description": "Translation for step_security",
+    "placeholders": {}
+  },
   "bmi_underweight": "Zayıf",
+  "@bmi_underweight": {
+    "description": "Translation for bmi_underweight",
+    "placeholders": {}
+  },
   "bmi_normal": "Normal (İdeal)",
+  "@bmi_normal": {
+    "description": "Translation for bmi_normal",
+    "placeholders": {}
+  },
   "bmi_overweight": "Fazla Kilolu",
+  "@bmi_overweight": {
+    "description": "Translation for bmi_overweight",
+    "placeholders": {}
+  },
   "bmi_obese": "Obez",
+  "@bmi_obese": {
+    "description": "Translation for bmi_obese",
+    "placeholders": {}
+  },
   "page_not_found": "Sayfa bulunamadı veya bir hata oluştu.",
+  "@page_not_found": {
+    "description": "Translation for page_not_found",
+    "placeholders": {}
+  },
   "legal_onboarding_clause": "VitaCase'in çevrimdışı öncelikli bir kasa olduğunu biliyorum. Cihazımın güvenliğinden ve içindeki hassas sağlık verilerinden tamamen ben sorumluyum.",
+  "@legal_onboarding_clause": {
+    "description": "Translation for legal_onboarding_clause",
+    "placeholders": {}
+  },
   "delete_all_data": "Tüm Verileri Sil",
+  "@delete_all_data": {
+    "description": "Translation for delete_all_data",
+    "placeholders": {}
+  },
   "wipe_confirm_1": "Tüm verileriniz, belgeleriniz ve ayarlarınız kalıcı olarak silinecektir. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?",
+  "@wipe_confirm_1": {
+    "description": "Translation for wipe_confirm_1",
+    "placeholders": {}
+  },
   "wipe_confirm_2": "KESİNLİKLE emin misiniz? Tüm tıbbi arşiviniz ve şifreli kayıtlarınız bu cihazdan temizlenecektir.",
+  "@wipe_confirm_2": {
+    "description": "Translation for wipe_confirm_2",
+    "placeholders": {}
+  },
   "final_warning": "Son Güvenlik Uyarısı",
+  "@final_warning": {
+    "description": "Translation for final_warning",
+    "placeholders": {}
+  },
   "wipe_btn_final": "EVET, HER ŞEYİ SİL",
+  "@wipe_btn_final": {
+    "description": "Translation for wipe_btn_final",
+    "placeholders": {}
+  },
   "all_data_deleted": "Tüm verileriniz temizlendi. Uygulama şimdi yeniden başlatılacak.",
+  "@all_data_deleted": {
+    "description": "Translation for all_data_deleted",
+    "placeholders": {}
+  },
   "edit": "Düzenle",
+  "@edit": {
+    "description": "Translation for edit",
+    "placeholders": {}
+  },
   "delete": "Sil",
+  "@delete": {
+    "description": "Translation for delete",
+    "placeholders": {}
+  },
   "theme_selection_title": "Tema Seçimi",
+  "@theme_selection_title": {
+    "description": "Translation for theme_selection_title",
+    "placeholders": {}
+  },
   "watch_ad": "Reklam İzle",
+  "@watch_ad": {
+    "description": "Translation for watch_ad",
+    "placeholders": {}
+  },
   "verify_sentry": "Sentry Entegrasyonunu Doğrula",
+  "@verify_sentry": {
+    "description": "Translation for verify_sentry",
+    "placeholders": {}
+  },
   "edit_panel_soon": "Düzenleme paneli yakında aktif olacak!",
+  "@edit_panel_soon": {
+    "description": "Translation for edit_panel_soon",
+    "placeholders": {}
+  },
   "add_new_record": "Yeni Kayıt Ekle",
+  "@add_new_record": {
+    "description": "Translation for add_new_record",
+    "placeholders": {}
+  },
   "category": "Kategori",
+  "@category": {
+    "description": "Translation for category",
+    "placeholders": {}
+  },
   "fill_required_fields": "Zorunlu alanları doldurunuz",
+  "@fill_required_fields": {
+    "description": "Translation for fill_required_fields",
+    "placeholders": {}
+  },
   "error_doctor_data": "Lütfen doktor adını ve branşını giriniz",
+  "@error_doctor_data": {
+    "description": "Translation for error_doctor_data",
+    "placeholders": {}
+  },
   "error_appointment_data": "Lütfen başlık ve hastane/merkez alanlarını doldurunuz",
+  "@error_appointment_data": {
+    "description": "Translation for error_appointment_data",
+    "placeholders": {}
+  },
   "appointment_reminder_title": "Randevu Hatırlatıcı",
+  "@appointment_reminder_title": {
+    "description": "Translation for appointment_reminder_title",
+    "placeholders": {}
+  },
   "appointment_reminder_body": "{time} sonra randevunuz var: {doctor} ({dept})",
+  "@appointment_reminder_body": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "doctor": {
+        "type": "String"
+      },
+      "dept": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for appointment_reminder_body"
+  },
   "select_language": "Dil Seçin / Select Language",
+  "@select_language": {
+    "description": "Translation for select_language",
+    "placeholders": {}
+  },
   "ok": "TAMAM",
+  "@ok": {
+    "description": "Translation for ok",
+    "placeholders": {}
+  },
   "text_size_small": "Küçük",
+  "@text_size_small": {
+    "description": "Translation for text_size_small",
+    "placeholders": {}
+  },
   "text_size_medium": "Orta",
+  "@text_size_medium": {
+    "description": "Translation for text_size_medium",
+    "placeholders": {}
+  },
   "text_size_large": "Büyük",
+  "@text_size_large": {
+    "description": "Translation for text_size_large",
+    "placeholders": {}
+  },
   "support_contact": "Destek ekibimizle iletişime geçmek için: limanexsoftware@outlook.com",
+  "@support_contact": {
+    "description": "Translation for support_contact",
+    "placeholders": {}
+  },
   "quick_actions_optimized": "Hızlı İşlemler profiliniz için zaten optimize edildi.",
+  "@quick_actions_optimized": {
+    "description": "Translation for quick_actions_optimized",
+    "placeholders": {}
+  },
   "medication_reminder": "İlaç Hatırlatıcısı",
+  "@medication_reminder": {
+    "description": "Translation for medication_reminder",
+    "placeholders": {}
+  },
   "medication_reminder_body": "{name} vaktiniz geldi ({dose})",
+  "@medication_reminder_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dose": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for medication_reminder_body"
+  },
   "no_doctors_found": "Eşleşen doktor bulunamadı",
+  "@no_doctors_found": {
+    "description": "Translation for no_doctors_found",
+    "placeholders": {}
+  },
   "clear_filters": "Filtreleri Temizle",
+  "@clear_filters": {
+    "description": "Translation for clear_filters",
+    "placeholders": {}
+  },
   "verified": "Doğrulanmış",
+  "@verified": {
+    "description": "Translation for verified",
+    "placeholders": {}
+  },
   "height_label": "Boy",
+  "@height_label": {
+    "description": "Translation for height_label",
+    "placeholders": {}
+  },
   "weight_label": "Ağırlık",
+  "@weight_label": {
+    "description": "Translation for weight_label",
+    "placeholders": {}
+  },
   "age_label": "Yaş",
+  "@age_label": {
+    "description": "Translation for age_label",
+    "placeholders": {}
+  },
   "identity_contact": "Kimlik ve İletişim",
+  "@identity_contact": {
+    "description": "Translation for identity_contact",
+    "placeholders": {}
+  },
   "id_number": "T.C. Kimlik No",
+  "@id_number": {
+    "description": "Translation for id_number",
+    "placeholders": {}
+  },
   "update_info": "Bilgileri Güncelle",
+  "@update_info": {
+    "description": "Translation for update_info",
+    "placeholders": {}
+  },
   "vita_badge": "VitaCase Kullanıcısı",
+  "@vita_badge": {
+    "description": "Translation for vita_badge",
+    "placeholders": {}
+  },
   "default_job": "Serbest Çalışan / Sağlık Meraklısı",
+  "@default_job": {
+    "description": "Translation for default_job",
+    "placeholders": {}
+  },
   "blood_type_val": "A Rh+",
+  "@blood_type_val": {
+    "description": "Translation for blood_type_val",
+    "placeholders": {}
+  },
   "clinical_note": "Klinik Not",
+  "@clinical_note": {
+    "description": "Translation for clinical_note",
+    "placeholders": {}
+  },
   "last_control": "Son Kontrol",
+  "@last_control": {
+    "description": "Translation for last_control",
+    "placeholders": {}
+  },
   "bmi_ideal": "İdeal Kilo Aralığı",
+  "@bmi_ideal": {
+    "description": "Translation for bmi_ideal",
+    "placeholders": {}
+  },
   "medical_info_desc_empty": "Kritik tıbbi bilgilerinizi buraya ekleyerek her zaman yanınızda taşıyın.",
+  "@medical_info_desc_empty": {
+    "description": "Translation for medical_info_desc_empty",
+    "placeholders": {}
+  },
   "category_critical": "KRİTİK BİLGİLER",
+  "@category_critical": {
+    "description": "Translation for category_critical",
+    "placeholders": {}
+  },
   "category_important": "ÖNEMLİ NOTLAR",
+  "@category_important": {
+    "description": "Translation for category_important",
+    "placeholders": {}
+  },
   "category_general": "GENEL BİLGİLER",
+  "@category_general": {
+    "description": "Translation for category_general",
+    "placeholders": {}
+  },
   "medical_info_desc": "Sağlığınız için kritik olan tüm tıbbi kayıtlar.",
+  "@medical_info_desc": {
+    "description": "Translation for medical_info_desc",
+    "placeholders": {}
+  },
   "title": "Başlık",
+  "@title": {
+    "description": "Translation for title",
+    "placeholders": {}
+  },
   "description": "Açıklama",
+  "@description": {
+    "description": "Translation for description",
+    "placeholders": {}
+  },
   "icon": "İkon",
+  "@icon": {
+    "description": "Translation for icon",
+    "placeholders": {}
+  },
   "save_record": "Kaydı Kaydet",
+  "@save_record": {
+    "description": "Translation for save_record",
+    "placeholders": {}
+  },
   "critical": "Kritik",
+  "@critical": {
+    "description": "Translation for critical",
+    "placeholders": {}
+  },
   "important": "Önemli",
+  "@important": {
+    "description": "Translation for important",
+    "placeholders": {}
+  },
   "general": "Genel",
+  "@general": {
+    "description": "Translation for general",
+    "placeholders": {}
+  },
   "theme_unlock_desc": "Bu temayı deneyebilir veya bir reklam izleyerek kalıcı olarak açabilirsin.",
+  "@theme_unlock_desc": {
+    "description": "Translation for theme_unlock_desc",
+    "placeholders": {}
+  },
   "theme_previewing": "Tema 10 saniye boyunca önizleniyor...",
+  "@theme_previewing": {
+    "description": "Translation for theme_previewing",
+    "placeholders": {}
+  },
   "preview_10s": "Önizle (10s)",
+  "@preview_10s": {
+    "description": "Translation for preview_10s",
+    "placeholders": {}
+  },
   "congratulations": "Tebrikler!",
+  "@congratulations": {
+    "description": "Translation for congratulations",
+    "placeholders": {}
+  },
   "theme_unlocked_success": "Yeni temanız açıldı.",
+  "@theme_unlocked_success": {
+    "description": "Translation for theme_unlocked_success",
+    "placeholders": {}
+  },
   "please_enter_at_least_one_data": "Lütfen en az bir veri giriniz.",
+  "@please_enter_at_least_one_data": {
+    "description": "Translation for please_enter_at_least_one_data",
+    "placeholders": {}
+  },
   "data_saved_success": "Veriler başarıyla kaydedildi.",
+  "@data_saved_success": {
+    "description": "Translation for data_saved_success",
+    "placeholders": {}
+  },
   "add_data": "Veri Ekle",
+  "@add_data": {
+    "description": "Translation for add_data",
+    "placeholders": {}
+  },
   "save_data": "Verileri Kaydet",
+  "@save_data": {
+    "description": "Translation for save_data",
+    "placeholders": {}
+  },
   "today_summary": "Bugünkü Özet",
+  "@today_summary": {
+    "description": "Translation for today_summary",
+    "placeholders": {}
+  },
   "target_water": "Hedeflenen Su",
+  "@target_water": {
+    "description": "Translation for target_water",
+    "placeholders": {}
+  },
   "target_steps": "Hedeflenen Adım",
+  "@target_steps": {
+    "description": "Translation for target_steps",
+    "placeholders": {}
+  },
   "add_doctor": "Doktor Ekle",
+  "@add_doctor": {
+    "description": "Translation for add_doctor",
+    "placeholders": {}
+  },
   "doctor_name_surname": "Doktor Adı Soyadı",
+  "@doctor_name_surname": {
+    "description": "Translation for doctor_name_surname",
+    "placeholders": {}
+  },
   "specialty_department": "Branş (Uzmanlık)",
+  "@specialty_department": {
+    "description": "Translation for specialty_department",
+    "placeholders": {}
+  },
   "new_record": "Yeni Kayıt",
+  "@new_record": {
+    "description": "Translation for new_record",
+    "placeholders": {}
+  },
   "appointment_updated": "Randevu güncellendi.",
+  "@appointment_updated": {
+    "description": "Translation for appointment_updated",
+    "placeholders": {}
+  },
   "appointment_added": "Randevu başarıyla eklendi.",
+  "@appointment_added": {
+    "description": "Translation for appointment_added",
+    "placeholders": {}
+  },
   "edit_appointment": "Randevu Düzenle",
+  "@edit_appointment": {
+    "description": "Translation for edit_appointment",
+    "placeholders": {}
+  },
   "appointment_title": "Randevu Başlığı",
+  "@appointment_title": {
+    "description": "Translation for appointment_title",
+    "placeholders": {}
+  },
   "importance_level": "Önem Derecesi",
+  "@importance_level": {
+    "description": "Translation for importance_level",
+    "placeholders": {}
+  },
   "notes_optional": "Notlar (Opsiyonel)",
+  "@notes_optional": {
+    "description": "Translation for notes_optional",
+    "placeholders": {}
+  },
   "address_department": "Açık Adres / Bölüm",
+  "@address_department": {
+    "description": "Translation for address_department",
+    "placeholders": {}
+  },
   "select_category": "Kategori Seçin",
+  "@select_category": {
+    "description": "Translation for select_category",
+    "placeholders": {}
+  },
   "category_meeting": "Toplantı",
+  "@category_meeting": {
+    "description": "Translation for category_meeting",
+    "placeholders": {}
+  },
   "category_reminder": "Hatırlatıcı",
+  "@category_reminder": {
+    "description": "Translation for category_reminder",
+    "placeholders": {}
+  },
   "category_other": "Diğer",
+  "@category_other": {
+    "description": "Translation for category_other",
+    "placeholders": {}
+  },
   "app_slogan": "Dijital Sığınak",
+  "@app_slogan": {
+    "description": "Translation for app_slogan",
+    "placeholders": {}
+  },
   "day_monday_short": "PZT",
+  "@day_monday_short": {
+    "description": "Translation for day_monday_short",
+    "placeholders": {}
+  },
   "day_tuesday_short": "SAL",
+  "@day_tuesday_short": {
+    "description": "Translation for day_tuesday_short",
+    "placeholders": {}
+  },
   "day_wednesday_short": "ÇAR",
+  "@day_wednesday_short": {
+    "description": "Translation for day_wednesday_short",
+    "placeholders": {}
+  },
   "day_thursday_short": "PER",
+  "@day_thursday_short": {
+    "description": "Translation for day_thursday_short",
+    "placeholders": {}
+  },
   "day_friday_short": "CUM",
+  "@day_friday_short": {
+    "description": "Translation for day_friday_short",
+    "placeholders": {}
+  },
   "day_saturday_short": "CMT",
+  "@day_saturday_short": {
+    "description": "Translation for day_saturday_short",
+    "placeholders": {}
+  },
   "day_sunday_short": "PAZ",
+  "@day_sunday_short": {
+    "description": "Translation for day_sunday_short",
+    "placeholders": {}
+  },
   "day_monday_very_short": "P",
+  "@day_monday_very_short": {
+    "description": "Translation for day_monday_very_short",
+    "placeholders": {}
+  },
   "day_tuesday_very_short": "S",
+  "@day_tuesday_very_short": {
+    "description": "Translation for day_tuesday_very_short",
+    "placeholders": {}
+  },
   "day_wednesday_very_short": "Ç",
+  "@day_wednesday_very_short": {
+    "description": "Translation for day_wednesday_very_short",
+    "placeholders": {}
+  },
   "day_thursday_very_short": "P",
+  "@day_thursday_very_short": {
+    "description": "Translation for day_thursday_very_short",
+    "placeholders": {}
+  },
   "day_friday_very_short": "C",
+  "@day_friday_very_short": {
+    "description": "Translation for day_friday_very_short",
+    "placeholders": {}
+  },
   "day_saturday_very_short": "C",
+  "@day_saturday_very_short": {
+    "description": "Translation for day_saturday_very_short",
+    "placeholders": {}
+  },
   "day_sunday_very_short": "P",
+  "@day_sunday_very_short": {
+    "description": "Translation for day_sunday_very_short",
+    "placeholders": {}
+  },
   "delete_medicine_confirm": "Bu ilacı silmek istediğinizden emin misiniz?",
+  "@delete_medicine_confirm": {
+    "description": "Translation for delete_medicine_confirm",
+    "placeholders": {}
+  },
   "i_agree_to": "Okudum ve onaylıyorum:",
+  "@i_agree_to": {
+    "description": "Translation for i_agree_to",
+    "placeholders": {}
+  },
   "read_privacy_policy": "Gizlilik Politikası",
+  "@read_privacy_policy": {
+    "description": "Translation for read_privacy_policy",
+    "placeholders": {}
+  },
   "read_terms": "Kullanım Koşulları",
+  "@read_terms": {
+    "description": "Translation for read_terms",
+    "placeholders": {}
+  },
   "read_disclaimer": "Yasal Uyarı",
+  "@read_disclaimer": {
+    "description": "Translation for read_disclaimer",
+    "placeholders": {}
+  },
   "must_agree": "Devam etmek için tüm yasal belgeleri onaylamalısınız.",
+  "@must_agree": {
+    "description": "Translation for must_agree",
+    "placeholders": {}
+  },
   "legal_acceptance": "Yasal Onay",
+  "@legal_acceptance": {
+    "description": "Translation for legal_acceptance",
+    "placeholders": {}
+  },
   "manage_subscription": "Abonelik Yönetimi",
+  "@manage_subscription": {
+    "description": "Translation for manage_subscription",
+    "placeholders": {}
+  },
   "trust_offline_title": "Çevrimdışı Sığınak",
+  "@trust_offline_title": {
+    "description": "Translation for trust_offline_title",
+    "placeholders": {}
+  },
   "trust_offline_desc": "Verileriniz cihazınızdan asla ayrılmaz.",
+  "@trust_offline_desc": {
+    "description": "Translation for trust_offline_desc",
+    "placeholders": {}
+  },
   "trust_encryption_title": "AES-256 Şifreleme",
+  "@trust_encryption_title": {
+    "description": "Translation for trust_encryption_title",
+    "placeholders": {}
+  },
   "trust_encryption_desc": "Maksimum güvenlik ile korunur.",
+  "@trust_encryption_desc": {
+    "description": "Translation for trust_encryption_desc",
+    "placeholders": {}
+  },
   "trust_adfree_desc": "Kesintisiz bir deneyim.",
+  "@trust_adfree_desc": {
+    "description": "Translation for trust_adfree_desc",
+    "placeholders": {}
+  },
   "medals_trophies": "Madalyalar & Kupalar",
+  "@medals_trophies": {
+    "description": "Translation for medals_trophies",
+    "placeholders": {}
+  },
   "cat_streak": "Günlük Seri",
+  "@cat_streak": {
+    "description": "Translation for cat_streak",
+    "placeholders": {}
+  },
   "cat_ads": "Destek & Reklam",
+  "@cat_ads": {
+    "description": "Translation for cat_ads",
+    "placeholders": {}
+  },
   "cat_documents": "Kayıt Arşivi",
+  "@cat_documents": {
+    "description": "Translation for cat_documents",
+    "placeholders": {}
+  },
   "cat_medications": "İlaç Alışkanlığı",
+  "@cat_medications": {
+    "description": "Translation for cat_medications",
+    "placeholders": {}
+  },
   "cat_appointments": "Klinik Ziyaretler",
+  "@cat_appointments": {
+    "description": "Translation for cat_appointments",
+    "placeholders": {}
+  },
   "cat_profile": "Kimlik",
+  "@cat_profile": {
+    "description": "Translation for cat_profile",
+    "placeholders": {}
+  },
   "cat_emergency": "Güvenlik & Hazırlık",
+  "@cat_emergency": {
+    "description": "Translation for cat_emergency",
+    "placeholders": {}
+  },
   "cat_health": "Hayat Takibi",
+  "@cat_health": {
+    "description": "Translation for cat_health",
+    "placeholders": {}
+  },
   "cat_engagement": "Uygulama Aktivitesi",
+  "@cat_engagement": {
+    "description": "Translation for cat_engagement",
+    "placeholders": {}
+  },
   "cat_special": "Onur Listesi",
+  "@cat_special": {
+    "description": "Translation for cat_special",
+    "placeholders": {}
+  },
   "cat_premium": "Destekçiler",
+  "@cat_premium": {
+    "description": "Translation for cat_premium",
+    "placeholders": {}
+  },
   "cat_power_user": "Efsanevi Durum",
+  "@cat_power_user": {
+    "description": "Translation for cat_power_user",
+    "placeholders": {}
+  },
   "ach_legend_status": "Efsanevi",
+  "@ach_legend_status": {
+    "description": "Translation for ach_legend_status",
+    "placeholders": {}
+  },
   "theme_boutique": "Tema Mağazası",
+  "@theme_boutique": {
+    "description": "Translation for theme_boutique",
+    "placeholders": {}
+  },
   "days_left": "gün kaldı",
+  "@days_left": {
+    "description": "Translation for days_left",
+    "placeholders": {}
+  },
   "unlocked": "Açıldı",
+  "@unlocked": {
+    "description": "Translation for unlocked",
+    "placeholders": {}
+  },
   "progress": "İlerleme",
+  "@progress": {
+    "description": "Translation for progress",
+    "placeholders": {}
+  },
   "ach_hidden_desc": "Bu gizli başarımı keşfetmek için oynamaya devam et!",
+  "@ach_hidden_desc": {
+    "description": "Translation for ach_hidden_desc",
+    "placeholders": {}
+  },
   "ach_login_1_title": "Başlangıç",
+  "@ach_login_1_title": {
+    "description": "Translation for ach_login_1_title",
+    "placeholders": {}
+  },
   "ach_login_1_desc": "Her efsanevi yolculuk tek bir adımla başlar. İlk serini ateşledin!",
+  "@ach_login_1_desc": {
+    "description": "Translation for ach_login_1_desc",
+    "placeholders": {}
+  },
   "ach_login_3_title": "Isınıyor",
+  "@ach_login_3_title": {
+    "description": "Translation for ach_login_3_title",
+    "placeholders": {}
+  },
   "ach_login_3_desc": "Isınma turları bitti. Üst üste 3 gün buradasın, hiç fena değil! 🔥",
+  "@ach_login_3_desc": {
+    "description": "Translation for ach_login_3_desc",
+    "placeholders": {}
+  },
   "ach_login_7_title": "İstikrarlı",
+  "@ach_login_7_title": {
+    "description": "Translation for ach_login_7_title",
+    "placeholders": {}
+  },
   "ach_login_7_desc": "Koca bir hafta! Artık buraların yollarını ezberledin ve kamp ateşini yaktın.",
+  "@ach_login_7_desc": {
+    "description": "Translation for ach_login_7_desc",
+    "placeholders": {}
+  },
   "ach_login_14_title": "Alışkanlık",
+  "@ach_login_14_title": {
+    "description": "Translation for ach_login_14_title",
+    "placeholders": {}
+  },
   "ach_login_14_desc": "İki hafta aralıksız! Alışkanlıklar işte tam böyle şekillenir, tebrikler.",
+  "@ach_login_14_desc": {
+    "description": "Translation for ach_login_14_desc",
+    "placeholders": {}
+  },
   "ach_login_30_title": "Bağımlı",
+  "@ach_login_30_title": {
+    "description": "Translation for ach_login_30_title",
+    "placeholders": {}
+  },
   "ach_login_30_desc": "Koca bir ay boyunca buradaydın. İkimiz de bunun bir hobi olmaktan çıktığını biliyoruz.",
+  "@ach_login_30_desc": {
+    "description": "Translation for ach_login_30_desc",
+    "placeholders": {}
+  },
   "ach_login_60_title": "Sadık Kullanıcı",
+  "@ach_login_60_title": {
+    "description": "Translation for ach_login_60_title",
+    "placeholders": {}
+  },
   "ach_login_60_desc": "İki ay... Kira ödüyor musun dostum? İkinci evine hoş geldin. 🏠",
+  "@ach_login_60_desc": {
+    "description": "Translation for ach_login_60_desc",
+    "placeholders": {}
+  },
   "ach_login_100_title": "Uzman",
+  "@ach_login_100_title": {
+    "description": "Translation for ach_login_100_title",
+    "placeholders": {}
+  },
   "ach_login_100_desc": "Dalya! 100 günlük devasa bir seriyi bozacak hiçbir güç yok. 💯",
+  "@ach_login_100_desc": {
+    "description": "Translation for ach_login_100_desc",
+    "placeholders": {}
+  },
   "ach_login_200_title": "Efsane",
+  "@ach_login_200_title": {
+    "description": "Translation for ach_login_200_title",
+    "placeholders": {}
+  },
   "ach_login_200_desc": "200 gün. Çevrendekiler senin bir yapay zeka botu olduğundan şüphelenmeye başlıyor. 🤖",
+  "@ach_login_200_desc": {
+    "description": "Translation for ach_login_200_desc",
+    "placeholders": {}
+  },
   "ach_login_365_title": "Efsanevi Yıl",
+  "@ach_login_365_title": {
+    "description": "Translation for ach_login_365_title",
+    "placeholders": {}
+  },
   "ach_login_365_desc": "Bir tam Güneş yılı! Bir yıldır her koşulda buradasın. Taç giyme törenin yarın. 👑",
+  "@ach_login_365_desc": {
+    "description": "Translation for ach_login_365_desc",
+    "placeholders": {}
+  },
   "ach_ads_1_title": "İlk Reklam",
+  "@ach_ads_1_title": {
+    "description": "Translation for ach_ads_1_title",
+    "placeholders": {}
+  },
   "ach_ads_1_desc": "Reklamlar iyidir... Bazen. Geliştiriciye verdiğin minik destek için teşekkürler!",
+  "@ach_ads_1_desc": {
+    "description": "Translation for ach_ads_1_desc",
+    "placeholders": {}
+  },
   "ach_ads_5_title": "Destekçi",
+  "@ach_ads_5_title": {
+    "description": "Translation for ach_ads_5_title",
+    "placeholders": {}
+  },
   "ach_ads_5_desc": "Sponsorlarımızı bizim kadar sen de çok sevdin galiba.",
+  "@ach_ads_5_desc": {
+    "description": "Translation for ach_ads_5_desc",
+    "placeholders": {}
+  },
   "ach_ads_15_title": "Sadık Reklamcı",
+  "@ach_ads_15_title": {
+    "description": "Translation for ach_ads_15_title",
+    "placeholders": {}
+  },
   "ach_ads_15_desc": "Patlamış mısırını al, 15 reklamlık bir maratonu tamamladın. 🍿",
+  "@ach_ads_15_desc": {
+    "description": "Translation for ach_ads_15_desc",
+    "placeholders": {}
+  },
   "ach_ads_30_title": "Devam Ediyor",
+  "@ach_ads_30_title": {
+    "description": "Translation for ach_ads_30_title",
+    "placeholders": {}
+  },
   "ach_ads_30_desc": "Televizyon izlermiş gibi! Bize olan desteğin altın değerinde.",
+  "@ach_ads_30_desc": {
+    "description": "Translation for ach_ads_30_desc",
+    "placeholders": {}
+  },
   "ach_ads_50_title": "Güçlü Kullanıcı",
+  "@ach_ads_50_title": {
+    "description": "Translation for ach_ads_50_title",
+    "placeholders": {}
+  },
   "ach_ads_50_desc": "Artık hangi reklamın geleceğini saniyesinden tahmin edebiliyorsun.",
+  "@ach_ads_50_desc": {
+    "description": "Translation for ach_ads_50_desc",
+    "placeholders": {}
+  },
   "ach_ads_100_title": "Bağımlı",
+  "@ach_ads_100_title": {
+    "description": "Translation for ach_ads_100_title",
+    "placeholders": {}
+  },
   "ach_ads_100_desc": "100 reklam! Sabrından ötürü sana özel bir madalya borçluyuz.",
+  "@ach_ads_100_desc": {
+    "description": "Translation for ach_ads_100_desc",
+    "placeholders": {}
+  },
   "ach_ads_250_title": "Reklam Ustası",
+  "@ach_ads_250_title": {
+    "description": "Translation for ach_ads_250_title",
+    "placeholders": {}
+  },
   "ach_ads_250_desc": "Ekranda kaybolan bir pazarlama dehası. Desteklerin arşa ulaştı.",
+  "@ach_ads_250_desc": {
+    "description": "Translation for ach_ads_250_desc",
+    "placeholders": {}
+  },
   "ach_ads_500_title": "Monetization King",
+  "@ach_ads_500_title": {
+    "description": "Translation for ach_ads_500_title",
+    "placeholders": {}
+  },
   "ach_ads_500_desc": "Sermayedar mısın mübarek? Borsayı tek başına sen döndürüyorsun! 📉",
+  "@ach_ads_500_desc": {
+    "description": "Translation for ach_ads_500_desc",
+    "placeholders": {}
+  },
   "ach_doc_1_title": "İlk Belge",
+  "@ach_doc_1_title": {
+    "description": "Translation for ach_doc_1_title",
+    "placeholders": {}
+  },
   "ach_doc_1_desc": "Devlet dairesi değiliz ama ilk belgeni başarıyla rafa kaldırdın. 📇",
+  "@ach_doc_1_desc": {
+    "description": "Translation for ach_doc_1_desc",
+    "placeholders": {}
+  },
   "ach_doc_5_title": "Başlangıç",
+  "@ach_doc_5_title": {
+    "description": "Translation for ach_doc_5_title",
+    "placeholders": {}
+  },
   "ach_doc_5_desc": "İlk klasörün dolmak üzere. Düzenli olmaya başlıyorsun.",
+  "@ach_doc_5_desc": {
+    "description": "Translation for ach_doc_5_desc",
+    "placeholders": {}
+  },
   "ach_doc_10_title": "Düzenli Kullanıcı",
+  "@ach_doc_10_title": {
+    "description": "Translation for ach_doc_10_title",
+    "placeholders": {}
+  },
   "ach_doc_10_desc": "Dosyalar birikiyor. Kayıp ve Buluntu departmanı seninle çalışmak isterdi.",
+  "@ach_doc_10_desc": {
+    "description": "Translation for ach_doc_10_desc",
+    "placeholders": {}
+  },
   "ach_doc_25_title": "Arşivci",
+  "@ach_doc_25_title": {
+    "description": "Translation for ach_doc_25_title",
+    "placeholders": {}
+  },
   "ach_doc_25_desc": "Evrak falan işleri... Arşivindeki 25 belgeyle tozu dumana kattın.",
+  "@ach_doc_25_desc": {
+    "description": "Translation for ach_doc_25_desc",
+    "placeholders": {}
+  },
   "ach_doc_50_title": "Profesyonel",
+  "@ach_doc_50_title": {
+    "description": "Translation for ach_doc_50_title",
+    "placeholders": {}
+  },
   "ach_doc_50_desc": "Sekreterya falan hikaye, profesyonel dosyalama şövalyesi işte budur.",
+  "@ach_doc_50_desc": {
+    "description": "Translation for ach_doc_50_desc",
+    "placeholders": {}
+  },
   "ach_doc_100_title": "Vault Master",
+  "@ach_doc_100_title": {
+    "description": "Translation for ach_doc_100_title",
+    "placeholders": {}
+  },
   "ach_doc_100_desc": "100 belge mi? Bu devasa arşive bir kütüphaneci atamanın vakti geldi. 📚",
+  "@ach_doc_100_desc": {
+    "description": "Translation for ach_doc_100_desc",
+    "placeholders": {}
+  },
   "ach_doc_250_title": "Veri Koleksiyoncusu",
+  "@ach_doc_250_title": {
+    "description": "Translation for ach_doc_250_title",
+    "placeholders": {}
+  },
   "ach_doc_250_desc": "Büyük Veri (Big Data) senaryolarına hoş geldin. Yığınlara hükmediyorsun.",
+  "@ach_doc_250_desc": {
+    "description": "Translation for ach_doc_250_desc",
+    "placeholders": {}
+  },
   "ach_doc_500_title": "Dijital Arşiv Uzmanı",
+  "@ach_doc_500_title": {
+    "description": "Translation for ach_doc_500_title",
+    "placeholders": {}
+  },
   "ach_doc_500_desc": "Dijital İskenderiye Kütüphanesi! Arşivlerin nesiller boyu yaşayacak.",
+  "@ach_doc_500_desc": {
+    "description": "Translation for ach_doc_500_desc",
+    "placeholders": {}
+  },
   "ach_med_1_title": "İlk İlaç",
+  "@ach_med_1_title": {
+    "description": "Translation for ach_med_1_title",
+    "placeholders": {}
+  },
   "ach_med_1_desc": "Kendine değer vermeye başladın, sağlığına dikkat etmek için harika bir milat.",
+  "@ach_med_1_desc": {
+    "description": "Translation for ach_med_1_desc",
+    "placeholders": {}
+  },
   "ach_med_3_title": "Takip Başladı",
+  "@ach_med_3_title": {
+    "description": "Translation for ach_med_3_title",
+    "placeholders": {}
+  },
   "ach_med_3_desc": "Reçetene sadıksın. Suları yudumla ve hatırlatmaları asla kaçırma.",
+  "@ach_med_3_desc": {
+    "description": "Translation for ach_med_3_desc",
+    "placeholders": {}
+  },
   "ach_med_5_title": "Düzenli Kullanıcı",
+  "@ach_med_5_title": {
+    "description": "Translation for ach_med_5_title",
+    "placeholders": {}
+  },
   "ach_med_5_desc": "Eczacıların favori müşterisi! Formunu özenle koruyorsun.",
+  "@ach_med_5_desc": {
+    "description": "Translation for ach_med_5_desc",
+    "placeholders": {}
+  },
   "ach_med_10_title": "Disiplinli",
+  "@ach_med_10_title": {
+    "description": "Translation for ach_med_10_title",
+    "placeholders": {}
+  },
   "ach_med_10_desc": "İlaçlar saatinde, bedenin tıkır tıkır işliyor. 10 kez teyit edildi!",
+  "@ach_med_10_desc": {
+    "description": "Translation for ach_med_10_desc",
+    "placeholders": {}
+  },
   "ach_med_25_title": "Sağlık Uzmanı",
+  "@ach_med_25_title": {
+    "description": "Translation for ach_med_25_title",
+    "placeholders": {}
+  },
   "ach_med_25_desc": "Vücudunun dilinden anlıyorsun. İlaç günlüğü senin için bir sanat oldu.",
+  "@ach_med_25_desc": {
+    "description": "Translation for ach_med_25_desc",
+    "placeholders": {}
+  },
   "ach_med_50_title": "Health Master",
+  "@ach_med_50_title": {
+    "description": "Translation for ach_med_50_title",
+    "placeholders": {}
+  },
   "ach_med_50_desc": "Doktorlar bile disiplinini kıskanıyor. Vücudut kimyanın efendisi sensin! 🧬",
+  "@ach_med_50_desc": {
+    "description": "Translation for ach_med_50_desc",
+    "placeholders": {}
+  },
   "ach_app_1_title": "İlk Randevu",
+  "@ach_app_1_title": {
+    "description": "Translation for ach_app_1_title",
+    "placeholders": {}
+  },
   "ach_app_1_desc": "Plan yapmadan başarı gelmez! İlk takvim kaydın güvenle alınan.",
+  "@ach_app_1_desc": {
+    "description": "Translation for ach_app_1_desc",
+    "placeholders": {}
+  },
   "ach_app_3_title": "Planlıyor",
+  "@ach_app_3_title": {
+    "description": "Translation for ach_app_3_title",
+    "placeholders": {}
+  },
   "ach_app_3_desc": "Zaman yönetimi 101. Planlarına sadık kalarak yükseliyorsun.",
+  "@ach_app_3_desc": {
+    "description": "Translation for ach_app_3_desc",
+    "placeholders": {}
+  },
   "ach_app_5_title": "Organize",
+  "@ach_app_5_title": {
+    "description": "Translation for ach_app_5_title",
+    "placeholders": {}
+  },
   "ach_app_5_desc": "Ajandan dolmaya başladı. O meşgul ama karizmatik kişi kesinlikle sensin.",
+  "@ach_app_5_desc": {
+    "description": "Translation for ach_app_5_desc",
+    "placeholders": {}
+  },
   "ach_app_10_title": "Disiplinli Planlayıcı",
+  "@ach_app_10_title": {
+    "description": "Translation for ach_app_10_title",
+    "placeholders": {}
+  },
   "ach_app_10_desc": "Alarm kurmana bile gerek yok, kafanın içinde bir atom saati var sanki.",
+  "@ach_app_10_desc": {
+    "description": "Translation for ach_app_10_desc",
+    "placeholders": {}
+  },
   "ach_app_20_title": "Planner Pro",
+  "@ach_app_20_title": {
+    "description": "Translation for ach_app_20_title",
+    "placeholders": {}
+  },
   "ach_app_20_desc": "Her şey dakikası dakikasına belli... Dijital bir asistan gibisin!",
+  "@ach_app_20_desc": {
+    "description": "Translation for ach_app_20_desc",
+    "placeholders": {}
+  },
   "ach_app_30_title": "Master Planner",
+  "@ach_app_30_title": {
+    "description": "Translation for ach_app_30_title",
+    "placeholders": {}
+  },
   "ach_app_30_desc": "Zaman bükücü! Bir insanın bu kadar randevuyu çakışmadan yönetmesi imkansız... değilmiş.",
+  "@ach_app_30_desc": {
+    "description": "Translation for ach_app_30_desc",
+    "placeholders": {}
+  },
   "ach_profile_created_title": "Profil Oluşturuldu",
+  "@ach_profile_created_title": {
+    "description": "Translation for ach_profile_created_title",
+    "placeholders": {}
+  },
   "ach_profile_created_desc": "Aramıza resmi olarak katıldın. Dijital imzanı attın bile!",
+  "@ach_profile_created_desc": {
+    "description": "Translation for ach_profile_created_desc",
+    "placeholders": {}
+  },
   "ach_profile_completed_title": "Profil Tamamlandı",
+  "@ach_profile_completed_title": {
+    "description": "Translation for ach_profile_completed_title",
+    "placeholders": {}
+  },
   "ach_profile_completed_desc": "Boşluklardan nefret ediyorsun değil mi? Tüm bilgilerin tastamam dolu.",
+  "@ach_profile_completed_desc": {
+    "description": "Translation for ach_profile_completed_desc",
+    "placeholders": {}
+  },
   "ach_profile_updated_title": "Profil Güncellendi",
+  "@ach_profile_updated_title": {
+    "description": "Translation for ach_profile_updated_title",
+    "placeholders": {}
+  },
   "ach_profile_updated_desc": "Değişim gelişmektir! Kendini tazeleyerek hep oyunun içinde kaldın.",
+  "@ach_profile_updated_desc": {
+    "description": "Translation for ach_profile_updated_desc",
+    "placeholders": {}
+  },
   "ach_profile_with_photo_title": "Profil Fotoğrafı",
+  "@ach_profile_with_photo_title": {
+    "description": "Translation for ach_profile_with_photo_title",
+    "placeholders": {}
+  },
   "ach_profile_with_photo_desc": "Yüzsüz bir djiital avatar olmaktan kurtuldun. Kameraya gülümse! 📸",
+  "@ach_profile_with_photo_desc": {
+    "description": "Translation for ach_profile_with_photo_desc",
+    "placeholders": {}
+  },
   "ach_profile_master_title": "Profil Ustası",
+  "@ach_profile_master_title": {
+    "description": "Translation for ach_profile_master_title",
+    "placeholders": {}
+  },
   "ach_profile_master_desc": "Kimliğin, biyon ve detaylarınla sistemin en janti kullanıcısısın.",
+  "@ach_profile_master_desc": {
+    "description": "Translation for ach_profile_master_desc",
+    "placeholders": {}
+  },
   "ach_emergency_added_title": "Acil Kart Eklendi",
+  "@ach_emergency_added_title": {
+    "description": "Translation for ach_emergency_added_title",
+    "placeholders": {}
+  },
   "ach_emergency_added_desc": "Tedbir hiçbir zaman elden bırakılmaz. Acil durum kalkanın devrede.",
+  "@ach_emergency_added_desc": {
+    "description": "Translation for ach_emergency_added_desc",
+    "placeholders": {}
+  },
   "ach_emergency_contact_title": "Acil Kişi",
+  "@ach_emergency_contact_title": {
+    "description": "Translation for ach_emergency_contact_title",
+    "placeholders": {}
+  },
   "ach_emergency_contact_desc": "Zor zamanlarda kimin aranacağı belli. Güven çemberi oluşturuldu. 📞",
+  "@ach_emergency_contact_desc": {
+    "description": "Translation for ach_emergency_contact_desc",
+    "placeholders": {}
+  },
   "ach_emergency_complete_title": "Tamamlandı",
+  "@ach_emergency_complete_title": {
+    "description": "Translation for ach_emergency_complete_title",
+    "placeholders": {}
+  },
   "ach_emergency_complete_desc": "Senaryolara hazırlıklısın. Güvenlik seviyesi en üst düzeyde.",
+  "@ach_emergency_complete_desc": {
+    "description": "Translation for ach_emergency_complete_desc",
+    "placeholders": {}
+  },
   "ach_emergency_ready_title": "Hazır",
+  "@ach_emergency_ready_title": {
+    "description": "Translation for ach_emergency_ready_title",
+    "placeholders": {}
+  },
   "ach_emergency_ready_desc": "Kırmızı alarm durumunda her şey tıkır tıkır işleyecek. Sağlama alındın.",
+  "@ach_emergency_ready_desc": {
+    "description": "Translation for ach_emergency_ready_desc",
+    "placeholders": {}
+  },
   "ach_emergency_master_title": "Emergency Master",
+  "@ach_emergency_master_title": {
+    "description": "Translation for ach_emergency_master_title",
+    "placeholders": {}
+  },
   "ach_emergency_master_desc": "Ambulans gelmeden ilk yardımı yönetecek kadar sağlam ve serin kanlı!",
+  "@ach_emergency_master_desc": {
+    "description": "Translation for ach_emergency_master_desc",
+    "placeholders": {}
+  },
   "ach_health_1_title": "İlk Veri",
+  "@ach_health_1_title": {
+    "description": "Translation for ach_health_1_title",
+    "placeholders": {}
+  },
   "ach_health_1_desc": "Bugün kendine bir iyilik yaptın. Vücudun içeriden sana teşekkür ediyor.",
+  "@ach_health_1_desc": {
+    "description": "Translation for ach_health_1_desc",
+    "placeholders": {}
+  },
   "ach_health_5_title": "Takip Başladı",
+  "@ach_health_5_title": {
+    "description": "Translation for ach_health_5_title",
+    "placeholders": {}
+  },
   "ach_health_5_desc": "Veriler birikiyor, biyoritminle olan sohbetini ilerletiyorsun.",
+  "@ach_health_5_desc": {
+    "description": "Translation for ach_health_5_desc",
+    "placeholders": {}
+  },
   "ach_health_10_title": "Sağlık Bilinci",
+  "@ach_health_10_title": {
+    "description": "Translation for ach_health_10_title",
+    "placeholders": {}
+  },
   "ach_health_10_desc": "Artık bir istatistik harikasısın! Vücudun şifreli bvir kitap gibi okunuyor. 📈",
+  "@ach_health_10_desc": {
+    "description": "Translation for ach_health_10_desc",
+    "placeholders": {}
+  },
   "ach_health_20_title": "Düzenli Takip",
+  "@ach_health_20_title": {
+    "description": "Translation for ach_health_20_title",
+    "placeholders": {}
+  },
   "ach_health_20_desc": "Makine gibisin. Nabız, metrikler, adımlar... Hiçbiri sensörlerinden kaçmıyor.",
+  "@ach_health_20_desc": {
+    "description": "Translation for ach_health_20_desc",
+    "placeholders": {}
+  },
   "ach_health_50_title": "Sağlık Uzmanı",
+  "@ach_health_50_title": {
+    "description": "Translation for ach_health_50_title",
+    "placeholders": {}
+  },
   "ach_health_50_desc": "Cyborg seviyesine yaklaştın. Bio-verilerinle arandaki bağ koparılamaz.",
+  "@ach_health_50_desc": {
+    "description": "Translation for ach_health_50_desc",
+    "placeholders": {}
+  },
   "ach_health_master_title": "Health Master",
+  "@ach_health_master_title": {
+    "description": "Translation for ach_health_master_title",
+    "placeholders": {}
+  },
   "ach_health_master_desc": "Tapınağın baş rahibi! Kendi bedenin üzerinde mutlak bir ustalık kurdun. 🧘",
+  "@ach_health_master_desc": {
+    "description": "Translation for ach_health_master_desc",
+    "placeholders": {}
+  },
   "ach_first_login_title": "Hoş Geldin",
+  "@ach_first_login_title": {
+    "description": "Translation for ach_first_login_title",
+    "placeholders": {}
+  },
   "ach_first_login_desc": "Kapıyı itip içeri ilk adımını attın, işte asıl macera şimdi yepyeni başlıyor.",
+  "@ach_first_login_desc": {
+    "description": "Translation for ach_first_login_desc",
+    "placeholders": {}
+  },
   "ach_first_upload_title": "Explorer",
+  "@ach_first_upload_title": {
+    "description": "Translation for ach_first_upload_title",
+    "placeholders": {}
+  },
   "ach_first_upload_desc": "Sisteme ilk kalıcı izini bıraktın. Artık buralara kazındın.",
+  "@ach_first_upload_desc": {
+    "description": "Translation for ach_first_upload_desc",
+    "placeholders": {}
+  },
   "ach_first_ad_title": "Free User",
+  "@ach_first_ad_title": {
+    "description": "Translation for ach_first_ad_title",
+    "placeholders": {}
+  },
   "ach_first_ad_desc": "Emeğe saygı kuşağı! İlk reklam etkileşiminle ekosisteme can suyu verdin.",
+  "@ach_first_ad_desc": {
+    "description": "Translation for ach_first_ad_desc",
+    "placeholders": {}
+  },
   "ach_first_premium_title": "Premium User",
+  "@ach_first_premium_title": {
+    "description": "Translation for ach_first_premium_title",
+    "placeholders": {}
+  },
   "ach_first_premium_desc": "İşte vizyon meselesi. VIP locasına buyrun, kırmızı halınız serildi! 🎟️",
+  "@ach_first_premium_desc": {
+    "description": "Translation for ach_first_premium_desc",
+    "placeholders": {}
+  },
   "ach_active_3_days_title": "Aktif",
+  "@ach_active_3_days_title": {
+    "description": "Translation for ach_active_3_days_title",
+    "placeholders": {}
+  },
   "ach_active_3_days_desc": "Kablolar ısınıyor, motorlar çalıştı. Enerjini hissetmeye başladık.",
+  "@ach_active_3_days_desc": {
+    "description": "Translation for ach_active_3_days_desc",
+    "placeholders": {}
+  },
   "ach_active_7_days_title": "Sadık",
+  "@ach_active_7_days_title": {
+    "description": "Translation for ach_active_7_days_title",
+    "placeholders": {}
+  },
   "ach_active_7_days_desc": "Tam bir haftadır sistemle senkronizesin. Ortam epey elektriklendi!",
+  "@ach_active_7_days_desc": {
+    "description": "Translation for ach_active_7_days_desc",
+    "placeholders": {}
+  },
   "ach_active_30_days_title": "Core User",
+  "@ach_active_30_days_title": {
+    "description": "Translation for ach_active_30_days_title",
+    "placeholders": {}
+  },
   "ach_active_30_days_desc": "Adeta çekirdek kadroya alındın. Sensiz buraların tadı tuzu kalmazdı.",
+  "@ach_active_30_days_desc": {
+    "description": "Translation for ach_active_30_days_desc",
+    "placeholders": {}
+  },
   "ach_streak_saved_title": "Streak Savior",
+  "@ach_streak_saved_title": {
+    "description": "Translation for ach_streak_saved_title",
+    "placeholders": {}
+  },
   "ach_streak_saved_desc": "Uçurumun kenarından döndün! O güzelim seriyi kurtarmak harika bir refleksti.",
+  "@ach_streak_saved_desc": {
+    "description": "Translation for ach_streak_saved_desc",
+    "placeholders": {}
+  },
   "ach_streak_saved_5_title": "Dirençli",
+  "@ach_streak_saved_5_title": {
+    "description": "Translation for ach_streak_saved_5_title",
+    "placeholders": {}
+  },
   "ach_streak_saved_5_desc": "Savaş yaralarına rağmen düşmüyor, tökezlesen de kalkmasını biliyorsun.",
+  "@ach_streak_saved_5_desc": {
+    "description": "Translation for ach_streak_saved_5_desc",
+    "placeholders": {}
+  },
   "ach_streak_saved_10_title": "Asla Pes Etmez",
+  "@ach_streak_saved_10_title": {
+    "description": "Translation for ach_streak_saved_10_title",
+    "placeholders": {}
+  },
   "ach_streak_saved_10_desc": "Zümrüdüanka mısın? Küllerinden doğmak sıradan bir salı günü aktivitesi. 🐦🔥",
+  "@ach_streak_saved_10_desc": {
+    "description": "Translation for ach_streak_saved_10_desc",
+    "placeholders": {}
+  },
   "ach_streak_perfect_30_title": "Kusursuz Seri",
+  "@ach_streak_perfect_30_title": {
+    "description": "Translation for ach_streak_perfect_30_title",
+    "placeholders": {}
+  },
   "ach_streak_perfect_30_desc": "Tek bir pas, tek bir sekme yok. 30 koca gün boyunca İsviçre saati gibi mükemmeldin!",
+  "@ach_streak_perfect_30_desc": {
+    "description": "Translation for ach_streak_perfect_30_desc",
+    "placeholders": {}
+  },
   "ach_premium_trial_used_title": "Premium Deneyimi",
+  "@ach_premium_trial_used_title": {
+    "description": "Translation for ach_premium_trial_used_title",
+    "placeholders": {}
+  },
   "ach_premium_trial_used_desc": "Ayrıcalıklar dünyasının kapısını araladın. Manzara büyüleyici, değil mi?",
+  "@ach_premium_trial_used_desc": {
+    "description": "Translation for ach_premium_trial_used_desc",
+    "placeholders": {}
+  },
   "ach_limit_breaker_title": "Limit Aşıldı",
+  "@ach_limit_breaker_title": {
+    "description": "Translation for ach_limit_breaker_title",
+    "placeholders": {}
+  },
   "ach_limit_breaker_desc": "Kurallar ve sınırlar bükülmek içindir. Matrix'in dışına çıktın! 💥",
+  "@ach_limit_breaker_desc": {
+    "description": "Translation for ach_limit_breaker_desc",
+    "placeholders": {}
+  },
   "ach_ad_skip_used_title": "Reklam Atlama",
+  "@ach_ad_skip_used_title": {
+    "description": "Translation for ach_ad_skip_used_title",
+    "placeholders": {}
+  },
   "ach_ad_skip_used_desc": "Buna ayıracak hiç zamanım yok dedin, tek tuşla zamanı ileri sardın.",
+  "@ach_ad_skip_used_desc": {
+    "description": "Translation for ach_ad_skip_used_desc",
+    "placeholders": {}
+  },
   "ach_reward_collector_title": "Ödül Toplayıcı",
+  "@ach_reward_collector_title": {
+    "description": "Translation for ach_reward_collector_title",
+    "placeholders": {}
+  },
   "ach_reward_collector_desc": "Kuytu köşelerdeki ne kadar ödül varsa sömürdün. Tam bir ganimet avcısı! 🎁",
+  "@ach_reward_collector_desc": {
+    "description": "Translation for ach_reward_collector_desc",
+    "placeholders": {}
+  },
   "ach_multi_feature_user_title": "Tüm Özellikler",
+  "@ach_multi_feature_user_title": {
+    "description": "Translation for ach_multi_feature_user_title",
+    "placeholders": {}
+  },
   "ach_multi_feature_user_desc": "Uygulamada dokunmadığın, kurcalamadığın tek bir düğme kalmadı meraklı gezgin!",
+  "@ach_multi_feature_user_desc": {
+    "description": "Translation for ach_multi_feature_user_desc",
+    "placeholders": {}
+  },
   "ach_data_master_title": "Veri Ustası",
+  "@ach_data_master_title": {
+    "description": "Translation for ach_data_master_title",
+    "placeholders": {}
+  },
   "ach_data_master_desc": "Baytlar ve bitler senin etrafında şekilleniyor. Sistem verilerinin mutlak efendisisin.",
+  "@ach_data_master_desc": {
+    "description": "Translation for ach_data_master_desc",
+    "placeholders": {}
+  },
   "ach_organized_master_title": "Ultra Düzenli",
+  "@ach_organized_master_title": {
+    "description": "Translation for ach_organized_master_title",
+    "placeholders": {}
+  },
   "ach_organized_master_desc": "Marie Kondo gelse senin düzenine şapka çıkarırdı. Her şey milimetrik.",
+  "@ach_organized_master_desc": {
+    "description": "Translation for ach_organized_master_desc",
+    "placeholders": {}
+  },
   "ach_security_master_title": "Güvenlik Uzmanı",
+  "@ach_security_master_title": {
+    "description": "Translation for ach_security_master_title",
+    "placeholders": {}
+  },
   "ach_security_master_desc": "Hesabın bir kale, şifrelerin bir siber ordu. Sızmak neredeyse imkansız! 🔐",
+  "@ach_security_master_desc": {
+    "description": "Translation for ach_security_master_desc",
+    "placeholders": {}
+  },
   "ach_daily_master_title": "Daily Master",
+  "@ach_daily_master_title": {
+    "description": "Translation for ach_daily_master_title",
+    "placeholders": {}
+  },
   "ach_daily_master_desc": "Güneşi bizimle doğuran, yıldızları bizimle gören o efsanevi sadık kullanıcı sensin.",
+  "@ach_daily_master_desc": {
+    "description": "Translation for ach_daily_master_desc",
+    "placeholders": {}
+  },
   "backup_restore": "Yedekle & Geri Yükle",
+  "@backup_restore": {
+    "description": "Translation for backup_restore",
+    "placeholders": {}
+  },
   "backup_desc_settings": "Yalnızca bu cihaz için şifreli yerel yedekleme",
+  "@backup_desc_settings": {
+    "description": "Translation for backup_desc_settings",
+    "placeholders": {}
+  },
   "smart_notifications": "Akıllı Bildirimler",
+  "@smart_notifications": {
+    "description": "Translation for smart_notifications",
+    "placeholders": {}
+  },
   "smart_streak_warning": "🔥 Streak kaybolmak üzere! Geri dönüp verilerini kontrol etmeye ne dersin?",
+  "@smart_streak_warning": {
+    "description": "Translation for smart_streak_warning",
+    "placeholders": {}
+  },
   "smart_ad_reward": "🎁 1 reklam izle → +5 limit kazan! Bugün senin için yeni bir fırsat var.",
+  "@smart_ad_reward": {
+    "description": "Translation for smart_ad_reward",
+    "placeholders": {}
+  },
   "smart_doc_bonus": "📂 Bugün 1 belge ekle → bonus kazan! Her şey güvende kalsın.",
+  "@smart_doc_bonus": {
+    "description": "Translation for smart_doc_bonus",
+    "placeholders": {}
+  },
   "smart_default": "👀 Küçük bir güncelleme seni bekliyor, bugün neler yapabiliriz?",
+  "@smart_default": {
+    "description": "Translation for smart_default",
+    "placeholders": {}
+  },
   "notif_bonus_ready": "🎁 Bonus seni bekliyor! Yardımların için teşekkürler.",
+  "@notif_bonus_ready": {
+    "description": "Translation for notif_bonus_ready",
+    "placeholders": {}
+  },
   "notif_doc_safe": "🔥 Güzel gidiyorsun, belgelerin güvende! Devam et!",
+  "@notif_doc_safe": {
+    "description": "Translation for notif_doc_safe",
+    "placeholders": {}
+  },
   "level_up_desc": "Seviye {level} oldun! Yeni ödüller için Sezon Bileti'ni kontrol et.",
+  "@level_up_desc": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_up_desc"
+  },
   "notifications_active_msg": "Bildirimler aktif 🔔",
+  "@notifications_active_msg": {
+    "description": "Translation for notifications_active_msg",
+    "placeholders": {}
+  },
   "show_sensitive_details": "Bildirimde detay göster",
+  "@show_sensitive_details": {
+    "description": "Translation for show_sensitive_details",
+    "placeholders": {}
+  },
   "sensitive_details_visible": "İlaç adı görünür",
+  "@sensitive_details_visible": {
+    "description": "Translation for sensitive_details_visible",
+    "placeholders": {}
+  },
   "sensitive_details_hidden": "Gizli (önerilen)",
+  "@sensitive_details_hidden": {
+    "description": "Translation for sensitive_details_hidden",
+    "placeholders": {}
+  },
   "quiet_hours": "Sessiz Saatler",
+  "@quiet_hours": {
+    "description": "Translation for quiet_hours",
+    "placeholders": {}
+  },
   "quiet_hours_msg": "Gece rahatsız etmeyeceğiz 🌙",
+  "@quiet_hours_msg": {
+    "description": "Translation for quiet_hours_msg",
+    "placeholders": {}
+  },
   "test_notification": "Test Bildirimi",
+  "@test_notification": {
+    "description": "Translation for test_notification",
+    "placeholders": {}
+  },
   "test_notification_desc": "Sistemi hemen test et",
+  "@test_notification_desc": {
+    "description": "Translation for test_notification_desc",
+    "placeholders": {}
+  },
   "test_notification_body": "Bu bir test bildirimidir",
+  "@test_notification_body": {
+    "description": "Translation for test_notification_body",
+    "placeholders": {}
+  },
   "app_lock_unavailable": "Uygulama kilidi bu cihazda kullanılamıyor.",
+  "@app_lock_unavailable": {
+    "description": "Translation for app_lock_unavailable",
+    "placeholders": {}
+  },
   "backup_restore_desc": "Verilerinizi şifreli olarak yedekleyebilir veya geri yükleyebilirsiniz. Yedekler yalnızca sizin cihazınızda saklanır.",
+  "@backup_restore_desc": {
+    "description": "Translation for backup_restore_desc",
+    "placeholders": {}
+  },
   "backup_export": "Yedeği Dışa Aktar",
+  "@backup_export": {
+    "description": "Translation for backup_export",
+    "placeholders": {}
+  },
   "backup_export_desc": "Şifreli bir ZIP yedeği oluşturun",
+  "@backup_export_desc": {
+    "description": "Translation for backup_export_desc",
+    "placeholders": {}
+  },
   "backup_import": "Yedeği İçe Aktar",
+  "@backup_import": {
+    "description": "Translation for backup_import",
+    "placeholders": {}
+  },
   "backup_import_desc": "Mevcut bir ZIP yedeğinden geri yükleyin",
+  "@backup_import_desc": {
+    "description": "Translation for backup_import_desc",
+    "placeholders": {}
+  },
   "warning": "Dikkat",
+  "@warning": {
+    "description": "Translation for warning",
+    "placeholders": {}
+  },
   "import_warning_desc": "Yedek geri yükleme işlemi mevcut verilerinizi SİLECEK ve geri alınamaz. Devam etmek istiyor musunuz?",
+  "@import_warning_desc": {
+    "description": "Translation for import_warning_desc",
+    "placeholders": {}
+  },
   "yes_restore": "Evet, Geri Yükle",
+  "@yes_restore": {
+    "description": "Translation for yes_restore",
+    "placeholders": {}
+  },
   "start_time": "Baslangic Saati",
+  "@start_time": {
+    "description": "Translation for start_time",
+    "placeholders": {}
+  },
   "end_time": "Bitis Saati",
+  "@end_time": {
+    "description": "Translation for end_time",
+    "placeholders": {}
+  },
   "email": "E-posta",
+  "@email": {
+    "description": "Translation for email",
+    "placeholders": {}
+  },
   "phone": "Telefon",
+  "@phone": {
+    "description": "Translation for phone",
+    "placeholders": {}
+  },
   "add_record_success": "Kayıt başarıyla kaydedildi!",
+  "@add_record_success": {
+    "description": "Translation for add_record_success",
+    "placeholders": {}
+  },
   "delete_confirm": "Bu kaydı silmek istediğinize emin misiniz?",
+  "@delete_confirm": {
+    "description": "Translation for delete_confirm",
+    "placeholders": {}
+  },
   "plus_5_slots": "+5 Alan Kazanıldı! 🚀",
+  "@plus_5_slots": {
+    "description": "Translation for plus_5_slots",
+    "placeholders": {}
+  },
   "watch_to_unlock": "Kilidi açmak için izle",
+  "@watch_to_unlock": {
+    "description": "Translation for watch_to_unlock",
+    "placeholders": {}
+  },
   "remaining_days": "Kalan: {days} gün",
+  "@remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for remaining_days"
+  },
   "add_1_day_success": "+1 gün eklendi! 🎉",
+  "@add_1_day_success": {
+    "description": "Translation for add_1_day_success",
+    "placeholders": {}
+  },
   "plus_1_day": "+1 Gün",
+  "@plus_1_day": {
+    "description": "Translation for plus_1_day",
+    "placeholders": {}
+  },
   "watch": "İZLE",
+  "@watch": {
+    "description": "Translation for watch",
+    "placeholders": {}
+  },
   "unlock_theme_question": "Bu temayı 5 gün boyunca ücretsiz kullanmak ister misiniz?",
+  "@unlock_theme_question": {
+    "description": "Translation for unlock_theme_question",
+    "placeholders": {}
+  },
   "watch_ad_plus_5": "REKLAM İZLE (+5 gün)",
+  "@watch_ad_plus_5": {
+    "description": "Translation for watch_ad_plus_5",
+    "placeholders": {}
+  },
   "preview_5s": "Önizle (5 sn)",
+  "@preview_5s": {
+    "description": "Translation for preview_5s",
+    "placeholders": {}
+  },
   "free_secure_release": "Ücretsiz güvenli sürüm",
+  "@free_secure_release": {
+    "description": "Translation for free_secure_release",
+    "placeholders": {}
+  },
   "encrypted_local_desc": "Şifrelenmiş belgeleriniz bu cihazda yerel olarak kalır. Reklamlar ücretsiz sürümü destekler.",
+  "@encrypted_local_desc": {
+    "description": "Translation for encrypted_local_desc",
+    "placeholders": {}
+  },
   "premium_soon": "YAKINDA PREMIUM",
+  "@premium_soon": {
+    "description": "Translation for premium_soon",
+    "placeholders": {}
+  },
   "label_title": "BAŞLIK",
+  "@label_title": {
+    "description": "Translation for label_title",
+    "placeholders": {}
+  },
   "label_location": "YER / KURUM (OPSİYONEL)",
+  "@label_location": {
+    "description": "Translation for label_location",
+    "placeholders": {}
+  },
   "label_person": "İLGİLİ KİŞİ (OPSİYONEL)",
+  "@label_person": {
+    "description": "Translation for label_person",
+    "placeholders": {}
+  },
   "label_date_time": "TARİH & SAAT",
+  "@label_date_time": {
+    "description": "Translation for label_date_time",
+    "placeholders": {}
+  },
   "label_importance": "ÖNCELİK",
+  "@label_importance": {
+    "description": "Translation for label_importance",
+    "placeholders": {}
+  },
   "label_reminder": "HATIRLATMA",
+  "@label_reminder": {
+    "description": "Translation for label_reminder",
+    "placeholders": {}
+  },
   "label_repeat": "TEKRAR",
+  "@label_repeat": {
+    "description": "Translation for label_repeat",
+    "placeholders": {}
+  },
   "label_notes": "NOTLAR (OPSİYONEL)",
+  "@label_notes": {
+    "description": "Translation for label_notes",
+    "placeholders": {}
+  },
   "hint_title": "Örn: Doktor randevusu, Toplantı...",
+  "@hint_title": {
+    "description": "Translation for hint_title",
+    "placeholders": {}
+  },
   "hint_location": "Ofis, Ev, Online, Hastane...",
+  "@hint_location": {
+    "description": "Translation for hint_location",
+    "placeholders": {}
+  },
   "hint_person": "İsim, Doktor, Avukat...",
+  "@hint_person": {
+    "description": "Translation for hint_person",
+    "placeholders": {}
+  },
   "hint_notes": "Detaylar, hatırlatmalar...",
+  "@hint_notes": {
+    "description": "Translation for hint_notes",
+    "placeholders": {}
+  },
   "suggest_doctor": "Doktor",
+  "@suggest_doctor": {
+    "description": "Translation for suggest_doctor",
+    "placeholders": {}
+  },
   "suggest_meeting": "Toplantı",
+  "@suggest_meeting": {
+    "description": "Translation for suggest_meeting",
+    "placeholders": {}
+  },
   "suggest_personal": "Kişisel",
+  "@suggest_personal": {
+    "description": "Translation for suggest_personal",
+    "placeholders": {}
+  },
   "importance_low": "Normal",
+  "@importance_low": {
+    "description": "Translation for importance_low",
+    "placeholders": {}
+  },
   "importance_medium": "Önemli",
+  "@importance_medium": {
+    "description": "Translation for importance_medium",
+    "placeholders": {}
+  },
   "importance_high": "Kritik",
+  "@importance_high": {
+    "description": "Translation for importance_high",
+    "placeholders": {}
+  },
   "reminder_10m": "10 dk önce",
+  "@reminder_10m": {
+    "description": "Translation for reminder_10m",
+    "placeholders": {}
+  },
   "reminder_1h": "1 saat önce",
+  "@reminder_1h": {
+    "description": "Translation for reminder_1h",
+    "placeholders": {}
+  },
   "reminder_1d": "1 gün önce",
+  "@reminder_1d": {
+    "description": "Translation for reminder_1d",
+    "placeholders": {}
+  },
   "repeat_none": "Yok",
+  "@repeat_none": {
+    "description": "Translation for repeat_none",
+    "placeholders": {}
+  },
   "repeat_daily": "Günlük",
+  "@repeat_daily": {
+    "description": "Translation for repeat_daily",
+    "placeholders": {}
+  },
   "repeat_weekly": "Haftalık",
+  "@repeat_weekly": {
+    "description": "Translation for repeat_weekly",
+    "placeholders": {}
+  },
   "label_date_added": "EKLENME TARİHİ",
+  "@label_date_added": {
+    "description": "Translation for label_date_added",
+    "placeholders": {}
+  },
   "label_document_date": "BELGE TARİHİ",
+  "@label_document_date": {
+    "description": "Translation for label_document_date",
+    "placeholders": {}
+  },
   "download_to_device": "CİHAZA İNDİR",
+  "@download_to_device": {
+    "description": "Translation for download_to_device",
+    "placeholders": {}
+  },
   "delete_permanently": "KALICI OLARAK SİL",
+  "@delete_permanently": {
+    "description": "Translation for delete_permanently",
+    "placeholders": {}
+  },
   "save_document": "Belgeyi Kaydet",
+  "@save_document": {
+    "description": "Translation for save_document",
+    "placeholders": {}
+  },
   "success_doc_saved": "Belge başarıyla kaydedildi!",
+  "@success_doc_saved": {
+    "description": "Translation for success_doc_saved",
+    "placeholders": {}
+  },
   "error_failed_download": "İndirme başarısız: {error}",
+  "@error_failed_download": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for error_failed_download"
+  },
   "btn_add": "Ekle",
+  "@btn_add": {
+    "description": "Translation for btn_add",
+    "placeholders": {}
+  },
   "docs_tag_lab": "Tahlil Sonucu",
+  "@docs_tag_lab": {
+    "description": "Translation for docs_tag_lab",
+    "placeholders": {}
+  },
   "docs_tag_radiology": "Radyoloji",
+  "@docs_tag_radiology": {
+    "description": "Translation for docs_tag_radiology",
+    "placeholders": {}
+  },
   "docs_tag_prescription": "Reçete",
+  "@docs_tag_prescription": {
+    "description": "Translation for docs_tag_prescription",
+    "placeholders": {}
+  },
   "docs_tag_report": "Doktor Raporu",
+  "@docs_tag_report": {
+    "description": "Translation for docs_tag_report",
+    "placeholders": {}
+  },
   "docs_tag_operation": "Ameliyat",
+  "@docs_tag_operation": {
+    "description": "Translation for docs_tag_operation",
+    "placeholders": {}
+  },
   "docs_tag_vaccination": "Aşı",
+  "@docs_tag_vaccination": {
+    "description": "Translation for docs_tag_vaccination",
+    "placeholders": {}
+  },
   "docs_tag_other": "Diğer",
+  "@docs_tag_other": {
+    "description": "Translation for docs_tag_other",
+    "placeholders": {}
+  },
   "season_pass": "Sezon Bileti",
+  "@season_pass": {
+    "description": "Translation for season_pass",
+    "placeholders": {}
+  },
   "level_label": "Seviye {level}",
+  "@level_label": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_label"
+  },
   "premium_reward": "Premium Ödül",
+  "@premium_reward": {
+    "description": "Translation for premium_reward",
+    "placeholders": {}
+  },
   "free_reward": "Ücretsiz Ödül",
+  "@free_reward": {
+    "description": "Translation for free_reward",
+    "placeholders": {}
+  },
   "claim": "AL",
+  "@claim": {
+    "description": "Translation for claim",
+    "placeholders": {}
+  },
   "reward_doc_slots": "+{value} Belge Alanı",
+  "@reward_doc_slots": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for reward_doc_slots"
+  },
   "premium_unavailable_title": "Premium bu sürümde mevcut değildir.",
+  "@premium_unavailable_title": {
+    "description": "Translation for premium_unavailable_title",
+    "placeholders": {}
+  },
   "premium_unavailable_desc": "VitaCase şu anda yerel şifreli depolama, reklamlar ve isteğe bağlı hatırlatıcılar içeren ücretsiz bir uygulama olarak sunulmaktadır.",
+  "@premium_unavailable_desc": {
+    "description": "Translation for premium_unavailable_desc",
+    "placeholders": {}
+  },
   "btn_close": "Kapat",
+  "@btn_close": {
+    "description": "Translation for btn_close",
+    "placeholders": {}
+  },
   "accept": "Kabul Ediyorum",
+  "@accept": {
+    "description": "Translation for accept",
+    "placeholders": {}
+  },
   "btn_save": "Kaydet",
+  "@btn_save": {
+    "description": "Translation for btn_save",
+    "placeholders": {}
+  },
   "doctor_title_dr": "Dr.",
+  "@doctor_title_dr": {
+    "description": "Translation for doctor_title_dr",
+    "placeholders": {}
+  },
   "doctor_title_uzm": "Uzm. Dr.",
+  "@doctor_title_uzm": {
+    "description": "Translation for doctor_title_uzm",
+    "placeholders": {}
+  },
   "doctor_title_op": "Op. Dr.",
+  "@doctor_title_op": {
+    "description": "Translation for doctor_title_op",
+    "placeholders": {}
+  },
   "doctor_title_prof": "Prof. Dr.",
+  "@doctor_title_prof": {
+    "description": "Translation for doctor_title_prof",
+    "placeholders": {}
+  },
   "doctor_title_doc": "Doç. Dr.",
+  "@doctor_title_doc": {
+    "description": "Translation for doctor_title_doc",
+    "placeholders": {}
+  },
   "hint_doctor_name": "Dr. Ahmet Yılmaz",
+  "@hint_doctor_name": {
+    "description": "Translation for hint_doctor_name",
+    "placeholders": {}
+  },
   "hint_specialty": "Kardiyoloji",
+  "@hint_specialty": {
+    "description": "Translation for hint_specialty",
+    "placeholders": {}
+  },
   "hint_hospital": "Şehir Hastanesi",
+  "@hint_hospital": {
+    "description": "Translation for hint_hospital",
+    "placeholders": {}
+  },
   "hint_phone": "+90 (555) 000 00 00",
+  "@hint_phone": {
+    "description": "Translation for hint_phone",
+    "placeholders": {}
+  },
   "hint_email": "ahmet.yilmaz@hastane.com",
+  "@hint_email": {
+    "description": "Translation for hint_email",
+    "placeholders": {}
+  },
   "hint_address": "Merkez Mah. Sağlık Sok. No:12...",
+  "@hint_address": {
+    "description": "Translation for hint_address",
+    "placeholders": {}
+  },
   "hint_personal_notes": "Doktor hakkında notlar...",
+  "@hint_personal_notes": {
+    "description": "Translation for hint_personal_notes",
+    "placeholders": {}
+  },
   "ad_reward_not_earned": "Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.",
+  "@ad_reward_not_earned": {
+    "description": "Translation for ad_reward_not_earned",
+    "placeholders": {}
+  },
   "ad_unavailable": "Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.",
+  "@ad_unavailable": {
+    "description": "Translation for ad_unavailable",
+    "placeholders": {}
+  },
   "ad_failed": "Ödüllü reklam gösterilemedi. Lütfen tekrar deneyin.",
+  "@ad_failed": {
+    "description": "Translation for ad_failed",
+    "placeholders": {}
+  },
   "ad_watch_btn": "Ücretsiz devam et (reklam izle)",
+  "@ad_watch_btn": {
+    "description": "Translation for ad_watch_btn",
+    "placeholders": {}
+  },
   "btn_not_now": "Şimdi değil",
+  "@btn_not_now": {
+    "description": "Translation for btn_not_now",
+    "placeholders": {}
+  },
   "theme_system": "Sistem",
+  "@theme_system": {
+    "description": "Translation for theme_system",
+    "placeholders": {}
+  },
   "theme_light": "Açık",
+  "@theme_light": {
+    "description": "Translation for theme_light",
+    "placeholders": {}
+  },
   "theme_dark": "Koyu",
+  "@theme_dark": {
+    "description": "Translation for theme_dark",
+    "placeholders": {}
+  },
   "lock_timeout_1m": "1 Dakika",
+  "@lock_timeout_1m": {
+    "description": "Translation for lock_timeout_1m",
+    "placeholders": {}
+  },
   "lock_timeout_5m": "5 Dakika",
+  "@lock_timeout_5m": {
+    "description": "Translation for lock_timeout_5m",
+    "placeholders": {}
+  },
   "lock_timeout_15m": "15 Dakika",
+  "@lock_timeout_15m": {
+    "description": "Translation for lock_timeout_15m",
+    "placeholders": {}
+  },
   "no_appointments_found": "Randevu bulunamadı",
+  "@no_appointments_found": {
+    "description": "Translation for no_appointments_found",
+    "placeholders": {}
+  },
   "empty_appointments_desc": "Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.",
+  "@empty_appointments_desc": {
+    "description": "Translation for empty_appointments_desc",
+    "placeholders": {}
+  },
   "empty_appointments_filter_desc": "Bu kategoride randevu bulunamadı.",
+  "@empty_appointments_filter_desc": {
+    "description": "Translation for empty_appointments_filter_desc",
+    "placeholders": {}
+  },
   "btn_add_appointment": "RANDEVU EKLE",
+  "@btn_add_appointment": {
+    "description": "Translation for btn_add_appointment",
+    "placeholders": {}
+  },
   "btn_clear_filters": "FİLTRELERİ TEMİZLE",
+  "@btn_clear_filters": {
+    "description": "Translation for btn_clear_filters",
+    "placeholders": {}
+  },
   "notif_app_created_title": "🎯 Randevu Oluşturuldu",
+  "@notif_app_created_title": {
+    "description": "Translation for notif_app_created_title",
+    "placeholders": {}
+  },
   "notif_app_created_body": "{title} planlandı.",
+  "@notif_app_created_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_created_body"
+  },
   "notif_app_reminder_title": "📅 Randevu Hatırlatıcı",
+  "@notif_app_reminder_title": {
+    "description": "Translation for notif_app_reminder_title",
+    "placeholders": {}
+  },
   "notif_app_reminder_body": "{title} için randevunuz yaklaşıyor.",
+  "@notif_app_reminder_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_reminder_body"
+  },
   "delete_confirm_appointment": "Bu randevuyu silmek istediğinize emin misiniz?",
+  "@delete_confirm_appointment": {
+    "description": "Translation for delete_confirm_appointment",
+    "placeholders": {}
+  },
   "create_today_plan": "Günün Planını Oluştur",
+  "@create_today_plan": {
+    "description": "Translation for create_today_plan",
+    "placeholders": {}
+  },
   "plan_time_desc": "Sağlık takviminizi kolayca düzenleyin.",
+  "@plan_time_desc": {
+    "description": "Translation for plan_time_desc",
+    "placeholders": {}
+  },
   "error_title_required": "Başlık zorunlu",
+  "@error_title_required": {
+    "description": "Translation for error_title_required",
+    "placeholders": {}
+  },
   "docs_add_short": "Ekle",
+  "@docs_add_short": {
+    "description": "Translation for docs_add_short",
+    "placeholders": {}
+  },
   "docs_open": "AÇ",
+  "@docs_open": {
+    "description": "Translation for docs_open",
+    "placeholders": {}
+  },
   "docs_download": "CİHAZA İNDİR",
+  "@docs_download": {
+    "description": "Translation for docs_download",
+    "placeholders": {}
+  },
   "docs_delete_perm": "KALICI OLARAK SİL",
+  "@docs_delete_perm": {
+    "description": "Translation for docs_delete_perm",
+    "placeholders": {}
+  },
   "docs_date_added": "Ekleme Tarihi",
+  "@docs_date_added": {
+    "description": "Translation for docs_date_added",
+    "placeholders": {}
+  },
   "docs_document_date": "Belge Tarihi",
+  "@docs_document_date": {
+    "description": "Translation for docs_document_date",
+    "placeholders": {}
+  },
   "docs_save_success": "Belge başarıyla kaydedildi!",
+  "@docs_save_success": {
+    "description": "Translation for docs_save_success",
+    "placeholders": {}
+  },
   "docs_download_failed": "İndirme başarısız: {error}",
+  "@docs_download_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for docs_download_failed"
+  },
   "season_pass_title": "Season Pass",
+  "@season_pass_title": {
+    "description": "Translation for season_pass_title",
+    "placeholders": {}
+  },
   "season_level": "Seviye {level}",
+  "@season_level": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for season_level"
+  },
   "claim_reward": "AL",
+  "@claim_reward": {
+    "description": "Translation for claim_reward",
+    "placeholders": {}
+  },
   "confirm_agree": "Kabul Ediyorum",
+  "@confirm_agree": {
+    "description": "Translation for confirm_agree",
+    "placeholders": {}
+  },
   "specialty_department_hint": "Örn: Kardiyoloji",
+  "@specialty_department_hint": {
+    "description": "Translation for specialty_department_hint",
+    "placeholders": {}
+  },
   "hospital_hint": "Örn: Şehir Hastanesi",
+  "@hospital_hint": {
+    "description": "Translation for hospital_hint",
+    "placeholders": {}
+  },
   "address_hint": "Sokak, No, Bina...",
+  "@address_hint": {
+    "description": "Translation for address_hint",
+    "placeholders": {}
+  },
   "notes_hint": "Doktor hakkında kişisel notlar...",
+  "@notes_hint": {
+    "description": "Translation for notes_hint",
+    "placeholders": {}
+  },
   "standard_modes": "Standart Modlar",
+  "@standard_modes": {
+    "description": "Translation for standard_modes",
+    "placeholders": {}
+  },
   "premium_palettes": "Premium Paletler",
+  "@premium_palettes": {
+    "description": "Translation for premium_palettes",
+    "placeholders": {}
+  },
   "apply_theme": "Temayı Uygula",
+  "@apply_theme": {
+    "description": "Translation for apply_theme",
+    "placeholders": {}
+  },
   "theme_luxe_sanctuary": "Luxe Sanctuary",
+  "@theme_luxe_sanctuary": {
+    "description": "Translation for theme_luxe_sanctuary",
+    "placeholders": {}
+  },
   "theme_midnight_neon": "Midnight Neon",
+  "@theme_midnight_neon": {
+    "description": "Translation for theme_midnight_neon",
+    "placeholders": {}
+  },
   "theme_amethyst_aura": "Amethyst Aura",
+  "@theme_amethyst_aura": {
+    "description": "Translation for theme_amethyst_aura",
+    "placeholders": {}
+  },
   "theme_emerald_garden": "Emerald Garden",
+  "@theme_emerald_garden": {
+    "description": "Translation for theme_emerald_garden",
+    "placeholders": {}
+  },
   "theme_ocean_serenity": "Ocean Serenity",
+  "@theme_ocean_serenity": {
+    "description": "Translation for theme_ocean_serenity",
+    "placeholders": {}
+  },
   "theme_amber_glow": "Amber Glow",
+  "@theme_amber_glow": {
+    "description": "Translation for theme_amber_glow",
+    "placeholders": {}
+  },
   "db_recovery_title": "Veri Hatası",
+  "@db_recovery_title": {
+    "description": "Translation for db_recovery_title",
+    "placeholders": {}
+  },
   "db_recovery_desc": "Verilere erişilemedi. Yeniden denemek ister misiniz?",
+  "@db_recovery_desc": {
+    "description": "Translation for db_recovery_desc",
+    "placeholders": {}
+  },
   "db_recovery_retry": "Tekrar Dene",
+  "@db_recovery_retry": {
+    "description": "Translation for db_recovery_retry",
+    "placeholders": {}
+  },
   "db_recovery_reset": "Sıfırla",
+  "@db_recovery_reset": {
+    "description": "Translation for db_recovery_reset",
+    "placeholders": {}
+  },
   "notif_streak_warning_title": "Günlük planını kontrol et",
+  "@notif_streak_warning_title": {
+    "description": "Translation for notif_streak_warning_title",
+    "placeholders": {}
+  },
   "notif_streak_warning_body": "Bugünkü hatırlatıcılarını ve kayıtlı öğelerini incelemek için VitaCase'i aç.",
+  "@notif_streak_warning_body": {
+    "description": "Translation for notif_streak_warning_body",
+    "placeholders": {}
+  },
   "notif_mission_reminder_title": "🎯 Günlük Görevler Bekliyor",
+  "@notif_mission_reminder_title": {
+    "description": "Translation for notif_mission_reminder_title",
+    "placeholders": {}
+  },
   "notif_mission_reminder_body": "Günlük ödüllerini kaçırma! Görevlerini şimdi tamamla.",
+  "@notif_mission_reminder_body": {
+    "description": "Translation for notif_mission_reminder_body",
+    "placeholders": {}
+  },
   "notif_limit_reached_title": "🚀 Limite Ulaşıldı",
+  "@notif_limit_reached_title": {
+    "description": "Translation for notif_limit_reached_title",
+    "placeholders": {}
+  },
   "notif_limit_reached_body": "Ücretsiz limitine ulaştın. Devam etmek için ödüllü reklam izle.",
+  "@notif_limit_reached_body": {
+    "description": "Translation for notif_limit_reached_body",
+    "placeholders": {}
+  },
   "notif_good_morning_title": "🌞 Günaydın!",
+  "@notif_good_morning_title": {
+    "description": "Translation for notif_good_morning_title",
+    "placeholders": {}
+  },
   "notif_good_morning_body": "Güne VitaCase ile başla, günlük görevlerini kontrol et.",
+  "@notif_good_morning_body": {
+    "description": "Translation for notif_good_morning_body",
+    "placeholders": {}
+  },
   "notif_test_title": "Test Bildirimi",
+  "@notif_test_title": {
+    "description": "Translation for notif_test_title",
+    "placeholders": {}
+  },
   "notif_test_body": "Bildirimleriniz mükemmel çalışıyor!",
+  "@notif_test_body": {
+    "description": "Translation for notif_test_body",
+    "placeholders": {}
+  },
   "notif_appointment_reminder_title": "📅 Randevu Hatırlatıcı",
+  "@notif_appointment_reminder_title": {
+    "description": "Translation for notif_appointment_reminder_title",
+    "placeholders": {}
+  },
   "notif_appointment_reminder_body": "{doctor} için randevunuz yaklaşıyor.",
+  "@notif_appointment_reminder_body": {
+    "placeholders": {
+      "doctor": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_appointment_reminder_body"
+  },
   "get_directions": "Yol Tarifi Al",
+  "@get_directions": {
+    "description": "Translation for get_directions",
+    "placeholders": {}
+  },
   "view_details": "Detayları Gör",
+  "@view_details": {
+    "description": "Translation for view_details",
+    "placeholders": {}
+  },
   "no_scheduled_meds_today": "Bugün için planlanmış ilaç yok.",
+  "@no_scheduled_meds_today": {
+    "description": "Translation for no_scheduled_meds_today",
+    "placeholders": {}
+  },
   "add_appointment": "Randevu Ekle",
-  "add_document": "Belge Ekle"
+  "@add_appointment": {
+    "description": "Translation for add_appointment",
+    "placeholders": {}
+  },
+  "add_document": "Belge Ekle",
+  "@add_document": {
+    "description": "Translation for add_document",
+    "placeholders": {}
+  }
 }

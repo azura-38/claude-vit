@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/external_launcher.dart';
@@ -76,6 +76,7 @@ class DashboardScreen extends ConsumerWidget {
 class _TopAppBar extends ConsumerWidget {
   final String userName;
   final bool isDark;
+  static const _brandLogoAsset = 'assets/images/vitacase_brand_logo.png';
 
   const _TopAppBar({required this.userName, required this.isDark});
 
@@ -147,7 +148,22 @@ class _TopAppBar extends ConsumerWidget {
             ),
           ],
         ),
-        const SizedBox.shrink(),
+        Container(
+          width: 44,
+          height: 44,
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color:
+                  isDark
+                      ? Colors.white.withValues(alpha: 0.08)
+                      : AppColors.cardBorderLight,
+            ),
+          ),
+          child: Image.asset(_brandLogoAsset, fit: BoxFit.contain),
+        ),
       ],
     ).animate().fadeIn().slideY(begin: -0.2);
   }
@@ -222,49 +238,65 @@ class _GuestBanner extends StatelessWidget {
 
 class _CtaFeatureCard extends ConsumerWidget {
   const _CtaFeatureCard();
+  static const _featureOverviewAsset =
+      'assets/images/vitacase_feature_overview.png';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () => ref.read(navigationProvider.notifier).setIndex(1),
       child: Container(
-        height: 160,
+        height: 232,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32),
-          gradient: const LinearGradient(
-            colors: [AppColors.gradBlueStart, AppColors.gradBlueEnd],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          color: isDark ? AppColors.surfaceDark : Colors.white,
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(
+            color:
+                isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
           ),
           boxShadow: [
-            BoxShadow(
-              color: AppColors.gradBlueStart.withValues(alpha: 0.3),
-              blurRadius: 20,
-              offset: const Offset(0, 10),
-            ),
+            if (!isDark)
+              BoxShadow(
+                color: AppColors.brandBlue.withValues(alpha: 0.12),
+                blurRadius: 28,
+                offset: const Offset(0, 16),
+              ),
           ],
         ),
         child: Stack(
           children: [
             Positioned(
-              right: -20,
-              bottom: -20,
-              child: Icon(
-                    Icons.filter_none_rounded,
-                    size: 150,
-                    color: Colors.white.withValues(alpha: 0.1),
-                  )
-                  .animate(
-                    onPlay: (controller) => controller.repeat(reverse: true),
-                  )
-                  .scale(
-                    begin: const Offset(1, 1),
-                    end: const Offset(1.1, 1.1),
-                    duration: 5.seconds,
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 126,
+              child: Image.asset(_featureOverviewAsset, fit: BoxFit.cover),
+            ),
+            Positioned(
+              top: 82,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      (isDark ? AppColors.surfaceDark : Colors.white)
+                          .withValues(alpha: 0),
+                      isDark ? AppColors.surfaceDark : Colors.white,
+                      isDark ? AppColors.surfaceDark : Colors.white,
+                    ],
                   ),
+                ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.fromLTRB(20, 130, 20, 18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,50 +304,56 @@ class _CtaFeatureCard extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Icon(
-                          Icons.filter_none_rounded,
-                          color: Colors.white,
+                      Expanded(
+                        child: Text(
+                          context.l10n.allRecords,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                            color: isDark ? Colors.white : AppColors.brandNavy,
+                            fontFamily: 'Manrope',
+                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.2),
+                          color: AppColors.brandBlue.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
                           Icons.chevron_right_rounded,
-                          color: Colors.white,
+                          color: AppColors.brandBlue,
                         ),
                       ),
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Text(
+                    context.l10n.vaultDesc,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: isDark ? Colors.white60 : AppColors.textSecondary,
+                      fontWeight: FontWeight.w500,
+                      height: 1.35,
+                    ),
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        context.l10n.allRecords,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          fontFamily: 'Manrope',
-                        ),
+                      _HeroChip(
+                        icon: Icons.folder_rounded,
+                        label: context.l10n.vault,
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        context.l10n.vaultDesc,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.white70,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      const SizedBox(width: 8),
+                      _HeroChip(
+                        icon: Icons.calendar_today_rounded,
+                        label: context.l10n.appointments,
+                      ),
+                      const SizedBox(width: 8),
+                      _HeroChip(
+                        icon: Icons.medication_rounded,
+                        label: context.l10n.medicines,
                       ),
                     ],
                   ),
@@ -325,6 +363,56 @@ class _CtaFeatureCard extends ConsumerWidget {
           ],
         ),
       ).animate().fadeIn(delay: 300.ms).scale(begin: const Offset(0.95, 0.95)),
+    );
+  }
+}
+
+class _HeroChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _HeroChip({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Flexible(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
+        decoration: BoxDecoration(
+          color:
+              isDark
+                  ? Colors.white.withValues(alpha: 0.06)
+                  : AppColors.brandMist,
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(
+            color:
+                isDark
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : AppColors.brandBlue.withValues(alpha: 0.1),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: AppColors.brandBlue),
+            const SizedBox(width: 5),
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
+                  color: isDark ? Colors.white70 : AppColors.brandNavy,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

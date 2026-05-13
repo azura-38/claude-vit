@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class FloatingSubmitButton extends StatelessWidget {
   final VoidCallback? onTap;
@@ -19,13 +20,13 @@ class FloatingSubmitButton extends StatelessWidget {
       child: Container(
         height: 64,
         decoration: BoxDecoration(
-          color: onTap == null ? const Color(0xFF94A3B8) : const Color(0xFF005DA7),
+          color: onTap == null ? const Color(0xFF94A3B8) : AppColors.brandBlue,
           borderRadius: BorderRadius.circular(22),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(0, 93, 167, 0.24),
+              color: AppColors.brandBlue.withValues(alpha: 0.24),
               blurRadius: 28,
-              offset: Offset(0, 12),
+              offset: const Offset(0, 12),
             ),
           ],
         ),

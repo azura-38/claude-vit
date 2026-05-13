@@ -61,14 +61,11 @@ class NotificationService {
 
   static NotificationService? get instance => _instance;
 
-  // 🔥 CORE INIT (Updated with Race Condition Fix)
-  static Future<void> init({
-    Future<void> Function(String id)? onMedicineTaken,
-    Future<void> Function(String id)? onMedicineSkipped,
-  }) async {
-    if (onMedicineTaken != null) _onMedicineTaken = onMedicineTaken;
-    if (onMedicineSkipped != null) _onMedicineSkipped = onMedicineSkipped;
-
+  // ── Core init — NO permission requests, safe to call during app startup ──
+  //
+  // Initializes the plugin, timezone, and tap handler ONLY.
+  // Call [requestStartupPermissions] after the first frame is painted.
+  static Future<void> initCore() async {
     if (_isInitialized) return;
     _prefs ??= await SharedPreferences.getInstance();
 
@@ -85,7 +82,7 @@ class NotificationService {
       onDidReceiveNotificationResponse: _onTap,
     );
 
-    // 🔥 TIMEZONE
+    // Timezone (no permission dialog, safe at startup)
     tz.initializeTimeZones();
     try {
       final String name = await FlutterTimezone.getLocalTimezone();
@@ -94,7 +91,19 @@ class NotificationService {
       tz.setLocalLocation(tz.getLocation('UTC'));
     }
 
-    // 🔥 PERMISSIONS (Garantili Fix)
+    _isInitialized = true;
+    if (kDebugMode) {
+      debugPrint('[NotificationService] Core initialized ✅ (no permissions requested)');
+    }
+  }
+
+  // ── Deferred permission requests — call AFTER first frame is painted ──────
+  //
+  // Separated from initCore() to avoid blocking app launch on Android 13+
+  // where the system dialog can freeze the startup if shown too early.
+  static Future<void> requestStartupPermissions() async {
+    if (!_isInitialized) await initCore();
+
     final android =
         _plugin
             .resolvePlatformSpecificImplementation<
@@ -104,10 +113,24 @@ class NotificationService {
     await android?.requestNotificationsPermission();
     await android?.requestExactAlarmsPermission();
 
-    _isInitialized = true;
     if (kDebugMode) {
-      debugPrint("Notification Engine Initialized & Permissions Requested ✅");
+      debugPrint('[NotificationService] Permissions requested ✅');
     }
+  }
+
+  // ── Legacy init — kept for backward compatibility ─────────────────────────
+  //
+  // Calls initCore() + requestStartupPermissions() together.
+  // Prefer calling them separately in new code.
+  static Future<void> init({
+    Future<void> Function(String id)? onMedicineTaken,
+    Future<void> Function(String id)? onMedicineSkipped,
+  }) async {
+    if (onMedicineTaken != null) _onMedicineTaken = onMedicineTaken;
+    if (onMedicineSkipped != null) _onMedicineSkipped = onMedicineSkipped;
+
+    await initCore();
+    await requestStartupPermissions();
   }
 
   // ⚡ INSTANCE METHODS

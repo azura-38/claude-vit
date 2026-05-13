@@ -1,23 +1,23 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app.dart';
 import 'core/config/app_config.dart';
-import 'core/utils/uid_manager.dart';
-import 'core/di/service_providers.dart';
+import 'core/bootstrap/app_bootstrap_controller.dart';
 import 'shared/providers/shared_prefs_provider.dart';
-import 'shared/providers/document_providers.dart';
-import 'shared/data/services/smart_notification_system.dart';
-import 'features/appointments/presentation/providers/appointment_providers.dart';
-import 'shared/providers/medicine_providers.dart';
-import 'shared/data/services/notification_service.dart';
-import 'core/notifications/notification_navigation.dart';
 
+/// Entry point — kept intentionally minimal.
+/// 
+/// All initialization logic lives in [AppBootstrapController].
+/// This function only:
+///   1. Wraps with Sentry
+///   2. Initializes Flutter bindings
+///   3. Loads SharedPreferences (sync-safe, needed before ProviderContainer)
+///   4. Creates the ProviderContainer with the prefs override
+///   5. Starts the bootstrap controller
+///   6. Calls runApp()
 void main() async {
   await SentryFlutter.init(
     (options) {
@@ -27,71 +27,31 @@ void main() async {
       options.enableTombstone = true;
     },
     appRunner: () async {
+      // ── Step 1: Flutter engine binding ─────────────────────────────────────
       WidgetsFlutterBinding.ensureInitialized();
 
-      // 1. Core Services (Critical Path)
+      // ── Step 2: SharedPreferences (fast, sync-accessible post-load) ────────
+      // Must be loaded before ProviderContainer so the override is available
+      // immediately to all synchronously-built providers (onboarding, etc.)
       final prefs = await SharedPreferences.getInstance();
+
+      // ── Step 3: ProviderContainer with SharedPreferences override ──────────
       final container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
       );
 
-      final sembastDb = container.read(sembastDatabaseProvider);
-      final encryptionService = container.read(encryptionServiceProvider);
-      final notificationService = container.read(notificationServiceProvider);
-
-      try {
-        // 2. Data & Localization
-        await Future.wait([
-          Firebase.initializeApp(),
-          initializeDateFormatting('tr_TR', null),
-          initializeDateFormatting('en_US', null),
-          sembastDb.init(encryptionService),
-          NotificationService.init(
-            onMedicineTaken:
-                (id) => container
-                    .read(medicineListProvider.notifier)
-                    .markAsTaken(id),
-            onMedicineSkipped:
-                (id) => container
-                    .read(medicineListProvider.notifier)
-                    .markAsSkipped(id),
-          ),
-        ]);
-      } catch (e) {
-        debugPrint('[Bootstrap] Error: $e');
-      }
-
-      // 3. Crashlytics & Analytics
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-
-      // 4. File Storage Setup
-      await container.read(fileStorageServiceProvider).init();
-
-      // 5. User Identity
-      final uid = await UIDManager.getUID();
-      await Sentry.configureScope((scope) {
-        scope.setUser(SentryUser(id: uid));
-      });
-
-      // 6. Launch Application
-      await SmartNotificationService.loadSettings();
-      SmartNotificationService.configure(notificationService);
-      NotificationService.setRouteHandler(
-        (payload) => container
-            .read(pendingNotificationRouteProvider.notifier)
-            .setFromPayload(payload),
+      // ── Step 4: Run bootstrap (non-blocking for runApp) ────────────────────
+      // We fire the bootstrap but do NOT await it here.
+      // The [BootstrapScreen] widget watches [appBootstrapProvider] and shows
+      // the splash until the bootstrap completes.
+      // This means runApp() is called immediately — no white frame.
+      unawaited(
+        container.read(appBootstrapProvider.notifier).run(container),
       );
 
-      // 7. Startup Reschedule (Production Fix)
-      Future.microtask(() async {
-        try {
-          await scheduleAllFromProviders(container);
-          debugPrint('[NotificationReschedule] Sync completed');
-        } catch (e) {
-          debugPrint('[NotificationReschedule] Failed: $e');
-        }
-      });
-
+      // ── Step 5: Launch the app ─────────────────────────────────────────────
       runApp(
         UncontrolledProviderScope(
           container: container,
@@ -102,14 +62,9 @@ void main() async {
   );
 }
 
-Future<void> scheduleAllFromProviders(ProviderContainer container) async {
-  final meds = await container.read(medicineListProvider.future);
-  final appts = await container.read(appointmentListProvider.future);
-
-  await container
-      .read(medicineListProvider.notifier)
-      .rescheduleAllNotifications(meds);
-  await container
-      .read(appointmentListProvider.notifier)
-      .rescheduleAllNotifications(appts);
+/// Suppresses the linter warning about unawaited futures.
+void unawaited(Future<void> future) {
+  future.catchError((Object e, StackTrace st) {
+    debugPrint('[main] Unawaited future error: $e');
+  });
 }

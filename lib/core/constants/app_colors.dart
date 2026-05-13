@@ -80,6 +80,11 @@ class AppColors {
   static const Color info = Color(0xFF3B82F6);
 
   // ── Medical Blue (Professional Palette) ──
+  static const Color brandNavy = Color(0xFF071D49);
+  static const Color brandBlue = Color(0xFF006DFF);
+  static const Color brandCyan = Color(0xFF13C4F6);
+  static const Color brandMist = Color(0xFFEAF4FF);
+
   static const Color blue500 = Color(0xFF3B82F6);
   static const Color blue600 = Color(0xFF2563EB);
   static const Color blue700 = Color(0xFF1D4ED8);
@@ -160,8 +165,8 @@ class AppColors {
   static const Color neonBg = Color(0xFF000000);
 
   // Ocean Serenity (Soft Blue)
-  static const Color oceanPrimary = Color(0xFF005DA7);
-  static const Color oceanBg = Color(0xFFF1F6FA);
+  static const Color oceanPrimary = Color(0xFF0EA5E9);
+  static const Color oceanBg = Color(0xFFF0F9FF);
 
   // Amber Glow (Warm)
   static const Color amberPrimary = Color(0xFFFFA726);

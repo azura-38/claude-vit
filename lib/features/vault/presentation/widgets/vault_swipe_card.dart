@@ -1,37 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
-import '../../domain/models/vault_document.dart';
+import '../../../../shared/domain/entities/document.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'vault_tag_chip.dart';
 
 class VaultSwipeCard extends StatelessWidget {
-  final VaultDocument document;
+  final Document document;
   final VoidCallback onTap;
+  final VoidCallback? onDelete;
+  final VoidCallback? onEdit;
 
   const VaultSwipeCard({
     super.key,
     required this.document,
     required this.onTap,
+    this.onDelete,
+    this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final date = document.createdAt;
+    final month = DateFormat('MMM').format(date).toUpperCase();
+
     return Slidable(
       endActionPane: ActionPane(
         motion: const BehindMotion(),
         extentRatio: .45,
         children: [
           SlidableAction(
-            onPressed: (_) {},
-            backgroundColor: const Color(0xFFE9EDF5),
-            foregroundColor: AppColors.secondary,
+            onPressed: (_) => onEdit?.call(),
+            backgroundColor: isDark ? Colors.white10 : const Color(0xFFE9EDF5),
+            foregroundColor: isDark ? Colors.white70 : AppColors.secondary,
             icon: Icons.edit_outlined,
             label: "Edit",
           ),
-
           SlidableAction(
-            onPressed: (_) {},
+            onPressed: (_) => onDelete?.call(),
             backgroundColor: AppColors.danger,
             foregroundColor: Colors.white,
             icon: Icons.delete_outline,
@@ -44,9 +52,9 @@ class VaultSwipeCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDark ? AppColors.surfaceDark : Colors.white,
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.border),
           ),
           child: Row(
             children: [
@@ -54,66 +62,60 @@ class VaultSwipeCard extends StatelessWidget {
                 width: 62,
                 height: 62,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF1F4FA),
+                  color: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "OCT",
+                      month,
                       style: TextStyle(
-                        color: AppColors.secondary,
+                        color: isDark ? Colors.white54 : AppColors.secondary,
                         fontSize: 12,
                       ),
                     ),
-
                     Text(
-                      document.date.day.toString(),
-                      style: const TextStyle(
+                      date.day.toString(),
+                      style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w700,
+                        color: isDark ? Colors.white : AppColors.textPrimary,
                       ),
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(width: 18),
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      document.title,
+                      document.fileName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 26,
+                      style: TextStyle(
+                        fontSize: 22,
                         fontWeight: FontWeight.w700,
+                        color: isDark ? Colors.white : AppColors.textPrimary,
                       ),
                     ),
-
                     const SizedBox(height: 6),
-
                     Text(
-                      "${document.physician} • ${document.hospital}",
+                      "${document.doctorName ?? 'No Doctor'} • ${document.hospitalName ?? 'No Hospital'}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: AppColors.secondary),
+                      style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary, fontSize: 13),
                     ),
-
                     const SizedBox(height: 12),
-
                     Row(
                       children: [
                         VaultTagChip(
-                          label: document.category,
-                          bg: AppColors.chipBlue,
-                          text: AppColors.primary,
+                          label: document.category.name.toUpperCase(),
+                          bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
+                          text: isDark ? AppColors.primaryIndigo : AppColors.primary,
                         ),
-
                         if (document.pending)
                           Padding(
                             padding: const EdgeInsets.only(left: 8),
@@ -128,8 +130,7 @@ class VaultSwipeCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              const Icon(Icons.chevron_right, color: AppColors.secondary),
+              Icon(Icons.chevron_right, color: isDark ? Colors.white24 : AppColors.secondary),
             ],
           ),
         ),

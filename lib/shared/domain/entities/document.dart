@@ -14,6 +14,7 @@ class Document {
   final String? note;
   final DocumentCategory category;
   final DateTime createdAt;
+  final bool pending;
 
   const Document({
     required this.id,
@@ -28,6 +29,7 @@ class Document {
     this.tagLabel,
     this.note,
     required this.createdAt,
+    this.pending = false,
   });
 
   Document copyWith({
@@ -43,6 +45,7 @@ class Document {
     String? tagLabel,
     String? note,
     DateTime? createdAt,
+    bool? pending,
   }) {
     return Document(
       id: id ?? this.id,
@@ -57,6 +60,7 @@ class Document {
       tagLabel: tagLabel ?? this.tagLabel,
       note: note ?? this.note,
       createdAt: createdAt ?? this.createdAt,
+      pending: pending ?? this.pending,
     );
   }
 }

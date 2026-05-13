@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'shared_prefs_provider.dart';
+import 'user_preferences_controller.dart';
 
 final notificationSettingsProvider =
     NotifierProvider<NotificationSettingsNotifier, NotificationSettings>(
@@ -49,37 +49,16 @@ class NotificationSettings {
 }
 
 class NotificationSettingsNotifier extends Notifier<NotificationSettings> {
-  static const _keySmartEnabled = 'notification_smart_enabled';
-  static const _keyEnabled = 'notification_quiet_hours_enabled';
-  static const _keyStart = 'notification_quiet_hours_start';
-  static const _keyStartMinute = 'notification_quiet_hours_start_minute';
-  static const _keyEnd = 'notification_quiet_hours_end';
-  static const _keyEndMinute = 'notification_quiet_hours_end_minute';
-  static const _keyShowSensitive = 'notification_show_sensitive_details';
-
   @override
   NotificationSettings build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    return NotificationSettings(
-      smartNotificationsEnabled: prefs.getBool(_keySmartEnabled) ?? true,
-      quietHoursEnabled: prefs.getBool(_keyEnabled) ?? false,
-      quietHoursStart: prefs.getInt(_keyStart) ?? 22,
-      quietHoursStartMinute: prefs.getInt(_keyStartMinute) ?? 0,
-      quietHoursEnd: prefs.getInt(_keyEnd) ?? 8,
-      quietHoursEndMinute: prefs.getInt(_keyEndMinute) ?? 0,
-      showSensitiveDetails: prefs.getBool(_keyShowSensitive) ?? false,
+    final prefs = ref.watch(userPreferencesControllerProvider);
+    return prefs.maybeWhen(
+      data: (p) => p.notificationSettings,
+      orElse: () => const NotificationSettings(),
     );
   }
 
   Future<void> updateSettings(NotificationSettings settings) async {
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(_keySmartEnabled, settings.smartNotificationsEnabled);
-    await prefs.setBool(_keyEnabled, settings.quietHoursEnabled);
-    await prefs.setInt(_keyStart, settings.quietHoursStart);
-    await prefs.setInt(_keyStartMinute, settings.quietHoursStartMinute);
-    await prefs.setInt(_keyEnd, settings.quietHoursEnd);
-    await prefs.setInt(_keyEndMinute, settings.quietHoursEndMinute);
-    await prefs.setBool(_keyShowSensitive, settings.showSensitiveDetails);
-    state = settings;
+    await ref.read(userPreferencesControllerProvider.notifier).updateNotifications(settings);
   }
 }

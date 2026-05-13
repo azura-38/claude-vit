@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class AppointmentTypeCard extends StatelessWidget {
   final String title;
@@ -16,34 +17,50 @@ class AppointmentTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: selected ? const Color(0xFFE8F1FF) : Colors.transparent,
+          color:
+              selected
+                  ? AppColors.brandMist
+                  : (isDark
+                      ? Colors.white.withValues(alpha: 0.03)
+                      : Colors.white),
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: selected ? const Color(0xFF005DA7) : const Color(0xFFE5E7EB),
+            color:
+                selected
+                    ? AppColors.brandBlue
+                    : (isDark
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : const Color(0xFFE5E7EB)),
           ),
         ),
         child: Row(
           children: [
             Icon(
               icon,
-              color:
-                  selected ? const Color(0xFF005DA7) : const Color(0xFF6B7280),
+              color: selected ? AppColors.brandBlue : const Color(0xFF6B7280),
             ),
             const SizedBox(width: 12),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color:
-                    selected
-                        ? const Color(0xFF005DA7)
-                        : const Color(0xFF374151),
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color:
+                      selected
+                          ? AppColors.brandBlue
+                          : (isDark ? Colors.white70 : AppColors.textPrimary),
+                ),
               ),
             ),
           ],

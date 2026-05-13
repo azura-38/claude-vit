@@ -8,7 +8,7 @@ import '../../../../shared/domain/usecases/appointments/add_appointment_usecase.
 import '../../../../core/di/service_providers.dart';
 import '../../../../core/types/runtime_types.dart';
 import '../../../../shared/data/services/analytics_service.dart';
-import '../../../../shared/data/services/notification_service.dart';
+import '../../../../shared/data/services/notification_engine.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
 
 enum CalendarViewType { monthly, weekly }
@@ -132,16 +132,16 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     final now = DateTime.now();
     for (final reminderDate in _generatedReminderDates(app)) {
       if (reminderDate.isAfter(now)) {
-        await NotificationService.schedule(
+        await NotificationEngine.scheduleAppointment(
           id: app.id,
           title: "📅 Appointment",
-          body: "📅 Upcoming appointment",
-          date: reminderDate,
+          body: "📅 Upcoming appointment: ${app.title}",
+          scheduleTime: reminderDate,
           payload: AppNotificationPayload(
             type: NotificationType.appointment,
             entityId: app.id,
             occurrenceAt: reminderDate,
-          ),
+          ).encode(),
         );
       }
     }
@@ -230,7 +230,7 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
 
   Future<void> _cancelReminders(Appointment app) async {
     for (final date in _generatedReminderDates(app)) {
-      await NotificationService.cancelOccurrence(id: app.id, date: date);
+      await NotificationEngine.cancel(app.id, date);
     }
   }
 }

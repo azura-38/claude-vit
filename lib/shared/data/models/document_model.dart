@@ -14,6 +14,7 @@ class DocumentModel {
   String? tagLabel;
   String? note;
   DateTime createdAt;
+  bool pending;
 
   DocumentModel({
     required this.id,
@@ -28,6 +29,7 @@ class DocumentModel {
     this.tagLabel,
     this.note,
     required this.createdAt,
+    this.pending = false,
   });
 
   factory DocumentModel.fromEntity(Document entity) {
@@ -44,6 +46,7 @@ class DocumentModel {
       tagLabel: entity.tagLabel,
       note: entity.note,
       createdAt: entity.createdAt,
+      pending: entity.pending,
     );
   }
 
@@ -67,6 +70,7 @@ class DocumentModel {
       tagLabel: tagLabel,
       note: note,
       createdAt: createdAt,
+      pending: pending,
     );
   }
 
@@ -84,6 +88,7 @@ class DocumentModel {
       'tagLabel': tagLabel,
       'note': note,
       'createdAt': createdAt.toIso8601String(),
+      'pending': pending,
     };
   }
 
@@ -101,6 +106,7 @@ class DocumentModel {
       tagLabel: map['tagLabel'],
       note: map['note'],
       createdAt: DateTime.parse(map['createdAt']),
+      pending: map['pending'] ?? false,
     );
   }
 }

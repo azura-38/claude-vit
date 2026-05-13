@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:vitacase/core/constants/app_colors.dart';
-import '../widgets/notification_glass_card.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
+
+import '../widgets/notification_glass_card.dart';
 
 class RefillBannerNotificationScreen extends StatelessWidget {
   const RefillBannerNotificationScreen({super.key});
@@ -12,57 +14,84 @@ class RefillBannerNotificationScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Image.network(
-            "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFFEAF4FF),
+                  Color(0xFFFCE7B2),
+                  Color(0xFF9BB7D4),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: SizedBox.expand(),
           ),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child: NotificationGlassCard(
-                child: Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(14),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: NotificationGlassCard(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                AppColors.brandBlue,
+                                AppColors.brandCyan,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Icon(
+                            Icons.inventory_2_rounded,
+                            color: Colors.white,
+                          ),
                         ),
-                        child: const Icon(Icons.favorite, color: Colors.white),
-                      ),
-                      const SizedBox(width: 14),
-                      const Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Refill Confirmed",
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                context.l10n.refill,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color: AppColors.brandNavy,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "Your supply of Lisinopril has been updated",
-                              style: TextStyle(color: AppColors.secondary),
-                            ),
-                          ],
+                              const SizedBox(height: 4),
+                              Text(
+                                context.l10n.supplyReminderDesc,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: AppColors.textSecondary,
+                                  height: 1.35,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () => context.pop(),
-                        icon: const Icon(Icons.close),
-                      ),
-                    ],
+                        IconButton(
+                          onPressed: () => context.pop(),
+                          icon: const Icon(Icons.close_rounded),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ).animate().fadeIn(duration: 550.ms).slideY(begin: -.35),
               ),
             ),
           ),

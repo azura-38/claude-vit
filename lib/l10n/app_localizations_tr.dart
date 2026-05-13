@@ -48,8 +48,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premium_feature => 'Premium Özellik 🌟';
 
   @override
-  String get premium_required_desc =>
-      'Uygulama Kilidi için Premium üyeliğinizin olması gerekmektedir.';
+  String get premium_required_desc => 'Uygulama Kilidi için Premium üyeliğinizin olması gerekmektedir.';
 
   @override
   String get go_premium => 'Premium\'a Geç';
@@ -73,7 +72,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get coming_soon_desc => 'Bu özellik bir sonraki güncellemede gelecek.';
 
   @override
-  String tap_for_test(Object count) {
+  String tap_for_test(int count) {
     return 'Test bildirimi için $count kez daha dokunun';
   }
 
@@ -117,8 +116,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get doctor_info => 'Doktor Bilgileri';
 
   @override
-  String get add_doctor_desc =>
-      'Hızlı erişim için doktorlarınızın iletişim bilgilerini saklayın.';
+  String get add_doctor_desc => 'Hızlı erişim için doktorlarınızın iletişim bilgilerini saklayın.';
 
   @override
   String get basic_info => 'Temel Bilgiler';
@@ -178,50 +176,43 @@ class AppLocalizationsTr extends AppLocalizations {
   String get ob_1_subtitle => 'Tüm Dosyalarınız Tek Yerde';
 
   @override
-  String get ob_1_desc =>
-      'Belgelerinizi, randevularınızı ve ilaçlarınızı güvenle saklayın, her zaman yanınızda taşıyın.';
+  String get ob_1_desc => 'Belgelerinizi, randevularınızı ve ilaçlarınızı güvenle saklayın, her zaman yanınızda taşıyın.';
 
   @override
   String get ob_2_title => 'Tüm Dosyalarınızı Düzenleyin';
 
   @override
-  String get ob_2_desc =>
-      'Belgelerinizi yükleyin, kategorilere ayırın ve kolayca yönetin.';
+  String get ob_2_desc => 'Belgelerinizi yükleyin, kategorilere ayırın ve kolayca yönetin.';
 
   @override
   String get ob_3_title => 'Randevularınızı Kaydedin';
 
   @override
-  String get ob_3_desc =>
-      'Tüm randevularınızı tek yerde tutun, hatırlatmalarla hiçbirini kaçırmayın.';
+  String get ob_3_desc => 'Tüm randevularınızı tek yerde tutun, hatırlatmalarla hiçbirini kaçırmayın.';
 
   @override
   String get ob_4_title => 'İlaçlarınızı Kaydedin ve Takip Edin';
 
   @override
-  String get ob_4_desc =>
-      'İlaçlarınızı ve kullanım saatlerinizi kaydedin, hatırlatmalarla düzenli kullanmayı unutmayın.';
+  String get ob_4_desc => 'İlaçlarınızı ve kullanım saatlerinizi kaydedin, hatırlatmalarla düzenli kullanmayı unutmayın.';
 
   @override
   String get ob_5_title => 'Kaydedin, Kaybetmeyin';
 
   @override
-  String get ob_5_desc =>
-      'Randevularınız ve ilaçlarınız güvende olsun, siz rahat olun.';
+  String get ob_5_desc => 'Randevularınız ve ilaçlarınız güvende olsun, siz rahat olun.';
 
   @override
   String get ob_feature_1_title => 'Güvenli Saklama';
 
   @override
-  String get ob_feature_1_desc =>
-      'Verileriniz şifrelenir ve sadece size aittir.';
+  String get ob_feature_1_desc => 'Verileriniz şifrelenir ve sadece size aittir.';
 
   @override
   String get ob_feature_2_title => 'Hatırlatmalar';
 
   @override
-  String get ob_feature_2_desc =>
-      'Randevu ve ilaç saatlerinizi asla kaçırmayın.';
+  String get ob_feature_2_desc => 'Randevu ve ilaç saatlerinizi asla kaçırmayın.';
 
   @override
   String get ob_feature_3_title => 'Her Yerde Erişim';
@@ -251,8 +242,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get guest_mode => 'Misafir Modu Aktif';
 
   @override
-  String get guest_desc =>
-      'Veriler yereldedir. Yedeklemek için hesap oluşturun.';
+  String get guest_desc => 'Veriler yereldedir. Yedeklemek için hesap oluşturun.';
 
   @override
   String get guest_user => 'Misafir Kullanıcı';
@@ -264,8 +254,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get vault_is_empty => 'Kasanız Hazır';
 
   @override
-  String get vault_desc =>
-      'En önemli kayıtlarınızı özel bir sığınakta düzenleyin ve saklayın.';
+  String get vault_desc => 'En önemli kayıtlarınızı özel bir sığınakta düzenleyin ve saklayın.';
 
   @override
   String get quick_access => 'HIZLI ERİŞİM';
@@ -322,8 +311,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get create_profile => 'Profilinizi Oluşturun';
 
   @override
-  String get profile_desc =>
-      'Yolculuğunuzu kişiselleştirmek için birkaç bilgiye ihtiyacımız var.';
+  String get profile_desc => 'Yolculuğunuzu kişiselleştirmek için birkaç bilgiye ihtiyacımız var.';
 
   @override
   String get full_name => 'AD SOYAD';
@@ -365,12 +353,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get privacy_guarantee => 'Verileriniz güvende';
 
   @override
-  String get privacy_box_desc =>
-      'Bilgileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.';
+  String get privacy_box_desc => 'Bilgileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.';
 
   @override
-  String get privacy_box_warning =>
-      'Verileriniz gizlidir ve cihazınızda güvenli bir şekilde saklanır. Lütfen çok hassas bilgiler yüklemekten kaçının. Sakladığınız verilerden siz sorumlusunuz.';
+  String get privacy_box_warning => 'Verileriniz gizlidir ve cihazınızda güvenli bir şekilde saklanır. Lütfen çok hassas bilgiler yüklemekten kaçının. Sakladığınız verilerden siz sorumlusunuz.';
 
   @override
   String get docs_secure_storage_title => 'Güvenli Yerel Depolama 🔒';
@@ -379,8 +365,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get docs_secure_storage_desc => 'Verileriniz cihazınızda kalır';
 
   @override
-  String get docs_sensitive_warning =>
-      'Çok hassas bilgileri saklamaktan kaçının. Verilerinizden siz sorumlusunuz.';
+  String get docs_sensitive_warning => 'Çok hassas bilgileri saklamaktan kaçının. Verilerinizden siz sorumlusunuz.';
 
   @override
   String get gender_female => 'Kadın';
@@ -455,8 +440,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lock_gate_title => 'VitaCase Kilitli';
 
   @override
-  String get lock_gate_desc =>
-      'Güvenli kasanıza erişmek için lütfen kimliğinizi doğrulayın.';
+  String get lock_gate_desc => 'Güvenli kasanıza erişmek için lütfen kimliğinizi doğrulayın.';
 
   @override
   String get lock_gate_unlock => 'Biyometrik ile Kilit Aç';
@@ -477,7 +461,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lock_use_biometrics => 'Biyometrik Kullan';
 
   @override
-  String lock_too_many_attempts(Object seconds) {
+  String lock_too_many_attempts(int seconds) {
     return 'Çok fazla deneme. $seconds sn sonra tekrar deneyin.';
   }
 
@@ -503,8 +487,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get biometric_login => 'Biyometrik Giriş';
 
   @override
-  String get biometric_unavailable =>
-      'Bu cihazda biyometrik doğrulama mevcut değil.';
+  String get biometric_unavailable => 'Bu cihazda biyometrik doğrulama mevcut değil.';
 
   @override
   String get digits => 'haneli';
@@ -576,7 +559,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get my_medicines => 'İlaçlarım';
 
   @override
-  String med_count_desc(Object count) {
+  String med_count_desc(int count) {
     return 'Bugün almanız gereken $count ilaç var.';
   }
 
@@ -584,7 +567,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get low_stock_warning => 'Stok Azalıyor';
 
   @override
-  String critical_level(Object name) {
+  String critical_level(String name) {
     return '$name için kritik seviye.';
   }
 
@@ -595,7 +578,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get intake_chart => 'Zamanında Alım Grafiği';
 
   @override
-  String weekly_avg(Object perc) {
+  String weekly_avg(int perc) {
     return 'Haftalık Ort: %$perc';
   }
 
@@ -624,7 +607,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get med_cabinet_add => 'Yeni İlaç';
 
   @override
-  String stock_left(Object count) {
+  String stock_left(int count) {
     return '$count ADET KALDI';
   }
 
@@ -644,20 +627,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get water_tracker => 'Su Takibi';
 
   @override
-  String get safety_footer_med =>
-      'VitaCase bir yönetim aracıdır. Tıbbi tavsiye veya dozaj önerisi sunmaz. Daima doktorunuzun talimatlarına uyun.';
+  String get safety_footer_med => 'VitaCase bir yönetim aracıdır. Tıbbi tavsiye veya dozaj önerisi sunmaz. Daima doktorunuzun talimatlarına uyun.';
 
   @override
-  String get safety_footer_health =>
-      'Sağlık verileri yalnızca bilgilendirme amaçlıdır. Teşhis için bir uzmana danışın.';
+  String get safety_footer_health => 'Sağlık verileri yalnızca bilgilendirme amaçlıdır. Teşhis için bir uzmana danışın.';
 
   @override
-  String get medical_device_warning =>
-      'VitaCase tıbbi bir cihaz değildir. Daima bir uzmana danışın.';
+  String get medical_device_warning => 'VitaCase tıbbi bir cihaz değildir. Daima bir uzmana danışın.';
 
   @override
-  String get management_tool_warning =>
-      'VitaCase bir yönetim aracıdır, teşhis hizmeti değildir.';
+  String get management_tool_warning => 'VitaCase bir yönetim aracıdır, teşhis hizmeti değildir.';
 
   @override
   String get hint_name => 'Örn. Kerem Yılmaz';
@@ -672,12 +651,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get docs_search_hint => 'Kasanızda arayın (belge, not, kimlik...)';
 
   @override
-  String get docs_info_secure =>
-      'Belgeleriniz güvenli şekilde saklanır ve yalnızca size özeldir.';
+  String get docs_info_secure => 'Belgeleriniz güvenli şekilde saklanır ve yalnızca size özeldir.';
 
   @override
-  String get docs_info_encrypted =>
-      'Verileriniz cihazınızda şifreli olarak korunur.';
+  String get docs_info_encrypted => 'Verileriniz cihazınızda şifreli olarak korunur.';
 
   @override
   String get docs_sort_all => 'Tümü';
@@ -692,8 +669,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get docs_empty_title => 'Burası Henüz Boş';
 
   @override
-  String get docs_empty_subtitle =>
-      'İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.';
+  String get docs_empty_subtitle => 'İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.';
 
   @override
   String get docs_category_health => 'Sağlık';
@@ -777,12 +753,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get docs_no_matching => 'Kriterlere uygun belge yok';
 
   @override
-  String get docs_try_different =>
-      'Farklı bir anahtar kelime ile tekrar deneyin.';
+  String get docs_try_different => 'Farklı bir anahtar kelime ile tekrar deneyin.';
 
   @override
-  String get docs_no_filter_match =>
-      'Seçili filtre için kayıtlı belge bulunamadı.';
+  String get docs_no_filter_match => 'Seçili filtre için kayıtlı belge bulunamadı.';
 
   @override
   String get docs_show_all => 'TÜMÜNÜ GÖSTER';
@@ -791,8 +765,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get privacy_warning_title => 'Gizlilik Uyarısı';
 
   @override
-  String get privacy_warning_desc =>
-      'Hassas bilgilerin ve yüklenen belgelerin tüm sorumluluğu tamamen kullanıcının kendisine aittir. Lütfen yüksek riskli verilerinizi paylaşırken dikkatli olunuz.';
+  String get privacy_warning_desc => 'Hassas bilgilerin ve yüklenen belgelerin tüm sorumluluğu tamamen kullanıcının kendisine aittir. Lütfen yüksek riskli verilerinizi paylaşırken dikkatli olunuz.';
 
   @override
   String get hint_select => 'Seç';
@@ -897,8 +870,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get target_label => 'Hedef';
 
   @override
-  String get logout_desc_safe =>
-      'Uygulamadan çıkış yapmak istediğinize emin misiniz? Verileriniz güvenle saklanmaya devam edecektir.';
+  String get logout_desc_safe => 'Uygulamadan çıkış yapmak istediğinize emin misiniz? Verileriniz güvenle saklanmaya devam edecektir.';
 
   @override
   String get years_old => 'Yaş';
@@ -922,8 +894,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get current_stock => 'Mevcut Stok';
 
   @override
-  String get stock_warning =>
-      'Stok 5 birimin altına düştüğünde size hatırlatıcı göndereceğiz.';
+  String get stock_warning => 'Stok 5 birimin altına düştüğünde size hatırlatıcı göndereceğiz.';
 
   @override
   String get hero_health_tip => 'Sağlığınız İçin';
@@ -971,17 +942,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get limit_title => 'Hafıza Dolu! 🚀';
 
   @override
-  String limit_desc(Object count) {
+  String limit_desc(int count) {
     return 'Şu anki limitiniz $count belge. Tek bir kısa video izleyerek +10 belge alanı daha kazanmak ister misiniz?';
   }
 
   @override
-  String limit_desc_meds(Object count) {
+  String limit_desc_meds(int count) {
     return 'Şu anki limitiniz $count ilaç. Tek bir kısa video izleyerek +5 ilaç alanı daha kazanmak ister misiniz?';
   }
 
   @override
-  String limit_desc_appts(Object count) {
+  String limit_desc_appts(int count) {
     return 'Şu anki limitiniz $count randevu. Tek bir kısa video izleyerek +5 randevu alanı daha kazanmak ister misiniz?';
   }
 
@@ -998,7 +969,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get limit_ad_free_info => 'Güvenli ve Şifreli Depolama 🛡️';
 
   @override
-  String limit_slots_used(Object count, Object limit) {
+  String limit_slots_used(int count, int limit) {
     return '$count/$limit alan kullanıldı';
   }
 
@@ -1027,19 +998,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get page_not_found => 'Sayfa bulunamadı veya bir hata oluştu.';
 
   @override
-  String get legal_onboarding_clause =>
-      'VitaCase\'in çevrimdışı öncelikli bir kasa olduğunu biliyorum. Cihazımın güvenliğinden ve içindeki hassas sağlık verilerinden tamamen ben sorumluyum.';
+  String get legal_onboarding_clause => 'VitaCase\'in çevrimdışı öncelikli bir kasa olduğunu biliyorum. Cihazımın güvenliğinden ve içindeki hassas sağlık verilerinden tamamen ben sorumluyum.';
 
   @override
   String get delete_all_data => 'Tüm Verileri Sil';
 
   @override
-  String get wipe_confirm_1 =>
-      'Tüm verileriniz, belgeleriniz ve ayarlarınız kalıcı olarak silinecektir. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?';
+  String get wipe_confirm_1 => 'Tüm verileriniz, belgeleriniz ve ayarlarınız kalıcı olarak silinecektir. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?';
 
   @override
-  String get wipe_confirm_2 =>
-      'KESİNLİKLE emin misiniz? Tüm tıbbi arşiviniz ve şifreli kayıtlarınız bu cihazdan temizlenecektir.';
+  String get wipe_confirm_2 => 'KESİNLİKLE emin misiniz? Tüm tıbbi arşiviniz ve şifreli kayıtlarınız bu cihazdan temizlenecektir.';
 
   @override
   String get final_warning => 'Son Güvenlik Uyarısı';
@@ -1048,8 +1016,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get wipe_btn_final => 'EVET, HER ŞEYİ SİL';
 
   @override
-  String get all_data_deleted =>
-      'Tüm verileriniz temizlendi. Uygulama şimdi yeniden başlatılacak.';
+  String get all_data_deleted => 'Tüm verileriniz temizlendi. Uygulama şimdi yeniden başlatılacak.';
 
   @override
   String get edit => 'Düzenle';
@@ -1082,14 +1049,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get error_doctor_data => 'Lütfen doktor adını ve branşını giriniz';
 
   @override
-  String get error_appointment_data =>
-      'Lütfen başlık ve hastane/merkez alanlarını doldurunuz';
+  String get error_appointment_data => 'Lütfen başlık ve hastane/merkez alanlarını doldurunuz';
 
   @override
   String get appointment_reminder_title => 'Randevu Hatırlatıcı';
 
   @override
-  String appointment_reminder_body(Object dept, Object doctor, Object time) {
+  String appointment_reminder_body(String time, String doctor, String dept) {
     return '$time sonra randevunuz var: $doctor ($dept)';
   }
 
@@ -1109,18 +1075,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get text_size_large => 'Büyük';
 
   @override
-  String get support_contact =>
-      'Destek ekibimizle iletişime geçmek için: limanexsoftware@outlook.com';
+  String get support_contact => 'Destek ekibimizle iletişime geçmek için: limanexsoftware@outlook.com';
 
   @override
-  String get quick_actions_optimized =>
-      'Hızlı İşlemler profiliniz için zaten optimize edildi.';
+  String get quick_actions_optimized => 'Hızlı İşlemler profiliniz için zaten optimize edildi.';
 
   @override
   String get medication_reminder => 'İlaç Hatırlatıcısı';
 
   @override
-  String medication_reminder_body(Object dose, Object name) {
+  String medication_reminder_body(String name, String dose) {
     return '$name vaktiniz geldi ($dose)';
   }
 
@@ -1170,8 +1134,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get bmi_ideal => 'İdeal Kilo Aralığı';
 
   @override
-  String get medical_info_desc_empty =>
-      'Kritik tıbbi bilgilerinizi buraya ekleyerek her zaman yanınızda taşıyın.';
+  String get medical_info_desc_empty => 'Kritik tıbbi bilgilerinizi buraya ekleyerek her zaman yanınızda taşıyın.';
 
   @override
   String get category_critical => 'KRİTİK BİLGİLER';
@@ -1183,8 +1146,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get category_general => 'GENEL BİLGİLER';
 
   @override
-  String get medical_info_desc =>
-      'Sağlığınız için kritik olan tüm tıbbi kayıtlar.';
+  String get medical_info_desc => 'Sağlığınız için kritik olan tüm tıbbi kayıtlar.';
 
   @override
   String get title => 'Başlık';
@@ -1208,8 +1170,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get general => 'Genel';
 
   @override
-  String get theme_unlock_desc =>
-      'Bu temayı deneyebilir veya bir reklam izleyerek kalıcı olarak açabilirsin.';
+  String get theme_unlock_desc => 'Bu temayı deneyebilir veya bir reklam izleyerek kalıcı olarak açabilirsin.';
 
   @override
   String get theme_previewing => 'Tema 10 saniye boyunca önizleniyor...';
@@ -1335,8 +1296,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get day_sunday_very_short => 'P';
 
   @override
-  String get delete_medicine_confirm =>
-      'Bu ilacı silmek istediğinizden emin misiniz?';
+  String get delete_medicine_confirm => 'Bu ilacı silmek istediğinizden emin misiniz?';
 
   @override
   String get i_agree_to => 'Okudum ve onaylıyorum:';
@@ -1351,8 +1311,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get read_disclaimer => 'Yasal Uyarı';
 
   @override
-  String get must_agree =>
-      'Devam etmek için tüm yasal belgeleri onaylamalısınız.';
+  String get must_agree => 'Devam etmek için tüm yasal belgeleri onaylamalısınız.';
 
   @override
   String get legal_acceptance => 'Yasal Onay';
@@ -1430,553 +1389,472 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progress => 'İlerleme';
 
   @override
-  String get ach_hidden_desc =>
-      'Bu gizli başarımı keşfetmek için oynamaya devam et!';
+  String get ach_hidden_desc => 'Bu gizli başarımı keşfetmek için oynamaya devam et!';
 
   @override
-  String get ach_login_1_desc =>
-      'Her efsanevi yolculuk tek bir adımla başlar. İlk serini ateşledin!';
+  String get ach_login_1_desc => 'Her efsanevi yolculuk tek bir adımla başlar. İlk serini ateşledin!';
 
   @override
   String get ach_login_3_title => 'Isınıyor';
 
   @override
-  String get ach_login_3_desc =>
-      'Isınma turları bitti. Üst üste 3 gün buradasın, hiç fena değil! 🔥';
+  String get ach_login_3_desc => 'Isınma turları bitti. Üst üste 3 gün buradasın, hiç fena değil! 🔥';
 
   @override
   String get ach_login_7_title => 'İstikrarlı';
 
   @override
-  String get ach_login_7_desc =>
-      'Koca bir hafta! Artık buraların yollarını ezberledin ve kamp ateşini yaktın.';
+  String get ach_login_7_desc => 'Koca bir hafta! Artık buraların yollarını ezberledin ve kamp ateşini yaktın.';
 
   @override
   String get ach_login_14_title => 'Alışkanlık';
 
   @override
-  String get ach_login_14_desc =>
-      'İki hafta aralıksız! Alışkanlıklar işte tam böyle şekillenir, tebrikler.';
+  String get ach_login_14_desc => 'İki hafta aralıksız! Alışkanlıklar işte tam böyle şekillenir, tebrikler.';
 
   @override
   String get ach_login_30_title => 'Bağımlı';
 
   @override
-  String get ach_login_30_desc =>
-      'Koca bir ay boyunca buradaydın. İkimiz de bunun bir hobi olmaktan çıktığını biliyoruz.';
+  String get ach_login_30_desc => 'Koca bir ay boyunca buradaydın. İkimiz de bunun bir hobi olmaktan çıktığını biliyoruz.';
 
   @override
   String get ach_login_60_title => 'Sadık Kullanıcı';
 
   @override
-  String get ach_login_60_desc =>
-      'İki ay... Kira ödüyor musun dostum? İkinci evine hoş geldin. 🏠';
+  String get ach_login_60_desc => 'İki ay... Kira ödüyor musun dostum? İkinci evine hoş geldin. 🏠';
 
   @override
   String get ach_login_100_title => 'Uzman';
 
   @override
-  String get ach_login_100_desc =>
-      'Dalya! 100 günlük devasa bir seriyi bozacak hiçbir güç yok. 💯';
+  String get ach_login_100_desc => 'Dalya! 100 günlük devasa bir seriyi bozacak hiçbir güç yok. 💯';
 
   @override
   String get ach_login_200_title => 'Efsane';
 
   @override
-  String get ach_login_200_desc =>
-      '200 gün. Çevrendekiler senin bir yapay zeka botu olduğundan şüphelenmeye başlıyor. 🤖';
+  String get ach_login_200_desc => '200 gün. Çevrendekiler senin bir yapay zeka botu olduğundan şüphelenmeye başlıyor. 🤖';
 
   @override
   String get ach_login_365_title => 'Efsanevi Yıl';
 
   @override
-  String get ach_login_365_desc =>
-      'Bir tam Güneş yılı! Bir yıldır her koşulda buradasın. Taç giyme törenin yarın. 👑';
+  String get ach_login_365_desc => 'Bir tam Güneş yılı! Bir yıldır her koşulda buradasın. Taç giyme törenin yarın. 👑';
 
   @override
   String get ach_ads_1_title => 'İlk Reklam';
 
   @override
-  String get ach_ads_1_desc =>
-      'Reklamlar iyidir... Bazen. Geliştiriciye verdiğin minik destek için teşekkürler!';
+  String get ach_ads_1_desc => 'Reklamlar iyidir... Bazen. Geliştiriciye verdiğin minik destek için teşekkürler!';
 
   @override
   String get ach_ads_5_title => 'Destekçi';
 
   @override
-  String get ach_ads_5_desc =>
-      'Sponsorlarımızı bizim kadar sen de çok sevdin galiba.';
+  String get ach_ads_5_desc => 'Sponsorlarımızı bizim kadar sen de çok sevdin galiba.';
 
   @override
   String get ach_ads_15_title => 'Sadık Reklamcı';
 
   @override
-  String get ach_ads_15_desc =>
-      'Patlamış mısırını al, 15 reklamlık bir maratonu tamamladın. 🍿';
+  String get ach_ads_15_desc => 'Patlamış mısırını al, 15 reklamlık bir maratonu tamamladın. 🍿';
 
   @override
   String get ach_ads_30_title => 'Devam Ediyor';
 
   @override
-  String get ach_ads_30_desc =>
-      'Televizyon izlermiş gibi! Bize olan desteğin altın değerinde.';
+  String get ach_ads_30_desc => 'Televizyon izlermiş gibi! Bize olan desteğin altın değerinde.';
 
   @override
   String get ach_ads_50_title => 'Güçlü Kullanıcı';
 
   @override
-  String get ach_ads_50_desc =>
-      'Artık hangi reklamın geleceğini saniyesinden tahmin edebiliyorsun.';
+  String get ach_ads_50_desc => 'Artık hangi reklamın geleceğini saniyesinden tahmin edebiliyorsun.';
 
   @override
   String get ach_ads_100_title => 'Bağımlı';
 
   @override
-  String get ach_ads_100_desc =>
-      '100 reklam! Sabrından ötürü sana özel bir madalya borçluyuz.';
+  String get ach_ads_100_desc => '100 reklam! Sabrından ötürü sana özel bir madalya borçluyuz.';
 
   @override
   String get ach_ads_250_title => 'Reklam Ustası';
 
   @override
-  String get ach_ads_250_desc =>
-      'Ekranda kaybolan bir pazarlama dehası. Desteklerin arşa ulaştı.';
+  String get ach_ads_250_desc => 'Ekranda kaybolan bir pazarlama dehası. Desteklerin arşa ulaştı.';
 
   @override
   String get ach_ads_500_title => 'Monetization King';
 
   @override
-  String get ach_ads_500_desc =>
-      'Sermayedar mısın mübarek? Borsayı tek başına sen döndürüyorsun! 📉';
+  String get ach_ads_500_desc => 'Sermayedar mısın mübarek? Borsayı tek başına sen döndürüyorsun! 📉';
 
   @override
   String get ach_doc_1_title => 'İlk Belge';
 
   @override
-  String get ach_doc_1_desc =>
-      'Devlet dairesi değiliz ama ilk belgeni başarıyla rafa kaldırdın. 📇';
+  String get ach_doc_1_desc => 'Devlet dairesi değiliz ama ilk belgeni başarıyla rafa kaldırdın. 📇';
 
   @override
   String get ach_doc_5_title => 'Başlangıç';
 
   @override
-  String get ach_doc_5_desc =>
-      'İlk klasörün dolmak üzere. Düzenli olmaya başlıyorsun.';
+  String get ach_doc_5_desc => 'İlk klasörün dolmak üzere. Düzenli olmaya başlıyorsun.';
 
   @override
   String get ach_doc_10_title => 'Düzenli Kullanıcı';
 
   @override
-  String get ach_doc_10_desc =>
-      'Dosyalar birikiyor. Kayıp ve Buluntu departmanı seninle çalışmak isterdi.';
+  String get ach_doc_10_desc => 'Dosyalar birikiyor. Kayıp ve Buluntu departmanı seninle çalışmak isterdi.';
 
   @override
   String get ach_doc_25_title => 'Arşivci';
 
   @override
-  String get ach_doc_25_desc =>
-      'Evrak falan işleri... Arşivindeki 25 belgeyle tozu dumana kattın.';
+  String get ach_doc_25_desc => 'Evrak falan işleri... Arşivindeki 25 belgeyle tozu dumana kattın.';
 
   @override
   String get ach_doc_50_title => 'Profesyonel';
 
   @override
-  String get ach_doc_50_desc =>
-      'Sekreterya falan hikaye, profesyonel dosyalama şövalyesi işte budur.';
+  String get ach_doc_50_desc => 'Sekreterya falan hikaye, profesyonel dosyalama şövalyesi işte budur.';
 
   @override
   String get ach_doc_100_title => 'Vault Master';
 
   @override
-  String get ach_doc_100_desc =>
-      '100 belge mi? Bu devasa arşive bir kütüphaneci atamanın vakti geldi. 📚';
+  String get ach_doc_100_desc => '100 belge mi? Bu devasa arşive bir kütüphaneci atamanın vakti geldi. 📚';
 
   @override
   String get ach_doc_250_title => 'Veri Koleksiyoncusu';
 
   @override
-  String get ach_doc_250_desc =>
-      'Büyük Veri (Big Data) senaryolarına hoş geldin. Yığınlara hükmediyorsun.';
+  String get ach_doc_250_desc => 'Büyük Veri (Big Data) senaryolarına hoş geldin. Yığınlara hükmediyorsun.';
 
   @override
   String get ach_doc_500_title => 'Dijital Arşiv Uzmanı';
 
   @override
-  String get ach_doc_500_desc =>
-      'Dijital İskenderiye Kütüphanesi! Arşivlerin nesiller boyu yaşayacak.';
+  String get ach_doc_500_desc => 'Dijital İskenderiye Kütüphanesi! Arşivlerin nesiller boyu yaşayacak.';
 
   @override
   String get ach_med_1_title => 'İlk İlaç';
 
   @override
-  String get ach_med_1_desc =>
-      'Kendine değer vermeye başladın, sağlığına dikkat etmek için harika bir milat.';
+  String get ach_med_1_desc => 'Kendine değer vermeye başladın, sağlığına dikkat etmek için harika bir milat.';
 
   @override
   String get ach_med_3_title => 'Takip Başladı';
 
   @override
-  String get ach_med_3_desc =>
-      'Reçetene sadıksın. Suları yudumla ve hatırlatmaları asla kaçırma.';
+  String get ach_med_3_desc => 'Reçetene sadıksın. Suları yudumla ve hatırlatmaları asla kaçırma.';
 
   @override
   String get ach_med_5_title => 'Düzenli Kullanıcı';
 
   @override
-  String get ach_med_5_desc =>
-      'Eczacıların favori müşterisi! Formunu özenle koruyorsun.';
+  String get ach_med_5_desc => 'Eczacıların favori müşterisi! Formunu özenle koruyorsun.';
 
   @override
   String get ach_med_10_title => 'Disiplinli';
 
   @override
-  String get ach_med_10_desc =>
-      'İlaçlar saatinde, bedenin tıkır tıkır işliyor. 10 kez teyit edildi!';
+  String get ach_med_10_desc => 'İlaçlar saatinde, bedenin tıkır tıkır işliyor. 10 kez teyit edildi!';
 
   @override
   String get ach_med_25_title => 'Sağlık Uzmanı';
 
   @override
-  String get ach_med_25_desc =>
-      'Vücudunun dilinden anlıyorsun. İlaç günlüğü senin için bir sanat oldu.';
+  String get ach_med_25_desc => 'Vücudunun dilinden anlıyorsun. İlaç günlüğü senin için bir sanat oldu.';
 
   @override
   String get ach_med_50_title => 'Health Master';
 
   @override
-  String get ach_med_50_desc =>
-      'Doktorlar bile disiplinini kıskanıyor. Vücudut kimyanın efendisi sensin! 🧬';
+  String get ach_med_50_desc => 'Doktorlar bile disiplinini kıskanıyor. Vücudut kimyanın efendisi sensin! 🧬';
 
   @override
   String get ach_app_1_title => 'İlk Randevu';
 
   @override
-  String get ach_app_1_desc =>
-      'Plan yapmadan başarı gelmez! İlk takvim kaydın güvenle alınan.';
+  String get ach_app_1_desc => 'Plan yapmadan başarı gelmez! İlk takvim kaydın güvenle alınan.';
 
   @override
   String get ach_app_3_title => 'Planlıyor';
 
   @override
-  String get ach_app_3_desc =>
-      'Zaman yönetimi 101. Planlarına sadık kalarak yükseliyorsun.';
+  String get ach_app_3_desc => 'Zaman yönetimi 101. Planlarına sadık kalarak yükseliyorsun.';
 
   @override
   String get ach_app_5_title => 'Organize';
 
   @override
-  String get ach_app_5_desc =>
-      'Ajandan dolmaya başladı. O meşgul ama karizmatik kişi kesinlikle sensin.';
+  String get ach_app_5_desc => 'Ajandan dolmaya başladı. O meşgul ama karizmatik kişi kesinlikle sensin.';
 
   @override
   String get ach_app_10_title => 'Disiplinli Planlayıcı';
 
   @override
-  String get ach_app_10_desc =>
-      'Alarm kurmana bile gerek yok, kafanın içinde bir atom saati var sanki.';
+  String get ach_app_10_desc => 'Alarm kurmana bile gerek yok, kafanın içinde bir atom saati var sanki.';
 
   @override
   String get ach_app_20_title => 'Planner Pro';
 
   @override
-  String get ach_app_20_desc =>
-      'Her şey dakikası dakikasına belli... Dijital bir asistan gibisin!';
+  String get ach_app_20_desc => 'Her şey dakikası dakikasına belli... Dijital bir asistan gibisin!';
 
   @override
   String get ach_app_30_title => 'Master Planner';
 
   @override
-  String get ach_app_30_desc =>
-      'Zaman bükücü! Bir insanın bu kadar randevuyu çakışmadan yönetmesi imkansız... değilmiş.';
+  String get ach_app_30_desc => 'Zaman bükücü! Bir insanın bu kadar randevuyu çakışmadan yönetmesi imkansız... değilmiş.';
 
   @override
   String get ach_profile_created_title => 'Profil Oluşturuldu';
 
   @override
-  String get ach_profile_created_desc =>
-      'Aramıza resmi olarak katıldın. Dijital imzanı attın bile!';
+  String get ach_profile_created_desc => 'Aramıza resmi olarak katıldın. Dijital imzanı attın bile!';
 
   @override
   String get ach_profile_completed_title => 'Profil Tamamlandı';
 
   @override
-  String get ach_profile_completed_desc =>
-      'Boşluklardan nefret ediyorsun değil mi? Tüm bilgilerin tastamam dolu.';
+  String get ach_profile_completed_desc => 'Boşluklardan nefret ediyorsun değil mi? Tüm bilgilerin tastamam dolu.';
 
   @override
   String get ach_profile_updated_title => 'Profil Güncellendi';
 
   @override
-  String get ach_profile_updated_desc =>
-      'Değişim gelişmektir! Kendini tazeleyerek hep oyunun içinde kaldın.';
+  String get ach_profile_updated_desc => 'Değişim gelişmektir! Kendini tazeleyerek hep oyunun içinde kaldın.';
 
   @override
   String get ach_profile_with_photo_title => 'Profil Fotoğrafı';
 
   @override
-  String get ach_profile_with_photo_desc =>
-      'Yüzsüz bir djiital avatar olmaktan kurtuldun. Kameraya gülümse! 📸';
+  String get ach_profile_with_photo_desc => 'Yüzsüz bir djiital avatar olmaktan kurtuldun. Kameraya gülümse! 📸';
 
   @override
   String get ach_profile_master_title => 'Profil Ustası';
 
   @override
-  String get ach_profile_master_desc =>
-      'Kimliğin, biyon ve detaylarınla sistemin en janti kullanıcısısın.';
+  String get ach_profile_master_desc => 'Kimliğin, biyon ve detaylarınla sistemin en janti kullanıcısısın.';
 
   @override
   String get ach_emergency_added_title => 'Acil Kart Eklendi';
 
   @override
-  String get ach_emergency_added_desc =>
-      'Tedbir hiçbir zaman elden bırakılmaz. Acil durum kalkanın devrede.';
+  String get ach_emergency_added_desc => 'Tedbir hiçbir zaman elden bırakılmaz. Acil durum kalkanın devrede.';
 
   @override
   String get ach_emergency_contact_title => 'Acil Kişi';
 
   @override
-  String get ach_emergency_contact_desc =>
-      'Zor zamanlarda kimin aranacağı belli. Güven çemberi oluşturuldu. 📞';
+  String get ach_emergency_contact_desc => 'Zor zamanlarda kimin aranacağı belli. Güven çemberi oluşturuldu. 📞';
 
   @override
   String get ach_emergency_complete_title => 'Tamamlandı';
 
   @override
-  String get ach_emergency_complete_desc =>
-      'Senaryolara hazırlıklısın. Güvenlik seviyesi en üst düzeyde.';
+  String get ach_emergency_complete_desc => 'Senaryolara hazırlıklısın. Güvenlik seviyesi en üst düzeyde.';
 
   @override
   String get ach_emergency_ready_title => 'Hazır';
 
   @override
-  String get ach_emergency_ready_desc =>
-      'Kırmızı alarm durumunda her şey tıkır tıkır işleyecek. Sağlama alındın.';
+  String get ach_emergency_ready_desc => 'Kırmızı alarm durumunda her şey tıkır tıkır işleyecek. Sağlama alındın.';
 
   @override
   String get ach_emergency_master_title => 'Emergency Master';
 
   @override
-  String get ach_emergency_master_desc =>
-      'Ambulans gelmeden ilk yardımı yönetecek kadar sağlam ve serin kanlı!';
+  String get ach_emergency_master_desc => 'Ambulans gelmeden ilk yardımı yönetecek kadar sağlam ve serin kanlı!';
 
   @override
   String get ach_health_1_title => 'İlk Veri';
 
   @override
-  String get ach_health_1_desc =>
-      'Bugün kendine bir iyilik yaptın. Vücudun içeriden sana teşekkür ediyor.';
+  String get ach_health_1_desc => 'Bugün kendine bir iyilik yaptın. Vücudun içeriden sana teşekkür ediyor.';
 
   @override
   String get ach_health_5_title => 'Takip Başladı';
 
   @override
-  String get ach_health_5_desc =>
-      'Veriler birikiyor, biyoritminle olan sohbetini ilerletiyorsun.';
+  String get ach_health_5_desc => 'Veriler birikiyor, biyoritminle olan sohbetini ilerletiyorsun.';
 
   @override
   String get ach_health_10_title => 'Sağlık Bilinci';
 
   @override
-  String get ach_health_10_desc =>
-      'Artık bir istatistik harikasısın! Vücudun şifreli bvir kitap gibi okunuyor. 📈';
+  String get ach_health_10_desc => 'Artık bir istatistik harikasısın! Vücudun şifreli bvir kitap gibi okunuyor. 📈';
 
   @override
   String get ach_health_20_title => 'Düzenli Takip';
 
   @override
-  String get ach_health_20_desc =>
-      'Makine gibisin. Nabız, metrikler, adımlar... Hiçbiri sensörlerinden kaçmıyor.';
+  String get ach_health_20_desc => 'Makine gibisin. Nabız, metrikler, adımlar... Hiçbiri sensörlerinden kaçmıyor.';
 
   @override
   String get ach_health_50_title => 'Sağlık Uzmanı';
 
   @override
-  String get ach_health_50_desc =>
-      'Cyborg seviyesine yaklaştın. Bio-verilerinle arandaki bağ koparılamaz.';
+  String get ach_health_50_desc => 'Cyborg seviyesine yaklaştın. Bio-verilerinle arandaki bağ koparılamaz.';
 
   @override
   String get ach_health_master_title => 'Health Master';
 
   @override
-  String get ach_health_master_desc =>
-      'Tapınağın baş rahibi! Kendi bedenin üzerinde mutlak bir ustalık kurdun. 🧘';
+  String get ach_health_master_desc => 'Tapınağın baş rahibi! Kendi bedenin üzerinde mutlak bir ustalık kurdun. 🧘';
 
   @override
   String get ach_first_login_title => 'Hoş Geldin';
 
   @override
-  String get ach_first_login_desc =>
-      'Kapıyı itip içeri ilk adımını attın, işte asıl macera şimdi yepyeni başlıyor.';
+  String get ach_first_login_desc => 'Kapıyı itip içeri ilk adımını attın, işte asıl macera şimdi yepyeni başlıyor.';
 
   @override
   String get ach_first_upload_title => 'Explorer';
 
   @override
-  String get ach_first_upload_desc =>
-      'Sisteme ilk kalıcı izini bıraktın. Artık buralara kazındın.';
+  String get ach_first_upload_desc => 'Sisteme ilk kalıcı izini bıraktın. Artık buralara kazındın.';
 
   @override
   String get ach_first_ad_title => 'Free User';
 
   @override
-  String get ach_first_ad_desc =>
-      'Emeğe saygı kuşağı! İlk reklam etkileşiminle ekosisteme can suyu verdin.';
+  String get ach_first_ad_desc => 'Emeğe saygı kuşağı! İlk reklam etkileşiminle ekosisteme can suyu verdin.';
 
   @override
   String get ach_first_premium_title => 'Premium User';
 
   @override
-  String get ach_first_premium_desc =>
-      'İşte vizyon meselesi. VIP locasına buyrun, kırmızı halınız serildi! 🎟️';
+  String get ach_first_premium_desc => 'İşte vizyon meselesi. VIP locasına buyrun, kırmızı halınız serildi! 🎟️';
 
   @override
   String get ach_active_3_days_title => 'Aktif';
 
   @override
-  String get ach_active_3_days_desc =>
-      'Kablolar ısınıyor, motorlar çalıştı. Enerjini hissetmeye başladık.';
+  String get ach_active_3_days_desc => 'Kablolar ısınıyor, motorlar çalıştı. Enerjini hissetmeye başladık.';
 
   @override
   String get ach_active_7_days_title => 'Sadık';
 
   @override
-  String get ach_active_7_days_desc =>
-      'Tam bir haftadır sistemle senkronizesin. Ortam epey elektriklendi!';
+  String get ach_active_7_days_desc => 'Tam bir haftadır sistemle senkronizesin. Ortam epey elektriklendi!';
 
   @override
   String get ach_active_30_days_title => 'Core User';
 
   @override
-  String get ach_active_30_days_desc =>
-      'Adeta çekirdek kadroya alındın. Sensiz buraların tadı tuzu kalmazdı.';
+  String get ach_active_30_days_desc => 'Adeta çekirdek kadroya alındın. Sensiz buraların tadı tuzu kalmazdı.';
 
   @override
   String get ach_streak_saved_title => 'Streak Savior';
 
   @override
-  String get ach_streak_saved_desc =>
-      'Uçurumun kenarından döndün! O güzelim seriyi kurtarmak harika bir refleksti.';
+  String get ach_streak_saved_desc => 'Uçurumun kenarından döndün! O güzelim seriyi kurtarmak harika bir refleksti.';
 
   @override
   String get ach_streak_saved_5_title => 'Dirençli';
 
   @override
-  String get ach_streak_saved_5_desc =>
-      'Savaş yaralarına rağmen düşmüyor, tökezlesen de kalkmasını biliyorsun.';
+  String get ach_streak_saved_5_desc => 'Savaş yaralarına rağmen düşmüyor, tökezlesen de kalkmasını biliyorsun.';
 
   @override
   String get ach_streak_saved_10_title => 'Asla Pes Etmez';
 
   @override
-  String get ach_streak_saved_10_desc =>
-      'Zümrüdüanka mısın? Küllerinden doğmak sıradan bir salı günü aktivitesi. 🐦🔥';
+  String get ach_streak_saved_10_desc => 'Zümrüdüanka mısın? Küllerinden doğmak sıradan bir salı günü aktivitesi. 🐦🔥';
 
   @override
   String get ach_streak_perfect_30_title => 'Kusursuz Seri';
 
   @override
-  String get ach_streak_perfect_30_desc =>
-      'Tek bir pas, tek bir sekme yok. 30 koca gün boyunca İsviçre saati gibi mükemmeldin!';
+  String get ach_streak_perfect_30_desc => 'Tek bir pas, tek bir sekme yok. 30 koca gün boyunca İsviçre saati gibi mükemmeldin!';
 
   @override
   String get ach_premium_trial_used_title => 'Premium Deneyimi';
 
   @override
-  String get ach_premium_trial_used_desc =>
-      'Ayrıcalıklar dünyasının kapısını araladın. Manzara büyüleyici, değil mi?';
+  String get ach_premium_trial_used_desc => 'Ayrıcalıklar dünyasının kapısını araladın. Manzara büyüleyici, değil mi?';
 
   @override
   String get ach_limit_breaker_title => 'Limit Aşıldı';
 
   @override
-  String get ach_limit_breaker_desc =>
-      'Kurallar ve sınırlar bükülmek içindir. Matrix\'in dışına çıktın! 💥';
+  String get ach_limit_breaker_desc => 'Kurallar ve sınırlar bükülmek içindir. Matrix\'in dışına çıktın! 💥';
 
   @override
   String get ach_ad_skip_used_title => 'Reklam Atlama';
 
   @override
-  String get ach_ad_skip_used_desc =>
-      'Buna ayıracak hiç zamanım yok dedin, tek tuşla zamanı ileri sardın.';
+  String get ach_ad_skip_used_desc => 'Buna ayıracak hiç zamanım yok dedin, tek tuşla zamanı ileri sardın.';
 
   @override
   String get ach_reward_collector_title => 'Ödül Toplayıcı';
 
   @override
-  String get ach_reward_collector_desc =>
-      'Kuytu köşelerdeki ne kadar ödül varsa sömürdün. Tam bir ganimet avcısı! 🎁';
+  String get ach_reward_collector_desc => 'Kuytu köşelerdeki ne kadar ödül varsa sömürdün. Tam bir ganimet avcısı! 🎁';
 
   @override
   String get ach_multi_feature_user_title => 'Tüm Özellikler';
 
   @override
-  String get ach_multi_feature_user_desc =>
-      'Uygulamada dokunmadığın, kurcalamadığın tek bir düğme kalmadı meraklı gezgin!';
+  String get ach_multi_feature_user_desc => 'Uygulamada dokunmadığın, kurcalamadığın tek bir düğme kalmadı meraklı gezgin!';
 
   @override
   String get ach_data_master_title => 'Veri Ustası';
 
   @override
-  String get ach_data_master_desc =>
-      'Baytlar ve bitler senin etrafında şekilleniyor. Sistem verilerinin mutlak efendisisin.';
+  String get ach_data_master_desc => 'Baytlar ve bitler senin etrafında şekilleniyor. Sistem verilerinin mutlak efendisisin.';
 
   @override
   String get ach_organized_master_title => 'Ultra Düzenli';
 
   @override
-  String get ach_organized_master_desc =>
-      'Marie Kondo gelse senin düzenine şapka çıkarırdı. Her şey milimetrik.';
+  String get ach_organized_master_desc => 'Marie Kondo gelse senin düzenine şapka çıkarırdı. Her şey milimetrik.';
 
   @override
   String get ach_security_master_title => 'Güvenlik Uzmanı';
 
   @override
-  String get ach_security_master_desc =>
-      'Hesabın bir kale, şifrelerin bir siber ordu. Sızmak neredeyse imkansız! 🔐';
+  String get ach_security_master_desc => 'Hesabın bir kale, şifrelerin bir siber ordu. Sızmak neredeyse imkansız! 🔐';
 
   @override
   String get ach_daily_master_title => 'Daily Master';
 
   @override
-  String get ach_daily_master_desc =>
-      'Güneşi bizimle doğuran, yıldızları bizimle gören o efsanevi sadık kullanıcı sensin.';
+  String get ach_daily_master_desc => 'Güneşi bizimle doğuran, yıldızları bizimle gören o efsanevi sadık kullanıcı sensin.';
 
   @override
   String get backup_restore => 'Yedekle & Geri Yükle';
 
   @override
-  String get backup_desc_settings =>
-      'Yalnızca bu cihaz için şifreli yerel yedekleme';
+  String get backup_desc_settings => 'Yalnızca bu cihaz için şifreli yerel yedekleme';
 
   @override
   String get smart_notifications => 'Akıllı Bildirimler';
 
   @override
-  String get smart_streak_warning =>
-      '🔥 Streak kaybolmak üzere! Geri dönüp verilerini kontrol etmeye ne dersin?';
+  String get smart_streak_warning => '🔥 Streak kaybolmak üzere! Geri dönüp verilerini kontrol etmeye ne dersin?';
 
   @override
-  String get smart_ad_reward =>
-      '🎁 1 reklam izle → +5 limit kazan! Bugün senin için yeni bir fırsat var.';
+  String get smart_ad_reward => '🎁 1 reklam izle → +5 limit kazan! Bugün senin için yeni bir fırsat var.';
 
   @override
-  String get smart_doc_bonus =>
-      '📂 Bugün 1 belge ekle → bonus kazan! Her şey güvende kalsın.';
+  String get smart_doc_bonus => '📂 Bugün 1 belge ekle → bonus kazan! Her şey güvende kalsın.';
 
   @override
-  String get smart_default =>
-      '👀 Küçük bir güncelleme seni bekliyor, bugün neler yapabiliriz?';
+  String get smart_default => '👀 Küçük bir güncelleme seni bekliyor, bugün neler yapabiliriz?';
 
   @override
-  String get notif_bonus_ready =>
-      '🎁 Bonus seni bekliyor! Yardımların için teşekkürler.';
+  String get notif_bonus_ready => '🎁 Bonus seni bekliyor! Yardımların için teşekkürler.';
 
   @override
-  String get notif_doc_safe =>
-      '🔥 Güzel gidiyorsun, belgelerin güvende! Devam et!';
+  String get notif_doc_safe => '🔥 Güzel gidiyorsun, belgelerin güvende! Devam et!';
 
   @override
-  String level_up_desc(Object level) {
+  String level_up_desc(int level) {
     return 'Seviye $level oldun! Yeni ödüller için Sezon Bileti\'ni kontrol et.';
   }
 
@@ -2008,12 +1886,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get test_notification_body => 'Bu bir test bildirimidir';
 
   @override
-  String get app_lock_unavailable =>
-      'Uygulama kilidi bu cihazda kullanılamıyor.';
+  String get app_lock_unavailable => 'Uygulama kilidi bu cihazda kullanılamıyor.';
 
   @override
-  String get backup_restore_desc =>
-      'Verilerinizi şifreli olarak yedekleyebilir veya geri yükleyebilirsiniz. Yedekler yalnızca sizin cihazınızda saklanır.';
+  String get backup_restore_desc => 'Verilerinizi şifreli olarak yedekleyebilir veya geri yükleyebilirsiniz. Yedekler yalnızca sizin cihazınızda saklanır.';
 
   @override
   String get backup_export => 'Yedeği Dışa Aktar';
@@ -2031,8 +1907,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get warning => 'Dikkat';
 
   @override
-  String get import_warning_desc =>
-      'Yedek geri yükleme işlemi mevcut verilerinizi SİLECEK ve geri alınamaz. Devam etmek istiyor musunuz?';
+  String get import_warning_desc => 'Yedek geri yükleme işlemi mevcut verilerinizi SİLECEK ve geri alınamaz. Devam etmek istiyor musunuz?';
 
   @override
   String get yes_restore => 'Evet, Geri Yükle';
@@ -2062,7 +1937,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get watch_to_unlock => 'Kilidi açmak için izle';
 
   @override
-  String remaining_days(Object days) {
+  String remaining_days(int days) {
     return 'Kalan: $days gün';
   }
 
@@ -2076,8 +1951,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get watch => 'İZLE';
 
   @override
-  String get unlock_theme_question =>
-      'Bu temayı 5 gün boyunca ücretsiz kullanmak ister misiniz?';
+  String get unlock_theme_question => 'Bu temayı 5 gün boyunca ücretsiz kullanmak ister misiniz?';
 
   @override
   String get watch_ad_plus_5 => 'REKLAM İZLE (+5 gün)';
@@ -2089,8 +1963,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get free_secure_release => 'Ücretsiz güvenli sürüm';
 
   @override
-  String get encrypted_local_desc =>
-      'Şifrelenmiş belgeleriniz bu cihazda yerel olarak kalır. Reklamlar ücretsiz sürümü destekler.';
+  String get encrypted_local_desc => 'Şifrelenmiş belgeleriniz bu cihazda yerel olarak kalır. Reklamlar ücretsiz sürümü destekler.';
 
   @override
   String get premium_soon => 'YAKINDA PREMIUM';
@@ -2186,7 +2059,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get success_doc_saved => 'Belge başarıyla kaydedildi!';
 
   @override
-  String error_failed_download(Object error) {
+  String error_failed_download(String error) {
     return 'İndirme başarısız: $error';
   }
 
@@ -2218,7 +2091,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get season_pass => 'Sezon Bileti';
 
   @override
-  String level_label(Object level) {
+  String level_label(int level) {
     return 'Seviye $level';
   }
 
@@ -2232,7 +2105,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get claim => 'AL';
 
   @override
-  String reward_doc_slots(Object value) {
+  String reward_doc_slots(int value) {
     return '+$value Belge Alanı';
   }
 
@@ -2240,8 +2113,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premium_unavailable_title => 'Premium bu sürümde mevcut değildir.';
 
   @override
-  String get premium_unavailable_desc =>
-      'VitaCase şu anda yerel şifreli depolama, reklamlar ve isteğe bağlı hatırlatıcılar içeren ücretsiz bir uygulama olarak sunulmaktadır.';
+  String get premium_unavailable_desc => 'VitaCase şu anda yerel şifreli depolama, reklamlar ve isteğe bağlı hatırlatıcılar içeren ücretsiz bir uygulama olarak sunulmaktadır.';
 
   @override
   String get btn_close => 'Kapat';
@@ -2289,12 +2161,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hint_personal_notes => 'Doktor hakkında notlar...';
 
   @override
-  String get ad_reward_not_earned =>
-      'Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.';
+  String get ad_reward_not_earned => 'Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.';
 
   @override
-  String get ad_unavailable =>
-      'Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.';
+  String get ad_unavailable => 'Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.';
 
   @override
   String get ad_failed => 'Ödüllü reklam gösterilemedi. Lütfen tekrar deneyin.';
@@ -2330,7 +2200,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notif_app_created_title => '🎯 Randevu Oluşturuldu';
 
   @override
-  String notif_app_created_body(Object title) {
+  String notif_app_created_body(String title) {
     return '$title planlandı.';
   }
 
@@ -2338,7 +2208,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notif_app_reminder_title => '📅 Randevu Hatırlatıcı';
 
   @override
-  String notif_app_reminder_body(Object title) {
+  String notif_app_reminder_body(String title) {
     return '$title için randevunuz yaklaşıyor.';
   }
 
@@ -2346,12 +2216,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get no_appointments_found => 'Randevu bulunamadı';
 
   @override
-  String get empty_appointments_desc =>
-      'Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.';
+  String get empty_appointments_desc => 'Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.';
 
   @override
-  String get empty_appointments_filter_desc =>
-      'Bu kategoride randevu bulunamadı.';
+  String get empty_appointments_filter_desc => 'Bu kategoride randevu bulunamadı.';
 
   @override
   String get btn_add_appointment => 'RANDEVU EKLE';
@@ -2360,8 +2228,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get btn_clear_filters => 'FİLTRELERİ TEMİZLE';
 
   @override
-  String get delete_confirm_appointment =>
-      'Bu randevuyu silmek istediğinize emin misiniz?';
+  String get delete_confirm_appointment => 'Bu randevuyu silmek istediğinize emin misiniz?';
 
   @override
   String get create_today_plan => 'Günün Planını Oluştur';
@@ -2391,7 +2258,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get docs_save_success => 'Belge başarıyla kaydedildi!';
 
   @override
-  String docs_download_failed(Object error) {
+  String docs_download_failed(String error) {
     return 'İndirme başarısız: $error';
   }
 
@@ -2399,7 +2266,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get season_pass_title => 'Season Pass';
 
   @override
-  String season_level(Object level) {
+  String season_level(int level) {
     return 'Seviye $level';
   }
 
@@ -2452,8 +2319,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get db_recovery_title => 'Veri Hatası';
 
   @override
-  String get db_recovery_desc =>
-      'Verilere erişilemedi. Yeniden denemek ister misiniz?';
+  String get db_recovery_desc => 'Verilere erişilemedi. Yeniden denemek ister misiniz?';
 
   @override
   String get db_recovery_retry => 'Tekrar Dene';
@@ -2465,29 +2331,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notif_streak_warning_title => 'Günlük planını kontrol et';
 
   @override
-  String get notif_streak_warning_body =>
-      'Bugünkü hatırlatıcılarını ve kayıtlı öğelerini incelemek için VitaCase\'i aç.';
+  String get notif_streak_warning_body => 'Bugünkü hatırlatıcılarını ve kayıtlı öğelerini incelemek için VitaCase\'i aç.';
 
   @override
   String get notif_mission_reminder_title => '🎯 Günlük Görevler Bekliyor';
 
   @override
-  String get notif_mission_reminder_body =>
-      'Günlük ödüllerini kaçırma! Görevlerini şimdi tamamla.';
+  String get notif_mission_reminder_body => 'Günlük ödüllerini kaçırma! Görevlerini şimdi tamamla.';
 
   @override
   String get notif_limit_reached_title => '🚀 Limite Ulaşıldı';
 
   @override
-  String get notif_limit_reached_body =>
-      'Ücretsiz limitine ulaştın. Devam etmek için ödüllü reklam izle.';
+  String get notif_limit_reached_body => 'Ücretsiz limitine ulaştın. Devam etmek için ödüllü reklam izle.';
 
   @override
   String get notif_good_morning_title => '🌞 Günaydın!';
 
   @override
-  String get notif_good_morning_body =>
-      'Güne VitaCase ile başla, günlük görevlerini kontrol et.';
+  String get notif_good_morning_body => 'Güne VitaCase ile başla, günlük görevlerini kontrol et.';
 
   @override
   String get notif_test_title => 'Test Bildirimi';
@@ -2499,7 +2361,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notif_appointment_reminder_title => '📅 Randevu Hatırlatıcı';
 
   @override
-  String notif_appointment_reminder_body(Object doctor) {
+  String notif_appointment_reminder_body(String doctor) {
     return '$doctor için randevunuz yaklaşıyor.';
   }
 

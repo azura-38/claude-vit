@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/app_colors.dart';
 
@@ -10,7 +10,8 @@ enum AppThemeType {
   purple,
   nature,
   ocean,
-  amber;
+  amber,
+  system;
 
   String localizedLabel(BuildContext context) {
     switch (this) {
@@ -26,6 +27,8 @@ enum AppThemeType {
         return context.l10n.themeOceanSerenity;
       case AppThemeType.amber:
         return context.l10n.themeAmberGlow;
+      case AppThemeType.system:
+        return context.l10n.themeSystem;
     }
   }
 
@@ -43,103 +46,31 @@ enum AppThemeType {
         return 'Ocean Serenity';
       case AppThemeType.amber:
         return 'Amber Glow';
+      case AppThemeType.system:
+        return 'System Default';
     }
   }
 }
 
-/// App-wide ThemeData for light and dark modes — matching the React app.
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get light {
-    return ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.light,
-      scaffoldBackgroundColor: AppColors.bgLight,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primaryIndigo,
+  static ThemeData get light => _buildTheme(
         brightness: Brightness.light,
-        surface: AppColors.surfaceLight,
-      ),
-      textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        foregroundColor: AppColors.textPrimary,
-        elevation: 0,
-        centerTitle: false,
-      ),
-      cardTheme: CardThemeData(
-        color: AppColors.cardLight,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28),
-          side: const BorderSide(color: AppColors.cardBorderLight, width: 1),
-        ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: AppColors.bgLight,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: AppColors.cardBorderLight),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: AppColors.cardBorderLight),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: AppColors.medicalBlue, width: 2),
-        ),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.medicalBlue,
-          foregroundColor: Colors.white,
-          elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          textStyle: GoogleFonts.inter(
-            fontSize: 14,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.medicalBlue,
-        foregroundColor: Colors.white,
-        elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(24)),
-        ),
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        selectedItemColor: AppColors.navActive,
-        unselectedItemColor: AppColors.navInactive,
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-      ),
-      dividerTheme: const DividerThemeData(
-        color: AppColors.cardBorderLight,
-        thickness: 1,
-      ),
-    );
-  }
+        primary: AppColors.luxePrimary,
+        background: AppColors.luxeBg,
+        surface: Colors.white,
+        fontFamily: GoogleFonts.inter().fontFamily,
+      );
 
   static ThemeData get dark => _buildTheme(
-    brightness: Brightness.dark,
-    primary: AppColors.medicalBlue,
-    background: AppColors.bgDark,
-    surface: AppColors.surfaceDark,
-    isAmoled: false,
-  );
+        brightness: Brightness.dark,
+        primary: AppColors.neonPrimary,
+        background: Colors.black,
+        surface: const Color(0xFF121212),
+        isAmoled: true,
+        fontFamily: GoogleFonts.outfit().fontFamily,
+      );
 
   static ThemeData getThemeByType(AppThemeType type) {
     switch (type) {
@@ -153,6 +84,7 @@ class AppTheme {
           primary: AppColors.purplePrimary,
           background: AppColors.purpleBg,
           surface: Colors.white,
+          fontFamily: GoogleFonts.epilogue().fontFamily,
         );
       case AppThemeType.nature:
         return _buildTheme(
@@ -160,13 +92,15 @@ class AppTheme {
           primary: AppColors.naturePrimary,
           background: AppColors.natureBg,
           surface: Colors.white,
+          fontFamily: GoogleFonts.outfit().fontFamily,
         );
       case AppThemeType.ocean:
         return _buildTheme(
           brightness: Brightness.light,
           primary: AppColors.oceanPrimary,
           background: AppColors.oceanBg,
-          surface: AppColors.oceanBg,
+          surface: Colors.white,
+          fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
         );
       case AppThemeType.amber:
         return _buildTheme(
@@ -174,7 +108,11 @@ class AppTheme {
           primary: AppColors.amberPrimary,
           background: AppColors.amberBg,
           surface: Colors.white,
+          fontFamily: GoogleFonts.manrope().fontFamily,
         );
+      case AppThemeType.system:
+        final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+        return brightness == Brightness.dark ? dark : light;
     }
   }
 
@@ -184,35 +122,38 @@ class AppTheme {
     required Color background,
     required Color surface,
     bool isAmoled = false,
+    String? fontFamily,
   }) {
     final isDark = brightness == Brightness.dark;
-    final baseTextTheme =
-        isDark ? ThemeData.dark().textTheme : ThemeData.light().textTheme;
+    
+    final colorScheme = isDark
+        ? ColorScheme.dark(
+            primary: primary,
+            secondary: primary.withValues(alpha: 0.7),
+            surface: isAmoled ? Colors.black : surface,
+            onSurface: Colors.white,
+            error: AppColors.error,
+          )
+        : ColorScheme.fromSeed(
+            seedColor: primary,
+            brightness: Brightness.light,
+            surface: surface,
+            primary: primary,
+          );
+
+    final textTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
-      scaffoldBackgroundColor: background,
-      colorScheme:
-          isDark
-              ? ColorScheme.dark(
-                primary: primary,
-                secondary: primary.withValues(alpha: 0.8),
-                surface: surface,
-                onSurface: Colors.white,
-                error: AppColors.error,
-              )
-              : ColorScheme.fromSeed(
-                seedColor: primary,
-                brightness: Brightness.light,
-                surface: surface,
-                primary: primary,
-              ),
-      textTheme: GoogleFonts.interTextTheme(baseTextTheme).copyWith(
-        titleLarge: GoogleFonts.manrope(
-          fontWeight: FontWeight.w800,
-          color: isDark ? Colors.white : AppColors.textPrimary,
-        ),
+      scaffoldBackgroundColor: isAmoled ? Colors.black : background,
+      colorScheme: colorScheme,
+      fontFamily: fontFamily,
+      textTheme: GoogleFonts.getTextTheme(fontFamily ?? 'Inter', textTheme).copyWith(
+        titleLarge: GoogleFonts.getTextTheme(fontFamily ?? 'Inter', textTheme).titleLarge?.copyWith(
+              fontWeight: FontWeight.w800,
+              color: isDark ? Colors.white : AppColors.textPrimary,
+            ),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -221,22 +162,23 @@ class AppTheme {
         centerTitle: false,
       ),
       cardTheme: CardThemeData(
-        color:
-            isDark
-                ? (isAmoled ? Colors.black : AppColors.glassBg)
-                : Colors.white,
+        color: isDark
+            ? (isAmoled ? Colors.black : AppColors.cardDark)
+            : Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
           side: BorderSide(
-            color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight,
+            color: isDark 
+                ? (isAmoled ? Colors.white.withValues(alpha: 0.1) : AppColors.cardBorderDark) 
+                : AppColors.cardBorderLight,
             width: 1,
           ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: isDark ? AppColors.glassBg : AppColors.bgLight,
+        fillColor: isDark ? (isAmoled ? Colors.black : AppColors.cardDark) : AppColors.bgLight,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
@@ -244,13 +186,13 @@ class AppTheme {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight,
+            color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight,
+            color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -261,16 +203,13 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primary,
-          foregroundColor:
-              isDark && !isAmoled
-                  ? Colors.white
-                  : (isAmoled ? Colors.black : Colors.white),
+          foregroundColor: isDark ? Colors.black : Colors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          textStyle: GoogleFonts.inter(
+          textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w800,
           ),
@@ -278,21 +217,21 @@ class AppTheme {
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primary,
-        foregroundColor: isDark && isAmoled ? Colors.black : Colors.white,
+        foregroundColor: isDark ? Colors.black : Colors.white,
         elevation: 8,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(24)),
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: isDark ? AppColors.glassNav : Colors.white,
+        backgroundColor: isDark ? (isAmoled ? Colors.black : AppColors.cardDark) : Colors.white,
         selectedItemColor: primary,
         unselectedItemColor: isDark ? Colors.white38 : AppColors.navInactive,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
       ),
       dividerTheme: DividerThemeData(
-        color: isDark ? AppColors.glassBorder : AppColors.cardBorderLight,
+        color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
         thickness: 1,
       ),
     );

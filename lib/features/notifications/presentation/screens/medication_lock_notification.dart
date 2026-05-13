@@ -1,10 +1,10 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-
+import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+
 import '../widgets/notification_glass_card.dart';
-import 'package:go_router/go_router.dart';
 
 class MedicationLockNotificationScreen extends StatelessWidget {
   const MedicationLockNotificationScreen({super.key});
@@ -14,153 +14,172 @@ class MedicationLockNotificationScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFFFE08A),
-                  Color(0xFFB39DDB),
-                  Color(0xFF90CAF9),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+          const _LockWallpaper(
+            colors: [Color(0xFFFFD56B), Color(0xFF8EA7FF), Color(0xFF1E3A8A)],
           ),
           SafeArea(
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                const SizedBox(height: 70),
                 const Text(
-                  "9:41",
+                  '9:41',
                   style: TextStyle(
-                    fontSize: 92,
+                    fontSize: 88,
                     fontWeight: FontWeight.w200,
                     color: Colors.white,
+                    height: 1,
                   ),
-                ),
-                const SizedBox(height: 6),
+                ).animate().fadeIn().slideY(begin: -.08),
+                const SizedBox(height: 8),
                 Text(
-                  context.l10n.mockDateWednesday, // Fallback for UI mockup
-                  style: const TextStyle(fontSize: 20, color: Colors.white),
-                ),
+                  context.l10n.mockDateWednesday,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ).animate(delay: 120.ms).fadeIn(),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: RepaintBoundary(
-                        child: Semantics(
-                          label: 'Medication Notification',
-                          hint: 'Tap to view medication details',
-                          child: NotificationGlassCard(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(18),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 54,
-                                        height: 54,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primary.withValues(
-                                            alpha: .12,
-                                          ),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: const Icon(
-                                          Icons.medication,
-                                          color: AppColors.primary,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              context.l10n
-                                                  .medReminderTimeForMed(
-                                                    med: 'Lisinopril',
-                                                  ),
-                                              style: const TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              context.l10n.medReminderDose(
-                                                dose: '10mg',
-                                                note: 'Take with food',
-                                              ),
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                color: AppColors.secondary,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Row(
+                  child: NotificationGlassCard(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(18, 16, 18, 14),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _AppBadge(icon: Icons.medication_rounded),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
-                                      child: Semantics(
-                                        button: true,
-                                        label: 'Remind me in 10 minutes',
-                                        child: TextButton(
-                                          onPressed: () => context.pop(),
-                                          child: Text(
-                                            context.l10n.remindIn10M,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color: AppColors.primary,
-                                            ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          context.l10n.appName.toUpperCase(),
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w900,
+                                            letterSpacing: 1,
+                                            color: AppColors.textSecondary,
                                           ),
                                         ),
+                                        const Spacer(),
+                                        Text(
+                                          context.l10n.notificationNow,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textTertiary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      context.l10n.medReminderTimeForMed(
+                                        med: 'Lisinopril',
+                                      ),
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900,
+                                        color: AppColors.brandNavy,
                                       ),
                                     ),
-                                    Container(
-                                      width: 1,
-                                      height: 54,
-                                      color: Colors.white,
-                                    ),
-                                    Expanded(
-                                      child: Semantics(
-                                        button: true,
-                                        label: 'Mark medication as taken',
-                                        child: TextButton(
-                                          onPressed: () => context.pop(),
-                                          child: Text(
-                                            context.l10n.markAsTaken,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color: AppColors.primary,
-                                            ),
-                                          ),
-                                        ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      context.l10n.medReminderDose(
+                                        dose: '10mg',
+                                        note: context.l10n.notificationDoseNote,
+                                      ),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: AppColors.textSecondary,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      )
-                      .animate()
-                      .fadeIn(duration: 700.ms)
-                      .slideY(begin: .4, end: 0),
+                        const Divider(height: 1),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () => context.pop(),
+                                child: Text(context.l10n.remindIn10M),
+                              ),
+                            ),
+                            Container(
+                              width: 1,
+                              height: 52,
+                              color: Colors.black12,
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () => context.pop(),
+                                child: Text(context.l10n.markAsTaken),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ).animate().fadeIn(duration: 650.ms).slideY(begin: .35),
                 ),
-                const SizedBox(height: 80),
+                const SizedBox(height: 76),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _LockWallpaper extends StatelessWidget {
+  final List<Color> colors;
+
+  const _LockWallpaper({required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: colors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: const SizedBox.expand(),
+    );
+  }
+}
+
+class _AppBadge extends StatelessWidget {
+  final IconData icon;
+
+  const _AppBadge({required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 38,
+      height: 38,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [AppColors.brandBlue, AppColors.brandCyan],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, color: Colors.white, size: 20),
     );
   }
 }

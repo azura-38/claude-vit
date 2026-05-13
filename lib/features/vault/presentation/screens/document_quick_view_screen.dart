@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import '../../domain/models/vault_document.dart';
+import '../../../../shared/domain/entities/document.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import '../widgets/vault_action_button.dart';
 import '../widgets/vault_preview_overlay.dart';
@@ -8,12 +9,16 @@ import '../widgets/vault_tag_chip.dart';
 import 'package:go_router/go_router.dart';
 
 class DocumentQuickViewScreen extends StatelessWidget {
-  final VaultDocument document;
+  final Document document;
 
   const DocumentQuickViewScreen({super.key, required this.document});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final date = document.createdAt;
+    final month = DateFormat('MMM').format(date).toUpperCase();
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -45,9 +50,9 @@ class DocumentQuickViewScreen extends StatelessWidget {
 
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: isDark ? AppColors.surfaceDark : Colors.white,
                 borderRadius: BorderRadius.circular(28),
-                border: Border.all(color: AppColors.border),
+                border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.border),
               ),
               child: Column(
                 children: [
@@ -60,19 +65,19 @@ class DocumentQuickViewScreen extends StatelessWidget {
                           width: 70,
                           height: 90,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF1F4FA),
+                            color: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
                             borderRadius: BorderRadius.circular(18),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("OCT"),
+                              Text(month, style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary)),
                               Text(
-                                document.date.day.toString(),
-                                style: const TextStyle(
+                                date.day.toString(),
+                                style: TextStyle(
                                   fontSize: 36,
                                   fontWeight: FontWeight.w700,
-                                  color: AppColors.primary,
+                                  color: isDark ? Colors.white : AppColors.primary,
                                 ),
                               ),
                             ],
@@ -86,17 +91,18 @@ class DocumentQuickViewScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                document.title,
-                                style: const TextStyle(
-                                  fontSize: 26,
+                                document.fileName,
+                                style: TextStyle(
+                                  fontSize: 22,
                                   fontWeight: FontWeight.w700,
+                                  color: isDark ? Colors.white : AppColors.textPrimary,
                                 ),
                               ),
 
                               const SizedBox(height: 8),
 
                               Text(
-                                "${document.hospital} • ${document.category}",
+                                "${document.hospitalName ?? 'Unknown'} • ${document.category.name}",
                                 style: const TextStyle(
                                   color: AppColors.secondary,
                                 ),
@@ -107,17 +113,17 @@ class DocumentQuickViewScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   VaultTagChip(
-                                    label: "Lab",
-                                    bg: AppColors.chipBlue,
-                                    text: AppColors.primary,
+                                    label: document.tagLabel ?? "Lab",
+                                    bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
+                                    text: isDark ? AppColors.primaryIndigo : AppColors.primary,
                                   ),
 
                                   const SizedBox(width: 8),
 
                                   VaultTagChip(
-                                    label: "PDF",
-                                    bg: const Color(0xFFF1F4FA),
-                                    text: AppColors.secondary,
+                                    label: document.fileType.name.toUpperCase(),
+                                    bg: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
+                                    text: isDark ? Colors.white54 : AppColors.secondary,
                                   ),
                                 ],
                               ),
@@ -130,7 +136,7 @@ class DocumentQuickViewScreen extends StatelessWidget {
 
                   Container(
                     width: double.infinity,
-                    color: const Color(0xFFF9FBFF),
+                    color: isDark ? Colors.black.withValues(alpha: 0.2) : const Color(0xFFF9FBFF),
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
@@ -138,14 +144,14 @@ class DocumentQuickViewScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: _InfoColumn(
-                                label: "PATIENT",
-                                value: document.patient,
+                                label: "CREATED AT",
+                                value: DateFormat('dd.MM.yyyy').format(date),
                               ),
                             ),
                             Expanded(
                               child: _InfoColumn(
                                 label: "PHYSICIAN",
-                                value: document.physician,
+                                value: document.doctorName ?? 'N/A',
                               ),
                             ),
                           ],
@@ -155,7 +161,7 @@ class DocumentQuickViewScreen extends StatelessWidget {
 
                         _InfoColumn(
                           label: "NOTES",
-                          value: document.notes,
+                          value: document.note ?? 'No additional notes provided.',
                           expanded: true,
                         ),
 
@@ -170,8 +176,8 @@ class DocumentQuickViewScreen extends StatelessWidget {
                             VaultActionButton(
                               label: "Share",
                               icon: Icons.share_outlined,
-                              bg: const Color(0xFFF1F4FA),
-                              text: AppColors.secondary,
+                              bg: isDark ? Colors.white10 : const Color(0xFFF1F4FA),
+                              text: isDark ? Colors.white70 : AppColors.secondary,
                               onTap: () {},
                             ),
 
@@ -212,6 +218,7 @@ class _InfoColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -230,10 +237,17 @@ class _InfoColumn extends StatelessWidget {
           width: expanded ? double.infinity : null,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: expanded ? const Color(0xFFF3F6FB) : Colors.transparent,
+            color: expanded ? (isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF3F6FB)) : Colors.transparent,
             borderRadius: BorderRadius.circular(18),
           ),
-          child: Text(value, style: const TextStyle(fontSize: 16, height: 1.6)),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: isDark ? Colors.white70 : AppColors.textPrimary,
+            ),
+          ),
         ),
       ],
     );

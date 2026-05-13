@@ -8,18 +8,23 @@ class PremiumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.outline),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromRGBO(0, 93, 167, 0.04),
-            blurRadius: 24,
-            offset: Offset(0, 8),
-          ),
+        color: isDark ? AppColors.surfaceDark : Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(
+          color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+        ),
+        boxShadow: [
+          if (!isDark)
+            BoxShadow(
+              color: AppColors.brandBlue.withValues(alpha: 0.05),
+              blurRadius: 24,
+              offset: const Offset(0, 10),
+            ),
         ],
       ),
       child: child,
