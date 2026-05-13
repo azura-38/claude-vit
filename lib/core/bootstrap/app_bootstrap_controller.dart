@@ -46,7 +46,11 @@ class AppBootstrapController extends AsyncNotifier<void> {
       await _executeAllPhases(container);
       state = const AsyncData(null);
     } catch (e, st) {
-      debugPrint('[Bootstrap] Fatal error: $e\n$st');
+      debugPrint('[Bootstrap] Fatal error: $e');
+      debugPrintStack(stackTrace: st);
+      try {
+        await Sentry.captureException(e, stackTrace: st);
+      } catch (_) {}
       state = AsyncError(e, st);
     }
   }
@@ -61,15 +65,37 @@ class AppBootstrapController extends AsyncNotifier<void> {
     _log('Phase 1: Opening encrypted database...');
     final encryptionService = container.read(encryptionServiceProvider);
     final sembastDb = container.read(sembastDatabaseProvider);
-    await _safeRun('sembast_init', sembastDb.init(encryptionService));
+
+    try {
+      await sembastDb.init(encryptionService);
+    } catch (e, st) {
+      debugPrint('[Bootstrap][sembast_init] FATAL DB error: $e');
+      debugPrintStack(stackTrace: st);
+      try {
+        await Sentry.captureException(e, stackTrace: st);
+      } catch (_) {}
+      rethrow;
+    }
+
     _log('Phase 1: Database ready ✅');
 
     // ── Phase 2: Firebase + localization (parallel, independent) ─────────
     _log('Phase 2: Firebase + localization...');
-    await Future.wait([
-      _safeRun('firebase', Firebase.initializeApp(
+
+    try {
+      await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
-      )),
+      );
+    } catch (e, st) {
+      debugPrint('[Bootstrap][firebase] FATAL Firebase error: $e');
+      debugPrintStack(stackTrace: st);
+      try {
+        await Sentry.captureException(e, stackTrace: st);
+      } catch (_) {}
+      rethrow;
+    }
+
+    await Future.wait([
       _safeRun('date_tr', initializeDateFormatting('tr_TR', null)),
       _safeRun('date_en', initializeDateFormatting('en_US', null)),
       _safeRun('date_de', initializeDateFormatting('de_DE', null)),
