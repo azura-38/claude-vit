@@ -32,14 +32,11 @@ final appBootstrapProvider = AsyncNotifierProvider<AppBootstrapController, void>
 class AppBootstrapController extends AsyncNotifier<void> {
   @override
   Future<void> build() async {
-    // This runs on provider initialization — all startup phases execute here.
-    // The provider will be AsyncLoading while this runs, AsyncData when done,
-    // and AsyncError on unrecoverable failure.
+    // Startup is kicked off from main() because it needs the ProviderContainer.
   }
 
   /// Called from main() with the ProviderContainer — kicks off all phases.
   Future<void> run(ProviderContainer container) async {
-    // Update our own state to loading (already is, but explicit is safer)
     state = const AsyncLoading();
 
     try {
@@ -56,12 +53,20 @@ class AppBootstrapController extends AsyncNotifier<void> {
   }
 
   Future<void> _executeAllPhases(ProviderContainer container) async {
-    // ── Phase 0: Global Error Handlers (must be FIRST) ─────────────────────
     _setupErrorHandlers();
     _log('Phase 0: Error handlers installed');
 
+    // Web preview does not support all native plugins used by the mobile vault
+    // stack (path_provider documents directory, native secure screen, local
+    // notification scheduling). Keep web usable for UI review, while Android/iOS
+    // continue to run the full production bootstrap.
+    if (kIsWeb) {
+      _log('Web preview detected — skipping mobile-only bootstrap phases ✅');
+      await _initializeLocalizationOnly();
+      return;
+    }
+
     // ── Phase 1: Encrypted database (encryption key → DB open) ────────────
-    // CRITICAL: This MUST complete before any provider that reads `.db` is built.
     _log('Phase 1: Opening encrypted database...');
     final encryptionService = container.read(encryptionServiceProvider);
     final sembastDb = container.read(sembastDatabaseProvider);
@@ -79,7 +84,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
     _log('Phase 1: Database ready ✅');
 
-    // ── Phase 2: Firebase + localization (parallel, independent) ─────────
+    // ── Phase 2: Firebase + localization ─────────────────────────────────
     _log('Phase 2: Firebase + localization...');
 
     try {
@@ -95,15 +100,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
       rethrow;
     }
 
-    await Future.wait([
-      _safeRun('date_tr', initializeDateFormatting('tr_TR', null)),
-      _safeRun('date_en', initializeDateFormatting('en_US', null)),
-      _safeRun('date_de', initializeDateFormatting('de_DE', null)),
-      _safeRun('date_fr', initializeDateFormatting('fr_FR', null)),
-      _safeRun('date_es', initializeDateFormatting('es_ES', null)),
-      _safeRun('date_it', initializeDateFormatting('it_IT', null)),
-      _safeRun('date_pt', initializeDateFormatting('pt_PT', null)),
-    ]);
+    await _initializeLocalizationOnly();
     _log('Phase 2: Firebase + localization ✅');
 
     // ── Phase 3: Notification CORE only (no permission requests) ──────────
@@ -129,10 +126,20 @@ class AppBootstrapController extends AsyncNotifier<void> {
     await _safeRun('identity', _configureIdentity());
     _log('Phase 6: Identity ✅');
 
-    // ── Phase 7: Deferred work (post-first-frame — non-blocking for UI) ───
-    // Runs 300ms after startup to give the first frame time to paint.
     _schedulePostFrameWork(container);
     _log('Phase 7: Deferred work scheduled ✅');
+  }
+
+  Future<void> _initializeLocalizationOnly() {
+    return Future.wait([
+      _safeRun('date_tr', initializeDateFormatting('tr_TR', null)),
+      _safeRun('date_en', initializeDateFormatting('en_US', null)),
+      _safeRun('date_de', initializeDateFormatting('de_DE', null)),
+      _safeRun('date_fr', initializeDateFormatting('fr_FR', null)),
+      _safeRun('date_es', initializeDateFormatting('es_ES', null)),
+      _safeRun('date_it', initializeDateFormatting('it_IT', null)),
+      _safeRun('date_pt', initializeDateFormatting('pt_PT', null)),
+    ]);
   }
 
   // ── Error Handlers ────────────────────────────────────────────────────────
@@ -140,21 +147,26 @@ class AppBootstrapController extends AsyncNotifier<void> {
   void _setupErrorHandlers() {
     FlutterError.onError = (details) {
       debugPrint('[FlutterError] ${details.exceptionAsString()}');
-      try {
-        FirebaseCrashlytics.instance.recordFlutterError(details);
-      } catch (_) {}
+      if (!kIsWeb) {
+        try {
+          FirebaseCrashlytics.instance.recordFlutterError(details);
+        } catch (_) {}
+      }
     };
 
     PlatformDispatcher.instance.onError = (error, stack) {
       debugPrint('[PlatformError] $error');
-      try {
-        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      } catch (_) {}
+      if (!kIsWeb) {
+        try {
+          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        } catch (_) {}
+      }
       return true;
     };
   }
 
   Future<void> _setupCrashlytics() async {
+    if (kIsWeb) return;
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   }
 
@@ -174,8 +186,9 @@ class AppBootstrapController extends AsyncNotifier<void> {
   }
 
   Future<void> _runDeferredWork(ProviderContainer container) async {
+    if (kIsWeb) return;
+
     _log('Deferred: Requesting notification permissions...');
-    // Permissions requested AFTER UI is painted — never blocks launch
     await _safeRun('notif_permissions', NotificationService.requestStartupPermissions());
     await _safeRun('engine_permissions', NotificationEngine.requestPermissions());
 
@@ -217,8 +230,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
     });
   }
 
-  /// Only reschedules notifications if ≥30 min have passed since last run.
-  /// This prevents the expensive full-reschedule on every cold start.
   Future<void> _conditionalReschedule(ProviderContainer container) async {
     final prefs = container.read(sharedPreferencesProvider);
     final lastTs = prefs.getInt(_kLastRescheduleKey) ?? 0;
