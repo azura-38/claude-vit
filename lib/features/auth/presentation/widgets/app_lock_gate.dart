@@ -1,6 +1,8 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/types/runtime_types.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../providers/auth_providers.dart';
@@ -30,16 +32,30 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     final lockState = ref.read(appLockStateProvider);
     final biometricEnabled = ref.read(biometricEnabledProvider);
 
-    if (lockEnabled && lockState == AppLockState.locked && !_isAuthenticating) {
-      // Only attempt biometric if it's enabled
-      if (!biometricEnabled) return;
+    if (!lockEnabled || lockState != AppLockState.locked || _isAuthenticating) {
+      return;
+    }
 
-      setState(() => _isAuthenticating = true);
-      final success = await ref.read(appLockServiceProvider).authenticate();
-      if (success && mounted) {
-        ref.read(appLockStateProvider.notifier).setUnlocked();
-      }
-      if (mounted) setState(() => _isAuthenticating = false);
+    if (!biometricEnabled) {
+      _goToPinScreen();
+      return;
+    }
+
+    setState(() => _isAuthenticating = true);
+    final success = await ref.read(appLockServiceProvider).authenticate();
+    if (success && mounted) {
+      ref.read(appLockStateProvider.notifier).setUnlocked();
+    } else if (mounted) {
+      _goToPinScreen();
+    }
+    if (mounted) setState(() => _isAuthenticating = false);
+  }
+
+  void _goToPinScreen() {
+    if (!mounted) return;
+    final location = GoRouterState.of(context).matchedLocation;
+    if (location != AppRoutes.lock) {
+      context.go(AppRoutes.lock);
     }
   }
 
@@ -48,7 +64,6 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     final lockState = ref.watch(appLockStateProvider);
     final isEnabled = ref.watch(appLockEnabledProvider);
 
-    // Listen for state changes to re-trigger if needed (e.g. manual lock)
     ref.listen(appLockStateProvider, (prev, next) {
       if (next == AppLockState.locked) {
         _checkAndAuth();
@@ -62,18 +77,17 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-          isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+      backgroundColor: isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
       body: Container(
         width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 28),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors:
-                isDark
-                    ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
-                    : [const Color(0xFFF8FAFC), const Color(0xFFF1F5F9)],
+            colors: isDark
+                ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
+                : [const Color(0xFFF8FAFC), const Color(0xFFF1F5F9)],
           ),
         ),
         child: Column(
@@ -94,6 +108,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
             const SizedBox(height: 32),
             Text(
               context.l10n.lockGateTitle,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
@@ -102,21 +117,18 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
               ),
             ),
             const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              child: Text(
-                context.l10n.lockGateDesc,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: isDark ? Colors.white54 : Colors.black54,
-                ),
+            Text(
+              context.l10n.lockGateDesc,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: isDark ? Colors.white54 : Colors.black54,
               ),
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 40),
             if (_isAuthenticating)
               const CircularProgressIndicator()
-            else
+            else ...[
               ElevatedButton.icon(
                 onPressed: _checkAndAuth,
                 icon: const Icon(Icons.fingerprint_rounded),
@@ -124,17 +136,22 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade600,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 8,
-                  shadowColor: Colors.blue.withValues(alpha: 0.3),
+                  minimumSize: const Size(double.infinity, 54),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  elevation: 0,
                 ),
               ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: _goToPinScreen,
+                icon: const Icon(Icons.pin_rounded),
+                label: Text(context.l10n.lockSetPin),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 54),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                ),
+              ),
+            ],
           ],
         ),
       ),
