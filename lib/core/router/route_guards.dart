@@ -91,10 +91,10 @@ String? notificationRedirect(
 String? lockRedirect(GoRouterState state, RouteGuardState guard) {
   final isGoingToLock = state.matchedLocation == AppRoutes.lock;
 
-  // Lock state unknown means we haven't loaded prefs yet — during this window
-  // the lock screen is shown as a safe default to prevent unauthorized access.
-  if (guard.lockState == AppLockState.unknown && !isGoingToLock) {
-    return AppRoutes.lock;
+  // App lock state is still loading. Do not redirect yet; redirecting to the
+  // lock screen from an unknown state can create a startup lock/blank loop.
+  if (guard.lockState == AppLockState.unknown) {
+    return null;
   }
 
   // Lock is enabled AND app is locked → redirect to lock screen
@@ -131,7 +131,12 @@ String? profileRedirect(GoRouterState state, RouteGuardState guard) {
   final isGoingToProfileCreate =
       state.matchedLocation == AppRoutes.profileCreate;
 
-  if (!guard.profileCreated && !isGoingToProfileCreate) {
+  final isGoingToLegal =
+      state.matchedLocation.contains('terms') ||
+      state.matchedLocation.contains('privacy') ||
+      state.matchedLocation.contains('disclaimer');
+
+  if (!guard.profileCreated && !isGoingToProfileCreate && !isGoingToLegal) {
     return AppRoutes.profileCreate;
   }
   return null;
