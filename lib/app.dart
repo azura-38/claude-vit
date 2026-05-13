@@ -8,6 +8,7 @@ import 'shared/providers/locale_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/bootstrap/bootstrap_screen.dart';
 import 'features/dashboard/presentation/providers/app_lifecycle_controller.dart';
+import 'shared/widgets/misc/banner_ad_container.dart';
 
 class VitaCaseApp extends ConsumerStatefulWidget {
   const VitaCaseApp({super.key});
@@ -18,7 +19,6 @@ class VitaCaseApp extends ConsumerStatefulWidget {
 
 class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -59,22 +59,26 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
       builder: (context, child) {
-        // BootstrapScreen wraps the entire navigator.
-        // While bootstrap is loading, it shows the animated splash.
-        // Once bootstrap is done, it renders the real `child` (the navigator).
-        return BootstrapScreen(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              if (child != null) child,
-              if (obscureScreen)
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                  child: Container(color: Colors.black.withValues(alpha: 0.1)),
-                ),
-            ],
-          ),
+        final appBody = Column(
+          children: [
+            const BannerAdContainer(),
+            Expanded(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (child != null) child,
+                  if (obscureScreen)
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                      child: Container(color: Colors.black.withValues(alpha: 0.1)),
+                    ),
+                ],
+              ),
+            ),
+          ],
         );
+
+        return BootstrapScreen(child: appBody);
       },
     );
   }
