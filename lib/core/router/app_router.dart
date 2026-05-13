@@ -10,6 +10,7 @@ import '../../features/appointments/presentation/screens/appointments_screen.dar
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/doctors/presentation/screens/doctor_add_screen.dart';
 import '../../features/doctors/presentation/screens/doctors_screen.dart';
+import '../../features/vault/presentation/screens/document_add_screen.dart';
 import '../../features/vault/presentation/screens/document_vault_screen.dart';
 import '../../features/health_stats/presentation/screens/health_data_add_screen.dart';
 import '../../features/health_stats/presentation/screens/health_stats_screen.dart';
@@ -215,6 +216,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
           // Features (Scale-Proof Hierarchical Routes)
           GoRoute(
+            path: AppRoutes.documentAdd,
+            name: 'documentAdd',
+            builder: (context, state) => const DocumentAddScreen(),
+          ),
+
+          GoRoute(
             path: AppRoutes.medicines,
             name: 'medicines',
             builder: (context, state) => const MedicinesScreen(),
@@ -253,6 +260,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
           GoRoute(
             path: '/health',
+            builder: (context, state) => const HealthStatsScreen(),
             routes: [
               GoRoute(
                 path: 'add',
