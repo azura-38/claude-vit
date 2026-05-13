@@ -48,21 +48,21 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     if (!mounted) return;
     setState(() => _loadingAd = false);
 
-    final messenger = ScaffoldMessenger.of(context);
-    final router = GoRouter.of(context);
-
     if (ok) {
       await ref.read(themeTypeProvider.notifier).setTheme(type);
       if (!mounted) return;
-      messenger.showSnackBar(
-        const SnackBar(content: Text('Theme unlocked. Each extra ad adds +1 day.')),
-      );
-      router.pop();
+      _showMessage('Theme unlocked. Each extra ad adds +1 day.');
+      if (mounted) context.pop();
     } else {
-      messenger.showSnackBar(
-        const SnackBar(content: Text('Ad unavailable. Please try again later.')),
-      );
+      _showMessage('Ad unavailable. Please try again later.');
     }
+  }
+
+  void _showMessage(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
   @override
@@ -140,10 +140,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                       final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
                       if (!mounted) return;
                       setState(() => _loadingAd = false);
-                      final messenger = ScaffoldMessenger.of(context);
-                      messenger.showSnackBar(
-                        SnackBar(content: Text(ok ? '+1 day added.' : 'Ad unavailable.')),
-                      );
+                      _showMessage(ok ? '+1 day added.' : 'Ad unavailable.');
                     },
               icon: _loadingAd
                   ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
