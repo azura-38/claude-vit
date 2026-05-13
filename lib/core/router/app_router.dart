@@ -43,22 +43,12 @@ import '../../features/notifications/presentation/screens/refill_banner_notifica
 import '../../features/auth/presentation/widgets/app_lock_gate.dart';
 import '../constants/app_routes.dart';
 
-/// Centralized Scale-Proof Router Configuration
 class AppRouter {
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
 
-/// A [ChangeNotifier] that triggers GoRouter to re-evaluate redirects
-/// whenever [RouteGuardState] changes (e.g., async providers settle from
-/// loading → data).
-///
-/// Without this, GoRouter only runs redirects on navigation events,
-/// which means it never re-evaluates when async state resolves.
 class _RouterRefreshNotifier extends ChangeNotifier {
   _RouterRefreshNotifier(Ref ref) {
-    // Watch the guard state — any change causes notifyListeners(),
-    // which triggers GoRouter to re-run its redirect logic.
     ref.listen<RouteGuardState>(routeGuardStateProvider, (prev, next) {
       notifyListeners();
     });
@@ -66,25 +56,16 @@ class _RouterRefreshNotifier extends ChangeNotifier {
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  // Keep the router provider subscribed so changes in guard state rebuild the
-  // router when needed. Redirect itself reads the latest snapshot below.
   ref.watch(routeGuardStateProvider);
   final refreshNotifier = _RouterRefreshNotifier(ref);
-
-  // Dispose the notifier when the provider is disposed
   ref.onDispose(refreshNotifier.dispose);
 
   return GoRouter(
     navigatorKey: AppRouter.navigatorKey,
     initialLocation: AppRoutes.home,
     refreshListenable: refreshNotifier,
-
-    // Global App Brain: Logic Control Center
     redirect: (context, state) {
       final currentGuard = ref.read(routeGuardStateProvider);
-
-      // While bootstrap is still running, do not redirect at all.
-      // BootstrapScreen handles the UI — the navigator hasn't rendered yet.
       if (!currentGuard.isBootstrapped) return null;
 
       return notificationRedirect(ref, state, currentGuard) ??
@@ -94,13 +75,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           lockRedirect(state, currentGuard) ??
           completedEntryRedirect(state, currentGuard);
     },
-
-    // Handling 404s
-    errorBuilder:
-        (context, state) => ErrorScreen(message: state.error?.message),
-
+    errorBuilder: (context, state) => ErrorScreen(message: state.error?.message),
     routes: [
-      // Auth & Entry Flow
       GoRoute(
         path: AppRoutes.lock,
         name: 'lock',
@@ -117,7 +93,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ProfileCreateScreen(),
       ),
 
-      // Notifications
+      // Legal routes are intentionally outside the locked app shell so they can
+      // be opened safely during onboarding/profile creation and from Settings.
+      GoRoute(
+        path: AppRoutes.settingsTerms,
+        name: 'settingsTerms',
+        builder: (context, state) => const TermsConditionsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settingsPrivacy,
+        name: 'settingsPrivacy',
+        builder: (context, state) => const PrivacyPolicyScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settingsDisclaimer,
+        name: 'settingsDisclaimer',
+        builder: (context, state) => const DisclaimerScreen(),
+      ),
+
       GoRoute(
         path: '/notification/medication',
         builder: (context, state) => const MedicationLockNotificationScreen(),
@@ -131,14 +124,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const RefillBannerNotificationScreen(),
       ),
 
-      // Main App Shell (Protected)
       ShellRoute(
         builder: (context, state, child) => AppLockGate(child: child),
         routes: [
           StatefulShellRoute.indexedStack(
-            builder: (context, state, navigationShell) {
-              return HomeScreen(navigationShell: navigationShell);
-            },
+            builder: (context, state, navigationShell) => HomeScreen(navigationShell: navigationShell),
             branches: [
               StatefulShellBranch(
                 routes: [
@@ -176,8 +166,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       GoRoute(
                         path: 'add',
                         name: 'appointmentAdd',
-                        builder:
-                            (context, state) => const CreateAppointmentScreen(),
+                        builder: (context, state) => const CreateAppointmentScreen(),
                       ),
                     ],
                   ),
@@ -202,7 +191,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
 
-          // Global Feature Routes
           GoRoute(
             path: AppRoutes.seasonPass,
             name: 'seasonPass',
@@ -213,14 +201,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             name: 'achievements',
             builder: (context, state) => const AchievementsScreen(),
           ),
-
-          // Features (Scale-Proof Hierarchical Routes)
           GoRoute(
             path: AppRoutes.documentAdd,
             name: 'documentAdd',
             builder: (context, state) => const DocumentAddScreen(),
           ),
-
           GoRoute(
             path: AppRoutes.medicines,
             name: 'medicines',
@@ -233,7 +218,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-
           GoRoute(
             path: AppRoutes.doctors,
             name: 'doctors',
@@ -249,15 +233,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 name: 'doctorDetail',
                 builder: (context, state) {
                   final id = state.pathParameters['id'];
-                  if (id == null) {
-                    return const ErrorScreen(message: 'Doctor not found');
-                  }
+                  if (id == null) return const ErrorScreen(message: 'Doctor not found');
                   return DoctorDetailScreen(id: id);
                 },
               ),
             ],
           ),
-
           GoRoute(
             path: '/health',
             builder: (context, state) => const HealthStatsScreen(),
@@ -269,8 +250,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-
-          // Profile & Settings Tree
           GoRoute(
             path: AppRoutes.personalInfo,
             name: 'personalInfo',
@@ -286,7 +265,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             name: 'healthStats',
             builder: (context, state) => const HealthStatsScreen(),
           ),
-
           GoRoute(
             path: AppRoutes.settings,
             name: 'settings',
@@ -296,21 +274,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: 'theme',
                 name: 'settingsTheme',
                 builder: (context, state) => const ThemeSelectionScreen(),
-              ),
-              GoRoute(
-                path: 'terms',
-                name: 'settingsTerms',
-                builder: (context, state) => const TermsConditionsScreen(),
-              ),
-              GoRoute(
-                path: 'privacy',
-                name: 'settingsPrivacy',
-                builder: (context, state) => const PrivacyPolicyScreen(),
-              ),
-              GoRoute(
-                path: 'disclaimer',
-                name: 'settingsDisclaimer',
-                builder: (context, state) => const DisclaimerScreen(),
               ),
             ],
           ),
