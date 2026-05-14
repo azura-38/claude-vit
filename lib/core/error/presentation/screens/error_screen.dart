@@ -39,7 +39,6 @@ class ErrorScreen extends StatelessWidget {
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
                   color: isDark ? Colors.white : AppColors.textPrimary,
-                  fontFamily: 'Manrope',
                 ),
               ),
               const SizedBox(height: 12),
