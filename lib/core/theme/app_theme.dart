@@ -60,7 +60,6 @@ class AppTheme {
         primary: AppColors.luxePrimary,
         background: AppColors.luxeBg,
         surface: Colors.white,
-        fontFamily: GoogleFonts.inter().fontFamily,
       );
 
   static ThemeData get dark => _buildTheme(
@@ -69,7 +68,6 @@ class AppTheme {
         background: Colors.black,
         surface: const Color(0xFF121212),
         isAmoled: true,
-        fontFamily: GoogleFonts.outfit().fontFamily,
       );
 
   static ThemeData getThemeByType(AppThemeType type) {
@@ -84,7 +82,6 @@ class AppTheme {
           primary: AppColors.purplePrimary,
           background: AppColors.purpleBg,
           surface: Colors.white,
-          fontFamily: GoogleFonts.epilogue().fontFamily,
         );
       case AppThemeType.nature:
         return _buildTheme(
@@ -92,7 +89,6 @@ class AppTheme {
           primary: AppColors.naturePrimary,
           background: AppColors.natureBg,
           surface: Colors.white,
-          fontFamily: GoogleFonts.outfit().fontFamily,
         );
       case AppThemeType.ocean:
         return _buildTheme(
@@ -100,7 +96,6 @@ class AppTheme {
           primary: AppColors.oceanPrimary,
           background: AppColors.oceanBg,
           surface: Colors.white,
-          fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
         );
       case AppThemeType.amber:
         return _buildTheme(
@@ -108,7 +103,6 @@ class AppTheme {
           primary: AppColors.amberPrimary,
           background: AppColors.amberBg,
           surface: Colors.white,
-          fontFamily: GoogleFonts.manrope().fontFamily,
         );
       case AppThemeType.system:
         final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
@@ -122,10 +116,9 @@ class AppTheme {
     required Color background,
     required Color surface,
     bool isAmoled = false,
-    String? fontFamily,
   }) {
     final isDark = brightness == Brightness.dark;
-    
+
     final colorScheme = isDark
         ? ColorScheme.dark(
             primary: primary,
@@ -141,20 +134,25 @@ class AppTheme {
             primary: primary,
           );
 
-    final textTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
+    final baseTextTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
+
+    // IMPORTANT: Do not pass GoogleFonts.<font>().fontFamily into
+    // GoogleFonts.getTextTheme(). That can return internal names such as
+    // "Outfit_regular", which are not valid Google font family names and can
+    // crash startup with: No font family by name 'Outfit_regular' was found.
+    final textTheme = GoogleFonts.interTextTheme(baseTextTheme).copyWith(
+      titleLarge: GoogleFonts.interTextTheme(baseTextTheme).titleLarge?.copyWith(
+            fontWeight: FontWeight.w800,
+            color: isDark ? Colors.white : AppColors.textPrimary,
+          ),
+    );
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       scaffoldBackgroundColor: isAmoled ? Colors.black : background,
       colorScheme: colorScheme,
-      fontFamily: fontFamily,
-      textTheme: GoogleFonts.getTextTheme(fontFamily ?? 'Inter', textTheme).copyWith(
-        titleLarge: GoogleFonts.getTextTheme(fontFamily ?? 'Inter', textTheme).titleLarge?.copyWith(
-              fontWeight: FontWeight.w800,
-              color: isDark ? Colors.white : AppColors.textPrimary,
-            ),
-      ),
+      textTheme: textTheme,
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         foregroundColor: isDark ? Colors.white : AppColors.textPrimary,
@@ -169,8 +167,8 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
           side: BorderSide(
-            color: isDark 
-                ? (isAmoled ? Colors.white.withValues(alpha: 0.1) : AppColors.cardBorderDark) 
+            color: isDark
+                ? (isAmoled ? Colors.white.withValues(alpha: 0.1) : AppColors.cardBorderDark)
                 : AppColors.cardBorderLight,
             width: 1,
           ),
