@@ -82,6 +82,8 @@ String? onboardingRedirect(GoRouterState state, RouteGuardState guard) {
   final isGoingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
   final isGoingToLegal = _isLegalRoute(state);
 
+  // During first-run onboarding, profile/legal guards must not run yet.
+  // Only onboarding itself and legal documents are allowed.
   if (!isGoingToOnboarding && !isGoingToLegal) {
     return AppRoutes.onboarding;
   }
@@ -89,8 +91,11 @@ String? onboardingRedirect(GoRouterState state, RouteGuardState guard) {
 }
 
 String? profileRedirect(GoRouterState state, RouteGuardState guard) {
-  final isGoingToProfileCreate =
-      state.matchedLocation == AppRoutes.profileCreate;
+  // Never force profile creation before onboarding has been completed.
+  // Otherwise /onboarding -> /profile-create -> /onboarding redirect loops occur.
+  if (!guard.onboardingCompleted) return null;
+
+  final isGoingToProfileCreate = state.matchedLocation == AppRoutes.profileCreate;
   final isGoingToLegal = _isLegalRoute(state);
 
   if (!guard.profileCreated && !isGoingToProfileCreate && !isGoingToLegal) {
@@ -100,10 +105,12 @@ String? profileRedirect(GoRouterState state, RouteGuardState guard) {
 }
 
 String? legalRedirect(GoRouterState state, RouteGuardState guard) {
+  // Legal acceptance is collected in profile creation, so do not redirect to
+  // profile-create until onboarding is done.
+  if (!guard.onboardingCompleted) return null;
   if (guard.legalAccepted) return null;
 
-  final isGoingToProfileCreate =
-      state.matchedLocation == AppRoutes.profileCreate;
+  final isGoingToProfileCreate = state.matchedLocation == AppRoutes.profileCreate;
   final isGoingToLegal = _isLegalRoute(state);
 
   if (!isGoingToLegal && !isGoingToProfileCreate) {
@@ -115,8 +122,6 @@ String? legalRedirect(GoRouterState state, RouteGuardState guard) {
 String? lockRedirect(GoRouterState state, RouteGuardState guard) {
   final isGoingToLock = state.matchedLocation == AppRoutes.lock;
 
-  // Do not let lock flow override first-run setup. This prevents startup blank
-  // loops when old prefs say locked but onboarding/profile/legal is incomplete.
   if (!guard.onboardingCompleted || !guard.profileCreated || !guard.legalAccepted) {
     return isGoingToLock ? AppRoutes.onboarding : null;
   }
@@ -139,8 +144,7 @@ String? lockRedirect(GoRouterState state, RouteGuardState guard) {
 
 String? completedEntryRedirect(GoRouterState state, RouteGuardState guard) {
   final isGoingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
-  final isGoingToProfileCreate =
-      state.matchedLocation == AppRoutes.profileCreate;
+  final isGoingToProfileCreate = state.matchedLocation == AppRoutes.profileCreate;
 
   if (!isGoingToOnboarding && !isGoingToProfileCreate) return null;
 
