@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,12 +16,32 @@ class DocumentVaultScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final documentsAsync = ref.watch(vaultControllerProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (kIsWeb) {
+      return Scaffold(
+        backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
+            children: [
+              _VaultHeader(isDark: isDark),
+              const SizedBox(height: 20),
+              const SecureBanner(),
+              const SizedBox(height: 32),
+              _WebVaultPreviewState(isDark: isDark),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final documentsAsync = ref.watch(vaultControllerProvider);
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'documentVaultFab',
         onPressed: () => context.push(AppRoutes.documentAdd),
         icon: const Icon(Icons.add_rounded),
         label: const Text('Add'),
@@ -31,42 +52,7 @@ class DocumentVaultScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.cardBorderLight,
-                    ),
-                  ),
-                  child: Image.asset(
-                    'assets/images/vitacase_brand_logo.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Text(
-                    context.l10n.docsTitle,
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
-                      fontFamily: 'Manrope',
-                    ),
-                  ),
-                ),
-                IconButton.filledTonal(
-                  onPressed: () => context.push(AppRoutes.documentAdd),
-                  icon: const Icon(Icons.add_rounded),
-                  tooltip: 'Add document',
-                ),
-              ],
-            ),
+            _VaultHeader(isDark: isDark),
             const SizedBox(height: 12),
             Text(
               context.l10n.docsInfoSecure,
@@ -114,11 +100,94 @@ class DocumentVaultScreen extends ConsumerWidget {
               ),
               error: (err, stack) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Center(child: Text('Error: $err')),
+                child: Center(
+                  child: Text(
+                    'Error: $err',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary),
+                  ),
+                ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _VaultHeader extends StatelessWidget {
+  const _VaultHeader({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 44,
+          height: 44,
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.cardBorderLight,
+            ),
+          ),
+          child: Image.asset(
+            'assets/images/vitacase_brand_logo.png',
+            fit: BoxFit.contain,
+            errorBuilder: (_, __, ___) => const Icon(Icons.folder_copy_rounded, color: AppColors.medicalBlue),
+          ),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Text(
+            context.l10n.docsTitle,
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+          ),
+        ),
+        IconButton.filledTonal(
+          onPressed: () => context.push(AppRoutes.documentAdd),
+          icon: const Icon(Icons.add_rounded),
+          tooltip: 'Add document',
+        ),
+      ],
+    );
+  }
+}
+
+class _WebVaultPreviewState extends StatelessWidget {
+  const _WebVaultPreviewState({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.surfaceDark : Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
+      ),
+      child: Column(
+        children: [
+          const Icon(Icons.phone_android_rounded, color: AppColors.medicalBlue, size: 42),
+          const SizedBox(height: 16),
+          const Text(
+            'Vault preview',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Document storage uses encrypted local device storage. Full vault features are available on Android/iOS builds.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.45),
+          ),
+        ],
       ),
     );
   }
