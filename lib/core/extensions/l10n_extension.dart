@@ -52,18 +52,21 @@ class _L10nProxy {
   }
 
   static String _normalizeKey(String key) {
-    if (key.contains('_')) return key;
+    if (key.isEmpty || key.contains('_')) return key;
+
     final buffer = StringBuffer();
     for (var i = 0; i < key.length; i++) {
       final char = key[i];
       final isUpper = char.toUpperCase() == char && char.toLowerCase() != char;
-      final previous = i > 0 ? key[i - 1] : '';
-      final previousIsDigit = previous.codeUnitAt(0) >= 48 && previous.codeUnitAt(0) <= 57;
-      final isDigit = char.codeUnitAt(0) >= 48 && char.codeUnitAt(0) <= 57;
+      final isDigit = _isDigit(char);
+      final previous = i > 0 ? key[i - 1] : null;
+      final previousIsDigit = previous != null && _isDigit(previous);
+      final previousIsLetter = previous != null && previous.toUpperCase() != previous.toLowerCase();
+
       if (i > 0 &&
           (isUpper ||
-              isDigit && !previousIsDigit ||
-              previousIsDigit && char.toUpperCase() != char)) {
+              (isDigit && !previousIsDigit) ||
+              (previousIsDigit && previousIsLetter))) {
         buffer.write('_');
       }
       buffer.write(char.toLowerCase());
@@ -71,8 +74,15 @@ class _L10nProxy {
     return buffer.toString();
   }
 
+  static bool _isDigit(String value) {
+    if (value.isEmpty) return false;
+    final code = value.codeUnitAt(0);
+    return code >= 48 && code <= 57;
+  }
+
   static String _symbolName(Symbol symbol) {
     final text = symbol.toString();
+    if (text.length <= 10) return '';
     return text.substring(8, text.length - 2);
   }
 }
