@@ -27,9 +27,7 @@ final appBootstrapProvider = AsyncNotifierProvider<AppBootstrapController, void>
 
 class AppBootstrapController extends AsyncNotifier<void> {
   @override
-  Future<void> build() async {
-    // Startup is kicked off from main() because it needs the ProviderContainer.
-  }
+  Future<void> build() async {}
 
   Future<void> run(ProviderContainer container) async {
     state = const AsyncLoading();
@@ -119,17 +117,15 @@ class AppBootstrapController extends AsyncNotifier<void> {
     return Future.wait([
       _safeRun('date_tr', initializeDateFormatting('tr_TR', null)),
       _safeRun('date_en', initializeDateFormatting('en_US', null)),
-      _safeRun('date_de', initializeDateFormatting('de_DE', null)),
-      _safeRun('date_fr', initializeDateFormatting('fr_FR', null)),
-      _safeRun('date_es', initializeDateFormatting('es_ES', null)),
-      _safeRun('date_it', initializeDateFormatting('it_IT', null)),
-      _safeRun('date_pt', initializeDateFormatting('pt_PT', null)),
     ]);
   }
 
   void _setupErrorHandlers() {
     FlutterError.onError = (details) {
       debugPrint('[FlutterError] ${details.exceptionAsString()}');
+      if (details.stack != null) {
+        debugPrintStack(stackTrace: details.stack, label: '[FlutterError stack]');
+      }
       if (!kIsWeb) {
         try {
           FirebaseCrashlytics.instance.recordFlutterError(details);
@@ -139,6 +135,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
     PlatformDispatcher.instance.onError = (error, stack) {
       debugPrint('[PlatformError] $error');
+      debugPrintStack(stackTrace: stack, label: '[PlatformError stack]');
       if (!kIsWeb) {
         try {
           FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
@@ -238,6 +235,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
       await future;
     } catch (e, st) {
       debugPrint('[Bootstrap][$tag] Non-fatal error: $e');
+      debugPrintStack(stackTrace: st, label: '[Bootstrap][$tag] stack');
       try {
         await Sentry.captureException(e, stackTrace: st);
       } catch (_) {}
