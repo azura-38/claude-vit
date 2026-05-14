@@ -15,6 +15,7 @@ class NotificationService {
   static Future<void> Function(String id)? _onMedicineSkipped;
   static void Function(String payload)? _onNotificationRoute;
   static const int engagementId = 9999;
+  static const String _androidNotificationIcon = 'launcher_icon';
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
   static const AndroidNotificationDetails _androidDetails =
@@ -23,7 +24,7 @@ class NotificationService {
         'VitaCase Notifications',
         importance: Importance.max,
         priority: Priority.high,
-        icon: '@drawable/ic_notification',
+        icon: _androidNotificationIcon,
         visibility: NotificationVisibility.private,
       );
   static const AndroidNotificationDetails _medicationAndroidDetails =
@@ -32,7 +33,7 @@ class NotificationService {
         'Medication',
         importance: Importance.max,
         priority: Priority.high,
-        icon: '@drawable/ic_notification',
+        icon: _androidNotificationIcon,
         visibility: NotificationVisibility.private,
         actions: [
           AndroidNotificationAction('TAKEN', 'Taken'),
@@ -61,16 +62,12 @@ class NotificationService {
 
   static NotificationService? get instance => _instance;
 
-  // ── Core init — NO permission requests, safe to call during app startup ──
-  //
-  // Initializes the plugin, timezone, and tap handler ONLY.
-  // Call [requestStartupPermissions] after the first frame is painted.
   static Future<void> initCore() async {
     if (_isInitialized) return;
     _prefs ??= await SharedPreferences.getInstance();
 
     const androidSettings = AndroidInitializationSettings(
-      '@drawable/ic_notification',
+      _androidNotificationIcon,
     );
     const ios = DarwinInitializationSettings();
 
@@ -82,7 +79,6 @@ class NotificationService {
       onDidReceiveNotificationResponse: _onTap,
     );
 
-    // Timezone (no permission dialog, safe at startup)
     tz.initializeTimeZones();
     try {
       final String name = await FlutterTimezone.getLocalTimezone();
@@ -97,10 +93,6 @@ class NotificationService {
     }
   }
 
-  // ── Deferred permission requests — call AFTER first frame is painted ──────
-  //
-  // Separated from initCore() to avoid blocking app launch on Android 13+
-  // where the system dialog can freeze the startup if shown too early.
   static Future<void> requestStartupPermissions() async {
     if (!_isInitialized) await initCore();
 
@@ -118,10 +110,6 @@ class NotificationService {
     }
   }
 
-  // ── Legacy init — kept for backward compatibility ─────────────────────────
-  //
-  // Calls initCore() + requestStartupPermissions() together.
-  // Prefer calling them separately in new code.
   static Future<void> init({
     Future<void> Function(String id)? onMedicineTaken,
     Future<void> Function(String id)? onMedicineSkipped,
@@ -133,7 +121,6 @@ class NotificationService {
     await requestStartupPermissions();
   }
 
-  // ⚡ INSTANCE METHODS
   Future<void> initialize() => NotificationService.init();
 
   static String safeText(String text) {
@@ -169,7 +156,6 @@ class NotificationService {
         : NotificationPermissionState.denied;
   }
 
-  // 🔔 STATIC METHODS (Positional Argument Fix for v21.0.0)
   static int getStableIdStatic(String uuid, [int offset = 0]) {
     int hash = 0x811c9dc5;
     for (int i = 0; i < uuid.length; i++) {
@@ -205,11 +191,9 @@ class NotificationService {
     await init();
     if (kDebugMode) debugPrint("Scheduling notification at: $date");
 
-    // 🔥 SPAM FIX: Use fixed ID for engagement notifications
-    final notifId =
-        id.contains('engagement')
-            ? engagementId
-            : getStableIdStatic(buildKey(id, date));
+    final notifId = id.contains('engagement')
+        ? engagementId
+        : getStableIdStatic(buildKey(id, date));
 
     await _plugin.zonedSchedule(
       id: notifId,
@@ -267,7 +251,6 @@ class NotificationService {
     await _plugin.cancelAll();
   }
 
-  // 🎯 ENGAGEMENT (Instance)
   Future<void> showStreakWarning() async => showNotification(
     id: 9991,
     title: 'Streak!',
@@ -302,7 +285,7 @@ class NotificationService {
       channelName,
       importance: Importance.max,
       priority: Priority.high,
-      icon: '@drawable/ic_notification',
+      icon: _androidNotificationIcon,
       visibility: NotificationVisibility.private,
     );
     await _plugin.show(
