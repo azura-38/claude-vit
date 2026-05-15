@@ -103,6 +103,9 @@ String _symbolName(Symbol symbol) {
 
 const Map<String, Map<String, String>> _dynamicFallbacks = {
   'en': {
+    'profile_photo': 'Profile photo',
+    'profile_photo_add_desc': 'Add a photo to personalize your profile.',
+    'profile_photo_selected': 'Photo selected. It will be saved with your profile.',
     'subcategory': 'Subcategory',
     'appointment_type_insurance': 'Insurance',
     'appointment_type_travel': 'Travel',
@@ -135,6 +138,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'e.g. Clinic, hospital, lab, office or online meeting',
   },
   'tr': {
+    'profile_photo': 'Profil fotoğrafı',
+    'profile_photo_add_desc': 'Profilini kişiselleştirmek için fotoğraf ekle.',
+    'profile_photo_selected': 'Fotoğraf seçildi. Profilinle birlikte kaydedilecek.',
     'subcategory': 'Alt kategori',
     'appointment_type_insurance': 'Sigorta',
     'appointment_type_travel': 'Seyahat',
@@ -167,6 +173,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'Örn. Klinik, hastane, laboratuvar, ofis veya online görüşme',
   },
   'es': {
+    'profile_photo': 'Foto de perfil',
+    'profile_photo_add_desc': 'Agrega una foto para personalizar tu perfil.',
+    'profile_photo_selected': 'Foto seleccionada. Se guardará con tu perfil.',
     'subcategory': 'Subcategoría',
     'appointment_type_insurance': 'Seguro',
     'appointment_type_travel': 'Viaje',
@@ -199,6 +208,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'Ej. clínica, hospital, laboratorio, oficina o reunión online',
   },
   'pt': {
+    'profile_photo': 'Foto do perfil',
+    'profile_photo_add_desc': 'Adicione uma foto para personalizar seu perfil.',
+    'profile_photo_selected': 'Foto selecionada. Ela será salva com seu perfil.',
     'subcategory': 'Subcategoria',
     'appointment_type_insurance': 'Seguro',
     'appointment_type_travel': 'Viagem',
@@ -231,6 +243,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'Ex. clínica, hospital, laboratório, escritório ou reunião online',
   },
   'de': {
+    'profile_photo': 'Profilfoto',
+    'profile_photo_add_desc': 'Füge ein Foto hinzu, um dein Profil zu personalisieren.',
+    'profile_photo_selected': 'Foto ausgewählt. Es wird mit deinem Profil gespeichert.',
     'subcategory': 'Unterkategorie',
     'appointment_type_insurance': 'Versicherung',
     'appointment_type_travel': 'Reise',
@@ -263,6 +278,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'z. B. Klinik, Krankenhaus, Labor, Büro oder Online-Meeting',
   },
   'fr': {
+    'profile_photo': 'Photo de profil',
+    'profile_photo_add_desc': 'Ajoutez une photo pour personnaliser votre profil.',
+    'profile_photo_selected': 'Photo sélectionnée. Elle sera enregistrée avec votre profil.',
     'subcategory': 'Sous-catégorie',
     'appointment_type_insurance': 'Assurance',
     'appointment_type_travel': 'Voyage',
@@ -295,6 +313,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'Ex. clinique, hôpital, laboratoire, bureau ou réunion en ligne',
   },
   'hi': {
+    'profile_photo': 'प्रोफ़ाइल फ़ोटो',
+    'profile_photo_add_desc': 'अपनी प्रोफ़ाइल को व्यक्तिगत बनाने के लिए फ़ोटो जोड़ें।',
+    'profile_photo_selected': 'फ़ोटो चुनी गई। यह आपकी प्रोफ़ाइल के साथ सेव होगी।',
     'subcategory': 'उपश्रेणी',
     'appointment_type_insurance': 'बीमा',
     'appointment_type_travel': 'यात्रा',
@@ -327,6 +348,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': 'जैसे क्लिनिक, अस्पताल, लैब, कार्यालय या ऑनलाइन मीटिंग',
   },
   'ja': {
+    'profile_photo': 'プロフィール写真',
+    'profile_photo_add_desc': 'プロフィールをカスタマイズするために写真を追加します。',
+    'profile_photo_selected': '写真が選択されました。プロフィールと一緒に保存されます。',
     'subcategory': 'サブカテゴリ',
     'appointment_type_insurance': '保険',
     'appointment_type_travel': '旅行',
@@ -359,6 +383,9 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'hint_location': '例：クリニック、病院、検査室、オフィス、オンライン会議',
   },
   'zh': {
+    'profile_photo': '个人资料照片',
+    'profile_photo_add_desc': '添加照片以个性化你的个人资料。',
+    'profile_photo_selected': '已选择照片。它将与个人资料一起保存。',
     'subcategory': '子类别',
     'appointment_type_insurance': '保险',
     'appointment_type_travel': '旅行',
