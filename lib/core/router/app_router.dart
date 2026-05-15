@@ -42,6 +42,7 @@ import '../../features/notifications/presentation/screens/refill_banner_notifica
 // Core
 import '../../features/auth/presentation/widgets/app_lock_gate.dart';
 import '../constants/app_routes.dart';
+import '../security/secure_screen_guard.dart';
 
 class AppRouter {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -80,7 +81,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.lock,
         name: 'lock',
-        builder: (context, state) => const LockScreen(),
+        builder: (context, state) => const SecureScreenGuard(child: LockScreen()),
       ),
       GoRoute(
         path: AppRoutes.onboarding,
@@ -93,8 +94,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ProfileCreateScreen(),
       ),
 
-      // Legal routes are intentionally outside the locked app shell so they can
-      // be opened safely during onboarding/profile creation and from Settings.
       GoRoute(
         path: AppRoutes.settingsTerms,
         name: 'settingsTerms',
@@ -144,7 +143,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.documents,
                     name: 'documents',
-                    builder: (context, state) => const DocumentVaultScreen(),
+                    builder: (context, state) => const SecureScreenGuard(child: DocumentVaultScreen()),
                   ),
                 ],
               ),
@@ -204,7 +203,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.documentAdd,
             name: 'documentAdd',
-            builder: (context, state) => const DocumentAddScreen(),
+            builder: (context, state) => const SecureScreenGuard(child: DocumentAddScreen()),
           ),
           GoRoute(
             path: AppRoutes.medicines,
@@ -215,6 +214,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: 'add',
                 name: 'medicineAdd',
                 builder: (context, state) => const AddMedicationScreen(),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: AppRoutes.healthStats,
+            name: 'healthStats',
+            builder: (context, state) => const HealthStatsScreen(),
+            routes: [
+              GoRoute(
+                path: 'add',
+                name: 'healthDataAdd',
+                builder: (context, state) => const HealthDataAddScreen(),
               ),
             ],
           ),
@@ -231,39 +242,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: ':id',
                 name: 'doctorDetail',
-                builder: (context, state) {
-                  final id = state.pathParameters['id'];
-                  if (id == null) return const ErrorScreen(message: 'Doctor not found');
-                  return DoctorDetailScreen(id: id);
-                },
+                builder: (context, state) => DoctorDetailScreen(
+                  doctorId: state.pathParameters['id']!,
+                ),
               ),
             ],
           ),
           GoRoute(
-            path: '/health',
-            builder: (context, state) => const HealthStatsScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                name: 'healthAdd',
-                builder: (context, state) => const HealthDataAddScreen(),
-              ),
-            ],
-          ),
-          GoRoute(
-            path: AppRoutes.personalInfo,
-            name: 'personalInfo',
+            path: AppRoutes.profilePersonalInfo,
+            name: 'profilePersonalInfo',
             builder: (context, state) => const PersonalInformationScreen(),
-          ),
-          GoRoute(
-            path: AppRoutes.medicalInfo,
-            name: 'medicalInfo',
-            builder: (context, state) => const EditProfileScreen(),
-          ),
-          GoRoute(
-            path: AppRoutes.healthStats,
-            name: 'healthStats',
-            builder: (context, state) => const HealthStatsScreen(),
           ),
           GoRoute(
             path: AppRoutes.settings,
@@ -272,7 +260,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: 'theme',
-                name: 'settingsTheme',
+                name: 'themeSelection',
                 builder: (context, state) => const ThemeSelectionScreen(),
               ),
             ],
