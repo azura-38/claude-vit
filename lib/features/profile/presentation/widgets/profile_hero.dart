@@ -6,6 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/theme/theme_visuals.dart';
 import '../providers/profile_controller.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
@@ -17,6 +20,7 @@ class ProfileHero extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(profileControllerProvider.notifier);
+    final selectedTheme = ref.watch(themeTypeProvider);
 
     final name = controller.displayName.isEmpty ? context.tr('create_profile') : controller.displayName;
     final gender = controller.genderLabel;
@@ -37,15 +41,15 @@ class ProfileHero extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(40),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
+                      color: ThemeVisuals.of(selectedTheme).primary.withValues(alpha: 0.18),
+                      blurRadius: 24,
+                      offset: const Offset(0, 12),
                     ),
                   ],
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
-                  child: _buildAvatar(photoPath),
+                  child: _buildAvatar(photoPath, selectedTheme),
                 ),
               ),
               Positioned(
@@ -54,7 +58,7 @@ class ProfileHero extends ConsumerWidget {
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.medicalBlue,
+                    gradient: ThemeVisuals.of(selectedTheme).gradient,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.white, width: 2),
                   ),
@@ -110,19 +114,21 @@ class ProfileHero extends ConsumerWidget {
     }
   }
 
-  Widget _buildAvatar(String? value) {
+  Widget _buildAvatar(String? value, AppThemeType selectedTheme) {
     final bytes = _decodeDataUri(value);
     if (bytes != null) {
       return Image.memory(bytes, fit: BoxFit.cover);
     }
 
-    return _buildAvatarPlaceholder();
+    return _buildAvatarPlaceholder(selectedTheme);
   }
 
-  Widget _buildAvatarPlaceholder() {
-    return Container(
-      color: AppColors.primaryIndigo.withValues(alpha: 0.1),
-      child: const Icon(Icons.person_rounded, color: AppColors.primaryIndigo, size: 40),
+  Widget _buildAvatarPlaceholder(AppThemeType selectedTheme) {
+    return ThemePlaceholder(
+      type: selectedTheme,
+      size: 120,
+      iconSize: 48,
+      radius: 40,
     );
   }
 
