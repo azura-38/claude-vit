@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:io' show File;
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -18,6 +23,7 @@ class ProfileHero extends ConsumerWidget {
     final name = controller.displayName.isEmpty ? context.tr('create_profile') : controller.displayName;
     final gender = controller.genderLabel;
     final age = controller.age;
+    final photoPath = controller.photoPath;
 
     return Column(
       children: [
@@ -41,7 +47,7 @@ class ProfileHero extends ConsumerWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
-                  child: _buildAvatarPlaceholder(),
+                  child: _buildAvatar(photoPath),
                 ),
               ),
               Positioned(
@@ -81,20 +87,29 @@ class ProfileHero extends ConsumerWidget {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
+      withData: true,
     );
 
     if (result == null || result.files.isEmpty) return;
 
-    final path = result.files.single.path;
-    if (path == null || path.isEmpty) {
+    final file = result.files.single;
+    final path = file.path;
+    final bytes = file.bytes;
+    final value = (path != null && path.isNotEmpty)
+        ? path
+        : bytes != null
+            ? _dataUri(bytes, file.extension)
+            : null;
+
+    if (value == null || value.isEmpty) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('profile_photo_selected'))));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('error'))));
       }
       return;
     }
 
     final controller = ref.read(profileControllerProvider.notifier);
-    controller.updatePhotoPath(path);
+    controller.updatePhotoPath(value);
     await controller.save();
 
     if (context.mounted) {
@@ -102,10 +117,50 @@ class ProfileHero extends ConsumerWidget {
     }
   }
 
+  Widget _buildAvatar(String? value) {
+    final bytes = _decodeDataUri(value);
+    if (bytes != null) {
+      return Image.memory(bytes, fit: BoxFit.cover);
+    }
+
+    if (!kIsWeb && value != null && value.isNotEmpty) {
+      return Image.file(
+        File(value),
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _buildAvatarPlaceholder(),
+      );
+    }
+
+    return _buildAvatarPlaceholder();
+  }
+
   Widget _buildAvatarPlaceholder() {
     return Container(
       color: AppColors.primaryIndigo.withValues(alpha: 0.1),
       child: const Icon(Icons.person_rounded, color: AppColors.primaryIndigo, size: 40),
     );
+  }
+
+  static String _dataUri(Uint8List bytes, String? extension) {
+    final normalized = (extension ?? 'png').toLowerCase();
+    final mime = switch (normalized) {
+      'jpg' || 'jpeg' => 'image/jpeg',
+      'webp' => 'image/webp',
+      'gif' => 'image/gif',
+      _ => 'image/png',
+    };
+    return 'data:$mime;base64,${base64Encode(bytes)}';
+  }
+
+  static Uint8List? _decodeDataUri(String? value) {
+    if (value == null || !value.startsWith('data:image/')) return null;
+    final marker = 'base64,';
+    final index = value.indexOf(marker);
+    if (index == -1) return null;
+    try {
+      return base64Decode(value.substring(index + marker.length));
+    } catch (_) {
+      return null;
+    }
   }
 }
