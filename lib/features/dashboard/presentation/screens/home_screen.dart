@@ -62,7 +62,18 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       extendBody: true,
       body: Column(
-        children: [const BannerAdContainer(), Expanded(child: navigationShell)],
+        children: [
+          const BannerAdContainer(),
+          Expanded(
+            // StatefulShellRoute.indexedStack keeps inactive branches alive.
+            // Disabling Hero collection here prevents duplicate default FAB
+            // hero tag crashes across hidden tabs.
+            child: HeroMode(
+              enabled: false,
+              child: navigationShell,
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: AppBottomNav(
         currentIndex: currentIndex,
