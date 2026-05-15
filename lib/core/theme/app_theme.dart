@@ -2,52 +2,79 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/app_colors.dart';
 
-import 'package:vitacase/core/extensions/l10n_extension.dart';
-
 enum AppThemeType {
   light,
   dark,
-  purple,
-  nature,
+  lavender,
   ocean,
-  amber,
+  mint,
+  peach,
+  rose,
+  slate,
+  sand,
+  forest,
+
+  /// Kept only for backward compatibility with older saved preferences.
+  /// It is not shown in theme selection.
   system;
 
-  String localizedLabel(BuildContext context) {
-    switch (this) {
-      case AppThemeType.light:
-        return context.l10n.themeLuxeSanctuary;
-      case AppThemeType.dark:
-        return context.l10n.themeMidnightNeon;
-      case AppThemeType.purple:
-        return context.l10n.themeAmethystAura;
-      case AppThemeType.nature:
-        return context.l10n.themeEmeraldGarden;
-      case AppThemeType.ocean:
-        return context.l10n.themeOceanSerenity;
-      case AppThemeType.amber:
-        return context.l10n.themeAmberGlow;
-      case AppThemeType.system:
-        return context.l10n.themeSystem;
-    }
-  }
+  static const selectableThemes = [
+    AppThemeType.light,
+    AppThemeType.dark,
+    AppThemeType.lavender,
+    AppThemeType.ocean,
+    AppThemeType.mint,
+    AppThemeType.peach,
+    AppThemeType.rose,
+    AppThemeType.slate,
+    AppThemeType.sand,
+    AppThemeType.forest,
+  ];
+
+  static const freeThemes = [
+    AppThemeType.light,
+    AppThemeType.dark,
+  ];
+
+  static const rewardThemes = [
+    AppThemeType.lavender,
+    AppThemeType.ocean,
+    AppThemeType.mint,
+    AppThemeType.peach,
+    AppThemeType.rose,
+    AppThemeType.slate,
+    AppThemeType.sand,
+    AppThemeType.forest,
+  ];
+
+  bool get isRewardTheme => rewardThemes.contains(this);
+
+  String localizedLabel(BuildContext context) => label;
 
   String get label {
     switch (this) {
       case AppThemeType.light:
-        return 'Luxe Sanctuary';
+        return 'Light';
       case AppThemeType.dark:
-        return 'Midnight Neon';
-      case AppThemeType.purple:
-        return 'Amethyst Aura';
-      case AppThemeType.nature:
-        return 'Emerald Garden';
+        return 'Dark';
+      case AppThemeType.lavender:
+        return 'Lavender';
       case AppThemeType.ocean:
-        return 'Ocean Serenity';
-      case AppThemeType.amber:
-        return 'Amber Glow';
+        return 'Ocean';
+      case AppThemeType.mint:
+        return 'Mint';
+      case AppThemeType.peach:
+        return 'Peach';
+      case AppThemeType.rose:
+        return 'Rose';
+      case AppThemeType.slate:
+        return 'Slate';
+      case AppThemeType.sand:
+        return 'Sand';
+      case AppThemeType.forest:
+        return 'Forest';
       case AppThemeType.system:
-        return 'System Default';
+        return 'System';
     }
   }
 }
@@ -58,7 +85,7 @@ class AppTheme {
   static ThemeData get light => _buildTheme(
         brightness: Brightness.light,
         primary: AppColors.luxePrimary,
-        background: AppColors.luxeBg,
+        background: const Color(0xFFF6F8FC),
         surface: Colors.white,
       );
 
@@ -66,7 +93,7 @@ class AppTheme {
         brightness: Brightness.dark,
         primary: AppColors.neonPrimary,
         background: Colors.black,
-        surface: const Color(0xFF121212),
+        surface: const Color(0xFF111827),
         isAmoled: true,
       );
 
@@ -76,37 +103,64 @@ class AppTheme {
         return light;
       case AppThemeType.dark:
         return dark;
-      case AppThemeType.purple:
+      case AppThemeType.lavender:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: AppColors.purplePrimary,
-          background: AppColors.purpleBg,
-          surface: Colors.white,
-        );
-      case AppThemeType.nature:
-        return _buildTheme(
-          brightness: Brightness.light,
-          primary: AppColors.naturePrimary,
-          background: AppColors.natureBg,
+          primary: const Color(0xFF8B5CF6),
+          background: const Color(0xFFF7F3FF),
           surface: Colors.white,
         );
       case AppThemeType.ocean:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: AppColors.oceanPrimary,
-          background: AppColors.oceanBg,
+          primary: const Color(0xFF0EA5E9),
+          background: const Color(0xFFF0F9FF),
           surface: Colors.white,
         );
-      case AppThemeType.amber:
+      case AppThemeType.mint:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: AppColors.amberPrimary,
-          background: AppColors.amberBg,
+          primary: const Color(0xFF10B981),
+          background: const Color(0xFFF0FDF4),
+          surface: Colors.white,
+        );
+      case AppThemeType.peach:
+        return _buildTheme(
+          brightness: Brightness.light,
+          primary: const Color(0xFFFF8A65),
+          background: const Color(0xFFFFF7ED),
+          surface: Colors.white,
+        );
+      case AppThemeType.rose:
+        return _buildTheme(
+          brightness: Brightness.light,
+          primary: const Color(0xFFE11D48),
+          background: const Color(0xFFFFF1F2),
+          surface: Colors.white,
+        );
+      case AppThemeType.slate:
+        return _buildTheme(
+          brightness: Brightness.light,
+          primary: const Color(0xFF475569),
+          background: const Color(0xFFF8FAFC),
+          surface: Colors.white,
+        );
+      case AppThemeType.sand:
+        return _buildTheme(
+          brightness: Brightness.light,
+          primary: const Color(0xFFD97706),
+          background: const Color(0xFFFFFBEB),
+          surface: Colors.white,
+        );
+      case AppThemeType.forest:
+        return _buildTheme(
+          brightness: Brightness.light,
+          primary: const Color(0xFF15803D),
+          background: const Color(0xFFF0FDF4),
           surface: Colors.white,
         );
       case AppThemeType.system:
-        final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-        return brightness == Brightness.dark ? dark : light;
+        return light;
     }
   }
 
@@ -135,16 +189,12 @@ class AppTheme {
           );
 
     final baseTextTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
-
-    // IMPORTANT: Do not pass GoogleFonts.<font>().fontFamily into
-    // GoogleFonts.getTextTheme(). That can return internal names such as
-    // "Outfit_regular", which are not valid Google font family names and can
-    // crash startup with: No font family by name 'Outfit_regular' was found.
-    final textTheme = GoogleFonts.interTextTheme(baseTextTheme).copyWith(
-      titleLarge: GoogleFonts.interTextTheme(baseTextTheme).titleLarge?.copyWith(
-            fontWeight: FontWeight.w800,
-            color: isDark ? Colors.white : AppColors.textPrimary,
-          ),
+    final googleTextTheme = GoogleFonts.interTextTheme(baseTextTheme);
+    final textTheme = googleTextTheme.copyWith(
+      titleLarge: googleTextTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.w800,
+        color: isDark ? Colors.white : AppColors.textPrimary,
+      ),
     );
 
     return ThemeData(
@@ -176,7 +226,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: isDark ? (isAmoled ? Colors.black : AppColors.cardDark) : AppColors.bgLight,
+        fillColor: isDark ? (isAmoled ? Colors.black : AppColors.cardDark) : const Color(0xFFF3F6FB),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
