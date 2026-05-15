@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io' show File;
 import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -93,13 +91,8 @@ class ProfileHero extends ConsumerWidget {
     if (result == null || result.files.isEmpty) return;
 
     final file = result.files.single;
-    final path = file.path;
     final bytes = file.bytes;
-    final value = (path != null && path.isNotEmpty)
-        ? path
-        : bytes != null
-            ? _dataUri(bytes, file.extension)
-            : null;
+    final value = bytes != null ? _dataUri(bytes, file.extension) : null;
 
     if (value == null || value.isEmpty) {
       if (context.mounted) {
@@ -121,14 +114,6 @@ class ProfileHero extends ConsumerWidget {
     final bytes = _decodeDataUri(value);
     if (bytes != null) {
       return Image.memory(bytes, fit: BoxFit.cover);
-    }
-
-    if (!kIsWeb && value != null && value.isNotEmpty) {
-      return Image.file(
-        File(value),
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _buildAvatarPlaceholder(),
-      );
     }
 
     return _buildAvatarPlaceholder();
