@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -9,17 +8,16 @@ import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class ProfileHero extends ConsumerWidget {
   final bool isDark;
-  
+
   const ProfileHero({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(profileControllerProvider.notifier);
-    
-    final name = controller.displayName.isEmpty ? context.l10n.createProfile : controller.displayName;
+
+    final name = controller.displayName.isEmpty ? context.tr('create_profile') : controller.displayName;
     final gender = controller.genderLabel;
     final age = controller.age;
-    final photo = controller.photoPath;
 
     return Column(
       children: [
@@ -43,13 +41,7 @@ class ProfileHero extends ConsumerWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
-                  child: photo != null && !photo.startsWith('http')
-                      ? Image.file(
-                          File(photo),
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) => _buildAvatarPlaceholder(),
-                        )
-                      : _buildAvatarPlaceholder(),
+                  child: _buildAvatarPlaceholder(),
                 ),
               ),
               Positioned(
@@ -69,14 +61,14 @@ class ProfileHero extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Text(name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, fontFamily: 'Manrope')),
+        Text(name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
         const SizedBox(height: 4),
         if (gender != null || (age > 0)) ...[
           const SizedBox(height: 4),
           Text(
             [
-              if (gender != null) context.l10n(gender),
-              if (age > 0) '$age ${context.l10n.yearsOld}',
+              if (gender != null) context.tr(gender),
+              if (age > 0) '$age ${context.tr('years_old')}',
             ].join(' - '),
             style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
           ),
@@ -86,18 +78,27 @@ class ProfileHero extends ConsumerWidget {
   }
 
   Future<void> _pickAndSavePhoto(BuildContext context, WidgetRef ref) async {
-    final result = await FilePicker.pickFiles(
+    final result = await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
     );
 
-    if (result != null && result.files.single.path != null) {
-      final controller = ref.read(profileControllerProvider.notifier);
-      controller.updatePhotoPath(result.files.single.path!);
-      await controller.save();
+    if (result == null || result.files.isEmpty) return;
+
+    final path = result.files.single.path;
+    if (path == null || path.isEmpty) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.success)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('profile_photo_selected'))));
       }
+      return;
+    }
+
+    final controller = ref.read(profileControllerProvider.notifier);
+    controller.updatePhotoPath(path);
+    await controller.save();
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('success'))));
     }
   }
 
