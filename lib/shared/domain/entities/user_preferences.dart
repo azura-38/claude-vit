@@ -15,7 +15,7 @@ class UserPreferences {
 
   const UserPreferences({
     this.profile = const UserProfile(),
-    this.themeType = AppThemeType.system,
+    this.themeType = AppThemeType.light,
     this.locale = 'en',
     this.appLockEnabled = false,
     this.lockTimeout = LockTimeout.instant,
