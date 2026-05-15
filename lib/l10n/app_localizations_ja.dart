@@ -1,0 +1,93 @@
+// ignore_for_file: type=lint
+
+import 'app_localizations_en.dart';
+
+/// Japanese seed translations (`ja`).
+/// Untranslated keys fall back to English until the full ARB pass is completed.
+class AppLocalizationsJa extends AppLocalizationsEn {
+  AppLocalizationsJa([String locale = 'ja']) : super(locale);
+
+  @override String get skip => 'スキップ';
+  @override String get next => '次へ';
+  @override String get start => '開始';
+  @override String get back => '戻る';
+  @override String get save => '保存';
+  @override String get cancel => 'キャンセル';
+  @override String get error => 'エラー';
+  @override String get success => '成功';
+  @override String get loading => '読み込み中...';
+  @override String get continue_btn => '続ける';
+  @override String get create_profile => 'プロフィールを作成';
+  @override String get profile_desc => '体験をパーソナライズするために、いくつかの情報が必要です。';
+  @override String get full_name => '氏名';
+  @override String get gender => '性別';
+  @override String get gender_female => '女性';
+  @override String get gender_male => '男性';
+  @override String get gender_other => 'その他';
+  @override String get birth_date => '生年月日';
+  @override String get select_language => '言語を選択';
+  @override String get please_enter_name => '名前を入力してください';
+  @override String get must_agree => '続行するには法的文書に同意する必要があります。';
+  @override String get step_profile => 'プロフィール';
+  @override String get step_security => 'セキュリティ';
+  @override String get setup_app_lock => 'アプリロックを設定';
+  @override String get setup_app_lock_desc => '6桁のPINでデータを保護します。';
+  @override String get lock_set_pin => '安全なPINを設定';
+  @override String get lock_confirm_pin => 'PINを確認';
+  @override String get lock_pin_mismatch => 'PINが一致しません。もう一度お試しください。';
+  @override String get skip_pin_setup => 'スキップ';
+  @override String get lock_skip_desc => '後で設定から設定できます。';
+  @override String get home => 'ホーム';
+  @override String get vault => '保管庫';
+  @override String get explore => '探索';
+  @override String get appointments => '予定';
+  @override String get profile => 'プロフィール';
+  @override String get medicines => '薬';
+  @override String get health_data => '健康データ';
+  @override String get important_info => '重要情報';
+  @override String get guest_user => 'ゲストユーザー';
+  @override String get hi => 'こんにちは';
+  @override String get docs_title => 'ドキュメント';
+  @override String get docs_add_title => 'ドキュメントを追加';
+  @override String get docs_add_btn => 'ドキュメントを追加';
+  @override String get docs_add_pick => 'ドキュメント / 画像を選択';
+  @override String get docs_success => 'ドキュメントが正常に保存されました！';
+  @override String get docs_error_pick => 'ファイルを選択してください';
+  @override String get docs_category_health => '健康';
+  @override String get docs_category_identity => '身分証明';
+  @override String get docs_category_finance => '金融';
+  @override String get docs_category_legal => '法務';
+  @override String get docs_category_notes => 'メモ';
+  @override String get docs_category_other => 'その他';
+  @override String get appointment_title => '予定タイトル';
+  @override String get my_appointments => '私の予定';
+  @override String get add_appointment => '予定を追加';
+  @override String get add_new_appointment => '新しい予定を追加';
+  @override String get appointment_added => '予定が正常に追加されました。';
+  @override String get location => '場所';
+  @override String get today => '今日';
+  @override String get tomorrow => '明日';
+  @override String get health_stats => 'ヘルスハブ';
+  @override String get safety_footer_health => '健康データは情報提供のみを目的としています。診断については専門家にご相談ください。';
+  @override String get medical_device_warning => 'VitaCaseは医療機器ではありません。必ず専門家にご相談ください。';
+  @override String get management_tool_warning => 'VitaCaseは管理ツールであり、診断サービスではありません。';
+  @override String get unit_steps => '歩';
+  @override String get unit_hours => '時間';
+  @override String get steps => '歩数';
+  @override String get heart => '心拍';
+  @override String get sleep => '睡眠';
+  @override String get water => '水分';
+  @override String get add_health_data => '健康データを追加';
+  @override String get recent_activity => '最近の活動';
+  @override String get no_health_records => 'まだ記録がありません。';
+  @override String get add_medicine => '薬を追加';
+  @override String get my_medicines => '私の薬';
+  @override String get medicine_name => '薬の名前';
+  @override String get med_added_success => '薬が正常に追加されました！';
+  @override String get med_name_error => '薬の名前を入力してください';
+  @override String get app_lock => 'アプリロック';
+  @override String get privacy_policy => 'プライバシーポリシー';
+  @override String get terms_conditions => '利用規約';
+  @override String get legal_disclaimer => '法的免責事項';
+  @override String get ok => 'OK';
+}
