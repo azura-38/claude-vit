@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/l10n/vita_strings.dart';
+import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
 
@@ -80,7 +81,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             note: _emptyToNull(_noteController.text),
             documentDate: DateTime.now().toIso8601String(),
             tagId: _subcategory.name,
-            tagLabel: _subcategory.label,
+            tagLabel: _subcategory.name,
           );
 
       if (!mounted) return;
@@ -134,7 +135,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                   items: DocumentCategory.values
                       .map((category) => DropdownMenuItem(
                             value: category,
-                            child: Text(category.label),
+                            child: Text(_localizedCategory(context, category)),
                           ))
                       .toList(),
                   onChanged: (value) {
@@ -155,7 +156,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                   items: subcategories
                       .map((subcategory) => DropdownMenuItem(
                             value: subcategory,
-                            child: Text(subcategory.label),
+                            child: Text(_localizedSubcategory(context, subcategory)),
                           ))
                       .toList(),
                   onChanged: (value) {
@@ -209,6 +210,40 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
         ),
       ),
     );
+  }
+
+  String _localizedCategory(BuildContext context, DocumentCategory category) {
+    return switch (category) {
+      DocumentCategory.documents => context.tr('docs_title'),
+      DocumentCategory.healthPrescriptions => context.tr('docs_category_prescriptions'),
+      DocumentCategory.healthReports => context.tr('docs_category_reports'),
+      DocumentCategory.healthTestResults => context.tr('docs_category_test_results'),
+      DocumentCategory.healthImages => context.tr('docs_category_images'),
+      DocumentCategory.identity => context.tr('docs_category_identity'),
+      DocumentCategory.finance => context.tr('docs_category_finance'),
+      DocumentCategory.legal => context.tr('docs_category_legal'),
+      DocumentCategory.notes => context.tr('docs_category_notes'),
+      DocumentCategory.other => context.tr('docs_category_other'),
+    };
+  }
+
+  String _localizedSubcategory(BuildContext context, DocumentSubcategory subcategory) {
+    return switch (subcategory) {
+      DocumentSubcategory.general => context.tr('general'),
+      DocumentSubcategory.invoice => context.tr('docs_category_finance'),
+      DocumentSubcategory.receipt => context.tr('docs_category_finance'),
+      DocumentSubcategory.report => context.tr('docs_category_reports'),
+      DocumentSubcategory.prescription => context.tr('docs_category_prescriptions'),
+      DocumentSubcategory.labResult => context.tr('docs_tag_lab'),
+      DocumentSubcategory.image => context.tr('docs_category_images'),
+      DocumentSubcategory.insurance => context.tr('appointment_type_insurance'),
+      DocumentSubcategory.bankStatement => context.tr('docs_category_finance'),
+      DocumentSubcategory.tax => context.tr('appointment_subcategory_tax'),
+      DocumentSubcategory.contract => context.tr('appointment_subcategory_contract'),
+      DocumentSubcategory.certificate => context.tr('docs_category_identity'),
+      DocumentSubcategory.personalNote => context.tr('personal_notes'),
+      DocumentSubcategory.other => context.tr('docs_category_other'),
+    };
   }
 }
 
