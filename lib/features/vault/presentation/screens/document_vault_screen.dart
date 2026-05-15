@@ -7,6 +7,8 @@ import '../providers/vault_controller.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/constants/app_routes.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+import 'package:vitacase/core/theme/theme_provider.dart';
+import 'package:vitacase/core/theme/theme_visuals.dart';
 import '../widgets/vault_swipe_card.dart';
 import '../widgets/secure_banner.dart';
 import 'document_quick_view_screen.dart';
@@ -17,6 +19,7 @@ class DocumentVaultScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final selectedTheme = ref.watch(themeTypeProvider);
 
     if (kIsWeb) {
       return Scaffold(
@@ -29,7 +32,7 @@ class DocumentVaultScreen extends ConsumerWidget {
               const SizedBox(height: 20),
               const SecureBanner(),
               const SizedBox(height: 32),
-              _WebVaultPreviewState(isDark: isDark),
+              _WebVaultPreviewState(isDark: isDark, selectedTheme: selectedTheme),
             ],
           ),
         ),
@@ -45,7 +48,7 @@ class DocumentVaultScreen extends ConsumerWidget {
         onPressed: () => context.push(AppRoutes.documentAdd),
         icon: const Icon(Icons.add_rounded),
         label: Text(context.l10n.add),
-        backgroundColor: AppColors.medicalBlue,
+        backgroundColor: ThemeVisuals.of(selectedTheme).primary,
         foregroundColor: Colors.white,
       ),
       body: SafeArea(
@@ -69,6 +72,7 @@ class DocumentVaultScreen extends ConsumerWidget {
               data: (documents) => documents.isEmpty
                   ? _EmptyVaultState(
                       isDark: isDark,
+                      selectedTheme: selectedTheme,
                       onAdd: () => context.push(AppRoutes.documentAdd),
                     )
                   : Column(
@@ -160,22 +164,31 @@ class _VaultHeader extends StatelessWidget {
 }
 
 class _WebVaultPreviewState extends StatelessWidget {
-  const _WebVaultPreviewState({required this.isDark});
+  const _WebVaultPreviewState({required this.isDark, required this.selectedTheme});
 
   final bool isDark;
+  final dynamic selectedTheme;
 
   @override
   Widget build(BuildContext context) {
+    final visuals = ThemeVisuals.of(selectedTheme);
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
+        gradient: visuals.softGradient,
         borderRadius: BorderRadius.circular(28),
         border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
+        boxShadow: [
+          BoxShadow(
+            color: visuals.primary.withValues(alpha: 0.14),
+            blurRadius: 24,
+            offset: const Offset(0, 12),
+          ),
+        ],
       ),
       child: Column(
         children: [
-          const Icon(Icons.phone_android_rounded, color: AppColors.medicalBlue, size: 42),
+          ThemePlaceholder(type: selectedTheme, size: 74, iconSize: 34, radius: 24),
           const SizedBox(height: 16),
           Text(
             context.l10n.docsSecureStorageTitle,
@@ -186,7 +199,7 @@ class _WebVaultPreviewState extends StatelessWidget {
           Text(
             context.l10n.docsSecureStorageDesc,
             textAlign: TextAlign.center,
-            style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.45),
+            style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary, height: 1.45),
           ),
         ],
       ),
@@ -195,36 +208,42 @@ class _WebVaultPreviewState extends StatelessWidget {
 }
 
 class _EmptyVaultState extends StatelessWidget {
-  const _EmptyVaultState({required this.isDark, required this.onAdd});
+  const _EmptyVaultState({
+    required this.isDark,
+    required this.selectedTheme,
+    required this.onAdd,
+  });
 
   final bool isDark;
+  final dynamic selectedTheme;
   final VoidCallback onAdd;
 
   @override
   Widget build(BuildContext context) {
+    final visuals = ThemeVisuals.of(selectedTheme);
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
+        gradient: visuals.softGradient,
         borderRadius: BorderRadius.circular(28),
         border: Border.all(
           color: isDark ? Colors.white10 : AppColors.cardBorderLight,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: visuals.primary.withValues(alpha: 0.14),
+            blurRadius: 24,
+            offset: const Offset(0, 12),
+          ),
+        ],
       ),
       child: Column(
         children: [
-          Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.medicalBlue.withValues(alpha: 0.1),
-            ),
-            child: const Icon(
-              Icons.folder_copy_rounded,
-              color: AppColors.medicalBlue,
-              size: 34,
-            ),
+          ThemePlaceholder(
+            type: selectedTheme,
+            size: 80,
+            iconSize: 38,
+            radius: 26,
           ),
           const SizedBox(height: 18),
           Text(
@@ -237,7 +256,7 @@ class _EmptyVaultState extends StatelessWidget {
             context.l10n.docsEmptySubtitle,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: isDark ? Colors.white60 : AppColors.textSecondary,
+              color: isDark ? Colors.white70 : AppColors.textSecondary,
               height: 1.45,
             ),
           ),
@@ -245,6 +264,7 @@ class _EmptyVaultState extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: FilledButton.icon(
+              style: FilledButton.styleFrom(backgroundColor: visuals.primary),
               onPressed: onAdd,
               icon: const Icon(Icons.add_rounded),
               label: Text(context.l10n.docsAddTitle),
