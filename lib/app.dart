@@ -19,7 +19,15 @@ class VitaCaseApp extends ConsumerStatefulWidget {
 
 class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     with WidgetsBindingObserver {
-  static const _v1SupportedLocales = [Locale('en'), Locale('tr')];
+  static const _v1SupportedLocales = [
+    Locale('en'),
+    Locale('tr'),
+    Locale('es'),
+    Locale('pt'),
+    Locale('de'),
+    Locale('fr'),
+    Locale('it'),
+  ];
 
   @override
   void initState() {
