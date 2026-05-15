@@ -81,8 +81,12 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
         id: generateUuid(),
         title: title,
         doctor: title,
-        department: state.subcategory.label,
+        // Do not persist the English enum label such as "Doctor Visit" or
+        // "Lab Test" as the visible list title. The user-entered appointment
+        // title is language-neutral and avoids hardcoded EN/TR UI leakage.
+        department: title,
         hospital: location,
+        person: state.subcategory.name,
         date: state.date.toIso8601String().substring(0, 10),
         time:
             '${state.date.hour.toString().padLeft(2, '0')}:${state.date.minute.toString().padLeft(2, '0')}',
