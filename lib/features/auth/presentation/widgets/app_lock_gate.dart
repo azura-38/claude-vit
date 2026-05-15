@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_routes.dart';
+import '../../../../core/security/secure_screen_guard.dart';
 import '../../../../core/types/runtime_types.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../providers/auth_providers.dart';
@@ -76,83 +77,84 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
-      body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 28),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isDark
-                ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
-                : [const Color(0xFFF8FAFC), const Color(0xFFF1F5F9)],
+    return SecureScreenGuard(
+      child: Scaffold(
+        backgroundColor: isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+        body: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 28),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: isDark
+                  ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
+                  : [const Color(0xFFF8FAFC), const Color(0xFFF1F5F9)],
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.lock_rounded,
+                  size: 64,
+                  color: isDark ? Colors.blue.shade400 : Colors.blue.shade700,
+                ),
               ),
-              child: Icon(
-                Icons.lock_rounded,
-                size: 64,
-                color: isDark ? Colors.blue.shade400 : Colors.blue.shade700,
-              ),
-            ),
-            const SizedBox(height: 32),
-            Text(
-              context.l10n.lockGateTitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w900,
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
-                fontFamily: 'Manrope',
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              context.l10n.lockGateDesc,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: isDark ? Colors.white54 : Colors.black54,
-              ),
-            ),
-            const SizedBox(height: 40),
-            if (_isAuthenticating)
-              const CircularProgressIndicator()
-            else ...[
-              ElevatedButton.icon(
-                onPressed: _checkAndAuth,
-                icon: const Icon(Icons.fingerprint_rounded),
-                label: Text(context.l10n.lockGateUnlock),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade600,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 54),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  elevation: 0,
+              const SizedBox(height: 32),
+              Text(
+                context.tr('lock_gate_title'),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: isDark ? Colors.white : const Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(height: 12),
-              OutlinedButton.icon(
-                onPressed: _goToPinScreen,
-                icon: const Icon(Icons.pin_rounded),
-                label: Text(context.l10n.lockSetPin),
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 54),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              Text(
+                context.tr('lock_gate_desc'),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: isDark ? Colors.white54 : Colors.black54,
                 ),
               ),
+              const SizedBox(height: 40),
+              if (_isAuthenticating)
+                const CircularProgressIndicator()
+              else ...[
+                ElevatedButton.icon(
+                  onPressed: _checkAndAuth,
+                  icon: const Icon(Icons.fingerprint_rounded),
+                  label: Text(context.tr('lock_gate_unlock')),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue.shade600,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 54),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    elevation: 0,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  onPressed: _goToPinScreen,
+                  icon: const Icon(Icons.pin_rounded),
+                  label: Text(context.tr('lock_set_pin')),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 54),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
