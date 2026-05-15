@@ -7,6 +7,7 @@ import '../../../../core/l10n/vita_strings.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_unlock_provider.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class ThemeSelectionScreen extends ConsumerStatefulWidget {
   const ThemeSelectionScreen({super.key});
@@ -42,13 +43,14 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     if (!mounted) return;
     setState(() => _loadingAd = false);
 
+    final strings = VitaStrings.of(context);
     if (ok) {
       await ref.read(themeTypeProvider.notifier).setTheme(type);
       if (!mounted) return;
-      _showMessage(VitaStrings.of(context).themeUnlocked);
+      _showMessage(strings.themeUnlocked);
       context.pop();
     } else {
-      _showMessage(VitaStrings.of(context).adUnavailableTryLater);
+      _showMessage(strings.adUnavailableTryLater);
     }
   }
 
@@ -69,7 +71,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       appBar: AppBar(
-        title: const Text('Theme'),
+        title: Text(context.tr('theme_selection_title')),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
@@ -159,7 +161,7 @@ class _ThemePreview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(type.label, style: theme.textTheme.titleLarge),
+            Text(_localizedThemeName(context, type), style: theme.textTheme.titleLarge),
             const SizedBox(height: 16),
             Container(
               height: 86,
@@ -228,7 +230,7 @@ class _ThemeTile extends StatelessWidget {
           backgroundColor: primary,
           child: locked ? const Icon(Icons.lock_rounded, color: Colors.white, size: 18) : null,
         ),
-        title: Text(type.label, style: const TextStyle(fontWeight: FontWeight.w800)),
+        title: Text(_localizedThemeName(context, type), style: const TextStyle(fontWeight: FontWeight.w800)),
         subtitle: Text(locked ? strings.watchAdToUnlock : selected ? strings.active : strings.tapToPreview),
         trailing: FilledButton(
           onPressed: loading ? null : onApply,
@@ -276,3 +278,132 @@ class _SectionTitle extends StatelessWidget {
     return Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900));
   }
 }
+
+String _localizedThemeName(BuildContext context, AppThemeType type) {
+  final language = Localizations.localeOf(context).languageCode;
+  final names = _themeNames[language] ?? _themeNames['en']!;
+  return names[type] ?? type.label;
+}
+
+const Map<String, Map<AppThemeType, String>> _themeNames = {
+  'en': {
+    AppThemeType.light: 'Light',
+    AppThemeType.dark: 'Dark',
+    AppThemeType.lavender: 'Lavender',
+    AppThemeType.ocean: 'Ocean',
+    AppThemeType.mint: 'Mint',
+    AppThemeType.peach: 'Peach',
+    AppThemeType.rose: 'Rose',
+    AppThemeType.slate: 'Slate',
+    AppThemeType.sand: 'Sand',
+    AppThemeType.forest: 'Forest',
+  },
+  'tr': {
+    AppThemeType.light: 'Açık',
+    AppThemeType.dark: 'Koyu',
+    AppThemeType.lavender: 'Lavanta',
+    AppThemeType.ocean: 'Okyanus',
+    AppThemeType.mint: 'Nane',
+    AppThemeType.peach: 'Şeftali',
+    AppThemeType.rose: 'Gül',
+    AppThemeType.slate: 'Arduvaz',
+    AppThemeType.sand: 'Kum',
+    AppThemeType.forest: 'Orman',
+  },
+  'es': {
+    AppThemeType.light: 'Claro',
+    AppThemeType.dark: 'Oscuro',
+    AppThemeType.lavender: 'Lavanda',
+    AppThemeType.ocean: 'Océano',
+    AppThemeType.mint: 'Menta',
+    AppThemeType.peach: 'Melocotón',
+    AppThemeType.rose: 'Rosa',
+    AppThemeType.slate: 'Pizarra',
+    AppThemeType.sand: 'Arena',
+    AppThemeType.forest: 'Bosque',
+  },
+  'pt': {
+    AppThemeType.light: 'Claro',
+    AppThemeType.dark: 'Escuro',
+    AppThemeType.lavender: 'Lavanda',
+    AppThemeType.ocean: 'Oceano',
+    AppThemeType.mint: 'Menta',
+    AppThemeType.peach: 'Pêssego',
+    AppThemeType.rose: 'Rosa',
+    AppThemeType.slate: 'Ardósia',
+    AppThemeType.sand: 'Areia',
+    AppThemeType.forest: 'Floresta',
+  },
+  'de': {
+    AppThemeType.light: 'Hell',
+    AppThemeType.dark: 'Dunkel',
+    AppThemeType.lavender: 'Lavendel',
+    AppThemeType.ocean: 'Ozean',
+    AppThemeType.mint: 'Minze',
+    AppThemeType.peach: 'Pfirsich',
+    AppThemeType.rose: 'Rose',
+    AppThemeType.slate: 'Schiefer',
+    AppThemeType.sand: 'Sand',
+    AppThemeType.forest: 'Wald',
+  },
+  'fr': {
+    AppThemeType.light: 'Clair',
+    AppThemeType.dark: 'Sombre',
+    AppThemeType.lavender: 'Lavande',
+    AppThemeType.ocean: 'Océan',
+    AppThemeType.mint: 'Menthe',
+    AppThemeType.peach: 'Pêche',
+    AppThemeType.rose: 'Rose',
+    AppThemeType.slate: 'Ardoise',
+    AppThemeType.sand: 'Sable',
+    AppThemeType.forest: 'Forêt',
+  },
+  'it': {
+    AppThemeType.light: 'Chiaro',
+    AppThemeType.dark: 'Scuro',
+    AppThemeType.lavender: 'Lavanda',
+    AppThemeType.ocean: 'Oceano',
+    AppThemeType.mint: 'Menta',
+    AppThemeType.peach: 'Pesca',
+    AppThemeType.rose: 'Rosa',
+    AppThemeType.slate: 'Ardesia',
+    AppThemeType.sand: 'Sabbia',
+    AppThemeType.forest: 'Foresta',
+  },
+  'hi': {
+    AppThemeType.light: 'हल्का',
+    AppThemeType.dark: 'गहरा',
+    AppThemeType.lavender: 'लैवेंडर',
+    AppThemeType.ocean: 'ओशन',
+    AppThemeType.mint: 'मिंट',
+    AppThemeType.peach: 'पीच',
+    AppThemeType.rose: 'रोज़',
+    AppThemeType.slate: 'स्लेट',
+    AppThemeType.sand: 'सैंड',
+    AppThemeType.forest: 'फॉरेस्ट',
+  },
+  'ja': {
+    AppThemeType.light: 'ライト',
+    AppThemeType.dark: 'ダーク',
+    AppThemeType.lavender: 'ラベンダー',
+    AppThemeType.ocean: 'オーシャン',
+    AppThemeType.mint: 'ミント',
+    AppThemeType.peach: 'ピーチ',
+    AppThemeType.rose: 'ローズ',
+    AppThemeType.slate: 'スレート',
+    AppThemeType.sand: 'サンド',
+    AppThemeType.forest: 'フォレスト',
+  },
+  'zh': {
+    AppThemeType.light: '浅色',
+    AppThemeType.dark: '深色',
+    AppThemeType.lavender: '薰衣草',
+    AppThemeType.ocean: '海洋',
+    AppThemeType.mint: '薄荷',
+    AppThemeType.peach: '蜜桃',
+    AppThemeType.rose: '玫瑰',
+    AppThemeType.slate: '岩板',
+    AppThemeType.sand: '沙色',
+    AppThemeType.forest: '森林',
+  },
+};
