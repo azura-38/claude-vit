@@ -7,6 +7,7 @@ import '../../../../core/l10n/vita_strings.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_unlock_provider.dart';
+import '../../../../core/theme/theme_visuals.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class ThemeSelectionScreen extends ConsumerStatefulWidget {
@@ -149,42 +150,101 @@ class _ThemePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = AppTheme.getThemeByType(type);
+    final visuals = ThemeVisuals.of(type);
+    final isDarkTheme = theme.brightness == Brightness.dark;
+
     return Theme(
       data: theme,
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: theme.dividerTheme.color ?? Colors.transparent),
+          gradient: visuals.softGradient,
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: isDarkTheme ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.04)),
+          boxShadow: [
+            BoxShadow(
+              color: visuals.primary.withValues(alpha: isDarkTheme ? 0.18 : 0.12),
+              blurRadius: 24,
+              offset: const Offset(0, 12),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(_localizedThemeName(context, type), style: theme.textTheme.titleLarge),
-            const SizedBox(height: 16),
+            Row(
+              children: [
+                ThemePlaceholder(type: type, size: 58, iconSize: 28, radius: 20),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(_localizedThemeName(context, type), style: theme.textTheme.titleLarge),
+                      const SizedBox(height: 4),
+                      Text(
+                        type.isRewardTheme ? VitaStrings.of(context).watchAdToUnlock : VitaStrings.of(context).active,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isDarkTheme ? Colors.white70 : AppColors.textSecondary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
             Container(
-              height: 86,
+              height: 112,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: theme.cardTheme.color,
-                borderRadius: BorderRadius.circular(22),
+                color: theme.cardTheme.color?.withValues(alpha: isDarkTheme ? 0.84 : 0.92),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: isDarkTheme ? Colors.white.withValues(alpha: 0.10) : Colors.white.withValues(alpha: 0.55)),
               ),
               child: Row(
                 children: [
-                  CircleAvatar(backgroundColor: theme.colorScheme.primary),
+                  Container(
+                    width: 54,
+                    height: 54,
+                    decoration: BoxDecoration(
+                      gradient: visuals.gradient,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: Icon(visuals.icon, color: Colors.white, size: 26),
+                  ),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(width: 140, height: 10, color: theme.colorScheme.primary),
+                        Container(
+                          width: 150,
+                          height: 11,
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.primary,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
                         const SizedBox(height: 10),
                         Container(
-                          width: 210,
+                          width: double.infinity,
                           height: 8,
-                          color: theme.colorScheme.primary.withValues(alpha: 0.18),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.primary.withValues(alpha: 0.20),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          width: 180,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.secondary.withValues(alpha: 0.24),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
                       ],
                     ),
@@ -220,19 +280,37 @@ class _ThemeTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final strings = VitaStrings.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final primary = AppTheme.getThemeByType(type).colorScheme.primary;
+    final visuals = ThemeVisuals.of(type);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         onTap: onPreview,
-        leading: CircleAvatar(
-          backgroundColor: primary,
-          child: locked ? const Icon(Icons.lock_rounded, color: Colors.white, size: 18) : null,
+        leading: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            ThemePlaceholder(type: type, size: 48, iconSize: 22, radius: 16),
+            if (locked)
+              Positioned(
+                right: -4,
+                bottom: -4,
+                child: Container(
+                  width: 22,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.72),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 1.5),
+                  ),
+                  child: const Icon(Icons.lock_rounded, color: Colors.white, size: 13),
+                ),
+              ),
+          ],
         ),
         title: Text(_localizedThemeName(context, type), style: const TextStyle(fontWeight: FontWeight.w800)),
         subtitle: Text(locked ? strings.watchAdToUnlock : selected ? strings.active : strings.tapToPreview),
         trailing: FilledButton(
+          style: FilledButton.styleFrom(backgroundColor: visuals.primary),
           onPressed: loading ? null : onApply,
           child: Text(locked ? strings.unlock : selected ? strings.active : strings.apply),
         ),
