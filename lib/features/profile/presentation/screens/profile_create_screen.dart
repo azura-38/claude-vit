@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +30,8 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   String? _selectedGender;
   DateTime? _birthDate;
   String? _selectedLanguageCode;
+  String? _selectedPhotoPath;
+  Uint8List? _selectedPhotoBytes;
   bool _acceptedLegal = false;
   int _currentStep = 0;
 
@@ -46,10 +51,12 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       final name = ref.read(profileNameProvider);
       final gender = ref.read(profileGenderProvider);
       final birthDate = ref.read(profileBirthDateProvider);
+      final photo = ref.read(profilePhotoProvider);
       _selectedLanguageCode = ref.read(localeProvider).languageCode;
 
       if (name != null) _nameController.text = name;
-      if (gender != null) _selectedGender = gender;
+      if (gender != null) _selectedGender = _genderSelectionFromName(gender);
+      if (photo != null && photo.trim().isNotEmpty) _selectedPhotoPath = photo;
       if (birthDate != null) {
         _birthDate = DateTime.tryParse(birthDate);
         if (_birthDate != null) {
@@ -71,17 +78,46 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     return '${date.day.toString().padLeft(2, '0')}.${date.month.toString().padLeft(2, '0')}.${date.year}';
   }
 
+  String _genderSelectionFromName(String value) {
+    switch (value) {
+      case 'female':
+      case 'Female':
+        return 'Female';
+      case 'male':
+      case 'Male':
+        return 'Male';
+      default:
+        return 'Other';
+    }
+  }
+
+  Future<void> _pickProfilePhoto() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+      withData: true,
+    );
+
+    if (result == null || result.files.isEmpty) return;
+    final file = result.files.single;
+
+    setState(() {
+      _selectedPhotoPath = file.path;
+      _selectedPhotoBytes = file.bytes;
+    });
+  }
+
   void _goToSecurityStep() {
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.pleaseEnterName)),
+        SnackBar(content: Text(context.tr('please_enter_name'))),
       );
       return;
     }
 
     if (!_acceptedLegal) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.mustAgree)),
+        SnackBar(content: Text(context.tr('must_agree'))),
       );
       return;
     }
@@ -94,6 +130,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     profileNotifier.updateName(_nameController.text.trim());
     if (_birthDate != null) profileNotifier.updateBirthDate(_birthDate!);
     profileNotifier.updateGender(_genderFromSelection(_selectedGender));
+    if (_selectedPhotoPath != null && _selectedPhotoPath!.trim().isNotEmpty) {
+      profileNotifier.updatePhotoPath(_selectedPhotoPath);
+    }
     await profileNotifier.saveToDatabase();
 
     if (_selectedLanguageCode != null) {
@@ -133,7 +172,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             _pinHasError = true;
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.l10n.lockPinMismatch)),
+            SnackBar(content: Text(context.tr('lock_pin_mismatch'))),
           );
         }
       }
@@ -176,7 +215,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('VitaCase'),
+        title: Text(context.tr('app_name')),
         centerTitle: true,
         leading: _currentStep == 1
             ? IconButton(
@@ -198,14 +237,14 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
               child: Row(
                 children: [
-                  _StepDot(active: true, label: context.l10n.stepProfile),
+                  _StepDot(active: true, label: context.tr('step_profile')),
                   Expanded(
                     child: Container(
                       height: 2,
                       color: _currentStep == 1 ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25),
                     ),
                   ),
-                  _StepDot(active: _currentStep == 1, label: context.l10n.stepSecurity),
+                  _StepDot(active: _currentStep == 1, label: context.tr('step_security')),
                 ],
               ),
             ),
@@ -229,7 +268,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                   child: FilledButton.icon(
                     onPressed: _profileValid ? _goToSecurityStep : null,
                     icon: const Icon(Icons.arrow_forward_rounded),
-                    label: Text(context.l10n.continue_btn),
+                    label: Text(context.tr('continue_btn')),
                   ),
                 ),
               ),
@@ -248,13 +287,13 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           child: Column(
             children: [
               Text(
-                context.l10n.createProfile,
+                context.tr('create_profile'),
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900),
               ),
               const SizedBox(height: 8),
               Text(
-                context.l10n.profileDesc,
+                context.tr('profile_desc'),
                 textAlign: TextAlign.center,
                 style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary),
               ),
@@ -262,11 +301,13 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           ),
         ),
         const SizedBox(height: 18),
+        _buildPhotoPicker(isDark),
+        const SizedBox(height: 18),
         TextField(
           controller: _nameController,
           onChanged: (_) => setState(() {}),
           decoration: InputDecoration(
-            labelText: context.l10n.fullName,
+            labelText: context.tr('full_name'),
             prefixIcon: const Icon(Icons.badge_outlined),
           ),
         ),
@@ -274,13 +315,13 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         DropdownButtonFormField<String>(
           initialValue: _selectedGender,
           decoration: InputDecoration(
-            labelText: context.l10n.gender,
+            labelText: context.tr('gender'),
             prefixIcon: const Icon(Icons.person_outline_rounded),
           ),
           items: [
-            DropdownMenuItem(value: 'Female', child: Text(context.l10n.genderFemale)),
-            DropdownMenuItem(value: 'Male', child: Text(context.l10n.genderMale)),
-            DropdownMenuItem(value: 'Other', child: Text(context.l10n.genderOther)),
+            DropdownMenuItem(value: 'Female', child: Text(context.tr('gender_female'))),
+            DropdownMenuItem(value: 'Male', child: Text(context.tr('gender_male'))),
+            DropdownMenuItem(value: 'Other', child: Text(context.tr('gender_other'))),
           ],
           onChanged: (value) => setState(() => _selectedGender = value),
         ),
@@ -289,8 +330,8 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           controller: _dateController,
           readOnly: true,
           decoration: InputDecoration(
-            labelText: context.l10n.birthDate,
-            hintText: context.l10n.dateFormatHint,
+            labelText: context.tr('birth_date'),
+            hintText: context.tr('date_format_hint'),
             prefixIcon: const Icon(Icons.calendar_today_rounded),
           ),
           onTap: () async {
@@ -308,18 +349,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           },
         ),
         const SizedBox(height: 14),
-        DropdownButtonFormField<String>(
-          initialValue: _selectedLanguageCode,
-          decoration: InputDecoration(
-            labelText: context.l10n.selectLanguage,
-            prefixIcon: const Icon(Icons.language_rounded),
-          ),
-          items: supportedLanguages
-              .map((language) => DropdownMenuItem(
-                    value: language.code,
-                    child: Text(language.name),
-                  ))
-              .toList(),
+        _LanguageCard(
+          isDark: isDark,
+          selectedLanguageCode: _selectedLanguageCode,
           onChanged: (value) => setState(() => _selectedLanguageCode = value),
         ),
         const SizedBox(height: 18),
@@ -332,6 +364,75 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     );
   }
 
+  Widget _buildPhotoPicker(bool isDark) {
+    return _Card(
+      isDark: isDark,
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: _pickProfilePhoto,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 74,
+                  height: 74,
+                  decoration: BoxDecoration(
+                    color: isDark ? Colors.white.withValues(alpha: 0.06) : const Color(0xFFF1F5F9),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(23),
+                    child: _selectedPhotoBytes != null
+                        ? Image.memory(_selectedPhotoBytes!, fit: BoxFit.cover)
+                        : const Icon(Icons.person_rounded, color: AppColors.brandBlue, size: 34),
+                  ),
+                ),
+                Positioned(
+                  right: -4,
+                  bottom: -4,
+                  child: Container(
+                    width: 28,
+                    height: 28,
+                    decoration: BoxDecoration(
+                      color: AppColors.brandBlue,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: isDark ? AppColors.surfaceDark : Colors.white, width: 2),
+                    ),
+                    child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 14),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.tr('profile_photo'),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  context.tr(_selectedPhotoPath == null ? 'profile_photo_add_desc' : 'profile_photo_selected'),
+                  style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.35),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: _pickProfilePhoto,
+            icon: const Icon(Icons.add_a_photo_outlined),
+            tooltip: context.tr('profile_photo'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSecurityStep(bool isDark) {
     if (_pinSetupComplete) {
       return Center(
@@ -341,7 +442,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           children: [
             const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 72),
             const SizedBox(height: 16),
-            Text(context.l10n.success, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+            Text(context.tr('success'), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
           ],
         ),
       );
@@ -356,19 +457,19 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         const Icon(Icons.security_rounded, size: 56, color: AppColors.brandBlue),
         const SizedBox(height: 16),
         Text(
-          context.l10n.setupAppLock,
+          context.tr('setup_app_lock'),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
         ),
         const SizedBox(height: 8),
         Text(
-          context.l10n.setupAppLockDesc,
+          context.tr('setup_app_lock_desc'),
           textAlign: TextAlign.center,
           style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary),
         ),
         const SizedBox(height: 18),
         Text(
-          _isConfirmingPin ? context.l10n.lockConfirmPin : context.l10n.lockSetPin,
+          _isConfirmingPin ? context.tr('lock_confirm_pin') : context.tr('lock_set_pin'),
           textAlign: TextAlign.center,
           style: const TextStyle(fontWeight: FontWeight.w800),
         ),
@@ -394,23 +495,68 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           }),
         ),
         const SizedBox(height: 28),
-        _PinPad(
-          onKey: _handlePinKey,
-          onBackspace: _handlePinBackspace,
-          isDark: isDark,
-        ),
+        _PinPad(onKey: _handlePinKey, onBackspace: _handlePinBackspace, isDark: isDark),
         const SizedBox(height: 20),
         TextButton.icon(
           onPressed: _saveAndFinish,
           icon: const Icon(Icons.skip_next_rounded),
-          label: Text(context.l10n.skipPinSetup),
+          label: Text(context.tr('skip_pin_setup')),
         ),
         Text(
-          context.l10n.lockSkipDesc,
+          context.tr('lock_skip_desc'),
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12, color: isDark ? Colors.white38 : AppColors.textSecondary),
         ),
       ],
+    );
+  }
+}
+
+class _LanguageCard extends StatelessWidget {
+  const _LanguageCard({
+    required this.isDark,
+    required this.selectedLanguageCode,
+    required this.onChanged,
+  });
+
+  final bool isDark;
+  final String? selectedLanguageCode;
+  final ValueChanged<String?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return _Card(
+      isDark: isDark,
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: AppColors.brandBlue.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: const Icon(Icons.language_rounded, color: AppColors.brandBlue),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: DropdownButtonFormField<String>(
+              initialValue: selectedLanguageCode,
+              decoration: InputDecoration(
+                labelText: context.tr('select_language'),
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                contentPadding: EdgeInsets.zero,
+              ),
+              items: supportedLanguages
+                  .map((language) => DropdownMenuItem(value: language.code, child: Text(language.name)))
+                  .toList(),
+              onChanged: onChanged,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -458,11 +604,7 @@ class _Card extends StatelessWidget {
 }
 
 class _LegalAgreementCard extends StatelessWidget {
-  const _LegalAgreementCard({
-    required this.value,
-    required this.onChanged,
-    required this.isDark,
-  });
+  const _LegalAgreementCard({required this.value, required this.onChanged, required this.isDark});
 
   final bool value;
   final ValueChanged<bool?> onChanged;
@@ -510,10 +652,7 @@ class _LegalLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => context.pushNamed(routeName),
-      child: Text(label),
-    );
+    return TextButton(onPressed: () => context.pushNamed(routeName), child: Text(label));
   }
 }
 
@@ -548,10 +687,7 @@ class _PinPad extends StatelessWidget {
             SizedBox(
               width: 68,
               height: 56,
-              child: IconButton(
-                onPressed: onBackspace,
-                icon: const Icon(Icons.backspace_outlined),
-              ),
+              child: IconButton(onPressed: onBackspace, icon: const Icon(Icons.backspace_outlined)),
             ),
           ],
         ),
