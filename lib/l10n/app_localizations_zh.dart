@@ -1,0 +1,93 @@
+// ignore_for_file: type=lint
+
+import 'app_localizations_en.dart';
+
+/// Simplified Chinese seed translations (`zh`).
+/// Untranslated keys fall back to English until the full ARB pass is completed.
+class AppLocalizationsZh extends AppLocalizationsEn {
+  AppLocalizationsZh([String locale = 'zh']) : super(locale);
+
+  @override String get skip => '跳过';
+  @override String get next => '下一步';
+  @override String get start => '开始';
+  @override String get back => '返回';
+  @override String get save => '保存';
+  @override String get cancel => '取消';
+  @override String get error => '错误';
+  @override String get success => '成功';
+  @override String get loading => '加载中...';
+  @override String get continue_btn => '继续';
+  @override String get create_profile => '创建个人资料';
+  @override String get profile_desc => '我们需要一些信息来个性化你的体验。';
+  @override String get full_name => '姓名';
+  @override String get gender => '性别';
+  @override String get gender_female => '女性';
+  @override String get gender_male => '男性';
+  @override String get gender_other => '其他';
+  @override String get birth_date => '出生日期';
+  @override String get select_language => '选择语言';
+  @override String get please_enter_name => '请输入姓名';
+  @override String get must_agree => '你必须同意法律文件才能继续。';
+  @override String get step_profile => '个人资料';
+  @override String get step_security => '安全';
+  @override String get setup_app_lock => '设置应用锁';
+  @override String get setup_app_lock_desc => '使用6位PIN保护你的数据。';
+  @override String get lock_set_pin => '设置安全PIN';
+  @override String get lock_confirm_pin => '确认PIN';
+  @override String get lock_pin_mismatch => 'PIN不匹配。请重试。';
+  @override String get skip_pin_setup => '跳过';
+  @override String get lock_skip_desc => '你可以稍后在设置中完成。';
+  @override String get home => '首页';
+  @override String get vault => '保险库';
+  @override String get explore => '探索';
+  @override String get appointments => '预约';
+  @override String get profile => '个人资料';
+  @override String get medicines => '药品';
+  @override String get health_data => '健康数据';
+  @override String get important_info => '重要信息';
+  @override String get guest_user => '访客用户';
+  @override String get hi => '你好';
+  @override String get docs_title => '文档';
+  @override String get docs_add_title => '添加文档';
+  @override String get docs_add_btn => '添加文档';
+  @override String get docs_add_pick => '选择文档 / 图片';
+  @override String get docs_success => '文档已成功保存！';
+  @override String get docs_error_pick => '请选择一个文件';
+  @override String get docs_category_health => '健康';
+  @override String get docs_category_identity => '身份';
+  @override String get docs_category_finance => '财务';
+  @override String get docs_category_legal => '法律';
+  @override String get docs_category_notes => '笔记';
+  @override String get docs_category_other => '其他';
+  @override String get appointment_title => '预约标题';
+  @override String get my_appointments => '我的预约';
+  @override String get add_appointment => '添加预约';
+  @override String get add_new_appointment => '添加新预约';
+  @override String get appointment_added => '预约已成功添加。';
+  @override String get location => '地点';
+  @override String get today => '今天';
+  @override String get tomorrow => '明天';
+  @override String get health_stats => '健康中心';
+  @override String get safety_footer_health => '健康数据仅供参考。如需诊断，请咨询专业人士。';
+  @override String get medical_device_warning => 'VitaCase不是医疗设备。请始终咨询专业人士。';
+  @override String get management_tool_warning => 'VitaCase是管理工具，不是诊断服务。';
+  @override String get unit_steps => '步';
+  @override String get unit_hours => '小时';
+  @override String get steps => '步数';
+  @override String get heart => '心率';
+  @override String get sleep => '睡眠';
+  @override String get water => '饮水';
+  @override String get add_health_data => '添加健康数据';
+  @override String get recent_activity => '最近活动';
+  @override String get no_health_records => '尚无记录。';
+  @override String get add_medicine => '添加药品';
+  @override String get my_medicines => '我的药品';
+  @override String get medicine_name => '药品名称';
+  @override String get med_added_success => '药品已成功添加！';
+  @override String get med_name_error => '请输入药品名称';
+  @override String get app_lock => '应用锁';
+  @override String get privacy_policy => '隐私政策';
+  @override String get terms_conditions => '条款和条件';
+  @override String get legal_disclaimer => '法律免责声明';
+  @override String get ok => '确定';
+}
