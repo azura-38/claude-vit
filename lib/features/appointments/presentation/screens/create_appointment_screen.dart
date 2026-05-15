@@ -343,7 +343,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
   }
 
   String _localizedSubcategory(BuildContext context, AppointmentSubcategory subcategory) {
-    return context.tr('appointment_subcategory_${subcategory.name}');
+    return context.tr('appointment_subcategory_${_enumKey(subcategory.name)}');
   }
 
   String _localizedReminder(BuildContext context, AppointmentReminder reminder) {
@@ -357,6 +357,17 @@ class CreateAppointmentScreen extends ConsumerWidget {
       case AppointmentReminder.sevenDays:
         return context.tr('reminder_7d');
     }
+  }
+
+  String _enumKey(String value) {
+    final buffer = StringBuffer();
+    for (var i = 0; i < value.length; i++) {
+      final char = value[i];
+      final isUpper = char.toUpperCase() == char && char.toLowerCase() != char;
+      if (i > 0 && isUpper) buffer.write('_');
+      buffer.write(char.toLowerCase());
+    }
+    return buffer.toString();
   }
 }
 
