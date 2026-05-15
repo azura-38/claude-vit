@@ -44,7 +44,7 @@ class DocumentVaultScreen extends ConsumerWidget {
         heroTag: 'documentVaultFab',
         onPressed: () => context.push(AppRoutes.documentAdd),
         icon: const Icon(Icons.add_rounded),
-        label: const Text('Add'),
+        label: Text(context.l10n.add),
         backgroundColor: AppColors.medicalBlue,
         foregroundColor: Colors.white,
       ),
@@ -102,7 +102,7 @@ class DocumentVaultScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: 40),
                 child: Center(
                   child: Text(
-                    'Error: $err',
+                    '${context.l10n.error}: $err',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary),
                   ),
@@ -152,7 +152,7 @@ class _VaultHeader extends StatelessWidget {
         IconButton.filledTonal(
           onPressed: () => context.push(AppRoutes.documentAdd),
           icon: const Icon(Icons.add_rounded),
-          tooltip: 'Add document',
+          tooltip: context.l10n.addDocument,
         ),
       ],
     );
@@ -177,13 +177,14 @@ class _WebVaultPreviewState extends StatelessWidget {
         children: [
           const Icon(Icons.phone_android_rounded, color: AppColors.medicalBlue, size: 42),
           const SizedBox(height: 16),
-          const Text(
-            'Vault preview',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+          Text(
+            context.l10n.docsSecureStorageTitle,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            'Document storage uses encrypted local device storage. Full vault features are available on Android/iOS builds.',
+            context.l10n.docsSecureStorageDesc,
             textAlign: TextAlign.center,
             style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.45),
           ),
@@ -226,14 +227,14 @@ class _EmptyVaultState extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 18),
-          const Text(
-            'Your secure vault is empty',
+          Text(
+            context.l10n.docsEmptyTitle,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
           ),
           const SizedBox(height: 8),
           Text(
-            'Add prescriptions, reports, invoices or health documents. Files are encrypted and stored locally on this device.',
+            context.l10n.docsEmptySubtitle,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: isDark ? Colors.white60 : AppColors.textSecondary,
@@ -246,7 +247,7 @@ class _EmptyVaultState extends StatelessWidget {
             child: FilledButton.icon(
               onPressed: onAdd,
               icon: const Icon(Icons.add_rounded),
-              label: const Text('Add first document'),
+              label: Text(context.l10n.docsAddTitle),
             ),
           ),
         ],
