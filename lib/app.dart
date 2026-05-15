@@ -27,6 +27,9 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     Locale('de'),
     Locale('fr'),
     Locale('it'),
+    Locale('hi'),
+    Locale('ja'),
+    Locale('zh'),
   ];
 
   @override
