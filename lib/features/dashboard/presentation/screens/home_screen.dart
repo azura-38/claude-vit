@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../shared/widgets/navigation/app_bottom_nav.dart';
 import '../../../../shared/widgets/navigation/explore_menu.dart';
-import '../../../../shared/widgets/misc/banner_ad_container.dart';
 import '../../../../shared/providers/navigation_provider.dart';
 import '../../../../shared/providers/behavior_notifier.dart';
 
@@ -36,7 +35,6 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 🧠 Initialize behavioral intelligence
     ref.read(behaviorProvider);
 
     final currentIndex = navigationShell.currentIndex;
@@ -61,19 +59,12 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       extendBody: true,
-      body: Column(
-        children: [
-          const BannerAdContainer(),
-          Expanded(
-            // StatefulShellRoute.indexedStack keeps inactive branches alive.
-            // Disabling Hero collection here prevents duplicate default FAB
-            // hero tag crashes across hidden tabs.
-            child: HeroMode(
-              enabled: false,
-              child: navigationShell,
-            ),
-          ),
-        ],
+      body: HeroMode(
+        // StatefulShellRoute.indexedStack keeps inactive branches alive.
+        // Disabling Hero collection here prevents duplicate default FAB hero
+        // tag crashes across hidden tabs.
+        enabled: false,
+        child: navigationShell,
       ),
       bottomNavigationBar: AppBottomNav(
         currentIndex: currentIndex,
