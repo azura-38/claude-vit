@@ -1,0 +1,94 @@
+// ignore_for_file: type=lint
+
+import 'app_localizations_en.dart';
+
+/// Hindi seed translations (`hi`).
+/// Untranslated keys fall back to English until the full ARB pass is completed.
+class AppLocalizationsHi extends AppLocalizationsEn {
+  AppLocalizationsHi([String locale = 'hi']) : super(locale);
+
+  @override String get skip => 'छोड़ें';
+  @override String get next => 'अगला';
+  @override String get start => 'शुरू करें';
+  @override String get back => 'वापस';
+  @override String get save => 'सेव करें';
+  @override String get cancel => 'रद्द करें';
+  @override String get error => 'त्रुटि';
+  @override String get success => 'सफल';
+  @override String get loading => 'लोड हो रहा है...';
+  @override String get continue_btn => 'जारी रखें';
+  @override String get create_profile => 'अपनी प्रोफ़ाइल बनाएं';
+  @override String get profile_desc => 'आपके अनुभव को व्यक्तिगत बनाने के लिए कुछ जानकारी चाहिए।';
+  @override String get full_name => 'पूरा नाम';
+  @override String get gender => 'लिंग';
+  @override String get gender_female => 'महिला';
+  @override String get gender_male => 'पुरुष';
+  @override String get gender_other => 'अन्य';
+  @override String get birth_date => 'जन्म तिथि';
+  @override String get select_language => 'भाषा चुनें';
+  @override String get please_enter_name => 'कृपया नाम दर्ज करें';
+  @override String get must_agree => 'जारी रखने के लिए आपको कानूनी दस्तावेज़ स्वीकार करने होंगे।';
+  @override String get step_profile => 'प्रोफ़ाइल';
+  @override String get step_security => 'सुरक्षा';
+  @override String get setup_app_lock => 'ऐप लॉक सेट करें';
+  @override String get setup_app_lock_desc => 'अपने डेटा को 6 अंकों के PIN से सुरक्षित करें।';
+  @override String get lock_set_pin => 'सुरक्षित PIN सेट करें';
+  @override String get lock_confirm_pin => 'PIN की पुष्टि करें';
+  @override String get lock_pin_mismatch => 'PIN मेल नहीं खाते। फिर कोशिश करें।';
+  @override String get skip_pin_setup => 'छोड़ें';
+  @override String get lock_skip_desc => 'आप इसे बाद में Settings से सेट कर सकते हैं।';
+  @override String get home => 'होम';
+  @override String get vault => 'वॉल्ट';
+  @override String get explore => 'एक्सप्लोर';
+  @override String get appointments => 'अपॉइंटमेंट';
+  @override String get profile => 'प्रोफ़ाइल';
+  @override String get medicines => 'दवाएं';
+  @override String get health_data => 'स्वास्थ्य डेटा';
+  @override String get important_info => 'महत्वपूर्ण जानकारी';
+  @override String get guest_user => 'अतिथि उपयोगकर्ता';
+  @override String get hi => 'नमस्ते';
+  @override String get docs_title => 'दस्तावेज़';
+  @override String get docs_add_title => 'दस्तावेज़ जोड़ें';
+  @override String get docs_add_btn => 'दस्तावेज़ जोड़ें';
+  @override String get docs_add_pick => 'दस्तावेज़ / छवि चुनें';
+  @override String get docs_success => 'दस्तावेज़ सफलतापूर्वक सेव हुआ!';
+  @override String get docs_error_pick => 'कृपया एक फ़ाइल चुनें';
+  @override String get docs_category_health => 'स्वास्थ्य';
+  @override String get docs_category_identity => 'पहचान';
+  @override String get docs_category_finance => 'वित्त';
+  @override String get docs_category_legal => 'कानूनी';
+  @override String get docs_category_notes => 'नोट्स';
+  @override String get docs_category_other => 'अन्य';
+  @override String get appointment_title => 'अपॉइंटमेंट शीर्षक';
+  @override String get my_appointments => 'मेरे अपॉइंटमेंट';
+  @override String get add_appointment => 'अपॉइंटमेंट जोड़ें';
+  @override String get add_new_appointment => 'नया अपॉइंटमेंट जोड़ें';
+  @override String get appointment_added => 'अपॉइंटमेंट सफलतापूर्वक जोड़ा गया।';
+  @override String get location => 'स्थान';
+  @override String get today => 'आज';
+  @override String get tomorrow => 'कल';
+  @override String get health_stats => 'स्वास्थ्य हब';
+  @override String get safety_footer_health => 'स्वास्थ्य डेटा केवल जानकारी के लिए है। निदान के लिए विशेषज्ञ से सलाह लें।';
+  @override String get medical_device_warning => 'VitaCase कोई मेडिकल डिवाइस नहीं है। हमेशा विशेषज्ञ से सलाह लें।';
+  @override String get management_tool_warning => 'VitaCase एक प्रबंधन टूल है, निदान सेवा नहीं।';
+  @override String get unit_steps => 'कदम';
+  @override String get unit_hours => 'घंटे';
+  @override String get steps => 'कदम';
+  @override String get heart => 'हृदय';
+  @override String get sleep => 'नींद';
+  @override String get water => 'पानी';
+  @override String get add_health_data => 'स्वास्थ्य डेटा जोड़ें';
+  @override String get recent_activity => 'हाल की गतिविधि';
+  @override String get no_health_records => 'अभी कोई रिकॉर्ड नहीं मिला।';
+  @override String get add_medicine => 'दवा जोड़ें';
+  @override String get my_medicines => 'मेरी दवाएं';
+  @override String get medicine_name => 'दवा का नाम';
+  @override String get med_added_success => 'दवा सफलतापूर्वक जोड़ी गई!';
+  @override String get med_name_error => 'कृपया दवा का नाम दर्ज करें';
+  @override String get app_lock => 'ऐप लॉक';
+  @override String get privacy_policy => 'गोपनीयता नीति';
+  @override String get terms_conditions => 'नियम और शर्तें';
+  @override String get legal_disclaimer => 'कानूनी अस्वीकरण';
+  @override String get delete_all_data => 'सारा डेटा हटाएं';
+  @override String get ok => 'ठीक है';
+}
