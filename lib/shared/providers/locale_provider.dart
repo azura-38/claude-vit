@@ -13,9 +13,9 @@ class SupportedLanguage {
   const SupportedLanguage(this.code, this.name);
 }
 
-/// Enabled locales must match generated AppLocalizations files.
-/// Hindi, Japanese and Simplified Chinese will be added after their ARB files
-/// are generated.
+/// V1 language list.
+/// hi/ja/zh use runtime fallback for any untranslated ARB key until the full
+/// generated localization pack is produced.
 const List<SupportedLanguage> supportedLanguages = [
   SupportedLanguage('en', 'English'),
   SupportedLanguage('tr', 'Türkçe'),
@@ -24,10 +24,24 @@ const List<SupportedLanguage> supportedLanguages = [
   SupportedLanguage('de', 'Deutsch'),
   SupportedLanguage('fr', 'Français'),
   SupportedLanguage('it', 'Italiano'),
+  SupportedLanguage('hi', 'हिन्दी'),
+  SupportedLanguage('ja', '日本語'),
+  SupportedLanguage('zh', '简体中文'),
 ];
 
 class LocaleNotifier extends Notifier<Locale> {
-  static const _supportedLocales = ['en', 'tr', 'es', 'pt', 'de', 'fr', 'it'];
+  static const _supportedLocales = [
+    'en',
+    'tr',
+    'es',
+    'pt',
+    'de',
+    'fr',
+    'it',
+    'hi',
+    'ja',
+    'zh',
+  ];
 
   @override
   Locale build() {
