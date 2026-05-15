@@ -54,25 +54,25 @@ enum AppThemeType {
   String get label {
     switch (this) {
       case AppThemeType.light:
-        return 'Light';
+        return 'Digital Sanctuary';
       case AppThemeType.dark:
-        return 'Dark';
+        return 'Midnight Sanctuary';
       case AppThemeType.lavender:
-        return 'Lavender';
+        return 'Amethyst Calm';
       case AppThemeType.ocean:
-        return 'Ocean';
+        return 'Abyssal Calm';
       case AppThemeType.mint:
-        return 'Mint';
+        return 'Clinical Clarity';
       case AppThemeType.peach:
-        return 'Peach';
+        return 'Sunrise Wellness';
       case AppThemeType.rose:
-        return 'Rose';
+        return 'Vitality Bloom';
       case AppThemeType.slate:
-        return 'Slate';
+        return 'Nordic Health';
       case AppThemeType.sand:
-        return 'Sand';
+        return 'Golden Vitality';
       case AppThemeType.forest:
-        return 'Forest';
+        return 'Forest Sanctuary';
       case AppThemeType.system:
         return 'System';
     }
@@ -84,17 +84,19 @@ class AppTheme {
 
   static ThemeData get light => _buildTheme(
         brightness: Brightness.light,
-        primary: AppColors.luxePrimary,
-        background: const Color(0xFFF6F8FC),
+        primary: const Color(0xFF005DA7),
+        secondary: const Color(0xFF2976C7),
+        background: const Color(0xFFF7F9FC),
         surface: Colors.white,
       );
 
   static ThemeData get dark => _buildTheme(
         brightness: Brightness.dark,
-        primary: AppColors.neonPrimary,
-        background: Colors.black,
-        surface: const Color(0xFF111827),
-        isAmoled: true,
+        primary: const Color(0xFF4A90E2),
+        secondary: const Color(0xFF1C252E),
+        background: const Color(0xFF0B1117),
+        surface: const Color(0xFF1C252E),
+        isAmoled: false,
       );
 
   static ThemeData getThemeByType(AppThemeType type) {
@@ -105,59 +107,67 @@ class AppTheme {
         return dark;
       case AppThemeType.lavender:
         return _buildTheme(
-          brightness: Brightness.light,
-          primary: const Color(0xFF8B5CF6),
-          background: const Color(0xFFF7F3FF),
-          surface: Colors.white,
+          brightness: Brightness.dark,
+          primary: const Color(0xFF7C3AED),
+          secondary: const Color(0xFFBAABF3),
+          background: const Color(0xFF020617),
+          surface: const Color(0xFF131B2E),
         );
       case AppThemeType.ocean:
         return _buildTheme(
-          brightness: Brightness.light,
-          primary: const Color(0xFF0EA5E9),
-          background: const Color(0xFFF0F9FF),
-          surface: Colors.white,
+          brightness: Brightness.dark,
+          primary: const Color(0xFF00E5FF),
+          secondary: const Color(0xFF415A77),
+          background: const Color(0xFF0D1B2A),
+          surface: const Color(0xFF17324D),
         );
       case AppThemeType.mint:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: const Color(0xFF10B981),
-          background: const Color(0xFFF0FDF4),
+          primary: const Color(0xFF005DA7),
+          secondary: const Color(0xFF006A6A),
+          background: Colors.white,
           surface: Colors.white,
         );
       case AppThemeType.peach:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: const Color(0xFFFF8A65),
-          background: const Color(0xFFFFF7ED),
+          primary: const Color(0xFF7DA395),
+          secondary: const Color(0xFFE67E6E),
+          background: const Color(0xFFFDF8F3),
           surface: Colors.white,
         );
       case AppThemeType.rose:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: const Color(0xFFE11D48),
-          background: const Color(0xFFFFF1F2),
-          surface: Colors.white,
+          primary: const Color(0xFFFF7043),
+          secondary: const Color(0xFF8E244D),
+          background: const Color(0xFFFCE4EC),
+          surface: const Color(0xFFFFF8F8),
         );
       case AppThemeType.slate:
         return _buildTheme(
-          brightness: Brightness.light,
-          primary: const Color(0xFF475569),
-          background: const Color(0xFFF8FAFC),
-          surface: Colors.white,
+          brightness: Brightness.dark,
+          primary: const Color(0xFF9A8C98),
+          secondary: const Color(0xFF4A4E69),
+          background: const Color(0xFF22223B),
+          surface: const Color(0xFF2B2F48),
         );
       case AppThemeType.sand:
         return _buildTheme(
           brightness: Brightness.light,
-          primary: const Color(0xFFD97706),
-          background: const Color(0xFFFFFBEB),
+          primary: const Color(0xFFD4AF37),
+          secondary: const Color(0xFF1A1A1A),
+          background: const Color(0xFFF9F8F3),
           surface: Colors.white,
         );
       case AppThemeType.forest:
         return _buildTheme(
-          brightness: Brightness.light,
-          primary: const Color(0xFF15803D),
-          background: const Color(0xFFF0FDF4),
-          surface: Colors.white,
+          brightness: Brightness.dark,
+          primary: const Color(0xFFA3B18A),
+          secondary: const Color(0xFF4F6357),
+          background: const Color(0xFF080F0A),
+          surface: const Color(0xFF22342A),
         );
       case AppThemeType.system:
         return light;
@@ -167,6 +177,7 @@ class AppTheme {
   static ThemeData _buildTheme({
     required Brightness brightness,
     required Color primary,
+    required Color secondary,
     required Color background,
     required Color surface,
     bool isAmoled = false,
@@ -176,7 +187,7 @@ class AppTheme {
     final colorScheme = isDark
         ? ColorScheme.dark(
             primary: primary,
-            secondary: primary.withValues(alpha: 0.7),
+            secondary: secondary,
             surface: isAmoled ? Colors.black : surface,
             onSurface: Colors.white,
             error: AppColors.error,
@@ -186,6 +197,7 @@ class AppTheme {
             brightness: Brightness.light,
             surface: surface,
             primary: primary,
+            secondary: secondary,
           );
 
     final baseTextTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
@@ -194,6 +206,9 @@ class AppTheme {
       titleLarge: googleTextTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.w800,
         color: isDark ? Colors.white : AppColors.textPrimary,
+      ),
+      bodyMedium: googleTextTheme.bodyMedium?.copyWith(
+        color: isDark ? Colors.white.withValues(alpha: 0.86) : AppColors.textPrimary,
       ),
     );
 
@@ -210,15 +225,13 @@ class AppTheme {
         centerTitle: false,
       ),
       cardTheme: CardThemeData(
-        color: isDark
-            ? (isAmoled ? Colors.black : AppColors.cardDark)
-            : Colors.white,
+        color: isDark ? (isAmoled ? Colors.black : surface) : surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
           side: BorderSide(
             color: isDark
-                ? (isAmoled ? Colors.white.withValues(alpha: 0.1) : AppColors.cardBorderDark)
+                ? Colors.white.withValues(alpha: 0.10)
                 : AppColors.cardBorderLight,
             width: 1,
           ),
@@ -226,7 +239,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: isDark ? (isAmoled ? Colors.black : AppColors.cardDark) : const Color(0xFFF3F6FB),
+        fillColor: isDark ? surface.withValues(alpha: 0.82) : const Color(0xFFF3F6FB),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
@@ -234,13 +247,13 @@ class AppTheme {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+            color: isDark ? Colors.white.withValues(alpha: 0.12) : AppColors.cardBorderLight,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+            color: isDark ? Colors.white.withValues(alpha: 0.12) : AppColors.cardBorderLight,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -263,6 +276,13 @@ class AppTheme {
           ),
         ),
       ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: primary,
+          foregroundColor: isDark ? Colors.black : Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+      ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primary,
         foregroundColor: isDark ? Colors.black : Colors.white,
@@ -272,14 +292,14 @@ class AppTheme {
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: isDark ? (isAmoled ? Colors.black : AppColors.cardDark) : Colors.white,
+        backgroundColor: isDark ? surface : Colors.white,
         selectedItemColor: primary,
         unselectedItemColor: isDark ? Colors.white38 : AppColors.navInactive,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
       ),
       dividerTheme: DividerThemeData(
-        color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+        color: isDark ? Colors.white.withValues(alpha: 0.10) : AppColors.cardBorderLight,
         thickness: 1,
       ),
     );
