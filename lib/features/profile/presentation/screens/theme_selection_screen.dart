@@ -280,130 +280,54 @@ class _SectionTitle extends StatelessWidget {
 }
 
 String _localizedThemeName(BuildContext context, AppThemeType type) {
+  if (type != AppThemeType.light && type != AppThemeType.dark) {
+    return type.label;
+  }
+
   final language = Localizations.localeOf(context).languageCode;
-  final names = _themeNames[language] ?? _themeNames['en']!;
+  final names = _freeThemeNames[language] ?? _freeThemeNames['en']!;
   return names[type] ?? type.label;
 }
 
-const Map<String, Map<AppThemeType, String>> _themeNames = {
+const Map<String, Map<AppThemeType, String>> _freeThemeNames = {
   'en': {
     AppThemeType.light: 'Light',
     AppThemeType.dark: 'Dark',
-    AppThemeType.lavender: 'Lavender',
-    AppThemeType.ocean: 'Ocean',
-    AppThemeType.mint: 'Mint',
-    AppThemeType.peach: 'Peach',
-    AppThemeType.rose: 'Rose',
-    AppThemeType.slate: 'Slate',
-    AppThemeType.sand: 'Sand',
-    AppThemeType.forest: 'Forest',
   },
   'tr': {
     AppThemeType.light: 'Açık',
     AppThemeType.dark: 'Koyu',
-    AppThemeType.lavender: 'Lavanta',
-    AppThemeType.ocean: 'Okyanus',
-    AppThemeType.mint: 'Nane',
-    AppThemeType.peach: 'Şeftali',
-    AppThemeType.rose: 'Gül',
-    AppThemeType.slate: 'Arduvaz',
-    AppThemeType.sand: 'Kum',
-    AppThemeType.forest: 'Orman',
   },
   'es': {
     AppThemeType.light: 'Claro',
     AppThemeType.dark: 'Oscuro',
-    AppThemeType.lavender: 'Lavanda',
-    AppThemeType.ocean: 'Océano',
-    AppThemeType.mint: 'Menta',
-    AppThemeType.peach: 'Melocotón',
-    AppThemeType.rose: 'Rosa',
-    AppThemeType.slate: 'Pizarra',
-    AppThemeType.sand: 'Arena',
-    AppThemeType.forest: 'Bosque',
   },
   'pt': {
     AppThemeType.light: 'Claro',
     AppThemeType.dark: 'Escuro',
-    AppThemeType.lavender: 'Lavanda',
-    AppThemeType.ocean: 'Oceano',
-    AppThemeType.mint: 'Menta',
-    AppThemeType.peach: 'Pêssego',
-    AppThemeType.rose: 'Rosa',
-    AppThemeType.slate: 'Ardósia',
-    AppThemeType.sand: 'Areia',
-    AppThemeType.forest: 'Floresta',
   },
   'de': {
     AppThemeType.light: 'Hell',
     AppThemeType.dark: 'Dunkel',
-    AppThemeType.lavender: 'Lavendel',
-    AppThemeType.ocean: 'Ozean',
-    AppThemeType.mint: 'Minze',
-    AppThemeType.peach: 'Pfirsich',
-    AppThemeType.rose: 'Rose',
-    AppThemeType.slate: 'Schiefer',
-    AppThemeType.sand: 'Sand',
-    AppThemeType.forest: 'Wald',
   },
   'fr': {
     AppThemeType.light: 'Clair',
     AppThemeType.dark: 'Sombre',
-    AppThemeType.lavender: 'Lavande',
-    AppThemeType.ocean: 'Océan',
-    AppThemeType.mint: 'Menthe',
-    AppThemeType.peach: 'Pêche',
-    AppThemeType.rose: 'Rose',
-    AppThemeType.slate: 'Ardoise',
-    AppThemeType.sand: 'Sable',
-    AppThemeType.forest: 'Forêt',
   },
   'it': {
     AppThemeType.light: 'Chiaro',
     AppThemeType.dark: 'Scuro',
-    AppThemeType.lavender: 'Lavanda',
-    AppThemeType.ocean: 'Oceano',
-    AppThemeType.mint: 'Menta',
-    AppThemeType.peach: 'Pesca',
-    AppThemeType.rose: 'Rosa',
-    AppThemeType.slate: 'Ardesia',
-    AppThemeType.sand: 'Sabbia',
-    AppThemeType.forest: 'Foresta',
   },
   'hi': {
     AppThemeType.light: 'हल्का',
     AppThemeType.dark: 'गहरा',
-    AppThemeType.lavender: 'लैवेंडर',
-    AppThemeType.ocean: 'ओशन',
-    AppThemeType.mint: 'मिंट',
-    AppThemeType.peach: 'पीच',
-    AppThemeType.rose: 'रोज़',
-    AppThemeType.slate: 'स्लेट',
-    AppThemeType.sand: 'सैंड',
-    AppThemeType.forest: 'फॉरेस्ट',
   },
   'ja': {
     AppThemeType.light: 'ライト',
     AppThemeType.dark: 'ダーク',
-    AppThemeType.lavender: 'ラベンダー',
-    AppThemeType.ocean: 'オーシャン',
-    AppThemeType.mint: 'ミント',
-    AppThemeType.peach: 'ピーチ',
-    AppThemeType.rose: 'ローズ',
-    AppThemeType.slate: 'スレート',
-    AppThemeType.sand: 'サンド',
-    AppThemeType.forest: 'フォレスト',
   },
   'zh': {
     AppThemeType.light: '浅色',
     AppThemeType.dark: '深色',
-    AppThemeType.lavender: '薰衣草',
-    AppThemeType.ocean: '海洋',
-    AppThemeType.mint: '薄荷',
-    AppThemeType.peach: '蜜桃',
-    AppThemeType.rose: '玫瑰',
-    AppThemeType.slate: '岩板',
-    AppThemeType.sand: '沙色',
-    AppThemeType.forest: '森林',
   },
 };
