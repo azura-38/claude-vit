@@ -12,29 +12,28 @@ class ThemeController extends Notifier<AppThemeType> {
   @override
   AppThemeType build() {
     final prefs = ref.watch(userPreferencesControllerProvider);
-    return prefs.maybeWhen(
+    final type = prefs.maybeWhen(
       data: (p) => p.themeType,
-      orElse: () => AppThemeType.system,
+      orElse: () => AppThemeType.light,
     );
+    return type == AppThemeType.system ? AppThemeType.light : type;
   }
 
   Future<void> setTheme(AppThemeType type) async {
-    await ref.read(userPreferencesControllerProvider.notifier).updateTheme(type);
+    final next = type == AppThemeType.system ? AppThemeType.light : type;
+    await ref.read(userPreferencesControllerProvider.notifier).updateTheme(next);
   }
 }
 
 typedef ThemeTypeNotifier = ThemeController;
 
-/// Global ThemeMode for the entire app.
-///
-/// Custom palettes are light palettes, dark is dark, and system follows the OS.
 final themeModeProvider = Provider<ThemeMode>((ref) {
   final type = ref.watch(themeTypeProvider);
   switch (type) {
-    case AppThemeType.system:
-      return ThemeMode.system;
     case AppThemeType.dark:
       return ThemeMode.dark;
+    case AppThemeType.system:
+      return ThemeMode.light;
     default:
       return ThemeMode.light;
   }
