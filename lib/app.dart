@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
-import 'package:vitacase/l10n/app_localizations.dart';
+import 'package:vitacase/l10n/vita_app_localizations_delegate.dart';
 import 'shared/providers/locale_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/bootstrap/bootstrap_screen.dart';
@@ -19,19 +19,6 @@ class VitaCaseApp extends ConsumerStatefulWidget {
 
 class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
     with WidgetsBindingObserver {
-  static const _v1SupportedLocales = [
-    Locale('en'),
-    Locale('tr'),
-    Locale('es'),
-    Locale('pt'),
-    Locale('de'),
-    Locale('fr'),
-    Locale('it'),
-    Locale('hi'),
-    Locale('ja'),
-    Locale('zh'),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -68,8 +55,8 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
       locale: currentLocale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: _v1SupportedLocales,
+      localizationsDelegates: VitaAppLocalizationsDelegate.localizationsDelegates,
+      supportedLocales: VitaAppLocalizationsDelegate.supportedLocales,
       routerConfig: router,
       builder: (context, child) {
         final appBody = Column(
