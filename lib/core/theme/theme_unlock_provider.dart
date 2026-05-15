@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/data/services/ad_service.dart';
@@ -34,7 +35,10 @@ class ThemeUnlockNotifier extends Notifier<DateTime?> {
 
   Future<bool> watchAdToUnlockOrExtend() async {
     final result = await AdService.showRewardedForResult();
-    if (result.name != 'shownRewarded') return false;
+
+    // During development, emulator/device fill can be unavailable even with a
+    // valid AdMob setup. Keep the theme flow testable instead of blocking UX.
+    if (result.name != 'shownRewarded' && kReleaseMode) return false;
 
     final prefs = ref.read(sharedPreferencesProvider);
     final now = DateTime.now();
