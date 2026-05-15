@@ -1,32 +1,35 @@
-import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/utils/external_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../../core/constants/app_colors.dart';
-import 'package:vitacase/core/extensions/l10n_extension.dart';
-import '../../../../shared/providers/navigation_provider.dart';
-import '../../../../shared/providers/health_providers.dart';
-import '../../../appointments/presentation/providers/appointment_providers.dart';
-import '../../../appointments/domain/entities/appointment.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/extensions/l10n_extension.dart';
+import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/theme/theme_visuals.dart';
+import '../../../../core/utils/external_launcher.dart';
 import '../../../../shared/providers/daily_mission_providers.dart';
+import '../../../../shared/providers/health_providers.dart';
+import '../../../../shared/providers/navigation_provider.dart';
 import '../../../../shared/providers/season_providers.dart';
 import '../../../../shared/widgets/dialogs/reward_dialog.dart';
 import '../../../../shared/widgets/misc/app_empty_state.dart';
-import 'package:vitacase/features/profile/presentation/providers/legacy_providers.dart';
+import '../../../appointments/domain/entities/appointment.dart';
+import '../../../appointments/presentation/providers/appointment_providers.dart';
+import '../../../profile/presentation/providers/legacy_providers.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final userName = ref.watch(profileNameProvider);
     final isGuest = userName == null || userName.isEmpty;
 
-    // 🏆 Reward & Level-up Listener
     ref.listen(seasonProvider, (previousAsync, nextAsync) {
       final previous = previousAsync?.asData?.value;
       final next = nextAsync.asData?.value;
@@ -41,16 +44,13 @@ class DashboardScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           children: [
-            _TopAppBar(
-              userName: userName ?? context.l10n.guestUser,
-              isDark: isDark,
-            ),
+            _TopAppBar(userName: userName ?? context.l10n.guestUser),
             const SizedBox(height: 24),
             if (isGuest) ...[const _GuestBanner(), const SizedBox(height: 24)],
             const _CtaFeatureCard(),
@@ -62,10 +62,9 @@ class DashboardScreen extends ConsumerWidget {
             const _DailyMissionsSection(),
             const SizedBox(height: 32),
             const _QuickAccess(),
-
             const SizedBox(height: 32),
             const _UpcomingAppointments(),
-            const SizedBox(height: 100), // Bottom padding
+            const SizedBox(height: 100),
           ],
         ),
       ),
@@ -74,11 +73,10 @@ class DashboardScreen extends ConsumerWidget {
 }
 
 class _TopAppBar extends ConsumerWidget {
-  final String userName;
-  final bool isDark;
-  static const _brandLogoAsset = 'assets/images/vitacase_brand_logo.png';
+  const _TopAppBar({required this.userName});
 
-  const _TopAppBar({required this.userName, required this.isDark});
+  final String userName;
+  static const _brandLogoAsset = 'assets/images/vitacase_brand_logo.png';
 
   String _getGreeting(BuildContext context) {
     final hour = DateTime.now().hour;
@@ -90,7 +88,10 @@ class _TopAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final photo = ref.watch(profilePhotoProvider);
+    final selectedTheme = ref.watch(themeTypeProvider);
+    final visuals = ThemeVisuals.of(selectedTheme);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,22 +105,12 @@ class _TopAppBar extends ConsumerWidget {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 2),
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 10,
-                  ),
+                  BoxShadow(color: visuals.primary.withValues(alpha: 0.16), blurRadius: 14),
                 ],
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
-                child:
-                    photo != null && !photo.startsWith('http')
-                        ? Image.file(
-                          File(photo),
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) => _buildAvatarPlaceholder(),
-                        )
-                        : _buildAvatarPlaceholder(),
+                child: _buildAvatar(photo, selectedTheme),
               ),
             ),
             const SizedBox(width: 12),
@@ -139,9 +130,8 @@ class _TopAppBar extends ConsumerWidget {
                   userName,
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w900,
                     color: isDark ? Colors.white : Colors.black87,
-                    fontFamily: 'Manrope',
                   ),
                 ),
               ],
@@ -156,10 +146,7 @@ class _TopAppBar extends ConsumerWidget {
             color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
-              color:
-                  isDark
-                      ? Colors.white.withValues(alpha: 0.08)
-                      : AppColors.cardBorderLight,
+              color: isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.cardBorderLight,
             ),
           ),
           child: Image.asset(_brandLogoAsset, fit: BoxFit.contain),
@@ -168,40 +155,46 @@ class _TopAppBar extends ConsumerWidget {
     ).animate().fadeIn().slideY(begin: -0.2);
   }
 
-  Widget _buildAvatarPlaceholder() {
-    return Container(
-      color: AppColors.medicalBlue.withValues(alpha: 0.1),
-      child: const Icon(
-        Icons.person_rounded,
-        color: AppColors.medicalBlue,
-        size: 28,
-      ),
-    );
+  Widget _buildAvatar(String? value, dynamic selectedTheme) {
+    final bytes = _decodeDataUri(value);
+    if (bytes != null) {
+      return Image.memory(bytes, fit: BoxFit.cover);
+    }
+    return ThemePlaceholder(type: selectedTheme, size: 48, iconSize: 22, radius: 24);
+  }
+
+  static Uint8List? _decodeDataUri(String? value) {
+    if (value == null || !value.startsWith('data:image/')) return null;
+    final marker = 'base64,';
+    final index = value.indexOf(marker);
+    if (index == -1) return null;
+    try {
+      return base64Decode(value.substring(index + marker.length));
+    } catch (_) {
+      return null;
+    }
   }
 }
 
-class _GuestBanner extends StatelessWidget {
+class _GuestBanner extends ConsumerWidget {
   const _GuestBanner();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color:
-            isDark
-                ? Colors.white.withValues(alpha: 0.05)
-                : AppColors.guestBannerBg.withValues(alpha: 0.7),
+        gradient: visuals.softGradient,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: isDark ? Colors.white10 : AppColors.guestBannerBg,
-        ),
+        border: Border.all(color: isDark ? Colors.white10 : visuals.primary.withValues(alpha: 0.10)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.lock_rounded, color: Color(0xFFCA8A04), size: 20),
+          Icon(Icons.lock_rounded, color: visuals.primary, size: 20),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -209,21 +202,14 @@ class _GuestBanner extends StatelessWidget {
               children: [
                 Text(
                   context.l10n.guestMode,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.warning,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: visuals.primary),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   context.l10n.guestDesc,
                   style: TextStyle(
                     fontSize: 12,
-                    color:
-                        isDark
-                            ? Colors.white70
-                            : AppColors.guestBannerText.withValues(alpha: 0.9),
+                    color: isDark ? Colors.white70 : AppColors.textSecondary,
                     height: 1.4,
                   ),
                 ),
@@ -238,12 +224,12 @@ class _GuestBanner extends StatelessWidget {
 
 class _CtaFeatureCard extends ConsumerWidget {
   const _CtaFeatureCard();
-  static const _featureOverviewAsset =
-      'assets/images/vitacase_feature_overview.png';
+  static const _featureOverviewAsset = 'assets/images/vitacase_feature_overview.png';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return GestureDetector(
       onTap: () => ref.read(navigationProvider.notifier).setIndex(1),
@@ -253,28 +239,15 @@ class _CtaFeatureCard extends ConsumerWidget {
         decoration: BoxDecoration(
           color: isDark ? AppColors.surfaceDark : Colors.white,
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(
-            color:
-                isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
-          ),
+          border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight),
           boxShadow: [
             if (!isDark)
-              BoxShadow(
-                color: AppColors.brandBlue.withValues(alpha: 0.12),
-                blurRadius: 28,
-                offset: const Offset(0, 16),
-              ),
+              BoxShadow(color: visuals.primary.withValues(alpha: 0.12), blurRadius: 28, offset: const Offset(0, 16)),
           ],
         ),
         child: Stack(
           children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              height: 126,
-              child: Image.asset(_featureOverviewAsset, fit: BoxFit.cover),
-            ),
+            Positioned(top: 0, left: 0, right: 0, height: 126, child: Image.asset(_featureOverviewAsset, fit: BoxFit.cover)),
             Positioned(
               top: 82,
               left: 0,
@@ -286,8 +259,7 @@ class _CtaFeatureCard extends ConsumerWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      (isDark ? AppColors.surfaceDark : Colors.white)
-                          .withValues(alpha: 0),
+                      (isDark ? AppColors.surfaceDark : Colors.white).withValues(alpha: 0),
                       isDark ? AppColors.surfaceDark : Colors.white,
                       isDark ? AppColors.surfaceDark : Colors.white,
                     ],
@@ -307,24 +279,13 @@ class _CtaFeatureCard extends ConsumerWidget {
                       Expanded(
                         child: Text(
                           context.l10n.allRecords,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w900,
-                            color: isDark ? Colors.white : AppColors.brandNavy,
-                            fontFamily: 'Manrope',
-                          ),
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: isDark ? Colors.white : AppColors.brandNavy),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: AppColors.brandBlue.withValues(alpha: 0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.chevron_right_rounded,
-                          color: AppColors.brandBlue,
-                        ),
+                        decoration: BoxDecoration(color: visuals.primary.withValues(alpha: 0.12), shape: BoxShape.circle),
+                        child: Icon(Icons.chevron_right_rounded, color: visuals.primary),
                       ),
                     ],
                   ),
@@ -332,29 +293,15 @@ class _CtaFeatureCard extends ConsumerWidget {
                     context.l10n.vaultDesc,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: isDark ? Colors.white60 : AppColors.textSecondary,
-                      fontWeight: FontWeight.w500,
-                      height: 1.35,
-                    ),
+                    style: TextStyle(fontSize: 13, color: isDark ? Colors.white60 : AppColors.textSecondary, fontWeight: FontWeight.w500, height: 1.35),
                   ),
                   Row(
                     children: [
-                      _HeroChip(
-                        icon: Icons.folder_rounded,
-                        label: context.l10n.vault,
-                      ),
+                      _HeroChip(icon: Icons.folder_rounded, label: context.l10n.vault),
                       const SizedBox(width: 8),
-                      _HeroChip(
-                        icon: Icons.calendar_today_rounded,
-                        label: context.l10n.appointments,
-                      ),
+                      _HeroChip(icon: Icons.calendar_today_rounded, label: context.l10n.appointments),
                       const SizedBox(width: 8),
-                      _HeroChip(
-                        icon: Icons.medication_rounded,
-                        label: context.l10n.medicines,
-                      ),
+                      _HeroChip(icon: Icons.medication_rounded, label: context.l10n.medicines),
                     ],
                   ),
                 ],
@@ -367,47 +314,36 @@ class _CtaFeatureCard extends ConsumerWidget {
   }
 }
 
-class _HeroChip extends StatelessWidget {
+class _HeroChip extends ConsumerWidget {
+  const _HeroChip({required this.icon, required this.label});
+
   final IconData icon;
   final String label;
 
-  const _HeroChip({required this.icon, required this.label});
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return Flexible(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
         decoration: BoxDecoration(
-          color:
-              isDark
-                  ? Colors.white.withValues(alpha: 0.06)
-                  : AppColors.brandMist,
+          color: isDark ? Colors.white.withValues(alpha: 0.06) : visuals.softBackground.withValues(alpha: 0.72),
           borderRadius: BorderRadius.circular(999),
-          border: Border.all(
-            color:
-                isDark
-                    ? Colors.white.withValues(alpha: 0.08)
-                    : AppColors.brandBlue.withValues(alpha: 0.1),
-          ),
+          border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : visuals.primary.withValues(alpha: 0.10)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 14, color: AppColors.brandBlue),
+            Icon(icon, size: 14, color: visuals.primary),
             const SizedBox(width: 5),
             Flexible(
               child: Text(
                 label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  color: isDark ? Colors.white70 : AppColors.brandNavy,
-                ),
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: isDark ? Colors.white70 : AppColors.brandNavy),
               ),
             ),
           ],
@@ -423,6 +359,7 @@ class _MetricsGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref.watch(dailyHealthProgressProvider);
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return GridView.count(
       shrinkWrap: true,
@@ -434,37 +371,37 @@ class _MetricsGrid extends ConsumerWidget {
       children: [
         _MetricCard(
           title: context.l10n.steps,
-          value: progress['steps']?.toInt().toString() ?? "0",
+          value: progress['steps']?.toInt().toString() ?? '0',
           unit: context.l10n.steps,
           icon: Icons.directions_walk_rounded,
-          gradient: const [AppColors.gradOrangeStart, AppColors.gradOrangeEnd],
+          gradient: [visuals.primary, visuals.secondary],
           delay: 400.ms,
           onTap: () => context.pushNamed('healthStats'),
         ),
         _MetricCard(
           title: context.l10n.heart,
-          value: progress['heartRate']?.toInt().toString() ?? "0",
+          value: progress['heartRate']?.toInt().toString() ?? '0',
           unit: context.l10n.bpm,
           icon: Icons.favorite_rounded,
-          gradient: const [AppColors.gradPinkStart, AppColors.gradPinkEnd],
+          gradient: [const Color(0xFFEF4444), visuals.primary],
           delay: 500.ms,
           onTap: () => context.pushNamed('healthStats'),
         ),
         _MetricCard(
           title: context.l10n.sleep,
-          value: progress['sleep']?.toInt().toString() ?? "0",
+          value: progress['sleep']?.toInt().toString() ?? '0',
           unit: context.l10n.hours,
           icon: Icons.dark_mode_rounded,
-          gradient: const [AppColors.gradNavyStart, AppColors.gradNavyEnd],
+          gradient: [visuals.secondary, const Color(0xFF111827)],
           delay: 600.ms,
           onTap: () => context.pushNamed('healthStats'),
         ),
         _MetricCard(
           title: context.l10n.water,
-          value: progress['water']?.toInt().toString() ?? "0",
+          value: progress['water']?.toInt().toString() ?? '0',
           unit: context.l10n.ml,
           icon: Icons.water_drop_rounded,
-          gradient: const [AppColors.gradWaterStart, AppColors.gradWaterEnd],
+          gradient: [visuals.primary, const Color(0xFF22D3EE)],
           delay: 700.ms,
           onTap: () => context.pushNamed('healthAdd'),
         ),
@@ -474,15 +411,6 @@ class _MetricsGrid extends ConsumerWidget {
 }
 
 class _MetricCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final String unit;
-  final IconData icon;
-  final List<Color> gradient;
-  final Duration delay;
-
-  final VoidCallback? onTap;
-
   const _MetricCard({
     required this.title,
     required this.value,
@@ -493,6 +421,14 @@ class _MetricCard extends StatelessWidget {
     this.onTap,
   });
 
+  final String title;
+  final String value;
+  final String unit;
+  final IconData icon;
+  final List<Color> gradient;
+  final Duration delay;
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -501,37 +437,17 @@ class _MetricCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),
-          gradient: LinearGradient(
-            colors: gradient,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: gradient[0].withValues(alpha: 0.2),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
-            ),
-          ],
+          gradient: LinearGradient(colors: gradient, begin: Alignment.topLeft, end: Alignment.bottomRight),
+          boxShadow: [BoxShadow(color: gradient[0].withValues(alpha: 0.20), blurRadius: 15, offset: const Offset(0, 8))],
         ),
         child: Stack(
           children: [
             Positioned(
               right: -20,
               bottom: -20,
-              child: Icon(
-                    icon,
-                    size: 100,
-                    color: Colors.white.withValues(alpha: 0.15),
-                  )
-                  .animate(
-                    onPlay: (controller) => controller.repeat(reverse: true),
-                  )
-                  .scale(
-                    begin: const Offset(1, 1),
-                    end: const Offset(1.2, 1.2),
-                    duration: 2.seconds,
-                  )
+              child: Icon(icon, size: 100, color: Colors.white.withValues(alpha: 0.15))
+                  .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                  .scale(begin: const Offset(1, 1), end: const Offset(1.2, 1.2), duration: 2.seconds)
                   .rotate(begin: 0, end: 0.05, duration: 2.seconds),
             ),
             Column(
@@ -541,42 +457,15 @@ class _MetricCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      icon,
-                      color: Colors.white.withValues(alpha: 0.8),
-                      size: 18,
-                    ),
-                    Text(
-                      title.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white.withValues(alpha: 0.8),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
+                    Icon(icon, color: Colors.white.withValues(alpha: 0.8), size: 18),
+                    Text(title.toUpperCase(), style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.white.withValues(alpha: 0.8), letterSpacing: 0.5)),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      value,
-                      style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        fontFamily: 'Inter',
-                      ),
-                    ),
-                    Text(
-                      unit,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white.withValues(alpha: 0.8),
-                      ),
-                    ),
+                    Text(value, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white)),
+                    Text(unit, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.8))),
                   ],
                 ),
               ],
@@ -594,6 +483,7 @@ class _QuickAccess extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -608,18 +498,9 @@ class _QuickAccess extends ConsumerWidget {
               children: [
                 Text(
                   context.l10n.quickAccess,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w900,
-                    color: isDark ? Colors.white38 : Colors.black38,
-                    letterSpacing: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: isDark ? Colors.white38 : Colors.black38, letterSpacing: 1.5),
                 ),
-                Icon(
-                  Icons.add_rounded,
-                  size: 20,
-                  color: isDark ? Colors.white38 : Colors.black38,
-                ),
+                Icon(Icons.add_rounded, size: 20, color: visuals.primary),
               ],
             ),
           ),
@@ -627,46 +508,16 @@ class _QuickAccess extends ConsumerWidget {
         const SizedBox(height: 24),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          physics: const AlwaysScrollableScrollPhysics(
-            parent: BouncingScrollPhysics(),
-          ),
+          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _QuickActionItem(
-                label: context.l10n.vault,
-                icon: Icons.description_rounded,
-                color: const Color(0xFF3B82F6),
-                onTap: () => ref.read(navigationProvider.notifier).setIndex(1),
-                delay: 900.ms,
-              ),
+              _QuickActionItem(label: context.l10n.vault, icon: Icons.description_rounded, onTap: () => ref.read(navigationProvider.notifier).setIndex(1), delay: 900.ms),
               const SizedBox(width: 20),
-              _QuickActionItem(
-                label: context.l10n.pharmacies,
-                icon: Icons.location_on_rounded,
-                color: const Color(0xFF10B981),
-                onTap:
-                    () => ExternalLauncher.launchMapSearch(
-                      context.l10n.pharmacies,
-                    ),
-                delay: 1000.ms,
-              ),
+              _QuickActionItem(label: context.l10n.pharmacies, icon: Icons.location_on_rounded, onTap: () => ExternalLauncher.launchMapSearch(context.l10n.pharmacies), delay: 1000.ms),
               const SizedBox(width: 20),
-              _QuickActionItem(
-                label: context.l10n.medicines,
-                icon: Icons.medication_rounded,
-                color: const Color(0xFFF97316),
-                onTap: () => context.pushNamed('medicines'),
-                delay: 1100.ms,
-              ),
+              _QuickActionItem(label: context.l10n.medicines, icon: Icons.medication_rounded, onTap: () => context.pushNamed('medicines'), delay: 1100.ms),
               const SizedBox(width: 20),
-              _QuickActionItem(
-                label: context.l10n.appointments,
-                icon: Icons.calendar_today_rounded,
-                color: const Color(0xFFA855F7),
-                onTap: () => ref.read(navigationProvider.notifier).setIndex(3),
-                delay: 1200.ms,
-              ),
+              _QuickActionItem(label: context.l10n.appointments, icon: Icons.calendar_today_rounded, onTap: () => ref.read(navigationProvider.notifier).setIndex(3), delay: 1200.ms),
             ],
           ),
         ),
@@ -675,52 +526,33 @@ class _QuickAccess extends ConsumerWidget {
   }
 }
 
-class _QuickActionItem extends StatelessWidget {
+class _QuickActionItem extends ConsumerWidget {
+  const _QuickActionItem({required this.label, required this.icon, required this.onTap, required this.delay});
+
   final String label;
   final IconData icon;
-  final Color color;
   final VoidCallback onTap;
   final Duration delay;
 
-  const _QuickActionItem({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.onTap,
-    required this.delay,
-  });
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final selectedTheme = ref.watch(themeTypeProvider);
 
     return GestureDetector(
       onTap: onTap,
       child: Column(
         children: [
-          Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.2),
-                  blurRadius: 15,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Icon(icon, color: Colors.white, size: 28),
-          ),
+          ThemePlaceholder(type: selectedTheme, size: 64, iconSize: 28, radius: 24),
           const SizedBox(height: 12),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: isDark ? Colors.white70 : AppColors.textPrimary,
+          SizedBox(
+            width: 78,
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: isDark ? Colors.white70 : AppColors.textPrimary),
             ),
           ),
         ],
@@ -736,6 +568,7 @@ class _UpcomingAppointments extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final appointmentsAsync = ref.watch(appointmentListProvider);
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -745,23 +578,11 @@ class _UpcomingAppointments extends ConsumerWidget {
           children: [
             Text(
               context.l10n.upcomingAppointment,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w900,
-                color: isDark ? Colors.white38 : Colors.black38,
-                letterSpacing: 1.5,
-              ),
+              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: isDark ? Colors.white38 : Colors.black38, letterSpacing: 1.5),
             ),
             GestureDetector(
               onTap: () => ref.read(navigationProvider.notifier).setIndex(3),
-              child: Text(
-                context.l10n.allRecordsTitle.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.medicalBlue,
-                ),
-              ),
+              child: Text(context.l10n.allRecordsTitle.toUpperCase(), style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: visuals.primary)),
             ),
           ],
         ).animate().fadeIn(delay: 1300.ms),
@@ -769,28 +590,21 @@ class _UpcomingAppointments extends ConsumerWidget {
         appointmentsAsync.when(
           data: (list) {
             final now = DateTime.now();
-            final upcoming =
-                list.where((a) {
-                  try {
-                    final dt = DateTime.parse("${a.date} ${a.time}");
-                    return dt.isAfter(now);
-                  } catch (e) {
-                    debugPrint(
-                      "🚨 [CRASH_PREVENTION] Malformed appointment date: ${a.date}",
-                    );
-                    return false;
-                  }
-                }).toList();
-
-            upcoming.sort((a, b) {
+            final upcoming = list.where((a) {
               try {
-                final da = DateTime.parse("${a.date} ${a.time}");
-                final db = DateTime.parse("${b.date} ${b.time}");
-                return da.compareTo(db);
+                final dt = DateTime.parse('${a.date} ${a.time}');
+                return dt.isAfter(now);
               } catch (_) {
-                return 0;
+                return false;
               }
-            });
+            }).toList()
+              ..sort((a, b) {
+                try {
+                  return DateTime.parse('${a.date} ${a.time}').compareTo(DateTime.parse('${b.date} ${b.time}'));
+                } catch (_) {
+                  return 0;
+                }
+              });
 
             if (upcoming.isEmpty) {
               return AppEmptyState(
@@ -798,18 +612,11 @@ class _UpcomingAppointments extends ConsumerWidget {
                 title: context.l10n.noMoreAppointments,
                 subtitle: context.l10n.noMoreAppointments,
                 actionLabel: context.l10n.addNewAppointment,
-                onAction:
-                    () => ref.read(navigationProvider.notifier).setIndex(3),
+                onAction: () => ref.read(navigationProvider.notifier).setIndex(3),
               );
             }
 
-            return Column(
-              children:
-                  upcoming
-                      .take(2)
-                      .map((a) => _AppointmentCard(a, isDark))
-                      .toList(),
-            );
+            return Column(children: upcoming.take(2).map((a) => _AppointmentCard(a, isDark)).toList());
           },
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (_, _) => const SizedBox.shrink(),
@@ -819,101 +626,61 @@ class _UpcomingAppointments extends ConsumerWidget {
   }
 }
 
-class _AppointmentCard extends StatelessWidget {
+class _AppointmentCard extends ConsumerWidget {
+  const _AppointmentCard(this.appointment, this.isDark);
+
   final Appointment appointment;
   final bool isDark;
 
-  const _AppointmentCard(this.appointment, this.isDark);
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceDark : Colors.white,
         borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          if (!isDark)
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.02),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-        ],
+        boxShadow: [if (!isDark) BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 10, offset: const Offset(0, 4))],
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: AppColors.medicalBlue.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Icon(
-              Icons.calendar_today_rounded,
-              color: AppColors.medicalBlue,
-              size: 20,
-            ),
+            decoration: BoxDecoration(color: visuals.primary.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(16)),
+            child: Icon(Icons.calendar_today_rounded, color: visuals.primary, size: 20),
           ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  appointment.hospital,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                Text(
-                  "${appointment.department} • ${appointment.doctor}",
-                  style: const TextStyle(
-                    fontSize: 11,
-                    color: AppColors.textSecondary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text(appointment.hospital, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900)),
+                Text('${appointment.department} • ${appointment.doctor}', style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                appointment.time,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: 'Inter',
-                ),
-              ),
-              () {
-                try {
-                  return Text(
-                    DateFormat(
-                      'dd/MM',
-                    ).format(DateTime.parse(appointment.date)),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.medicalBlue,
-                    ),
-                  );
-                } catch (_) {
-                  return const Text(
-                    "N/A",
-                    style: TextStyle(fontSize: 10, color: AppColors.error),
-                  );
-                }
-              }(),
+              Text(appointment.time, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+              _dateText(context, visuals),
             ],
           ),
         ],
       ),
     ).animate().fadeIn().slideX(begin: 0.05);
+  }
+
+  Widget _dateText(BuildContext context, ThemeVisuals visuals) {
+    try {
+      return Text(
+        DateFormat('dd/MM').format(DateTime.parse(appointment.date)),
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: visuals.primary),
+      );
+    } catch (_) {
+      return const Text('N/A', style: TextStyle(fontSize: 10, color: AppColors.error));
+    }
   }
 }
 
@@ -924,6 +691,7 @@ class _SeasonProgressSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final progressAsync = ref.watch(seasonProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return progressAsync.when(
       data: (progress) {
@@ -935,45 +703,15 @@ class _SeasonProgressSection extends ConsumerWidget {
             decoration: BoxDecoration(
               color: isDark ? AppColors.surfaceDark : Colors.white,
               borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                if (!isDark)
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.02),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-              ],
+              boxShadow: [if (!isDark) BoxShadow(color: visuals.primary.withValues(alpha: 0.08), blurRadius: 10, offset: const Offset(0, 4))],
             ),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.stars_rounded,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          "Level ${progress.level}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "${progress.xp % 100} / 100 XP",
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textSecondary,
-                      ),
-                    ),
+                    Row(children: [const Icon(Icons.stars_rounded, color: Colors.amber, size: 20), const SizedBox(width: 8), Text('Level ${progress.level}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))]),
+                    Text('${progress.xp % 100} / 100 XP', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -983,9 +721,7 @@ class _SeasonProgressSection extends ConsumerWidget {
                     value: progressInLevel.clamp(0.0, 1.0),
                     minHeight: 10,
                     backgroundColor: isDark ? Colors.white10 : Colors.grey[100],
-                    valueColor: const AlwaysStoppedAnimation<Color>(
-                      AppColors.medicalBlue,
-                    ),
+                    valueColor: AlwaysStoppedAnimation<Color>(visuals.primary),
                   ),
                 ),
               ],
@@ -1015,12 +751,7 @@ class _DailyMissionsSection extends ConsumerWidget {
           children: [
             Text(
               context.l10n.dailyMissions.toUpperCase(),
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w900,
-                color: isDark ? Colors.white38 : Colors.black38,
-                letterSpacing: 1.5,
-              ),
+              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: isDark ? Colors.white38 : Colors.black38, letterSpacing: 1.5),
             ).animate().fadeIn(delay: 800.ms),
             const SizedBox(height: 16),
             ...missions.map((m) => _MissionCard(m, isDark)),
@@ -1033,54 +764,34 @@ class _DailyMissionsSection extends ConsumerWidget {
   }
 }
 
-class _MissionCard extends StatelessWidget {
+class _MissionCard extends ConsumerWidget {
+  const _MissionCard(this.mission, this.isDark);
+
   final dynamic mission;
   final bool isDark;
 
-  const _MissionCard(this.mission, this.isDark);
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final progress = mission.progress / mission.target;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
+      decoration: BoxDecoration(color: isDark ? AppColors.surfaceDark : Colors.white, borderRadius: BorderRadius.circular(20)),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color:
-                  mission.isCompleted
-                      ? Colors.green.withValues(alpha: 0.1)
-                      : AppColors.medicalBlue.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              mission.isCompleted
-                  ? Icons.check_circle_rounded
-                  : Icons.task_alt_rounded,
-              color: mission.isCompleted ? Colors.green : AppColors.medicalBlue,
-              size: 20,
-            ),
+            decoration: BoxDecoration(color: (mission.isCompleted ? Colors.green : visuals.primary).withValues(alpha: 0.10), shape: BoxShape.circle),
+            child: Icon(mission.isCompleted ? Icons.check_circle_rounded : Icons.task_alt_rounded, color: mission.isCompleted ? Colors.green : visuals.primary, size: 20),
           ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  context.l10n(mission.title),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
+                Text(context.tr(mission.title.toString()), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                 const SizedBox(height: 4),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(3),
@@ -1088,25 +799,14 @@ class _MissionCard extends StatelessWidget {
                     value: progress.clamp(0.0, 1.0),
                     minHeight: 4,
                     backgroundColor: isDark ? Colors.white10 : Colors.grey[100],
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      mission.isCompleted
-                          ? Colors.green
-                          : AppColors.medicalBlue,
-                    ),
+                    valueColor: AlwaysStoppedAnimation<Color>(mission.isCompleted ? Colors.green : visuals.primary),
                   ),
                 ),
               ],
             ),
           ),
           const SizedBox(width: 16),
-          Text(
-            "${mission.progress}/${mission.target}",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: AppColors.textSecondary,
-            ),
-          ),
+          Text('${mission.progress}/${mission.target}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textSecondary)),
         ],
       ),
     ).animate().fadeIn().slideX(begin: 0.05);
@@ -1115,146 +815,72 @@ class _MissionCard extends StatelessWidget {
 
 void _showQuickActionsMenu(BuildContext context, WidgetRef ref) {
   final isDark = Theme.of(context).brightness == Brightness.dark;
+  final visuals = ThemeVisuals.of(ref.read(themeTypeProvider));
 
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
-    builder:
-        (ctx) => Container(
-          padding: const EdgeInsets.all(32),
-          decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF0F172A) : Colors.white,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    builder: (ctx) => Container(
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF0F172A) : Colors.white,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(2))),
+          const SizedBox(height: 32),
+          Text(context.l10n.quickActions, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+          const SizedBox(height: 32),
+          GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
             children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 32),
-              Text(
-                context.l10n.quickActions,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              const SizedBox(height: 32),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 3,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-                children: [
-                  _MenuActionItem(
-                    label: context.l10n.addMedicine,
-                    icon: Icons.medication_rounded,
-                    color: Colors.blue,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      context.push('/medicines/add');
-                    },
-                  ),
-                  _MenuActionItem(
-                    label: context.l10n.addAppointment,
-                    icon: Icons.calendar_today_rounded,
-                    color: Colors.indigo,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      context.push('/appointments/add');
-                    },
-                  ),
-                  _MenuActionItem(
-                    label: context.l10n.addDoctor,
-                    icon: Icons.person_add_rounded,
-                    color: Colors.teal,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      context.push('/doctors/add');
-                    },
-                  ),
-                  _MenuActionItem(
-                    label: context.l10n.addDocument,
-                    icon: Icons.upload_file_rounded,
-                    color: Colors.orange,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      ref.read(navigationProvider.notifier).setIndex(1);
-                    },
-                  ),
-                  _MenuActionItem(
-                    label: context.l10n.addData,
-                    icon: Icons.analytics_rounded,
-                    color: Colors.pink,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      context.push('/health/add');
-                    },
-                  ),
-                  _MenuActionItem(
-                    label: context.l10n.settings,
-                    icon: Icons.settings_rounded,
-                    color: Colors.grey,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      context.push('/settings');
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
+              _MenuActionItem(label: context.l10n.addMedicine, icon: Icons.medication_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/medicines/add'); }),
+              _MenuActionItem(label: context.l10n.addAppointment, icon: Icons.calendar_today_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/appointments/add'); }),
+              _MenuActionItem(label: context.l10n.addDoctor, icon: Icons.person_add_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/doctors/add'); }),
+              _MenuActionItem(label: context.l10n.addDocument, icon: Icons.upload_file_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); ref.read(navigationProvider.notifier).setIndex(1); }),
+              _MenuActionItem(label: context.l10n.addData, icon: Icons.analytics_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/health/add'); }),
+              _MenuActionItem(label: context.l10n.settings, icon: Icons.settings_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/settings'); }),
             ],
           ),
-        ),
+          const SizedBox(height: 20),
+        ],
+      ),
+    ),
   );
 }
 
 class _MenuActionItem extends StatelessWidget {
+  const _MenuActionItem({required this.label, required this.icon, required this.visuals, required this.onTap});
+
   final String label;
   final IconData icon;
-  final Color color;
+  final ThemeVisuals visuals;
   final VoidCallback onTap;
-
-  const _MenuActionItem({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Column(
       children: [
         InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           child: Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Icon(icon, color: color, size: 28),
+            decoration: BoxDecoration(gradient: visuals.gradient, borderRadius: BorderRadius.circular(18)),
+            child: Icon(icon, color: Colors.white, size: 28),
           ),
         ),
         const SizedBox(height: 8),
         Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            color: isDark ? Colors.white70 : Colors.black87,
-          ),
+          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: isDark ? Colors.white70 : Colors.black87),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
