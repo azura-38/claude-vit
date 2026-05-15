@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/l10n/vita_strings.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_unlock_provider.dart';
@@ -18,16 +19,9 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
   AppThemeType? _previewTheme;
   bool _loadingAd = false;
 
-  bool _isRewardTheme(AppThemeType type) {
-    return type == AppThemeType.purple ||
-        type == AppThemeType.nature ||
-        type == AppThemeType.ocean ||
-        type == AppThemeType.amber;
-  }
-
   Future<void> _apply(AppThemeType type) async {
     final unlock = ref.read(themeUnlockProvider.notifier);
-    final isLocked = _isRewardTheme(type) && !unlock.isUnlocked;
+    final isLocked = type.isRewardTheme && !unlock.isUnlocked;
 
     if (isLocked) {
       await _unlockWithAd(type);
@@ -51,22 +45,21 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     if (ok) {
       await ref.read(themeTypeProvider.notifier).setTheme(type);
       if (!mounted) return;
-      _showMessage('Theme unlocked. Each extra ad adds +1 day.');
-      if (mounted) context.pop();
+      _showMessage(VitaStrings.of(context).themeUnlocked);
+      context.pop();
     } else {
-      _showMessage('Ad unavailable. Please try again later.');
+      _showMessage(VitaStrings.of(context).adUnavailableTryLater);
     }
   }
 
   void _showMessage(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context) {
+    final strings = VitaStrings.of(context);
     final currentTheme = ref.watch(themeTypeProvider);
     final unlockUntil = ref.watch(themeUnlockProvider);
     final unlockNotifier = ref.read(themeUnlockProvider.notifier);
@@ -88,39 +81,28 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
         children: [
           _ThemePreview(type: activePreview),
           const SizedBox(height: 20),
-          if (unlockUntil != null)
-            _UnlockStatusCard(days: unlockNotifier.remainingDays),
+          if (unlockUntil != null) _UnlockStatusCard(days: unlockNotifier.remainingDays),
           if (unlockUntil != null) const SizedBox(height: 20),
-          _SectionTitle(title: 'Free themes'),
+          _SectionTitle(title: strings.freeThemes),
           const SizedBox(height: 12),
-          _ThemeTile(
-            type: AppThemeType.light,
-            selected: currentTheme == AppThemeType.light,
-            locked: false,
-            onPreview: () => setState(() => _previewTheme = AppThemeType.light),
-            onApply: () => _apply(AppThemeType.light),
-          ),
-          _ThemeTile(
-            type: AppThemeType.dark,
-            selected: currentTheme == AppThemeType.dark,
-            locked: false,
-            onPreview: () => setState(() => _previewTheme = AppThemeType.dark),
-            onApply: () => _apply(AppThemeType.dark),
-          ),
+          for (final type in AppThemeType.freeThemes)
+            _ThemeTile(
+              type: type,
+              selected: currentTheme == type,
+              locked: false,
+              loading: _loadingAd,
+              onPreview: () => setState(() => _previewTheme = type),
+              onApply: () => _apply(type),
+            ),
           const SizedBox(height: 24),
-          _SectionTitle(title: 'Reward themes'),
+          _SectionTitle(title: strings.rewardThemes),
           const SizedBox(height: 8),
           Text(
-            'Watch one rewarded ad to unlock these themes for 3 days. Every extra ad adds +1 day.',
+            strings.rewardThemesInfo,
             style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary),
           ),
           const SizedBox(height: 12),
-          for (final type in const [
-            AppThemeType.purple,
-            AppThemeType.nature,
-            AppThemeType.ocean,
-            AppThemeType.amber,
-          ])
+          for (final type in AppThemeType.rewardThemes)
             _ThemeTile(
               type: type,
               selected: currentTheme == type,
@@ -133,6 +115,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
       ),
       floatingActionButton: unlockNotifier.isUnlocked
           ? FloatingActionButton.extended(
+              heroTag: 'themeExtendFab',
               onPressed: _loadingAd
                   ? null
                   : () async {
@@ -140,12 +123,16 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                       final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
                       if (!mounted) return;
                       setState(() => _loadingAd = false);
-                      _showMessage(ok ? '+1 day added.' : 'Ad unavailable.');
+                      _showMessage(ok ? strings.oneDayAdded : strings.adUnavailable);
                     },
               icon: _loadingAd
-                  ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
                   : const Icon(Icons.play_circle_outline_rounded),
-              label: const Text('Add +1 day'),
+              label: Text(strings.addOneDay),
             )
           : null,
     );
@@ -192,7 +179,11 @@ class _ThemePreview extends StatelessWidget {
                       children: [
                         Container(width: 140, height: 10, color: theme.colorScheme.primary),
                         const SizedBox(height: 10),
-                        Container(width: 210, height: 8, color: theme.colorScheme.primary.withValues(alpha: 0.18)),
+                        Container(
+                          width: 210,
+                          height: 8,
+                          color: theme.colorScheme.primary.withValues(alpha: 0.18),
+                        ),
                       ],
                     ),
                   ),
@@ -225,20 +216,23 @@ class _ThemeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = VitaStrings.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final primary = AppTheme.getThemeByType(type).colorScheme.primary;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         onTap: onPreview,
         leading: CircleAvatar(
-          backgroundColor: AppTheme.getThemeByType(type).colorScheme.primary,
+          backgroundColor: primary,
           child: locked ? const Icon(Icons.lock_rounded, color: Colors.white, size: 18) : null,
         ),
         title: Text(type.label, style: const TextStyle(fontWeight: FontWeight.w800)),
-        subtitle: Text(locked ? 'Watch ad to unlock' : selected ? 'Active' : 'Tap to preview'),
+        subtitle: Text(locked ? strings.watchAdToUnlock : selected ? strings.active : strings.tapToPreview),
         trailing: FilledButton(
           onPressed: loading ? null : onApply,
-          child: Text(locked ? 'Unlock' : selected ? 'Active' : 'Apply'),
+          child: Text(locked ? strings.unlock : selected ? strings.active : strings.apply),
         ),
         tileColor: isDark ? AppColors.surfaceDark : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
@@ -254,6 +248,7 @@ class _UnlockStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = VitaStrings.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -264,7 +259,7 @@ class _UnlockStatusCard extends StatelessWidget {
         children: [
           const Icon(Icons.verified_rounded, color: AppColors.medicalBlue),
           const SizedBox(width: 12),
-          Expanded(child: Text('Reward themes active for $days day(s).')),
+          Expanded(child: Text(strings.rewardThemesActive(days))),
         ],
       ),
     );
