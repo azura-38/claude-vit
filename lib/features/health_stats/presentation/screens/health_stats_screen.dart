@@ -1,13 +1,16 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/theme/theme_visuals.dart';
 import '../../../../core/utils/uuid_generator.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/health_providers.dart';
 import '../../../../shared/domain/entities/health_metric.dart';
-import '../../../../shared/widgets/misc/banner_ad_container.dart';
+import '../../../../shared/widgets/misc/app_empty_state.dart';
 import 'package:vitacase/features/profile/presentation/providers/legacy_providers.dart';
 
 class HealthStatsScreen extends ConsumerStatefulWidget {
@@ -24,26 +27,27 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
     final healthData = ref.watch(healthListProvider).asData?.value ?? [];
     final progress = ref.watch(dailyHealthProgressProvider);
     final userName = ref.watch(profileNameProvider) ?? context.tr('guest_user');
+    final selectedTheme = ref.watch(themeTypeProvider);
+    final visuals = ThemeVisuals.of(selectedTheme);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF1F5F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: CustomScrollView(
         slivers: [
           _buildSliverAppBar(context, isDark),
-          const SliverToBoxAdapter(child: BannerAdContainer()),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHeader(context, userName, isDark),
+                  _buildHeader(context, userName, isDark, visuals),
                   const SizedBox(height: 32),
-                  _buildDailyRingSection(context, progress, isDark),
+                  _buildDailyRingSection(context, progress, isDark, visuals),
                   const SizedBox(height: 32),
                   _buildMetricsGrid(context, healthData, isDark),
                   const SizedBox(height: 24),
-                  _buildSafetyNote(context, isDark),
+                  _buildSafetyNote(context, isDark, visuals),
                   const SizedBox(height: 32),
                   _buildHistorySection(context, healthData, isDark),
                   const SizedBox(height: 100),
@@ -56,7 +60,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'healthStatsFab',
         onPressed: () => _showAddMetric(context),
-        backgroundColor: AppColors.primaryIndigo,
+        backgroundColor: visuals.primary,
         child: const Icon(Icons.add_rounded, color: Colors.white, size: 32),
       ).animate().scale(curve: Curves.easeOutBack, duration: 500.ms),
     );
@@ -66,7 +70,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
     return SliverAppBar(
       expandedHeight: 0,
       floating: true,
-      backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF1F5F9),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
       scrolledUnderElevation: 0,
       title: Text(
@@ -82,28 +86,48 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
     );
   }
 
-  Widget _buildHeader(BuildContext context, String name, bool isDark) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "${context.tr('hi')}, $name 👋",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
-            color: isDark ? Colors.white : AppColors.textPrimary,
-          ),
+  Widget _buildHeader(BuildContext context, String name, bool isDark, ThemeVisuals visuals) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        gradient: visuals.softGradient,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.10) : Colors.black.withValues(alpha: 0.04),
         ),
-        const SizedBox(height: 4),
-        Text(
-          context.tr('safety_footer_health'),
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColors.textSecondary,
-            fontWeight: FontWeight.w500,
+      ),
+      child: Row(
+        children: [
+          ThemePlaceholder(type: visuals.type, size: 58, iconSize: 28, radius: 20),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${context.tr('hi')}, $name 👋",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    color: isDark ? Colors.white : AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  context.tr('safety_footer_health'),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? Colors.white70 : AppColors.textSecondary,
+                    fontWeight: FontWeight.w500,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ).animate().fadeIn().slideX(begin: -0.1);
   }
 
@@ -111,6 +135,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
     BuildContext context,
     Map<String, double> progress,
     bool isDark,
+    ThemeVisuals visuals,
   ) {
     final stepsPercent = (progress['steps']! / 10000).clamp(0.0, 1.0);
     final waterPercent = (progress['water']! / 2500).clamp(0.0, 1.0);
@@ -122,7 +147,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
+            color: visuals.primary.withValues(alpha: 0.10),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -142,8 +167,8 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
                     child: CircularProgressIndicator(
                       value: stepsPercent,
                       strokeWidth: 12,
-                      backgroundColor: AppColors.primaryGreen.withValues(alpha: 0.1),
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primaryGreen),
+                      backgroundColor: visuals.secondary.withValues(alpha: 0.12),
+                      valueColor: AlwaysStoppedAnimation<Color>(visuals.secondary),
                       strokeCap: StrokeCap.round,
                     ),
                   ),
@@ -155,14 +180,14 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
                     child: CircularProgressIndicator(
                       value: waterPercent,
                       strokeWidth: 12,
-                      backgroundColor: AppColors.medicalBlue.withValues(alpha: 0.1),
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.medicalBlue),
+                      backgroundColor: visuals.primary.withValues(alpha: 0.12),
+                      valueColor: AlwaysStoppedAnimation<Color>(visuals.primary),
                       strokeCap: StrokeCap.round,
                     ),
                   ),
                 ),
-                const Center(
-                  child: Icon(Icons.bolt_rounded, color: AppColors.primaryGreen, size: 24),
+                Center(
+                  child: Icon(Icons.bolt_rounded, color: visuals.primary, size: 24),
                 ),
               ],
             ),
@@ -174,13 +199,13 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
                 _buildRingLegend(
                   context.tr('steps'),
                   "${progress['steps']!.toInt()}/10000",
-                  AppColors.primaryGreen,
+                  visuals.secondary,
                 ),
                 const SizedBox(height: 12),
                 _buildRingLegend(
                   context.tr('water'),
                   "${progress['water']!.toInt()}/2500 ${context.tr('unit_ml')}",
-                  AppColors.medicalBlue,
+                  visuals.primary,
                 ),
               ],
             ),
@@ -301,7 +326,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
     ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.1);
   }
 
-  Widget _buildSafetyNote(BuildContext context, bool isDark) {
+  Widget _buildSafetyNote(BuildContext context, bool isDark, ThemeVisuals visuals) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -312,7 +337,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.info_outline_rounded, color: AppColors.medicalBlue, size: 20),
+          Icon(Icons.info_outline_rounded, color: visuals.primary, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -332,17 +357,12 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
         Text(context.tr('recent_activity'), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
         const SizedBox(height: 16),
         if (data.isEmpty)
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Column(
-                children: [
-                  const Icon(Icons.history_rounded, color: AppColors.textTertiary, size: 48),
-                  const SizedBox(height: 12),
-                  Text(context.tr('no_health_records'), style: const TextStyle(color: AppColors.textSecondary)),
-                ],
-              ),
-            ),
+          AppEmptyState(
+            icon: Icons.history_rounded,
+            title: context.tr('no_health_records'),
+            subtitle: context.tr('safety_footer_health'),
+            actionLabel: context.tr('add_health_data'),
+            onAction: () => _showAddMetric(context),
           )
         else
           ...data.take(5).map((m) => _buildHistoryItem(context, m, isDark)),
@@ -428,6 +448,9 @@ class _AddHealthMetricSheetState extends ConsumerState<_AddHealthMetricSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final selectedTheme = ref.watch(themeTypeProvider);
+    final visuals = ThemeVisuals.of(selectedTheme);
+
     return Container(
       constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
       decoration: BoxDecoration(
@@ -464,7 +487,7 @@ class _AddHealthMetricSheetState extends ConsumerState<_AddHealthMetricSheet> {
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                           decoration: BoxDecoration(
                             color: active
-                                ? AppColors.primaryIndigo
+                                ? visuals.primary
                                 : (isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9)),
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -510,12 +533,12 @@ class _AddHealthMetricSheetState extends ConsumerState<_AddHealthMetricSheet> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: AppColors.primaryIndigo.withValues(alpha: 0.1),
+                            color: visuals.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             _isMl ? context.tr('unit_ml') : context.tr('unit_l'),
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: AppColors.primaryIndigo),
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: visuals.primary),
                           ),
                         ),
                       )
@@ -534,7 +557,7 @@ class _AddHealthMetricSheetState extends ConsumerState<_AddHealthMetricSheet> {
                 child: ElevatedButton(
                   onPressed: _save,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryIndigo,
+                    backgroundColor: visuals.primary,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     elevation: 0,
