@@ -96,7 +96,7 @@ class _HealthStatsScreenState extends ConsumerState<HealthStatsScreen> {
         ),
         const SizedBox(height: 4),
         Text(
-          context.tr('health_tracking_desc_safe'),
+          context.tr('safety_footer_health'),
           style: const TextStyle(
             fontSize: 14,
             color: AppColors.textSecondary,
