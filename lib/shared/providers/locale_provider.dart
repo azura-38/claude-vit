@@ -13,15 +13,21 @@ class SupportedLanguage {
   const SupportedLanguage(this.code, this.name);
 }
 
-/// V1 keeps only fully maintained translations enabled.
-/// Additional locales can be re-enabled after every visible string is translated.
+/// Enabled locales must match generated AppLocalizations files.
+/// Hindi, Japanese and Simplified Chinese will be added after their ARB files
+/// are generated.
 const List<SupportedLanguage> supportedLanguages = [
   SupportedLanguage('en', 'English'),
   SupportedLanguage('tr', 'Türkçe'),
+  SupportedLanguage('es', 'Español'),
+  SupportedLanguage('pt', 'Português'),
+  SupportedLanguage('de', 'Deutsch'),
+  SupportedLanguage('fr', 'Français'),
+  SupportedLanguage('it', 'Italiano'),
 ];
 
 class LocaleNotifier extends Notifier<Locale> {
-  static const _supportedLocales = ['en', 'tr'];
+  static const _supportedLocales = ['en', 'tr', 'es', 'pt', 'de', 'fr', 'it'];
 
   @override
   Locale build() {
