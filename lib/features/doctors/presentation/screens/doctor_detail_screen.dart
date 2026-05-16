@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -8,11 +8,17 @@ import '../../../../shared/providers/doctor_providers.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../shared/widgets/misc/app_header.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../../shared/widgets/misc/banner_ad_container.dart';
 
 class DoctorDetailScreen extends ConsumerWidget {
-  final String id;
   const DoctorDetailScreen({super.key, required this.id});
+
+  final String id;
+
+  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+  String _detailTitle(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Detayı' : 'Person / Contact Detail';
+  String _institutionSource(BuildContext context) => _isTr(context) ? 'Kurum / Kaynak' : 'Institution / Source';
+  String _categoryArea(BuildContext context) => _isTr(context) ? 'Kategori / Alan' : 'Category / Area';
+  String _subCategory(BuildContext context) => _isTr(context) ? 'Alt alan' : 'Sub-area';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,27 +31,22 @@ class DoctorDetailScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text(context.l10n.error)),
         data: (doctors) {
-          final doctor = doctors.where((d) => d.id == id).firstOrNull;
-          if (doctor == null) {
+          final contact = doctors.where((d) => d.id == id).firstOrNull;
+          if (contact == null) {
             return Center(child: Text(context.l10n.pageNotFound));
           }
 
-          // ...
           return SafeArea(
             bottom: false,
             child: Column(
               children: [
-                const BannerAdContainer(),
-                AppHeader(
-                  title: '${doctor.localizedTitle(context)} ${doctor.name}',
-                  showBack: true,
-                ),
+                AppHeader(title: _detailTitle(context), showBack: true),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
-                        _buildHero(context, doctor, isDark),
+                        _buildHero(context, contact, isDark),
                         const SizedBox(height: 32),
                         _buildSection(
                           context,
@@ -54,24 +55,24 @@ class DoctorDetailScreen extends ConsumerWidget {
                           children: [
                             _infoTile(
                               context,
-                              Icons.local_hospital_rounded,
-                              context.l10n.doctorsAddHospital,
-                              doctor.hospital,
+                              Icons.business_rounded,
+                              _institutionSource(context),
+                              contact.hospital,
                               isDark,
                             ),
                             _infoTile(
                               context,
                               Icons.category_rounded,
-                              context.l10n.doctorsAddDept,
-                              doctor.department,
+                              _categoryArea(context),
+                              contact.department,
                               isDark,
                             ),
-                            if (doctor.subSpecialty != null)
+                            if (contact.subSpecialty != null)
                               _infoTile(
                                 context,
                                 Icons.stars_rounded,
-                                context.l10n.doctorsAddSub,
-                                doctor.subSpecialty!,
+                                _subCategory(context),
+                                contact.subSpecialty!,
                                 isDark,
                               ),
                           ],
@@ -82,42 +83,34 @@ class DoctorDetailScreen extends ConsumerWidget {
                           label: context.l10n.contactInfo,
                           isDark: isDark,
                           children: [
-                            if (doctor.phone != null)
+                            if (contact.phone != null)
                               _infoTile(
                                 context,
                                 Icons.phone_rounded,
                                 context.l10n.phone,
-                                doctor.phone!,
+                                contact.phone!,
                                 isDark,
                                 trailing: IconButton(
-                                  icon: const Icon(
-                                    Icons.call,
-                                    color: AppColors.primaryIndigo,
-                                    size: 20,
-                                  ),
-                                  onPressed: () => _launchCaller(doctor.phone!),
+                                  icon: const Icon(Icons.call, color: AppColors.primaryIndigo, size: 20),
+                                  onPressed: () => _launchCaller(contact.phone!),
                                 ),
                               ),
-                            if (doctor.email != null)
+                            if (contact.email != null)
                               _infoTile(
                                 context,
                                 Icons.email_rounded,
                                 context.l10n.email,
-                                doctor.email!,
+                                contact.email!,
                                 isDark,
                                 trailing: IconButton(
-                                  icon: const Icon(
-                                    Icons.mail_rounded,
-                                    color: AppColors.medicalBlue,
-                                    size: 20,
-                                  ),
-                                  onPressed: () => _launchEmail(doctor.email!),
+                                  icon: const Icon(Icons.mail_rounded, color: AppColors.medicalBlue, size: 20),
+                                  onPressed: () => _launchEmail(contact.email!),
                                 ),
                               ),
                           ],
                         ),
                         const SizedBox(height: 24),
-                        if (doctor.notes != null && doctor.notes!.isNotEmpty)
+                        if (contact.notes != null && contact.notes!.isNotEmpty)
                           _buildSection(
                             context,
                             label: context.l10n.docsAddNote,
@@ -127,28 +120,13 @@ class DoctorDetailScreen extends ConsumerWidget {
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
-                                  color:
-                                      isDark
-                                          ? AppColors.surfaceDark
-                                          : Colors.white,
+                                  color: isDark ? AppColors.surfaceDark : Colors.white,
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color:
-                                        isDark
-                                            ? AppColors.cardBorderDark
-                                            : AppColors.cardBorderLight,
-                                  ),
+                                  border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight),
                                 ),
                                 child: Text(
-                                  doctor.notes!,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color:
-                                        isDark
-                                            ? Colors.white70
-                                            : AppColors.textSecondary,
-                                    height: 1.5,
-                                  ),
+                                  contact.notes!,
+                                  style: TextStyle(fontSize: 14, color: isDark ? Colors.white70 : AppColors.textSecondary, height: 1.5),
                                 ),
                               ),
                             ],
@@ -166,7 +144,7 @@ class DoctorDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHero(BuildContext context, Doctor doctor, bool isDark) {
+  Widget _buildHero(BuildContext context, Doctor contact, bool isDark) {
     return Column(
       children: [
         Container(
@@ -175,48 +153,34 @@ class DoctorDetailScreen extends ConsumerWidget {
           decoration: BoxDecoration(
             color: AppColors.medicalBlue.withValues(alpha: 0.1),
             shape: BoxShape.circle,
-            border: Border.all(
-              color: AppColors.medicalBlue.withValues(alpha: 0.2),
-              width: 4,
-            ),
+            border: Border.all(color: AppColors.medicalBlue.withValues(alpha: 0.2), width: 4),
           ),
           child: Center(
-            child: Icon(
-              Icons.person_rounded,
-              size: 50,
-              color: AppColors.medicalBlue.withValues(alpha: 0.5),
-            ),
+            child: Icon(Icons.contact_phone_rounded, size: 50, color: AppColors.medicalBlue.withValues(alpha: 0.5)),
           ),
         ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
         const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '${doctor.localizedTitle(context)} ${doctor.name}',
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Manrope',
+            Flexible(
+              child: Text(
+                contact.name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            if (doctor.isVerified) ...[
+            if (contact.isVerified) ...[
               const SizedBox(width: 8),
-              const Icon(
-                Icons.verified_rounded,
-                color: AppColors.primaryIndigo,
-                size: 20,
-              ),
+              const Icon(Icons.verified_rounded, color: AppColors.primaryIndigo, size: 20),
             ],
           ],
         ),
         Text(
-          doctor.department,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: isDark ? Colors.white38 : AppColors.textTertiary,
-          ),
+          contact.department,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isDark ? Colors.white38 : AppColors.textTertiary),
         ),
       ],
     );
@@ -233,26 +197,14 @@ class DoctorDetailScreen extends ConsumerWidget {
       children: [
         Text(
           label.toUpperCase(),
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 1.2,
-            color: isDark ? Colors.white38 : AppColors.textTertiary,
-          ),
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 1.2, color: isDark ? Colors.white38 : AppColors.textTertiary),
         ),
         const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
             color: isDark ? AppColors.surfaceDark : Colors.white,
             borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              if (!isDark)
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.02),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
-            ],
+            boxShadow: [if (!isDark) BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 20, offset: const Offset(0, 10))],
           ),
           child: Column(children: children),
         ),
@@ -271,24 +223,14 @@ class DoctorDetailScreen extends ConsumerWidget {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: AppColors.medicalBlue.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        decoration: BoxDecoration(color: AppColors.medicalBlue.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(10)),
         child: Icon(icon, size: 18, color: AppColors.medicalBlue),
       ),
       title: Text(
         label,
-        style: TextStyle(
-          fontSize: 11,
-          color: isDark ? Colors.white38 : AppColors.textTertiary,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(fontSize: 11, color: isDark ? Colors.white38 : AppColors.textTertiary, fontWeight: FontWeight.w600),
       ),
-      subtitle: Text(
-        value,
-        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-      ),
+      subtitle: Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
       trailing: trailing,
     );
   }
