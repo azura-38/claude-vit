@@ -403,7 +403,7 @@ class _MetricsGrid extends ConsumerWidget {
           icon: Icons.water_drop_rounded,
           gradient: [visuals.primary, const Color(0xFF22D3EE)],
           delay: 700.ms,
-          onTap: () => context.pushNamed('healthAdd'),
+          onTap: () => context.pushNamed('healthDataAdd'),
         ),
       ],
     );
