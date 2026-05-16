@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
@@ -37,6 +37,22 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
   Gender _selectedGender = Gender.male;
   String _phonePrefix = '+1';
 
+  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+  String _addContactTitle(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Ekle' : 'Add Person / Contact';
+  String _contactInfoTitle(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Bilgisi' : 'Person / Contact Info';
+  String _contactInfoDesc(BuildContext context) => _isTr(context)
+      ? 'Önemli kişi, kurum ve iletişim bilgilerini hızlı erişim için saklayın.'
+      : 'Keep important person, institution, and contact details for quick access.';
+  String _personContactLabel(BuildContext context) => _isTr(context) ? 'Kişi / İletişim' : 'Person / Contact';
+  String _categoryAreaLabel(BuildContext context) => _isTr(context) ? 'Kategori / Alan' : 'Category / Area';
+  String _institutionSourceLabel(BuildContext context) => _isTr(context) ? 'Kurum / Kaynak' : 'Institution / Source';
+  String _personHint(BuildContext context) => _isTr(context) ? 'Örn. Dr. Ayşe, Danışman, Klinik görevlisi' : 'e.g. Dr. Smith, advisor, clinic contact';
+  String _categoryHint(BuildContext context) => _isTr(context) ? 'Örn. Kontrol, diş, terapi, danışma' : 'e.g. checkup, dental, therapy, consultation';
+  String _institutionHint(BuildContext context) => _isTr(context) ? 'Örn. Klinik, laboratuvar, ofis, online kaynak' : 'e.g. clinic, lab, office, online source';
+  String _requiredContactError(BuildContext context) => _isTr(context)
+      ? 'Lütfen kişi/iletişim ve kategori/alan bilgisini girin.'
+      : 'Please enter person/contact and category/area information.';
+
   @override
   void initState() {
     super.initState();
@@ -61,11 +77,8 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
   }
 
   Future<void> _save() async {
-    if (_nameController.text.trim().isEmpty ||
-        _specialtyController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.errorDoctorData)));
+    if (_nameController.text.trim().isEmpty || _specialtyController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_requiredContactError(context))));
       return;
     }
 
@@ -74,29 +87,14 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
       title: _selectedTitle,
       name: _nameController.text.trim(),
       department: _specialtyController.text.trim(),
-      hospital:
-          _hospitalController.text.trim().isEmpty
-              ? context.l10n.unknown
-              : _hospitalController.text.trim(),
-      phone:
-          _phoneController.text.trim().isEmpty
-              ? null
-              : '$_phonePrefix ${_phoneController.text.trim()}',
-      email:
-          _emailController.text.trim().isEmpty
-              ? null
-              : _emailController.text.trim(),
+      hospital: _hospitalController.text.trim().isEmpty ? context.l10n.unknown : _hospitalController.text.trim(),
+      phone: _phoneController.text.trim().isEmpty ? null : '$_phonePrefix ${_phoneController.text.trim()}',
+      email: _emailController.text.trim().isEmpty ? null : _emailController.text.trim(),
       gender: _selectedGender,
-      notes:
-          _notesController.text.trim().isEmpty
-              ? null
-              : _notesController.text.trim(),
+      notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),
       isVerified: true,
       createdAt: DateTime.now(),
     );
-
-    // If address is not in Doctor entity, we can prepend it to notes or ignore
-    // For now we just use the entity fields.
 
     await ref.read(doctorListProvider.notifier).addDoctor(doctor);
     if (mounted) context.pop();
@@ -109,22 +107,16 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF7F9FC),
       appBar: AppBar(
-        backgroundColor: (isDark ? Colors.black : Colors.white).withValues(
-          alpha: 0.8,
-        ),
+        backgroundColor: (isDark ? Colors.black : Colors.white).withValues(alpha: 0.8),
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: isDark ? Colors.white : AppColors.medicalBlue,
-          ),
+          icon: Icon(Icons.arrow_back_rounded, color: isDark ? Colors.white : AppColors.medicalBlue),
           onPressed: () => context.pop(),
         ),
         title: Text(
-          context.l10n.addDoctor,
+          _addContactTitle(context),
           style: TextStyle(
-            fontFamily: 'Manrope',
             color: isDark ? Colors.white : const Color(0xFF001C39),
             fontWeight: FontWeight.w800,
             fontSize: 18,
@@ -136,7 +128,6 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
             child: Text(
               context.l10n.save,
               style: TextStyle(
-                fontFamily: 'Manrope',
                 color: isDark ? AppColors.medicalBlue : const Color(0xFF005DA7),
                 fontWeight: FontWeight.w900,
                 fontSize: 16,
@@ -150,11 +141,8 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            // Aesthetic Hero Card
             _buildHeroCard(isDark),
             const SizedBox(height: 32),
-
-            // Identity Section
             _buildBentoSection(
               title: context.l10n.basicInfo,
               icon: Icons.person_rounded,
@@ -163,36 +151,19 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               children: [
                 _buildTitleAndGenderRow(isDark),
                 const SizedBox(height: 20),
-                _buildField(
-                  context.l10n.doctorNameSurname,
-                  _nameController,
-                  context.l10n.hintDoctorName,
-                  isDark,
-                ),
+                _buildField(_personContactLabel(context), _nameController, _personHint(context), isDark),
                 const SizedBox(height: 20),
-                _buildField(
-                  context.l10n.specialtyDepartment,
-                  _specialtyController,
-                  context.l10n.hintSpecialty,
-                  isDark,
-                ),
+                _buildField(_categoryAreaLabel(context), _specialtyController, _categoryHint(context), isDark),
               ],
             ),
             const SizedBox(height: 24),
-
-            // Contact & Hospital Section
             _buildBentoSection(
               title: context.l10n.institutionContact,
-              icon: Icons.local_hospital_rounded,
+              icon: Icons.business_rounded,
               iconColor: const Color(0xFF006766),
               isDark: isDark,
               children: [
-                _buildField(
-                  context.l10n.hospitalClinicName,
-                  _hospitalController,
-                  context.l10n.hintHospital,
-                  isDark,
-                ),
+                _buildField(_institutionSourceLabel(context), _hospitalController, _institutionHint(context), isDark),
                 const SizedBox(height: 20),
                 _buildField(
                   context.l10n.phoneNumber,
@@ -204,43 +175,22 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
                   onPrefixChanged: (val) => setState(() => _phonePrefix = val),
                 ),
                 const SizedBox(height: 20),
-                _buildField(
-                  context.l10n.emailAddress,
-                  _emailController,
-                  context.l10n.hintEmail,
-                  isDark,
-                  keyboardType: TextInputType.emailAddress,
-                ),
+                _buildField(context.l10n.emailAddress, _emailController, context.l10n.hintEmail, isDark, keyboardType: TextInputType.emailAddress),
                 const SizedBox(height: 20),
-                _buildAreaField(
-                  context.l10n.address,
-                  _addressController,
-                  context.l10n.hintAddress,
-                  isDark,
-                ),
+                _buildAreaField(context.l10n.address, _addressController, context.l10n.hintAddress, isDark),
               ],
             ),
             const SizedBox(height: 24),
-
-            // Notes Section
             _buildBentoSection(
               title: context.l10n.notesBio,
               icon: Icons.description_rounded,
               iconColor: const Color(0xFF566069),
               isDark: isDark,
               children: [
-                _buildAreaField(
-                  context.l10n.personalNotes,
-                  _notesController,
-                  context.l10n.hintPersonalNotes,
-                  isDark,
-                  maxLines: 4,
-                ),
+                _buildAreaField(context.l10n.personalNotes, _notesController, context.l10n.hintPersonalNotes, isDark, maxLines: 4),
               ],
             ),
             const SizedBox(height: 32),
-
-            // Footer Save Button
             _buildFooterButton(isDark),
             const SizedBox(height: 48),
           ],
@@ -261,11 +211,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           end: Alignment.bottomRight,
         ),
         boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF005DA7).withValues(alpha: 0.2),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
+          BoxShadow(color: const Color(0xFF005DA7).withValues(alpha: 0.2), blurRadius: 20, offset: const Offset(0, 10)),
         ],
       ),
       child: Stack(
@@ -275,11 +221,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
             child: Container(
               width: double.infinity,
               color: Colors.white,
-              child: const Icon(
-                Icons.emergency_rounded,
-                size: 80,
-                color: Colors.white24,
-              ),
+              child: const Icon(Icons.contact_phone_rounded, size: 80, color: Colors.white24),
             ),
           ),
           Padding(
@@ -299,22 +241,13 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  context.l10n.doctorInfo,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: 'Manrope',
-                  ),
+                  _contactInfoTitle(context),
+                  style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  context.l10n.addDoctorDesc,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  _contactInfoDesc(context),
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -337,12 +270,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
         color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
-          if (!isDark)
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.02),
-              blurRadius: 20,
-              offset: const Offset(0, 10),
-            ),
+          if (!isDark) BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 20, offset: const Offset(0, 10)),
         ],
       ),
       child: Column(
@@ -352,21 +280,11 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: iconColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                decoration: BoxDecoration(color: iconColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
                 child: Icon(icon, color: iconColor, size: 20),
               ),
               const SizedBox(width: 12),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'Manrope',
-                ),
-              ),
+              Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800)),
             ],
           ),
           const SizedBox(height: 24),
@@ -389,10 +307,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color:
-                      isDark
-                          ? Colors.white.withValues(alpha: 0.05)
-                          : const Color(0xFFF1F5F9),
+                  color: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: DropdownButtonHideUnderline(
@@ -400,19 +315,12 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
                     value: _selectedTitle,
                     isExpanded: true,
                     borderRadius: BorderRadius.circular(16),
-                    items:
-                        _titles.map((t) {
-                          return DropdownMenuItem(
-                            value: t,
-                            child: Text(
-                              context.l10n(t),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                    items: _titles.map((t) {
+                      return DropdownMenuItem(
+                        value: t,
+                        child: Text(context.l10n(t), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
+                      );
+                    }).toList(),
                     onChanged: (val) {
                       if (val != null) setState(() => _selectedTitle = val);
                     },
@@ -432,17 +340,9 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  _buildGenderOption(
-                    context.l10n.genderMale,
-                    Gender.male,
-                    isDark,
-                  ),
+                  _buildGenderOption(context.l10n.genderMale, Gender.male, isDark),
                   const SizedBox(width: 8),
-                  _buildGenderOption(
-                    context.l10n.genderFemale,
-                    Gender.female,
-                    isDark,
-                  ),
+                  _buildGenderOption(context.l10n.genderFemale, Gender.female, isDark),
                 ],
               ),
             ],
@@ -460,25 +360,13 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            color:
-                selected
-                    ? AppColors.medicalBlue
-                    : (isDark
-                        ? Colors.white.withValues(alpha: 0.05)
-                        : const Color(0xFFF1F5F9)),
+            color: selected ? AppColors.medicalBlue : (isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9)),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Center(
             child: Text(
               label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color:
-                    selected
-                        ? Colors.white
-                        : (isDark ? Colors.white38 : Colors.blueGrey),
-              ),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: selected ? Colors.white : (isDark ? Colors.white38 : Colors.blueGrey)),
             ),
           ),
         ),
@@ -506,32 +394,14 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-              color: Colors.blueGrey,
-              fontWeight: FontWeight.w400,
-              fontSize: 13,
-            ),
-            prefixIcon:
-                phonePrefix != null
-                    ? PhonePrefixPicker(
-                      selectedCode: phonePrefix,
-                      onChanged: onPrefixChanged!,
-                      isDark: isDark,
-                    )
-                    : null,
+            hintStyle: const TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.w400, fontSize: 13),
+            prefixIcon: phonePrefix != null
+                ? PhonePrefixPicker(selectedCode: phonePrefix, onChanged: onPrefixChanged!, isDark: isDark)
+                : null,
             filled: true,
-            fillColor:
-                isDark
-                    ? Colors.white.withValues(alpha: 0.05)
-                    : const Color(0xFFF1F5F9),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
+            fillColor: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           ),
         ),
       ],
@@ -556,24 +426,11 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-              color: Colors.blueGrey,
-              fontWeight: FontWeight.w400,
-              fontSize: 13,
-            ),
+            hintStyle: const TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.w400, fontSize: 13),
             filled: true,
-            fillColor:
-                isDark
-                    ? Colors.white.withValues(alpha: 0.05)
-                    : const Color(0xFFF1F5F9),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
+            fillColor: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           ),
         ),
       ],
@@ -585,12 +442,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         label,
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w900,
-          color: Colors.blueGrey,
-          letterSpacing: 1,
-        ),
+        style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: Colors.blueGrey, letterSpacing: 1),
       ),
     );
   }
@@ -606,9 +458,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           foregroundColor: Colors.white,
           elevation: 8,
           shadowColor: const Color(0xFF005DA7).withValues(alpha: 0.3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -617,11 +467,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
             const SizedBox(width: 12),
             Text(
               context.l10n.saveAndList,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w900,
-                fontFamily: 'Manrope',
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
             ),
           ],
         ),
