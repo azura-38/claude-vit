@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'setting_tile.dart';
-import 'settings_section_card.dart';
-import '../../providers/settings_controller.dart';
-import '../../../../auth/presentation/providers/auth_providers.dart';
-import '../../../../../shared/domain/entities/lock_timeout.dart';
+
+import '../../../../../core/constants/app_colors.dart';
 import '../../../../../shared/data/services/analytics_service.dart';
 import '../../../../../shared/data/services/wipe_service.dart';
-import '../../../../../core/constants/app_colors.dart';
+import '../../../../../shared/domain/entities/lock_timeout.dart';
+import '../../../../auth/presentation/providers/auth_providers.dart';
+import '../../providers/settings_controller.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+import 'setting_tile.dart';
+import 'settings_section_card.dart';
 
 class SecuritySection extends ConsumerWidget {
-  final bool isDark;
   const SecuritySection({super.key, required this.isDark});
+
+  final bool isDark;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -101,10 +104,121 @@ class SecuritySection extends ConsumerWidget {
   }
 
   void _showPinChangeDialog(BuildContext context, WidgetRef ref) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('PIN Change Dialog Placeholder')));
+    final currentPinController = TextEditingController();
+    final newPinController = TextEditingController();
+    final confirmPinController = TextEditingController();
+    var isSaving = false;
+    var errorText = '';
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: !isSaving,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            Future<void> save() async {
+              final currentPin = currentPinController.text.trim();
+              final newPin = newPinController.text.trim();
+              final confirmPin = confirmPinController.text.trim();
+
+              if (currentPin.length != 6 || newPin.length != 6 || confirmPin.length != 6) {
+                setState(() => errorText = context.l10n.lockPinMismatch);
+                return;
+              }
+
+              if (newPin != confirmPin) {
+                setState(() => errorText = context.l10n.lockPinMismatch);
+                return;
+              }
+
+              setState(() {
+                isSaving = true;
+                errorText = '';
+              });
+
+              final pinService = ref.read(pinServiceProvider);
+              final verified = await pinService.verifyPin(currentPin);
+              if (!verified) {
+                setState(() {
+                  isSaving = false;
+                  errorText = context.l10n.lockPinIncorrect;
+                });
+                return;
+              }
+
+              await pinService.setPin(newPin);
+              HapticFeedback.mediumImpact();
+
+              if (!dialogContext.mounted) return;
+              Navigator.pop(dialogContext);
+              ScaffoldMessenger.of(dialogContext).showSnackBar(
+                SnackBar(content: Text(context.l10n.success)),
+              );
+            }
+
+            return AlertDialog(
+              title: Text(context.l10n.changePin),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _PinField(
+                    controller: currentPinController,
+                    label: context.l10n.lockSetPin,
+                    enabled: !isSaving,
+                  ),
+                  const SizedBox(height: 12),
+                  _PinField(
+                    controller: newPinController,
+                    label: context.l10n.lockSetPin,
+                    enabled: !isSaving,
+                  ),
+                  const SizedBox(height: 12),
+                  _PinField(
+                    controller: confirmPinController,
+                    label: context.l10n.lockConfirmPin,
+                    enabled: !isSaving,
+                  ),
+                  if (errorText.isNotEmpty) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      errorText,
+                      style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isSaving ? null : () => Navigator.pop(dialogContext),
+                  child: Text(context.l10n.cancel),
+                ),
+                FilledButton(
+                  onPressed: isSaving ? null : save,
+                  child: isSaving
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(context.l10n.save),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    ).whenComplete(() {
+      currentPinController.dispose();
+      newPinController.dispose();
+      confirmPinController.dispose();
+    });
   }
 
   void _showTimeoutSelector(BuildContext context, WidgetRef ref, SettingsController controller) {
+    final currentSettings = ref.read(settingsControllerProvider).notificationSettings;
+    final startTime = _timeLabel(currentSettings.quietHoursStart, currentSettings.quietHoursStartMinute);
+    final endTime = _timeLabel(currentSettings.quietHoursEnd, currentSettings.quietHoursEndMinute);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -140,6 +254,8 @@ class SecuritySection extends ConsumerWidget {
     );
   }
 
+  TimeOfDay _timeLabel(int hour, int minute) => TimeOfDay(hour: hour, minute: minute);
+
   void _showWipeDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
@@ -156,6 +272,35 @@ class SecuritySection extends ConsumerWidget {
             child: Text(context.l10n.wipeBtnFinal, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _PinField extends StatelessWidget {
+  const _PinField({
+    required this.controller,
+    required this.label,
+    required this.enabled,
+  });
+
+  final TextEditingController controller;
+  final String label;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      enabled: enabled,
+      obscureText: true,
+      keyboardType: TextInputType.number,
+      maxLength: 6,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      decoration: InputDecoration(
+        labelText: label,
+        counterText: '',
+        border: const OutlineInputBorder(),
       ),
     );
   }
