@@ -93,7 +93,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'profileCreate',
         builder: (context, state) => const ProfileCreateScreen(),
       ),
-
       GoRoute(
         path: AppRoutes.settingsTerms,
         name: 'settingsTerms',
@@ -109,7 +108,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'settingsDisclaimer',
         builder: (context, state) => const DisclaimerScreen(),
       ),
-
       GoRoute(
         path: '/notification/medication',
         builder: (context, state) => const MedicationLockNotificationScreen(),
@@ -122,7 +120,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/notification/refill',
         builder: (context, state) => const RefillBannerNotificationScreen(),
       ),
-
       ShellRoute(
         builder: (context, state, child) => AppLockGate(child: child),
         routes: [
@@ -189,7 +186,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-
           GoRoute(
             path: AppRoutes.seasonPass,
             name: 'seasonPass',
@@ -243,13 +239,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: ':id',
                 name: 'doctorDetail',
                 builder: (context, state) => DoctorDetailScreen(
-                  doctorId: state.pathParameters['id']!,
+                  id: state.pathParameters['id']!,
                 ),
               ),
             ],
           ),
           GoRoute(
-            path: AppRoutes.profilePersonalInfo,
+            path: AppRoutes.personalInfo,
             name: 'profilePersonalInfo',
             builder: (context, state) => const PersonalInformationScreen(),
           ),
@@ -260,7 +256,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: 'theme',
-                name: 'themeSelection',
+                name: 'settingsTheme',
                 builder: (context, state) => const ThemeSelectionScreen(),
               ),
             ],
