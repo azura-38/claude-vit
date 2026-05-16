@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_visuals.dart';
@@ -839,12 +840,12 @@ void _showQuickActionsMenu(BuildContext context, WidgetRef ref) {
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             children: [
-              _MenuActionItem(label: context.l10n.addMedicine, icon: Icons.medication_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/medicines/add'); }),
-              _MenuActionItem(label: context.l10n.addAppointment, icon: Icons.calendar_today_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/appointments/add'); }),
-              _MenuActionItem(label: context.l10n.addDoctor, icon: Icons.person_add_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/doctors/add'); }),
-              _MenuActionItem(label: context.l10n.addDocument, icon: Icons.upload_file_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); ref.read(navigationProvider.notifier).setIndex(1); }),
-              _MenuActionItem(label: context.l10n.addData, icon: Icons.analytics_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/health/add'); }),
-              _MenuActionItem(label: context.l10n.settings, icon: Icons.settings_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push('/settings'); }),
+              _MenuActionItem(label: context.l10n.addMedicine, icon: Icons.medication_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.medicineAdd); }),
+              _MenuActionItem(label: context.l10n.addAppointment, icon: Icons.calendar_today_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.appointmentAdd); }),
+              _MenuActionItem(label: context.l10n.addDoctor, icon: Icons.person_add_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.doctorAdd); }),
+              _MenuActionItem(label: context.l10n.addDocument, icon: Icons.upload_file_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.documentAdd); }),
+              _MenuActionItem(label: context.l10n.addData, icon: Icons.analytics_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.healthDataAdd); }),
+              _MenuActionItem(label: context.l10n.settings, icon: Icons.settings_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.settings); }),
             ],
           ),
           const SizedBox(height: 20),
