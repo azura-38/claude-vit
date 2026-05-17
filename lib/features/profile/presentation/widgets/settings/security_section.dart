@@ -103,7 +103,7 @@ class SecuritySection extends ConsumerWidget {
     await controller.toggleBiometric(val);
   }
 
-  void _showPinChangeDialog(BuildContext context, WidgetRef ref) {
+  void _showPinChangeDialog(BuildContext rootContext, WidgetRef ref) {
     final currentPinController = TextEditingController();
     final newPinController = TextEditingController();
     final confirmPinController = TextEditingController();
@@ -111,7 +111,7 @@ class SecuritySection extends ConsumerWidget {
     var errorText = '';
 
     showDialog<void>(
-      context: context,
+      context: rootContext,
       barrierDismissible: !isSaving,
       builder: (dialogContext) {
         return StatefulBuilder(
@@ -151,9 +151,11 @@ class SecuritySection extends ConsumerWidget {
 
               if (!dialogContext.mounted) return;
               Navigator.pop(dialogContext);
-              ScaffoldMessenger.of(dialogContext).showSnackBar(
-                SnackBar(content: Text(context.l10n.success)),
-              );
+              if (rootContext.mounted) {
+                ScaffoldMessenger.of(rootContext).showSnackBar(
+                  SnackBar(content: Text(rootContext.l10n.success)),
+                );
+              }
             }
 
             return AlertDialog(
@@ -161,45 +163,23 @@ class SecuritySection extends ConsumerWidget {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _PinField(
-                    controller: currentPinController,
-                    label: context.l10n.lockSetPin,
-                    enabled: !isSaving,
-                  ),
+                  _PinField(controller: currentPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
                   const SizedBox(height: 12),
-                  _PinField(
-                    controller: newPinController,
-                    label: context.l10n.lockSetPin,
-                    enabled: !isSaving,
-                  ),
+                  _PinField(controller: newPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
                   const SizedBox(height: 12),
-                  _PinField(
-                    controller: confirmPinController,
-                    label: context.l10n.lockConfirmPin,
-                    enabled: !isSaving,
-                  ),
+                  _PinField(controller: confirmPinController, label: context.l10n.lockConfirmPin, enabled: !isSaving),
                   if (errorText.isNotEmpty) ...[
                     const SizedBox(height: 12),
-                    Text(
-                      errorText,
-                      style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700),
-                    ),
+                    Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700)),
                   ],
                 ],
               ),
               actions: [
-                TextButton(
-                  onPressed: isSaving ? null : () => Navigator.pop(dialogContext),
-                  child: Text(context.l10n.cancel),
-                ),
+                TextButton(onPressed: isSaving ? null : () => Navigator.pop(dialogContext), child: Text(context.l10n.cancel)),
                 FilledButton(
                   onPressed: isSaving ? null : save,
                   child: isSaving
-                      ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
+                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                       : Text(context.l10n.save),
                 ),
               ],
@@ -215,10 +195,6 @@ class SecuritySection extends ConsumerWidget {
   }
 
   void _showTimeoutSelector(BuildContext context, WidgetRef ref, SettingsController controller) {
-    final currentSettings = ref.read(settingsControllerProvider).notificationSettings;
-    final startTime = _timeLabel(currentSettings.quietHoursStart, currentSettings.quietHoursStartMinute);
-    final endTime = _timeLabel(currentSettings.quietHoursEnd, currentSettings.quietHoursEndMinute);
-
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -254,8 +230,6 @@ class SecuritySection extends ConsumerWidget {
     );
   }
 
-  TimeOfDay _timeLabel(int hour, int minute) => TimeOfDay(hour: hour, minute: minute);
-
   void _showWipeDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
@@ -278,11 +252,7 @@ class SecuritySection extends ConsumerWidget {
 }
 
 class _PinField extends StatelessWidget {
-  const _PinField({
-    required this.controller,
-    required this.label,
-    required this.enabled,
-  });
+  const _PinField({required this.controller, required this.label, required this.enabled});
 
   final TextEditingController controller;
   final String label;
@@ -297,11 +267,7 @@ class _PinField extends StatelessWidget {
       keyboardType: TextInputType.number,
       maxLength: 6,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      decoration: InputDecoration(
-        labelText: label,
-        counterText: '',
-        border: const OutlineInputBorder(),
-      ),
+      decoration: InputDecoration(labelText: label, counterText: '', border: const OutlineInputBorder()),
     );
   }
 }
