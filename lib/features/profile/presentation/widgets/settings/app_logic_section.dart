@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../notifications/presentation/providers/notification_controller.dart';
+import '../../providers/settings_controller.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'setting_tile.dart';
 import 'settings_section_card.dart';
-import '../../providers/settings_controller.dart';
-import '../../../../notifications/presentation/providers/notification_controller.dart';
-import '../../../../../core/constants/app_colors.dart';
-import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class AppLogicSection extends ConsumerWidget {
-  final bool isDark;
   const AppLogicSection({super.key, required this.isDark});
+
+  final bool isDark;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,14 +32,6 @@ class AppLogicSection extends ConsumerWidget {
             value: settings.quickActionsEnabled,
             onChanged: (val) => controller.toggleQuickActions(val),
           ),
-          isDark: isDark,
-        ),
-        SettingTile(
-          icon: Icons.text_fields_rounded,
-          iconColor: Colors.indigo,
-          title: context.l10n.textSize,
-          subtitle: context.l10n.textSizeMedium,
-          onTap: () => _showTextSizeSelector(context),
           isDark: isDark,
         ),
         SettingTile(
@@ -100,31 +94,6 @@ class AppLogicSection extends ConsumerWidget {
           isLast: true,
         ),
       ],
-    );
-  }
-
-  void _showTextSizeSelector(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(
-          color: Theme.of(ctx).brightness == Brightness.dark ? AppColors.surfaceDark : Colors.white,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(context.l10n.textSize, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
-            const SizedBox(height: 24),
-            ListTile(title: Text(context.l10n.textSizeSmall), onTap: () => Navigator.pop(ctx)),
-            ListTile(title: Text(context.l10n.textSizeMedium, style: const TextStyle(fontWeight: FontWeight.bold)), trailing: const Icon(Icons.check_circle, color: Colors.green), onTap: () => Navigator.pop(ctx)),
-            ListTile(title: Text(context.l10n.textSizeLarge), onTap: () => Navigator.pop(ctx)),
-            const SizedBox(height: 32),
-          ],
-        ),
-      ),
     );
   }
 
