@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
@@ -32,6 +33,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   String? _selectedLanguageCode;
   String? _selectedPhotoPath;
   Uint8List? _selectedPhotoBytes;
+  String? _selectedPhotoMime;
   bool _acceptedLegal = false;
   int _currentStep = 0;
 
@@ -41,8 +43,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   bool _pinHasError = false;
   bool _pinSetupComplete = false;
 
-  bool get _profileValid =>
-      _nameController.text.trim().isNotEmpty && _acceptedLegal;
+  bool get _profileValid => _nameController.text.trim().isNotEmpty && _acceptedLegal;
 
   @override
   void initState() {
@@ -104,7 +105,24 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     setState(() {
       _selectedPhotoPath = file.path;
       _selectedPhotoBytes = file.bytes;
+      _selectedPhotoMime = _mimeForPhoto(file.name);
     });
+  }
+
+  String _mimeForPhoto(String fileName) {
+    final lower = fileName.toLowerCase();
+    if (lower.endsWith('.png')) return 'image/png';
+    if (lower.endsWith('.webp')) return 'image/webp';
+    return 'image/jpeg';
+  }
+
+  String? _selectedPhotoValue() {
+    final path = _selectedPhotoPath?.trim();
+    if (path != null && path.isNotEmpty) return path;
+    final bytes = _selectedPhotoBytes;
+    if (bytes == null || bytes.isEmpty) return null;
+    final mime = _selectedPhotoMime ?? 'image/jpeg';
+    return 'data:$mime;base64,${base64Encode(bytes)}';
   }
 
   void _goToSecurityStep() {
@@ -130,8 +148,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     profileNotifier.updateName(_nameController.text.trim());
     if (_birthDate != null) profileNotifier.updateBirthDate(_birthDate!);
     profileNotifier.updateGender(_genderFromSelection(_selectedGender));
-    if (_selectedPhotoPath != null && _selectedPhotoPath!.trim().isNotEmpty) {
-      profileNotifier.updatePhotoPath(_selectedPhotoPath);
+    final photoValue = _selectedPhotoValue();
+    if (photoValue != null) {
+      profileNotifier.updatePhotoPath(photoValue);
     }
     await profileNotifier.saveToDatabase();
 
@@ -251,9 +270,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 250),
-                child: _currentStep == 0
-                    ? _buildProfileStep(isDark)
-                    : _buildSecurityStep(isDark),
+                child: _currentStep == 0 ? _buildProfileStep(isDark) : _buildSecurityStep(isDark),
               ),
             ),
           ],
@@ -306,18 +323,12 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         TextField(
           controller: _nameController,
           onChanged: (_) => setState(() {}),
-          decoration: InputDecoration(
-            labelText: context.tr('full_name'),
-            prefixIcon: const Icon(Icons.badge_outlined),
-          ),
+          decoration: InputDecoration(labelText: context.tr('full_name'), prefixIcon: const Icon(Icons.badge_outlined)),
         ),
         const SizedBox(height: 14),
         DropdownButtonFormField<String>(
           initialValue: _selectedGender,
-          decoration: InputDecoration(
-            labelText: context.tr('gender'),
-            prefixIcon: const Icon(Icons.person_outline_rounded),
-          ),
+          decoration: InputDecoration(labelText: context.tr('gender'), prefixIcon: const Icon(Icons.person_outline_rounded)),
           items: [
             DropdownMenuItem(value: 'Female', child: Text(context.tr('gender_female'))),
             DropdownMenuItem(value: 'Male', child: Text(context.tr('gender_male'))),
@@ -365,6 +376,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   }
 
   Widget _buildPhotoPicker(bool isDark) {
+    final hasSelectedPhoto = _selectedPhotoBytes != null || (_selectedPhotoPath?.trim().isNotEmpty ?? false);
     return _Card(
       isDark: isDark,
       child: Row(
@@ -411,23 +423,16 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  context.tr('profile_photo'),
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                ),
+                Text(context.tr('profile_photo'), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
                 const SizedBox(height: 4),
                 Text(
-                  context.tr(_selectedPhotoPath == null ? 'profile_photo_add_desc' : 'profile_photo_selected'),
+                  context.tr(hasSelectedPhoto ? 'profile_photo_selected' : 'profile_photo_add_desc'),
                   style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.35),
                 ),
               ],
             ),
           ),
-          IconButton(
-            onPressed: _pickProfilePhoto,
-            icon: const Icon(Icons.add_a_photo_outlined),
-            tooltip: context.tr('profile_photo'),
-          ),
+          IconButton(onPressed: _pickProfilePhoto, icon: const Icon(Icons.add_a_photo_outlined), tooltip: context.tr('profile_photo')),
         ],
       ),
     );
@@ -456,17 +461,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
       children: [
         const Icon(Icons.security_rounded, size: 56, color: AppColors.brandBlue),
         const SizedBox(height: 16),
-        Text(
-          context.tr('setup_app_lock'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-        ),
+        Text(context.tr('setup_app_lock'), textAlign: TextAlign.center, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
         const SizedBox(height: 8),
-        Text(
-          context.tr('setup_app_lock_desc'),
-          textAlign: TextAlign.center,
-          style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary),
-        ),
+        Text(context.tr('setup_app_lock_desc'), textAlign: TextAlign.center, style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary)),
         const SizedBox(height: 18),
         Text(
           _isConfirmingPin ? context.tr('lock_confirm_pin') : context.tr('lock_set_pin'),
@@ -485,11 +482,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               height: filled ? 16 : 12,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _pinHasError
-                    ? AppColors.error
-                    : filled
-                        ? AppColors.brandBlue
-                        : Colors.grey.withValues(alpha: 0.25),
+                color: _pinHasError ? AppColors.error : filled ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25),
               ),
             );
           }),
@@ -497,11 +490,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         const SizedBox(height: 28),
         _PinPad(onKey: _handlePinKey, onBackspace: _handlePinBackspace, isDark: isDark),
         const SizedBox(height: 20),
-        TextButton.icon(
-          onPressed: _saveAndFinish,
-          icon: const Icon(Icons.skip_next_rounded),
-          label: Text(context.tr('skip_pin_setup')),
-        ),
+        TextButton.icon(onPressed: _saveAndFinish, icon: const Icon(Icons.skip_next_rounded), label: Text(context.tr('skip_pin_setup'))),
         Text(
           context.tr('lock_skip_desc'),
           textAlign: TextAlign.center,
@@ -513,11 +502,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
 }
 
 class _LanguageCard extends StatelessWidget {
-  const _LanguageCard({
-    required this.isDark,
-    required this.selectedLanguageCode,
-    required this.onChanged,
-  });
+  const _LanguageCard({required this.isDark, required this.selectedLanguageCode, required this.onChanged});
 
   final bool isDark;
   final String? selectedLanguageCode;
@@ -532,10 +517,7 @@ class _LanguageCard extends StatelessWidget {
           Container(
             width: 48,
             height: 48,
-            decoration: BoxDecoration(
-              color: AppColors.brandBlue.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
+            decoration: BoxDecoration(color: AppColors.brandBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(16)),
             child: const Icon(Icons.language_rounded, color: AppColors.brandBlue),
           ),
           const SizedBox(width: 14),
@@ -549,9 +531,7 @@ class _LanguageCard extends StatelessWidget {
                 focusedBorder: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
               ),
-              items: supportedLanguages
-                  .map((language) => DropdownMenuItem(value: language.code, child: Text(language.name)))
-                  .toList(),
+              items: supportedLanguages.map((language) => DropdownMenuItem(value: language.code, child: Text(language.name))).toList(),
               onChanged: onChanged,
             ),
           ),
@@ -623,13 +603,7 @@ class _LegalAgreementCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CheckboxListTile(
-            value: value,
-            onChanged: onChanged,
-            contentPadding: EdgeInsets.zero,
-            controlAffinity: ListTileControlAffinity.leading,
-            title: Text(strings.termsAndLegalAgreement),
-          ),
+          CheckboxListTile(value: value, onChanged: onChanged, contentPadding: EdgeInsets.zero, controlAffinity: ListTileControlAffinity.leading, title: Text(strings.termsAndLegalAgreement)),
           Wrap(
             spacing: 10,
             children: [
@@ -684,11 +658,7 @@ class _PinPad extends StatelessWidget {
           children: [
             const SizedBox(width: 68, height: 56),
             _KeyButton(label: '0', onTap: () => onKey('0'), isDark: isDark),
-            SizedBox(
-              width: 68,
-              height: 56,
-              child: IconButton(onPressed: onBackspace, icon: const Icon(Icons.backspace_outlined)),
-            ),
+            SizedBox(width: 68, height: 56, child: IconButton(onPressed: onBackspace, icon: const Icon(Icons.backspace_outlined))),
           ],
         ),
       ],
@@ -712,10 +682,7 @@ class _KeyButton extends StatelessWidget {
         width: 68,
         height: 56,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.08),
-        ),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.grey.withValues(alpha: 0.08)),
         child: Text(label, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
       ),
     );
