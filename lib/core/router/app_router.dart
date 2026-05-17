@@ -32,7 +32,6 @@ import '../error/presentation/screens/error_screen.dart';
 import '../../features/doctors/presentation/screens/doctor_detail_screen.dart';
 import '../../features/gamification/presentation/screens/achievements/achievements_screen.dart';
 import '../../features/gamification/presentation/screens/season_pass/season_pass_screen.dart';
-import '../../features/explore/presentation/screens/coming_soon_screen.dart';
 
 // Notifications
 import '../../features/notifications/presentation/screens/medication_lock_notification.dart';
@@ -147,8 +146,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    path: '/explore-placeholder',
-                    builder: (context, state) => const ComingSoonScreen(),
+                    path: '/explore',
+                    name: 'explore',
+                    builder: (context, state) => const AchievementsScreen(),
                   ),
                 ],
               ),
@@ -247,6 +247,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.personalInfo,
             name: 'profilePersonalInfo',
+            builder: (context, state) => const PersonalInformationScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.medicalInfo,
+            name: 'medicalInfo',
             builder: (context, state) => const PersonalInformationScreen(),
           ),
           GoRoute(
