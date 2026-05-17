@@ -9,9 +9,9 @@ import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../providers/auth_providers.dart';
 
 class AppLockGate extends ConsumerStatefulWidget {
-  final Widget child;
-
   const AppLockGate({super.key, required this.child});
+
+  final Widget child;
 
   @override
   ConsumerState<AppLockGate> createState() => _AppLockGateState();
@@ -19,6 +19,9 @@ class AppLockGate extends ConsumerStatefulWidget {
 
 class _AppLockGateState extends ConsumerState<AppLockGate> {
   bool _isAuthenticating = false;
+
+  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+  String _usePinLabel(BuildContext context) => _isTr(context) ? 'PIN ile Aç' : 'Use PIN';
 
   @override
   void initState() {
@@ -33,9 +36,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     final lockState = ref.read(appLockStateProvider);
     final biometricEnabled = ref.read(biometricEnabledProvider);
 
-    if (!lockEnabled || lockState != AppLockState.locked || _isAuthenticating) {
-      return;
-    }
+    if (!lockEnabled || lockState != AppLockState.locked || _isAuthenticating) return;
 
     if (!biometricEnabled) {
       _goToPinScreen();
@@ -97,34 +98,20 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
             children: [
               Container(
                 padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.blue.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.lock_rounded,
-                  size: 64,
-                  color: isDark ? Colors.blue.shade400 : Colors.blue.shade700,
-                ),
+                decoration: BoxDecoration(color: Colors.blue.withValues(alpha: 0.1), shape: BoxShape.circle),
+                child: Icon(Icons.lock_rounded, size: 64, color: isDark ? Colors.blue.shade400 : Colors.blue.shade700),
               ),
               const SizedBox(height: 32),
               Text(
                 context.tr('lock_gate_title'),
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  color: isDark ? Colors.white : const Color(0xFF0F172A),
-                ),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: isDark ? Colors.white : const Color(0xFF0F172A)),
               ),
               const SizedBox(height: 12),
               Text(
                 context.tr('lock_gate_desc'),
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: isDark ? Colors.white54 : Colors.black54,
-                ),
+                style: TextStyle(fontSize: 14, color: isDark ? Colors.white54 : Colors.black54),
               ),
               const SizedBox(height: 40),
               if (_isAuthenticating)
@@ -146,7 +133,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
                 OutlinedButton.icon(
                   onPressed: _goToPinScreen,
                   icon: const Icon(Icons.pin_rounded),
-                  label: Text(context.tr('lock_set_pin')),
+                  label: Text(_usePinLabel(context)),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 54),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
