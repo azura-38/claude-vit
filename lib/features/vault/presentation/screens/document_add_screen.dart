@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +42,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
       return;
     }
 
-    final result = await FilePicker.pickFiles(
+    final result = await FilePicker.platform.pickFiles(
       allowMultiple: false,
       type: FileType.custom,
       allowedExtensions: const ['pdf', 'png', 'jpg', 'jpeg'],
@@ -63,7 +61,8 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   Future<void> _save() async {
     final strings = VitaStrings.of(context);
     final file = _selectedFile;
-    if (file == null || file.path == null) {
+    final sourcePath = file?.path;
+    if (file == null || sourcePath == null || sourcePath.isEmpty) {
       _showSnack(strings.chooseFileFirst);
       return;
     }
@@ -72,7 +71,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 
     try {
       await ref.read(documentListProvider.notifier).uploadDocument(
-            file: File(file.path!),
+            file: sourcePath,
             fileName: file.name,
             fileType: _fileTypeFor(file.name),
             category: _category,
@@ -149,9 +148,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<DocumentSubcategory>(
-                  initialValue: subcategories.contains(_subcategory)
-                      ? _subcategory
-                      : subcategories.first,
+                  initialValue: subcategories.contains(_subcategory) ? _subcategory : subcategories.first,
                   decoration: InputDecoration(labelText: strings.subcategory),
                   items: subcategories
                       .map((subcategory) => DropdownMenuItem(
@@ -270,18 +267,14 @@ class _SecureUploadCard extends StatelessWidget {
           color: isDark ? AppColors.surfaceDark : Colors.white,
           borderRadius: BorderRadius.circular(28),
           border: Border.all(
-            color: selectedFile == null
-                ? AppColors.medicalBlue.withValues(alpha: 0.18)
-                : Colors.green.withValues(alpha: 0.35),
+            color: selectedFile == null ? AppColors.medicalBlue.withValues(alpha: 0.18) : Colors.green.withValues(alpha: 0.35),
             width: 1.2,
           ),
         ),
         child: Column(
           children: [
             Icon(
-              selectedFile == null
-                  ? Icons.upload_file_rounded
-                  : Icons.verified_rounded,
+              selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded,
               color: selectedFile == null ? AppColors.medicalBlue : Colors.green,
               size: 52,
             ),
@@ -338,9 +331,7 @@ class _PrivacyNotice extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark
-            ? Colors.white.withValues(alpha: 0.05)
-            : AppColors.medicalBlue.withValues(alpha: 0.06),
+        color: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.medicalBlue.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
