@@ -1,13 +1,16 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vitacase/l10n/vita_app_localizations_delegate.dart';
+
+import 'core/bootstrap/bootstrap_screen.dart';
+import 'core/router/app_router.dart';
+import 'core/security/secure_screen_guard.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
-import 'package:vitacase/l10n/vita_app_localizations_delegate.dart';
-import 'shared/providers/locale_provider.dart';
-import 'core/router/app_router.dart';
-import 'core/bootstrap/bootstrap_screen.dart';
 import 'features/dashboard/presentation/providers/app_lifecycle_controller.dart';
+import 'shared/providers/locale_provider.dart';
 import 'shared/widgets/misc/banner_ad_container.dart';
 
 class VitaCaseApp extends ConsumerStatefulWidget {
@@ -17,8 +20,7 @@ class VitaCaseApp extends ConsumerStatefulWidget {
   ConsumerState<VitaCaseApp> createState() => _VitaCaseAppState();
 }
 
-class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
-    with WidgetsBindingObserver {
+class _VitaCaseAppState extends ConsumerState<VitaCaseApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -78,7 +80,9 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp>
           ],
         );
 
-        return BootstrapScreen(child: appBody);
+        return SecureScreenGuard(
+          child: BootstrapScreen(child: appBody),
+        );
       },
     );
   }
