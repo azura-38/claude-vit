@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/vita_strings.dart';
 import '../../../../core/extensions/l10n_extension.dart';
+import '../../../../core/l10n/vita_strings.dart';
+import '../../../../shared/data/services/usage_limit_service.dart';
 import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
 
@@ -33,6 +34,13 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
     _doctorController.dispose();
     _noteController.dispose();
     super.dispose();
+  }
+
+  String _limitMessage(int limit) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    return isTr
+        ? 'Günlük ekleme limitine ulaştın ($limit). Yarın tekrar ekleyebilirsin.'
+        : 'You reached today\'s create limit ($limit). You can add more tomorrow.';
   }
 
   Future<void> _pickFile() async {
@@ -87,7 +95,11 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
       _showSnack(strings.documentSaved);
       context.pop();
     } catch (e) {
-      _showSnack(strings.saveDocumentFailed(e));
+      if (e is UsageLimitExceededException) {
+        _showSnack(_limitMessage(e.limit));
+      } else {
+        _showSnack(strings.saveDocumentFailed(e));
+      }
     } finally {
       if (mounted) setState(() => _isSaving = false);
     }
@@ -111,19 +123,12 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
-      appBar: AppBar(
-        title: Text(strings.addDocument),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text(strings.addDocument), centerTitle: true),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
           children: [
-            _SecureUploadCard(
-              selectedFile: _selectedFile,
-              onPickFile: _pickFile,
-              isDark: isDark,
-            ),
+            _SecureUploadCard(selectedFile: _selectedFile, onPickFile: _pickFile, isDark: isDark),
             const SizedBox(height: 24),
             _SectionCard(
               isDark: isDark,
@@ -131,12 +136,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 DropdownButtonFormField<DocumentCategory>(
                   initialValue: _category,
                   decoration: InputDecoration(labelText: strings.category),
-                  items: DocumentCategory.values
-                      .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(_localizedCategory(context, category)),
-                          ))
-                      .toList(),
+                  items: DocumentCategory.values.map((category) => DropdownMenuItem(value: category, child: Text(_localizedCategory(context, category)))).toList(),
                   onChanged: (value) {
                     if (value == null) return;
                     final nextSubs = subcategoriesForDocumentCategory(value);
@@ -150,35 +150,17 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 DropdownButtonFormField<DocumentSubcategory>(
                   initialValue: subcategories.contains(_subcategory) ? _subcategory : subcategories.first,
                   decoration: InputDecoration(labelText: strings.subcategory),
-                  items: subcategories
-                      .map((subcategory) => DropdownMenuItem(
-                            value: subcategory,
-                            child: Text(_localizedSubcategory(context, subcategory)),
-                          ))
-                      .toList(),
+                  items: subcategories.map((subcategory) => DropdownMenuItem(value: subcategory, child: Text(_localizedSubcategory(context, subcategory)))).toList(),
                   onChanged: (value) {
                     if (value != null) setState(() => _subcategory = value);
                   },
                 ),
                 const SizedBox(height: 16),
-                TextField(
-                  controller: _hospitalController,
-                  decoration: InputDecoration(labelText: strings.hospitalInstitution),
-                ),
+                TextField(controller: _hospitalController, decoration: InputDecoration(labelText: strings.hospitalInstitution)),
                 const SizedBox(height: 16),
-                TextField(
-                  controller: _doctorController,
-                  decoration: InputDecoration(labelText: strings.doctorContact),
-                ),
+                TextField(controller: _doctorController, decoration: InputDecoration(labelText: strings.doctorContact)),
                 const SizedBox(height: 16),
-                TextField(
-                  controller: _noteController,
-                  maxLines: 4,
-                  decoration: InputDecoration(
-                    labelText: strings.notes,
-                    alignLabelWithHint: true,
-                  ),
-                ),
+                TextField(controller: _noteController, maxLines: 4, decoration: InputDecoration(labelText: strings.notes, alignLabelWithHint: true)),
               ],
             ),
             const SizedBox(height: 24),
@@ -194,13 +176,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             height: 54,
             child: FilledButton.icon(
               onPressed: _isSaving ? null : _save,
-              icon: _isSaving
-                  ? const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.lock_rounded),
+              icon: _isSaving ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.lock_rounded),
               label: Text(_isSaving ? strings.saving : strings.saveSecurely),
             ),
           ),
@@ -245,11 +221,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 }
 
 class _SecureUploadCard extends StatelessWidget {
-  const _SecureUploadCard({
-    required this.selectedFile,
-    required this.onPickFile,
-    required this.isDark,
-  });
+  const _SecureUploadCard({required this.selectedFile, required this.onPickFile, required this.isDark});
 
   final PlatformFile? selectedFile;
   final VoidCallback onPickFile;
@@ -266,32 +238,18 @@ class _SecureUploadCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isDark ? AppColors.surfaceDark : Colors.white,
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(
-            color: selectedFile == null ? AppColors.medicalBlue.withValues(alpha: 0.18) : Colors.green.withValues(alpha: 0.35),
-            width: 1.2,
-          ),
+          border: Border.all(color: selectedFile == null ? AppColors.medicalBlue.withValues(alpha: 0.18) : Colors.green.withValues(alpha: 0.35), width: 1.2),
         ),
         child: Column(
           children: [
-            Icon(
-              selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded,
-              color: selectedFile == null ? AppColors.medicalBlue : Colors.green,
-              size: 52,
-            ),
+            Icon(selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded, color: selectedFile == null ? AppColors.medicalBlue : Colors.green, size: 52),
             const SizedBox(height: 16),
-            Text(
-              selectedFile?.name ?? strings.choosePdfOrImage,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-            ),
+            Text(selectedFile?.name ?? strings.choosePdfOrImage, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             const SizedBox(height: 8),
             Text(
               kIsWeb ? strings.webPreviewNoUpload : strings.encryptedLocalFileInfo,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: isDark ? Colors.white60 : AppColors.textSecondary,
-                height: 1.4,
-              ),
+              style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.4),
             ),
           ],
         ),
@@ -340,15 +298,7 @@ class _PrivacyNotice extends StatelessWidget {
           const Icon(Icons.info_outline_rounded, color: AppColors.medicalBlue),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              strings.localOrganizerDisclaimer,
-              style: TextStyle(
-                fontSize: 12,
-                height: 1.45,
-                color: isDark ? Colors.white70 : AppColors.textSecondary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: Text(strings.localOrganizerDisclaimer, style: TextStyle(fontSize: 12, height: 1.45, color: isDark ? Colors.white70 : AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ),
         ],
       ),
