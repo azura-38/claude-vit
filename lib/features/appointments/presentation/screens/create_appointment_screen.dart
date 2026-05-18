@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
+import '../../../../shared/data/services/usage_limit_service.dart';
 import 'models/appointment_form_model.dart';
 import 'providers/appointment_form_provider.dart';
 import 'widgets/appointment_type_card.dart';
@@ -11,20 +15,12 @@ import 'widgets/floating_submit_button.dart';
 import 'widgets/premium_input.dart';
 import 'widgets/priority_selector.dart';
 import 'widgets/smart_summary_card.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vitacase/core/constants/app_colors.dart';
-import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class CreateAppointmentScreen extends ConsumerWidget {
   const CreateAppointmentScreen({super.key});
 
   Future<void> _pickDate(BuildContext context, AppointmentFormNotifier notifier, DateTime current) async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: current,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2035),
-    );
+    final picked = await showDatePicker(context: context, initialDate: current, firstDate: DateTime.now(), lastDate: DateTime(2035));
     if (picked == null) return;
     notifier.updateDate(DateTime(picked.year, picked.month, picked.day, current.hour, current.minute));
   }
@@ -32,6 +28,13 @@ class CreateAppointmentScreen extends ConsumerWidget {
   Future<void> _pickTime(BuildContext context, AppointmentFormNotifier notifier, DateTime current) async {
     final picked = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(current));
     if (picked != null) notifier.updateTime(picked);
+  }
+
+  String _limitMessage(BuildContext context, int limit) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    return isTr
+        ? 'Günlük ekleme limitine ulaştın ($limit). Yarın tekrar ekleyebilirsin.'
+        : 'You reached today\'s create limit ($limit). You can add more tomorrow.';
   }
 
   @override
@@ -96,12 +99,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                       DropdownButtonFormField<AppointmentSubcategory>(
                         initialValue: subcategories.contains(state.subcategory) ? state.subcategory : subcategories.first,
                         decoration: InputDecoration(labelText: context.tr('subcategory')),
-                        items: subcategories
-                            .map((subcategory) => DropdownMenuItem(
-                                  value: subcategory,
-                                  child: Text(_localizedSubcategory(context, subcategory)),
-                                ))
-                            .toList(),
+                        items: subcategories.map((subcategory) => DropdownMenuItem(value: subcategory, child: Text(_localizedSubcategory(context, subcategory)))).toList(),
                         onChanged: (value) {
                           if (value != null) notifier.updateSubcategory(value);
                         },
@@ -165,12 +163,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                 ).animate(delay: 320.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
                 _card(
-                  child: PremiumInput(
-                    label: context.tr('location'),
-                    hint: context.tr('hint_location'),
-                    icon: Icons.location_on_outlined,
-                    onChanged: notifier.updateLocation,
-                  ),
+                  child: PremiumInput(label: context.tr('location'), hint: context.tr('hint_location'), icon: Icons.location_on_outlined, onChanged: notifier.updateLocation),
                 ).animate(delay: 420.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
                 _card(
@@ -182,9 +175,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                       DropdownButton<AppointmentReminder>(
                         value: state.reminder,
                         underline: const SizedBox.shrink(),
-                        items: AppointmentReminder.values
-                            .map((reminder) => DropdownMenuItem(value: reminder, child: Text(_localizedReminder(context, reminder))))
-                            .toList(),
+                        items: AppointmentReminder.values.map((reminder) => DropdownMenuItem(value: reminder, child: Text(_localizedReminder(context, reminder)))).toList(),
                         onChanged: (value) {
                           if (value != null) notifier.updateReminder(value);
                         },
@@ -200,9 +191,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: isDark ? Colors.white.withValues(alpha: 0.06) : AppColors.brandMist,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.brandBlue.withValues(alpha: 0.12),
-                    ),
+                    border: Border.all(color: isDark ? Colors.white.withValues(alpha: 0.08) : AppColors.brandBlue.withValues(alpha: 0.12)),
                   ),
                   child: Row(
                     children: [
@@ -226,17 +215,13 @@ class CreateAppointmentScreen extends ConsumerWidget {
                           try {
                             await notifier.submit();
                             if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(context.tr('appointment_created_success'))),
-                              );
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('appointment_created_success'))));
                               context.pop();
                             }
-                          } catch (_) {
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(context.tr('failed_create_appointment'))),
-                              );
-                            }
+                          } catch (e) {
+                            if (!context.mounted) return;
+                            final message = e is UsageLimitExceededException ? _limitMessage(context, e.limit) : context.tr('failed_create_appointment');
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
                           }
                         }
                       : null,
@@ -258,14 +243,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
               color: isDark ? AppColors.surfaceDark : Colors.white,
               borderRadius: BorderRadius.circular(22),
               border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight),
-              boxShadow: [
-                if (!isDark)
-                  BoxShadow(
-                    color: AppColors.brandBlue.withValues(alpha: 0.05),
-                    blurRadius: 24,
-                    offset: const Offset(0, 10),
-                  ),
-              ],
+              boxShadow: [if (!isDark) BoxShadow(color: AppColors.brandBlue.withValues(alpha: 0.05), blurRadius: 24, offset: const Offset(0, 10))],
             ),
             child: child,
           );
@@ -283,13 +261,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
               onTap: onTap,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Row(
-                  children: [
-                    Icon(icon, color: AppColors.brandBlue),
-                    const SizedBox(width: 10),
-                    Expanded(child: Text(text, overflow: TextOverflow.ellipsis)),
-                  ],
-                ),
+                child: Row(children: [Icon(icon, color: AppColors.brandBlue), const SizedBox(width: 10), Expanded(child: Text(text, overflow: TextOverflow.ellipsis))]),
               ),
             ),
           );
@@ -342,9 +314,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
     }
   }
 
-  String _localizedSubcategory(BuildContext context, AppointmentSubcategory subcategory) {
-    return context.tr('appointment_subcategory_${_enumKey(subcategory.name)}');
-  }
+  String _localizedSubcategory(BuildContext context, AppointmentSubcategory subcategory) => context.tr('appointment_subcategory_${_enumKey(subcategory.name)}');
 
   String _localizedReminder(BuildContext context, AppointmentReminder reminder) {
     switch (reminder) {
@@ -372,9 +342,9 @@ class CreateAppointmentScreen extends ConsumerWidget {
 }
 
 class _CircleIconButton extends StatelessWidget {
+  const _CircleIconButton({required this.icon, required this.onTap});
   final IconData icon;
   final VoidCallback onTap;
-  const _CircleIconButton({required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -382,18 +352,14 @@ class _CircleIconButton extends StatelessWidget {
     return Material(
       color: isDark ? Colors.white.withValues(alpha: 0.06) : Colors.white,
       borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: SizedBox(width: 44, height: 44, child: Icon(icon, size: 18)),
-      ),
+      child: InkWell(onTap: onTap, borderRadius: BorderRadius.circular(16), child: SizedBox(width: 44, height: 44, child: Icon(icon, size: 18))),
     );
   }
 }
 
 class _LogoMark extends StatelessWidget {
-  final String label;
   const _LogoMark({required this.label});
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -402,14 +368,7 @@ class _LogoMark extends StatelessWidget {
       children: [
         Image.asset('assets/images/vitacase_brand_logo.png', width: 28, height: 28, fit: BoxFit.contain),
         const SizedBox(width: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w900,
-            color: AppColors.brandBlue,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: AppColors.brandBlue)),
       ],
     );
   }
