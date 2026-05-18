@@ -1,20 +1,134 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../shared/domain/entities/document.dart';
+import '../../../../shared/providers/document_providers.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import '../providers/vault_controller.dart';
 import '../widgets/vault_action_button.dart';
 import '../widgets/vault_preview_overlay.dart';
 import '../widgets/vault_tag_chip.dart';
-import 'package:go_router/go_router.dart';
 
-class DocumentQuickViewScreen extends StatelessWidget {
+class DocumentQuickViewScreen extends ConsumerStatefulWidget {
+  const DocumentQuickViewScreen({super.key, required this.document});
+
   final Document document;
 
-  const DocumentQuickViewScreen({super.key, required this.document});
+  @override
+  ConsumerState<DocumentQuickViewScreen> createState() => _DocumentQuickViewScreenState();
+}
+
+class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScreen> {
+  late Document _document;
+
+  @override
+  void initState() {
+    super.initState();
+    _document = widget.document;
+  }
+
+  bool get _isTr => Localizations.localeOf(context).languageCode == 'tr';
+
+  String get _title => _isTr ? 'Belge Kasası' : 'Document Vault';
+  String get _subtitle => _isTr ? 'Belge detaylarını güvenli şekilde görüntülüyorsun.' : 'Reviewing expanded document details.';
+  String get _editLabel => _isTr ? 'Düzenle' : 'Edit';
+  String get _saveLabel => _isTr ? 'Kaydet' : 'Save';
+  String get _cancelLabel => _isTr ? 'İptal' : 'Cancel';
+  String get _nameLabel => _isTr ? 'Belge adı' : 'Document name';
+  String get _institutionLabel => _isTr ? 'Kurum / Hastane' : 'Institution / Hospital';
+  String get _personLabel => _isTr ? 'Doktor / İlgili kişi' : 'Doctor / Related person';
+  String get _notesLabel => _isTr ? 'Notlar' : 'Notes';
+  String get _savedLabel => _isTr ? 'Belge güncellendi.' : 'Document updated.';
+  String get _failedLabel => _isTr ? 'Belge güncellenemedi.' : 'Could not update document.';
+  String get _unknownLabel => _isTr ? 'Bilinmiyor' : 'Unknown';
+  String get _emptyNoteLabel => _isTr ? 'Ek not yok.' : 'No additional notes provided.';
+
+  Future<void> _showEditDialog() async {
+    final nameController = TextEditingController(text: _document.fileName);
+    final hospitalController = TextEditingController(text: _document.hospitalName ?? '');
+    final doctorController = TextEditingController(text: _document.doctorName ?? '');
+    final noteController = TextEditingController(text: _document.note ?? '');
+
+    final result = await showDialog<Document>(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: Text(_editLabel),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: _nameLabel),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: hospitalController,
+                  decoration: InputDecoration(labelText: _institutionLabel),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: doctorController,
+                  decoration: InputDecoration(labelText: _personLabel),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: noteController,
+                  maxLines: 4,
+                  decoration: InputDecoration(labelText: _notesLabel, alignLabelWithHint: true),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(dialogContext), child: Text(_cancelLabel)),
+            FilledButton(
+              onPressed: () {
+                final updated = _document.copyWith(
+                  fileName: nameController.text.trim().isEmpty ? _document.fileName : nameController.text.trim(),
+                  hospitalName: _emptyToNull(hospitalController.text),
+                  doctorName: _emptyToNull(doctorController.text),
+                  note: _emptyToNull(noteController.text),
+                );
+                Navigator.pop(dialogContext, updated);
+              },
+              child: Text(_saveLabel),
+            ),
+          ],
+        );
+      },
+    );
+
+    nameController.dispose();
+    hospitalController.dispose();
+    doctorController.dispose();
+    noteController.dispose();
+
+    if (result == null) return;
+
+    try {
+      await ref.read(documentListProvider.notifier).updateDocument(result);
+      ref.invalidate(vaultControllerProvider);
+      if (!mounted) return;
+      setState(() => _document = result);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_savedLabel)));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_failedLabel)));
+    }
+  }
+
+  String? _emptyToNull(String value) {
+    final trimmed = value.trim();
+    return trimmed.isEmpty ? null : trimmed;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final document = _document;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final date = document.createdAt;
     final month = DateFormat('MMM').format(date).toUpperCase();
@@ -26,28 +140,20 @@ class DocumentQuickViewScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () => context.pop(),
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                Expanded(
+                  child: Text(_title, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800)),
                 ),
-                const Expanded(
-                  child: Text(
-                    "Document Vault",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                  ),
+                IconButton.filledTonal(
+                  onPressed: _showEditDialog,
+                  icon: const Icon(Icons.edit_rounded),
+                  tooltip: _editLabel,
                 ),
               ],
             ),
-
             const SizedBox(height: 10),
-
-            const Text(
-              "Reviewing expanded document details.",
-              style: TextStyle(fontSize: 17, color: AppColors.secondary),
-            ),
-
+            Text(_subtitle, style: const TextStyle(fontSize: 17, color: AppColors.secondary)),
             const SizedBox(height: 28),
-
             Container(
               decoration: BoxDecoration(
                 color: isDark ? AppColors.surfaceDark : Colors.white,
@@ -74,52 +180,32 @@ class DocumentQuickViewScreen extends StatelessWidget {
                               Text(month, style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary)),
                               Text(
                                 date.day.toString(),
-                                style: TextStyle(
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.w700,
-                                  color: isDark ? Colors.white : AppColors.primary,
-                                ),
+                                style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.primary),
                               ),
                             ],
                           ),
                         ),
-
                         const SizedBox(width: 18),
-
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 document.fileName,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
-                                  color: isDark ? Colors.white : AppColors.textPrimary,
-                                ),
+                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary),
                               ),
-
                               const SizedBox(height: 8),
-
-                              Text(
-                                "${document.hospitalName ?? 'Unknown'} • ${document.category.name}",
-                                style: const TextStyle(
-                                  color: AppColors.secondary,
-                                ),
-                              ),
-
+                              Text('${document.hospitalName ?? _unknownLabel} • ${document.category.name}', style: const TextStyle(color: AppColors.secondary)),
                               const SizedBox(height: 12),
-
-                              Row(
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
                                 children: [
                                   VaultTagChip(
-                                    label: document.tagLabel ?? "Lab",
+                                    label: document.tagLabel ?? 'Lab',
                                     bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
                                     text: isDark ? AppColors.primaryIndigo : AppColors.primary,
                                   ),
-
-                                  const SizedBox(width: 8),
-
                                   VaultTagChip(
                                     label: document.fileType.name.toUpperCase(),
                                     bg: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
@@ -133,7 +219,6 @@ class DocumentQuickViewScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   Container(
                     width: double.infinity,
                     color: isDark ? Colors.black.withValues(alpha: 0.2) : const Color(0xFFF9FBFF),
@@ -142,49 +227,27 @@ class DocumentQuickViewScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Expanded(
-                              child: _InfoColumn(
-                                label: "CREATED AT",
-                                value: DateFormat('dd.MM.yyyy').format(date),
-                              ),
-                            ),
-                            Expanded(
-                              child: _InfoColumn(
-                                label: "PHYSICIAN",
-                                value: document.doctorName ?? 'N/A',
-                              ),
-                            ),
+                            Expanded(child: _InfoColumn(label: _isTr ? 'OLUŞTURULDU' : 'CREATED AT', value: DateFormat('dd.MM.yyyy').format(date))),
+                            Expanded(child: _InfoColumn(label: _isTr ? 'İLGİLİ KİŞİ' : 'PHYSICIAN', value: document.doctorName ?? 'N/A')),
                           ],
                         ),
-
                         const SizedBox(height: 24),
-
-                        _InfoColumn(
-                          label: "NOTES",
-                          value: document.note ?? 'No additional notes provided.',
-                          expanded: true,
-                        ),
-
+                        _InfoColumn(label: _notesLabel.toUpperCase(), value: document.note ?? _emptyNoteLabel, expanded: true),
                         const SizedBox(height: 28),
-
                         const VaultPreviewOverlay(),
-
                         const SizedBox(height: 24),
-
                         Row(
                           children: [
                             VaultActionButton(
-                              label: "Share",
-                              icon: Icons.share_outlined,
+                              label: _editLabel,
+                              icon: Icons.edit_rounded,
                               bg: isDark ? Colors.white10 : const Color(0xFFF1F4FA),
                               text: isDark ? Colors.white70 : AppColors.secondary,
-                              onTap: () {},
+                              onTap: _showEditDialog,
                             ),
-
                             const SizedBox(width: 16),
-
                             VaultActionButton(
-                              label: "Download",
+                              label: _isTr ? 'İndir' : 'Download',
                               icon: Icons.download,
                               bg: AppColors.primary,
                               text: Colors.white,
@@ -206,15 +269,11 @@ class DocumentQuickViewScreen extends StatelessWidget {
 }
 
 class _InfoColumn extends StatelessWidget {
+  const _InfoColumn({required this.label, required this.value, this.expanded = false});
+
   final String label;
   final String value;
   final bool expanded;
-
-  const _InfoColumn({
-    required this.label,
-    required this.value,
-    this.expanded = false,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -222,17 +281,8 @@ class _InfoColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            letterSpacing: 2,
-            color: AppColors.secondary,
-          ),
-        ),
-
+        Text(label, style: const TextStyle(fontSize: 12, letterSpacing: 2, color: AppColors.secondary)),
         const SizedBox(height: 10),
-
         Container(
           width: expanded ? double.infinity : null,
           padding: const EdgeInsets.all(16),
@@ -240,14 +290,7 @@ class _InfoColumn extends StatelessWidget {
             color: expanded ? (isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF3F6FB)) : Colors.transparent,
             borderRadius: BorderRadius.circular(18),
           ),
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: 16,
-              height: 1.6,
-              color: isDark ? Colors.white70 : AppColors.textPrimary,
-            ),
-          ),
+          child: Text(value, style: TextStyle(fontSize: 16, height: 1.6, color: isDark ? Colors.white70 : AppColors.textPrimary)),
         ),
       ],
     );
