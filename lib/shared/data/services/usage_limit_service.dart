@@ -7,6 +7,15 @@ final usageLimitServiceProvider = Provider<UsageLimitService>((ref) {
   return UsageLimitService(ref.watch(sharedPreferencesProvider));
 });
 
+class UsageLimitExceededException implements Exception {
+  const UsageLimitExceededException(this.limit);
+
+  final int limit;
+
+  @override
+  String toString() => 'Daily create limit reached ($limit).';
+}
+
 class UsageLimitResult {
   const UsageLimitResult({required this.allowed, required this.used, required this.limit});
 
