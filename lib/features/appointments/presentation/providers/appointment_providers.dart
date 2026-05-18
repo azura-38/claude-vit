@@ -39,14 +39,6 @@ final nextAppointmentProvider = FutureProvider<Appointment?>((ref) async {
   return repo.getNextUpcoming();
 });
 
-class UsageLimitExceededException implements Exception {
-  const UsageLimitExceededException(this.limit);
-  final int limit;
-
-  @override
-  String toString() => 'Daily create limit reached ($limit).';
-}
-
 class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   @override
   Future<List<Appointment>> build() async {
