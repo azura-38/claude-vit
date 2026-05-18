@@ -6,7 +6,6 @@ import 'package:vitacase/l10n/vita_app_localizations_delegate.dart';
 
 import 'core/bootstrap/bootstrap_screen.dart';
 import 'core/router/app_router.dart';
-import 'core/security/secure_screen_guard.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'features/dashboard/presentation/providers/app_lifecycle_controller.dart';
@@ -80,9 +79,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp> with WidgetsBindingOb
           ],
         );
 
-        return SecureScreenGuard(
-          child: BootstrapScreen(child: appBody),
-        );
+        return BootstrapScreen(child: appBody);
       },
     );
   }
