@@ -1,22 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../core/di/repository_providers.dart';
-import '../../domain/entities/appointment.dart';
-import '../../../../shared/domain/enums/appointment_status.dart';
-import '../../../../shared/domain/usecases/base_usecase.dart';
-import '../../../../shared/domain/usecases/appointments/get_appointments_usecase.dart';
-import '../../../../shared/domain/usecases/appointments/add_appointment_usecase.dart';
 import '../../../../core/di/service_providers.dart';
+import '../../../../core/notifications/app_notification_payload.dart';
 import '../../../../core/types/runtime_types.dart';
 import '../../../../shared/data/services/analytics_service.dart';
 import '../../../../shared/data/services/notification_engine.dart';
-import '../../../../core/notifications/app_notification_payload.dart';
+import '../../../../shared/data/services/usage_limit_service.dart';
+import '../../../../shared/domain/enums/appointment_status.dart';
+import '../../../../shared/domain/usecases/appointments/add_appointment_usecase.dart';
+import '../../../../shared/domain/usecases/appointments/get_appointments_usecase.dart';
+import '../../../../shared/domain/usecases/base_usecase.dart';
+import '../../domain/entities/appointment.dart';
 
 enum CalendarViewType { monthly, weekly }
 
-final calendarViewTypeProvider =
-    NotifierProvider<CalendarViewTypeNotifier, CalendarViewType>(
-      CalendarViewTypeNotifier.new,
-    );
+final calendarViewTypeProvider = NotifierProvider<CalendarViewTypeNotifier, CalendarViewType>(CalendarViewTypeNotifier.new);
 
 class CalendarViewTypeNotifier extends Notifier<CalendarViewType> {
   @override
@@ -24,8 +23,6 @@ class CalendarViewTypeNotifier extends Notifier<CalendarViewType> {
 
   void set(CalendarViewType val) => state = val;
 }
-
-// documentRepositoryProvider and appointmentRepositoryProvider are now in core/di/repository_providers.dart
 
 final getAppointmentsUseCaseProvider = Provider<GetAppointmentsUseCase>((ref) {
   return GetAppointmentsUseCase(ref.read(appointmentRepositoryProvider));
@@ -35,15 +32,20 @@ final addAppointmentUseCaseProvider = Provider<AddAppointmentUseCase>((ref) {
   return AddAppointmentUseCase(ref.read(appointmentRepositoryProvider));
 });
 
-final appointmentListProvider =
-    AsyncNotifierProvider<AppointmentListNotifier, List<Appointment>>(
-      AppointmentListNotifier.new,
-    );
+final appointmentListProvider = AsyncNotifierProvider<AppointmentListNotifier, List<Appointment>>(AppointmentListNotifier.new);
 
 final nextAppointmentProvider = FutureProvider<Appointment?>((ref) async {
   final repo = ref.read(appointmentRepositoryProvider);
   return repo.getNextUpcoming();
 });
+
+class UsageLimitExceededException implements Exception {
+  const UsageLimitExceededException(this.limit);
+  final int limit;
+
+  @override
+  String toString() => 'Daily create limit reached ($limit).';
+}
 
 class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   @override
@@ -56,16 +58,18 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   Future<void> refresh() async {
     state = await AsyncValue.guard(() {
       final useCase = ref.read(getAppointmentsUseCaseProvider);
-      return useCase
-          .call(NoParams())
-          .then((value) => value.fold((l) => throw l, (r) => r));
+      return useCase.call(NoParams()).then((value) => value.fold((l) => throw l, (r) => r));
     });
   }
 
   Future<void> addAppointment(Appointment appointment) async {
+    final limit = await ref.read(usageLimitServiceProvider).consumeCreate();
+    if (!limit.allowed) {
+      throw UsageLimitExceededException(limit.limit);
+    }
+
     final useCase = ref.read(addAppointmentUseCaseProvider);
 
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
       state = AsyncData([appointment, ...currentList]);
@@ -80,8 +84,6 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
       (_) async {
         await _scheduleReminders(appointment);
         AnalyticsService.log(AnalyticsService.appointmentAdded);
-        // Refresh called locally to sync any ID changes from repo if needed,
-        // but the optimistic update already handled UI.
       },
     );
   }
@@ -90,23 +92,15 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     final repo = ref.read(appointmentRepositoryProvider);
 
     Appointment? oldAppointment;
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
-      oldAppointment =
-          currentList.where((a) => a.id == appointment.id).firstOrNull;
-      state = AsyncData(
-        currentList
-            .map((a) => a.id == appointment.id ? appointment : a)
-            .toList(),
-      );
+      oldAppointment = currentList.where((a) => a.id == appointment.id).firstOrNull;
+      state = AsyncData(currentList.map((a) => a.id == appointment.id ? appointment : a).toList());
     }
 
     try {
       await repo.update(appointment);
-      if (oldAppointment != null) {
-        await _cancelReminders(oldAppointment);
-      }
+      if (oldAppointment != null) await _cancelReminders(oldAppointment);
       await _scheduleReminders(appointment);
     } catch (e) {
       await refresh();
@@ -116,16 +110,9 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
 
   Future<void> _scheduleReminders(Appointment app) async {
     final notifier = ref.read(notificationServiceProvider);
-
-    // PERMISSION UX FIX (Moment of Need)
-    // Request permission here before scheduling if not already granted.
-    final permissionState = await notifier.requestPermissions(
-      requestExactAlarm: true,
-    );
+    final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
     if (permissionState != NotificationPermissionState.granted) {
-      AnalyticsService.log(
-        AnalyticsService.appointmentReminderPermissionDenied,
-      );
+      AnalyticsService.log(AnalyticsService.appointmentReminderPermissionDenied);
       return;
     }
 
@@ -134,8 +121,8 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
       if (reminderDate.isAfter(now)) {
         await NotificationEngine.scheduleAppointment(
           id: app.id,
-          title: "📅 Appointment",
-          body: "📅 Upcoming appointment: ${app.title}",
+          title: '📅 VitaCase Reminder',
+          body: 'Upcoming: ${app.title}',
           scheduleTime: reminderDate,
           payload: AppNotificationPayload(
             type: NotificationType.appointment,
@@ -147,9 +134,7 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
   }
 
-  Future<void> rescheduleAllNotifications(
-    List<Appointment> appointments,
-  ) async {
+  Future<void> rescheduleAllNotifications(List<Appointment> appointments) async {
     for (final appointment in appointments) {
       await _scheduleReminders(appointment);
     }
@@ -158,10 +143,8 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   List<DateTime> _generatedReminderDates(Appointment app) {
     final reminderTime = app.reminderTime;
     if (reminderTime == null || reminderTime.isEmpty) return [];
-
     final offset = _reminderOffset(reminderTime);
-    final reminderDate = app.fullDateTime.subtract(offset);
-    return [reminderDate];
+    return [app.fullDateTime.subtract(offset)];
   }
 
   Duration _reminderOffset(String reminderTime) {
@@ -188,14 +171,9 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   Future<void> updateStatus(String id, AppointmentStatus status) async {
     final repo = ref.read(appointmentRepositoryProvider);
 
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
-      state = AsyncData(
-        currentList
-            .map((a) => a.id == id ? a.copyWith(status: status) : a)
-            .toList(),
-      );
+      state = AsyncData(currentList.map((a) => a.id == id ? a.copyWith(status: status) : a).toList());
     }
 
     try {
@@ -210,7 +188,6 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     final repo = ref.read(appointmentRepositoryProvider);
 
     Appointment? oldAppointment;
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
       oldAppointment = currentList.where((a) => a.id == id).firstOrNull;
@@ -219,9 +196,7 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
 
     try {
       await repo.delete(id);
-      if (oldAppointment != null) {
-        await _cancelReminders(oldAppointment);
-      }
+      if (oldAppointment != null) await _cancelReminders(oldAppointment);
     } catch (e) {
       await refresh();
       rethrow;
