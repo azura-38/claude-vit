@@ -1,19 +1,16 @@
 class AppConfig {
-  /// Sentry configuration — inject via build.env or --dart-define.
+  /// Sentry DSN is safe to ship in a client app. Do not ship Sentry auth tokens.
   static const sentryDsn = String.fromEnvironment(
     'SENTRY_DSN',
-    defaultValue: '',
+    defaultValue: 'https://8863ed5fd9c7fe25eaa7a085a7951aba@o4511037576052736.ingest.de.sentry.io/4511200845561936',
   );
 
-  /// AdMob App ID — AndroidManifest receives this through Gradle manifestPlaceholders.
-  /// Required format: ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY
+  /// AdMob App ID. AndroidManifest receives the same default through Gradle manifestPlaceholders.
   static const admobAppId = String.fromEnvironment(
     'ADMOB_APP_ID',
-    defaultValue: '',
+    defaultValue: 'ca-app-pub-5877011177866406~6901208048',
   );
 
-  /// AdMob Unit IDs — inject via build.env or --dart-define.
-  /// Required format: ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY
   static const bannerAdId = String.fromEnvironment(
     'ADMOB_BANNER_ID',
     defaultValue: 'ca-app-pub-5877011177866406/1864503785',
@@ -52,10 +49,8 @@ class AppConfig {
   static const termsUrl = 'https://vitacase.limanex.com/terms';
   static const medicalDisclaimerUrl = 'https://vitacase.limanex.com/disclaimer';
 
-  /// Whether the global leaderboard is active.
   static const isLeaderboardEnabled = false;
 
-  /// Whether all required ad config is present.
   static bool get hasAdConfig =>
       admobAppId.isNotEmpty &&
       bannerAdId.isNotEmpty &&
@@ -64,6 +59,5 @@ class AppConfig {
 
   static bool get isConfigured => hasAdConfig;
 
-  /// Environment status.
   static const isProduction = bool.fromEnvironment('dart.vm.product');
 }
