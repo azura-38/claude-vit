@@ -8,16 +8,20 @@ import '../../../../../core/utils/uuid_generator.dart';
 import '../../../domain/entities/appointment.dart';
 import '../../providers/appointment_providers.dart';
 
-final appointmentFormProvider =
-    StateNotifierProvider<AppointmentFormNotifier, AppointmentFormModel>((ref) {
-      return AppointmentFormNotifier(ref);
-    });
+final appointmentFormProvider = StateNotifierProvider<AppointmentFormNotifier, AppointmentFormModel>((ref) {
+  return AppointmentFormNotifier(ref);
+});
 
 class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
+  AppointmentFormNotifier(this.ref) : super(AppointmentFormModel(date: DateTime.now()));
+
   final Ref ref;
 
-  AppointmentFormNotifier(this.ref)
-    : super(AppointmentFormModel(date: DateTime.now()));
+  AppointmentFormModel _freshState() => AppointmentFormModel(date: DateTime.now());
+
+  void reset() {
+    state = _freshState();
+  }
 
   void updateTitle(String value) {
     state = state.copyWith(title: value);
@@ -54,55 +58,48 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
 
   void updateTime(TimeOfDay value) {
     state = state.copyWith(
-      date: DateTime(
-        state.date.year,
-        state.date.month,
-        state.date.day,
-        value.hour,
-        value.minute,
-      ),
+      date: DateTime(state.date.year, state.date.month, state.date.day, value.hour, value.minute),
     );
   }
 
   Future<void> submit() async {
     if (!state.isValid || state.isSubmitting) return;
 
+    final form = state;
     state = state.copyWith(isSubmitting: true);
-    final importance = state.priority == AppointmentPriority.high
+    final importance = form.priority == AppointmentPriority.high
         ? ImportanceLevel.high
-        : state.priority == AppointmentPriority.low
+        : form.priority == AppointmentPriority.low
             ? ImportanceLevel.low
             : ImportanceLevel.medium;
 
     try {
-      final title = state.title.trim();
-      final location = state.location.trim();
+      final title = form.title.trim();
+      final location = form.location.trim();
       final appointment = Appointment(
         id: generateUuid(),
         title: title,
         doctor: title,
-        // Do not persist the English enum label such as "Doctor Visit" or
-        // "Lab Test" as the visible list title. The user-entered appointment
-        // title is language-neutral and avoids hardcoded EN/TR UI leakage.
         department: title,
         hospital: location,
-        person: state.subcategory.name,
-        date: state.date.toIso8601String().substring(0, 10),
-        time:
-            '${state.date.hour.toString().padLeft(2, '0')}:${state.date.minute.toString().padLeft(2, '0')}',
+        person: form.subcategory.name,
+        date: form.date.toIso8601String().substring(0, 10),
+        time: '${form.date.hour.toString().padLeft(2, '0')}:${form.date.minute.toString().padLeft(2, '0')}',
         status: AppointmentStatus.upcoming,
-        type: state.type.name,
+        type: form.type.name,
         location: location,
-        notes: state.notes.trim().isEmpty ? null : state.notes.trim(),
-        reminderTime: state.reminder.key,
-        selectedReminders: [state.reminder.key],
+        notes: form.notes.trim().isEmpty ? null : form.notes.trim(),
+        reminderTime: form.reminder.key,
+        selectedReminders: [form.reminder.key],
         importance: importance,
         createdAt: DateTime.now(),
       );
 
       await ref.read(appointmentListProvider.notifier).addAppointment(appointment);
-    } finally {
-      state = state.copyWith(isSubmitting: false);
+      reset();
+    } catch (_) {
+      state = form.copyWith(isSubmitting: false);
+      rethrow;
     }
   }
 }
