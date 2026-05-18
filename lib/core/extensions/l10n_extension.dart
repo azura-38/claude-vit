@@ -3,11 +3,6 @@ import 'package:vitacase/core/l10n/translations.dart';
 import 'package:vitacase/l10n/app_localizations.dart';
 
 extension L10nBuildContext on BuildContext {
-  /// Backward-compatible translation proxy.
-  ///
-  /// Prefer `context.tr('snake_case_key')` in new code. The proxy exists so the
-  /// current codebase can keep working while old `context.l10n.someCamelKey`
-  /// calls are migrated screen by screen.
   dynamic get l10n => _L10nProxy(this);
 
   String tr(String key, {Map<String, String>? extra}) {
@@ -58,7 +53,7 @@ String _lookupTranslation(
       _dynamicFallbacks[languageCode]?[normalized] ??
       Translations.data['en']?[normalized] ??
       _dynamicFallbacks['en']?[normalized] ??
-      normalized;
+      _humanizeMissingKey(normalized, languageCode);
 
   if (extra == null || extra.isEmpty) return value;
 
@@ -87,6 +82,23 @@ String _normalizeTranslationKey(String key) {
   return buffer.toString();
 }
 
+String _humanizeMissingKey(String key, String languageCode) {
+  final direct = _missingKeyLabels[languageCode]?[key] ?? _missingKeyLabels['en']?[key];
+  if (direct != null) return direct;
+
+  final cleaned = key
+      .replaceAll(RegExp(r'^(button|btn|label|title|hint|screen|route)_'), '')
+      .replaceAll('_', ' ')
+      .trim();
+  if (cleaned.isEmpty) return '';
+
+  return cleaned
+      .split(RegExp(r'\s+'))
+      .where((part) => part.isNotEmpty)
+      .map((part) => part[0].toUpperCase() + part.substring(1))
+      .join(' ');
+}
+
 bool _isDigit(String value) {
   if (value.isEmpty) return false;
   final code = value.codeUnitAt(0);
@@ -100,6 +112,35 @@ String _symbolName(Symbol symbol) {
   if (value.isEmpty) return '';
   return value;
 }
+
+const Map<String, Map<String, String>> _missingKeyLabels = {
+  'en': {
+    'add_appointment': 'Add Appointment',
+    'appointment_add': 'Add Appointment',
+    'create_appointment': 'Create Appointment',
+    'add_document': 'Add Document',
+    'document_add': 'Add Document',
+    'add_medication': 'Add Medication',
+    'medicine_add': 'Add Medicine',
+    'health_data_add': 'Add Health Data',
+    'doctor_add': 'Add Doctor',
+    'personal_info': 'Personal Information',
+    'important_info': 'Important Info',
+  },
+  'tr': {
+    'add_appointment': 'Randevu Ekle',
+    'appointment_add': 'Randevu Ekle',
+    'create_appointment': 'Randevu Oluştur',
+    'add_document': 'Belge Ekle',
+    'document_add': 'Belge Ekle',
+    'add_medication': 'İlaç Ekle',
+    'medicine_add': 'İlaç Ekle',
+    'health_data_add': 'Sağlık Verisi Ekle',
+    'doctor_add': 'Doktor Ekle',
+    'personal_info': 'Kişisel Bilgiler',
+    'important_info': 'Önemli Bilgiler',
+  },
+};
 
 const Map<String, Map<String, String>> _dynamicFallbacks = {
   'en': {
@@ -171,250 +212,5 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'reminder_7d': '7 gün önce',
     'hint_title': 'Örn. Kontrol randevusu',
     'hint_location': 'Örn. Klinik, hastane, laboratuvar, ofis veya online görüşme',
-  },
-  'es': {
-    'profile_photo': 'Foto de perfil',
-    'profile_photo_add_desc': 'Agrega una foto para personalizar tu perfil.',
-    'profile_photo_selected': 'Foto seleccionada. Se guardará con tu perfil.',
-    'subcategory': 'Subcategoría',
-    'appointment_type_insurance': 'Seguro',
-    'appointment_type_travel': 'Viaje',
-    'appointment_subcategory_general': 'General',
-    'appointment_subcategory_doctor_visit': 'Consulta médica',
-    'appointment_subcategory_lab_test': 'Prueba de laboratorio',
-    'appointment_subcategory_dental': 'Dental',
-    'appointment_subcategory_therapy': 'Terapia',
-    'appointment_subcategory_payment': 'Pago',
-    'appointment_subcategory_banking': 'Banco',
-    'appointment_subcategory_tax': 'Impuestos',
-    'appointment_subcategory_contract': 'Contrato',
-    'appointment_subcategory_consultation': 'Consulta',
-    'appointment_subcategory_policy': 'Póliza',
-    'appointment_subcategory_claim': 'Reclamo',
-    'appointment_subcategory_work_meeting': 'Reunión de trabajo',
-    'appointment_subcategory_family': 'Familia',
-    'appointment_subcategory_travel_plan': 'Plan de viaje',
-    'appointment_subcategory_task': 'Tarea',
-    'appointment_subcategory_other': 'Otro',
-    'importance_high': 'Alta',
-    'importance_normal': 'Normal',
-    'label_date_time': 'Fecha y hora',
-    'label_reminder': 'Recordatorio',
-    'reminder_10m': '10 minutos antes',
-    'reminder_1h': '1 hora antes',
-    'reminder_1d': '1 día antes',
-    'reminder_7d': '7 días antes',
-    'hint_title': 'Ej. revisión anual',
-    'hint_location': 'Ej. clínica, hospital, laboratorio, oficina o reunión online',
-  },
-  'pt': {
-    'profile_photo': 'Foto do perfil',
-    'profile_photo_add_desc': 'Adicione uma foto para personalizar seu perfil.',
-    'profile_photo_selected': 'Foto selecionada. Ela será salva com seu perfil.',
-    'subcategory': 'Subcategoria',
-    'appointment_type_insurance': 'Seguro',
-    'appointment_type_travel': 'Viagem',
-    'appointment_subcategory_general': 'Geral',
-    'appointment_subcategory_doctor_visit': 'Consulta médica',
-    'appointment_subcategory_lab_test': 'Exame laboratorial',
-    'appointment_subcategory_dental': 'Dental',
-    'appointment_subcategory_therapy': 'Terapia',
-    'appointment_subcategory_payment': 'Pagamento',
-    'appointment_subcategory_banking': 'Banco',
-    'appointment_subcategory_tax': 'Imposto',
-    'appointment_subcategory_contract': 'Contrato',
-    'appointment_subcategory_consultation': 'Consulta',
-    'appointment_subcategory_policy': 'Apólice',
-    'appointment_subcategory_claim': 'Reclamação',
-    'appointment_subcategory_work_meeting': 'Reunião de trabalho',
-    'appointment_subcategory_family': 'Família',
-    'appointment_subcategory_travel_plan': 'Plano de viagem',
-    'appointment_subcategory_task': 'Tarefa',
-    'appointment_subcategory_other': 'Outro',
-    'importance_high': 'Alta',
-    'importance_normal': 'Normal',
-    'label_date_time': 'Data e hora',
-    'label_reminder': 'Lembrete',
-    'reminder_10m': '10 minutos antes',
-    'reminder_1h': '1 hora antes',
-    'reminder_1d': '1 dia antes',
-    'reminder_7d': '7 dias antes',
-    'hint_title': 'Ex. check-up anual',
-    'hint_location': 'Ex. clínica, hospital, laboratório, escritório ou reunião online',
-  },
-  'de': {
-    'profile_photo': 'Profilfoto',
-    'profile_photo_add_desc': 'Füge ein Foto hinzu, um dein Profil zu personalisieren.',
-    'profile_photo_selected': 'Foto ausgewählt. Es wird mit deinem Profil gespeichert.',
-    'subcategory': 'Unterkategorie',
-    'appointment_type_insurance': 'Versicherung',
-    'appointment_type_travel': 'Reise',
-    'appointment_subcategory_general': 'Allgemein',
-    'appointment_subcategory_doctor_visit': 'Arztbesuch',
-    'appointment_subcategory_lab_test': 'Labortest',
-    'appointment_subcategory_dental': 'Zahnarzt',
-    'appointment_subcategory_therapy': 'Therapie',
-    'appointment_subcategory_payment': 'Zahlung',
-    'appointment_subcategory_banking': 'Bank',
-    'appointment_subcategory_tax': 'Steuer',
-    'appointment_subcategory_contract': 'Vertrag',
-    'appointment_subcategory_consultation': 'Beratung',
-    'appointment_subcategory_policy': 'Police',
-    'appointment_subcategory_claim': 'Anspruch',
-    'appointment_subcategory_work_meeting': 'Arbeitsmeeting',
-    'appointment_subcategory_family': 'Familie',
-    'appointment_subcategory_travel_plan': 'Reiseplan',
-    'appointment_subcategory_task': 'Aufgabe',
-    'appointment_subcategory_other': 'Andere',
-    'importance_high': 'Hoch',
-    'importance_normal': 'Normal',
-    'label_date_time': 'Datum & Uhrzeit',
-    'label_reminder': 'Erinnerung',
-    'reminder_10m': '10 Minuten vorher',
-    'reminder_1h': '1 Stunde vorher',
-    'reminder_1d': '1 Tag vorher',
-    'reminder_7d': '7 Tage vorher',
-    'hint_title': 'z. B. jährliche Kontrolle',
-    'hint_location': 'z. B. Klinik, Krankenhaus, Labor, Büro oder Online-Meeting',
-  },
-  'fr': {
-    'profile_photo': 'Photo de profil',
-    'profile_photo_add_desc': 'Ajoutez une photo pour personnaliser votre profil.',
-    'profile_photo_selected': 'Photo sélectionnée. Elle sera enregistrée avec votre profil.',
-    'subcategory': 'Sous-catégorie',
-    'appointment_type_insurance': 'Assurance',
-    'appointment_type_travel': 'Voyage',
-    'appointment_subcategory_general': 'Général',
-    'appointment_subcategory_doctor_visit': 'Consultation médicale',
-    'appointment_subcategory_lab_test': 'Test de laboratoire',
-    'appointment_subcategory_dental': 'Dentaire',
-    'appointment_subcategory_therapy': 'Thérapie',
-    'appointment_subcategory_payment': 'Paiement',
-    'appointment_subcategory_banking': 'Banque',
-    'appointment_subcategory_tax': 'Impôt',
-    'appointment_subcategory_contract': 'Contrat',
-    'appointment_subcategory_consultation': 'Consultation',
-    'appointment_subcategory_policy': 'Police',
-    'appointment_subcategory_claim': 'Réclamation',
-    'appointment_subcategory_work_meeting': 'Réunion de travail',
-    'appointment_subcategory_family': 'Famille',
-    'appointment_subcategory_travel_plan': 'Plan de voyage',
-    'appointment_subcategory_task': 'Tâche',
-    'appointment_subcategory_other': 'Autre',
-    'importance_high': 'Élevée',
-    'importance_normal': 'Normale',
-    'label_date_time': 'Date et heure',
-    'label_reminder': 'Rappel',
-    'reminder_10m': '10 minutes avant',
-    'reminder_1h': '1 heure avant',
-    'reminder_1d': '1 jour avant',
-    'reminder_7d': '7 jours avant',
-    'hint_title': 'Ex. bilan annuel',
-    'hint_location': 'Ex. clinique, hôpital, laboratoire, bureau ou réunion en ligne',
-  },
-  'hi': {
-    'profile_photo': 'प्रोफ़ाइल फ़ोटो',
-    'profile_photo_add_desc': 'अपनी प्रोफ़ाइल को व्यक्तिगत बनाने के लिए फ़ोटो जोड़ें।',
-    'profile_photo_selected': 'फ़ोटो चुनी गई। यह आपकी प्रोफ़ाइल के साथ सेव होगी।',
-    'subcategory': 'उपश्रेणी',
-    'appointment_type_insurance': 'बीमा',
-    'appointment_type_travel': 'यात्रा',
-    'appointment_subcategory_general': 'सामान्य',
-    'appointment_subcategory_doctor_visit': 'डॉक्टर विज़िट',
-    'appointment_subcategory_lab_test': 'लैब टेस्ट',
-    'appointment_subcategory_dental': 'डेंटल',
-    'appointment_subcategory_therapy': 'थेरेपी',
-    'appointment_subcategory_payment': 'भुगतान',
-    'appointment_subcategory_banking': 'बैंकिंग',
-    'appointment_subcategory_tax': 'टैक्स',
-    'appointment_subcategory_contract': 'अनुबंध',
-    'appointment_subcategory_consultation': 'परामर्श',
-    'appointment_subcategory_policy': 'पॉलिसी',
-    'appointment_subcategory_claim': 'क्लेम',
-    'appointment_subcategory_work_meeting': 'वर्क मीटिंग',
-    'appointment_subcategory_family': 'परिवार',
-    'appointment_subcategory_travel_plan': 'यात्रा योजना',
-    'appointment_subcategory_task': 'कार्य',
-    'appointment_subcategory_other': 'अन्य',
-    'importance_high': 'उच्च',
-    'importance_normal': 'सामान्य',
-    'label_date_time': 'दिनांक और समय',
-    'label_reminder': 'रिमाइंडर',
-    'reminder_10m': '10 मिनट पहले',
-    'reminder_1h': '1 घंटा पहले',
-    'reminder_1d': '1 दिन पहले',
-    'reminder_7d': '7 दिन पहले',
-    'hint_title': 'जैसे वार्षिक चेकअप',
-    'hint_location': 'जैसे क्लिनिक, अस्पताल, लैब, कार्यालय या ऑनलाइन मीटिंग',
-  },
-  'ja': {
-    'profile_photo': 'プロフィール写真',
-    'profile_photo_add_desc': 'プロフィールをカスタマイズするために写真を追加します。',
-    'profile_photo_selected': '写真が選択されました。プロフィールと一緒に保存されます。',
-    'subcategory': 'サブカテゴリ',
-    'appointment_type_insurance': '保険',
-    'appointment_type_travel': '旅行',
-    'appointment_subcategory_general': '一般',
-    'appointment_subcategory_doctor_visit': '診察',
-    'appointment_subcategory_lab_test': '検査',
-    'appointment_subcategory_dental': '歯科',
-    'appointment_subcategory_therapy': 'セラピー',
-    'appointment_subcategory_payment': '支払い',
-    'appointment_subcategory_banking': '銀行',
-    'appointment_subcategory_tax': '税金',
-    'appointment_subcategory_contract': '契約',
-    'appointment_subcategory_consultation': '相談',
-    'appointment_subcategory_policy': '保険証券',
-    'appointment_subcategory_claim': '請求',
-    'appointment_subcategory_work_meeting': '仕事の会議',
-    'appointment_subcategory_family': '家族',
-    'appointment_subcategory_travel_plan': '旅行計画',
-    'appointment_subcategory_task': 'タスク',
-    'appointment_subcategory_other': 'その他',
-    'importance_high': '高',
-    'importance_normal': '通常',
-    'label_date_time': '日付と時刻',
-    'label_reminder': 'リマインダー',
-    'reminder_10m': '10分前',
-    'reminder_1h': '1時間前',
-    'reminder_1d': '1日前',
-    'reminder_7d': '7日前',
-    'hint_title': '例：年次チェックアップ',
-    'hint_location': '例：クリニック、病院、検査室、オフィス、オンライン会議',
-  },
-  'zh': {
-    'profile_photo': '个人资料照片',
-    'profile_photo_add_desc': '添加照片以个性化你的个人资料。',
-    'profile_photo_selected': '已选择照片。它将与个人资料一起保存。',
-    'subcategory': '子类别',
-    'appointment_type_insurance': '保险',
-    'appointment_type_travel': '旅行',
-    'appointment_subcategory_general': '常规',
-    'appointment_subcategory_doctor_visit': '就诊',
-    'appointment_subcategory_lab_test': '实验室检查',
-    'appointment_subcategory_dental': '牙科',
-    'appointment_subcategory_therapy': '治疗',
-    'appointment_subcategory_payment': '付款',
-    'appointment_subcategory_banking': '银行',
-    'appointment_subcategory_tax': '税务',
-    'appointment_subcategory_contract': '合同',
-    'appointment_subcategory_consultation': '咨询',
-    'appointment_subcategory_policy': '保单',
-    'appointment_subcategory_claim': '理赔',
-    'appointment_subcategory_work_meeting': '工作会议',
-    'appointment_subcategory_family': '家庭',
-    'appointment_subcategory_travel_plan': '旅行计划',
-    'appointment_subcategory_task': '任务',
-    'appointment_subcategory_other': '其他',
-    'importance_high': '高',
-    'importance_normal': '普通',
-    'label_date_time': '日期和时间',
-    'label_reminder': '提醒',
-    'reminder_10m': '提前10分钟',
-    'reminder_1h': '提前1小时',
-    'reminder_1d': '提前1天',
-    'reminder_7d': '提前7天',
-    'hint_title': '例如：年度检查',
-    'hint_location': '例如：诊所、医院、实验室、办公室或线上会议',
   },
 };
