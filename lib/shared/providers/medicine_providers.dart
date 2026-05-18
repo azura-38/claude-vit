@@ -1,19 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/di/repository_providers.dart';
+import '../../core/di/service_providers.dart';
+import '../../core/notifications/app_notification_payload.dart';
+import '../../core/types/runtime_types.dart';
 import '../../features/medications/domain/entities/medicine.dart';
+import '../data/services/analytics_service.dart';
+import '../data/services/notification_engine.dart';
+import '../data/services/usage_limit_service.dart';
 import '../domain/usecases/base_usecase.dart';
-import '../domain/usecases/medicines/get_medicines_usecase.dart';
 import '../domain/usecases/medicines/add_medicine_usecase.dart';
+import '../domain/usecases/medicines/get_medicines_usecase.dart';
 import 'daily_mission_providers.dart';
 import 'season_providers.dart';
-import '../../core/di/service_providers.dart';
-import '../data/services/notification_engine.dart';
-import '../../core/types/runtime_types.dart';
-import '../../core/notifications/app_notification_payload.dart';
-import '../data/services/analytics_service.dart';
-import 'package:flutter/foundation.dart';
-
-// REPOSITORY PROVIDER REMOVED - Using centralized repository_providers.dart
 
 final getMedicinesUseCaseProvider = Provider<GetMedicinesUseCase>((ref) {
   return GetMedicinesUseCase(ref.read(medicineRepositoryProvider));
@@ -23,10 +23,9 @@ final addMedicineUseCaseProvider = Provider<AddMedicineUseCase>((ref) {
   return AddMedicineUseCase(ref.read(medicineRepositoryProvider));
 });
 
-final medicineListProvider =
-    AsyncNotifierProvider<MedicineListNotifier, List<Medicine>>(
-      MedicineListNotifier.new,
-    );
+final medicineListProvider = AsyncNotifierProvider<MedicineListNotifier, List<Medicine>>(
+  MedicineListNotifier.new,
+);
 
 class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   @override
@@ -39,16 +38,18 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   Future<void> refresh() async {
     state = await AsyncValue.guard(() {
       final useCase = ref.read(getMedicinesUseCaseProvider);
-      return useCase
-          .call(NoParams())
-          .then((value) => value.fold((l) => throw l, (r) => r));
+      return useCase.call(NoParams()).then((value) => value.fold((l) => throw l, (r) => r));
     });
   }
 
   Future<void> addMedicine(Medicine medicine) async {
+    final limit = await ref.read(usageLimitServiceProvider).consumeCreate();
+    if (!limit.allowed) {
+      throw UsageLimitExceededException(limit.limit);
+    }
+
     final useCase = ref.read(addMedicineUseCaseProvider);
 
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
       state = AsyncData([medicine, ...currentList]);
@@ -62,8 +63,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
       return;
     }
 
-    // Track mission & XP
-    ref.read(dailyMissionProvider.notifier).track("med_daily");
+    ref.read(dailyMissionProvider.notifier).track('med_daily');
     ref.read(seasonProvider.notifier).addXP(15);
     AnalyticsService.log(AnalyticsService.medicineAdded);
 
@@ -76,12 +76,11 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
     if (state.hasValue) {
       final currentList = state.value!;
-      final updatedList =
-          currentList.map((m) {
-            if (m.id != id) return m;
-            updatedMedicine = m.copyWith(isTaken: true);
-            return updatedMedicine!;
-          }).toList();
+      final updatedList = currentList.map((m) {
+        if (m.id != id) return m;
+        updatedMedicine = m.copyWith(isTaken: true);
+        return updatedMedicine!;
+      }).toList();
       state = AsyncData(updatedList);
     }
 
@@ -97,12 +96,11 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
     if (state.hasValue) {
       final currentList = state.value!;
-      final updatedList =
-          currentList.map((m) {
-            if (m.id != id) return m;
-            updatedMedicine = m.copyWith(isTaken: false);
-            return updatedMedicine!;
-          }).toList();
+      final updatedList = currentList.map((m) {
+        if (m.id != id) return m;
+        updatedMedicine = m.copyWith(isTaken: false);
+        return updatedMedicine!;
+      }).toList();
       state = AsyncData(updatedList);
     }
 
@@ -110,14 +108,12 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     if (updatedMedicine != null) {
       await repo.update(updatedMedicine!);
     }
-    if (kDebugMode) print("Medicine $id marked as skipped");
+    if (kDebugMode) print('Medicine $id marked as skipped');
   }
 
   Future<void> _scheduleNotifications(Medicine medicine) async {
     final notifier = ref.read(notificationServiceProvider);
-    final permissionState = await notifier.requestPermissions(
-      requestExactAlarm: true,
-    );
+    final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
     if (permissionState != NotificationPermissionState.granted) {
       AnalyticsService.log(AnalyticsService.medicineReminderPermissionDenied);
       return;
@@ -126,7 +122,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     for (final date in _generatedDates(medicine)) {
       await NotificationEngine.scheduleMedicine(
         id: medicine.id,
-        title: "💊 Medication Reminder",
+        title: '💊 VitaCase Reminder',
         body: medicine.name,
         scheduleTime: date,
         payload: AppNotificationPayload(
@@ -158,13 +154,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
       if (medicine.frequency == 'weekly' && medicine.daysOfWeek != null) {
         for (final day in medicine.daysOfWeek!) {
-          var scheduledDate = DateTime(
-            now.year,
-            now.month,
-            now.day,
-            hour,
-            minute,
-          );
+          var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
           while (scheduledDate.weekday != day) {
             scheduledDate = scheduledDate.add(const Duration(days: 1));
           }
@@ -174,13 +164,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
           dates.add(scheduledDate);
         }
       } else if (medicine.frequency == 'custom' && medicine.interval != null) {
-        var scheduledDate = DateTime(
-          now.year,
-          now.month,
-          now.day,
-          hour,
-          minute,
-        );
+        var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
         if (!scheduledDate.isAfter(now)) {
           scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
         }
@@ -189,13 +173,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
           scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
         }
       } else {
-        var scheduledDate = DateTime(
-          now.year,
-          now.month,
-          now.day,
-          hour,
-          minute,
-        );
+        var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
         if (!scheduledDate.isAfter(now)) {
           scheduledDate = scheduledDate.add(const Duration(days: 1));
         }
@@ -210,20 +188,15 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     final repo = ref.read(medicineRepositoryProvider);
 
     Medicine? oldMedicine;
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
       oldMedicine = currentList.where((m) => m.id == medicine.id).firstOrNull;
-      state = AsyncData(
-        currentList.map((m) => m.id == medicine.id ? medicine : m).toList(),
-      );
+      state = AsyncData(currentList.map((m) => m.id == medicine.id ? medicine : m).toList());
     }
 
     try {
       await repo.update(medicine);
-      if (oldMedicine != null) {
-        await _cancelNotifications(oldMedicine);
-      }
+      if (oldMedicine != null) await _cancelNotifications(oldMedicine);
       await _scheduleNotifications(medicine);
     } catch (e) {
       await refresh();
@@ -235,7 +208,6 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     final repo = ref.read(medicineRepositoryProvider);
 
     Medicine? oldMedicine;
-    // ⚡ OPTIMISTIC UPDATE
     if (state.hasValue) {
       final currentList = state.value!;
       oldMedicine = currentList.where((m) => m.id == id).firstOrNull;
@@ -244,9 +216,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
     try {
       await repo.delete(id);
-      if (oldMedicine != null) {
-        await _cancelNotifications(oldMedicine);
-      }
+      if (oldMedicine != null) await _cancelNotifications(oldMedicine);
     } catch (e) {
       await refresh();
       rethrow;
