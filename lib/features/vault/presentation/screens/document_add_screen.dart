@@ -19,6 +19,7 @@ class DocumentAddScreen extends ConsumerStatefulWidget {
 }
 
 class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
+  final _nameController = TextEditingController();
   final _hospitalController = TextEditingController();
   final _doctorController = TextEditingController();
   final _noteController = TextEditingController();
@@ -30,11 +31,15 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _hospitalController.dispose();
     _doctorController.dispose();
     _noteController.dispose();
     super.dispose();
   }
+
+  String get _documentNameLabel => Localizations.localeOf(context).languageCode == 'tr' ? 'Belge adı' : 'Document name';
+  String get _documentNameHint => Localizations.localeOf(context).languageCode == 'tr' ? 'Örn. Kan tahlili sonucu' : 'e.g. Blood test result';
 
   String _limitMessage(int limit) {
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
@@ -57,7 +62,18 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
     );
 
     if (result == null || result.files.isEmpty) return;
-    setState(() => _selectedFile = result.files.single);
+    setState(() {
+      _selectedFile = result.files.single;
+      if (_nameController.text.trim().isEmpty) {
+        _nameController.text = _cleanFileName(result.files.single.name);
+      }
+    });
+  }
+
+  String _cleanFileName(String fileName) {
+    final dot = fileName.lastIndexOf('.');
+    if (dot <= 0) return fileName;
+    return fileName.substring(0, dot);
   }
 
   DocumentFileType _fileTypeFor(String fileName) {
@@ -75,12 +91,14 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
       return;
     }
 
+    final displayName = _nameController.text.trim().isEmpty ? file.name : _nameController.text.trim();
+
     setState(() => _isSaving = true);
 
     try {
       await ref.read(documentListProvider.notifier).uploadDocument(
             file: sourcePath,
-            fileName: file.name,
+            fileName: displayName,
             fileType: _fileTypeFor(file.name),
             category: _category,
             hospitalName: _emptyToNull(_hospitalController.text),
@@ -133,6 +151,15 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             _SectionCard(
               isDark: isDark,
               children: [
+                TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: _documentNameLabel,
+                    hintText: _documentNameHint,
+                    prefixIcon: const Icon(Icons.drive_file_rename_outline_rounded),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 DropdownButtonFormField<DocumentCategory>(
                   initialValue: _category,
                   decoration: InputDecoration(labelText: strings.category),
