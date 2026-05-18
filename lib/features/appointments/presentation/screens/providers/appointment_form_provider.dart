@@ -8,7 +8,7 @@ import '../../../../../core/utils/uuid_generator.dart';
 import '../../../domain/entities/appointment.dart';
 import '../../providers/appointment_providers.dart';
 
-final appointmentFormProvider = StateNotifierProvider<AppointmentFormNotifier, AppointmentFormModel>((ref) {
+final appointmentFormProvider = StateNotifierProvider.autoDispose<AppointmentFormNotifier, AppointmentFormModel>((ref) {
   return AppointmentFormNotifier(ref);
 });
 
