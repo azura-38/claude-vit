@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
+import '../../../../shared/data/services/usage_limit_service.dart';
 import 'providers/medication_form_provider.dart';
 import 'widgets/animated_segmented_control.dart';
 import 'widgets/premium_card.dart';
@@ -16,13 +17,17 @@ class AddMedicationScreen extends ConsumerWidget {
   const AddMedicationScreen({super.key});
 
   Future<void> _pickReminderTime(BuildContext context, WidgetRef ref) async {
-    final picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
+    final picked = await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (picked == null) return;
     final value = '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
     ref.read(medicationFormProvider.notifier).addTime(value);
+  }
+
+  String _limitMessage(BuildContext context, int limit) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    return isTr
+        ? 'Günlük ekleme limitine ulaştın ($limit). Yarın tekrar ekleyebilirsin.'
+        : 'You reached today\'s create limit ($limit). You can add more tomorrow.';
   }
 
   @override
@@ -170,9 +175,9 @@ class AddMedicationScreen extends ConsumerWidget {
                       await notifier.submit();
                       if (context.mounted) context.pop();
                     } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.failedAddMedication)));
-                      }
+                      if (!context.mounted) return;
+                      final message = e is UsageLimitExceededException ? _limitMessage(context, e.limit) : context.l10n.failedAddMedication;
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
                     }
                   },
                   child: Container(
@@ -183,10 +188,7 @@ class AddMedicationScreen extends ConsumerWidget {
                       boxShadow: [BoxShadow(color: AppColors.brandBlue.withValues(alpha: 0.24), blurRadius: 24, offset: const Offset(0, 12))],
                     ),
                     child: Center(
-                      child: Text(
-                        context.l10n.addMedication,
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
-                      ),
+                      child: Text(context.l10n.addMedication, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)),
                     ),
                   ),
                 ).animate().fadeIn(delay: 520.ms).slideY(begin: 1),
@@ -209,7 +211,6 @@ class _MedicationHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
