@@ -21,6 +21,7 @@ import '../../features/medications/presentation/screens/medicines_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/app_settings_screen.dart';
 import '../../features/profile/presentation/screens/edit_profile_screen.dart';
+import '../../features/profile/presentation/screens/important_information_screen.dart';
 import '../../features/profile/presentation/screens/profile_create_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/profile/presentation/screens/personal_information_screen.dart';
@@ -238,9 +239,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: ':id',
                 name: 'doctorDetail',
-                builder: (context, state) => DoctorDetailScreen(
-                  id: state.pathParameters['id']!,
-                ),
+                builder: (context, state) => DoctorDetailScreen(id: state.pathParameters['id']!),
               ),
             ],
           ),
@@ -252,7 +251,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.medicalInfo,
             name: 'medicalInfo',
-            builder: (context, state) => const PersonalInformationScreen(),
+            builder: (context, state) => const ImportantInformationScreen(),
           ),
           GoRoute(
             path: AppRoutes.settings,
