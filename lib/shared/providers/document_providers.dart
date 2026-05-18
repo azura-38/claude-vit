@@ -1,15 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/datasources/file_storage_service.dart';
 import '../../core/di/repository_providers.dart';
-import '../domain/entities/document.dart';
-import '../domain/enums/document_category.dart';
 import '../../core/utils/uuid_generator.dart';
 import '../../features/gamification/presentation/providers/achievement_providers.dart';
+import '../data/datasources/file_storage_service.dart';
+import '../data/services/ad_controller.dart';
+import '../data/services/analytics_service.dart';
+import '../data/services/usage_limit_service.dart';
+import '../domain/entities/document.dart';
+import '../domain/enums/document_category.dart';
 import 'daily_mission_providers.dart';
 import 'season_providers.dart';
-import '../data/services/analytics_service.dart';
-import '../data/services/ad_controller.dart';
 
 final fileStorageServiceProvider = Provider<FileStorageService>((ref) {
   return FileStorageService();
@@ -42,6 +43,11 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     String? tagLabel,
     String? note,
   }) async {
+    final limit = await ref.read(usageLimitServiceProvider).consumeCreate();
+    if (!limit.allowed) {
+      throw UsageLimitExceededException(limit.limit);
+    }
+
     final storage = ref.read(fileStorageServiceProvider);
     final repo = ref.read(documentRepositoryProvider);
 
