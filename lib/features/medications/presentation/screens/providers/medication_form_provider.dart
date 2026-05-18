@@ -1,19 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/medication_form_model.dart';
+
+import '../../../../../core/utils/uuid_generator.dart';
 import '../../../../../shared/domain/enums/common_enums.dart';
 import '../../../../../shared/providers/medicine_providers.dart';
-import '../../../../../core/utils/uuid_generator.dart';
 import '../../../domain/entities/medicine.dart';
+import '../models/medication_form_model.dart';
 
-final medicationFormProvider =
-    StateNotifierProvider<MedicationFormNotifier, MedicationFormModel>((ref) {
-      return MedicationFormNotifier(ref);
-    });
+final medicationFormProvider = StateNotifierProvider.autoDispose<MedicationFormNotifier, MedicationFormModel>((ref) {
+  return MedicationFormNotifier(ref);
+});
 
 class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
+  MedicationFormNotifier(this.ref) : super(const MedicationFormModel());
+
   final Ref ref;
 
-  MedicationFormNotifier(this.ref) : super(const MedicationFormModel());
+  void reset() {
+    state = const MedicationFormModel();
+  }
 
   void updateName(String value) {
     state = state.copyWith(medicineName: value);
@@ -33,7 +37,9 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
   }
 
   void addTime(String time) {
-    final updated = [...state.reminderTimes, time];
+    final normalized = time.trim();
+    if (normalized.isEmpty) return;
+    final updated = {...state.reminderTimes, normalized}.toList()..sort();
     state = state.copyWith(reminderTimes: updated);
   }
 
@@ -45,7 +51,7 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
   Future<void> submit() async {
     final medicine = Medicine(
       id: generateUuid(),
-      name: state.medicineName.isEmpty ? 'New Medication' : state.medicineName,
+      name: state.medicineName.trim().isEmpty ? 'New Medication' : state.medicineName.trim(),
       dosage: '${state.quantity} ${state.unit}',
       startDate: DateTime.now().toIso8601String().substring(0, 10),
       frequency: state.frequency.name,
@@ -55,5 +61,6 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
     );
 
     await ref.read(medicineListProvider.notifier).addMedicine(medicine);
+    reset();
   }
 }
