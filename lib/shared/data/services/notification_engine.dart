@@ -8,10 +8,10 @@ import '../models/user_behavior.dart';
 
 class SmartMessageEngine {
   static String get(UserBehavior user) {
-    if (user.lastActiveDays >= 3) return "smart_streak_warning";
-    if (user.adsWatched >= 10) return "smart_ad_reward";
-    if (user.actionsCount >= 5) return "smart_doc_bonus";
-    return "smart_default";
+    if (user.lastActiveDays >= 3) return 'smart_streak_warning';
+    if (user.adsWatched >= 10) return 'smart_ad_reward';
+    if (user.actionsCount >= 5) return 'smart_doc_bonus';
+    return 'smart_default';
   }
 }
 
@@ -23,10 +23,16 @@ class NotificationEngine {
   static DateTime? _lastImmediateNotificationAt;
   static const Duration _immediateCooldown = Duration(seconds: 90);
 
-  // ── Core init — registers channels ONLY, NO permission requests ────────────
-  //
-  // Safe to call during app startup. Never shows any system dialogs.
-  // Call [requestPermissions] after the first frame is painted.
+  static Future<void> _ensureReady({bool requestPermission = false}) async {
+    if (!_isInitialized) {
+      await initializeCore();
+    }
+    _prefs ??= await SharedPreferences.getInstance();
+    if (requestPermission) {
+      await requestPermissions();
+    }
+  }
+
   static Future<void> initializeCore() async {
     if (_isInitialized) return;
     _prefs = await SharedPreferences.getInstance();
@@ -49,7 +55,7 @@ class NotificationEngine {
           channelGroupKey: 'medical_group',
           channelKey: 'appointment_reminders',
           channelName: 'Appointment Reminders',
-          channelDescription: 'Notification channel for doctor appointments',
+          channelDescription: 'Notification channel for appointments and plans',
           defaultColor: AppColors.medicalBlue,
           ledColor: Colors.white,
           importance: NotificationImportance.High,
@@ -65,25 +71,16 @@ class NotificationEngine {
         ),
       ],
       channelGroups: [
-        NotificationChannelGroup(
-          channelGroupKey: 'medical_group',
-          channelGroupName: 'Medical Notifications',
-        ),
-        NotificationChannelGroup(
-          channelGroupKey: 'system_group',
-          channelGroupName: 'System Notifications',
-        ),
+        NotificationChannelGroup(channelGroupKey: 'medical_group', channelGroupName: 'Health & Reminder Notifications'),
+        NotificationChannelGroup(channelGroupKey: 'system_group', channelGroupName: 'System Notifications'),
       ],
       debug: true,
     );
 
     _isInitialized = true;
-    debugPrint('[NotificationEngine] Core initialized ✅ (no permissions requested)');
+    debugPrint('[NotificationEngine] Core initialized ✅');
   }
 
-  // ── Deferred permission request — call AFTER first frame is painted ───────
-  //
-  // Separated from initializeCore() to avoid system dialog during launch.
   static Future<void> requestPermissions() async {
     final isAllowed = await AwesomeNotifications().isNotificationAllowed();
     if (!isAllowed) {
@@ -92,25 +89,19 @@ class NotificationEngine {
     debugPrint('[NotificationEngine] Permissions requested ✅');
   }
 
-  // ── Legacy initialize — kept for backward compatibility ───────────────────
-  //
-  // Calls initializeCore() + requestPermissions() together.
   static Future<void> initialize() async {
     await initializeCore();
     await requestPermissions();
   }
 
   static Future<void> startListening(Future<void> Function(ReceivedAction) onActionReceived) async {
-    await AwesomeNotifications().setListeners(
-      onActionReceivedMethod: onActionReceived,
-    );
+    await _ensureReady();
+    await AwesomeNotifications().setListeners(onActionReceivedMethod: onActionReceived);
   }
 
   static String _translate(String key) {
     final lang = _prefs?.getString('app_locale') ?? 'en';
-    return Translations.data[lang]?[key] ??
-        Translations.data['en']?[key] ??
-        key;
+    return Translations.data[lang]?[key] ?? Translations.data['en']?[key] ?? key;
   }
 
   static String _safeText(String text) {
@@ -120,7 +111,7 @@ class NotificationEngine {
   }
 
   static int getStableId(String id, [DateTime? date]) {
-    final key = date != null ? "${id}_${date.millisecondsSinceEpoch}" : id;
+    final key = date != null ? '${id}_${date.millisecondsSinceEpoch}' : id;
     int hash = 0x811c9dc5;
     for (int i = 0; i < key.length; i++) {
       hash ^= key.codeUnitAt(i);
@@ -137,6 +128,8 @@ class NotificationEngine {
     required DateTime scheduleTime,
     String? payload,
   }) async {
+    await _ensureReady(requestPermission: true);
+    if (scheduleTime.isBefore(DateTime.now())) return;
     final notifId = getStableId(id, scheduleTime);
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -153,7 +146,7 @@ class NotificationEngine {
         NotificationActionButton(key: 'MARK_DONE', label: 'Taken', actionType: ActionType.Default),
         NotificationActionButton(key: 'SKIP', label: 'Skip', actionType: ActionType.Default, isDangerousOption: true),
       ],
-      schedule: NotificationCalendar.fromDate(date: scheduleTime),
+      schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
     );
   }
 
@@ -164,6 +157,8 @@ class NotificationEngine {
     required DateTime scheduleTime,
     String? payload,
   }) async {
+    await _ensureReady(requestPermission: true);
+    if (scheduleTime.isBefore(DateTime.now())) return;
     final notifId = getStableId(id, scheduleTime);
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -174,19 +169,18 @@ class NotificationEngine {
         payload: {'entityId': id, 'payload': payload ?? ''},
         category: NotificationCategory.Event,
       ),
-      schedule: NotificationCalendar.fromDate(date: scheduleTime),
+      schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
     );
   }
 
   static Future<void> showSmartNow(String messageKey) async {
+    await _ensureReady(requestPermission: true);
     final isEnabled = _prefs?.getBool(_enabledKey) ?? true;
     if (!isEnabled) return;
 
     final now = DateTime.now();
-    if (_lastImmediateNotificationAt != null && now.difference(_lastImmediateNotificationAt!) < _immediateCooldown) {
-      return;
-    }
-    
+    if (_lastImmediateNotificationAt != null && now.difference(_lastImmediateNotificationAt!) < _immediateCooldown) return;
+
     _lastImmediateNotificationAt = now;
     await _updateLastEngagement();
 
@@ -202,6 +196,7 @@ class NotificationEngine {
   }
 
   static Future<void> scheduleCloseReminder() async {
+    await _ensureReady();
     if (!_canShowEngagement()) return;
 
     await AwesomeNotifications().createNotification(
@@ -212,12 +207,13 @@ class NotificationEngine {
         body: _translate('smart_default'),
         category: NotificationCategory.Promo,
       ),
-      schedule: NotificationCalendar.fromDate(date: DateTime.now().add(const Duration(hours: 6))),
+      schedule: NotificationCalendar.fromDate(date: DateTime.now().add(const Duration(hours: 6)), preciseAlarm: true, allowWhileIdle: true),
     );
     await _updateLastEngagement();
   }
 
   static Future<void> testNotification() async {
+    await _ensureReady(requestPermission: true);
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 9998,
@@ -230,6 +226,7 @@ class NotificationEngine {
   }
 
   static Future<void> setSmartNotificationsEnabled(bool value) async {
+    await _ensureReady();
     await _prefs?.setBool(_enabledKey, value);
   }
 
@@ -241,15 +238,16 @@ class NotificationEngine {
   }
 
   static Future<void> _updateLastEngagement() async {
-    final now = DateTime.now();
-    await _prefs?.setInt(_lastEngagementKey, now.millisecondsSinceEpoch);
+    await _prefs?.setInt(_lastEngagementKey, DateTime.now().millisecondsSinceEpoch);
   }
 
   static Future<void> cancel(String id, [DateTime? date]) async {
+    await _ensureReady();
     await AwesomeNotifications().cancel(getStableId(id, date));
   }
 
   static Future<void> cancelAll() async {
+    await _ensureReady();
     await AwesomeNotifications().cancelAll();
   }
 }
@@ -262,11 +260,11 @@ class NotificationTriggers {
   }
 
   static void onAdWatched() {
-    NotificationEngine.showSmartNow("notif_bonus_ready");
+    NotificationEngine.showSmartNow('notif_bonus_ready');
   }
 
   static void onDataAdded() {
-    NotificationEngine.showSmartNow("notif_doc_safe");
+    NotificationEngine.showSmartNow('notif_doc_safe');
   }
 
   static void onAppClose() {
