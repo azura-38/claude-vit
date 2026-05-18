@@ -47,7 +47,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.limanex.vitacase"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
@@ -55,7 +54,7 @@ android {
         versionName = flutter.versionName
         multiDexEnabled = true
 
-        manifestPlaceholders["admobAppId"] = dartDefines["ADMOB_APP_ID"] ?: ""
+        manifestPlaceholders["admobAppId"] = dartDefines["ADMOB_APP_ID"] ?: "ca-app-pub-5877011177866406~6901208048"
     }
 
     val keystorePropertiesFile = rootProject.file("key.properties")
@@ -79,16 +78,14 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
-            
             isMinifyEnabled = true
             isShrinkResources = true
-            
+
             ndk {
                 abiFilters.add("armeabi-v7a")
                 abiFilters.add("arm64-v8a")
-
             }
-            
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
