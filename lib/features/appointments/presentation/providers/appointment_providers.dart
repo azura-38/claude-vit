@@ -109,7 +109,7 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
 
     final now = DateTime.now();
-    for (final reminderDate in _generatedReminderDates(app)) {
+    for (final reminderDate in _generatedReminderDates(app, now: now)) {
       if (reminderDate.isAfter(now)) {
         await NotificationEngine.scheduleAppointment(
           id: app.id,
@@ -132,11 +132,24 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
   }
 
-  List<DateTime> _generatedReminderDates(Appointment app) {
+  List<DateTime> _generatedReminderDates(Appointment app, {DateTime? now}) {
+    final currentTime = now ?? DateTime.now();
+    final appointmentTime = app.fullDateTime;
     final reminderTime = app.reminderTime;
     if (reminderTime == null || reminderTime.isEmpty) return [];
+    if (!appointmentTime.isAfter(currentTime)) return [];
+
     final offset = _reminderOffset(reminderTime);
-    return [app.fullDateTime.subtract(offset)];
+    final requestedReminder = appointmentTime.subtract(offset);
+    if (requestedReminder.isAfter(currentTime)) return [requestedReminder];
+
+    final oneMinuteBeforeAppointment = appointmentTime.subtract(const Duration(minutes: 1));
+    if (oneMinuteBeforeAppointment.isAfter(currentTime)) return [oneMinuteBeforeAppointment];
+
+    final oneMinuteFromNow = currentTime.add(const Duration(minutes: 1));
+    if (oneMinuteFromNow.isBefore(appointmentTime)) return [oneMinuteFromNow];
+
+    return [];
   }
 
   Duration _reminderOffset(String reminderTime) {
