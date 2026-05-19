@@ -6,12 +6,107 @@ import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../shared/widgets/vitacase_bottom_nav.dart';
+import '../../domain/models/user_profile.dart';
 import '../providers/profile_provider.dart';
 import '../widgets/detail_section_card.dart';
 import '../widgets/security_banner.dart';
 
 class ImportantInformationScreen extends ConsumerWidget {
   const ImportantInformationScreen({super.key});
+
+  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+
+  List<String> _splitList(String value) {
+    return value
+        .split(',')
+        .map((item) => item.trim())
+        .where((item) => item.isNotEmpty)
+        .toList();
+  }
+
+  Future<void> _showEditDialog(BuildContext context, WidgetRef ref, UserProfile profile) async {
+    final tr = _isTr(context);
+    final bloodController = TextEditingController(text: profile.bloodType);
+    final allergiesController = TextEditingController(text: profile.allergies.join(', '));
+    final medsController = TextEditingController(text: profile.medications.join(', '));
+    final emergencyNameController = TextEditingController(text: profile.emergencyName);
+    final emergencyPhoneController = TextEditingController(text: profile.emergencyPhone);
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: Text(tr ? 'Önemli bilgileri düzenle' : 'Edit important information'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: bloodController,
+                  decoration: InputDecoration(labelText: context.tr('blood_type'), hintText: 'A+, B-, 0+'),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: allergiesController,
+                  maxLines: 2,
+                  decoration: InputDecoration(
+                    labelText: context.tr('allergies'),
+                    hintText: tr ? 'Virgülle ayır: Polen, Penisilin' : 'Separate with commas: Pollen, Penicillin',
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: medsController,
+                  maxLines: 2,
+                  decoration: InputDecoration(
+                    labelText: context.tr('medicines'),
+                    hintText: tr ? 'Virgülle ayır: Aspirin, Vitamin D' : 'Separate with commas: Aspirin, Vitamin D',
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: emergencyNameController,
+                  decoration: InputDecoration(labelText: context.tr('emergency_contact_name')),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: emergencyPhoneController,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(labelText: context.tr('phone_number')),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: Text(context.tr('cancel'))),
+            FilledButton(onPressed: () => Navigator.pop(dialogContext, true), child: Text(context.tr('save'))),
+          ],
+        );
+      },
+    );
+
+    if (result == true) {
+      final notifier = ref.read(profileProvider.notifier);
+      notifier.updateBlood(bloodController.text.trim());
+      notifier.updateAllergies(_splitList(allergiesController.text));
+      notifier.updateMedications(_splitList(medsController.text));
+      notifier.updateEmergencyName(emergencyNameController.text.trim());
+      notifier.updateEmergencyPhone(emergencyPhoneController.text.trim());
+      await notifier.saveToDatabase();
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(tr ? 'Önemli bilgiler güncellendi.' : 'Important information updated.')),
+        );
+      }
+    }
+
+    bloodController.dispose();
+    allergiesController.dispose();
+    medsController.dispose();
+    emergencyNameController.dispose();
+    emergencyPhoneController.dispose();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,15 +121,14 @@ class ImportantInformationScreen extends ConsumerWidget {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () => context.pop(),
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                ),
+                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                 Expanded(
-                  child: Text(
-                    context.tr('important_info'),
-                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
-                  ),
+                  child: Text(context.tr('important_info'), style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900)),
+                ),
+                IconButton.filledTonal(
+                  onPressed: () => _showEditDialog(context, ref, profile),
+                  icon: const Icon(Icons.edit_rounded),
+                  tooltip: context.tr('edit'),
                 ),
               ],
             ).animate().fadeIn().slideY(begin: -.12),
@@ -54,31 +148,32 @@ class ImportantInformationScreen extends ConsumerWidget {
                   Expanded(
                     child: Text(
                       context.tr('privacy_box_warning'),
-                      style: TextStyle(
-                        height: 1.45,
-                        color: isDark ? Colors.white70 : AppColors.textSecondary,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: TextStyle(height: 1.45, color: isDark ? Colors.white70 : AppColors.textSecondary, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               ),
             ).animate().fadeIn(delay: 80.ms).slideY(begin: .12),
             const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(child: Text(context.tr('important_info'), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800))),
+                TextButton.icon(
+                  onPressed: () => _showEditDialog(context, ref, profile),
+                  icon: const Icon(Icons.edit_rounded, size: 18),
+                  label: Text(context.tr('edit')),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
             DetailSectionCard(
               icon: Icons.medical_services_outlined,
               iconColor: AppColors.primary,
               title: context.tr('important_info'),
               rows: [
                 {'label': context.tr('blood_type'), 'value': profile.bloodType.isNotEmpty ? profile.bloodType : context.tr('not_added')},
-                {
-                  'label': context.tr('allergies'),
-                  'value': profile.allergies.isNotEmpty ? profile.allergies.join(', ') : context.tr('none'),
-                },
-                {
-                  'label': context.tr('medicines'),
-                  'value': profile.medications.isNotEmpty ? profile.medications.join(', ') : context.tr('none'),
-                },
+                {'label': context.tr('allergies'), 'value': profile.allergies.isNotEmpty ? profile.allergies.join(', ') : context.tr('none')},
+                {'label': context.tr('medicines'), 'value': profile.medications.isNotEmpty ? profile.medications.join(', ') : context.tr('none')},
               ],
             ).animate().fadeIn(delay: 160.ms).slideY(begin: .12),
             const SizedBox(height: 20),
@@ -87,14 +182,8 @@ class ImportantInformationScreen extends ConsumerWidget {
               iconColor: Colors.red,
               title: context.tr('emergency_contact'),
               rows: [
-                {
-                  'label': context.tr('emergency_contact_name'),
-                  'value': profile.emergencyName.isNotEmpty ? profile.emergencyName : context.tr('not_added'),
-                },
-                {
-                  'label': context.tr('phone_number'),
-                  'value': profile.emergencyPhone.isNotEmpty ? profile.emergencyPhone : context.tr('not_added'),
-                },
+                {'label': context.tr('emergency_contact_name'), 'value': profile.emergencyName.isNotEmpty ? profile.emergencyName : context.tr('not_added')},
+                {'label': context.tr('phone_number'), 'value': profile.emergencyPhone.isNotEmpty ? profile.emergencyPhone : context.tr('not_added')},
               ],
             ).animate().fadeIn(delay: 240.ms).slideY(begin: .12),
             const SizedBox(height: 28),
