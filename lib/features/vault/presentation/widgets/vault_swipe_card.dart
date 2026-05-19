@@ -20,11 +20,16 @@ class VaultSwipeCard extends StatelessWidget {
     this.onEdit,
   });
 
+  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isTr = _isTr(context);
     final date = document.createdAt;
-    final month = DateFormat('MMM').format(date).toUpperCase();
+    final month = DateFormat('MMM', Localizations.localeOf(context).languageCode).format(date).toUpperCase();
+    final doctorLabel = document.doctorName?.trim().isNotEmpty == true ? document.doctorName! : (isTr ? 'Doktor yok' : 'No doctor');
+    final hospitalLabel = document.hospitalName?.trim().isNotEmpty == true ? document.hospitalName! : (isTr ? 'Kurum yok' : 'No institution');
 
     return Slidable(
       endActionPane: ActionPane(
@@ -36,14 +41,14 @@ class VaultSwipeCard extends StatelessWidget {
             backgroundColor: isDark ? Colors.white10 : const Color(0xFFE9EDF5),
             foregroundColor: isDark ? Colors.white70 : AppColors.secondary,
             icon: Icons.edit_outlined,
-            label: "Edit",
+            label: isTr ? 'Düzenle' : 'Edit',
           ),
           SlidableAction(
             onPressed: (_) => onDelete?.call(),
             backgroundColor: AppColors.danger,
             foregroundColor: Colors.white,
             icon: Icons.delete_outline,
-            label: "Delete",
+            label: isTr ? 'Sil' : 'Delete',
           ),
         ],
       ),
@@ -68,20 +73,10 @@ class VaultSwipeCard extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      month,
-                      style: TextStyle(
-                        color: isDark ? Colors.white54 : AppColors.secondary,
-                        fontSize: 12,
-                      ),
-                    ),
+                    Text(month, style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary, fontSize: 12)),
                     Text(
                       date.day.toString(),
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                        color: isDark ? Colors.white : AppColors.textPrimary,
-                      ),
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary),
                     ),
                   ],
                 ),
@@ -95,15 +90,11 @@ class VaultSwipeCard extends StatelessWidget {
                       document.fileName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        color: isDark ? Colors.white : AppColors.textPrimary,
-                      ),
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary),
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "${document.doctorName ?? 'No Doctor'} • ${document.hospitalName ?? 'No Hospital'}",
+                      '$doctorLabel • $hospitalLabel',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary, fontSize: 13),
@@ -120,7 +111,7 @@ class VaultSwipeCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 8),
                             child: VaultTagChip(
-                              label: "Pending",
+                              label: isTr ? 'Beklemede' : 'Pending',
                               bg: const Color(0xFFFFF2D8),
                               text: const Color(0xFFA06900),
                             ),
