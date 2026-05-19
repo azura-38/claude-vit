@@ -26,6 +26,7 @@ final achievementProvider = AsyncNotifierProvider<AchievementNotifier, List<Achi
 
 class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
   late AchievementEngine _engine;
+  bool _checkingPowerUser = false;
 
   @override
   Future<List<Achievement>> build() async {
@@ -55,6 +56,42 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
 
       ComboEngine.checkCombos(state.requireValue, ref);
     }
+
+    await _checkPowerUserAchievements();
+  }
+
+  Future<void> _checkPowerUserAchievements() async {
+    if (_checkingPowerUser) return;
+    _checkingPowerUser = true;
+    try {
+      final achievements = state.valueOrNull ?? await future;
+      final unlocked = achievements.where((a) => a.unlocked).map((a) => a.id).toSet();
+
+      Future<void> unlockIf(String id, bool condition) async {
+        if (condition && !unlocked.contains(id)) {
+          await track(id, setAbsolute: 1);
+        }
+      }
+
+      await unlockIf(
+        'multi_feature_user',
+        unlocked.contains('doc_1') && unlocked.contains('med_1') && unlocked.contains('app_1'),
+      );
+      await unlockIf(
+        'data_master',
+        unlocked.contains('doc_10') && unlocked.contains('health_10') && unlocked.contains('med_5'),
+      );
+      await unlockIf(
+        'organized_master',
+        unlocked.contains('doc_25') && unlocked.contains('app_10') && unlocked.contains('profile_completed'),
+      );
+      await unlockIf(
+        'security_master',
+        unlocked.contains('profile_with_photo') && unlocked.contains('emergency_ready') && unlocked.contains('login_7'),
+      );
+    } finally {
+      _checkingPowerUser = false;
+    }
   }
 
   void _applyReward(Achievement achievement) {
@@ -66,19 +103,13 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
 
     switch (type) {
       case 'doc_slots':
-        if (value is int) {
-          ref.read(limitProvider.notifier).increaseExtraDocs(value);
-        }
+        if (value is int) ref.read(limitProvider.notifier).increaseExtraDocs(value);
         break;
       case 'premium_trial':
-        if (value is int) {
-          ref.read(premiumProvider.notifier).addTemporaryPremium(value);
-        }
+        if (value is int) ref.read(premiumProvider.notifier).addTemporaryPremium(value);
         break;
       case 'ad_skip':
-        if (value is int) {
-          ref.read(adSkipProvider.notifier).addTokens(value);
-        }
+        if (value is int) ref.read(adSkipProvider.notifier).addTokens(value);
         break;
       case 'unlimited_slots':
         ref.read(limitProvider.notifier).increaseExtraDocs(99999);
