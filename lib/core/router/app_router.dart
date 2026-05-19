@@ -19,6 +19,7 @@ import '../../features/dashboard/presentation/screens/home_screen.dart';
 import '../../features/auth/presentation/screens/lock/lock_screen.dart';
 import '../../features/medications/presentation/screens/add_medication_screen.dart';
 import '../../features/medications/presentation/screens/medicines_screen.dart';
+import '../../features/notifications/presentation/screens/reminder_troubleshooting_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/profile/presentation/screens/app_settings_screen.dart';
 import '../../features/profile/presentation/screens/edit_profile_screen.dart';
@@ -265,6 +266,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 builder: (context, state) => const ThemeSelectionScreen(),
               ),
             ],
+          ),
+          GoRoute(
+            path: AppRoutes.reminderTroubleshooting,
+            name: 'reminderTroubleshooting',
+            builder: (context, state) => const ReminderTroubleshootingScreen(),
           ),
           GoRoute(
             path: AppRoutes.diagnosticsPanel,
