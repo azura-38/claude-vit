@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/constants/app_routes.dart';
 import '../../../../notifications/presentation/providers/notification_controller.dart';
 import '../../providers/settings_controller.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
@@ -13,11 +15,14 @@ class AppLogicSection extends ConsumerWidget {
 
   final bool isDark;
 
+  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsControllerProvider);
     final controller = ref.watch(settingsControllerProvider.notifier);
     final notificationController = ref.watch(notificationControllerProvider);
+    final isTr = _isTr(context);
 
     return SettingsSectionCard(
       title: context.l10n.appSection,
@@ -82,6 +87,14 @@ class AppLogicSection extends ConsumerWidget {
               }
             },
           ),
+          isDark: isDark,
+        ),
+        SettingTile(
+          icon: Icons.alarm_on_rounded,
+          iconColor: AppColors.medicalBlue,
+          title: isTr ? 'Hatırlatma Sorun Giderme' : 'Reminder Troubleshooting',
+          subtitle: isTr ? 'Bildirim, exact alarm ve pil ayarlarını kontrol et' : 'Check notification, exact alarm, and battery settings',
+          onTap: () => context.push(AppRoutes.reminderTroubleshooting),
           isDark: isDark,
           isLast: true,
         ),
