@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../providers/profile_controller.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class ProfileAppBar extends ConsumerWidget {
-  final bool isDark;
-  
   const ProfileAppBar({super.key, required this.isDark});
+
+  final bool isDark;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,10 +34,7 @@ class ProfileAppBar extends ConsumerWidget {
         Row(
           children: [
             TextButton.icon(
-              onPressed: () {
-                final profile = ref.read(profileControllerProvider);
-                context.push(AppRoutes.profileEdit, extra: profile);
-              },
+              onPressed: () => context.push(AppRoutes.personalInfo),
               icon: const Icon(Icons.edit_note_rounded, size: 20),
               label: Text(context.l10n.edit, style: const TextStyle(fontWeight: FontWeight.bold)),
               style: TextButton.styleFrom(
@@ -47,9 +44,10 @@ class ProfileAppBar extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 8),
-            GestureDetector(
-              onTap: () => context.push(AppRoutes.settings),
-              child: Icon(Icons.settings_outlined, color: isDark ? Colors.white70 : AppColors.medicalBlue),
+            IconButton(
+              onPressed: () => context.push(AppRoutes.settings),
+              icon: Icon(Icons.settings_outlined, color: isDark ? Colors.white70 : AppColors.medicalBlue),
+              tooltip: context.l10n.appSettings,
             ),
           ],
         ),
