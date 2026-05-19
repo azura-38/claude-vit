@@ -20,10 +20,9 @@ final achievementRepositoryProvider = Provider<AchievementRepository>((ref) {
   return AchievementRepositoryImpl(prefs);
 });
 
-final achievementProvider =
-    AsyncNotifierProvider<AchievementNotifier, List<Achievement>>(
-      AchievementNotifier.new,
-    );
+final achievementProvider = AsyncNotifierProvider<AchievementNotifier, List<Achievement>>(
+  AchievementNotifier.new,
+);
 
 class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
   late AchievementEngine _engine;
@@ -36,10 +35,10 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
   }
 
   Future<void> track(String id, {int value = 1, int? setAbsolute}) async {
-    if (!state.hasValue) return;
+    final current = state.valueOrNull ?? await future;
 
     final (updatedList, newlyUnlocked) = await _engine.track(
-      state.requireValue,
+      current,
       id,
       value,
       setAbsolute: setAbsolute,
@@ -50,12 +49,10 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
       _applyReward(newlyUnlocked);
       _notifyUnlock(newlyUnlocked);
 
-      // Add dynamic XP Reward from achievement
       if (newlyUnlocked.xpReward > 0) {
         ref.read(seasonProvider.notifier).addXP(newlyUnlocked.xpReward);
       }
 
-      // Trigger Combo check
       ComboEngine.checkCombos(state.requireValue, ref);
     }
   }
@@ -84,11 +81,9 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
         }
         break;
       case 'unlimited_slots':
-        // Setting an extremely high number for extra slots.
         ref.read(limitProvider.notifier).increaseExtraDocs(99999);
         break;
       case 'lifetime_premium':
-        // Grant premium until the year 2099.
         ref.read(premiumProvider.notifier).addTemporaryPremium(365 * 75);
         break;
     }
@@ -122,19 +117,14 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
       context: context,
       barrierDismissible: false,
       useSafeArea: false,
-      builder:
-          (context) => AchievementCelebration(
-            achievement: achievement,
-            onClose: () {
-              context.pop();
-              _isShowingNotification = false;
-              // Delay next show to allow popup animation to complete
-              Future.delayed(
-                const Duration(milliseconds: 300),
-                _showNextNotification,
-              );
-            },
-          ),
+      builder: (context) => AchievementCelebration(
+        achievement: achievement,
+        onClose: () {
+          context.pop();
+          _isShowingNotification = false;
+          Future.delayed(const Duration(milliseconds: 300), _showNextNotification);
+        },
+      ),
     );
   }
 }
