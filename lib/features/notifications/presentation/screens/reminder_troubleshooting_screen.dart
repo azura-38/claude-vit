@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../core/bootstrap/app_bootstrap_controller.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/service_providers.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
@@ -85,6 +86,13 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
     });
   }
 
+  Future<void> _rescheduleSavedReminders() async {
+    await _runBusy(() async {
+      await ref.read(appBootstrapProvider.notifier).forceRescheduleNotifications();
+      _snack(_isTr ? 'Mevcut ilaç ve randevu hatırlatmaları yeniden kuruldu.' : 'Saved medicine and appointment reminders were rescheduled.');
+    });
+  }
+
   Future<void> _openSystemSettings() async {
     await openAppSettings();
   }
@@ -141,7 +149,17 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
           const SizedBox(height: 12),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '3. 1 dakika test hatırlatması kur' : '3. Schedule a 1-minute test reminder',
+            title: _isTr ? '3. Mevcut hatırlatmaları yeniden kur' : '3. Reschedule saved reminders',
+            subtitle: _isTr ? 'İzin verdikten sonra kayıtlı ilaç ve randevu hatırlatmalarını tekrar kurar.' : 'After granting permissions, schedules your saved medicine and appointment reminders again.',
+            icon: Icons.restart_alt_rounded,
+            buttonText: _isTr ? 'Hatırlatmaları Yeniden Kur' : 'Reschedule Reminders',
+            busy: _isBusy,
+            onPressed: _rescheduleSavedReminders,
+          ),
+          const SizedBox(height: 12),
+          _ActionCard(
+            isDark: isDark,
+            title: _isTr ? '4. 1 dakika test hatırlatması kur' : '4. Schedule a 1-minute test reminder',
             subtitle: _isTr ? 'Bu gelirse alarm sistemi çalışıyor demektir.' : 'If this arrives, the reminder system is working.',
             icon: Icons.timer_rounded,
             buttonText: _isTr ? '1 Dakika Testi Kur' : 'Schedule 1-Minute Test',
@@ -151,7 +169,7 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
           const SizedBox(height: 12),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '4. Son seçenek: pil ayarlarını kontrol et' : '4. Last step: check battery settings',
+            title: _isTr ? '5. Son seçenek: pil ayarlarını kontrol et' : '5. Last step: check battery settings',
             subtitle: _isTr
                 ? 'Sadece yukarıdaki testler başarısızsa cihazın VitaCase için pil kısıtlamasını kontrol et.'
                 : 'Only if the tests above fail, check whether the device is restricting VitaCase battery usage.',
