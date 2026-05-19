@@ -4,6 +4,7 @@ import '../../../../core/di/repository_providers.dart';
 import '../../../../core/di/service_providers.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
 import '../../../../core/types/runtime_types.dart';
+import '../../../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../../../../shared/data/services/analytics_service.dart';
 import '../../../../shared/data/services/notification_engine.dart';
 import '../../../../shared/data/services/usage_limit_service.dart';
@@ -11,6 +12,8 @@ import '../../../../shared/domain/enums/appointment_status.dart';
 import '../../../../shared/domain/usecases/appointments/add_appointment_usecase.dart';
 import '../../../../shared/domain/usecases/appointments/get_appointments_usecase.dart';
 import '../../../../shared/domain/usecases/base_usecase.dart';
+import '../../../../shared/providers/daily_mission_providers.dart';
+import '../../../../shared/providers/season_providers.dart';
 import '../../domain/entities/appointment.dart';
 
 enum CalendarViewType { monthly, weekly }
@@ -74,10 +77,21 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
         throw l;
       },
       (_) async {
+        await ref.read(dailyMissionProvider.notifier).track('app_daily');
+        await _trackAppointmentAchievements();
+        await ref.read(seasonProvider.notifier).addXP(10);
         await _scheduleReminders(appointment);
         AnalyticsService.log(AnalyticsService.appointmentAdded);
       },
     );
+  }
+
+  Future<void> _trackAppointmentAchievements() async {
+    final count = state.valueOrNull?.length ?? (await ref.read(appointmentRepositoryProvider).getAll()).length;
+    final achievement = ref.read(achievementProvider.notifier);
+    for (final id in const ['app_1', 'app_3', 'app_5', 'app_10', 'app_20', 'app_30']) {
+      await achievement.track(id, setAbsolute: count);
+    }
   }
 
   Future<void> updateAppointment(Appointment appointment) async {
