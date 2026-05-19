@@ -60,8 +60,32 @@ class ProfileNotifier extends Notifier<UserProfile> {
     state = state.copyWith(emergencyPhone: value);
   }
 
+  void updateEmergencyRelation(String value) {
+    state = state.copyWith(emergencyRelation: value);
+  }
+
   void updateBirthDate(DateTime value) {
     state = state.copyWith(birthDate: value);
+  }
+
+  void updateAllergies(List<String> values) {
+    state = state.copyWith(allergies: _cleanList(values));
+  }
+
+  void updateMedications(List<String> values) {
+    state = state.copyWith(medications: _cleanList(values));
+  }
+
+  List<String> _cleanList(List<String> values) {
+    final seen = <String>{};
+    final result = <String>[];
+    for (final value in values) {
+      final trimmed = value.trim();
+      if (trimmed.isEmpty) continue;
+      final key = trimmed.toLowerCase();
+      if (seen.add(key)) result.add(trimmed);
+    }
+    return result;
   }
 
   void toggleCondition(String value) {
