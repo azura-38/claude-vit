@@ -96,5 +96,12 @@ class DailyMissionEngine {
           progress: 0,
           isCompleted: false,
         ),
+        DailyMission(
+          id: 'ad_daily',
+          title: 'mission_ad_daily',
+          target: 1,
+          progress: 0,
+          isCompleted: false,
+        ),
       ];
 }
