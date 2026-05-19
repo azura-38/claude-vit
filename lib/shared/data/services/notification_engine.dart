@@ -38,7 +38,7 @@ class NotificationEngine {
     _prefs = await SharedPreferences.getInstance();
 
     await AwesomeNotifications().initialize(
-      'resource://drawable/ic_notification',
+      'resource://mipmap/launcher_icon',
       [
         NotificationChannel(
           channelGroupKey: 'medical_group',
@@ -74,7 +74,7 @@ class NotificationEngine {
         NotificationChannelGroup(channelGroupKey: 'medical_group', channelGroupName: 'Health & Reminder Notifications'),
         NotificationChannelGroup(channelGroupKey: 'system_group', channelGroupName: 'System Notifications'),
       ],
-      debug: true,
+      debug: false,
     );
 
     _isInitialized = true;
@@ -99,9 +99,31 @@ class NotificationEngine {
     await AwesomeNotifications().setListeners(onActionReceivedMethod: onActionReceived);
   }
 
+  static String _languageCode() => _prefs?.getString('app_locale') ?? 'en';
+
+  static bool _isTurkish() => _languageCode().startsWith('tr');
+
+  static String _label({required String tr, required String en}) => _isTurkish() ? tr : en;
+
   static String _translate(String key) {
-    final lang = _prefs?.getString('app_locale') ?? 'en';
-    return Translations.data[lang]?[key] ?? Translations.data['en']?[key] ?? key;
+    final lang = _languageCode();
+    final value = Translations.data[lang]?[key] ?? Translations.data['en']?[key];
+    if (value != null && value.isNotEmpty) return value;
+
+    switch (key) {
+      case 'notification_details_hidden':
+        return _label(tr: 'Hatırlatma detayları gizlendi.', en: 'Reminder details are hidden.');
+      case 'notif_test_body':
+        return _label(tr: 'VitaCase test bildirimi başarıyla çalıştı.', en: 'VitaCase test notification is working.');
+      case 'notif_bonus_ready':
+        return _label(tr: 'Ödülün hazır.', en: 'Your reward is ready.');
+      case 'notif_doc_safe':
+        return _label(tr: 'Yeni kaydın güvenle saklandı.', en: 'Your new record is safely stored.');
+      case 'smart_default':
+        return _label(tr: 'Bugünkü kayıtlarını kontrol etmeyi unutma.', en: 'Do not forget to check your records today.');
+      default:
+        return key;
+    }
   }
 
   static String _safeText(String text) {
@@ -143,8 +165,8 @@ class NotificationEngine {
         wakeUpScreen: true,
       ),
       actionButtons: [
-        NotificationActionButton(key: 'MARK_DONE', label: 'Taken', actionType: ActionType.Default),
-        NotificationActionButton(key: 'SKIP', label: 'Skip', actionType: ActionType.Default, isDangerousOption: true),
+        NotificationActionButton(key: 'MARK_DONE', label: _label(tr: 'Aldım', en: 'Taken'), actionType: ActionType.Default),
+        NotificationActionButton(key: 'SKIP', label: _label(tr: 'Almadım', en: 'Not taken'), actionType: ActionType.Default, isDangerousOption: true),
       ],
       schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
     );
@@ -168,7 +190,11 @@ class NotificationEngine {
         body: _safeText(body),
         payload: {'entityId': id, 'payload': payload ?? ''},
         category: NotificationCategory.Event,
+        wakeUpScreen: true,
       ),
+      actionButtons: [
+        NotificationActionButton(key: 'OPEN_APPOINTMENT', label: _label(tr: 'Aç', en: 'Open'), actionType: ActionType.Default),
+      ],
       schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
     );
   }
