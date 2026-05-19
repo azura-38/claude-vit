@@ -5,7 +5,7 @@ class DailyMission {
   final int progress;
   final bool isCompleted;
 
-  DailyMission({
+  const DailyMission({
     required this.id,
     required this.title,
     required this.target,
