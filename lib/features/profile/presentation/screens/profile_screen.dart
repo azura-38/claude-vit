@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
@@ -58,7 +57,6 @@ class ProfileScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 40),
               _buildSectionTitle(context.l10n.accountSettings, isDark),
-
               const SizedBox(height: 16),
               _buildNavigationItem(
                 icon: Icons.settings_outlined,
@@ -69,13 +67,11 @@ class ProfileScreen extends ConsumerWidget {
               _buildNavigationItem(
                 icon: Icons.bug_report_outlined,
                 title: context.l10n.reportIssue,
-                onTap:
-                    () => ExternalLauncher.launchEmail(
-                      'limanexsoftware@outlook.com',
-                      subject: 'VitaCase Error Report',
-                      body:
-                          '\n\n---\nDevice info: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
-                    ),
+                onTap: () => ExternalLauncher.launchEmail(
+                  'limanexsoftware@outlook.com',
+                  subject: 'VitaCase Error Report',
+                  body: '\n\n---\nDevice info: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
+                ),
                 isDark: isDark,
               ),
               _buildNavigationItem(
@@ -85,32 +81,7 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () => _showDeleteAllDialog(context, ref),
                 isDark: isDark,
               ),
-              const SizedBox(height: 24),
-              if (kDebugMode)
-                ElevatedButton(
-                  onPressed:
-                      () =>
-                          throw StateError(
-                            'Sentry Integration Test - VitaCase',
-                          ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        isDark
-                            ? Colors.white10
-                            : Colors.black.withValues(alpha: 0.05),
-                    foregroundColor: AppColors.error,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    context.l10n.verifySentry,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 124),
             ],
           ),
         ),
@@ -145,17 +116,10 @@ class ProfileScreen extends ConsumerWidget {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color:
-                isDark
-                    ? Colors.white.withValues(alpha: 0.03)
-                    : const Color(0xFFF1F5F9),
+            color: isDark ? Colors.white.withValues(alpha: 0.03) : const Color(0xFFF1F5F9),
             borderRadius: BorderRadius.circular(14),
           ),
-          child: Icon(
-            icon,
-            color: titleColor ?? (isDark ? Colors.white70 : Colors.black87),
-            size: 24,
-          ),
+          child: Icon(icon, color: titleColor ?? (isDark ? Colors.white70 : Colors.black87), size: 24),
         ),
         title: Text(
           title,
@@ -190,37 +154,27 @@ class ProfileScreen extends ConsumerWidget {
   void _showDeleteAllDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            title: Text(
-              context.l10n.deleteAllData,
-              style: const TextStyle(
-                color: AppColors.error,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            content: Text(context.l10n.wipeConfirm1),
-            actions: [
-              TextButton(
-                onPressed: () => context.pop(),
-                child: Text(context.l10n.cancel),
-              ),
-              TextButton(
-                onPressed: () async {
-                  context.pop();
-                  await WipeService.fullWipe();
-                  if (context.mounted) {
-                    context.go(AppRoutes.onboarding);
-                  }
-                },
-                style: TextButton.styleFrom(foregroundColor: AppColors.error),
-                child: Text(
-                  context.l10n.wipeBtnFinal,
-                  style: const TextStyle(fontWeight: FontWeight.w900),
-                ),
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        title: Text(
+          context.l10n.deleteAllData,
+          style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold),
+        ),
+        content: Text(context.l10n.wipeConfirm1),
+        actions: [
+          TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+          TextButton(
+            onPressed: () async {
+              context.pop();
+              await WipeService.fullWipe();
+              if (context.mounted) {
+                context.go(AppRoutes.onboarding);
+              }
+            },
+            style: TextButton.styleFrom(foregroundColor: AppColors.error),
+            child: Text(context.l10n.wipeBtnFinal, style: const TextStyle(fontWeight: FontWeight.w900)),
           ),
+        ],
+      ),
     );
   }
 }
