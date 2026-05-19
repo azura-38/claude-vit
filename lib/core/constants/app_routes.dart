@@ -38,6 +38,7 @@ class AppRoutes {
   static const String settingsTerms = '/settings/terms';
   static const String settingsPrivacy = '/settings/privacy';
   static const String settingsDisclaimer = '/settings/disclaimer';
+  static const String reminderTroubleshooting = '/settings/reminder-help';
   static const String diagnosticsPanel = '/settings/diagnostics';
   static const String achievements = '/achievements';
   static const String seasonPass = '/season-pass';
