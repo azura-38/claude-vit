@@ -45,6 +45,18 @@ class AppConfig {
   static const premiumMonthlyProductId = 'vitacase_premium_monthly';
   static const premiumAnnualProductId = 'vitacase_premium_annual';
 
+  // Planned for V1.2 / V1.3. Disabled in V1.
+  // When enabled: every 1000 XP grants 1 automatic daily-limit unlock token.
+  static const adSkipRewardsEnabled = bool.fromEnvironment(
+    'ENABLE_AD_SKIP_REWARDS',
+    defaultValue: false,
+  );
+  static const xpPerAdSkipToken = int.fromEnvironment(
+    'XP_PER_AD_SKIP_TOKEN',
+    defaultValue: 1000,
+  );
+  static const adSkipRewardsTargetVersion = 'V1.2 / V1.3';
+
   static const privacyUrl = 'https://vitacase.limanex.com/privacy';
   static const termsUrl = 'https://vitacase.limanex.com/terms';
   static const medicalDisclaimerUrl = 'https://vitacase.limanex.com/disclaimer';
