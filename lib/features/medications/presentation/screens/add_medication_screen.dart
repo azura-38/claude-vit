@@ -149,6 +149,8 @@ class AddMedicationScreen extends ConsumerWidget {
                           _AddTimeChip(label: context.l10n.addTime, onTap: () => _pickReminderTime(context, ref)),
                         ],
                       ),
+                      const SizedBox(height: 14),
+                      _ReminderHelperNote(isDark: isDark, isMedication: true),
                     ],
                   ),
                 ).animate(delay: 320.ms).fadeIn().slideY(begin: .15),
@@ -276,6 +278,37 @@ class _SectionTitle extends StatelessWidget {
         const SizedBox(width: 8),
         Flexible(child: Text(title, style: TextStyle(color: isDark ? Colors.white : AppColors.brandNavy, fontWeight: FontWeight.w800))),
       ],
+    );
+  }
+}
+
+class _ReminderHelperNote extends StatelessWidget {
+  const _ReminderHelperNote({required this.isDark, required this.isMedication});
+
+  final bool isDark;
+  final bool isMedication;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    final text = isMedication
+        ? (isTr ? 'Bugün seçilen saat geçtiyse ilk hatırlatma bir sonraki uygun zamana kurulur.' : 'If the selected time has already passed today, the first reminder is scheduled for the next suitable time.')
+        : (isTr ? 'Seçilen hatırlatma zamanı geçmişte kalırsa VitaCase en yakın uygun zamanı seçer.' : 'If the selected reminder time is already in the past, VitaCase chooses the nearest suitable time.');
+
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.white.withValues(alpha: 0.04) : AppColors.brandMist,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.brandBlue),
+          const SizedBox(width: 8),
+          Expanded(child: Text(text, style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary, height: 1.35, fontWeight: FontWeight.w600))),
+        ],
+      ),
     );
   }
 }
