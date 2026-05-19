@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/ads/ad_visibility_policy.dart';
 import '../../../features/gamification/presentation/providers/achievement_providers.dart';
+import '../../providers/ad_skip_provider.dart';
 import '../../providers/shared_prefs_provider.dart';
 import 'ad_service.dart';
 
@@ -43,11 +44,17 @@ class AdController {
     final now = DateTime.now();
     final lastTime = _lastAdTime;
 
-    if (lastTime == null || now.difference(lastTime).inMinutes >= 10) {
-      await AdService.showInterstitial();
+    if (lastTime != null && now.difference(lastTime).inMinutes < 10) return;
+
+    final skipped = await _ref.read(adSkipProvider.notifier).useToken();
+    if (skipped) {
       await _prefs.setInt(_timeKey, now.millisecondsSinceEpoch);
-      await _trackAdAchievements();
+      return;
     }
+
+    await AdService.showInterstitial();
+    await _prefs.setInt(_timeKey, now.millisecondsSinceEpoch);
+    await _trackAdAchievements();
   }
 
   Future<void> _trackAdAchievements() async {
