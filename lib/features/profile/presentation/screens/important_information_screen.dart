@@ -31,6 +31,7 @@ class ImportantInformationScreen extends ConsumerWidget {
     final medsController = TextEditingController(text: profile.medications.join(', '));
     final emergencyNameController = TextEditingController(text: profile.emergencyName);
     final emergencyPhoneController = TextEditingController(text: profile.emergencyPhone);
+    final emergencyRelationController = TextEditingController(text: profile.emergencyRelation);
 
     final result = await showDialog<bool>(
       context: context,
@@ -74,6 +75,14 @@ class ImportantInformationScreen extends ConsumerWidget {
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(labelText: context.tr('phone_number')),
                 ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: emergencyRelationController,
+                  decoration: InputDecoration(
+                    labelText: tr ? 'Yakınlık derecesi' : 'Relationship',
+                    hintText: tr ? 'Eş, anne, baba, kardeş...' : 'Spouse, mother, father, sibling...',
+                  ),
+                ),
               ],
             ),
           ),
@@ -92,6 +101,7 @@ class ImportantInformationScreen extends ConsumerWidget {
       notifier.updateMedications(_splitList(medsController.text));
       notifier.updateEmergencyName(emergencyNameController.text.trim());
       notifier.updateEmergencyPhone(emergencyPhoneController.text.trim());
+      notifier.updateEmergencyRelation(emergencyRelationController.text.trim());
       await notifier.saveToDatabase();
 
       if (context.mounted) {
@@ -106,12 +116,14 @@ class ImportantInformationScreen extends ConsumerWidget {
     medsController.dispose();
     emergencyNameController.dispose();
     emergencyPhoneController.dispose();
+    emergencyRelationController.dispose();
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final tr = _isTr(context);
 
     return Scaffold(
       bottomNavigationBar: const VitaCaseBottomNav(),
@@ -184,6 +196,7 @@ class ImportantInformationScreen extends ConsumerWidget {
               rows: [
                 {'label': context.tr('emergency_contact_name'), 'value': profile.emergencyName.isNotEmpty ? profile.emergencyName : context.tr('not_added')},
                 {'label': context.tr('phone_number'), 'value': profile.emergencyPhone.isNotEmpty ? profile.emergencyPhone : context.tr('not_added')},
+                {'label': tr ? 'Yakınlık derecesi' : 'Relationship', 'value': profile.emergencyRelation.isNotEmpty ? profile.emergencyRelation : context.tr('not_added')},
               ],
             ).animate().fadeIn(delay: 240.ms).slideY(begin: .12),
             const SizedBox(height: 28),
