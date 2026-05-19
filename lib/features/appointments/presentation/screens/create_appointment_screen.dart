@@ -167,19 +167,26 @@ class CreateAppointmentScreen extends ConsumerWidget {
                 ).animate(delay: 420.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
                 _card(
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.notifications_active_outlined),
-                      const SizedBox(width: 14),
-                      Expanded(child: Text(context.tr('label_reminder'), style: const TextStyle(fontWeight: FontWeight.w600))),
-                      DropdownButton<AppointmentReminder>(
-                        value: state.reminder,
-                        underline: const SizedBox.shrink(),
-                        items: AppointmentReminder.values.map((reminder) => DropdownMenuItem(value: reminder, child: Text(_localizedReminder(context, reminder)))).toList(),
-                        onChanged: (value) {
-                          if (value != null) notifier.updateReminder(value);
-                        },
+                      Row(
+                        children: [
+                          const Icon(Icons.notifications_active_outlined),
+                          const SizedBox(width: 14),
+                          Expanded(child: Text(context.tr('label_reminder'), style: const TextStyle(fontWeight: FontWeight.w600))),
+                          DropdownButton<AppointmentReminder>(
+                            value: state.reminder,
+                            underline: const SizedBox.shrink(),
+                            items: AppointmentReminder.values.map((reminder) => DropdownMenuItem(value: reminder, child: Text(_localizedReminder(context, reminder)))).toList(),
+                            onChanged: (value) {
+                              if (value != null) notifier.updateReminder(value);
+                            },
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 14),
+                      _ReminderHelperNote(isDark: isDark),
                     ],
                   ),
                 ).animate(delay: 520.ms).fadeIn().slideY(begin: .15),
@@ -338,6 +345,36 @@ class CreateAppointmentScreen extends ConsumerWidget {
       buffer.write(char.toLowerCase());
     }
     return buffer.toString();
+  }
+}
+
+class _ReminderHelperNote extends StatelessWidget {
+  const _ReminderHelperNote({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    final text = isTr
+        ? 'Seçilen hatırlatma zamanı geçmişte kalırsa VitaCase en yakın uygun zamanı seçer.'
+        : 'If the selected reminder time is already in the past, VitaCase chooses the nearest suitable time.';
+
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.white.withValues(alpha: 0.04) : AppColors.brandMist,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.brandBlue),
+          const SizedBox(width: 8),
+          Expanded(child: Text(text, style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary, height: 1.35, fontWeight: FontWeight.w600))),
+        ],
+      ),
+    );
   }
 }
 
