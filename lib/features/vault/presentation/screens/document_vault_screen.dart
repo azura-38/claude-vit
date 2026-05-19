@@ -36,6 +36,30 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
     super.dispose();
   }
 
+  void _openQuickView(BuildContext context, Document doc) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => DocumentQuickViewScreen(document: doc)));
+  }
+
+  Future<void> _confirmDelete(BuildContext context, Document doc) async {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(isTr ? 'Belge silinsin mi?' : 'Delete document?'),
+        content: Text(isTr ? 'Bu belge kasadan kaldırılacak. Bu işlem geri alınamaz.' : 'This document will be removed from the vault. This action cannot be undone.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: Text(isTr ? 'İptal' : 'Cancel')),
+          FilledButton.tonal(onPressed: () => Navigator.pop(dialogContext, true), child: Text(isTr ? 'Sil' : 'Delete')),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+    await ref.read(vaultControllerProvider.notifier).deleteDocument(doc.id);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(isTr ? 'Belge silindi.' : 'Document deleted.')));
+  }
+
   List<Document> _visibleDocuments(List<Document> documents) {
     final normalizedQuery = _query.trim().toLowerCase();
     var result = documents.where((doc) {
@@ -172,13 +196,9 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
                           padding: const EdgeInsets.only(bottom: 18),
                           child: VaultSwipeCard(
                             document: doc,
-                            onDelete: () => ref.read(vaultControllerProvider.notifier).deleteDocument(doc.id),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => DocumentQuickViewScreen(document: doc)),
-                              );
-                            },
+                            onDelete: () => _confirmDelete(context, doc),
+                            onEdit: () => _openQuickView(context, doc),
+                            onTap: () => _openQuickView(context, doc),
                           ),
                         ),
                       )
