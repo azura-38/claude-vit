@@ -152,22 +152,12 @@ class AdService {
     service._appOpenAd!.show();
     AnalyticsService.log(AnalyticsService.appOpenAdShown);
     service.lastAppOpenShown = DateTime.now();
-    await service._prefs?.setString(
-      _lastAppOpenKey,
-      service.lastAppOpenShown!.toIso8601String(),
-    );
+    await service._prefs?.setString(_lastAppOpenKey, service.lastAppOpenShown!.toIso8601String());
     await service._incrementTodayAppOpenCount();
   }
 
   void _innerShowInterstitial() {
     if (!_adsAvailable) return;
-
-    final tokens = _prefs?.getInt('ad_skip_tokens') ?? 0;
-    if (tokens > 0) {
-      _prefs?.setInt('ad_skip_tokens', tokens - 1);
-      AnalyticsService.log('ad_skip_token_used');
-      return;
-    }
 
     if (lastInterstitialShown != null) {
       final elapsed = DateTime.now().difference(lastInterstitialShown!);
@@ -220,9 +210,7 @@ class AdService {
         service._rewardedAd = null;
         service.loadRewarded();
         if (!completer.isCompleted) {
-          completer.complete(
-            rewardEarned ? RewardAdResult.shownRewarded : RewardAdResult.shownNoReward,
-          );
+          completer.complete(rewardEarned ? RewardAdResult.shownRewarded : RewardAdResult.shownNoReward);
         }
       },
       onAdFailedToShowFullScreenContent: (ad, err) {
