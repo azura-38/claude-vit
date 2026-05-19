@@ -1,18 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../domain/entities/season_pass.dart';
+
+import '../../core/config/app_config.dart';
 import '../../core/engine/xp_engine.dart';
-import 'shared_prefs_provider.dart';
-import 'limit_providers.dart';
 import '../../core/utils/uid_manager.dart';
 import '../data/repositories/leaderboard_repository_impl.dart';
 import '../data/services/analytics_service.dart';
-import '../../core/config/app_config.dart';
+import '../domain/entities/season_pass.dart';
+import 'ad_skip_provider.dart';
+import 'limit_providers.dart';
+import 'shared_prefs_provider.dart';
 
 final seasonProvider = AsyncNotifierProvider<SeasonNotifier, UserSeasonProgress>(
   SeasonNotifier.new,
 );
 
 class SeasonNotifier extends AsyncNotifier<UserSeasonProgress> {
+  static const _lastAdSkipXpMilestoneKey = 'last_ad_skip_xp_milestone';
+
   late XPEngine _engine;
   final _leaderboardRepo = LeaderboardRepository();
 
@@ -29,6 +33,7 @@ class SeasonNotifier extends AsyncNotifier<UserSeasonProgress> {
     final (updated, leveledUp) = _engine.addXP(current, amount);
     state = AsyncData(updated);
     await _engine.saveProgress(updated);
+    await _grantAdSkipTokensForXp(updated.xp);
 
     if (AppConfig.isLeaderboardEnabled) {
       final uid = await UIDManager.getUID();
@@ -38,6 +43,25 @@ class SeasonNotifier extends AsyncNotifier<UserSeasonProgress> {
     if (leveledUp) {
       AnalyticsService.log(AnalyticsService.seasonLevelUp, {'level': updated.level});
     }
+  }
+
+  Future<void> _grantAdSkipTokensForXp(int totalXp) async {
+    if (!AppConfig.adSkipRewardsEnabled) return;
+    if (AppConfig.xpPerAdSkipToken <= 0) return;
+
+    final prefs = ref.read(sharedPreferencesProvider);
+    final currentMilestone = totalXp ~/ AppConfig.xpPerAdSkipToken;
+    final lastMilestone = prefs.getInt(_lastAdSkipXpMilestoneKey) ?? 0;
+    final tokensToGrant = currentMilestone - lastMilestone;
+    if (tokensToGrant <= 0) return;
+
+    await ref.read(adSkipProvider.notifier).addTokens(tokensToGrant, source: 'xp_milestone');
+    await prefs.setInt(_lastAdSkipXpMilestoneKey, currentMilestone);
+    AnalyticsService.log('xp_ad_skip_token_granted', {
+      'total_xp': totalXp,
+      'tokens': tokensToGrant,
+      'milestone': currentMilestone,
+    });
   }
 
   Future<void> claimReward(SeasonReward reward) async {
