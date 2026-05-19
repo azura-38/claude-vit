@@ -1,6 +1,6 @@
 # DISCLAIMER
 
-**Last updated: April 15, 2026**
+_Last updated: April 15, 2026_
 
 This Disclaimer applies to the VitaCase mobile application operated by **Limanex Software** ("Company", "we", "us", or "our").
 
@@ -105,6 +105,6 @@ You agree that:
 
 If you have any questions regarding this Disclaimer:
 
-📧 limanexsoftware@outlook.com
+📧 <limanexsoftware@outlook.com>
 
 ---

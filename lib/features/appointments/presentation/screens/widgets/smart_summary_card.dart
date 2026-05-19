@@ -65,7 +65,6 @@ class SmartSummaryCard extends StatelessWidget {
               color: Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.w900,
-              fontFamily: 'Manrope',
             ),
           ),
           const SizedBox(height: 14),

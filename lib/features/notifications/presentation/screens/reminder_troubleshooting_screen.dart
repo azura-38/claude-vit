@@ -8,7 +8,6 @@ import '../../../../core/bootstrap/app_bootstrap_controller.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/service_providers.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
-import '../../../../core/types/runtime_types.dart';
 import '../../../../shared/data/services/notification_engine.dart';
 
 class ReminderTroubleshootingScreen extends ConsumerStatefulWidget {

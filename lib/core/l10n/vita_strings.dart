@@ -17,6 +17,7 @@ class VitaStrings {
   String get subcategory => _pick('Subcategory', 'Alt Kategori');
   String get hospitalInstitution => _pick('Institution / Source', 'Kurum / Kaynak');
   String get doctorContact => _pick('Person / Contact', 'Kişi / İletişim');
+  String get lockUsePin => _pick('Use PIN', 'PIN ile Aç');
   String get notes => _pick('Notes', 'Notlar');
   String get choosePdfOrImage => _pick('Choose PDF or Image', 'PDF veya Görsel Seç');
   String get encryptedLocalFileInfo => _pick(

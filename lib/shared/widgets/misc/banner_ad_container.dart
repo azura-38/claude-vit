@@ -49,7 +49,7 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
         _hasFailed = false;
       });
 
-      final adSize = await AdSize.getAnchoredAdaptiveBannerAdSize(
+      final adSize = await AdSize.getLargeAnchoredAdaptiveBannerAdSizeWithOrientation(
         orientation,
         adWidth,
       );

@@ -26,8 +26,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   static const _brandLogoAsset = 'assets/images/vitacase_brand_logo.png';
   static const _featureOverviewAsset = 'assets/images/vitacase_feature_overview.png';
 
-  bool get _isTr => Localizations.localeOf(context).languageCode == 'tr';
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -73,13 +71,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     isDark: isDark,
                   ),
                   _ModernPage(
-                    visual: _FeatureVisual(icon: Icons.calendar_today_rounded, color: const Color(0xFF8B5CF6)),
+                    visual: _FeatureVisual(
+                      icon: Icons.calendar_today_rounded,
+                      color: const Color(0xFF8B5CF6),
+                    ),
                     title: context.l10n.ob3Title,
                     description: context.l10n.ob3Desc,
                     isDark: isDark,
                   ),
                   _ModernPage(
-                    visual: _FeatureVisual(icon: Icons.medication_rounded, color: const Color(0xFF10B981)),
+                    visual: _FeatureVisual(
+                      icon: Icons.medication_rounded,
+                      color: const Color(0xFF10B981),
+                    ),
                     title: context.l10n.ob4Title,
                     description: context.l10n.ob4Desc,
                     isDark: isDark,
@@ -90,9 +94,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     description: context.l10n.ob5Desc,
                     isDark: isDark,
                     features: [
-                      _FeatureRow(icon: Icons.lock_rounded, title: context.l10n.obFeature1Title, desc: context.l10n.obFeature1Desc),
-                      _FeatureRow(icon: Icons.notifications_active_rounded, title: context.l10n.obFeature2Title, desc: context.l10n.obFeature2Desc),
-                      _FeatureRow(icon: Icons.phone_android_rounded, title: context.l10n.obFeature3Title, desc: context.l10n.obFeature3Desc),
+                      _FeatureRow(
+                        icon: Icons.lock_rounded,
+                        title: context.l10n.obFeature1Title,
+                        desc: context.l10n.obFeature1Desc,
+                      ),
+                      _FeatureRow(
+                        icon: Icons.notifications_active_rounded,
+                        title: context.l10n.obFeature2Title,
+                        desc: context.l10n.obFeature2Desc,
+                      ),
+                      _FeatureRow(
+                        icon: Icons.phone_android_rounded,
+                        title: context.l10n.obFeature3Title,
+                        desc: context.l10n.obFeature3Desc,
+                      ),
                     ],
                   ),
                   _buildNotificationPage(isDark),
@@ -107,13 +123,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Widget _buildNotificationPage(bool isDark) {
-    final title = _notificationsGranted
-        ? (_isTr ? 'Bildirimler hazır' : 'Notifications are ready')
-        : (_isTr ? 'Randevu ve ilaç hatırlatmaları için izin ver' : 'Allow reminders for appointments and medicines');
-    final description = _isTr
-        ? 'VitaCase bu izni sadece senin oluşturduğun randevu, ilaç saati ve stok/yenileme hatırlatmalarını zamanında göstermek için kullanır. Reklam veya pazarlama bildirimi göndermek için kullanılmaz.'
-        : 'VitaCase uses this permission only to show reminders you create, such as appointments, medicine times, and refill alerts. It is not used for advertising or marketing notifications.';
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28),
       child: Column(
@@ -123,33 +132,45 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             padding: const EdgeInsets.all(28),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.brandBlue.withValues(alpha: 0.12), AppColors.brandCyan.withValues(alpha: 0.08)],
+                colors: [
+                  AppColors.brandBlue.withValues(alpha: 0.12),
+                  AppColors.brandCyan.withValues(alpha: 0.08),
+                ],
               ),
               shape: BoxShape.circle,
             ),
             child: Icon(
-              _notificationsGranted ? Icons.notifications_active_rounded : Icons.alarm_rounded,
+              _notificationsGranted ? Icons.notifications_active_rounded : Icons.notifications_outlined,
               size: 64,
               color: _notificationsGranted ? const Color(0xFF10B981) : AppColors.brandBlue,
             ),
           ),
-          const SizedBox(height: 28),
-          Text(_notificationsGranted ? '✅' : '⏰', style: const TextStyle(fontSize: 30)),
-          const SizedBox(height: 14),
+          const SizedBox(height: 32),
           Text(
-            title,
+            _notificationsGranted ? '🎉' : '🔔',
+            style: const TextStyle(fontSize: 32),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            _notificationsGranted ? context.l10n.notificationsActiveMsg : context.l10n.obFeature2Title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: isDark ? Colors.white : const Color(0xFF0F172A)),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+              color: isDark ? Colors.white : const Color(0xFF0F172A),
+            ),
           ),
           const SizedBox(height: 12),
           Text(
-            description,
+            context.l10n.obFeature2Desc,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: isDark ? Colors.white60 : const Color(0xFF546179), height: 1.55, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              fontSize: 14,
+              color: isDark ? Colors.white54 : Colors.blueGrey,
+              height: 1.6,
+            ),
           ),
-          const SizedBox(height: 22),
-          _ReminderReasonCard(isDark: isDark),
-          const SizedBox(height: 28),
+          const SizedBox(height: 40),
           if (!_notificationsGranted)
             SizedBox(
               width: double.infinity,
@@ -158,14 +179,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onPressed: kIsWeb
                     ? () => setState(() => _notificationsGranted = true)
                     : () async {
-                        final status = await ref.read(notificationServiceProvider).requestPermissions(requestExactAlarm: true);
+                        final status = await ref
+                            .read(notificationServiceProvider)
+                            .requestPermissions(requestExactAlarm: true);
                         if (!mounted) return;
                         if (status == NotificationPermissionState.granted) {
                           setState(() => _notificationsGranted = true);
                         }
                       },
                 icon: const Icon(Icons.notifications_active_rounded),
-                label: Text(_isTr ? 'Hatırlatmaları Aç' : 'Enable Reminders', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                label: Text(
+                  context.l10n.obFeature2Title,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.brandBlue,
                   foregroundColor: Colors.white,
@@ -188,7 +214,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   const Icon(Icons.check_circle_rounded, color: Color(0xFF10B981)),
                   const SizedBox(width: 12),
                   Text(
-                    _isTr ? 'Randevu ve ilaç hatırlatmaları aktif.' : 'Appointment and medicine reminders are active.',
+                    context.l10n.notificationsActiveMsg,
                     style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF10B981)),
                   ),
                 ],
@@ -215,7 +241,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 if (isLast) {
                   _goToProfileCreate();
                 } else if (_pageController.hasClients) {
-                  _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeOutCubic);
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOutCubic,
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -227,7 +256,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(isLast ? context.l10n.letStart : context.l10n.continue_btn, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                  Text(
+                    isLast ? context.l10n.letStart : context.l10n.continue_btn,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                  ),
                   const SizedBox(width: 8),
                   Icon(isLast ? Icons.rocket_launch_rounded : Icons.arrow_forward_rounded, size: 20),
                 ],
@@ -245,60 +277,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 height: 8,
                 margin: const EdgeInsets.only(right: 6),
                 decoration: BoxDecoration(
-                  color: _currentPage == index ? AppColors.brandBlue : (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.08)),
+                  color: _currentPage == index
+                      ? AppColors.brandBlue
+                      : (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.08)),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ReminderReasonCard extends StatelessWidget {
-  const _ReminderReasonCard({required this.isDark});
-
-  final bool isDark;
-
-  @override
-  Widget build(BuildContext context) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
-    final items = isTr
-        ? [
-            ('Randevu saatinden önce uyarı', Icons.calendar_month_rounded),
-            ('İlaç alma saatlerini hatırlatma', Icons.medication_rounded),
-            ('Stok / yenileme hatırlatmaları', Icons.inventory_2_rounded),
-          ]
-        : [
-            ('Appointment reminders before the time', Icons.calendar_month_rounded),
-            ('Medicine time reminders', Icons.medication_rounded),
-            ('Refill and stock reminders', Icons.inventory_2_rounded),
-          ];
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
-      ),
-      child: Column(
-        children: items
-            .map(
-              (item) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                child: Row(
-                  children: [
-                    Icon(item.$2, color: AppColors.brandBlue, size: 20),
-                    const SizedBox(width: 10),
-                    Expanded(child: Text(item.$1, style: const TextStyle(fontWeight: FontWeight.w700))),
-                  ],
-                ),
-              ),
-            )
-            .toList(),
       ),
     );
   }
@@ -312,7 +299,14 @@ class _ModernPage extends StatelessWidget {
   final bool isDark;
   final List<_FeatureRow>? features;
 
-  const _ModernPage({required this.visual, required this.title, this.subtitle, required this.description, required this.isDark, this.features});
+  const _ModernPage({
+    required this.visual,
+    required this.title,
+    this.subtitle,
+    required this.description,
+    required this.isDark,
+    this.features,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -323,13 +317,34 @@ class _ModernPage extends StatelessWidget {
         children: [
           Expanded(flex: 3, child: Center(child: visual)),
           const SizedBox(height: 24),
-          Text(title, textAlign: TextAlign.center, style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: isDark ? Colors.white : AppColors.brandNavy)),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.w900,
+              color: isDark ? Colors.white : AppColors.brandNavy,
+            ),
+          ),
           if (subtitle != null) ...[
             const SizedBox(height: 8),
-            Text(subtitle!, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.brandBlue)),
+            Text(
+              subtitle!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.brandBlue),
+            ),
           ],
           const SizedBox(height: 12),
-          Text(description, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: isDark ? Colors.white60 : const Color(0xFF546179), height: 1.6, fontWeight: FontWeight.w500)),
+          Text(
+            description,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              color: isDark ? Colors.white60 : const Color(0xFF546179),
+              height: 1.6,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           if (features != null && features!.isNotEmpty) ...[
             const SizedBox(height: 28),
             ...features!.map((f) => _buildFeatureRow(f)),
@@ -347,7 +362,10 @@ class _ModernPage extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: AppColors.brandBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(
+              color: AppColors.brandBlue.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Icon(f.icon, color: AppColors.brandBlue, size: 20),
           ),
           const SizedBox(width: 14),
@@ -356,7 +374,10 @@ class _ModernPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(f.title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
-                Text(f.desc, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                Text(
+                  f.desc,
+                  style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                ),
               ],
             ),
           ),
@@ -388,12 +409,22 @@ class _BrandLogoVisual extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(compact ? 42 : 52),
-        boxShadow: [BoxShadow(color: AppColors.brandBlue.withValues(alpha: 0.16), blurRadius: 34, offset: const Offset(0, 18))],
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.brandBlue.withValues(alpha: 0.16),
+            blurRadius: 34,
+            offset: const Offset(0, 18),
+          ),
+        ],
       ),
       child: Image.asset(
         assetPath,
         fit: BoxFit.contain,
-        errorBuilder: (_, __, ___) => const Icon(Icons.health_and_safety_rounded, size: 96, color: AppColors.brandBlue),
+        errorBuilder: (_, _, _) => const Icon(
+          Icons.health_and_safety_rounded,
+          size: 96,
+          color: AppColors.brandBlue,
+        ),
       ),
     );
   }
@@ -410,7 +441,13 @@ class _FeatureOverviewVisual extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 360),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
-        boxShadow: [BoxShadow(color: AppColors.brandBlue.withValues(alpha: 0.14), blurRadius: 28, offset: const Offset(0, 16))],
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.brandBlue.withValues(alpha: 0.14),
+            blurRadius: 28,
+            offset: const Offset(0, 16),
+          ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(28),
@@ -419,9 +456,11 @@ class _FeatureOverviewVisual extends StatelessWidget {
           child: Image.asset(
             assetPath,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => Container(
+            errorBuilder: (_, _, _) => Container(
               color: AppColors.brandBlue.withValues(alpha: 0.08),
-              child: const Center(child: Icon(Icons.folder_copy_rounded, size: 72, color: AppColors.brandBlue)),
+              child: const Center(
+                child: Icon(Icons.folder_copy_rounded, size: 72, color: AppColors.brandBlue),
+              ),
             ),
           ),
         ),
@@ -441,9 +480,15 @@ class _FeatureVisual extends StatelessWidget {
       width: 160,
       height: 160,
       decoration: BoxDecoration(
-        gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [color, color.withValues(alpha: 0.7)]),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [color, color.withValues(alpha: 0.7)],
+        ),
         borderRadius: BorderRadius.circular(48),
-        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.3), blurRadius: 40, offset: const Offset(0, 20))],
+        boxShadow: [
+          BoxShadow(color: color.withValues(alpha: 0.3), blurRadius: 40, offset: const Offset(0, 20)),
+        ],
       ),
       child: Center(child: Icon(icon, size: 72, color: Colors.white)),
     );

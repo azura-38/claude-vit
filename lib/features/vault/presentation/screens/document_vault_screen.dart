@@ -379,7 +379,7 @@ class _VaultHeader extends StatelessWidget {
           child: Image.asset(
             'assets/images/vitacase_brand_logo.png',
             fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => const Icon(Icons.folder_copy_rounded, color: AppColors.medicalBlue),
+            errorBuilder: (_, _, _) => const Icon(Icons.folder_copy_rounded, color: AppColors.medicalBlue),
           ),
         ),
         const SizedBox(width: 14),

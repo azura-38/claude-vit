@@ -46,6 +46,11 @@ android {
         jvmTarget = "17"
     }
 
+    // Disable Crashlytics mapping file upload to avoid DNS errors when building offline
+    afterEvaluate {
+        tasks.matching { it.name.contains("uploadCrashlyticsMappingFile") }.configureEach { enabled = false }
+    }
+
     defaultConfig {
         applicationId = "com.limanex.vitacase"
         minSdk = flutter.minSdkVersion
@@ -93,6 +98,8 @@ android {
         }
     }
 }
+
+
 
 flutter {
     source = "../.."

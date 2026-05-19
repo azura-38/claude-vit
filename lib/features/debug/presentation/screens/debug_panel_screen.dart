@@ -6,7 +6,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import '../../../../core/config/app_config.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
-import '../../../../core/types/runtime_types.dart';
 import '../../../../features/notifications/presentation/providers/notification_controller.dart';
 import '../../../../shared/data/services/ad_service.dart';
 import '../../../../shared/data/services/notification_engine.dart';

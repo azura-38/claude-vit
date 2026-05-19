@@ -6,6 +6,7 @@ import '../../../../core/constants/app_routes.dart';
 import '../../../../core/security/secure_screen_guard.dart';
 import '../../../../core/types/runtime_types.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+import '../../../../core/l10n/vita_strings.dart';
 import '../providers/auth_providers.dart';
 
 class AppLockGate extends ConsumerStatefulWidget {
@@ -20,8 +21,6 @@ class AppLockGate extends ConsumerStatefulWidget {
 class _AppLockGateState extends ConsumerState<AppLockGate> {
   bool _isAuthenticating = false;
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-  String _usePinLabel(BuildContext context) => _isTr(context) ? 'PIN ile Aç' : 'Use PIN';
 
   @override
   void initState() {
@@ -133,7 +132,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
                 OutlinedButton.icon(
                   onPressed: _goToPinScreen,
                   icon: const Icon(Icons.pin_rounded),
-                  label: Text(_usePinLabel(context)),
+                   label: Text(VitaStrings.of(context).lockUsePin),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 54),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

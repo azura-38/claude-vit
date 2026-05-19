@@ -47,3 +47,5 @@ temp_achievements/
 vitacase_flutter/
 
 vitacase_v1.1.0_14.zip
+*.zip
+build.env
