@@ -3,10 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/config/app_config.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/notifications/app_notification_payload.dart';
+import '../../../../core/types/runtime_types.dart';
 import '../../../../features/notifications/presentation/providers/notification_controller.dart';
 import '../../../../shared/data/services/ad_service.dart';
+import '../../../../shared/data/services/notification_engine.dart';
 
 class DebugPanelScreen extends ConsumerWidget {
   const DebugPanelScreen({super.key});
@@ -25,10 +28,7 @@ class DebugPanelScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-        ),
+        leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         title: Text(tr ? 'Debug Paneli' : 'Debug Panel'),
         centerTitle: true,
       ),
@@ -43,11 +43,51 @@ class DebugPanelScreen extends ConsumerWidget {
             children: [
               _DebugActionTile(
                 icon: Icons.notifications_active_rounded,
-                title: tr ? 'Test bildirimi gönder' : 'Send test notification',
-                subtitle: tr ? 'Local notification motorunu test eder.' : 'Tests the local notification engine.',
+                title: tr ? 'Anlık test bildirimi gönder' : 'Send instant test notification',
+                subtitle: tr ? 'Bildirim izni ve notification motorunu hızlı test eder.' : 'Quickly tests notification permission and the notification engine.',
                 onTap: () async {
                   await ref.read(notificationControllerProvider).testNotification();
-                  if (context.mounted) _snack(context, tr ? 'Test bildirimi tetiklendi.' : 'Test notification triggered.');
+                  if (context.mounted) _snack(context, tr ? 'Anlık test bildirimi tetiklendi.' : 'Instant test notification triggered.');
+                },
+              ),
+              _DebugActionTile(
+                icon: Icons.medication_rounded,
+                title: tr ? '1 dk sonrası ilaç bildirimi kur' : 'Schedule medicine notification in 1 min',
+                subtitle: tr ? 'Exact alarm + Aldım/Almadım butonlarını test eder.' : 'Tests exact alarm and Taken/Not taken actions.',
+                onTap: () async {
+                  final when = DateTime.now().add(const Duration(minutes: 1));
+                  await NotificationEngine.scheduleMedicine(
+                    id: 'debug_medicine',
+                    title: tr ? '💊 VitaCase İlaç Testi' : '💊 VitaCase Medicine Test',
+                    body: tr ? 'Bu bir ilaç hatırlatma testidir.' : 'This is a medicine reminder test.',
+                    scheduleTime: when,
+                    payload: AppNotificationPayload(
+                      type: NotificationType.medication,
+                      entityId: 'debug_medicine',
+                      occurrenceAt: when,
+                    ).encode(),
+                  );
+                  if (context.mounted) _snack(context, tr ? 'İlaç bildirimi 1 dakika sonrasına kuruldu.' : 'Medicine notification scheduled for 1 minute later.');
+                },
+              ),
+              _DebugActionTile(
+                icon: Icons.calendar_month_rounded,
+                title: tr ? '1 dk sonrası randevu bildirimi kur' : 'Schedule appointment notification in 1 min',
+                subtitle: tr ? 'Randevu exact alarm sistemini test eder.' : 'Tests the appointment exact alarm flow.',
+                onTap: () async {
+                  final when = DateTime.now().add(const Duration(minutes: 1));
+                  await NotificationEngine.scheduleAppointment(
+                    id: 'debug_appointment',
+                    title: tr ? '📅 VitaCase Randevu Testi' : '📅 VitaCase Appointment Test',
+                    body: tr ? 'Bu bir randevu hatırlatma testidir.' : 'This is an appointment reminder test.',
+                    scheduleTime: when,
+                    payload: AppNotificationPayload(
+                      type: NotificationType.appointment,
+                      entityId: 'debug_appointment',
+                      occurrenceAt: when,
+                    ).encode(),
+                  );
+                  if (context.mounted) _snack(context, tr ? 'Randevu bildirimi 1 dakika sonrasına kuruldu.' : 'Appointment notification scheduled for 1 minute later.');
                 },
               ),
             ],
@@ -141,7 +181,9 @@ class _DebugHeader extends StatelessWidget {
           const SizedBox(width: 14),
           Expanded(
             child: Text(
-              tr ? 'Bu ekran sadece test ve kontrol işlemleri içindir.' : 'This screen is for testing and diagnostics only.',
+              tr
+                  ? 'Önce anlık test bildirimi gönder. Gelirse izin tamamdır. Sonra 1 dakika sonrası ilaç/randevu testleri exact alarm sistemini kontrol eder.'
+                  : 'First send an instant test notification. If it arrives, permission is OK. Then use the 1-minute medicine/appointment tests to verify exact alarms.',
               style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary, height: 1.35, fontWeight: FontWeight.w600),
             ),
           ),
