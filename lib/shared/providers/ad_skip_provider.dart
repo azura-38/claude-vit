@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/config/app_config.dart';
 import '../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../data/services/analytics_service.dart';
 import 'shared_prefs_provider.dart';
@@ -12,19 +13,26 @@ class AdSkipNotifier extends Notifier<int> {
 
   @override
   int build() {
+    if (!AppConfig.adSkipRewardsEnabled) return 0;
     final prefs = ref.watch(sharedPreferencesProvider);
     return prefs.getInt(_tokenKey) ?? 0;
   }
 
-  Future<void> addTokens(int amount) async {
+  Future<void> addTokens(int amount, {String source = 'reward'}) async {
+    if (!AppConfig.adSkipRewardsEnabled) return;
+    if (amount <= 0) return;
+
     final prefs = ref.read(sharedPreferencesProvider);
     final newVal = state + amount;
     state = newVal;
-    AnalyticsService.log(AnalyticsService.rewardedAdForLimit);
+    if (source != 'xp_milestone') {
+      AnalyticsService.log(AnalyticsService.rewardedAdForLimit, {'source': source});
+    }
     await prefs.setInt(_tokenKey, newVal);
   }
 
-  Future<bool> useToken() async {
+  Future<bool> useToken({String reason = 'limit_unlock'}) async {
+    if (!AppConfig.adSkipRewardsEnabled) return false;
     if (state <= 0) return false;
 
     final prefs = ref.read(sharedPreferencesProvider);
@@ -34,6 +42,7 @@ class AdSkipNotifier extends Notifier<int> {
 
     final usedCount = (prefs.getInt(_usedCountKey) ?? 0) + 1;
     await prefs.setInt(_usedCountKey, usedCount);
+    AnalyticsService.log('ad_skip_token_used', {'reason': reason});
     await ref.read(achievementProvider.notifier).track('ad_skip_used', setAbsolute: usedCount);
 
     return true;
