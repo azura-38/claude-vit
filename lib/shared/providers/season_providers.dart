@@ -8,10 +8,9 @@ import '../data/repositories/leaderboard_repository_impl.dart';
 import '../data/services/analytics_service.dart';
 import '../../core/config/app_config.dart';
 
-final seasonProvider =
-    AsyncNotifierProvider<SeasonNotifier, UserSeasonProgress>(
-      SeasonNotifier.new,
-    );
+final seasonProvider = AsyncNotifierProvider<SeasonNotifier, UserSeasonProgress>(
+  SeasonNotifier.new,
+);
 
 class SeasonNotifier extends AsyncNotifier<UserSeasonProgress> {
   late XPEngine _engine;
@@ -25,48 +24,38 @@ class SeasonNotifier extends AsyncNotifier<UserSeasonProgress> {
   }
 
   Future<void> addXP(int amount) async {
-    if (!state.hasValue) return;
+    final current = state.valueOrNull ?? await future;
 
-    final (updated, leveledUp) = _engine.addXP(state.requireValue, amount);
+    final (updated, leveledUp) = _engine.addXP(current, amount);
     state = AsyncData(updated);
     await _engine.saveProgress(updated);
 
-    // Sync with Global Leaderboard if enabled
     if (AppConfig.isLeaderboardEnabled) {
       final uid = await UIDManager.getUID();
       _leaderboardRepo.syncXP(uid, updated.xp);
     }
 
     if (leveledUp) {
-      AnalyticsService.log(AnalyticsService.seasonLevelUp, {
-        'level': updated.level,
-      });
+      AnalyticsService.log(AnalyticsService.seasonLevelUp, {'level': updated.level});
     }
   }
 
   Future<void> claimReward(SeasonReward reward) async {
-    if (!state.hasValue || reward.isPremiumOnly) return;
+    final curState = state.valueOrNull ?? await future;
+    if (reward.isPremiumOnly) return;
 
-    final curState = state.requireValue;
-
-    final alreadyClaimed =
-        reward.isPremiumOnly
-            ? curState.claimedPremiumRewards.contains(reward.level)
-            : curState.claimedFreeRewards.contains(reward.level);
+    final alreadyClaimed = reward.isPremiumOnly
+        ? curState.claimedPremiumRewards.contains(reward.level)
+        : curState.claimedFreeRewards.contains(reward.level);
 
     if (alreadyClaimed || curState.level < reward.level) return;
 
-    // Apply Reward Logic
     _applySeasonReward(reward);
 
-    // Update State
     if (reward.isPremiumOnly) {
       state = AsyncData(
         curState.copyWith(
-          claimedPremiumRewards: [
-            ...curState.claimedPremiumRewards,
-            reward.level,
-          ],
+          claimedPremiumRewards: [...curState.claimedPremiumRewards, reward.level],
         ),
       );
     } else {
