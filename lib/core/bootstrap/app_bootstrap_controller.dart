@@ -45,6 +45,11 @@ class AppBootstrapController extends AsyncNotifier<void> {
     }
   }
 
+  Future<void> forceRescheduleNotifications() async {
+    if (kIsWeb) return;
+    await _rescheduleNotifications(ref.container, force: true);
+  }
+
   Future<void> _executeAllPhases(ProviderContainer container) async {
     _setupErrorHandlers();
     _log('Phase 0: Error handlers installed');
@@ -74,9 +79,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
     _log('Phase 2: Firebase + localization...');
     try {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
+      await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     } catch (e, st) {
       debugPrint('[Bootstrap][firebase] FATAL Firebase error: $e');
       debugPrintStack(stackTrace: st);
@@ -174,7 +177,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
     await _safeRun('notif_listeners', _setupNotificationListeners(container));
 
     _log('Deferred: Conditional reschedule...');
-    await _safeRun('reschedule', _conditionalReschedule(container));
+    await _safeRun('reschedule', _rescheduleNotifications(container));
   }
 
   Future<void> _setupNotificationListeners(ProviderContainer container) async {
@@ -191,35 +194,29 @@ class AppBootstrapController extends AsyncNotifier<void> {
       if (receivedAction.buttonKeyPressed == 'MARK_DONE') {
         final entityId = receivedAction.payload?['entityId'];
         if (entityId != null) {
-          await _safeRun(
-            'medicine_taken',
-            container.read(medicineListProvider.notifier).markAsTaken(entityId),
-          );
+          await _safeRun('medicine_taken', container.read(medicineListProvider.notifier).markAsTaken(entityId));
         }
       } else if (receivedAction.buttonKeyPressed == 'SKIP') {
         final entityId = receivedAction.payload?['entityId'];
         if (entityId != null) {
-          await _safeRun(
-            'medicine_skipped',
-            container.read(medicineListProvider.notifier).markAsSkipped(entityId),
-          );
+          await _safeRun('medicine_skipped', container.read(medicineListProvider.notifier).markAsSkipped(entityId));
         }
       }
     });
   }
 
-  Future<void> _conditionalReschedule(ProviderContainer container) async {
+  Future<void> _rescheduleNotifications(ProviderContainer container, {bool force = false}) async {
     final prefs = container.read(sharedPreferencesProvider);
     final lastTs = prefs.getInt(_kLastRescheduleKey) ?? 0;
     final lastReschedule = DateTime.fromMillisecondsSinceEpoch(lastTs);
     final gapMinutes = DateTime.now().difference(lastReschedule).inMinutes;
 
-    if (gapMinutes < _kRescheduleGapMinutes) {
+    if (!force && gapMinutes < _kRescheduleGapMinutes) {
       _log('Skipping reschedule — last ran ${gapMinutes}m ago (gate: ${_kRescheduleGapMinutes}m)');
       return;
     }
 
-    _log('Running notification reschedule (gap: ${gapMinutes}m)...');
+    _log('Running notification reschedule (force: $force, gap: ${gapMinutes}m)...');
     final meds = await container.read(medicineListProvider.future);
     final appts = await container.read(appointmentListProvider.future);
 
