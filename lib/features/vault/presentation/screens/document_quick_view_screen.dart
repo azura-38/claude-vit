@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:open_filex/open_filex.dart';
 
 import '../../../../shared/domain/entities/document.dart';
 import '../../../../shared/providers/document_providers.dart';
@@ -34,6 +35,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
   String get _title => _isTr ? 'Belge Kasası' : 'Document Vault';
   String get _subtitle => _isTr ? 'Belge detaylarını güvenli şekilde görüntülüyorsun.' : 'Reviewing expanded document details.';
   String get _editLabel => _isTr ? 'Düzenle' : 'Edit';
+  String get _openLabel => _isTr ? 'Aç' : 'Open';
   String get _saveLabel => _isTr ? 'Kaydet' : 'Save';
   String get _cancelLabel => _isTr ? 'İptal' : 'Cancel';
   String get _nameLabel => _isTr ? 'Belge adı' : 'Document name';
@@ -42,6 +44,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
   String get _notesLabel => _isTr ? 'Notlar' : 'Notes';
   String get _savedLabel => _isTr ? 'Belge güncellendi.' : 'Document updated.';
   String get _failedLabel => _isTr ? 'Belge güncellenemedi.' : 'Could not update document.';
+  String get _openFailedLabel => _isTr ? 'Belge açılamadı.' : 'Could not open document.';
   String get _unknownLabel => _isTr ? 'Bilinmiyor' : 'Unknown';
   String get _emptyNoteLabel => _isTr ? 'Ek not yok.' : 'No additional notes provided.';
 
@@ -60,26 +63,13 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(labelText: _nameLabel),
-                ),
+                TextField(controller: nameController, decoration: InputDecoration(labelText: _nameLabel)),
                 const SizedBox(height: 12),
-                TextField(
-                  controller: hospitalController,
-                  decoration: InputDecoration(labelText: _institutionLabel),
-                ),
+                TextField(controller: hospitalController, decoration: InputDecoration(labelText: _institutionLabel)),
                 const SizedBox(height: 12),
-                TextField(
-                  controller: doctorController,
-                  decoration: InputDecoration(labelText: _personLabel),
-                ),
+                TextField(controller: doctorController, decoration: InputDecoration(labelText: _personLabel)),
                 const SizedBox(height: 12),
-                TextField(
-                  controller: noteController,
-                  maxLines: 4,
-                  decoration: InputDecoration(labelText: _notesLabel, alignLabelWithHint: true),
-                ),
+                TextField(controller: noteController, maxLines: 4, decoration: InputDecoration(labelText: _notesLabel, alignLabelWithHint: true)),
               ],
             ),
           ),
@@ -121,6 +111,14 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
     }
   }
 
+  Future<void> _openDocument() async {
+    final result = await OpenFilex.open(_document.localPath);
+    if (!mounted) return;
+    if (result.type != ResultType.done) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+    }
+  }
+
   String? _emptyToNull(String value) {
     final trimmed = value.trim();
     return trimmed.isEmpty ? null : trimmed;
@@ -131,7 +129,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
     final document = _document;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final date = document.createdAt;
-    final month = DateFormat('MMM').format(date).toUpperCase();
+    final month = DateFormat('MMM', Localizations.localeOf(context).languageCode).format(date).toUpperCase();
 
     return Scaffold(
       body: SafeArea(
@@ -141,14 +139,8 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
             Row(
               children: [
                 IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-                Expanded(
-                  child: Text(_title, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800)),
-                ),
-                IconButton.filledTonal(
-                  onPressed: _showEditDialog,
-                  icon: const Icon(Icons.edit_rounded),
-                  tooltip: _editLabel,
-                ),
+                Expanded(child: Text(_title, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800))),
+                IconButton.filledTonal(onPressed: _showEditDialog, icon: const Icon(Icons.edit_rounded), tooltip: _editLabel),
               ],
             ),
             const SizedBox(height: 10),
@@ -178,10 +170,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(month, style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary)),
-                              Text(
-                                date.day.toString(),
-                                style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.primary),
-                              ),
+                              Text(date.day.toString(), style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.primary)),
                             ],
                           ),
                         ),
@@ -190,10 +179,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                document.fileName,
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary),
-                              ),
+                              Text(document.fileName, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary)),
                               const SizedBox(height: 8),
                               Text('${document.hospitalName ?? _unknownLabel} • ${document.category.name}', style: const TextStyle(color: AppColors.secondary)),
                               const SizedBox(height: 12),
@@ -247,11 +233,11 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                             ),
                             const SizedBox(width: 16),
                             VaultActionButton(
-                              label: _isTr ? 'İndir' : 'Download',
-                              icon: Icons.download,
+                              label: _openLabel,
+                              icon: Icons.open_in_new_rounded,
                               bg: AppColors.primary,
                               text: Colors.white,
-                              onTap: () {},
+                              onTap: _openDocument,
                             ),
                           ],
                         ),
