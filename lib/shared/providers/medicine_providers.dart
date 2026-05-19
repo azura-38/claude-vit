@@ -5,6 +5,7 @@ import '../../core/di/repository_providers.dart';
 import '../../core/di/service_providers.dart';
 import '../../core/notifications/app_notification_payload.dart';
 import '../../core/types/runtime_types.dart';
+import '../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../../features/medications/domain/entities/medicine.dart';
 import '../data/services/analytics_service.dart';
 import '../data/services/notification_engine.dart';
@@ -63,11 +64,20 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
       return;
     }
 
-    ref.read(dailyMissionProvider.notifier).track('med_daily');
-    ref.read(seasonProvider.notifier).addXP(15);
+    await ref.read(dailyMissionProvider.notifier).track('med_daily');
+    await _trackMedicineAchievements();
+    await ref.read(seasonProvider.notifier).addXP(15);
     AnalyticsService.log(AnalyticsService.medicineAdded);
 
     await _scheduleNotifications(medicine);
+  }
+
+  Future<void> _trackMedicineAchievements() async {
+    final count = state.valueOrNull?.length ?? (await ref.read(medicineRepositoryProvider).getAll()).length;
+    final achievement = ref.read(achievementProvider.notifier);
+    for (final id in const ['med_1', 'med_3', 'med_5', 'med_10', 'med_25', 'med_50']) {
+      await achievement.track(id, setAbsolute: count);
+    }
   }
 
   Future<void> markAsTaken(String id) async {
