@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../constants/app_routes.dart';
 import 'app_notification_payload.dart';
 
-final pendingNotificationRouteProvider =
-    NotifierProvider<PendingNotificationRouteNotifier, String?>(
-      PendingNotificationRouteNotifier.new,
-    );
+final pendingNotificationRouteProvider = NotifierProvider<PendingNotificationRouteNotifier, String?>(
+  PendingNotificationRouteNotifier.new,
+);
 
 class PendingNotificationRouteNotifier extends Notifier<String?> {
   @override
@@ -15,20 +15,21 @@ class PendingNotificationRouteNotifier extends Notifier<String?> {
     final decoded = AppNotificationPayload.decode(payload);
     switch (decoded.type) {
       case NotificationType.medication:
-      state = '/notification/medication';
-      return;
+        state = AppRoutes.medicines;
+        return;
       case NotificationType.appointment:
-      state = '/notification/appointment';
-      return;
+        state = AppRoutes.appointments;
+        return;
       case NotificationType.refill:
-      state = '/notification/refill';
+        state = AppRoutes.medicines;
         return;
       case NotificationType.emergency:
-        state = '/profile';
+        state = AppRoutes.profile;
         return;
       case NotificationType.engagement:
       case NotificationType.unknown:
-        state = '/';
+        state = AppRoutes.home;
+        return;
     }
   }
 
