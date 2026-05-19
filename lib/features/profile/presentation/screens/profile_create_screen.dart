@@ -57,7 +57,10 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
 
       if (name != null) _nameController.text = name;
       if (gender != null) _selectedGender = _genderSelectionFromName(gender);
-      if (photo != null && photo.trim().isNotEmpty) _selectedPhotoPath = photo;
+      if (photo != null && photo.trim().isNotEmpty) {
+        _selectedPhotoPath = photo;
+        _selectedPhotoBytes = _decodeDataUri(photo);
+      }
       if (birthDate != null) {
         _birthDate = DateTime.tryParse(birthDate);
         if (_birthDate != null) {
@@ -101,10 +104,17 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
 
     if (result == null || result.files.isEmpty) return;
     final file = result.files.single;
+    final bytes = file.bytes;
+
+    if (bytes == null || bytes.isEmpty) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('error'))));
+      return;
+    }
 
     setState(() {
-      _selectedPhotoPath = file.path;
-      _selectedPhotoBytes = file.bytes;
+      _selectedPhotoPath = null;
+      _selectedPhotoBytes = bytes;
       _selectedPhotoMime = _mimeForPhoto(file.name);
     });
   }
@@ -117,26 +127,37 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   }
 
   String? _selectedPhotoValue() {
-    final path = _selectedPhotoPath?.trim();
-    if (path != null && path.isNotEmpty) return path;
     final bytes = _selectedPhotoBytes;
-    if (bytes == null || bytes.isEmpty) return null;
-    final mime = _selectedPhotoMime ?? 'image/jpeg';
-    return 'data:$mime;base64,${base64Encode(bytes)}';
+    if (bytes != null && bytes.isNotEmpty) {
+      final mime = _selectedPhotoMime ?? 'image/jpeg';
+      return 'data:$mime;base64,${base64Encode(bytes)}';
+    }
+
+    final path = _selectedPhotoPath?.trim();
+    if (path != null && path.startsWith('data:image/')) return path;
+    return null;
+  }
+
+  Uint8List? _decodeDataUri(String? value) {
+    if (value == null || !value.startsWith('data:image/')) return null;
+    final marker = 'base64,';
+    final index = value.indexOf(marker);
+    if (index == -1) return null;
+    try {
+      return base64Decode(value.substring(index + marker.length));
+    } catch (_) {
+      return null;
+    }
   }
 
   void _goToSecurityStep() {
     if (_nameController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.tr('please_enter_name'))),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('please_enter_name'))));
       return;
     }
 
     if (!_acceptedLegal) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.tr('must_agree'))),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('must_agree'))));
       return;
     }
 
@@ -149,9 +170,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     if (_birthDate != null) profileNotifier.updateBirthDate(_birthDate!);
     profileNotifier.updateGender(_genderFromSelection(_selectedGender));
     final photoValue = _selectedPhotoValue();
-    if (photoValue != null) {
-      profileNotifier.updatePhotoPath(photoValue);
-    }
+    if (photoValue != null) profileNotifier.updatePhotoPath(photoValue);
     await profileNotifier.saveToDatabase();
 
     if (_selectedLanguageCode != null) {
@@ -190,9 +209,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             _pinConfirm = '';
             _pinHasError = true;
           });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.tr('lock_pin_mismatch'))),
-          );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('lock_pin_mismatch'))));
         }
       }
       return;
@@ -257,12 +274,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               child: Row(
                 children: [
                   _StepDot(active: true, label: context.tr('step_profile')),
-                  Expanded(
-                    child: Container(
-                      height: 2,
-                      color: _currentStep == 1 ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25),
-                    ),
-                  ),
+                  Expanded(child: Container(height: 2, color: _currentStep == 1 ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25))),
                   _StepDot(active: _currentStep == 1, label: context.tr('step_security')),
                 ],
               ),
@@ -303,17 +315,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           isDark: isDark,
           child: Column(
             children: [
-              Text(
-                context.tr('create_profile'),
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900),
-              ),
+              Text(context.tr('create_profile'), textAlign: TextAlign.center, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900)),
               const SizedBox(height: 8),
-              Text(
-                context.tr('profile_desc'),
-                textAlign: TextAlign.center,
-                style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary),
-              ),
+              Text(context.tr('profile_desc'), textAlign: TextAlign.center, style: TextStyle(color: isDark ? Colors.white70 : AppColors.textSecondary)),
             ],
           ),
         ),
@@ -340,11 +344,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         TextField(
           controller: _dateController,
           readOnly: true,
-          decoration: InputDecoration(
-            labelText: context.tr('birth_date'),
-            hintText: context.tr('date_format_hint'),
-            prefixIcon: const Icon(Icons.calendar_today_rounded),
-          ),
+          decoration: InputDecoration(labelText: context.tr('birth_date'), hintText: context.tr('date_format_hint'), prefixIcon: const Icon(Icons.calendar_today_rounded)),
           onTap: () async {
             final picked = await showDatePicker(
               context: context,
@@ -360,23 +360,15 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
           },
         ),
         const SizedBox(height: 14),
-        _LanguageCard(
-          isDark: isDark,
-          selectedLanguageCode: _selectedLanguageCode,
-          onChanged: (value) => setState(() => _selectedLanguageCode = value),
-        ),
+        _LanguageCard(isDark: isDark, selectedLanguageCode: _selectedLanguageCode, onChanged: (value) => setState(() => _selectedLanguageCode = value)),
         const SizedBox(height: 18),
-        _LegalAgreementCard(
-          value: _acceptedLegal,
-          onChanged: (value) => setState(() => _acceptedLegal = value ?? false),
-          isDark: isDark,
-        ),
+        _LegalAgreementCard(value: _acceptedLegal, onChanged: (value) => setState(() => _acceptedLegal = value ?? false), isDark: isDark),
       ],
     );
   }
 
   Widget _buildPhotoPicker(bool isDark) {
-    final hasSelectedPhoto = _selectedPhotoBytes != null || (_selectedPhotoPath?.trim().isNotEmpty ?? false);
+    final hasSelectedPhoto = _selectedPhotoBytes != null || (_selectedPhotoPath?.startsWith('data:image/') ?? false);
     return _Card(
       isDark: isDark,
       child: Row(
@@ -396,9 +388,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(23),
-                    child: _selectedPhotoBytes != null
-                        ? Image.memory(_selectedPhotoBytes!, fit: BoxFit.cover)
-                        : const Icon(Icons.person_rounded, color: AppColors.brandBlue, size: 34),
+                    child: _selectedPhotoBytes != null ? Image.memory(_selectedPhotoBytes!, fit: BoxFit.cover) : const Icon(Icons.person_rounded, color: AppColors.brandBlue, size: 34),
                   ),
                 ),
                 Positioned(
@@ -407,11 +397,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                   child: Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.brandBlue,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: isDark ? AppColors.surfaceDark : Colors.white, width: 2),
-                    ),
+                    decoration: BoxDecoration(color: AppColors.brandBlue, borderRadius: BorderRadius.circular(10), border: Border.all(color: isDark ? AppColors.surfaceDark : Colors.white, width: 2)),
                     child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 14),
                   ),
                 ),
@@ -465,11 +451,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         const SizedBox(height: 8),
         Text(context.tr('setup_app_lock_desc'), textAlign: TextAlign.center, style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary)),
         const SizedBox(height: 18),
-        Text(
-          _isConfirmingPin ? context.tr('lock_confirm_pin') : context.tr('lock_set_pin'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontWeight: FontWeight.w800),
-        ),
+        Text(_isConfirmingPin ? context.tr('lock_confirm_pin') : context.tr('lock_set_pin'), textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.w800)),
         const SizedBox(height: 22),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -480,10 +462,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 7),
               width: filled ? 16 : 12,
               height: filled ? 16 : 12,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _pinHasError ? AppColors.error : filled ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25),
-              ),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: _pinHasError ? AppColors.error : filled ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25)),
             );
           }),
         ),
@@ -491,11 +470,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
         _PinPad(onKey: _handlePinKey, onBackspace: _handlePinBackspace, isDark: isDark),
         const SizedBox(height: 20),
         TextButton.icon(onPressed: _saveAndFinish, icon: const Icon(Icons.skip_next_rounded), label: Text(context.tr('skip_pin_setup'))),
-        Text(
-          context.tr('lock_skip_desc'),
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12, color: isDark ? Colors.white38 : AppColors.textSecondary),
-        ),
+        Text(context.tr('lock_skip_desc'), textAlign: TextAlign.center, style: TextStyle(fontSize: 12, color: isDark ? Colors.white38 : AppColors.textSecondary)),
       ],
     );
   }
@@ -524,13 +499,7 @@ class _LanguageCard extends StatelessWidget {
           Expanded(
             child: DropdownButtonFormField<String>(
               initialValue: selectedLanguageCode,
-              decoration: InputDecoration(
-                labelText: context.tr('select_language'),
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-              ),
+              decoration: InputDecoration(labelText: context.tr('select_language'), border: InputBorder.none, enabledBorder: InputBorder.none, focusedBorder: InputBorder.none, contentPadding: EdgeInsets.zero),
               items: supportedLanguages.map((language) => DropdownMenuItem(value: language.code, child: Text(language.name))).toList(),
               onChanged: onChanged,
             ),
@@ -551,11 +520,7 @@ class _StepDot extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 16,
-          backgroundColor: active ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25),
-          child: active ? const Icon(Icons.check_rounded, color: Colors.white, size: 18) : null,
-        ),
+        CircleAvatar(radius: 16, backgroundColor: active ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25), child: active ? const Icon(Icons.check_rounded, color: Colors.white, size: 18) : null),
         const SizedBox(height: 4),
         Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700)),
       ],
@@ -573,11 +538,7 @@ class _Card extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
-      ),
+      decoration: BoxDecoration(color: isDark ? AppColors.surfaceDark : Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight)),
       child: child,
     );
   }
@@ -595,11 +556,7 @@ class _LegalAgreementCard extends StatelessWidget {
     final strings = VitaStrings.of(context);
     return Container(
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: value ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.2)),
-      ),
+      decoration: BoxDecoration(color: isDark ? AppColors.surfaceDark : Colors.white, borderRadius: BorderRadius.circular(18), border: Border.all(color: value ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.2))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -648,10 +605,7 @@ class _PinPad extends StatelessWidget {
         ])
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: row.map((key) => _KeyButton(label: key, onTap: () => onKey(key), isDark: isDark)).toList(),
-            ),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: row.map((key) => _KeyButton(label: key, onTap: () => onKey(key), isDark: isDark)).toList()),
           ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
