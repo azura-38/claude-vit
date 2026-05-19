@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../../../shared/providers/app_info_provider.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
@@ -9,21 +12,42 @@ import '../widgets/settings/app_logic_section.dart';
 import '../widgets/settings/security_section.dart';
 import '../widgets/settings/legal_section.dart';
 
-class AppSettingsScreen extends ConsumerWidget {
+class AppSettingsScreen extends ConsumerStatefulWidget {
   const AppSettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AppSettingsScreen> createState() => _AppSettingsScreenState();
+}
+
+class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
+  int _versionTapCount = 0;
+
+  void _handleVersionTap(BuildContext context) {
+    setState(() => _versionTapCount++);
+    final remaining = 10 - _versionTapCount;
+    if (_versionTapCount >= 10) {
+      _versionTapCount = 0;
+      context.push(AppRoutes.diagnosticsPanel);
+      return;
+    }
+
+    if (remaining <= 3) {
+      final isTr = Localizations.localeOf(context).languageCode == 'tr';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(isTr ? 'Debug panel için $remaining dokunuş kaldı.' : '$remaining taps left for debug panel.')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          context.l10n.appSettings,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: Text(context.l10n.appSettings, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -83,18 +107,22 @@ class AppSettingsScreen extends ConsumerWidget {
   Widget _buildVersionFooter(BuildContext context, WidgetRef ref, bool isDark) {
     final appInfo = ref.watch(packageInfoProvider).asData?.value;
     return Center(
-      child: Column(
-        children: [
-          Text(
-            'VitaCase ${appInfo?.version ?? '1.0.0'} (${appInfo?.buildNumber ?? '1'})',
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textTertiary),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => _handleVersionTap(context),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              Text(
+                'VitaCase ${appInfo?.version ?? '1.0.0'} (${appInfo?.buildNumber ?? '1'})',
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textTertiary),
+              ),
+              const SizedBox(height: 4),
+              const Text('© 2026 Limanex Software', style: TextStyle(fontSize: 10, color: AppColors.textTertiary)),
+            ],
           ),
-          const SizedBox(height: 4),
-          const Text(
-            '© 2026 Limanex Software',
-            style: TextStyle(fontSize: 10, color: AppColors.textTertiary),
-          ),
-        ],
+        ),
       ),
     );
   }
