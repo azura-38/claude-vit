@@ -47,7 +47,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
   Future<void> forceRescheduleNotifications() async {
     if (kIsWeb) return;
-    await _rescheduleNotifications(ref.container, force: true);
+    await _rescheduleNotificationsFromRef(force: true);
   }
 
   Future<void> _executeAllPhases(ProviderContainer container) async {
@@ -203,6 +203,28 @@ class AppBootstrapController extends AsyncNotifier<void> {
         }
       }
     });
+  }
+
+  Future<void> _rescheduleNotificationsFromRef({bool force = false}) async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    final lastTs = prefs.getInt(_kLastRescheduleKey) ?? 0;
+    final lastReschedule = DateTime.fromMillisecondsSinceEpoch(lastTs);
+    final gapMinutes = DateTime.now().difference(lastReschedule).inMinutes;
+
+    if (!force && gapMinutes < _kRescheduleGapMinutes) {
+      _log('Skipping reschedule — last ran ${gapMinutes}m ago (gate: ${_kRescheduleGapMinutes}m)');
+      return;
+    }
+
+    _log('Running notification reschedule from ref (force: $force, gap: ${gapMinutes}m)...');
+    final meds = await ref.read(medicineListProvider.future);
+    final appts = await ref.read(appointmentListProvider.future);
+
+    await ref.read(medicineListProvider.notifier).rescheduleAllNotifications(meds);
+    await ref.read(appointmentListProvider.notifier).rescheduleAllNotifications(appts);
+
+    await prefs.setInt(_kLastRescheduleKey, DateTime.now().millisecondsSinceEpoch);
+    _log('Reschedule from ref complete ✅');
   }
 
   Future<void> _rescheduleNotifications(ProviderContainer container, {bool force = false}) async {
