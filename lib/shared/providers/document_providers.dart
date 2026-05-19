@@ -80,9 +80,9 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     try {
       await repo.save(document);
       ref.read(adControllerProvider).onActionTriggered();
-      ref.read(achievementProvider.notifier).track('doc_added', value: 1);
-      ref.read(dailyMissionProvider.notifier).track('doc_daily');
-      ref.read(seasonProvider.notifier).addXP(10);
+      await ref.read(dailyMissionProvider.notifier).track('doc_daily');
+      await _trackDocumentAchievements();
+      await ref.read(seasonProvider.notifier).addXP(10);
       AnalyticsService.log(AnalyticsService.documentAdded);
     } catch (e) {
       await refresh();
@@ -90,6 +90,15 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     }
 
     return document;
+  }
+
+  Future<void> _trackDocumentAchievements() async {
+    final count = state.valueOrNull?.length ?? (await ref.read(documentRepositoryProvider).getAll()).length;
+    final achievement = ref.read(achievementProvider.notifier);
+    for (final id in const ['doc_1', 'doc_5', 'doc_10', 'doc_25', 'doc_50', 'doc_100', 'doc_250', 'doc_500']) {
+      await achievement.track(id, setAbsolute: count);
+    }
+    await achievement.track('first_upload', setAbsolute: count > 0 ? 1 : 0);
   }
 
   Future<void> updateDocument(Document document) async {
