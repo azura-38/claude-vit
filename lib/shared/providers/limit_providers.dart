@@ -7,23 +7,16 @@ import '../../features/gamification/presentation/providers/achievement_providers
 import 'daily_mission_providers.dart';
 import 'season_providers.dart';
 import '../data/services/analytics_service.dart';
+import 'shared_prefs_provider.dart';
 
 class LimitData {
   final int extraDocs;
   final int extraMedicine;
   final int extraAppointment;
 
-  LimitData({
-    this.extraDocs = 0,
-    this.extraMedicine = 0,
-    this.extraAppointment = 0,
-  });
+  LimitData({this.extraDocs = 0, this.extraMedicine = 0, this.extraAppointment = 0});
 
-  LimitData copyWith({
-    int? extraDocs,
-    int? extraMedicine,
-    int? extraAppointment,
-  }) {
+  LimitData copyWith({int? extraDocs, int? extraMedicine, int? extraAppointment}) {
     return LimitData(
       extraDocs: extraDocs ?? this.extraDocs,
       extraMedicine: extraMedicine ?? this.extraMedicine,
@@ -32,10 +25,10 @@ class LimitData {
   }
 
   Map<String, dynamic> toJson() => {
-    'extraDocs': extraDocs,
-    'extraMedicine': extraMedicine,
-    'extraAppointment': extraAppointment,
-  };
+        'extraDocs': extraDocs,
+        'extraMedicine': extraMedicine,
+        'extraAppointment': extraAppointment,
+      };
 
   factory LimitData.fromJson(Map<String, dynamic> json) {
     return LimitData(
@@ -46,50 +39,62 @@ class LimitData {
   }
 }
 
-final limitProvider = NotifierProvider<LimitNotifier, LimitData>(
-  LimitNotifier.new,
-);
+final limitProvider = NotifierProvider<LimitNotifier, LimitData>(LimitNotifier.new);
 
 class LimitNotifier extends Notifier<LimitData> {
+  final _store = StoreRef<String, dynamic>.main();
+  static const String _limitKey = 'app_limits_data';
+  static const String _rewardCollectorKey = 'achievement_reward_collector_count';
+
   @override
   LimitData build() {
     _load();
     return LimitData();
   }
 
-  final _store = StoreRef<String, dynamic>.main();
-  static const String _limitKey = 'app_limits_data';
-
   Future<Database> get _db async => ref.read(sembastDatabaseProvider).db;
 
   Future<void> _load() async {
     final db = await _db;
-    final json =
-        await _store.record(_limitKey).get(db) as Map<String, dynamic>?;
-    if (json != null) {
-      state = LimitData.fromJson(json);
-    }
+    final json = await _store.record(_limitKey).get(db) as Map<String, dynamic>?;
+    if (json != null) state = LimitData.fromJson(json);
   }
 
   Future<void> increaseExtraDocs(int amount) async {
     state = state.copyWith(extraDocs: state.extraDocs + amount);
     await _save();
+    await _trackRewardCollected();
   }
 
   Future<void> increaseExtraMedicine(int amount) async {
     state = state.copyWith(extraMedicine: state.extraMedicine + amount);
     await _save();
+    await _trackRewardCollected();
   }
 
   Future<void> increaseExtraAppointment(int amount) async {
     state = state.copyWith(extraAppointment: state.extraAppointment + amount);
     await _save();
+    await _trackRewardCollected();
   }
 
   Future<void> onRewardedAdCompleted() async {
-    ref.read(achievementProvider.notifier).track("ads_5", value: 1);
-    ref.read(dailyMissionProvider.notifier).track("ad_daily");
-    ref.read(seasonProvider.notifier).addXP(5);
+    await ref.read(achievementProvider.notifier).track('ads_1', value: 1);
+    await ref.read(dailyMissionProvider.notifier).track('ad_daily');
+    await ref.read(seasonProvider.notifier).addXP(5);
+    await _trackRewardCollected();
+  }
+
+  Future<void> _trackRewardCollected() async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    final nextCount = (prefs.getInt(_rewardCollectorKey) ?? 0) + 1;
+    await prefs.setInt(_rewardCollectorKey, nextCount);
+    await ref.read(achievementProvider.notifier).track('reward_collector', setAbsolute: nextCount);
+  }
+
+  Future<void> _trackLimitBreaker(String type) async {
+    AnalyticsService.log(AnalyticsService.limitReached, {'type': type});
+    await ref.read(achievementProvider.notifier).track('limit_breaker', setAbsolute: 1);
   }
 
   Future<void> _save() async {
@@ -97,7 +102,6 @@ class LimitNotifier extends Notifier<LimitData> {
     await _store.record(_limitKey).put(db, state.toJson());
   }
 
-  // Logic Helpers
   bool canAddDocument(int currentCount) {
     final can = LimitService.canAdd(
       current: currentCount,
@@ -105,9 +109,7 @@ class LimitNotifier extends Notifier<LimitData> {
       extra: state.extraDocs,
       isPremium: ref.read(premiumProvider),
     );
-    if (!can) {
-      AnalyticsService.log(AnalyticsService.limitReached, {'type': 'document'});
-    }
+    if (!can) _trackLimitBreaker('document');
     return can;
   }
 
@@ -118,9 +120,7 @@ class LimitNotifier extends Notifier<LimitData> {
       extra: state.extraMedicine,
       isPremium: ref.read(premiumProvider),
     );
-    if (!can) {
-      AnalyticsService.log(AnalyticsService.limitReached, {'type': 'medicine'});
-    }
+    if (!can) _trackLimitBreaker('medicine');
     return can;
   }
 
@@ -131,11 +131,7 @@ class LimitNotifier extends Notifier<LimitData> {
       extra: state.extraAppointment,
       isPremium: ref.read(premiumProvider),
     );
-    if (!can) {
-      AnalyticsService.log(AnalyticsService.limitReached, {
-        'type': 'appointment',
-      });
-    }
+    if (!can) _trackLimitBreaker('appointment');
     return can;
   }
 }
