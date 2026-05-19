@@ -8,6 +8,7 @@ import 'route_guards.dart';
 import '../../features/appointments/presentation/screens/create_appointment_screen.dart';
 import '../../features/appointments/presentation/screens/appointments_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../features/debug/presentation/screens/debug_panel_screen.dart';
 import '../../features/doctors/presentation/screens/doctor_add_screen.dart';
 import '../../features/doctors/presentation/screens/doctors_screen.dart';
 import '../../features/vault/presentation/screens/document_add_screen.dart';
@@ -264,6 +265,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 builder: (context, state) => const ThemeSelectionScreen(),
               ),
             ],
+          ),
+          GoRoute(
+            path: AppRoutes.diagnosticsPanel,
+            name: 'diagnosticsPanel',
+            builder: (context, state) => const DebugPanelScreen(),
           ),
         ],
       ),
