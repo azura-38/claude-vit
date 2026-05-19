@@ -102,6 +102,9 @@ class AppLifecycleController extends Notifier<bool> {
     for (final id in const ['login_1', 'login_3', 'login_7', 'login_14', 'login_30', 'login_60', 'login_100', 'login_200', 'login_365']) {
       await achievement.track(id, setAbsolute: newStreak);
     }
+    if (newStreak >= 30) {
+      await achievement.track('streak_perfect_30', setAbsolute: newStreak);
+    }
     for (final id in const ['active_3_days', 'active_7_days', 'active_30_days']) {
       await achievement.track(id, setAbsolute: activeDays);
     }
