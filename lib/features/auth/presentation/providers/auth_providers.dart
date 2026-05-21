@@ -84,18 +84,10 @@ final biometricEnabledProvider =
 class BiometricEnabledNotifier extends Notifier<bool> {
   @override
   bool build() {
-    final prefs = ref.watch(userPreferencesControllerProvider);
-    return prefs.maybeWhen(
-      data: (p) => p.biometricEnabled,
-      orElse: () => false,
-    );
+    return false;
   }
 
-  Future<void> setEnabled(bool enabled) async {
-    await ref
-        .read(userPreferencesControllerProvider.notifier)
-        .updateSecurity(biometricEnabled: enabled);
-  }
+  Future<void> setEnabled(bool enabled) async {}
 }
 
 final lockTimeoutProvider = NotifierProvider<LockTimeoutNotifier, LockTimeout>(

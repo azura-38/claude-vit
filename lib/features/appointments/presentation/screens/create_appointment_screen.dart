@@ -30,12 +30,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
     if (picked != null) notifier.updateTime(picked);
   }
 
-  String _limitMessage(BuildContext context, int limit) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
-    return isTr
-        ? 'Günlük ekleme limitine ulaştın ($limit). Yarın tekrar ekleyebilirsin.'
-        : 'You reached today\'s create limit ($limit). You can add more tomorrow.';
-  }
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -227,7 +222,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                             }
                           } catch (e) {
                             if (!context.mounted) return;
-                            final message = e is UsageLimitExceededException ? _limitMessage(context, e.limit) : context.tr('failed_create_appointment');
+                            final message = e is UsageLimitExceededException ? context.l10n.dailyLimitReachedMessage(e.limit) : context.tr('failed_create_appointment');
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
                           }
                         }
@@ -355,10 +350,7 @@ class _ReminderHelperNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
-    final text = isTr
-        ? 'Seçilen hatırlatma zamanı geçmişte kalırsa VitaCase en yakın uygun zamanı seçer.'
-        : 'If the selected reminder time is already in the past, VitaCase chooses the nearest suitable time.';
+    final text = context.l10n.appointmentReminderPastNote;
 
     return Container(
       padding: const EdgeInsets.all(12),

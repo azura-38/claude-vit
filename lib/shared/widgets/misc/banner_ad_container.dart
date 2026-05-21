@@ -105,14 +105,41 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
   @override
   Widget build(BuildContext context) {
     final policy = ref.watch(adVisibilityPolicyProvider);
-    if (!policy.canShowBanner || kIsWeb || _hasFailed) {
+    if (!policy.canShowBanner || kIsWeb) {
       return const SizedBox.shrink();
     }
 
-    if (_bannerAd == null || !_isLoaded) {
-      // Reserve no space until loaded; prevents layout flashes and avoids
-      // blocking the app if AdMob does not return a banner.
-      return const SizedBox.shrink();
+    final adHeight = _bannerAd?.size.height.toDouble() ?? 60.0;
+
+    if (_bannerAd == null || !_isLoaded || _hasFailed) {
+      // Yeşil alan (Green placeholder area) to show that a banner ad is located here
+      // fixed height prevents layout shifts, visible on every page.
+      return Material(
+        color: const Color(0xFF22C55E), // Slate-green / Tailwind Green 500
+        child: SafeArea(
+          bottom: false,
+          child: Container(
+            width: double.infinity,
+            height: adHeight,
+            alignment: Alignment.center,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.ads_click, color: Colors.white, size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'Advertisement Space',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
     }
 
     return Material(
@@ -123,7 +150,7 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
         bottom: false,
         child: SizedBox(
           width: double.infinity,
-          height: _bannerAd!.size.height.toDouble(),
+          height: adHeight,
           child: Center(child: AdWidget(ad: _bannerAd!)),
         ),
       ),

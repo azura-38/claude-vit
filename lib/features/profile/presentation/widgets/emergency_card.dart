@@ -6,7 +6,6 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/utils/external_launcher.dart';
 import '../providers/profile_controller.dart';
-import '../../../../shared/providers/medical_info_providers.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class EmergencyCard extends ConsumerWidget {
@@ -16,20 +15,19 @@ class EmergencyCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final medicalRecords = ref.watch(medicalRecordListProvider).asData?.value ?? [];
-    final profileController = ref.watch(profileControllerProvider.notifier);
+    final profile = ref.watch(profileControllerProvider);
 
-    final rawBloodType = profileController.bloodType;
-    final bloodType = rawBloodType == 'not_added' ? context.l10n.notAdded : rawBloodType;
-    final emergencyContact = profileController.emergencyName;
-    final emergencyPhone = profileController.emergencyPhone;
+    final rawBloodType = profile.bloodType.trim();
+    final bloodType = (rawBloodType.isEmpty || rawBloodType.toLowerCase() == 'not_added')
+        ? context.l10n.notAdded
+        : rawBloodType;
+    final emergencyContact = profile.emergencyName.trim().isEmpty 
+        ? context.l10n.notAdded 
+        : profile.emergencyName.trim();
+    final emergencyPhone = profile.emergencyPhone.trim();
 
-    final allergyRecords = medicalRecords.where((r) =>
-        r.title.toLowerCase().contains('alerji') ||
-        r.title.toLowerCase().contains('allergy')).toList();
-    
-    final allergies = allergyRecords.isNotEmpty
-        ? allergyRecords.map((e) => e.title.split(' ').first).join(', ')
+    final allergies = profile.allergies.isNotEmpty
+        ? profile.allergies.join(', ')
         : context.l10n.none;
 
     return Column(

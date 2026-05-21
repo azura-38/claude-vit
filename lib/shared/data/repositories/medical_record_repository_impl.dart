@@ -7,7 +7,7 @@ import '../models/medical_record_model.dart';
 class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
   final _store = stringMapStoreFactory.store('medical_records');
 
-  Future<Database> get _db async => SembastDatabase().db;
+  Future<Database> get _db async => SembastDatabase().ready;
 
   @override
   Future<void> save(MedicalRecord record) async {

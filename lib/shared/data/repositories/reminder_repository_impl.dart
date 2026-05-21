@@ -7,7 +7,7 @@ import '../models/reminder_model.dart';
 class ReminderRepositoryImpl implements ReminderRepository {
   final _store = stringMapStoreFactory.store('reminders');
 
-  Future<Database> get _db async => SembastDatabase().db;
+  Future<Database> get _db async => SembastDatabase().ready;
 
   @override
   Future<void> add(Reminder reminder) async {

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../shared/domain/entities/document.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'vault_tag_chip.dart';
 
 class VaultSwipeCard extends StatelessWidget {
@@ -20,16 +21,13 @@ class VaultSwipeCard extends StatelessWidget {
     this.onEdit,
   });
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final isTr = _isTr(context);
     final date = document.createdAt;
     final month = DateFormat('MMM', Localizations.localeOf(context).languageCode).format(date).toUpperCase();
-    final doctorLabel = document.doctorName?.trim().isNotEmpty == true ? document.doctorName! : (isTr ? 'Doktor yok' : 'No doctor');
-    final hospitalLabel = document.hospitalName?.trim().isNotEmpty == true ? document.hospitalName! : (isTr ? 'Kurum yok' : 'No institution');
+    final doctorLabel = document.doctorName?.trim().isNotEmpty == true ? document.doctorName! : context.tr('no_doctor');
+    final hospitalLabel = document.hospitalName?.trim().isNotEmpty == true ? document.hospitalName! : context.tr('no_institution');
 
     return Slidable(
       endActionPane: ActionPane(
@@ -41,14 +39,14 @@ class VaultSwipeCard extends StatelessWidget {
             backgroundColor: isDark ? Colors.white10 : const Color(0xFFE9EDF5),
             foregroundColor: isDark ? Colors.white70 : AppColors.secondary,
             icon: Icons.edit_outlined,
-            label: isTr ? 'Düzenle' : 'Edit',
+            label: context.tr('edit'),
           ),
           SlidableAction(
             onPressed: (_) => onDelete?.call(),
             backgroundColor: AppColors.danger,
             foregroundColor: Colors.white,
             icon: Icons.delete_outline,
-            label: isTr ? 'Sil' : 'Delete',
+            label: context.tr('delete'),
           ),
         ],
       ),
@@ -111,7 +109,7 @@ class VaultSwipeCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 8),
                             child: VaultTagChip(
-                              label: isTr ? 'Beklemede' : 'Pending',
+                              label: context.tr('pending'),
                               bg: const Color(0xFFFFF2D8),
                               text: const Color(0xFFA06900),
                             ),

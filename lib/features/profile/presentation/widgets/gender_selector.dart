@@ -14,10 +14,16 @@ class GenderSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final cardBgColor = Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface;
+    final containerBgColor = isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF2F3FB);
+    final unselectedColor = isDark ? Colors.white38 : const Color(0xFF6B7280);
+
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFFF2F3FB),
+        color: containerBgColor,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
@@ -32,17 +38,14 @@ class GenderSelector extends StatelessWidget {
                     duration: const Duration(milliseconds: 220),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     decoration: BoxDecoration(
-                      color: isSelected ? Colors.white : Colors.transparent,
+                      color: isSelected ? cardBgColor : Colors.transparent,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Center(
                       child: Text(
                         gender.name.toUpperCase(),
                         style: TextStyle(
-                          color:
-                              isSelected
-                                  ? const Color(0xFF005DA7)
-                                  : const Color(0xFF6B7280),
+                          color: isSelected ? primaryColor : unselectedColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

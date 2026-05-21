@@ -2164,7 +2164,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get ad_reward_not_earned => 'Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.';
 
   @override
-  String get ad_unavailable => 'Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.';
+  String get ad_unavailable => 'Reklam kullanılamıyor.';
 
   @override
   String get ad_failed => 'Ödüllü reklam gösterilemedi. Lütfen tekrar deneyin.';
@@ -2382,4 +2382,378 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get ach_login_1_title => 'Başlangıç';
+
+  @override
+  String get people_contacts => 'Kişiler / İletişim';
+
+  @override
+  String get contacts_subtitle => 'Kişi, kurum ve iletişim kayıtları';
+
+  @override
+  String get add_contact_subtitle => 'Yeni kişi veya kurum bilgisi ekle';
+
+  @override
+  String get add_contact => 'Kişi / İletişim Ekle';
+
+  @override
+  String get no_doctor => 'Doktor yok';
+
+  @override
+  String get no_institution => 'Kurum yok';
+
+  @override
+  String get edit_personal_info => 'Kişisel bilgileri düzenle';
+
+  @override
+  String get personal_info_updated => 'Kişisel bilgiler güncellendi.';
+
+  @override
+  String get edit_important_info => 'Önemli bilgileri düzenle';
+
+  @override
+  String get hint_allergies => 'Virgülle ayır: Polen, Penisilin';
+
+  @override
+  String get hint_medications => 'Virgülle ayır: Aspirin, Vitamin D';
+
+  @override
+  String get relationship => 'Yakınlık derecesi';
+
+  @override
+  String get hint_relationship => 'Eş, anne, baba, kardeş...';
+
+  @override
+  String get important_info_updated => 'Önemli bilgiler güncellendi.';
+
+  @override
+  String get reminder_troubleshooting => 'Hatırlatma Sorun Giderme';
+
+  @override
+  String get reminder_troubleshooting_desc => 'Bildirim, exact alarm ve pil ayarlarını kontrol et';
+
+  @override
+  String get status_checking => 'Kontrol ediliyor...';
+
+  @override
+  String get status_enabled => 'Bildirim izni açık';
+
+  @override
+  String get status_disabled => 'Bildirim izni kapalı';
+
+  @override
+  String get why_no_reminders => 'Hatırlatmalar neden gelmeyebilir?';
+
+  @override
+  String get why_no_reminders_desc => 'Bildirim izni, kesin alarm izni veya cihazın pil yönetimi randevu ve ilaç hatırlatmalarını engelleyebilir. Önce izinleri kontrol et, pil optimizasyonunu sadece testler başarısızsa son seçenek olarak değerlendir.';
+
+  @override
+  String get status_card_title => 'Bildirim Durumu';
+
+  @override
+  String get check_notif_permission => '1. Bildirim iznini kontrol et';
+
+  @override
+  String get check_notif_permission_desc => 'Anlık bildirimler kapalıysa hiçbir hatırlatma görünmez.';
+
+  @override
+  String get req_notif_permission => 'Bildirim İznini İste';
+
+  @override
+  String get check_exact_alarm => '2. Kesin alarm iznini kontrol et';
+
+  @override
+  String get check_exact_alarm_desc => 'Randevu ve ilaç saatlerinin tam zamanında çalışması için gereklidir.';
+
+  @override
+  String get req_exact_alarm => 'Exact Alarm İznini İste';
+
+  @override
+  String get resched_saved => '3. Mevcut hatırlatmaları yeniden kur';
+
+  @override
+  String get resched_saved_desc => 'İzin verdikten sonra kayıtlı ilaç ve randevu hatırlatmalarını tekrar kurar.';
+
+  @override
+  String get resched_btn => 'Hatırlatmaları Yeniden Kur';
+
+  @override
+  String get sched_test => '4. 1 dakika test hatırlatması kur';
+
+  @override
+  String get sched_test_desc => 'Bu gelirse alarm sistemi çalışıyor demektir.';
+
+  @override
+  String get sched_test_btn => '1 Dakika Testi Kur';
+
+  @override
+  String get last_step_battery => '5. Son seçenek: pil ayarlarını kontrol et';
+
+  @override
+  String get last_step_battery_desc => 'Sadece yukarıdaki testler başarısızsa cihazın VitaCase için pil kısıtlamasını kontrol et.';
+
+  @override
+  String get open_app_settings => 'Uygulama Ayarlarını Aç';
+
+  @override
+  String get snack_notif_checked => 'Bildirim izni kontrol edildi.';
+
+  @override
+  String get snack_exact_alarm_requested => 'Kesin alarm izni istendi. Cihaz ayarında izin vermen gerekebilir.';
+
+  @override
+  String get test_notif_title => '⏰ VitaCase Hatırlatma Testi';
+
+  @override
+  String get test_notif_body => 'Bu test hatırlatması 1 dakika sonrası için kuruldu.';
+
+  @override
+  String get snack_test_sched => 'Test hatırlatması 1 dakika sonrasına kuruldu.';
+
+  @override
+  String get snack_resched_completed => 'Mevcut ilaç ve randevu hatırlatmaları yeniden kuruldu.';
+
+  @override
+  String get choose_pdf_or_image => 'PDF veya Görsel Seç';
+
+  @override
+  String get encrypted_local_file_info => 'Dosyanız şifrelenir ve bu cihazda yerel olarak saklanır.';
+
+  @override
+  String get web_upload_info => 'Dosya kasasına yükleme Android/iOS sürümlerinde kullanılabilir.';
+
+  @override
+  String get web_preview_no_upload => 'Web önizleme şifreli dosya saklamaz. Kasa yüklemesi için Android/iOS kullanın.';
+
+  @override
+  String get choose_file_first => 'Lütfen önce PDF veya görsel seçin.';
+
+  @override
+  String get document_saved => 'Belge güvenli şekilde kaydedildi.';
+
+  @override
+  String save_document_failed(String error) {
+    return 'Belge kaydedilemedi: $error';
+  }
+
+  @override
+  String get save_securely => 'Güvenli Kaydet';
+
+  @override
+  String get saving => 'Kaydediliyor...';
+
+  @override
+  String get local_organizer_disclaimer => 'VitaCase yerel bir belge düzenleyicidir. Tanı koymaz, analiz yapmaz veya tıbbi tavsiye vermez.';
+
+  @override
+  String get terms_and_legal_agreement => 'Gizlilik Politikası, Kullanım Koşulları ve Yasal Uyarı metinlerini kabul ediyorum.';
+
+  @override
+  String get free_themes => 'Ücretsiz temalar';
+
+  @override
+  String get reward_themes => 'Reklamla Açılan Temalar';
+
+  @override
+  String get reward_themes_info => 'Bu temaları 3 gün açmak için bir ödüllü reklam izleyin. Her ek reklam +1 gün kazandırır.';
+
+  @override
+  String get watch_ad_to_unlock => 'Açmak için reklam izle';
+
+  @override
+  String get tap_to_preview => 'Önizlemek için dokun';
+
+  @override
+  String get add_one_day => '+1 gün ekle';
+
+  @override
+  String get one_day_added => '+1 gün eklendi.';
+
+  @override
+  String get ad_unavailable_try_later => 'Reklam kullanılamıyor. Lütfen daha sonra tekrar deneyin.';
+
+  @override
+  String get theme_unlocked => 'Tema açıldı. Her ek reklam +1 gün kazandırır.';
+
+  @override
+  String reward_themes_active(String days) {
+    return 'Reklamla açılan temalar $days gün aktif.';
+  }
+
+  @override
+  String get lock_use_pin => 'PIN ile Aç';
+
+  @override
+  String get pending => 'Beklemede';
+
+  @override
+  String get document_details_subtitle => 'Belge detaylarını güvenli şekilde görüntülüyorsun.';
+
+  @override
+  String get document_name => 'Belge adı';
+
+  @override
+  String get document_name_hint => 'Örn. Kan tahlili sonucu';
+
+  @override
+  String daily_limit_reached_message(int limit) {
+    return 'Günlük ekleme limitine ulaştın ($limit). Yarın tekrar ekleyebilirsin.';
+  }
+
+  @override
+  String get document_updated => 'Belge güncellendi.';
+
+  @override
+  String get document_update_failed => 'Belge güncellenemedi.';
+
+  @override
+  String get document_open_failed => 'Belge açılamadı.';
+
+  @override
+  String get no_additional_notes => 'Ek not yok.';
+
+  @override
+  String get created_at_label => 'OLUŞTURULDU';
+
+  @override
+  String get physician_label => 'İLGİLİ KİŞİ';
+
+  @override
+  String get open => 'Aç';
+
+  @override
+  String get document_vault => 'Belge Kasası';
+
+  @override
+  String get document_vault_view_subtitle => 'Belge detaylarını güvenli şekilde görüntülüyorsun.';
+
+  @override
+  String get institution_hospital => 'Kurum / Hastane';
+
+  @override
+  String get doctor_related_person => 'Doktor / İlgili kişi';
+
+  @override
+  String get add_contact_title => 'Kişi / İletişim Ekle';
+
+  @override
+  String get contact_info_title => 'Kişi / İletişim Bilgisi';
+
+  @override
+  String get contact_info_desc => 'Önemli kişi, kurum ve iletişim bilgilerini hızlı erişim için saklayın.';
+
+  @override
+  String get person_contact_label => 'Kişi / İletişim';
+
+  @override
+  String get category_area_label => 'Kategori / Alan';
+
+  @override
+  String get institution_source_label => 'Kurum / Kaynak';
+
+  @override
+  String get person_hint => 'Örn. Dr. Ayşe, Danışman, Klinik görevlisi';
+
+  @override
+  String get category_hint => 'Örn. Kontrol, diş, terapi, danışma';
+
+  @override
+  String get institution_hint => 'Örn. Klinik, laboratuvar, ofis, online kaynak';
+
+  @override
+  String get required_contact_error => 'Lütfen kişi/iletişim ve kategori/alan bilgisini girin.';
+
+  @override
+  String get contacts_title => 'Kişiler / İletişim';
+
+  @override
+  String get contacts_search_hint => 'Kişi, kurum veya kategori ara';
+
+  @override
+  String get no_contacts_found => 'Eşleşen kişi/iletişim bulunamadı';
+
+  @override
+  String get contact_detail_title => 'Kişi / İletişim Detayı';
+
+  @override
+  String get institution_source => 'Kurum / Kaynak';
+
+  @override
+  String get category_area => 'Kategori / Alan';
+
+  @override
+  String get sub_area => 'Alt alan';
+
+  @override
+  String get privacy_policy_short => 'Gizlilik Politikası';
+
+  @override
+  String get terms_short => 'Koşullar';
+
+  @override
+  String get disclaimer_short => 'Yasal Uyarı';
+
+  @override
+  String debug_panel_taps_left(String remaining) {
+    return 'Debug panel için $remaining dokunuş kaldı.';
+  }
+
+  @override
+  String get delete_confirm_dialog_title => 'Belge silinsin mi?';
+
+  @override
+  String get delete_confirm_dialog_desc => 'Bu belge kasadan kaldırılacak. Bu işlem geri alınamaz.';
+
+  @override
+  String get document_deleted_msg => 'Belge silindi.';
+
+  @override
+  String get sort_newest_first => 'Yeni → Eski';
+
+  @override
+  String get sort_oldest_first => 'Eski → Yeni';
+
+  @override
+  String get sort_a_z => 'A-Z';
+
+  @override
+  String get sort_label => 'Sırala';
+
+  @override
+  String get medication_reminder_past_note => 'Bugün seçilen saat geçtiyse ilk hatırlatma bir sonraki uygun zamana kurulur.';
+
+  @override
+  String get appointment_reminder_past_note => 'Seçilen hatırlatma zamanı geçmişte kalırsa VitaCase en yakın uygun zamanı seçer.';
+
+  @override
+  String get limit_unlock_token_title => 'Limit Açma Hakkı';
+
+  @override
+  String get limit_unlock_status_active => 'Aktif';
+
+  @override
+  String limit_unlock_status_coming_soon(String version) {
+    return 'Yakında $version';
+  }
+
+  @override
+  String limit_unlock_desc_active(String xp) {
+    return 'Her $xp XP, 1 Limit Açma Hakkı kazandırır. Günlük limit dolarsa otomatik kullanılır.';
+  }
+
+  @override
+  String limit_unlock_desc_inactive(String version, String xp) {
+    return 'V1’de kapalı. $version sürümünde her $xp XP ile 1 Limit Açma Hakkı kazanılacak.';
+  }
+
+  @override
+  String get limit_unlock_stat_total_xp => 'Toplam XP';
+
+  @override
+  String get limit_unlock_stat_xp_left => 'Kalan XP';
+
+  @override
+  String get limit_unlock_stat_tokens => 'Hak';
+
+  @override
+  String get notes => 'Notlar';
 }

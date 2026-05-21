@@ -1,3 +1,6 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
+
 class AppConfig {
   /// Sentry DSN is safe to ship in a client app. Do not ship Sentry auth tokens.
   static const sentryDsn = String.fromEnvironment(
@@ -6,35 +9,71 @@ class AppConfig {
   );
 
   /// AdMob App ID. AndroidManifest receives the same default through Gradle manifestPlaceholders.
-  static const admobAppId = String.fromEnvironment(
-    'ADMOB_APP_ID',
-    defaultValue: 'ca-app-pub-5877011177866406~6901208048',
-  );
+  static String get admobAppId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544~3347511713';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544~1458002511';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_APP_ID',
+      defaultValue: 'ca-app-pub-5877011177866406~6901208048',
+    );
+  }
 
-  static const bannerAdId = String.fromEnvironment(
-    'ADMOB_BANNER_ID',
-    defaultValue: 'ca-app-pub-5877011177866406/1864503785',
-  );
+  static String get bannerAdId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/6300978111';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544/2934735716';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_BANNER_ID',
+      defaultValue: 'ca-app-pub-5877011177866406/4230356792',
+    );
+  }
 
-  static const interstitialAdId = String.fromEnvironment(
-    'ADMOB_INTERSTITIAL_ID',
-    defaultValue: 'ca-app-pub-5877011177866406/9551422118',
-  );
+  static String get interstitialAdId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/1033173712';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544/4411468910';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_INTERSTITIAL_ID',
+      defaultValue: 'ca-app-pub-5877011177866406/4940803235',
+    );
+  }
 
-  static const rewardedAdId = String.fromEnvironment(
-    'ADMOB_REWARDED_ID',
-    defaultValue: 'ca-app-pub-5877011177866406/2961963039',
-  );
+  static String get rewardedAdId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/5224354917';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544/1712485313';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_REWARDED_ID',
+      defaultValue: 'ca-app-pub-5877011177866406/8638855182',
+    );
+  }
 
-  static const appOpenAdId = String.fromEnvironment(
-    'ADMOB_APP_OPEN_ID',
-    defaultValue: 'ca-app-pub-5877011177866406/1720690677',
-  );
+  static String get appOpenAdId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/9257395921';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544/5575463023';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_APP_OPEN_ID',
+      defaultValue: 'ca-app-pub-5877011177866406/323028539',
+    );
+  }
 
-  static const nativeAdId = String.fromEnvironment(
-    'ADMOB_NATIVE_ID',
-    defaultValue: 'ca-app-pub-5877011177866406/8238340441',
-  );
+  static String get nativeAdId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/2247696110';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544/3986624511';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_NATIVE_ID',
+      defaultValue: 'ca-app-pub-5877011177866406/4587929537',
+    );
+  }
 
   // Premium is disabled for V1.
   static const premiumEnabled = bool.fromEnvironment(
@@ -63,11 +102,7 @@ class AppConfig {
 
   static const isLeaderboardEnabled = false;
 
-  static bool get hasAdConfig =>
-      admobAppId.isNotEmpty &&
-      bannerAdId.isNotEmpty &&
-      rewardedAdId.isNotEmpty &&
-      appOpenAdId.isNotEmpty;
+  static bool get hasAdConfig => admobAppId.isNotEmpty;
 
   static bool get isConfigured => hasAdConfig;
 

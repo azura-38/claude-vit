@@ -1,93 +1,453 @@
 {
   "@@locale": "ja",
   "app_name": "VitaCase",
+  "@app_name": {
+    "placeholders": {},
+    "description": "Translation for app_name"
+  },
   "skip": "スキップ",
+  "@skip": {
+    "placeholders": {},
+    "description": "Translation for skip"
+  },
   "next": "次へ",
+  "@next": {
+    "placeholders": {},
+    "description": "Translation for next"
+  },
   "start": "開始",
+  "@start": {
+    "placeholders": {},
+    "description": "Translation for start"
+  },
   "back": "戻る",
+  "@back": {
+    "placeholders": {},
+    "description": "Translation for back"
+  },
   "save": "保存",
+  "@save": {
+    "placeholders": {},
+    "description": "Translation for save"
+  },
   "cancel": "キャンセル",
+  "@cancel": {
+    "placeholders": {},
+    "description": "Translation for cancel"
+  },
   "error": "エラー",
+  "@error": {
+    "placeholders": {},
+    "description": "Translation for error"
+  },
   "success": "成功",
+  "@success": {
+    "placeholders": {},
+    "description": "Translation for success"
+  },
   "loading": "読み込み中...",
+  "@loading": {
+    "placeholders": {},
+    "description": "Translation for loading"
+  },
   "continue_btn": "続ける",
+  "@continue_btn": {
+    "placeholders": {},
+    "description": "Translation for continue_btn"
+  },
   "create_profile": "プロフィールを作成",
+  "@create_profile": {
+    "placeholders": {},
+    "description": "Translation for create_profile"
+  },
   "profile_desc": "体験をパーソナライズするために、いくつかの情報が必要です。",
+  "@profile_desc": {
+    "placeholders": {},
+    "description": "Translation for profile_desc"
+  },
   "full_name": "氏名",
+  "@full_name": {
+    "placeholders": {},
+    "description": "Translation for full_name"
+  },
   "gender": "性別",
+  "@gender": {
+    "placeholders": {},
+    "description": "Translation for gender"
+  },
   "gender_female": "女性",
+  "@gender_female": {
+    "placeholders": {},
+    "description": "Translation for gender_female"
+  },
   "gender_male": "男性",
+  "@gender_male": {
+    "placeholders": {},
+    "description": "Translation for gender_male"
+  },
   "gender_other": "その他",
+  "@gender_other": {
+    "placeholders": {},
+    "description": "Translation for gender_other"
+  },
   "birth_date": "生年月日",
+  "@birth_date": {
+    "placeholders": {},
+    "description": "Translation for birth_date"
+  },
   "date_format_hint": "DD.MM.YYYY",
+  "@date_format_hint": {
+    "placeholders": {},
+    "description": "Translation for date_format_hint"
+  },
   "select_language": "言語を選択",
+  "@select_language": {
+    "placeholders": {},
+    "description": "Translation for select_language"
+  },
   "please_enter_name": "名前を入力してください",
+  "@please_enter_name": {
+    "placeholders": {},
+    "description": "Translation for please_enter_name"
+  },
   "must_agree": "続行するには法的文書に同意する必要があります。",
+  "@must_agree": {
+    "placeholders": {},
+    "description": "Translation for must_agree"
+  },
   "step_profile": "プロフィール",
+  "@step_profile": {
+    "placeholders": {},
+    "description": "Translation for step_profile"
+  },
   "step_security": "セキュリティ",
+  "@step_security": {
+    "placeholders": {},
+    "description": "Translation for step_security"
+  },
   "setup_app_lock": "アプリロックを設定",
+  "@setup_app_lock": {
+    "placeholders": {},
+    "description": "Translation for setup_app_lock"
+  },
   "setup_app_lock_desc": "6桁のPINでデータを保護します。",
+  "@setup_app_lock_desc": {
+    "placeholders": {},
+    "description": "Translation for setup_app_lock_desc"
+  },
   "lock_set_pin": "安全なPINを設定",
+  "@lock_set_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_set_pin"
+  },
   "lock_confirm_pin": "PINを確認",
+  "@lock_confirm_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_confirm_pin"
+  },
   "lock_pin_mismatch": "PINが一致しません。もう一度お試しください。",
+  "@lock_pin_mismatch": {
+    "placeholders": {},
+    "description": "Translation for lock_pin_mismatch"
+  },
   "skip_pin_setup": "スキップ",
+  "@skip_pin_setup": {
+    "placeholders": {},
+    "description": "Translation for skip_pin_setup"
+  },
   "lock_skip_desc": "後で設定から設定できます。",
+  "@lock_skip_desc": {
+    "placeholders": {},
+    "description": "Translation for lock_skip_desc"
+  },
   "home": "ホーム",
+  "@home": {
+    "placeholders": {},
+    "description": "Translation for home"
+  },
   "vault": "保管庫",
+  "@vault": {
+    "placeholders": {},
+    "description": "Translation for vault"
+  },
   "explore": "探索",
+  "@explore": {
+    "placeholders": {},
+    "description": "Translation for explore"
+  },
   "appointments": "予定",
+  "@appointments": {
+    "placeholders": {},
+    "description": "Translation for appointments"
+  },
   "profile": "プロフィール",
+  "@profile": {
+    "placeholders": {},
+    "description": "Translation for profile"
+  },
   "medicines": "薬",
+  "@medicines": {
+    "placeholders": {},
+    "description": "Translation for medicines"
+  },
   "health_data": "健康データ",
+  "@health_data": {
+    "placeholders": {},
+    "description": "Translation for health_data"
+  },
   "important_info": "重要情報",
+  "@important_info": {
+    "placeholders": {},
+    "description": "Translation for important_info"
+  },
   "guest_user": "ゲストユーザー",
+  "@guest_user": {
+    "placeholders": {},
+    "description": "Translation for guest_user"
+  },
   "hi": "こんにちは",
+  "@hi": {
+    "placeholders": {},
+    "description": "Translation for hi"
+  },
   "docs_title": "ドキュメント",
+  "@docs_title": {
+    "placeholders": {},
+    "description": "Translation for docs_title"
+  },
   "docs_add_title": "ドキュメントを追加",
+  "@docs_add_title": {
+    "placeholders": {},
+    "description": "Translation for docs_add_title"
+  },
   "docs_add_btn": "ドキュメントを追加",
+  "@docs_add_btn": {
+    "placeholders": {},
+    "description": "Translation for docs_add_btn"
+  },
   "docs_add_pick": "ドキュメント / 画像を選択",
+  "@docs_add_pick": {
+    "placeholders": {},
+    "description": "Translation for docs_add_pick"
+  },
   "docs_success": "ドキュメントが正常に保存されました！",
+  "@docs_success": {
+    "placeholders": {},
+    "description": "Translation for docs_success"
+  },
   "docs_error_pick": "ファイルを選択してください",
+  "@docs_error_pick": {
+    "placeholders": {},
+    "description": "Translation for docs_error_pick"
+  },
   "docs_category_health": "健康",
+  "@docs_category_health": {
+    "placeholders": {},
+    "description": "Translation for docs_category_health"
+  },
   "docs_category_identity": "身分証明",
+  "@docs_category_identity": {
+    "placeholders": {},
+    "description": "Translation for docs_category_identity"
+  },
   "docs_category_finance": "金融",
+  "@docs_category_finance": {
+    "placeholders": {},
+    "description": "Translation for docs_category_finance"
+  },
   "docs_category_legal": "法務",
+  "@docs_category_legal": {
+    "placeholders": {},
+    "description": "Translation for docs_category_legal"
+  },
   "docs_category_notes": "メモ",
+  "@docs_category_notes": {
+    "placeholders": {},
+    "description": "Translation for docs_category_notes"
+  },
   "docs_category_other": "その他",
+  "@docs_category_other": {
+    "placeholders": {},
+    "description": "Translation for docs_category_other"
+  },
   "appointment_title": "予定タイトル",
+  "@appointment_title": {
+    "placeholders": {},
+    "description": "Translation for appointment_title"
+  },
   "my_appointments": "私の予定",
+  "@my_appointments": {
+    "placeholders": {},
+    "description": "Translation for my_appointments"
+  },
   "add_appointment": "予定を追加",
+  "@add_appointment": {
+    "placeholders": {},
+    "description": "Translation for add_appointment"
+  },
   "add_new_appointment": "新しい予定を追加",
+  "@add_new_appointment": {
+    "placeholders": {},
+    "description": "Translation for add_new_appointment"
+  },
   "appointment_added": "予定が正常に追加されました。",
+  "@appointment_added": {
+    "placeholders": {},
+    "description": "Translation for appointment_added"
+  },
   "appointment_created_success": "予定が正常に作成されました。",
+  "@appointment_created_success": {
+    "placeholders": {},
+    "description": "Translation for appointment_created_success"
+  },
   "failed_create_appointment": "予定を作成できませんでした。",
+  "@failed_create_appointment": {
+    "placeholders": {},
+    "description": "Translation for failed_create_appointment"
+  },
   "location": "場所",
+  "@location": {
+    "placeholders": {},
+    "description": "Translation for location"
+  },
   "today": "今日",
+  "@today": {
+    "placeholders": {},
+    "description": "Translation for today"
+  },
   "tomorrow": "明日",
+  "@tomorrow": {
+    "placeholders": {},
+    "description": "Translation for tomorrow"
+  },
   "health_stats": "ヘルスハブ",
+  "@health_stats": {
+    "placeholders": {},
+    "description": "Translation for health_stats"
+  },
   "safety_footer_health": "健康データは情報提供のみを目的としています。診断については専門家にご相談ください。",
+  "@safety_footer_health": {
+    "placeholders": {},
+    "description": "Translation for safety_footer_health"
+  },
   "medical_device_warning": "VitaCaseは医療機器ではありません。必ず専門家にご相談ください。",
+  "@medical_device_warning": {
+    "placeholders": {},
+    "description": "Translation for medical_device_warning"
+  },
   "management_tool_warning": "VitaCaseは管理ツールであり、診断サービスではありません。",
+  "@management_tool_warning": {
+    "placeholders": {},
+    "description": "Translation for management_tool_warning"
+  },
   "unit_ml": "ml",
+  "@unit_ml": {
+    "placeholders": {},
+    "description": "Translation for unit_ml"
+  },
   "unit_l": "L",
+  "@unit_l": {
+    "placeholders": {},
+    "description": "Translation for unit_l"
+  },
   "unit_steps": "歩",
+  "@unit_steps": {
+    "placeholders": {},
+    "description": "Translation for unit_steps"
+  },
   "unit_hours": "時間",
+  "@unit_hours": {
+    "placeholders": {},
+    "description": "Translation for unit_hours"
+  },
   "unit_bpm": "BPM",
+  "@unit_bpm": {
+    "placeholders": {},
+    "description": "Translation for unit_bpm"
+  },
   "steps": "歩数",
+  "@steps": {
+    "placeholders": {},
+    "description": "Translation for steps"
+  },
   "heart": "心拍",
+  "@heart": {
+    "placeholders": {},
+    "description": "Translation for heart"
+  },
   "sleep": "睡眠",
+  "@sleep": {
+    "placeholders": {},
+    "description": "Translation for sleep"
+  },
   "water": "水分",
+  "@water": {
+    "placeholders": {},
+    "description": "Translation for water"
+  },
   "add_health_data": "健康データを追加",
+  "@add_health_data": {
+    "placeholders": {},
+    "description": "Translation for add_health_data"
+  },
   "recent_activity": "最近の活動",
+  "@recent_activity": {
+    "placeholders": {},
+    "description": "Translation for recent_activity"
+  },
   "no_health_records": "まだ記録がありません。",
+  "@no_health_records": {
+    "placeholders": {},
+    "description": "Translation for no_health_records"
+  },
   "add_medicine": "薬を追加",
+  "@add_medicine": {
+    "placeholders": {},
+    "description": "Translation for add_medicine"
+  },
   "my_medicines": "私の薬",
+  "@my_medicines": {
+    "placeholders": {},
+    "description": "Translation for my_medicines"
+  },
   "medicine_name": "薬の名前",
+  "@medicine_name": {
+    "placeholders": {},
+    "description": "Translation for medicine_name"
+  },
   "med_added_success": "薬が正常に追加されました！",
+  "@med_added_success": {
+    "placeholders": {},
+    "description": "Translation for med_added_success"
+  },
   "med_name_error": "薬の名前を入力してください",
+  "@med_name_error": {
+    "placeholders": {},
+    "description": "Translation for med_name_error"
+  },
   "app_lock": "アプリロック",
+  "@app_lock": {
+    "placeholders": {},
+    "description": "Translation for app_lock"
+  },
   "privacy_policy": "プライバシーポリシー",
+  "@privacy_policy": {
+    "placeholders": {},
+    "description": "Translation for privacy_policy"
+  },
   "terms_conditions": "利用規約",
+  "@terms_conditions": {
+    "placeholders": {},
+    "description": "Translation for terms_conditions"
+  },
   "legal_disclaimer": "法的免責事項",
-  "ok": "OK"
+  "@legal_disclaimer": {
+    "placeholders": {},
+    "description": "Translation for legal_disclaimer"
+  },
+  "ok": "OK",
+  "@ok": {
+    "placeholders": {},
+    "description": "Translation for ok"
+  }
 }

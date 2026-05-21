@@ -14,7 +14,7 @@ import '../widgets/security_banner.dart';
 class ImportantInformationScreen extends ConsumerWidget {
   const ImportantInformationScreen({super.key});
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+
 
   List<String> _splitList(String value) {
     return value
@@ -25,7 +25,7 @@ class ImportantInformationScreen extends ConsumerWidget {
   }
 
   Future<void> _showEditDialog(BuildContext context, WidgetRef ref, UserProfile profile) async {
-    final tr = _isTr(context);
+
     final bloodController = TextEditingController(text: profile.bloodType);
     final allergiesController = TextEditingController(text: profile.allergies.join(', '));
     final medsController = TextEditingController(text: profile.medications.join(', '));
@@ -37,7 +37,7 @@ class ImportantInformationScreen extends ConsumerWidget {
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: Text(tr ? 'Önemli bilgileri düzenle' : 'Edit important information'),
+          title: Text(context.tr('edit_important_info')),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -52,7 +52,7 @@ class ImportantInformationScreen extends ConsumerWidget {
                   maxLines: 2,
                   decoration: InputDecoration(
                     labelText: context.tr('allergies'),
-                    hintText: tr ? 'Virgülle ayır: Polen, Penisilin' : 'Separate with commas: Pollen, Penicillin',
+                    hintText: context.tr('hint_allergies'),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -61,7 +61,7 @@ class ImportantInformationScreen extends ConsumerWidget {
                   maxLines: 2,
                   decoration: InputDecoration(
                     labelText: context.tr('medicines'),
-                    hintText: tr ? 'Virgülle ayır: Aspirin, Vitamin D' : 'Separate with commas: Aspirin, Vitamin D',
+                    hintText: context.tr('hint_medications'),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -79,8 +79,8 @@ class ImportantInformationScreen extends ConsumerWidget {
                 TextField(
                   controller: emergencyRelationController,
                   decoration: InputDecoration(
-                    labelText: tr ? 'Yakınlık derecesi' : 'Relationship',
-                    hintText: tr ? 'Eş, anne, baba, kardeş...' : 'Spouse, mother, father, sibling...',
+                    labelText: context.tr('relationship'),
+                    hintText: context.tr('hint_relationship'),
                   ),
                 ),
               ],
@@ -106,7 +106,7 @@ class ImportantInformationScreen extends ConsumerWidget {
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(tr ? 'Önemli bilgiler güncellendi.' : 'Important information updated.')),
+          SnackBar(content: Text(context.tr('important_info_updated'))),
         );
       }
     }
@@ -123,7 +123,7 @@ class ImportantInformationScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(profileProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final tr = _isTr(context);
+
 
     return Scaffold(
       bottomNavigationBar: const VitaCaseBottomNav(),
@@ -196,7 +196,7 @@ class ImportantInformationScreen extends ConsumerWidget {
               rows: [
                 {'label': context.tr('emergency_contact_name'), 'value': profile.emergencyName.isNotEmpty ? profile.emergencyName : context.tr('not_added')},
                 {'label': context.tr('phone_number'), 'value': profile.emergencyPhone.isNotEmpty ? profile.emergencyPhone : context.tr('not_added')},
-                {'label': tr ? 'Yakınlık derecesi' : 'Relationship', 'value': profile.emergencyRelation.isNotEmpty ? profile.emergencyRelation : context.tr('not_added')},
+                {'label': context.tr('relationship'), 'value': profile.emergencyRelation.isNotEmpty ? profile.emergencyRelation : context.tr('not_added')},
               ],
             ).animate().fadeIn(delay: 240.ms).slideY(begin: .12),
             const SizedBox(height: 28),

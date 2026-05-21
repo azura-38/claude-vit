@@ -20,7 +20,7 @@ class UserPreferences {
     this.appLockEnabled = false,
     this.lockTimeout = LockTimeout.instant,
     this.biometricEnabled = false,
-    this.quickActionsEnabled = true,
+    this.quickActionsEnabled = false,
     this.notificationSettings = const NotificationSettings(),
   });
 

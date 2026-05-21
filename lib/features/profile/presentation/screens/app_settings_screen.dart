@@ -32,9 +32,8 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
     }
 
     if (remaining <= 3) {
-      final isTr = Localizations.localeOf(context).languageCode == 'tr';
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(isTr ? 'Debug panel için $remaining dokunuş kaldı.' : '$remaining taps left for debug panel.')),
+        SnackBar(content: Text(context.l10n.debugPanelTapsLeft(remaining))),
       );
     }
   }
@@ -44,7 +43,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(context.l10n.appSettings, style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -73,22 +72,25 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
   }
 
   Widget _buildTrustCard(BuildContext context, bool isDark) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final cardColor = Theme.of(context).cardTheme.color ?? Colors.white;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark
-              ? [AppColors.medicalBlue.withValues(alpha: 0.1), Colors.transparent]
-              : [AppColors.medicalBlue.withValues(alpha: 0.05), Colors.white],
+              ? [primaryColor.withValues(alpha: 0.1), Colors.transparent]
+              : [primaryColor.withValues(alpha: 0.05), cardColor],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.medicalBlue.withValues(alpha: 0.1)),
+        border: Border.all(color: primaryColor.withValues(alpha: 0.1)),
       ),
       child: Row(
         children: [
-          const Icon(Icons.verified_user_rounded, color: AppColors.medicalBlue, size: 32),
+          Icon(Icons.verified_user_rounded, color: primaryColor, size: 32),
           const SizedBox(width: 16),
           Expanded(
             child: Column(

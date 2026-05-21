@@ -8,16 +8,9 @@ class SecureScreenController {
   static const MethodChannel _channel = MethodChannel('vitacase/security');
   static int _activeGuards = 0;
 
+  // Screenshot protection disabled – enable() is a no-op.
   static Future<void> enable() async {
-    _activeGuards++;
-    if (_activeGuards != 1) return;
-
-    if (kIsWeb) return;
-    try {
-      await _channel.invokeMethod<void>('enableSecureScreen');
-    } catch (e) {
-      debugPrint('[SecureScreen] enable failed: $e');
-    }
+    return; // Disabled: screenshot protection devre dışı bırakıldı.
   }
 
   static Future<void> disable() async {

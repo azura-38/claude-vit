@@ -123,6 +123,11 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
   final List<Achievement> _notificationQueue = [];
   bool _isShowingNotification = false;
 
+  void showPendingNotifications() {
+    _isShowingNotification = false;
+    _showNextNotification();
+  }
+
   void _notifyUnlock(Achievement achievement) {
     AnalyticsService.log(AnalyticsService.achievementUnlocked, {
       'id': achievement.id,
@@ -141,8 +146,21 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
     final context = AppRouter.navigatorKey.currentContext;
     if (context == null) {
       _isShowingNotification = false;
+      _notificationQueue.insert(0, achievement);
       return;
     }
+
+    try {
+      final router = GoRouter.of(context);
+      final location = router.routerDelegate.currentConfiguration.uri.path;
+      if (location == '/profile-create' ||
+          location == '/onboarding' ||
+          location == '/lock') {
+        _isShowingNotification = false;
+        _notificationQueue.insert(0, achievement);
+        return;
+      }
+    } catch (_) {}
 
     showDialog(
       context: context,

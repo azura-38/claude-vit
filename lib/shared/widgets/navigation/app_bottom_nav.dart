@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
@@ -21,12 +21,11 @@ class AppBottomNav extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1F2937) : Colors.white,
+        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor ?? (isDark ? const Color(0xFF1F2937) : Colors.white),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         border: Border(
           top: BorderSide(
-            color:
-                isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight,
+            color: isDark ? Colors.white.withValues(alpha: 0.1) : AppColors.cardBorderLight,
           ),
         ),
         boxShadow: [
@@ -164,7 +163,7 @@ class _NavItem extends StatelessWidget {
               child: Icon(
                 icon,
                 size: 24,
-                color: isActive ? AppColors.navActive : AppColors.navInactive,
+                color: isActive ? Theme.of(context).colorScheme.primary : AppColors.navInactive,
               ),
             ),
             const SizedBox(height: 4),
@@ -173,7 +172,7 @@ class _NavItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 9,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-                color: isActive ? AppColors.navActive : AppColors.navInactive,
+                color: isActive ? Theme.of(context).colorScheme.primary : AppColors.navInactive,
               ),
             ),
           ],

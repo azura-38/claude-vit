@@ -30,8 +30,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen> {
   String _viewType = 'monthly';
   late DateTime _focusedMonth;
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-  String _personContactLabel(BuildContext context) => _isTr(context) ? 'Kişi / İletişim' : 'Person / Contact';
+
 
   @override
   void initState() {
@@ -454,7 +453,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen> {
   Widget _buildCategoryFilters(bool isDark) {
     final categoryItems = <Map<String, String>>[
       {'key': 'all', 'label': context.l10n.all},
-      {'key': AppointmentCategory.doctor.key, 'label': _personContactLabel(context)},
+      {'key': AppointmentCategory.doctor.key, 'label': context.l10n.personContactLabel},
       {'key': AppointmentCategory.meeting.key, 'label': context.l10n.categoryMeeting},
       {'key': AppointmentCategory.reminder.key, 'label': context.l10n.categoryReminder},
       {'key': AppointmentCategory.other.key, 'label': context.l10n.categoryOther},

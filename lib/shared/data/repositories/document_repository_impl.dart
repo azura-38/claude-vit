@@ -7,7 +7,7 @@ import '../models/document_model.dart';
 class DocumentRepositoryImpl implements DocumentRepository {
   final _store = stringMapStoreFactory.store('documents');
 
-  Future<Database> get _db async => SembastDatabase().db;
+  Future<Database> get _db async => SembastDatabase().ready;
 
   @override
   Future<void> save(Document document) async {

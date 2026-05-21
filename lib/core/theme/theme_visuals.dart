@@ -151,12 +151,14 @@ class ThemePlaceholder extends StatelessWidget {
     this.size = 64,
     this.iconSize = 30,
     this.radius = 22,
+    this.icon,
   });
 
   final AppThemeType type;
   final double size;
   final double iconSize;
   final double radius;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +177,7 @@ class ThemePlaceholder extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(visuals.placeholderIcon, color: Colors.white, size: iconSize),
+      child: Icon(icon ?? visuals.placeholderIcon, color: Colors.white, size: iconSize),
     );
   }
 }

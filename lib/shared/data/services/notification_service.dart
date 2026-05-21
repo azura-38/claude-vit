@@ -15,27 +15,30 @@ class NotificationService {
   static Future<void> Function(String id)? _onMedicineSkipped;
   static void Function(String payload)? _onNotificationRoute;
   static const int engagementId = 9999;
-  static const String _androidNotificationIcon = 'launcher_icon';
+  static const String _androidNotificationIcon = 'ic_notification';
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
-  static const AndroidNotificationDetails _androidDetails =
+  static bool _useFallbackIcon = false;
+
+  static AndroidNotificationDetails get _androidDetails =>
       AndroidNotificationDetails(
         'vitacase_channel',
         'VitaCase Notifications',
         importance: Importance.max,
         priority: Priority.high,
-        icon: _androidNotificationIcon,
+        icon: _useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_appointment_notification',
         visibility: NotificationVisibility.private,
       );
-  static const AndroidNotificationDetails _medicationAndroidDetails =
+
+  static AndroidNotificationDetails get _medicationAndroidDetails =>
       AndroidNotificationDetails(
         'med_channel',
         'Medication',
         importance: Importance.max,
         priority: Priority.high,
-        icon: _androidNotificationIcon,
+        icon: _useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_medication_notification',
         visibility: NotificationVisibility.private,
-        actions: [
+        actions: const [
           AndroidNotificationAction('TAKEN', 'Taken'),
           AndroidNotificationAction('SKIPPED', 'Skipped'),
         ],
@@ -66,25 +69,49 @@ class NotificationService {
     if (_isInitialized) return;
     _prefs ??= await SharedPreferences.getInstance();
 
-    const androidSettings = AndroidInitializationSettings(
-      _androidNotificationIcon,
-    );
-    const ios = DarwinInitializationSettings();
-
-    await _plugin.initialize(
-      settings: const InitializationSettings(
-        android: androidSettings,
-        iOS: ios,
-      ),
-      onDidReceiveNotificationResponse: _onTap,
-    );
-
     tz.initializeTimeZones();
     try {
       final String name = await FlutterTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(name));
     } catch (e) {
       tz.setLocalLocation(tz.getLocation('UTC'));
+    }
+
+    try {
+      const androidSettings = AndroidInitializationSettings(
+        _androidNotificationIcon,
+      );
+      const ios = DarwinInitializationSettings();
+
+      await _plugin.initialize(
+        settings: const InitializationSettings(
+          android: androidSettings,
+          iOS: ios,
+        ),
+        onDidReceiveNotificationResponse: _onTap,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Failed to initialize with ic_notification, trying fallback: $e');
+      }
+      try {
+        _useFallbackIcon = true;
+        const androidSettingsFallback = AndroidInitializationSettings(
+          '@mipmap/ic_launcher',
+        );
+        const ios = DarwinInitializationSettings();
+        await _plugin.initialize(
+          settings: const InitializationSettings(
+            android: androidSettingsFallback,
+            iOS: ios,
+          ),
+          onDidReceiveNotificationResponse: _onTap,
+        );
+      } catch (fallbackError) {
+        if (kDebugMode) {
+          debugPrint('[NotificationService] Fallback initialization failed: $fallbackError');
+        }
+      }
     }
 
     _isInitialized = true;
@@ -200,7 +227,7 @@ class NotificationService {
       title: title,
       body: safeText(body),
       scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: const NotificationDetails(android: _androidDetails),
+      notificationDetails: NotificationDetails(android: _androidDetails),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       payload: payload?.encode() ?? id,
     );
@@ -222,7 +249,7 @@ class NotificationService {
       title: title,
       body: safeMedicationBodyStatic(body),
       scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: _medicationAndroidDetails,
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
@@ -285,7 +312,7 @@ class NotificationService {
       channelName,
       importance: Importance.max,
       priority: Priority.high,
-      icon: _androidNotificationIcon,
+      icon: _useFallbackIcon ? '@mipmap/ic_launcher' : _androidNotificationIcon,
       visibility: NotificationVisibility.private,
     );
     await _plugin.show(

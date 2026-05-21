@@ -52,7 +52,7 @@ class LimitNotifier extends Notifier<LimitData> {
     return LimitData();
   }
 
-  Future<Database> get _db async => ref.read(sembastDatabaseProvider).db;
+  Future<Database> get _db async => ref.read(sembastDatabaseProvider).ready;
 
   Future<void> _load() async {
     final db = await _db;

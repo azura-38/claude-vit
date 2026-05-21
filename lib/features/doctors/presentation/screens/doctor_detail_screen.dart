@@ -14,12 +14,6 @@ class DoctorDetailScreen extends ConsumerWidget {
 
   final String id;
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-  String _detailTitle(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Detayı' : 'Person / Contact Detail';
-  String _institutionSource(BuildContext context) => _isTr(context) ? 'Kurum / Kaynak' : 'Institution / Source';
-  String _categoryArea(BuildContext context) => _isTr(context) ? 'Kategori / Alan' : 'Category / Area';
-  String _subCategory(BuildContext context) => _isTr(context) ? 'Alt alan' : 'Sub-area';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = ref.watch(themeModeProvider) == ThemeMode.dark;
@@ -40,7 +34,7 @@ class DoctorDetailScreen extends ConsumerWidget {
             bottom: false,
             child: Column(
               children: [
-                AppHeader(title: _detailTitle(context), showBack: true),
+                AppHeader(title: context.l10n.contactDetailTitle, showBack: true),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(24),
@@ -56,14 +50,14 @@ class DoctorDetailScreen extends ConsumerWidget {
                             _infoTile(
                               context,
                               Icons.business_rounded,
-                              _institutionSource(context),
+                              context.l10n.institutionSource,
                               contact.hospital,
                               isDark,
                             ),
                             _infoTile(
                               context,
                               Icons.category_rounded,
-                              _categoryArea(context),
+                              context.l10n.categoryArea,
                               contact.department,
                               isDark,
                             ),
@@ -71,7 +65,7 @@ class DoctorDetailScreen extends ConsumerWidget {
                               _infoTile(
                                 context,
                                 Icons.stars_rounded,
-                                _subCategory(context),
+                                context.l10n.subArea,
                                 contact.subSpecialty!,
                                 isDark,
                               ),

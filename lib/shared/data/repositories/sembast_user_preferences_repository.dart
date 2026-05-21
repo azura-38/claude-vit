@@ -13,7 +13,7 @@ class SembastUserPreferencesRepository implements UserPreferencesRepository {
 
   @override
   Future<UserPreferences> getPreferences() async {
-    final db = _database.db;
+    final db = await _database.ready;
     final map = await _store.record(_key).get(db);
     if (map == null) return const UserPreferences();
     return UserPreferencesModel.fromMap(map);
@@ -21,7 +21,7 @@ class SembastUserPreferencesRepository implements UserPreferencesRepository {
 
   @override
   Future<void> savePreferences(UserPreferences preferences) async {
-    final db = _database.db;
+    final db = await _database.ready;
     await _store.record(_key).put(db, UserPreferencesModel.toMap(preferences));
   }
 }

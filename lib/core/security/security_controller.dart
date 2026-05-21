@@ -33,7 +33,7 @@ class SecurityController extends Notifier<SecurityStatus> {
     return SecurityStatus(
       lockEnabled: ref.watch(appLockEnabledProvider),
       biometricEnabled: ref.watch(biometricEnabledProvider),
-      screenshotProtectionEnabled: true,
+      screenshotProtectionEnabled: false,
     );
   }
 

@@ -49,7 +49,7 @@ class SettingsController extends Notifier<SettingsState> {
         isLockEnabled: false,
         lockTimeout: LockTimeout.instant,
         biometricEnabled: false,
-        quickActionsEnabled: true,
+        quickActionsEnabled: false,
         notificationSettings: const NotificationSettings(),
       ),
     );

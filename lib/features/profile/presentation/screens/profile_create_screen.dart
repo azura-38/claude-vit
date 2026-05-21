@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/l10n/vita_strings.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/locale_provider.dart';
+import '../../../../shared/providers/shared_prefs_provider.dart';
 import '../providers/legacy_providers.dart';
 import '../providers/profile_provider.dart';
 import '../../domain/models/user_profile.dart';
@@ -41,6 +42,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   bool _isConfirmingPin = false;
   bool _pinHasError = false;
   bool _pinSetupComplete = false;
+  bool _isLoading = false;
 
   bool get _profileValid => _nameController.text.trim().isNotEmpty && _acceptedLegal;
 
@@ -164,22 +166,66 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   }
 
   Future<void> _saveAndFinish() async {
-    final profileNotifier = ref.read(profileProvider.notifier);
-    profileNotifier.updateName(_nameController.text.trim());
-    if (_birthDate != null) profileNotifier.updateBirthDate(_birthDate!);
-    profileNotifier.updateGender(_genderFromSelection(_selectedGender));
-    final photoValue = _selectedPhotoValue();
-    if (photoValue != null) profileNotifier.updatePhotoPath(photoValue);
-    await profileNotifier.saveToDatabase();
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
 
-    if (_selectedLanguageCode != null) {
-      await ref.read(localeProvider.notifier).setLocale(_selectedLanguageCode!);
+    try {
+      final profileNotifier = ref.read(profileProvider.notifier);
+      final localeNotifier = ref.read(localeProvider.notifier);
+      final legalNotifier = ref.read(legalAcceptedProvider.notifier);
+
+      if (_selectedLanguageCode != null) {
+        await localeNotifier.setLocale(_selectedLanguageCode!);
+      }
+
+      await legalNotifier.accept();
+
+      profileNotifier.updateName(_nameController.text.trim());
+      if (_birthDate != null) profileNotifier.updateBirthDate(_birthDate!);
+      profileNotifier.updateGender(_genderFromSelection(_selectedGender));
+      final photoValue = _selectedPhotoValue();
+      if (photoValue != null) profileNotifier.updatePhotoPath(photoValue);
+      await profileNotifier.saveToDatabase();
+
+      if (!mounted) return;
+      context.go(AppRoutes.home);
+    } catch (e) {
+      debugPrint('[ProfileCreateScreen] Error saving profile: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.tr('error'))),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
+  }
 
-    await ref.read(legalAcceptedProvider.notifier).accept();
+  Future<void> _skipProfileSetup() async {
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
 
-    if (!mounted) return;
-    context.go(AppRoutes.home);
+    try {
+      final prefs = ref.read(sharedPreferencesProvider);
+      await prefs.setBool('profile_creation_skipped', true);
+      await ref.read(legalAcceptedProvider.notifier).accept();
+
+      if (!mounted) return;
+      context.go(AppRoutes.home);
+    } catch (e) {
+      debugPrint('[ProfileCreateScreen] Error skipping profile setup: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.tr('error'))),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   Gender _genderFromSelection(String? value) {
@@ -234,12 +280,34 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   }
 
   Future<void> _savePinAndFinish() async {
-    await ref.read(pinServiceProvider).setPin(_pinEntry);
-    await ref.read(appLockEnabledProvider.notifier).setEnabled(true);
-    ref.read(appLockStateProvider.notifier).setUnlocked();
-    setState(() => _pinSetupComplete = true);
-    await Future.delayed(const Duration(milliseconds: 450));
-    await _saveAndFinish();
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
+
+    try {
+      final pinService = ref.read(pinServiceProvider);
+      final appLockEnabledNotifier = ref.read(appLockEnabledProvider.notifier);
+      final appLockStateNotifier = ref.read(appLockStateProvider.notifier);
+
+      await pinService.setPin(_pinEntry);
+      await appLockEnabledNotifier.setEnabled(true);
+      appLockStateNotifier.setUnlocked();
+
+      setState(() => _pinSetupComplete = true);
+      await Future.delayed(const Duration(milliseconds: 450));
+      
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+      await _saveAndFinish();
+    } catch (e) {
+      debugPrint('[ProfileCreateScreen] PIN setup failed: $e');
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.tr('error'))),
+        );
+      }
+    }
   }
 
   @override
@@ -247,7 +315,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(context.tr('app_name')),
@@ -266,38 +334,106 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
             : null,
       ),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
-              child: Row(
-                children: [
-                  _StepDot(active: true, label: context.tr('step_profile')),
-                  Expanded(child: Container(height: 2, color: _currentStep == 1 ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25))),
-                  _StepDot(active: _currentStep == 1, label: context.tr('step_security')),
-                ],
-              ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
+                  child: Row(
+                    children: [
+                      _StepDot(active: true, label: context.tr('step_profile')),
+                      Expanded(child: Container(height: 2, color: _currentStep == 1 ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.25))),
+                      _StepDot(active: _currentStep == 1, label: context.tr('step_security')),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    child: _currentStep == 0 ? _buildProfileStep(isDark) : _buildSecurityStep(isDark),
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                child: _currentStep == 0 ? _buildProfileStep(isDark) : _buildSecurityStep(isDark),
+            if (_isLoading)
+              Positioned.fill(
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    child: Container(
+                      color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.4),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.brandBlue),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              context.tr('please_wait'),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
           ],
         ),
       ),
       bottomNavigationBar: _currentStep == 0
           ? SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: SizedBox(
-                  height: 54,
-                  child: FilledButton.icon(
-                    onPressed: _profileValid ? _goToSecurityStep : null,
-                    icon: const Icon(Icons.arrow_forward_rounded),
-                    label: Text(context.tr('continue_btn')),
-                  ),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: OutlinedButton(
+                              onPressed: _acceptedLegal ? _skipProfileSetup : null,
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(
+                                  color: _acceptedLegal
+                                      ? AppColors.brandBlue
+                                      : Colors.grey.withValues(alpha: 0.25),
+                                ),
+                              ),
+                              child: Text(context.tr('skip')),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: FilledButton.icon(
+                              onPressed: _profileValid ? _goToSecurityStep : null,
+                              icon: const Icon(Icons.arrow_forward_rounded, size: 18),
+                              label: Text(context.tr('continue_btn')),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      context.tr('skip_profile_note'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: isDark ? Colors.white54 : Colors.grey[600],
+                        fontFamily: 'Manrope',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             )
@@ -396,7 +532,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                   child: Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: AppColors.brandBlue, borderRadius: BorderRadius.circular(10), border: Border.all(color: isDark ? AppColors.surfaceDark : Colors.white, width: 2)),
+                    decoration: BoxDecoration(color: AppColors.brandBlue, borderRadius: BorderRadius.circular(10), border: Border.all(color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface, width: 2)),
                     child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 14),
                   ),
                 ),
@@ -537,7 +673,7 @@ class _Card extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: isDark ? AppColors.surfaceDark : Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight)),
+      decoration: BoxDecoration(color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(24), border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight)),
       child: child,
     );
   }
@@ -552,20 +688,19 @@ class _LegalAgreementCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
     return Container(
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(color: isDark ? AppColors.surfaceDark : Colors.white, borderRadius: BorderRadius.circular(18), border: Border.all(color: value ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.2))),
+      decoration: BoxDecoration(color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(18), border: Border.all(color: value ? AppColors.brandBlue : Colors.grey.withValues(alpha: 0.2))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CheckboxListTile(value: value, onChanged: onChanged, contentPadding: EdgeInsets.zero, controlAffinity: ListTileControlAffinity.leading, title: Text(strings.termsAndLegalAgreement)),
+          CheckboxListTile(value: value, onChanged: onChanged, contentPadding: EdgeInsets.zero, controlAffinity: ListTileControlAffinity.leading, title: Text(context.l10n.termsAndLegalAgreement)),
           Wrap(
             spacing: 10,
             children: [
-              _LegalLink(label: strings.privacyPolicyShort, routeName: 'settingsPrivacy'),
-              _LegalLink(label: strings.termsShort, routeName: 'settingsTerms'),
-              _LegalLink(label: strings.disclaimerShort, routeName: 'settingsDisclaimer'),
+              _LegalLink(label: context.l10n.privacyPolicyShort, routeName: 'settingsPrivacy'),
+              _LegalLink(label: context.l10n.termsShort, routeName: 'settingsTerms'),
+              _LegalLink(label: context.l10n.disclaimerShort, routeName: 'settingsDisclaimer'),
             ],
           ),
         ],

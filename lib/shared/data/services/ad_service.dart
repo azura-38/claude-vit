@@ -13,6 +13,7 @@ class AdService {
   AdService._internal();
 
   InterstitialAd? _interstitialAd;
+  RewardedInterstitialAd? _rewardedInterstitialAd;
   RewardedAd? _rewardedAd;
   AppOpenAd? _appOpenAd;
 
@@ -20,6 +21,7 @@ class AdService {
   DateTime? lastAppOpenShown;
   SharedPreferences? _prefs;
   Completer<void>? _initCompleter;
+  Completer<RewardedAd?>? _rewardedLoadCompleter;
 
   static const _lastInterstitialKey = 'lastInterstitialShown';
   static const _lastAppOpenKey = 'lastAppOpenShown';
@@ -58,26 +60,52 @@ class AdService {
 
   void loadInterstitial() {
     if (!_adsAvailable || AppConfig.interstitialAdId.isEmpty) return;
-    InterstitialAd.load(
+    // The interstitial ad unit is registered as a Rewarded Interstitial in AdMob
+    _loadRewardedInterstitial();
+  }
+
+  void _loadRewardedInterstitial() {
+    if (!_adsAvailable || AppConfig.interstitialAdId.isEmpty) return;
+    RewardedInterstitialAd.load(
       adUnitId: AppConfig.interstitialAdId,
       request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) => _interstitialAd = ad,
-        onAdFailedToLoad: (error) => _interstitialAd = null,
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (ad) => _rewardedInterstitialAd = ad,
+        onAdFailedToLoad: (error) {
+          debugPrint('[AdService] RewardedInterstitial failed to load: ${error.message}');
+          _rewardedInterstitialAd = null;
+        },
       ),
     );
   }
 
-  void loadRewarded() {
-    if (!_adsAvailable || AppConfig.rewardedAdId.isEmpty) return;
+  Future<RewardedAd?> loadRewarded() {
+    if (!_adsAvailable || AppConfig.rewardedAdId.isEmpty) return Future.value(null);
+    if (_rewardedAd != null) return Future.value(_rewardedAd);
+    if (_rewardedLoadCompleter != null) return _rewardedLoadCompleter!.future;
+
+    _rewardedLoadCompleter = Completer<RewardedAd?>();
+
     RewardedAd.load(
       adUnitId: AppConfig.rewardedAdId,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) => _rewardedAd = ad,
-        onAdFailedToLoad: (error) => _rewardedAd = null,
+        onAdLoaded: (ad) {
+          _rewardedAd = ad;
+          final c = _rewardedLoadCompleter;
+          _rewardedLoadCompleter = null;
+          if (c != null && !c.isCompleted) c.complete(ad);
+        },
+        onAdFailedToLoad: (error) {
+          _rewardedAd = null;
+          final c = _rewardedLoadCompleter;
+          _rewardedLoadCompleter = null;
+          if (c != null && !c.isCompleted) c.complete(null);
+        },
       ),
     );
+
+    return _rewardedLoadCompleter!.future;
   }
 
   void loadAppOpen() {
@@ -156,36 +184,91 @@ class AdService {
     await service._incrementTodayAppOpenCount();
   }
 
-  void _innerShowInterstitial() {
-    if (!_adsAvailable) return;
+  Future<bool> _innerShowInterstitial() async {
+    if (!_adsAvailable) return false;
 
     if (lastInterstitialShown != null) {
       final elapsed = DateTime.now().difference(lastInterstitialShown!);
-      if (elapsed.inSeconds < 90) return;
+      if (elapsed.inSeconds < 90) return false;
     }
 
-    if (_interstitialAd == null) {
-      loadInterstitial();
-      return;
+    // Try to show RewardedInterstitialAd first (our transition ad)
+    if (_rewardedInterstitialAd != null) {
+      final completer = Completer<bool>();
+      _rewardedInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdShowedFullScreenContent: (ad) {
+          AnalyticsService.log(AnalyticsService.interstitialShown);
+        },
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _rewardedInterstitialAd = null;
+          _loadRewardedInterstitial();
+          if (!completer.isCompleted) completer.complete(true);
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _rewardedInterstitialAd = null;
+          _loadRewardedInterstitial();
+          if (!completer.isCompleted) completer.complete(false);
+        },
+      );
+
+      try {
+        await _rewardedInterstitialAd!.show(
+          onUserEarnedReward: (ad, reward) {
+            debugPrint('[AdService] Rewarded interstitial reward: ${reward.amount} ${reward.type}');
+          },
+        );
+        final shown = await completer.future;
+        if (shown) {
+          lastInterstitialShown = DateTime.now();
+          _prefs?.setString(_lastInterstitialKey, lastInterstitialShown!.toIso8601String());
+        }
+        return shown;
+      } catch (_) {
+        if (!completer.isCompleted) completer.complete(false);
+        return false;
+      }
     }
 
-    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdDismissedFullScreenContent: (ad) {
-        ad.dispose();
-        _interstitialAd = null;
-        loadInterstitial();
-      },
-      onAdFailedToShowFullScreenContent: (ad, error) {
-        ad.dispose();
-        _interstitialAd = null;
-        loadInterstitial();
-      },
-    );
+    // Fallback to classic InterstitialAd if available
+    if (_interstitialAd != null) {
+      final completer = Completer<bool>();
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdShowedFullScreenContent: (ad) {
+          AnalyticsService.log(AnalyticsService.interstitialShown);
+        },
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _interstitialAd = null;
+          loadInterstitial();
+          if (!completer.isCompleted) completer.complete(true);
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _interstitialAd = null;
+          loadInterstitial();
+          if (!completer.isCompleted) completer.complete(false);
+        },
+      );
 
-    _interstitialAd!.show();
-    AnalyticsService.log(AnalyticsService.interstitialShown);
-    lastInterstitialShown = DateTime.now();
-    _prefs?.setString(_lastInterstitialKey, lastInterstitialShown!.toIso8601String());
+      try {
+        _interstitialAd!.show();
+        final shown = await completer.future;
+        if (shown) {
+          lastInterstitialShown = DateTime.now();
+          _prefs?.setString(_lastInterstitialKey, lastInterstitialShown!.toIso8601String());
+        }
+        return shown;
+      } catch (_) {
+        if (!completer.isCompleted) completer.complete(false);
+        return false;
+      }
+    }
+
+    // No ad loaded — try to preload for next time
+    loadInterstitial();
+    return false;
   }
 
   static Future<RewardAdResult> showRewardedForResult() async {
@@ -193,7 +276,17 @@ class AdService {
     await service.init();
 
     if (!service._adsAvailable) return RewardAdResult.unavailable;
-    if (service._rewardedAd == null) {
+
+    RewardedAd? ad = service._rewardedAd;
+    if (ad == null) {
+      try {
+        ad = await service.loadRewarded().timeout(const Duration(seconds: 5));
+      } catch (e) {
+        debugPrint('[AdService] Timeout/error waiting for rewarded ad: $e');
+      }
+    }
+
+    if (ad == null) {
       AnalyticsService.log(AnalyticsService.rewardAdUnavailable);
       service.loadRewarded();
       return RewardAdResult.unavailable;
@@ -201,20 +294,20 @@ class AdService {
 
     final completer = Completer<RewardAdResult>();
     var rewardEarned = false;
-    service._rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (ad) {
+    ad.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (shownAd) {
         AnalyticsService.log(AnalyticsService.rewardAdShown);
       },
-      onAdDismissedFullScreenContent: (ad) {
-        ad.dispose();
+      onAdDismissedFullScreenContent: (shownAd) {
+        shownAd.dispose();
         service._rewardedAd = null;
         service.loadRewarded();
         if (!completer.isCompleted) {
           completer.complete(rewardEarned ? RewardAdResult.shownRewarded : RewardAdResult.shownNoReward);
         }
       },
-      onAdFailedToShowFullScreenContent: (ad, err) {
-        ad.dispose();
+      onAdFailedToShowFullScreenContent: (shownAd, err) {
+        shownAd.dispose();
         service._rewardedAd = null;
         service.loadRewarded();
         AnalyticsService.log(AnalyticsService.rewardAdFailed, {'code': err.code});
@@ -223,8 +316,8 @@ class AdService {
     );
 
     try {
-      await service._rewardedAd!.show(
-        onUserEarnedReward: (ad, reward) {
+      await ad.show(
+        onUserEarnedReward: (shownAd, reward) {
           rewardEarned = true;
           AnalyticsService.log(AnalyticsService.rewardAdRewarded, {
             'amount': reward.amount,
@@ -240,10 +333,10 @@ class AdService {
     }
   }
 
-  static Future<void> showInterstitial() async {
+  static Future<bool> showInterstitial() async {
     final service = AdService();
     await service.init();
-    service._innerShowInterstitial();
+    return service._innerShowInterstitial();
   }
 
   static Future<bool> showRewardedAd() async {

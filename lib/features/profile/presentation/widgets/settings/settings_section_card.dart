@@ -35,7 +35,7 @@ class SettingsSectionCard extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: isDark ? AppColors.surfaceDark : Colors.white,
+            color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               if (!isDark)

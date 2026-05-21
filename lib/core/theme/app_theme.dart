@@ -200,8 +200,29 @@ class AppTheme {
             secondary: secondary,
           );
 
+    TextTheme applyFontFeatures(TextTheme theme) {
+      const features = [FontFeature.disable('liga'), FontFeature.disable('calt')];
+      return theme.copyWith(
+        displayLarge: theme.displayLarge?.copyWith(fontFeatures: features),
+        displayMedium: theme.displayMedium?.copyWith(fontFeatures: features),
+        displaySmall: theme.displaySmall?.copyWith(fontFeatures: features),
+        headlineLarge: theme.headlineLarge?.copyWith(fontFeatures: features),
+        headlineMedium: theme.headlineMedium?.copyWith(fontFeatures: features),
+        headlineSmall: theme.headlineSmall?.copyWith(fontFeatures: features),
+        titleLarge: theme.titleLarge?.copyWith(fontFeatures: features),
+        titleMedium: theme.titleMedium?.copyWith(fontFeatures: features),
+        titleSmall: theme.titleSmall?.copyWith(fontFeatures: features),
+        bodyLarge: theme.bodyLarge?.copyWith(fontFeatures: features),
+        bodyMedium: theme.bodyMedium?.copyWith(fontFeatures: features),
+        bodySmall: theme.bodySmall?.copyWith(fontFeatures: features),
+        labelLarge: theme.labelLarge?.copyWith(fontFeatures: features),
+        labelMedium: theme.labelMedium?.copyWith(fontFeatures: features),
+        labelSmall: theme.labelSmall?.copyWith(fontFeatures: features),
+      );
+    }
+
     final baseTextTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
-    final googleTextTheme = GoogleFonts.interTextTheme(baseTextTheme);
+    final googleTextTheme = applyFontFeatures(GoogleFonts.interTextTheme(baseTextTheme));
     final textTheme = googleTextTheme.copyWith(
       titleLarge: googleTextTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.w800,

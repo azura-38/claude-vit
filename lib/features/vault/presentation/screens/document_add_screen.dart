@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/extensions/l10n_extension.dart';
-import '../../../../core/l10n/vita_strings.dart';
 import '../../../../shared/data/services/usage_limit_service.dart';
 import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
@@ -38,20 +37,16 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
     super.dispose();
   }
 
-  String get _documentNameLabel => Localizations.localeOf(context).languageCode == 'tr' ? 'Belge adı' : 'Document name';
-  String get _documentNameHint => Localizations.localeOf(context).languageCode == 'tr' ? 'Örn. Kan tahlili sonucu' : 'e.g. Blood test result';
+  String get _documentNameLabel => context.l10n.documentName;
+  String get _documentNameHint => context.l10n.documentNameHint;
 
   String _limitMessage(int limit) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
-    return isTr
-        ? 'Günlük ekleme limitine ulaştın ($limit). Yarın tekrar ekleyebilirsin.'
-        : 'You reached today\'s create limit ($limit). You can add more tomorrow.';
+    return context.tr('daily_limit_reached_message', extra: {'limit': limit.toString()});
   }
 
   Future<void> _pickFile() async {
-    final strings = VitaStrings.of(context);
     if (kIsWeb) {
-      _showSnack(strings.webUploadInfo);
+      _showSnack(context.l10n.webUploadInfo);
       return;
     }
 
@@ -83,11 +78,10 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   }
 
   Future<void> _save() async {
-    final strings = VitaStrings.of(context);
     final file = _selectedFile;
     final sourcePath = file?.path;
     if (file == null || sourcePath == null || sourcePath.isEmpty) {
-      _showSnack(strings.chooseFileFirst);
+      _showSnack(context.l10n.chooseFileFirst);
       return;
     }
 
@@ -110,13 +104,13 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
           );
 
       if (!mounted) return;
-      _showSnack(strings.documentSaved);
+      _showSnack(context.l10n.documentSaved);
       context.pop();
     } catch (e) {
       if (e is UsageLimitExceededException) {
         _showSnack(_limitMessage(e.limit));
       } else {
-        _showSnack(strings.saveDocumentFailed(e));
+        _showSnack(context.l10n.saveDocumentFailed(e));
       }
     } finally {
       if (mounted) setState(() => _isSaving = false);
@@ -135,13 +129,12 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final subcategories = subcategoriesForDocumentCategory(_category);
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
-      appBar: AppBar(title: Text(strings.addDocument), centerTitle: true),
+      appBar: AppBar(title: Text(context.l10n.addDocument), centerTitle: true),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
@@ -162,7 +155,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 const SizedBox(height: 16),
                 DropdownButtonFormField<DocumentCategory>(
                   initialValue: _category,
-                  decoration: InputDecoration(labelText: strings.category),
+                  decoration: InputDecoration(labelText: context.l10n.category),
                   items: DocumentCategory.values.map((category) => DropdownMenuItem(value: category, child: Text(_localizedCategory(context, category)))).toList(),
                   onChanged: (value) {
                     if (value == null) return;
@@ -176,18 +169,18 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 const SizedBox(height: 16),
                 DropdownButtonFormField<DocumentSubcategory>(
                   initialValue: subcategories.contains(_subcategory) ? _subcategory : subcategories.first,
-                  decoration: InputDecoration(labelText: strings.subcategory),
+                  decoration: InputDecoration(labelText: context.l10n.subcategory),
                   items: subcategories.map((subcategory) => DropdownMenuItem(value: subcategory, child: Text(_localizedSubcategory(context, subcategory)))).toList(),
                   onChanged: (value) {
                     if (value != null) setState(() => _subcategory = value);
                   },
                 ),
                 const SizedBox(height: 16),
-                TextField(controller: _hospitalController, decoration: InputDecoration(labelText: strings.hospitalInstitution)),
+                TextField(controller: _hospitalController, decoration: InputDecoration(labelText: context.l10n.hospitalInstitution)),
                 const SizedBox(height: 16),
-                TextField(controller: _doctorController, decoration: InputDecoration(labelText: strings.doctorContact)),
+                TextField(controller: _doctorController, decoration: InputDecoration(labelText: context.l10n.doctorContact)),
                 const SizedBox(height: 16),
-                TextField(controller: _noteController, maxLines: 4, decoration: InputDecoration(labelText: strings.notes, alignLabelWithHint: true)),
+                TextField(controller: _noteController, maxLines: 4, decoration: InputDecoration(labelText: context.l10n.notes, alignLabelWithHint: true)),
               ],
             ),
             const SizedBox(height: 24),
@@ -204,7 +197,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             child: FilledButton.icon(
               onPressed: _isSaving ? null : _save,
               icon: _isSaving ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.lock_rounded),
-              label: Text(_isSaving ? strings.saving : strings.saveSecurely),
+              label: Text(_isSaving ? context.l10n.saving : context.l10n.saveSecurely),
             ),
           ),
         ),
@@ -256,7 +249,6 @@ class _SecureUploadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
     return InkWell(
       onTap: onPickFile,
       borderRadius: BorderRadius.circular(28),
@@ -271,10 +263,10 @@ class _SecureUploadCard extends StatelessWidget {
           children: [
             Icon(selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded, color: selectedFile == null ? AppColors.medicalBlue : Colors.green, size: 52),
             const SizedBox(height: 16),
-            Text(selectedFile?.name ?? strings.choosePdfOrImage, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+            Text(selectedFile?.name ?? context.l10n.choosePdfOrImage, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             const SizedBox(height: 8),
             Text(
-              kIsWeb ? strings.webPreviewNoUpload : strings.encryptedLocalFileInfo,
+              kIsWeb ? context.l10n.webPreviewNoUpload : context.l10n.encryptedLocalFileInfo,
               textAlign: TextAlign.center,
               style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, height: 1.4),
             ),
@@ -312,7 +304,6 @@ class _PrivacyNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -325,7 +316,7 @@ class _PrivacyNotice extends StatelessWidget {
           const Icon(Icons.info_outline_rounded, color: AppColors.medicalBlue),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(strings.localOrganizerDisclaimer, style: TextStyle(fontSize: 12, height: 1.45, color: isDark ? Colors.white70 : AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            child: Text(context.l10n.localOrganizerDisclaimer, style: TextStyle(fontSize: 12, height: 1.45, color: isDark ? Colors.white70 : AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ),
         ],
       ),

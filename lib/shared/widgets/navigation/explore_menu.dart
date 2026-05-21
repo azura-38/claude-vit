@@ -22,12 +22,7 @@ class ExploreMenu extends ConsumerStatefulWidget {
 class _ExploreMenuState extends ConsumerState<ExploreMenu> with TickerProviderStateMixin {
   final Set<int> _expandedSections = {};
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-  String _peopleContactsTitle(BuildContext context) => _isTr(context) ? 'Kişiler / İletişim' : 'People & Contacts';
-  String _contactsLabel(BuildContext context) => _isTr(context) ? 'Kişiler / İletişim' : 'Contacts';
-  String _addContactLabel(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Ekle' : 'Add Person / Contact';
-  String _contactsSubtitle(BuildContext context) => _isTr(context) ? 'Kişi, kurum ve iletişim kayıtları' : 'People, institutions, and contact records';
-  String _addContactSubtitle(BuildContext context) => _isTr(context) ? 'Yeni kişi veya kurum bilgisi ekle' : 'Add a new person or institution';
+
 
   void _toggleSection(int index) {
     setState(() {
@@ -206,20 +201,20 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu> with TickerProviderSt
       ),
       _SectionData(
         icon: Icons.people_alt_rounded,
-        title: _peopleContactsTitle(context),
+        title: context.tr('people_contacts'),
         color: AppColors.teal500,
         items: [
           _MenuItem(
             icon: Icons.contact_phone_rounded,
-            label: _contactsLabel(context),
-            subtitle: _contactsSubtitle(context),
+            label: context.tr('people_contacts'),
+            subtitle: context.tr('contacts_subtitle'),
             color: AppColors.teal500,
             onTap: () => _navigateAndClose(() => context.pushNamed('doctors')),
           ),
           _MenuItem(
             icon: Icons.person_add_alt_1_rounded,
-            label: _addContactLabel(context),
-            subtitle: _addContactSubtitle(context),
+            label: context.tr('add_contact'),
+            subtitle: context.tr('add_contact_subtitle'),
             color: AppColors.teal600,
             onTap: () => _navigateAndClose(() => context.pushNamed('doctorAdd')),
           ),

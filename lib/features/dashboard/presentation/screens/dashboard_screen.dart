@@ -22,12 +22,18 @@ import '../../../../shared/widgets/misc/app_empty_state.dart';
 import '../../../appointments/domain/entities/appointment.dart';
 import '../../../appointments/presentation/providers/appointment_providers.dart';
 import '../../../profile/presentation/providers/legacy_providers.dart';
+import '../../../profile/presentation/providers/settings_controller.dart';
+import '../../../gamification/presentation/providers/achievement_providers.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(achievementProvider.notifier).showPendingNotifications();
+    });
+
     final userName = ref.watch(profileNameProvider);
     final isGuest = userName == null || userName.isEmpty;
 
@@ -62,8 +68,7 @@ class DashboardScreen extends ConsumerWidget {
             const SizedBox(height: 32),
             const _DailyMissionsSection(),
             const SizedBox(height: 32),
-            const _QuickAccess(),
-            const SizedBox(height: 32),
+            const _ConditionalQuickAccess(),
             const _UpcomingAppointments(),
             const SizedBox(height: 100),
           ],
@@ -527,6 +532,22 @@ class _QuickAccess extends ConsumerWidget {
   }
 }
 
+class _ConditionalQuickAccess extends ConsumerWidget {
+  const _ConditionalQuickAccess();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quickActionsEnabled = ref.watch(
+      settingsControllerProvider.select((s) => s.quickActionsEnabled),
+    );
+    if (!quickActionsEnabled) return const SizedBox.shrink();
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 32),
+      child: _QuickAccess(),
+    );
+  }
+}
+
 class _QuickActionItem extends ConsumerWidget {
   const _QuickActionItem({required this.label, required this.icon, required this.onTap, required this.delay});
 
@@ -544,7 +565,7 @@ class _QuickActionItem extends ConsumerWidget {
       onTap: onTap,
       child: Column(
         children: [
-          ThemePlaceholder(type: selectedTheme, size: 64, iconSize: 28, radius: 24),
+          ThemePlaceholder(type: selectedTheme, size: 64, iconSize: 28, radius: 24, icon: icon),
           const SizedBox(height: 12),
           SizedBox(
             width: 78,

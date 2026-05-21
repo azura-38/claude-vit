@@ -2164,7 +2164,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get ad_reward_not_earned => 'Reward not earned. Please finish the ad to continue.';
 
   @override
-  String get ad_unavailable => 'No rewarded ad is available right now. Please try again later.';
+  String get ad_unavailable => 'Ad unavailable.';
 
   @override
   String get ad_failed => 'The rewarded ad could not be shown. Please try again.';
@@ -2382,4 +2382,378 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get ach_login_1_title => 'The Beginning';
+
+  @override
+  String get people_contacts => 'People & Contacts';
+
+  @override
+  String get contacts_subtitle => 'People, institutions, and contact records';
+
+  @override
+  String get add_contact_subtitle => 'Add a new person or institution';
+
+  @override
+  String get add_contact => 'Add Person / Contact';
+
+  @override
+  String get no_doctor => 'No doctor';
+
+  @override
+  String get no_institution => 'No institution';
+
+  @override
+  String get edit_personal_info => 'Edit personal information';
+
+  @override
+  String get personal_info_updated => 'Personal information updated.';
+
+  @override
+  String get edit_important_info => 'Edit important information';
+
+  @override
+  String get hint_allergies => 'Separate with commas: Pollen, Penicillin';
+
+  @override
+  String get hint_medications => 'Separate with commas: Aspirin, Vitamin D';
+
+  @override
+  String get relationship => 'Relationship';
+
+  @override
+  String get hint_relationship => 'Spouse, mother, father, sibling...';
+
+  @override
+  String get important_info_updated => 'Important information updated.';
+
+  @override
+  String get reminder_troubleshooting => 'Reminder Troubleshooting';
+
+  @override
+  String get reminder_troubleshooting_desc => 'Check notification, exact alarm, and battery settings';
+
+  @override
+  String get status_checking => 'Checking...';
+
+  @override
+  String get status_enabled => 'Notification permission is enabled';
+
+  @override
+  String get status_disabled => 'Notification permission is disabled';
+
+  @override
+  String get why_no_reminders => 'Why reminders may not arrive';
+
+  @override
+  String get why_no_reminders_desc => 'Notification permission, exact alarm permission, or device battery management can block appointment and medicine reminders. Check permissions first; consider battery optimization only as a last step if tests fail.';
+
+  @override
+  String get status_card_title => 'Notification Status';
+
+  @override
+  String get check_notif_permission => '1. Check notification permission';
+
+  @override
+  String get check_notif_permission_desc => 'If instant notifications are disabled, no reminders will appear.';
+
+  @override
+  String get req_notif_permission => 'Request Notification Permission';
+
+  @override
+  String get check_exact_alarm => '2. Check exact alarm permission';
+
+  @override
+  String get check_exact_alarm_desc => 'Required for appointment and medicine reminders to run on time.';
+
+  @override
+  String get req_exact_alarm => 'Request Exact Alarm Permission';
+
+  @override
+  String get resched_saved => '3. Reschedule saved reminders';
+
+  @override
+  String get resched_saved_desc => 'After granting permissions, schedules your saved medicine and appointment reminders again.';
+
+  @override
+  String get resched_btn => 'Reschedule Reminders';
+
+  @override
+  String get sched_test => '4. Schedule a 1-minute test reminder';
+
+  @override
+  String get sched_test_desc => 'If this arrives, the reminder system is working.';
+
+  @override
+  String get sched_test_btn => 'Schedule 1-Minute Test';
+
+  @override
+  String get last_step_battery => '5. Last step: check battery settings';
+
+  @override
+  String get last_step_battery_desc => 'Only if the tests above fail, check whether the device is restricting VitaCase battery usage.';
+
+  @override
+  String get open_app_settings => 'Open App Settings';
+
+  @override
+  String get snack_notif_checked => 'Notification permission checked.';
+
+  @override
+  String get snack_exact_alarm_requested => 'Exact alarm permission requested. You may need to allow it in device settings.';
+
+  @override
+  String get test_notif_title => '⏰ VitaCase Reminder Test';
+
+  @override
+  String get test_notif_body => 'This test reminder was scheduled for 1 minute later.';
+
+  @override
+  String get snack_test_sched => 'Test reminder scheduled for 1 minute later.';
+
+  @override
+  String get snack_resched_completed => 'Saved medicine and appointment reminders were rescheduled.';
+
+  @override
+  String get choose_pdf_or_image => 'Choose PDF or Image';
+
+  @override
+  String get encrypted_local_file_info => 'Your file will be encrypted and stored locally on this device.';
+
+  @override
+  String get web_upload_info => 'File vault upload is available on Android/iOS builds.';
+
+  @override
+  String get web_preview_no_upload => 'Web preview does not store encrypted files. Use Android/iOS for vault upload.';
+
+  @override
+  String get choose_file_first => 'Please choose a PDF or image first.';
+
+  @override
+  String get document_saved => 'Document saved securely.';
+
+  @override
+  String save_document_failed(String error) {
+    return 'Could not save document: $error';
+  }
+
+  @override
+  String get save_securely => 'Save Securely';
+
+  @override
+  String get saving => 'Saving...';
+
+  @override
+  String get local_organizer_disclaimer => 'VitaCase is a local document organizer. It does not diagnose, analyze, or provide medical advice.';
+
+  @override
+  String get terms_and_legal_agreement => 'I agree to the Privacy Policy, Terms & Conditions, and Legal Disclaimer.';
+
+  @override
+  String get free_themes => 'Free themes';
+
+  @override
+  String get reward_themes => 'Reward themes';
+
+  @override
+  String get reward_themes_info => 'Watch one rewarded ad to unlock these themes for 3 days. Every extra ad adds +1 day.';
+
+  @override
+  String get watch_ad_to_unlock => 'Watch ad to unlock';
+
+  @override
+  String get tap_to_preview => 'Tap to preview';
+
+  @override
+  String get add_one_day => 'Add +1 day';
+
+  @override
+  String get one_day_added => '+1 day added.';
+
+  @override
+  String get ad_unavailable_try_later => 'Ad unavailable. Please try again later.';
+
+  @override
+  String get theme_unlocked => 'Theme unlocked. Each extra ad adds +1 day.';
+
+  @override
+  String reward_themes_active(String days) {
+    return 'Reward themes active for $days day(s).';
+  }
+
+  @override
+  String get lock_use_pin => 'Use PIN';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get document_details_subtitle => 'Reviewing expanded document details.';
+
+  @override
+  String get document_name => 'Document name';
+
+  @override
+  String get document_name_hint => 'e.g. Blood test result';
+
+  @override
+  String daily_limit_reached_message(int limit) {
+    return 'You reached today\'s create limit ($limit). You can add more tomorrow.';
+  }
+
+  @override
+  String get document_updated => 'Document updated.';
+
+  @override
+  String get document_update_failed => 'Could not update document.';
+
+  @override
+  String get document_open_failed => 'Could not open document.';
+
+  @override
+  String get no_additional_notes => 'No additional notes provided.';
+
+  @override
+  String get created_at_label => 'CREATED AT';
+
+  @override
+  String get physician_label => 'PHYSICIAN';
+
+  @override
+  String get open => 'Open';
+
+  @override
+  String get document_vault => 'Document Vault';
+
+  @override
+  String get document_vault_view_subtitle => 'Reviewing expanded document details.';
+
+  @override
+  String get institution_hospital => 'Institution / Hospital';
+
+  @override
+  String get doctor_related_person => 'Doctor / Related person';
+
+  @override
+  String get add_contact_title => 'Add Person / Contact';
+
+  @override
+  String get contact_info_title => 'Person / Contact Info';
+
+  @override
+  String get contact_info_desc => 'Keep important person, institution, and contact details for quick access.';
+
+  @override
+  String get person_contact_label => 'Person / Contact';
+
+  @override
+  String get category_area_label => 'Category / Area';
+
+  @override
+  String get institution_source_label => 'Institution / Source';
+
+  @override
+  String get person_hint => 'e.g. Dr. Smith, advisor, clinic contact';
+
+  @override
+  String get category_hint => 'e.g. checkup, dental, therapy, consultation';
+
+  @override
+  String get institution_hint => 'e.g. clinic, lab, office, online source';
+
+  @override
+  String get required_contact_error => 'Please enter person/contact and category/area information.';
+
+  @override
+  String get contacts_title => 'Person / Contacts';
+
+  @override
+  String get contacts_search_hint => 'Search person, institution, or category';
+
+  @override
+  String get no_contacts_found => 'No matching contacts found';
+
+  @override
+  String get contact_detail_title => 'Person / Contact Detail';
+
+  @override
+  String get institution_source => 'Institution / Source';
+
+  @override
+  String get category_area => 'Category / Area';
+
+  @override
+  String get sub_area => 'Sub-area';
+
+  @override
+  String get privacy_policy_short => 'Privacy Policy';
+
+  @override
+  String get terms_short => 'Terms';
+
+  @override
+  String get disclaimer_short => 'Disclaimer';
+
+  @override
+  String debug_panel_taps_left(String remaining) {
+    return 'Debug panel: $remaining taps left.';
+  }
+
+  @override
+  String get delete_confirm_dialog_title => 'Delete document?';
+
+  @override
+  String get delete_confirm_dialog_desc => 'This document will be removed from the vault. This action cannot be undone.';
+
+  @override
+  String get document_deleted_msg => 'Document deleted.';
+
+  @override
+  String get sort_newest_first => 'Newest first';
+
+  @override
+  String get sort_oldest_first => 'Oldest first';
+
+  @override
+  String get sort_a_z => 'A-Z';
+
+  @override
+  String get sort_label => 'Sort';
+
+  @override
+  String get medication_reminder_past_note => 'If the selected time has already passed today, the first reminder is scheduled for the next suitable time.';
+
+  @override
+  String get appointment_reminder_past_note => 'If the selected reminder time is already in the past, VitaCase chooses the nearest suitable time.';
+
+  @override
+  String get limit_unlock_token_title => 'Limit Unlock Token';
+
+  @override
+  String get limit_unlock_status_active => 'Active';
+
+  @override
+  String limit_unlock_status_coming_soon(String version) {
+    return 'Coming in $version';
+  }
+
+  @override
+  String limit_unlock_desc_active(String xp) {
+    return 'Every $xp XP grants 1 Limit Unlock Token. It is used automatically when the daily limit is reached.';
+  }
+
+  @override
+  String limit_unlock_desc_inactive(String version, String xp) {
+    return 'Disabled in V1. In $version, every $xp XP will grant 1 Limit Unlock Token.';
+  }
+
+  @override
+  String get limit_unlock_stat_total_xp => 'Total XP';
+
+  @override
+  String get limit_unlock_stat_xp_left => 'XP left';
+
+  @override
+  String get limit_unlock_stat_tokens => 'Tokens';
+
+  @override
+  String get notes => 'Notes';
 }

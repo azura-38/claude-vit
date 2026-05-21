@@ -118,8 +118,16 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
   Future<void> _initializeLocalizationOnly() {
     return Future.wait([
-      _safeRun('date_tr', initializeDateFormatting('tr_TR', null)),
       _safeRun('date_en', initializeDateFormatting('en_US', null)),
+      _safeRun('date_tr', initializeDateFormatting('tr_TR', null)),
+      _safeRun('date_es', initializeDateFormatting('es_ES', null)),
+      _safeRun('date_pt', initializeDateFormatting('pt_BR', null)),
+      _safeRun('date_de', initializeDateFormatting('de_DE', null)),
+      _safeRun('date_fr', initializeDateFormatting('fr_FR', null)),
+      _safeRun('date_it', initializeDateFormatting('it_IT', null)),
+      _safeRun('date_hi', initializeDateFormatting('hi_IN', null)),
+      _safeRun('date_ja', initializeDateFormatting('ja_JP', null)),
+      _safeRun('date_zh', initializeDateFormatting('zh_CN', null)),
     ]);
   }
 
@@ -131,7 +139,9 @@ class AppBootstrapController extends AsyncNotifier<void> {
       }
       if (!kIsWeb) {
         try {
-          FirebaseCrashlytics.instance.recordFlutterError(details);
+          if (Firebase.apps.isNotEmpty) {
+            FirebaseCrashlytics.instance.recordFlutterError(details);
+          }
         } catch (_) {}
       }
     };
@@ -141,7 +151,9 @@ class AppBootstrapController extends AsyncNotifier<void> {
       debugPrintStack(stackTrace: stack, label: '[PlatformError stack]');
       if (!kIsWeb) {
         try {
-          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+          if (Firebase.apps.isNotEmpty) {
+            FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+          }
         } catch (_) {}
       }
       return true;

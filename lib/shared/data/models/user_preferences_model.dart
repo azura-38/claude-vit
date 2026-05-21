@@ -105,7 +105,7 @@ class UserPreferencesModel {
         orElse: () => LockTimeout.instant,
       ),
       biometricEnabled: m['biometricEnabled'] as bool? ?? false,
-      quickActionsEnabled: m['quickActionsEnabled'] as bool? ?? true,
+      quickActionsEnabled: m['quickActionsEnabled'] as bool? ?? false,
       notificationSettings: notificationFromMap(Map<String, dynamic>.from(m['notificationSettings'] ?? {})),
     );
   }

@@ -7,14 +7,19 @@ class VitaCaseBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final navBgColor = Theme.of(context).bottomNavigationBarTheme.backgroundColor ?? 
+        (isDark ? const Color(0xFF1C252E) : Colors.white);
+    final shadowColor = isDark ? Colors.black26 : Colors.black.withValues(alpha: .04);
+
     return Container(
       height: 96,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: navBgColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: .04), blurRadius: 30),
+          BoxShadow(color: shadowColor, blurRadius: 30),
         ],
       ),
       child: const Row(
@@ -43,17 +48,22 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final inactiveColor = isDark ? Colors.white38 : AppColors.navInactive;
+    final activeBgColor = primaryColor.withValues(alpha: 0.1);
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 220),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: active ? AppColors.softBlue : Colors.transparent,
+        color: active ? activeBgColor : Colors.transparent,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: active ? AppColors.primary : AppColors.secondary),
+          Icon(icon, color: active ? primaryColor : inactiveColor),
 
           const SizedBox(height: 4),
 
@@ -62,7 +72,7 @@ class _NavItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w600,
-              color: active ? AppColors.primary : AppColors.secondary,
+              color: active ? primaryColor : inactiveColor,
             ),
           ),
         ],

@@ -37,22 +37,6 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
   Gender _selectedGender = Gender.male;
   String _phonePrefix = '+1';
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-  String _addContactTitle(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Ekle' : 'Add Person / Contact';
-  String _contactInfoTitle(BuildContext context) => _isTr(context) ? 'Kişi / İletişim Bilgisi' : 'Person / Contact Info';
-  String _contactInfoDesc(BuildContext context) => _isTr(context)
-      ? 'Önemli kişi, kurum ve iletişim bilgilerini hızlı erişim için saklayın.'
-      : 'Keep important person, institution, and contact details for quick access.';
-  String _personContactLabel(BuildContext context) => _isTr(context) ? 'Kişi / İletişim' : 'Person / Contact';
-  String _categoryAreaLabel(BuildContext context) => _isTr(context) ? 'Kategori / Alan' : 'Category / Area';
-  String _institutionSourceLabel(BuildContext context) => _isTr(context) ? 'Kurum / Kaynak' : 'Institution / Source';
-  String _personHint(BuildContext context) => _isTr(context) ? 'Örn. Dr. Ayşe, Danışman, Klinik görevlisi' : 'e.g. Dr. Smith, advisor, clinic contact';
-  String _categoryHint(BuildContext context) => _isTr(context) ? 'Örn. Kontrol, diş, terapi, danışma' : 'e.g. checkup, dental, therapy, consultation';
-  String _institutionHint(BuildContext context) => _isTr(context) ? 'Örn. Klinik, laboratuvar, ofis, online kaynak' : 'e.g. clinic, lab, office, online source';
-  String _requiredContactError(BuildContext context) => _isTr(context)
-      ? 'Lütfen kişi/iletişim ve kategori/alan bilgisini girin.'
-      : 'Please enter person/contact and category/area information.';
-
   @override
   void initState() {
     super.initState();
@@ -78,7 +62,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
 
   Future<void> _save() async {
     if (_nameController.text.trim().isEmpty || _specialtyController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_requiredContactError(context))));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.requiredContactError)));
       return;
     }
 
@@ -115,7 +99,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          _addContactTitle(context),
+          context.l10n.addContactTitle,
           style: TextStyle(
             color: isDark ? Colors.white : const Color(0xFF001C39),
             fontWeight: FontWeight.w800,
@@ -151,9 +135,9 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               children: [
                 _buildTitleAndGenderRow(isDark),
                 const SizedBox(height: 20),
-                _buildField(_personContactLabel(context), _nameController, _personHint(context), isDark),
+                _buildField(context.l10n.personContactLabel, _nameController, context.l10n.personHint, isDark),
                 const SizedBox(height: 20),
-                _buildField(_categoryAreaLabel(context), _specialtyController, _categoryHint(context), isDark),
+                _buildField(context.l10n.categoryAreaLabel, _specialtyController, context.l10n.categoryHint, isDark),
               ],
             ),
             const SizedBox(height: 24),
@@ -163,7 +147,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               iconColor: const Color(0xFF006766),
               isDark: isDark,
               children: [
-                _buildField(_institutionSourceLabel(context), _hospitalController, _institutionHint(context), isDark),
+                _buildField(context.l10n.institutionSourceLabel, _hospitalController, context.l10n.institutionHint, isDark),
                 const SizedBox(height: 20),
                 _buildField(
                   context.l10n.phoneNumber,
@@ -241,12 +225,12 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  _contactInfoTitle(context),
+                  context.l10n.contactInfoTitle,
                   style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  _contactInfoDesc(context),
+                  context.l10n.contactInfoDesc,
                   style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ],

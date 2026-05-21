@@ -159,13 +159,14 @@ class _LimitUnlockInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
     final enabled = AppConfig.adSkipRewardsEnabled;
-    final title = isTr ? 'Limit Açma Hakkı' : 'Limit Unlock Token';
-    final status = enabled ? (isTr ? 'Aktif' : 'Active') : (isTr ? 'Yakında ${AppConfig.adSkipRewardsTargetVersion}' : 'Coming in ${AppConfig.adSkipRewardsTargetVersion}');
+    final title = context.l10n.limitUnlockTokenTitle;
+    final status = enabled
+        ? context.l10n.limitUnlockStatusActive
+        : context.l10n.limitUnlockStatusComingSoon(AppConfig.adSkipRewardsTargetVersion);
     final description = enabled
-        ? (isTr ? 'Her ${AppConfig.xpPerAdSkipToken} XP, 1 Limit Açma Hakkı kazandırır. Günlük limit dolarsa otomatik kullanılır.' : 'Every ${AppConfig.xpPerAdSkipToken} XP grants 1 Limit Unlock Token. It is used automatically when the daily limit is reached.')
-        : (isTr ? 'V1’de kapalı. ${AppConfig.adSkipRewardsTargetVersion} sürümünde her ${AppConfig.xpPerAdSkipToken} XP ile 1 Limit Açma Hakkı kazanılacak.' : 'Disabled in V1. In ${AppConfig.adSkipRewardsTargetVersion}, every ${AppConfig.xpPerAdSkipToken} XP will grant 1 Limit Unlock Token.');
+        ? context.l10n.limitUnlockDescActive(AppConfig.xpPerAdSkipToken)
+        : context.l10n.limitUnlockDescInactive(AppConfig.adSkipRewardsTargetVersion, AppConfig.xpPerAdSkipToken);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -205,9 +206,9 @@ class _LimitUnlockInfoCard extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    _MiniStat(label: isTr ? 'Toplam XP' : 'Total XP', value: xp.toString()),
-                    _MiniStat(label: isTr ? 'Kalan XP' : 'XP left', value: enabled ? xpRemaining.toString() : AppConfig.xpPerAdSkipToken.toString()),
-                    _MiniStat(label: isTr ? 'Hak' : 'Tokens', value: enabled ? tokens.toString() : '0'),
+                    _MiniStat(label: context.l10n.limitUnlockStatTotalXp, value: xp.toString()),
+                    _MiniStat(label: context.l10n.limitUnlockStatXpLeft, value: enabled ? xpRemaining.toString() : AppConfig.xpPerAdSkipToken.toString()),
+                    _MiniStat(label: context.l10n.limitUnlockStatTokens, value: enabled ? tokens.toString() : '0'),
                   ],
                 ),
               ],

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/l10n/vita_strings.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_unlock_provider.dart';
@@ -44,14 +43,13 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     if (!mounted) return;
     setState(() => _loadingAd = false);
 
-    final strings = VitaStrings.of(context);
     if (ok) {
       await ref.read(themeTypeProvider.notifier).setTheme(type);
       if (!mounted) return;
-      _showMessage(strings.themeUnlocked);
+      _showMessage(context.l10n.themeUnlocked);
       context.pop();
     } else {
-      _showMessage(strings.adUnavailableTryLater);
+      _showMessage(context.l10n.adUnavailableTryLater);
     }
   }
 
@@ -62,7 +60,6 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
     final currentTheme = ref.watch(themeTypeProvider);
     final unlockUntil = ref.watch(themeUnlockProvider);
     final unlockNotifier = ref.read(themeUnlockProvider.notifier);
@@ -70,7 +67,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(context.tr('theme_selection_title')),
         centerTitle: true,
@@ -86,7 +83,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
           const SizedBox(height: 20),
           if (unlockUntil != null) _UnlockStatusCard(days: unlockNotifier.remainingDays),
           if (unlockUntil != null) const SizedBox(height: 20),
-          _SectionTitle(title: strings.freeThemes),
+          _SectionTitle(title: context.l10n.freeThemes),
           const SizedBox(height: 12),
           for (final type in AppThemeType.freeThemes)
             _ThemeTile(
@@ -98,10 +95,10 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
               onApply: () => _apply(type),
             ),
           const SizedBox(height: 24),
-          _SectionTitle(title: strings.rewardThemes),
+          _SectionTitle(title: context.l10n.rewardThemes),
           const SizedBox(height: 8),
           Text(
-            strings.rewardThemesInfo,
+            context.l10n.rewardThemesInfo,
             style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary),
           ),
           const SizedBox(height: 12),
@@ -122,11 +119,13 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
               onPressed: _loadingAd
                   ? null
                   : () async {
+                      final okStr = context.l10n.oneDayAdded;
+                      final failStr = context.l10n.adUnavailable;
                       setState(() => _loadingAd = true);
                       final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
                       if (!mounted) return;
                       setState(() => _loadingAd = false);
-                      _showMessage(ok ? strings.oneDayAdded : strings.adUnavailable);
+                      _showMessage(ok ? okStr : failStr);
                     },
               icon: _loadingAd
                   ? const SizedBox(
@@ -135,7 +134,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.play_circle_outline_rounded),
-              label: Text(strings.addOneDay),
+              label: Text(context.l10n.addOneDay),
             )
           : null,
     );
@@ -183,7 +182,7 @@ class _ThemePreview extends StatelessWidget {
                       Text(_localizedThemeName(context, type), style: theme.textTheme.titleLarge),
                       const SizedBox(height: 4),
                       Text(
-                        type.isRewardTheme ? VitaStrings.of(context).watchAdToUnlock : VitaStrings.of(context).active,
+                        type.isRewardTheme ? context.l10n.watchAdToUnlock : context.l10n.active,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: isDarkTheme ? Colors.white70 : AppColors.textSecondary,
                           fontWeight: FontWeight.w700,
@@ -278,8 +277,6 @@ class _ThemeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final visuals = ThemeVisuals.of(type);
 
     return Card(
@@ -308,13 +305,13 @@ class _ThemeTile extends StatelessWidget {
           ],
         ),
         title: Text(_localizedThemeName(context, type), style: const TextStyle(fontWeight: FontWeight.w800)),
-        subtitle: Text(locked ? strings.watchAdToUnlock : selected ? strings.active : strings.tapToPreview),
+        subtitle: Text(locked ? context.l10n.watchAdToUnlock : selected ? context.l10n.active : context.l10n.tapToPreview),
         trailing: FilledButton(
           style: FilledButton.styleFrom(backgroundColor: visuals.primary),
           onPressed: loading ? null : onApply,
-          child: Text(locked ? strings.unlock : selected ? strings.active : strings.apply),
+          child: Text(locked ? context.l10n.unlock : selected ? context.l10n.active : context.l10n.apply),
         ),
-        tileColor: isDark ? AppColors.surfaceDark : Colors.white,
+        tileColor: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
     );
@@ -328,18 +325,17 @@ class _UnlockStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final strings = VitaStrings.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.medicalBlue.withValues(alpha: 0.08),
+        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
-          const Icon(Icons.verified_rounded, color: AppColors.medicalBlue),
+          Icon(Icons.verified_rounded, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 12),
-          Expanded(child: Text(strings.rewardThemesActive(days))),
+          Expanded(child: Text(context.l10n.rewardThemesActive(days))),
         ],
       ),
     );

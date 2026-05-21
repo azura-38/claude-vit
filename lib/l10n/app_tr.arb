@@ -3620,7 +3620,7 @@
     "description": "Translation for ad_reward_not_earned",
     "placeholders": {}
   },
-  "ad_unavailable": "Şu anda uygun bir ödüllü reklam yok. Lütfen daha sonra tekrar deneyin.",
+  "ad_unavailable": "Reklam kullanılamıyor.",
   "@ad_unavailable": {
     "description": "Translation for ad_unavailable",
     "placeholders": {}
@@ -3984,5 +3984,636 @@
   "@add_document": {
     "description": "Translation for add_document",
     "placeholders": {}
+  },
+  "people_contacts": "Kişiler / İletişim",
+  "@people_contacts": {
+    "placeholders": {},
+    "description": "Translation for people_contacts"
+  },
+  "contacts_subtitle": "Kişi, kurum ve iletişim kayıtları",
+  "@contacts_subtitle": {
+    "placeholders": {},
+    "description": "Translation for contacts_subtitle"
+  },
+  "add_contact_subtitle": "Yeni kişi veya kurum bilgisi ekle",
+  "@add_contact_subtitle": {
+    "placeholders": {},
+    "description": "Translation for add_contact_subtitle"
+  },
+  "add_contact": "Kişi / İletişim Ekle",
+  "@add_contact": {
+    "placeholders": {},
+    "description": "Translation for add_contact"
+  },
+  "no_doctor": "Doktor yok",
+  "@no_doctor": {
+    "placeholders": {},
+    "description": "Translation for no_doctor"
+  },
+  "no_institution": "Kurum yok",
+  "@no_institution": {
+    "placeholders": {},
+    "description": "Translation for no_institution"
+  },
+  "edit_personal_info": "Kişisel bilgileri düzenle",
+  "@edit_personal_info": {
+    "placeholders": {},
+    "description": "Translation for edit_personal_info"
+  },
+  "personal_info_updated": "Kişisel bilgiler güncellendi.",
+  "@personal_info_updated": {
+    "placeholders": {},
+    "description": "Translation for personal_info_updated"
+  },
+  "edit_important_info": "Önemli bilgileri düzenle",
+  "@edit_important_info": {
+    "placeholders": {},
+    "description": "Translation for edit_important_info"
+  },
+  "hint_allergies": "Virgülle ayır: Polen, Penisilin",
+  "@hint_allergies": {
+    "placeholders": {},
+    "description": "Translation for hint_allergies"
+  },
+  "hint_medications": "Virgülle ayır: Aspirin, Vitamin D",
+  "@hint_medications": {
+    "placeholders": {},
+    "description": "Translation for hint_medications"
+  },
+  "relationship": "Yakınlık derecesi",
+  "@relationship": {
+    "placeholders": {},
+    "description": "Translation for relationship"
+  },
+  "hint_relationship": "Eş, anne, baba, kardeş...",
+  "@hint_relationship": {
+    "placeholders": {},
+    "description": "Translation for hint_relationship"
+  },
+  "important_info_updated": "Önemli bilgiler güncellendi.",
+  "@important_info_updated": {
+    "placeholders": {},
+    "description": "Translation for important_info_updated"
+  },
+  "reminder_troubleshooting": "Hatırlatma Sorun Giderme",
+  "@reminder_troubleshooting": {
+    "placeholders": {},
+    "description": "Translation for reminder_troubleshooting"
+  },
+  "reminder_troubleshooting_desc": "Bildirim, exact alarm ve pil ayarlarını kontrol et",
+  "@reminder_troubleshooting_desc": {
+    "placeholders": {},
+    "description": "Translation for reminder_troubleshooting_desc"
+  },
+  "status_checking": "Kontrol ediliyor...",
+  "@status_checking": {
+    "placeholders": {},
+    "description": "Translation for status_checking"
+  },
+  "status_enabled": "Bildirim izni açık",
+  "@status_enabled": {
+    "placeholders": {},
+    "description": "Translation for status_enabled"
+  },
+  "status_disabled": "Bildirim izni kapalı",
+  "@status_disabled": {
+    "placeholders": {},
+    "description": "Translation for status_disabled"
+  },
+  "why_no_reminders": "Hatırlatmalar neden gelmeyebilir?",
+  "@why_no_reminders": {
+    "placeholders": {},
+    "description": "Translation for why_no_reminders"
+  },
+  "why_no_reminders_desc": "Bildirim izni, kesin alarm izni veya cihazın pil yönetimi randevu ve ilaç hatırlatmalarını engelleyebilir. Önce izinleri kontrol et, pil optimizasyonunu sadece testler başarısızsa son seçenek olarak değerlendir.",
+  "@why_no_reminders_desc": {
+    "placeholders": {},
+    "description": "Translation for why_no_reminders_desc"
+  },
+  "status_card_title": "Bildirim Durumu",
+  "@status_card_title": {
+    "placeholders": {},
+    "description": "Translation for status_card_title"
+  },
+  "check_notif_permission": "1. Bildirim iznini kontrol et",
+  "@check_notif_permission": {
+    "placeholders": {},
+    "description": "Translation for check_notif_permission"
+  },
+  "check_notif_permission_desc": "Anlık bildirimler kapalıysa hiçbir hatırlatma görünmez.",
+  "@check_notif_permission_desc": {
+    "placeholders": {},
+    "description": "Translation for check_notif_permission_desc"
+  },
+  "req_notif_permission": "Bildirim İznini İste",
+  "@req_notif_permission": {
+    "placeholders": {},
+    "description": "Translation for req_notif_permission"
+  },
+  "check_exact_alarm": "2. Kesin alarm iznini kontrol et",
+  "@check_exact_alarm": {
+    "placeholders": {},
+    "description": "Translation for check_exact_alarm"
+  },
+  "check_exact_alarm_desc": "Randevu ve ilaç saatlerinin tam zamanında çalışması için gereklidir.",
+  "@check_exact_alarm_desc": {
+    "placeholders": {},
+    "description": "Translation for check_exact_alarm_desc"
+  },
+  "req_exact_alarm": "Exact Alarm İznini İste",
+  "@req_exact_alarm": {
+    "placeholders": {},
+    "description": "Translation for req_exact_alarm"
+  },
+  "resched_saved": "3. Mevcut hatırlatmaları yeniden kur",
+  "@resched_saved": {
+    "placeholders": {},
+    "description": "Translation for resched_saved"
+  },
+  "resched_saved_desc": "İzin verdikten sonra kayıtlı ilaç ve randevu hatırlatmalarını tekrar kurar.",
+  "@resched_saved_desc": {
+    "placeholders": {},
+    "description": "Translation for resched_saved_desc"
+  },
+  "resched_btn": "Hatırlatmaları Yeniden Kur",
+  "@resched_btn": {
+    "placeholders": {},
+    "description": "Translation for resched_btn"
+  },
+  "sched_test": "4. 1 dakika test hatırlatması kur",
+  "@sched_test": {
+    "placeholders": {},
+    "description": "Translation for sched_test"
+  },
+  "sched_test_desc": "Bu gelirse alarm sistemi çalışıyor demektir.",
+  "@sched_test_desc": {
+    "placeholders": {},
+    "description": "Translation for sched_test_desc"
+  },
+  "sched_test_btn": "1 Dakika Testi Kur",
+  "@sched_test_btn": {
+    "placeholders": {},
+    "description": "Translation for sched_test_btn"
+  },
+  "last_step_battery": "5. Son seçenek: pil ayarlarını kontrol et",
+  "@last_step_battery": {
+    "placeholders": {},
+    "description": "Translation for last_step_battery"
+  },
+  "last_step_battery_desc": "Sadece yukarıdaki testler başarısızsa cihazın VitaCase için pil kısıtlamasını kontrol et.",
+  "@last_step_battery_desc": {
+    "placeholders": {},
+    "description": "Translation for last_step_battery_desc"
+  },
+  "open_app_settings": "Uygulama Ayarlarını Aç",
+  "@open_app_settings": {
+    "placeholders": {},
+    "description": "Translation for open_app_settings"
+  },
+  "snack_notif_checked": "Bildirim izni kontrol edildi.",
+  "@snack_notif_checked": {
+    "placeholders": {},
+    "description": "Translation for snack_notif_checked"
+  },
+  "snack_exact_alarm_requested": "Kesin alarm izni istendi. Cihaz ayarında izin vermen gerekebilir.",
+  "@snack_exact_alarm_requested": {
+    "placeholders": {},
+    "description": "Translation for snack_exact_alarm_requested"
+  },
+  "test_notif_title": "⏰ VitaCase Hatırlatma Testi",
+  "@test_notif_title": {
+    "placeholders": {},
+    "description": "Translation for test_notif_title"
+  },
+  "test_notif_body": "Bu test hatırlatması 1 dakika sonrası için kuruldu.",
+  "@test_notif_body": {
+    "placeholders": {},
+    "description": "Translation for test_notif_body"
+  },
+  "snack_test_sched": "Test hatırlatması 1 dakika sonrasına kuruldu.",
+  "@snack_test_sched": {
+    "placeholders": {},
+    "description": "Translation for snack_test_sched"
+  },
+  "snack_resched_completed": "Mevcut ilaç ve randevu hatırlatmaları yeniden kuruldu.",
+  "@snack_resched_completed": {
+    "placeholders": {},
+    "description": "Translation for snack_resched_completed"
+  },
+  "choose_pdf_or_image": "PDF veya Görsel Seç",
+  "@choose_pdf_or_image": {
+    "placeholders": {},
+    "description": "Translation for choose_pdf_or_image"
+  },
+  "encrypted_local_file_info": "Dosyanız şifrelenir ve bu cihazda yerel olarak saklanır.",
+  "@encrypted_local_file_info": {
+    "placeholders": {},
+    "description": "Translation for encrypted_local_file_info"
+  },
+  "web_upload_info": "Dosya kasasına yükleme Android/iOS sürümlerinde kullanılabilir.",
+  "@web_upload_info": {
+    "placeholders": {},
+    "description": "Translation for web_upload_info"
+  },
+  "web_preview_no_upload": "Web önizleme şifreli dosya saklamaz. Kasa yüklemesi için Android/iOS kullanın.",
+  "@web_preview_no_upload": {
+    "placeholders": {},
+    "description": "Translation for web_preview_no_upload"
+  },
+  "choose_file_first": "Lütfen önce PDF veya görsel seçin.",
+  "@choose_file_first": {
+    "placeholders": {},
+    "description": "Translation for choose_file_first"
+  },
+  "document_saved": "Belge güvenli şekilde kaydedildi.",
+  "@document_saved": {
+    "placeholders": {},
+    "description": "Translation for document_saved"
+  },
+  "save_document_failed": "Belge kaydedilemedi: {error}",
+  "@save_document_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for save_document_failed"
+  },
+  "save_securely": "Güvenli Kaydet",
+  "@save_securely": {
+    "placeholders": {},
+    "description": "Translation for save_securely"
+  },
+  "saving": "Kaydediliyor...",
+  "@saving": {
+    "placeholders": {},
+    "description": "Translation for saving"
+  },
+  "local_organizer_disclaimer": "VitaCase yerel bir belge düzenleyicidir. Tanı koymaz, analiz yapmaz veya tıbbi tavsiye vermez.",
+  "@local_organizer_disclaimer": {
+    "placeholders": {},
+    "description": "Translation for local_organizer_disclaimer"
+  },
+  "terms_and_legal_agreement": "Gizlilik Politikası, Kullanım Koşulları ve Yasal Uyarı metinlerini kabul ediyorum.",
+  "@terms_and_legal_agreement": {
+    "placeholders": {},
+    "description": "Translation for terms_and_legal_agreement"
+  },
+  "free_themes": "Ücretsiz temalar",
+  "@free_themes": {
+    "placeholders": {},
+    "description": "Translation for free_themes"
+  },
+  "reward_themes": "Reklamla Açılan Temalar",
+  "@reward_themes": {
+    "placeholders": {},
+    "description": "Translation for reward_themes"
+  },
+  "reward_themes_info": "Bu temaları 3 gün açmak için bir ödüllü reklam izleyin. Her ek reklam +1 gün kazandırır.",
+  "@reward_themes_info": {
+    "placeholders": {},
+    "description": "Translation for reward_themes_info"
+  },
+  "watch_ad_to_unlock": "Açmak için reklam izle",
+  "@watch_ad_to_unlock": {
+    "placeholders": {},
+    "description": "Translation for watch_ad_to_unlock"
+  },
+  "tap_to_preview": "Önizlemek için dokun",
+  "@tap_to_preview": {
+    "placeholders": {},
+    "description": "Translation for tap_to_preview"
+  },
+  "add_one_day": "+1 gün ekle",
+  "@add_one_day": {
+    "placeholders": {},
+    "description": "Translation for add_one_day"
+  },
+  "one_day_added": "+1 gün eklendi.",
+  "@one_day_added": {
+    "placeholders": {},
+    "description": "Translation for one_day_added"
+  },
+  "ad_unavailable_try_later": "Reklam kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+  "@ad_unavailable_try_later": {
+    "placeholders": {},
+    "description": "Translation for ad_unavailable_try_later"
+  },
+  "theme_unlocked": "Tema açıldı. Her ek reklam +1 gün kazandırır.",
+  "@theme_unlocked": {
+    "placeholders": {},
+    "description": "Translation for theme_unlocked"
+  },
+  "reward_themes_active": "Reklamla açılan temalar {days} gün aktif.",
+  "@reward_themes_active": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for reward_themes_active"
+  },
+  "lock_use_pin": "PIN ile Aç",
+  "@lock_use_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_use_pin"
+  },
+  "pending": "Beklemede",
+  "@pending": {
+    "placeholders": {},
+    "description": "Translation for pending"
+  },
+  "document_details_subtitle": "Belge detaylarını güvenli şekilde görüntülüyorsun.",
+  "@document_details_subtitle": {
+    "placeholders": {},
+    "description": "Subtitle for document details screen"
+  },
+  "document_name": "Belge adı",
+  "@document_name": {
+    "placeholders": {},
+    "description": "Label for document name field"
+  },
+  "document_name_hint": "Örn. Kan tahlili sonucu",
+  "@document_name_hint": {
+    "placeholders": {},
+    "description": "Hint text for document name field"
+  },
+  "daily_limit_reached_message": "Günlük ekleme limitine ulaştın ({limit}). Yarın tekrar ekleyebilirsin.",
+  "@daily_limit_reached_message": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Warning message when document upload limit is exceeded"
+  },
+  "document_updated": "Belge güncellendi.",
+  "@document_updated": {
+    "placeholders": {},
+    "description": "Success message when document is saved"
+  },
+  "document_update_failed": "Belge güncellenemedi.",
+  "@document_update_failed": {
+    "placeholders": {},
+    "description": "Error message when document update fails"
+  },
+  "document_open_failed": "Belge açılamadı.",
+  "@document_open_failed": {
+    "placeholders": {},
+    "description": "Error message when document fails to open"
+  },
+  "no_additional_notes": "Ek not yok.",
+  "@no_additional_notes": {
+    "placeholders": {},
+    "description": "Placeholder for empty notes"
+  },
+  "created_at_label": "OLUŞTURULDU",
+  "@created_at_label": {
+    "placeholders": {},
+    "description": "Label for document creation date"
+  },
+  "physician_label": "İLGİLİ KİŞİ",
+  "@physician_label": {
+    "placeholders": {},
+    "description": "Label for document doctor/physician"
+  },
+  "open": "Aç",
+  "@open": {
+    "placeholders": {},
+    "description": "Generic open label"
+  },
+  "document_vault": "Belge Kasası",
+  "@document_vault": {
+    "placeholders": {},
+    "description": "Translation for document_vault"
+  },
+  "document_vault_view_subtitle": "Belge detaylarını güvenli şekilde görüntülüyorsun.",
+  "@document_vault_view_subtitle": {
+    "placeholders": {},
+    "description": "Translation for document_vault_view_subtitle"
+  },
+  "institution_hospital": "Kurum / Hastane",
+  "@institution_hospital": {
+    "placeholders": {},
+    "description": "Translation for institution_hospital"
+  },
+  "doctor_related_person": "Doktor / İlgili kişi",
+  "@doctor_related_person": {
+    "placeholders": {},
+    "description": "Translation for doctor_related_person"
+  },
+  "add_contact_title": "Kişi / İletişim Ekle",
+  "@add_contact_title": {
+    "placeholders": {},
+    "description": "Translation for add_contact_title"
+  },
+  "contact_info_title": "Kişi / İletişim Bilgisi",
+  "@contact_info_title": {
+    "placeholders": {},
+    "description": "Translation for contact_info_title"
+  },
+  "contact_info_desc": "Önemli kişi, kurum ve iletişim bilgilerini hızlı erişim için saklayın.",
+  "@contact_info_desc": {
+    "placeholders": {},
+    "description": "Translation for contact_info_desc"
+  },
+  "person_contact_label": "Kişi / İletişim",
+  "@person_contact_label": {
+    "placeholders": {},
+    "description": "Translation for person_contact_label"
+  },
+  "category_area_label": "Kategori / Alan",
+  "@category_area_label": {
+    "placeholders": {},
+    "description": "Translation for category_area_label"
+  },
+  "institution_source_label": "Kurum / Kaynak",
+  "@institution_source_label": {
+    "placeholders": {},
+    "description": "Translation for institution_source_label"
+  },
+  "person_hint": "Örn. Dr. Ayşe, Danışman, Klinik görevlisi",
+  "@person_hint": {
+    "placeholders": {},
+    "description": "Translation for person_hint"
+  },
+  "category_hint": "Örn. Kontrol, diş, terapi, danışma",
+  "@category_hint": {
+    "placeholders": {},
+    "description": "Translation for category_hint"
+  },
+  "institution_hint": "Örn. Klinik, laboratuvar, ofis, online kaynak",
+  "@institution_hint": {
+    "placeholders": {},
+    "description": "Translation for institution_hint"
+  },
+  "required_contact_error": "Lütfen kişi/iletişim ve kategori/alan bilgisini girin.",
+  "@required_contact_error": {
+    "placeholders": {},
+    "description": "Translation for required_contact_error"
+  },
+  "contacts_title": "Kişiler / İletişim",
+  "@contacts_title": {
+    "placeholders": {},
+    "description": "Translation for contacts_title"
+  },
+  "contacts_search_hint": "Kişi, kurum veya kategori ara",
+  "@contacts_search_hint": {
+    "placeholders": {},
+    "description": "Translation for contacts_search_hint"
+  },
+  "no_contacts_found": "Eşleşen kişi/iletişim bulunamadı",
+  "@no_contacts_found": {
+    "placeholders": {},
+    "description": "Translation for no_contacts_found"
+  },
+  "contact_detail_title": "Kişi / İletişim Detayı",
+  "@contact_detail_title": {
+    "placeholders": {},
+    "description": "Translation for contact_detail_title"
+  },
+  "institution_source": "Kurum / Kaynak",
+  "@institution_source": {
+    "placeholders": {},
+    "description": "Translation for institution_source"
+  },
+  "category_area": "Kategori / Alan",
+  "@category_area": {
+    "placeholders": {},
+    "description": "Translation for category_area"
+  },
+  "sub_area": "Alt alan",
+  "@sub_area": {
+    "placeholders": {},
+    "description": "Translation for sub_area"
+  },
+  "privacy_policy_short": "Gizlilik Politikası",
+  "@privacy_policy_short": {
+    "placeholders": {},
+    "description": "Translation for privacy_policy_short"
+  },
+  "terms_short": "Koşullar",
+  "@terms_short": {
+    "placeholders": {},
+    "description": "Translation for terms_short"
+  },
+  "disclaimer_short": "Yasal Uyarı",
+  "@disclaimer_short": {
+    "placeholders": {},
+    "description": "Translation for disclaimer_short"
+  },
+  "debug_panel_taps_left": "Debug panel için {remaining} dokunuş kaldı.",
+  "@debug_panel_taps_left": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for debug_panel_taps_left"
+  },
+  "delete_confirm_dialog_title": "Belge silinsin mi?",
+  "@delete_confirm_dialog_title": {
+    "placeholders": {},
+    "description": "Translation for delete_confirm_dialog_title"
+  },
+  "delete_confirm_dialog_desc": "Bu belge kasadan kaldırılacak. Bu işlem geri alınamaz.",
+  "@delete_confirm_dialog_desc": {
+    "placeholders": {},
+    "description": "Translation for delete_confirm_dialog_desc"
+  },
+  "document_deleted_msg": "Belge silindi.",
+  "@document_deleted_msg": {
+    "placeholders": {},
+    "description": "Translation for document_deleted_msg"
+  },
+  "sort_newest_first": "Yeni → Eski",
+  "@sort_newest_first": {
+    "placeholders": {},
+    "description": "Translation for sort_newest_first"
+  },
+  "sort_oldest_first": "Eski → Yeni",
+  "@sort_oldest_first": {
+    "placeholders": {},
+    "description": "Translation for sort_oldest_first"
+  },
+  "sort_a_z": "A-Z",
+  "@sort_a_z": {
+    "placeholders": {},
+    "description": "Translation for sort_a_z"
+  },
+  "sort_label": "Sırala",
+  "@sort_label": {
+    "placeholders": {},
+    "description": "Translation for sort_label"
+  },
+  "medication_reminder_past_note": "Bugün seçilen saat geçtiyse ilk hatırlatma bir sonraki uygun zamana kurulur.",
+  "@medication_reminder_past_note": {
+    "placeholders": {},
+    "description": "Translation for medication_reminder_past_note"
+  },
+  "appointment_reminder_past_note": "Seçilen hatırlatma zamanı geçmişte kalırsa VitaCase en yakın uygun zamanı seçer.",
+  "@appointment_reminder_past_note": {
+    "placeholders": {},
+    "description": "Translation for appointment_reminder_past_note"
+  },
+  "limit_unlock_token_title": "Limit Açma Hakkı",
+  "@limit_unlock_token_title": {
+    "placeholders": {},
+    "description": "Translation for limit_unlock_token_title"
+  },
+  "limit_unlock_status_active": "Aktif",
+  "@limit_unlock_status_active": {
+    "placeholders": {},
+    "description": "Translation for limit_unlock_status_active"
+  },
+  "limit_unlock_status_coming_soon": "Yakında {version}",
+  "@limit_unlock_status_coming_soon": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_status_coming_soon"
+  },
+  "limit_unlock_desc_active": "Her {xp} XP, 1 Limit Açma Hakkı kazandırır. Günlük limit dolarsa otomatik kullanılır.",
+  "@limit_unlock_desc_active": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_active"
+  },
+  "limit_unlock_desc_inactive": "V1’de kapalı. {version} sürümünde her {xp} XP ile 1 Limit Açma Hakkı kazanılacak.",
+  "@limit_unlock_desc_inactive": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_inactive"
+  },
+  "limit_unlock_stat_total_xp": "Toplam XP",
+  "@limit_unlock_stat_total_xp": {
+    "placeholders": {},
+    "description": "Translation for limit_unlock_stat_total_xp"
+  },
+  "limit_unlock_stat_xp_left": "Kalan XP",
+  "@limit_unlock_stat_xp_left": {
+    "placeholders": {},
+    "description": "Translation for limit_unlock_stat_xp_left"
+  },
+  "limit_unlock_stat_tokens": "Hak",
+  "@limit_unlock_stat_tokens": {
+    "placeholders": {},
+    "description": "Translation for limit_unlock_stat_tokens"
+  },
+  "notes": "Notlar",
+  "@notes": {
+    "placeholders": {},
+    "description": "Translation for notes"
   }
 }

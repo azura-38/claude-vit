@@ -1,93 +1,453 @@
 {
   "@@locale": "zh",
   "app_name": "VitaCase",
+  "@app_name": {
+    "placeholders": {},
+    "description": "Translation for app_name"
+  },
   "skip": "跳过",
+  "@skip": {
+    "placeholders": {},
+    "description": "Translation for skip"
+  },
   "next": "下一步",
+  "@next": {
+    "placeholders": {},
+    "description": "Translation for next"
+  },
   "start": "开始",
+  "@start": {
+    "placeholders": {},
+    "description": "Translation for start"
+  },
   "back": "返回",
+  "@back": {
+    "placeholders": {},
+    "description": "Translation for back"
+  },
   "save": "保存",
+  "@save": {
+    "placeholders": {},
+    "description": "Translation for save"
+  },
   "cancel": "取消",
+  "@cancel": {
+    "placeholders": {},
+    "description": "Translation for cancel"
+  },
   "error": "错误",
+  "@error": {
+    "placeholders": {},
+    "description": "Translation for error"
+  },
   "success": "成功",
+  "@success": {
+    "placeholders": {},
+    "description": "Translation for success"
+  },
   "loading": "加载中...",
+  "@loading": {
+    "placeholders": {},
+    "description": "Translation for loading"
+  },
   "continue_btn": "继续",
+  "@continue_btn": {
+    "placeholders": {},
+    "description": "Translation for continue_btn"
+  },
   "create_profile": "创建个人资料",
+  "@create_profile": {
+    "placeholders": {},
+    "description": "Translation for create_profile"
+  },
   "profile_desc": "我们需要一些信息来个性化你的体验。",
+  "@profile_desc": {
+    "placeholders": {},
+    "description": "Translation for profile_desc"
+  },
   "full_name": "姓名",
+  "@full_name": {
+    "placeholders": {},
+    "description": "Translation for full_name"
+  },
   "gender": "性别",
+  "@gender": {
+    "placeholders": {},
+    "description": "Translation for gender"
+  },
   "gender_female": "女性",
+  "@gender_female": {
+    "placeholders": {},
+    "description": "Translation for gender_female"
+  },
   "gender_male": "男性",
+  "@gender_male": {
+    "placeholders": {},
+    "description": "Translation for gender_male"
+  },
   "gender_other": "其他",
+  "@gender_other": {
+    "placeholders": {},
+    "description": "Translation for gender_other"
+  },
   "birth_date": "出生日期",
+  "@birth_date": {
+    "placeholders": {},
+    "description": "Translation for birth_date"
+  },
   "date_format_hint": "DD.MM.YYYY",
+  "@date_format_hint": {
+    "placeholders": {},
+    "description": "Translation for date_format_hint"
+  },
   "select_language": "选择语言",
+  "@select_language": {
+    "placeholders": {},
+    "description": "Translation for select_language"
+  },
   "please_enter_name": "请输入姓名",
+  "@please_enter_name": {
+    "placeholders": {},
+    "description": "Translation for please_enter_name"
+  },
   "must_agree": "你必须同意法律文件才能继续。",
+  "@must_agree": {
+    "placeholders": {},
+    "description": "Translation for must_agree"
+  },
   "step_profile": "个人资料",
+  "@step_profile": {
+    "placeholders": {},
+    "description": "Translation for step_profile"
+  },
   "step_security": "安全",
+  "@step_security": {
+    "placeholders": {},
+    "description": "Translation for step_security"
+  },
   "setup_app_lock": "设置应用锁",
+  "@setup_app_lock": {
+    "placeholders": {},
+    "description": "Translation for setup_app_lock"
+  },
   "setup_app_lock_desc": "使用6位PIN保护你的数据。",
+  "@setup_app_lock_desc": {
+    "placeholders": {},
+    "description": "Translation for setup_app_lock_desc"
+  },
   "lock_set_pin": "设置安全PIN",
+  "@lock_set_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_set_pin"
+  },
   "lock_confirm_pin": "确认PIN",
+  "@lock_confirm_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_confirm_pin"
+  },
   "lock_pin_mismatch": "PIN不匹配。请重试。",
+  "@lock_pin_mismatch": {
+    "placeholders": {},
+    "description": "Translation for lock_pin_mismatch"
+  },
   "skip_pin_setup": "跳过",
+  "@skip_pin_setup": {
+    "placeholders": {},
+    "description": "Translation for skip_pin_setup"
+  },
   "lock_skip_desc": "你可以稍后在设置中完成。",
+  "@lock_skip_desc": {
+    "placeholders": {},
+    "description": "Translation for lock_skip_desc"
+  },
   "home": "首页",
+  "@home": {
+    "placeholders": {},
+    "description": "Translation for home"
+  },
   "vault": "保险库",
+  "@vault": {
+    "placeholders": {},
+    "description": "Translation for vault"
+  },
   "explore": "探索",
+  "@explore": {
+    "placeholders": {},
+    "description": "Translation for explore"
+  },
   "appointments": "预约",
+  "@appointments": {
+    "placeholders": {},
+    "description": "Translation for appointments"
+  },
   "profile": "个人资料",
+  "@profile": {
+    "placeholders": {},
+    "description": "Translation for profile"
+  },
   "medicines": "药品",
+  "@medicines": {
+    "placeholders": {},
+    "description": "Translation for medicines"
+  },
   "health_data": "健康数据",
+  "@health_data": {
+    "placeholders": {},
+    "description": "Translation for health_data"
+  },
   "important_info": "重要信息",
+  "@important_info": {
+    "placeholders": {},
+    "description": "Translation for important_info"
+  },
   "guest_user": "访客用户",
+  "@guest_user": {
+    "placeholders": {},
+    "description": "Translation for guest_user"
+  },
   "hi": "你好",
+  "@hi": {
+    "placeholders": {},
+    "description": "Translation for hi"
+  },
   "docs_title": "文档",
+  "@docs_title": {
+    "placeholders": {},
+    "description": "Translation for docs_title"
+  },
   "docs_add_title": "添加文档",
+  "@docs_add_title": {
+    "placeholders": {},
+    "description": "Translation for docs_add_title"
+  },
   "docs_add_btn": "添加文档",
+  "@docs_add_btn": {
+    "placeholders": {},
+    "description": "Translation for docs_add_btn"
+  },
   "docs_add_pick": "选择文档 / 图片",
+  "@docs_add_pick": {
+    "placeholders": {},
+    "description": "Translation for docs_add_pick"
+  },
   "docs_success": "文档已成功保存！",
+  "@docs_success": {
+    "placeholders": {},
+    "description": "Translation for docs_success"
+  },
   "docs_error_pick": "请选择一个文件",
+  "@docs_error_pick": {
+    "placeholders": {},
+    "description": "Translation for docs_error_pick"
+  },
   "docs_category_health": "健康",
+  "@docs_category_health": {
+    "placeholders": {},
+    "description": "Translation for docs_category_health"
+  },
   "docs_category_identity": "身份",
+  "@docs_category_identity": {
+    "placeholders": {},
+    "description": "Translation for docs_category_identity"
+  },
   "docs_category_finance": "财务",
+  "@docs_category_finance": {
+    "placeholders": {},
+    "description": "Translation for docs_category_finance"
+  },
   "docs_category_legal": "法律",
+  "@docs_category_legal": {
+    "placeholders": {},
+    "description": "Translation for docs_category_legal"
+  },
   "docs_category_notes": "笔记",
+  "@docs_category_notes": {
+    "placeholders": {},
+    "description": "Translation for docs_category_notes"
+  },
   "docs_category_other": "其他",
+  "@docs_category_other": {
+    "placeholders": {},
+    "description": "Translation for docs_category_other"
+  },
   "appointment_title": "预约标题",
+  "@appointment_title": {
+    "placeholders": {},
+    "description": "Translation for appointment_title"
+  },
   "my_appointments": "我的预约",
+  "@my_appointments": {
+    "placeholders": {},
+    "description": "Translation for my_appointments"
+  },
   "add_appointment": "添加预约",
+  "@add_appointment": {
+    "placeholders": {},
+    "description": "Translation for add_appointment"
+  },
   "add_new_appointment": "添加新预约",
+  "@add_new_appointment": {
+    "placeholders": {},
+    "description": "Translation for add_new_appointment"
+  },
   "appointment_added": "预约已成功添加。",
+  "@appointment_added": {
+    "placeholders": {},
+    "description": "Translation for appointment_added"
+  },
   "appointment_created_success": "预约已成功创建。",
+  "@appointment_created_success": {
+    "placeholders": {},
+    "description": "Translation for appointment_created_success"
+  },
   "failed_create_appointment": "无法创建预约。",
+  "@failed_create_appointment": {
+    "placeholders": {},
+    "description": "Translation for failed_create_appointment"
+  },
   "location": "地点",
+  "@location": {
+    "placeholders": {},
+    "description": "Translation for location"
+  },
   "today": "今天",
+  "@today": {
+    "placeholders": {},
+    "description": "Translation for today"
+  },
   "tomorrow": "明天",
+  "@tomorrow": {
+    "placeholders": {},
+    "description": "Translation for tomorrow"
+  },
   "health_stats": "健康中心",
+  "@health_stats": {
+    "placeholders": {},
+    "description": "Translation for health_stats"
+  },
   "safety_footer_health": "健康数据仅供参考。如需诊断，请咨询专业人士。",
+  "@safety_footer_health": {
+    "placeholders": {},
+    "description": "Translation for safety_footer_health"
+  },
   "medical_device_warning": "VitaCase不是医疗设备。请始终咨询专业人士。",
+  "@medical_device_warning": {
+    "placeholders": {},
+    "description": "Translation for medical_device_warning"
+  },
   "management_tool_warning": "VitaCase是管理工具，不是诊断服务。",
+  "@management_tool_warning": {
+    "placeholders": {},
+    "description": "Translation for management_tool_warning"
+  },
   "unit_ml": "ml",
+  "@unit_ml": {
+    "placeholders": {},
+    "description": "Translation for unit_ml"
+  },
   "unit_l": "L",
+  "@unit_l": {
+    "placeholders": {},
+    "description": "Translation for unit_l"
+  },
   "unit_steps": "步",
+  "@unit_steps": {
+    "placeholders": {},
+    "description": "Translation for unit_steps"
+  },
   "unit_hours": "小时",
+  "@unit_hours": {
+    "placeholders": {},
+    "description": "Translation for unit_hours"
+  },
   "unit_bpm": "BPM",
+  "@unit_bpm": {
+    "placeholders": {},
+    "description": "Translation for unit_bpm"
+  },
   "steps": "步数",
+  "@steps": {
+    "placeholders": {},
+    "description": "Translation for steps"
+  },
   "heart": "心率",
+  "@heart": {
+    "placeholders": {},
+    "description": "Translation for heart"
+  },
   "sleep": "睡眠",
+  "@sleep": {
+    "placeholders": {},
+    "description": "Translation for sleep"
+  },
   "water": "饮水",
+  "@water": {
+    "placeholders": {},
+    "description": "Translation for water"
+  },
   "add_health_data": "添加健康数据",
+  "@add_health_data": {
+    "placeholders": {},
+    "description": "Translation for add_health_data"
+  },
   "recent_activity": "最近活动",
+  "@recent_activity": {
+    "placeholders": {},
+    "description": "Translation for recent_activity"
+  },
   "no_health_records": "尚无记录。",
+  "@no_health_records": {
+    "placeholders": {},
+    "description": "Translation for no_health_records"
+  },
   "add_medicine": "添加药品",
+  "@add_medicine": {
+    "placeholders": {},
+    "description": "Translation for add_medicine"
+  },
   "my_medicines": "我的药品",
+  "@my_medicines": {
+    "placeholders": {},
+    "description": "Translation for my_medicines"
+  },
   "medicine_name": "药品名称",
+  "@medicine_name": {
+    "placeholders": {},
+    "description": "Translation for medicine_name"
+  },
   "med_added_success": "药品已成功添加！",
+  "@med_added_success": {
+    "placeholders": {},
+    "description": "Translation for med_added_success"
+  },
   "med_name_error": "请输入药品名称",
+  "@med_name_error": {
+    "placeholders": {},
+    "description": "Translation for med_name_error"
+  },
   "app_lock": "应用锁",
+  "@app_lock": {
+    "placeholders": {},
+    "description": "Translation for app_lock"
+  },
   "privacy_policy": "隐私政策",
+  "@privacy_policy": {
+    "placeholders": {},
+    "description": "Translation for privacy_policy"
+  },
   "terms_conditions": "条款和条件",
+  "@terms_conditions": {
+    "placeholders": {},
+    "description": "Translation for terms_conditions"
+  },
   "legal_disclaimer": "法律免责声明",
-  "ok": "确定"
+  "@legal_disclaimer": {
+    "placeholders": {},
+    "description": "Translation for legal_disclaimer"
+  },
+  "ok": "确定",
+  "@ok": {
+    "placeholders": {},
+    "description": "Translation for ok"
+  }
 }

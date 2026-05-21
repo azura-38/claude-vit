@@ -14,11 +14,14 @@ class PrivacyToggleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF2F3FB);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: const Color(0xFFF2F3FB),
+        color: bgColor,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(

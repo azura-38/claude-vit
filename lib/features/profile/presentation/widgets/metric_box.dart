@@ -14,11 +14,14 @@ class MetricBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final boxBgColor = isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF3F5FB);
+
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F5FB),
+          color: boxBgColor,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -26,10 +29,10 @@ class MetricBox extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 letterSpacing: 1,
-                color: Color(0xFF6B7280),
+                color: isDark ? Colors.white70 : const Color(0xFF6B7280),
               ),
             ),
 

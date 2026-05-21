@@ -41,15 +41,14 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
   }
 
   Future<void> _confirmDelete(BuildContext context, Document doc) async {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(isTr ? 'Belge silinsin mi?' : 'Delete document?'),
-        content: Text(isTr ? 'Bu belge kasadan kaldırılacak. Bu işlem geri alınamaz.' : 'This document will be removed from the vault. This action cannot be undone.'),
+        title: Text(context.l10n.deleteConfirmDialogTitle),
+        content: Text(context.l10n.deleteConfirmDialogDesc),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: Text(isTr ? 'İptal' : 'Cancel')),
-          FilledButton.tonal(onPressed: () => Navigator.pop(dialogContext, true), child: Text(isTr ? 'Sil' : 'Delete')),
+          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: Text(context.l10n.cancel)),
+          FilledButton.tonal(onPressed: () => Navigator.pop(dialogContext, true), child: Text(context.l10n.delete)),
         ],
       ),
     );
@@ -57,7 +56,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
     if (confirmed != true) return;
     await ref.read(vaultControllerProvider.notifier).deleteDocument(doc.id);
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(isTr ? 'Belge silindi.' : 'Document deleted.')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.documentDeletedMsg)));
   }
 
   List<Document> _visibleDocuments(List<Document> documents) {
@@ -93,15 +92,14 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
   }
 
   String _sortLabel(BuildContext context, _VaultSortMode mode) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
     return switch (mode) {
-      _VaultSortMode.newest => isTr ? 'Yeni → Eski' : 'Newest first',
-      _VaultSortMode.oldest => isTr ? 'Eski → Yeni' : 'Oldest first',
-      _VaultSortMode.nameAZ => isTr ? 'A-Z' : 'A-Z',
+      _VaultSortMode.newest => context.l10n.sortNewestFirst,
+      _VaultSortMode.oldest => context.l10n.sortOldestFirst,
+      _VaultSortMode.nameAZ => context.l10n.sortAZ,
     };
   }
 
-  String _allLabel(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr' ? 'Tümü' : 'All';
+  String _allLabel(BuildContext context) => context.l10n.all;
 
   @override
   Widget build(BuildContext context) {
@@ -328,7 +326,7 @@ class _VaultControls extends StatelessWidget {
                 child: DropdownButtonFormField<_VaultSortMode>(
                   initialValue: sortMode,
                   decoration: InputDecoration(
-                    labelText: Localizations.localeOf(context).languageCode == 'tr' ? 'Sırala' : 'Sort',
+                    labelText: context.l10n.sortLabel,
                     filled: true,
                     fillColor: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.brandMist,
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide.none),

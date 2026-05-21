@@ -9,9 +9,12 @@ import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_hi.dart';
 import 'app_localizations_it.dart';
+import 'app_localizations_ja.dart';
 import 'app_localizations_pt.dart';
 import 'app_localizations_tr.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -100,9 +103,12 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('hi'),
     Locale('it'),
+    Locale('ja'),
     Locale('pt'),
-    Locale('tr')
+    Locale('tr'),
+    Locale('zh')
   ];
 
   /// Translation for app_name
@@ -4350,7 +4356,7 @@ abstract class AppLocalizations {
   /// Translation for ad_unavailable
   ///
   /// In en, this message translates to:
-  /// **'No rewarded ad is available right now. Please try again later.'**
+  /// **'Ad unavailable.'**
   String get ad_unavailable;
 
   /// Translation for ad_failed
@@ -4766,6 +4772,726 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Beginning'**
   String get ach_login_1_title;
+
+  /// Translation for people_contacts
+  ///
+  /// In en, this message translates to:
+  /// **'People & Contacts'**
+  String get people_contacts;
+
+  /// Translation for contacts_subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'People, institutions, and contact records'**
+  String get contacts_subtitle;
+
+  /// Translation for add_contact_subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new person or institution'**
+  String get add_contact_subtitle;
+
+  /// Translation for add_contact
+  ///
+  /// In en, this message translates to:
+  /// **'Add Person / Contact'**
+  String get add_contact;
+
+  /// Translation for no_doctor
+  ///
+  /// In en, this message translates to:
+  /// **'No doctor'**
+  String get no_doctor;
+
+  /// Translation for no_institution
+  ///
+  /// In en, this message translates to:
+  /// **'No institution'**
+  String get no_institution;
+
+  /// Translation for edit_personal_info
+  ///
+  /// In en, this message translates to:
+  /// **'Edit personal information'**
+  String get edit_personal_info;
+
+  /// Translation for personal_info_updated
+  ///
+  /// In en, this message translates to:
+  /// **'Personal information updated.'**
+  String get personal_info_updated;
+
+  /// Translation for edit_important_info
+  ///
+  /// In en, this message translates to:
+  /// **'Edit important information'**
+  String get edit_important_info;
+
+  /// Translation for hint_allergies
+  ///
+  /// In en, this message translates to:
+  /// **'Separate with commas: Pollen, Penicillin'**
+  String get hint_allergies;
+
+  /// Translation for hint_medications
+  ///
+  /// In en, this message translates to:
+  /// **'Separate with commas: Aspirin, Vitamin D'**
+  String get hint_medications;
+
+  /// Translation for relationship
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship'**
+  String get relationship;
+
+  /// Translation for hint_relationship
+  ///
+  /// In en, this message translates to:
+  /// **'Spouse, mother, father, sibling...'**
+  String get hint_relationship;
+
+  /// Translation for important_info_updated
+  ///
+  /// In en, this message translates to:
+  /// **'Important information updated.'**
+  String get important_info_updated;
+
+  /// Translation for reminder_troubleshooting
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Troubleshooting'**
+  String get reminder_troubleshooting;
+
+  /// Translation for reminder_troubleshooting_desc
+  ///
+  /// In en, this message translates to:
+  /// **'Check notification, exact alarm, and battery settings'**
+  String get reminder_troubleshooting_desc;
+
+  /// Translation for status_checking
+  ///
+  /// In en, this message translates to:
+  /// **'Checking...'**
+  String get status_checking;
+
+  /// Translation for status_enabled
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission is enabled'**
+  String get status_enabled;
+
+  /// Translation for status_disabled
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission is disabled'**
+  String get status_disabled;
+
+  /// Translation for why_no_reminders
+  ///
+  /// In en, this message translates to:
+  /// **'Why reminders may not arrive'**
+  String get why_no_reminders;
+
+  /// Translation for why_no_reminders_desc
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission, exact alarm permission, or device battery management can block appointment and medicine reminders. Check permissions first; consider battery optimization only as a last step if tests fail.'**
+  String get why_no_reminders_desc;
+
+  /// Translation for status_card_title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Status'**
+  String get status_card_title;
+
+  /// Translation for check_notif_permission
+  ///
+  /// In en, this message translates to:
+  /// **'1. Check notification permission'**
+  String get check_notif_permission;
+
+  /// Translation for check_notif_permission_desc
+  ///
+  /// In en, this message translates to:
+  /// **'If instant notifications are disabled, no reminders will appear.'**
+  String get check_notif_permission_desc;
+
+  /// Translation for req_notif_permission
+  ///
+  /// In en, this message translates to:
+  /// **'Request Notification Permission'**
+  String get req_notif_permission;
+
+  /// Translation for check_exact_alarm
+  ///
+  /// In en, this message translates to:
+  /// **'2. Check exact alarm permission'**
+  String get check_exact_alarm;
+
+  /// Translation for check_exact_alarm_desc
+  ///
+  /// In en, this message translates to:
+  /// **'Required for appointment and medicine reminders to run on time.'**
+  String get check_exact_alarm_desc;
+
+  /// Translation for req_exact_alarm
+  ///
+  /// In en, this message translates to:
+  /// **'Request Exact Alarm Permission'**
+  String get req_exact_alarm;
+
+  /// Translation for resched_saved
+  ///
+  /// In en, this message translates to:
+  /// **'3. Reschedule saved reminders'**
+  String get resched_saved;
+
+  /// Translation for resched_saved_desc
+  ///
+  /// In en, this message translates to:
+  /// **'After granting permissions, schedules your saved medicine and appointment reminders again.'**
+  String get resched_saved_desc;
+
+  /// Translation for resched_btn
+  ///
+  /// In en, this message translates to:
+  /// **'Reschedule Reminders'**
+  String get resched_btn;
+
+  /// Translation for sched_test
+  ///
+  /// In en, this message translates to:
+  /// **'4. Schedule a 1-minute test reminder'**
+  String get sched_test;
+
+  /// Translation for sched_test_desc
+  ///
+  /// In en, this message translates to:
+  /// **'If this arrives, the reminder system is working.'**
+  String get sched_test_desc;
+
+  /// Translation for sched_test_btn
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule 1-Minute Test'**
+  String get sched_test_btn;
+
+  /// Translation for last_step_battery
+  ///
+  /// In en, this message translates to:
+  /// **'5. Last step: check battery settings'**
+  String get last_step_battery;
+
+  /// Translation for last_step_battery_desc
+  ///
+  /// In en, this message translates to:
+  /// **'Only if the tests above fail, check whether the device is restricting VitaCase battery usage.'**
+  String get last_step_battery_desc;
+
+  /// Translation for open_app_settings
+  ///
+  /// In en, this message translates to:
+  /// **'Open App Settings'**
+  String get open_app_settings;
+
+  /// Translation for snack_notif_checked
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission checked.'**
+  String get snack_notif_checked;
+
+  /// Translation for snack_exact_alarm_requested
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarm permission requested. You may need to allow it in device settings.'**
+  String get snack_exact_alarm_requested;
+
+  /// Translation for test_notif_title
+  ///
+  /// In en, this message translates to:
+  /// **'⏰ VitaCase Reminder Test'**
+  String get test_notif_title;
+
+  /// Translation for test_notif_body
+  ///
+  /// In en, this message translates to:
+  /// **'This test reminder was scheduled for 1 minute later.'**
+  String get test_notif_body;
+
+  /// Translation for snack_test_sched
+  ///
+  /// In en, this message translates to:
+  /// **'Test reminder scheduled for 1 minute later.'**
+  String get snack_test_sched;
+
+  /// Translation for snack_resched_completed
+  ///
+  /// In en, this message translates to:
+  /// **'Saved medicine and appointment reminders were rescheduled.'**
+  String get snack_resched_completed;
+
+  /// Translation for choose_pdf_or_image
+  ///
+  /// In en, this message translates to:
+  /// **'Choose PDF or Image'**
+  String get choose_pdf_or_image;
+
+  /// Translation for encrypted_local_file_info
+  ///
+  /// In en, this message translates to:
+  /// **'Your file will be encrypted and stored locally on this device.'**
+  String get encrypted_local_file_info;
+
+  /// Translation for web_upload_info
+  ///
+  /// In en, this message translates to:
+  /// **'File vault upload is available on Android/iOS builds.'**
+  String get web_upload_info;
+
+  /// Translation for web_preview_no_upload
+  ///
+  /// In en, this message translates to:
+  /// **'Web preview does not store encrypted files. Use Android/iOS for vault upload.'**
+  String get web_preview_no_upload;
+
+  /// Translation for choose_file_first
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a PDF or image first.'**
+  String get choose_file_first;
+
+  /// Translation for document_saved
+  ///
+  /// In en, this message translates to:
+  /// **'Document saved securely.'**
+  String get document_saved;
+
+  /// Translation for save_document_failed
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save document: {error}'**
+  String save_document_failed(String error);
+
+  /// Translation for save_securely
+  ///
+  /// In en, this message translates to:
+  /// **'Save Securely'**
+  String get save_securely;
+
+  /// Translation for saving
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get saving;
+
+  /// Translation for local_organizer_disclaimer
+  ///
+  /// In en, this message translates to:
+  /// **'VitaCase is a local document organizer. It does not diagnose, analyze, or provide medical advice.'**
+  String get local_organizer_disclaimer;
+
+  /// Translation for terms_and_legal_agreement
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the Privacy Policy, Terms & Conditions, and Legal Disclaimer.'**
+  String get terms_and_legal_agreement;
+
+  /// Translation for free_themes
+  ///
+  /// In en, this message translates to:
+  /// **'Free themes'**
+  String get free_themes;
+
+  /// Translation for reward_themes
+  ///
+  /// In en, this message translates to:
+  /// **'Reward themes'**
+  String get reward_themes;
+
+  /// Translation for reward_themes_info
+  ///
+  /// In en, this message translates to:
+  /// **'Watch one rewarded ad to unlock these themes for 3 days. Every extra ad adds +1 day.'**
+  String get reward_themes_info;
+
+  /// Translation for watch_ad_to_unlock
+  ///
+  /// In en, this message translates to:
+  /// **'Watch ad to unlock'**
+  String get watch_ad_to_unlock;
+
+  /// Translation for tap_to_preview
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to preview'**
+  String get tap_to_preview;
+
+  /// Translation for add_one_day
+  ///
+  /// In en, this message translates to:
+  /// **'Add +1 day'**
+  String get add_one_day;
+
+  /// Translation for one_day_added
+  ///
+  /// In en, this message translates to:
+  /// **'+1 day added.'**
+  String get one_day_added;
+
+  /// Translation for ad_unavailable_try_later
+  ///
+  /// In en, this message translates to:
+  /// **'Ad unavailable. Please try again later.'**
+  String get ad_unavailable_try_later;
+
+  /// Translation for theme_unlocked
+  ///
+  /// In en, this message translates to:
+  /// **'Theme unlocked. Each extra ad adds +1 day.'**
+  String get theme_unlocked;
+
+  /// Translation for reward_themes_active
+  ///
+  /// In en, this message translates to:
+  /// **'Reward themes active for {days} day(s).'**
+  String reward_themes_active(String days);
+
+  /// Translation for lock_use_pin
+  ///
+  /// In en, this message translates to:
+  /// **'Use PIN'**
+  String get lock_use_pin;
+
+  /// Translation for pending
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// Subtitle for document details screen
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewing expanded document details.'**
+  String get document_details_subtitle;
+
+  /// Label for document name field
+  ///
+  /// In en, this message translates to:
+  /// **'Document name'**
+  String get document_name;
+
+  /// Hint text for document name field
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Blood test result'**
+  String get document_name_hint;
+
+  /// Warning message when document upload limit is exceeded
+  ///
+  /// In en, this message translates to:
+  /// **'You reached today\'s create limit ({limit}). You can add more tomorrow.'**
+  String daily_limit_reached_message(int limit);
+
+  /// Success message when document is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Document updated.'**
+  String get document_updated;
+
+  /// Error message when document update fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update document.'**
+  String get document_update_failed;
+
+  /// Error message when document fails to open
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open document.'**
+  String get document_open_failed;
+
+  /// Placeholder for empty notes
+  ///
+  /// In en, this message translates to:
+  /// **'No additional notes provided.'**
+  String get no_additional_notes;
+
+  /// Label for document creation date
+  ///
+  /// In en, this message translates to:
+  /// **'CREATED AT'**
+  String get created_at_label;
+
+  /// Label for document doctor/physician
+  ///
+  /// In en, this message translates to:
+  /// **'PHYSICIAN'**
+  String get physician_label;
+
+  /// Generic open label
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get open;
+
+  /// Translation for document_vault
+  ///
+  /// In en, this message translates to:
+  /// **'Document Vault'**
+  String get document_vault;
+
+  /// Translation for document_vault_view_subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewing expanded document details.'**
+  String get document_vault_view_subtitle;
+
+  /// Translation for institution_hospital
+  ///
+  /// In en, this message translates to:
+  /// **'Institution / Hospital'**
+  String get institution_hospital;
+
+  /// Translation for doctor_related_person
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor / Related person'**
+  String get doctor_related_person;
+
+  /// Translation for add_contact_title
+  ///
+  /// In en, this message translates to:
+  /// **'Add Person / Contact'**
+  String get add_contact_title;
+
+  /// Translation for contact_info_title
+  ///
+  /// In en, this message translates to:
+  /// **'Person / Contact Info'**
+  String get contact_info_title;
+
+  /// Translation for contact_info_desc
+  ///
+  /// In en, this message translates to:
+  /// **'Keep important person, institution, and contact details for quick access.'**
+  String get contact_info_desc;
+
+  /// Translation for person_contact_label
+  ///
+  /// In en, this message translates to:
+  /// **'Person / Contact'**
+  String get person_contact_label;
+
+  /// Translation for category_area_label
+  ///
+  /// In en, this message translates to:
+  /// **'Category / Area'**
+  String get category_area_label;
+
+  /// Translation for institution_source_label
+  ///
+  /// In en, this message translates to:
+  /// **'Institution / Source'**
+  String get institution_source_label;
+
+  /// Translation for person_hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Dr. Smith, advisor, clinic contact'**
+  String get person_hint;
+
+  /// Translation for category_hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. checkup, dental, therapy, consultation'**
+  String get category_hint;
+
+  /// Translation for institution_hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. clinic, lab, office, online source'**
+  String get institution_hint;
+
+  /// Translation for required_contact_error
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter person/contact and category/area information.'**
+  String get required_contact_error;
+
+  /// Translation for contacts_title
+  ///
+  /// In en, this message translates to:
+  /// **'Person / Contacts'**
+  String get contacts_title;
+
+  /// Translation for contacts_search_hint
+  ///
+  /// In en, this message translates to:
+  /// **'Search person, institution, or category'**
+  String get contacts_search_hint;
+
+  /// Translation for no_contacts_found
+  ///
+  /// In en, this message translates to:
+  /// **'No matching contacts found'**
+  String get no_contacts_found;
+
+  /// Translation for contact_detail_title
+  ///
+  /// In en, this message translates to:
+  /// **'Person / Contact Detail'**
+  String get contact_detail_title;
+
+  /// Translation for institution_source
+  ///
+  /// In en, this message translates to:
+  /// **'Institution / Source'**
+  String get institution_source;
+
+  /// Translation for category_area
+  ///
+  /// In en, this message translates to:
+  /// **'Category / Area'**
+  String get category_area;
+
+  /// Translation for sub_area
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-area'**
+  String get sub_area;
+
+  /// Translation for privacy_policy_short
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy_policy_short;
+
+  /// Translation for terms_short
+  ///
+  /// In en, this message translates to:
+  /// **'Terms'**
+  String get terms_short;
+
+  /// Translation for disclaimer_short
+  ///
+  /// In en, this message translates to:
+  /// **'Disclaimer'**
+  String get disclaimer_short;
+
+  /// Translation for debug_panel_taps_left
+  ///
+  /// In en, this message translates to:
+  /// **'Debug panel: {remaining} taps left.'**
+  String debug_panel_taps_left(String remaining);
+
+  /// Translation for delete_confirm_dialog_title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete document?'**
+  String get delete_confirm_dialog_title;
+
+  /// Translation for delete_confirm_dialog_desc
+  ///
+  /// In en, this message translates to:
+  /// **'This document will be removed from the vault. This action cannot be undone.'**
+  String get delete_confirm_dialog_desc;
+
+  /// Translation for document_deleted_msg
+  ///
+  /// In en, this message translates to:
+  /// **'Document deleted.'**
+  String get document_deleted_msg;
+
+  /// Translation for sort_newest_first
+  ///
+  /// In en, this message translates to:
+  /// **'Newest first'**
+  String get sort_newest_first;
+
+  /// Translation for sort_oldest_first
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest first'**
+  String get sort_oldest_first;
+
+  /// Translation for sort_a_z
+  ///
+  /// In en, this message translates to:
+  /// **'A-Z'**
+  String get sort_a_z;
+
+  /// Translation for sort_label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sort_label;
+
+  /// Translation for medication_reminder_past_note
+  ///
+  /// In en, this message translates to:
+  /// **'If the selected time has already passed today, the first reminder is scheduled for the next suitable time.'**
+  String get medication_reminder_past_note;
+
+  /// Translation for appointment_reminder_past_note
+  ///
+  /// In en, this message translates to:
+  /// **'If the selected reminder time is already in the past, VitaCase chooses the nearest suitable time.'**
+  String get appointment_reminder_past_note;
+
+  /// Translation for limit_unlock_token_title
+  ///
+  /// In en, this message translates to:
+  /// **'Limit Unlock Token'**
+  String get limit_unlock_token_title;
+
+  /// Translation for limit_unlock_status_active
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get limit_unlock_status_active;
+
+  /// Translation for limit_unlock_status_coming_soon
+  ///
+  /// In en, this message translates to:
+  /// **'Coming in {version}'**
+  String limit_unlock_status_coming_soon(String version);
+
+  /// Translation for limit_unlock_desc_active
+  ///
+  /// In en, this message translates to:
+  /// **'Every {xp} XP grants 1 Limit Unlock Token. It is used automatically when the daily limit is reached.'**
+  String limit_unlock_desc_active(String xp);
+
+  /// Translation for limit_unlock_desc_inactive
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled in V1. In {version}, every {xp} XP will grant 1 Limit Unlock Token.'**
+  String limit_unlock_desc_inactive(String version, String xp);
+
+  /// Translation for limit_unlock_stat_total_xp
+  ///
+  /// In en, this message translates to:
+  /// **'Total XP'**
+  String get limit_unlock_stat_total_xp;
+
+  /// Translation for limit_unlock_stat_xp_left
+  ///
+  /// In en, this message translates to:
+  /// **'XP left'**
+  String get limit_unlock_stat_xp_left;
+
+  /// Translation for limit_unlock_stat_tokens
+  ///
+  /// In en, this message translates to:
+  /// **'Tokens'**
+  String get limit_unlock_stat_tokens;
+
+  /// Translation for notes
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -4777,7 +5503,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['de', 'en', 'es', 'fr', 'it', 'pt', 'tr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['de', 'en', 'es', 'fr', 'hi', 'it', 'ja', 'pt', 'tr', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -4792,9 +5518,12 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
     case 'en': return AppLocalizationsEn();
     case 'es': return AppLocalizationsEs();
     case 'fr': return AppLocalizationsFr();
+    case 'hi': return AppLocalizationsHi();
     case 'it': return AppLocalizationsIt();
+    case 'ja': return AppLocalizationsJa();
     case 'pt': return AppLocalizationsPt();
     case 'tr': return AppLocalizationsTr();
+    case 'zh': return AppLocalizationsZh();
   }
 
   throw FlutterError(

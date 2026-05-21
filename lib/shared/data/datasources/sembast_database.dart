@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
@@ -17,12 +18,20 @@ class DatabaseRecoveryRequiredException implements Exception {
 
 class SembastDatabase {
   Database? _db;
+
+  /// Completer that resolves once [init] finishes successfully.
+  final Completer<Database> _completer = Completer<Database>();
+
+  /// Synchronous getter – only safe to call after [init] has completed.
   Database get db {
     if (_db == null) {
       throw StateError('SembastDatabase not initialized. Call init() first.');
     }
     return _db!;
   }
+
+  /// Async getter – safe to call at any time. Suspends until [init] finishes.
+  Future<Database> get ready => _completer.future;
 
   static final SembastDatabase _instance = SembastDatabase._internal();
 
@@ -43,8 +52,29 @@ class SembastDatabase {
 
     try {
       _db = await databaseFactory.openDatabase(dbPath, codec: codec);
+      if (!_completer.isCompleted) _completer.complete(_db!);
     } catch (e, stackTrace) {
-      throw DatabaseRecoveryRequiredException(e, stackTrace);
+      // Self-healing database recovery block
+      try {
+        final dbFile = File(dbPath);
+        if (await dbFile.exists()) {
+          await dbFile.delete();
+        }
+        
+        final userDocsDir = Directory(p.join(docsDir.path, "documents"));
+        if (await userDocsDir.exists()) {
+          await userDocsDir.delete(recursive: true);
+        }
+      } catch (_) {}
+
+      // Retry opening fresh database
+      try {
+        _db = await databaseFactory.openDatabase(dbPath, codec: codec);
+        if (!_completer.isCompleted) _completer.complete(_db!);
+      } catch (retryError) {
+        if (!_completer.isCompleted) _completer.completeError(retryError, stackTrace);
+        throw DatabaseRecoveryRequiredException(retryError, stackTrace);
+      }
     }
   }
 

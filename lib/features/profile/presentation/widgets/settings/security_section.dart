@@ -47,17 +47,6 @@ class SecuritySection extends ConsumerWidget {
             isDark: isDark,
           ),
           SettingTile(
-            icon: Icons.fingerprint_rounded,
-            iconColor: Colors.teal,
-            title: context.l10n.biometricLogin,
-            subtitle: settings.biometricEnabled ? context.l10n.active : context.l10n.inactive,
-            trailing: Switch(
-              value: settings.biometricEnabled,
-              onChanged: (val) => _handleBiometricToggle(context, ref, controller, val),
-            ),
-            isDark: isDark,
-          ),
-          SettingTile(
             icon: Icons.timer_outlined,
             iconColor: Colors.orange,
             title: context.l10n.lockTimeout,
@@ -89,19 +78,7 @@ class SecuritySection extends ConsumerWidget {
     }
   }
 
-  Future<void> _handleBiometricToggle(BuildContext context, WidgetRef ref, SettingsController controller, bool val) async {
-    if (val) {
-      final service = ref.read(appLockServiceProvider);
-      final available = await service.isAvailable();
-      if (!available) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.biometricUnavailable)));
-        }
-        return;
-      }
-    }
-    await controller.toggleBiometric(val);
-  }
+
 
   void _showPinChangeDialog(BuildContext rootContext, WidgetRef ref) {
     final currentPinController = TextEditingController();
@@ -200,7 +177,7 @@ class SecuritySection extends ConsumerWidget {
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
         decoration: BoxDecoration(
-          color: Theme.of(ctx).brightness == Brightness.dark ? AppColors.surfaceDark : Colors.white,
+          color: Theme.of(ctx).cardTheme.color ?? Theme.of(ctx).colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
         ),
         child: SafeArea(

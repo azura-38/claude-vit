@@ -1,96 +1,468 @@
 {
   "@@locale": "hi",
   "app_name": "VitaCase",
+  "@app_name": {
+    "placeholders": {},
+    "description": "Translation for app_name"
+  },
   "skip": "छोड़ें",
+  "@skip": {
+    "placeholders": {},
+    "description": "Translation for skip"
+  },
   "next": "अगला",
+  "@next": {
+    "placeholders": {},
+    "description": "Translation for next"
+  },
   "start": "शुरू करें",
+  "@start": {
+    "placeholders": {},
+    "description": "Translation for start"
+  },
   "back": "वापस",
+  "@back": {
+    "placeholders": {},
+    "description": "Translation for back"
+  },
   "save": "सेव करें",
+  "@save": {
+    "placeholders": {},
+    "description": "Translation for save"
+  },
   "cancel": "रद्द करें",
+  "@cancel": {
+    "placeholders": {},
+    "description": "Translation for cancel"
+  },
   "error": "त्रुटि",
+  "@error": {
+    "placeholders": {},
+    "description": "Translation for error"
+  },
   "success": "सफल",
+  "@success": {
+    "placeholders": {},
+    "description": "Translation for success"
+  },
   "loading": "लोड हो रहा है...",
+  "@loading": {
+    "placeholders": {},
+    "description": "Translation for loading"
+  },
   "continue_btn": "जारी रखें",
+  "@continue_btn": {
+    "placeholders": {},
+    "description": "Translation for continue_btn"
+  },
   "create_profile": "अपनी प्रोफ़ाइल बनाएं",
+  "@create_profile": {
+    "placeholders": {},
+    "description": "Translation for create_profile"
+  },
   "profile_desc": "आपके अनुभव को व्यक्तिगत बनाने के लिए कुछ जानकारी चाहिए।",
+  "@profile_desc": {
+    "placeholders": {},
+    "description": "Translation for profile_desc"
+  },
   "full_name": "पूरा नाम",
+  "@full_name": {
+    "placeholders": {},
+    "description": "Translation for full_name"
+  },
   "gender": "लिंग",
+  "@gender": {
+    "placeholders": {},
+    "description": "Translation for gender"
+  },
   "gender_female": "महिला",
+  "@gender_female": {
+    "placeholders": {},
+    "description": "Translation for gender_female"
+  },
   "gender_male": "पुरुष",
+  "@gender_male": {
+    "placeholders": {},
+    "description": "Translation for gender_male"
+  },
   "gender_other": "अन्य",
+  "@gender_other": {
+    "placeholders": {},
+    "description": "Translation for gender_other"
+  },
   "birth_date": "जन्म तिथि",
+  "@birth_date": {
+    "placeholders": {},
+    "description": "Translation for birth_date"
+  },
   "date_format_hint": "DD.MM.YYYY",
+  "@date_format_hint": {
+    "placeholders": {},
+    "description": "Translation for date_format_hint"
+  },
   "select_language": "भाषा चुनें",
+  "@select_language": {
+    "placeholders": {},
+    "description": "Translation for select_language"
+  },
   "please_enter_name": "कृपया नाम दर्ज करें",
+  "@please_enter_name": {
+    "placeholders": {},
+    "description": "Translation for please_enter_name"
+  },
   "must_agree": "जारी रखने के लिए आपको कानूनी दस्तावेज़ स्वीकार करने होंगे।",
+  "@must_agree": {
+    "placeholders": {},
+    "description": "Translation for must_agree"
+  },
   "step_profile": "प्रोफ़ाइल",
+  "@step_profile": {
+    "placeholders": {},
+    "description": "Translation for step_profile"
+  },
   "step_security": "सुरक्षा",
+  "@step_security": {
+    "placeholders": {},
+    "description": "Translation for step_security"
+  },
   "setup_app_lock": "ऐप लॉक सेट करें",
+  "@setup_app_lock": {
+    "placeholders": {},
+    "description": "Translation for setup_app_lock"
+  },
   "setup_app_lock_desc": "अपने डेटा को 6 अंकों के PIN से सुरक्षित करें।",
+  "@setup_app_lock_desc": {
+    "placeholders": {},
+    "description": "Translation for setup_app_lock_desc"
+  },
   "lock_set_pin": "सुरक्षित PIN सेट करें",
+  "@lock_set_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_set_pin"
+  },
   "lock_confirm_pin": "PIN की पुष्टि करें",
+  "@lock_confirm_pin": {
+    "placeholders": {},
+    "description": "Translation for lock_confirm_pin"
+  },
   "lock_pin_mismatch": "PIN मेल नहीं खाते। फिर कोशिश करें।",
+  "@lock_pin_mismatch": {
+    "placeholders": {},
+    "description": "Translation for lock_pin_mismatch"
+  },
   "skip_pin_setup": "छोड़ें",
+  "@skip_pin_setup": {
+    "placeholders": {},
+    "description": "Translation for skip_pin_setup"
+  },
   "lock_skip_desc": "आप इसे बाद में Settings से सेट कर सकते हैं।",
+  "@lock_skip_desc": {
+    "placeholders": {},
+    "description": "Translation for lock_skip_desc"
+  },
   "home": "होम",
+  "@home": {
+    "placeholders": {},
+    "description": "Translation for home"
+  },
   "vault": "वॉल्ट",
+  "@vault": {
+    "placeholders": {},
+    "description": "Translation for vault"
+  },
   "explore": "एक्सप्लोर",
+  "@explore": {
+    "placeholders": {},
+    "description": "Translation for explore"
+  },
   "appointments": "अपॉइंटमेंट",
+  "@appointments": {
+    "placeholders": {},
+    "description": "Translation for appointments"
+  },
   "profile": "प्रोफ़ाइल",
+  "@profile": {
+    "placeholders": {},
+    "description": "Translation for profile"
+  },
   "medicines": "दवाएं",
+  "@medicines": {
+    "placeholders": {},
+    "description": "Translation for medicines"
+  },
   "health_data": "स्वास्थ्य डेटा",
+  "@health_data": {
+    "placeholders": {},
+    "description": "Translation for health_data"
+  },
   "important_info": "महत्वपूर्ण जानकारी",
+  "@important_info": {
+    "placeholders": {},
+    "description": "Translation for important_info"
+  },
   "guest_user": "अतिथि उपयोगकर्ता",
+  "@guest_user": {
+    "placeholders": {},
+    "description": "Translation for guest_user"
+  },
   "hi": "नमस्ते",
+  "@hi": {
+    "placeholders": {},
+    "description": "Translation for hi"
+  },
   "docs_title": "दस्तावेज़",
+  "@docs_title": {
+    "placeholders": {},
+    "description": "Translation for docs_title"
+  },
   "docs_add_title": "दस्तावेज़ जोड़ें",
+  "@docs_add_title": {
+    "placeholders": {},
+    "description": "Translation for docs_add_title"
+  },
   "docs_add_btn": "दस्तावेज़ जोड़ें",
+  "@docs_add_btn": {
+    "placeholders": {},
+    "description": "Translation for docs_add_btn"
+  },
   "docs_add_pick": "दस्तावेज़ / छवि चुनें",
+  "@docs_add_pick": {
+    "placeholders": {},
+    "description": "Translation for docs_add_pick"
+  },
   "docs_success": "दस्तावेज़ सफलतापूर्वक सेव हुआ!",
+  "@docs_success": {
+    "placeholders": {},
+    "description": "Translation for docs_success"
+  },
   "docs_error_pick": "कृपया एक फ़ाइल चुनें",
+  "@docs_error_pick": {
+    "placeholders": {},
+    "description": "Translation for docs_error_pick"
+  },
   "docs_category_health": "स्वास्थ्य",
+  "@docs_category_health": {
+    "placeholders": {},
+    "description": "Translation for docs_category_health"
+  },
   "docs_category_identity": "पहचान",
+  "@docs_category_identity": {
+    "placeholders": {},
+    "description": "Translation for docs_category_identity"
+  },
   "docs_category_finance": "वित्त",
+  "@docs_category_finance": {
+    "placeholders": {},
+    "description": "Translation for docs_category_finance"
+  },
   "docs_category_legal": "कानूनी",
+  "@docs_category_legal": {
+    "placeholders": {},
+    "description": "Translation for docs_category_legal"
+  },
   "docs_category_notes": "नोट्स",
+  "@docs_category_notes": {
+    "placeholders": {},
+    "description": "Translation for docs_category_notes"
+  },
   "docs_category_other": "अन्य",
+  "@docs_category_other": {
+    "placeholders": {},
+    "description": "Translation for docs_category_other"
+  },
   "appointment_title": "अपॉइंटमेंट शीर्षक",
+  "@appointment_title": {
+    "placeholders": {},
+    "description": "Translation for appointment_title"
+  },
   "my_appointments": "मेरे अपॉइंटमेंट",
+  "@my_appointments": {
+    "placeholders": {},
+    "description": "Translation for my_appointments"
+  },
   "add_appointment": "अपॉइंटमेंट जोड़ें",
+  "@add_appointment": {
+    "placeholders": {},
+    "description": "Translation for add_appointment"
+  },
   "add_new_appointment": "नया अपॉइंटमेंट जोड़ें",
+  "@add_new_appointment": {
+    "placeholders": {},
+    "description": "Translation for add_new_appointment"
+  },
   "appointment_added": "अपॉइंटमेंट सफलतापूर्वक जोड़ा गया।",
+  "@appointment_added": {
+    "placeholders": {},
+    "description": "Translation for appointment_added"
+  },
   "appointment_created_success": "अपॉइंटमेंट सफलतापूर्वक बनाया गया।",
+  "@appointment_created_success": {
+    "placeholders": {},
+    "description": "Translation for appointment_created_success"
+  },
   "failed_create_appointment": "अपॉइंटमेंट बनाया नहीं जा सका।",
+  "@failed_create_appointment": {
+    "placeholders": {},
+    "description": "Translation for failed_create_appointment"
+  },
   "location": "स्थान",
+  "@location": {
+    "placeholders": {},
+    "description": "Translation for location"
+  },
   "today": "आज",
+  "@today": {
+    "placeholders": {},
+    "description": "Translation for today"
+  },
   "tomorrow": "कल",
+  "@tomorrow": {
+    "placeholders": {},
+    "description": "Translation for tomorrow"
+  },
   "health_stats": "स्वास्थ्य हब",
+  "@health_stats": {
+    "placeholders": {},
+    "description": "Translation for health_stats"
+  },
   "safety_footer_health": "स्वास्थ्य डेटा केवल जानकारी के लिए है। निदान के लिए विशेषज्ञ से सलाह लें।",
+  "@safety_footer_health": {
+    "placeholders": {},
+    "description": "Translation for safety_footer_health"
+  },
   "safety_footer_med": "VitaCase एक प्रबंधन टूल है। यह चिकित्सा सलाह या खुराक सुझाव नहीं देता। हमेशा अपने डॉक्टर के निर्देशों का पालन करें।",
+  "@safety_footer_med": {
+    "placeholders": {},
+    "description": "Translation for safety_footer_med"
+  },
   "medical_device_warning": "VitaCase कोई मेडिकल डिवाइस नहीं है। हमेशा विशेषज्ञ से सलाह लें।",
+  "@medical_device_warning": {
+    "placeholders": {},
+    "description": "Translation for medical_device_warning"
+  },
   "management_tool_warning": "VitaCase एक प्रबंधन टूल है, निदान सेवा नहीं।",
+  "@management_tool_warning": {
+    "placeholders": {},
+    "description": "Translation for management_tool_warning"
+  },
   "unit_ml": "ml",
+  "@unit_ml": {
+    "placeholders": {},
+    "description": "Translation for unit_ml"
+  },
   "unit_l": "L",
+  "@unit_l": {
+    "placeholders": {},
+    "description": "Translation for unit_l"
+  },
   "unit_steps": "कदम",
+  "@unit_steps": {
+    "placeholders": {},
+    "description": "Translation for unit_steps"
+  },
   "unit_hours": "घंटे",
+  "@unit_hours": {
+    "placeholders": {},
+    "description": "Translation for unit_hours"
+  },
   "unit_bpm": "BPM",
+  "@unit_bpm": {
+    "placeholders": {},
+    "description": "Translation for unit_bpm"
+  },
   "steps": "कदम",
+  "@steps": {
+    "placeholders": {},
+    "description": "Translation for steps"
+  },
   "heart": "हृदय",
+  "@heart": {
+    "placeholders": {},
+    "description": "Translation for heart"
+  },
   "sleep": "नींद",
+  "@sleep": {
+    "placeholders": {},
+    "description": "Translation for sleep"
+  },
   "water": "पानी",
+  "@water": {
+    "placeholders": {},
+    "description": "Translation for water"
+  },
   "add_health_data": "स्वास्थ्य डेटा जोड़ें",
+  "@add_health_data": {
+    "placeholders": {},
+    "description": "Translation for add_health_data"
+  },
   "recent_activity": "हाल की गतिविधि",
+  "@recent_activity": {
+    "placeholders": {},
+    "description": "Translation for recent_activity"
+  },
   "no_health_records": "अभी कोई रिकॉर्ड नहीं मिला।",
+  "@no_health_records": {
+    "placeholders": {},
+    "description": "Translation for no_health_records"
+  },
   "add_medicine": "दवा जोड़ें",
+  "@add_medicine": {
+    "placeholders": {},
+    "description": "Translation for add_medicine"
+  },
   "my_medicines": "मेरी दवाएं",
+  "@my_medicines": {
+    "placeholders": {},
+    "description": "Translation for my_medicines"
+  },
   "medicine_name": "दवा का नाम",
+  "@medicine_name": {
+    "placeholders": {},
+    "description": "Translation for medicine_name"
+  },
   "med_added_success": "दवा सफलतापूर्वक जोड़ी गई!",
+  "@med_added_success": {
+    "placeholders": {},
+    "description": "Translation for med_added_success"
+  },
   "med_name_error": "कृपया दवा का नाम दर्ज करें",
+  "@med_name_error": {
+    "placeholders": {},
+    "description": "Translation for med_name_error"
+  },
   "app_lock": "ऐप लॉक",
+  "@app_lock": {
+    "placeholders": {},
+    "description": "Translation for app_lock"
+  },
   "settings": "सेटिंग्स",
+  "@settings": {
+    "placeholders": {},
+    "description": "Translation for settings"
+  },
   "privacy_policy": "गोपनीयता नीति",
+  "@privacy_policy": {
+    "placeholders": {},
+    "description": "Translation for privacy_policy"
+  },
   "terms_conditions": "नियम और शर्तें",
+  "@terms_conditions": {
+    "placeholders": {},
+    "description": "Translation for terms_conditions"
+  },
   "legal_disclaimer": "कानूनी अस्वीकरण",
+  "@legal_disclaimer": {
+    "placeholders": {},
+    "description": "Translation for legal_disclaimer"
+  },
   "delete_all_data": "सारा डेटा हटाएं",
-  "ok": "ठीक है"
+  "@delete_all_data": {
+    "placeholders": {},
+    "description": "Translation for delete_all_data"
+  },
+  "ok": "ठीक है",
+  "@ok": {
+    "placeholders": {},
+    "description": "Translation for ok"
+  }
 }

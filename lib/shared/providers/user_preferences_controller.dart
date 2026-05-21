@@ -6,6 +6,7 @@ import '../../features/profile/domain/models/user_profile.dart';
 import '../domain/entities/lock_timeout.dart';
 import '../domain/entities/user_preferences.dart';
 import '../providers/notification_settings_provider.dart';
+import 'shared_prefs_provider.dart';
 
 final userPreferencesControllerProvider = AsyncNotifierProvider<UserPreferencesController, UserPreferences>(
   UserPreferencesController.new,
@@ -15,7 +16,18 @@ class UserPreferencesController extends AsyncNotifier<UserPreferences> {
   @override
   Future<UserPreferences> build() async {
     final repo = ref.watch(userPreferencesRepositoryProvider);
-    return repo.getPreferences();
+    final prefs = await repo.getPreferences();
+
+    // Synchronize Sembast preference to SharedPreferences at startup
+    try {
+      final sharedPrefs = ref.read(sharedPreferencesProvider);
+      final currentAppLocale = sharedPrefs.getString('app_locale');
+      if (currentAppLocale != prefs.locale) {
+        await sharedPrefs.setString('app_locale', prefs.locale);
+      }
+    } catch (_) {}
+
+    return prefs;
   }
 
   Future<UserPreferences> _currentOrLoad() async {
@@ -46,6 +58,12 @@ class UserPreferencesController extends AsyncNotifier<UserPreferences> {
     final current = await _currentOrLoad();
     final updated = current.copyWith(locale: locale);
     await _save(updated);
+
+    // Synchronize to SharedPreferences for background services and quick startup access
+    try {
+      final sharedPrefs = ref.read(sharedPreferencesProvider);
+      await sharedPrefs.setString('app_locale', locale);
+    } catch (_) {}
   }
 
   Future<void> updateSecurity({

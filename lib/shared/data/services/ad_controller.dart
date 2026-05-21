@@ -52,9 +52,11 @@ class AdController {
       return;
     }
 
-    await AdService.showInterstitial();
-    await _prefs.setInt(_timeKey, now.millisecondsSinceEpoch);
-    await _trackAdAchievements();
+    final shown = await AdService.showInterstitial();
+    if (shown) {
+      await _prefs.setInt(_timeKey, now.millisecondsSinceEpoch);
+      await _trackAdAchievements();
+    }
   }
 
   Future<void> _trackAdAchievements() async {

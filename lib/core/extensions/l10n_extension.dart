@@ -184,8 +184,10 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'docs_try_different': 'Try a different keyword or filter.',
     'limit_unlock_token': 'Limit Unlock Token',
     'limit_unlock_coming_soon': 'Coming in V1.2 / V1.3',
-    'xp_to_limit_unlock': 'Every 1000 XP will grant 1 Limit Unlock Token.',
     'limit_unlock_auto_use': 'When enabled, it is used automatically if your daily limit is reached.',
+    'skip': 'Skip',
+    'skip_profile_note': 'You can complete your profile later from the Profile page.',
+    'profile_incomplete_warning': 'You have not set up your profile yet. You can complete your profile anytime from the "Personal Info" section above.',
   },
   'tr': {
     'profile_photo': 'Profil fotoğrafı',
@@ -230,5 +232,8 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'limit_unlock_coming_soon': 'V1.2 / V1.3 ile yakında',
     'xp_to_limit_unlock': 'Her 1000 XP, 1 Limit Açma Hakkı kazandıracak.',
     'limit_unlock_auto_use': 'Aktif olduğunda günlük limit dolarsa otomatik kullanılır.',
+    'skip': 'Atla',
+    'skip_profile_note': 'Profilinizi daha sonra Profil sayfasından tamamlayabilirsiniz.',
+    'profile_incomplete_warning': 'Profil bilgilerinizi henüz doldurmadınız. İstediğiniz zaman yukarıdaki "Kişisel Bilgiler" seçeneğinden tamamlayabilirsiniz.',
   },
 };

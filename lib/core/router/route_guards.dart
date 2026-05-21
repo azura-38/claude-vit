@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/profile/presentation/providers/legacy_providers.dart';
 import '../../shared/providers/onboarding_provider.dart';
+import '../../shared/providers/user_preferences_controller.dart';
 import '../bootstrap/app_bootstrap_controller.dart';
 import '../constants/app_routes.dart';
 import '../notifications/notification_navigation.dart';
@@ -34,7 +35,8 @@ class RouteGuardState {
 
 final routeGuardStateProvider = Provider<RouteGuardState>((ref) {
   final bootstrap = ref.watch(appBootstrapProvider);
-  final isBootstrapped = bootstrap.hasValue;
+  final prefsAsync = ref.watch(userPreferencesControllerProvider);
+  final isBootstrapped = bootstrap.hasValue && !prefsAsync.isLoading;
 
   final guard = RouteGuardState(
     isBootstrapped: isBootstrapped,
@@ -149,7 +151,7 @@ String? completedEntryRedirect(GoRouterState state, RouteGuardState guard) {
   if (!isGoingToOnboarding && !isGoingToProfileCreate) return null;
 
   final isFullySetUp =
-      guard.onboardingCompleted && guard.profileName != null && guard.legalAccepted;
+      guard.onboardingCompleted && guard.profileCreated && guard.legalAccepted;
   return isFullySetUp ? AppRoutes.home : null;
 }
 

@@ -15,14 +15,14 @@ class AppLogicSection extends ConsumerWidget {
 
   final bool isDark;
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsControllerProvider);
     final controller = ref.watch(settingsControllerProvider.notifier);
     final notificationController = ref.watch(notificationControllerProvider);
-    final isTr = _isTr(context);
+
 
     return SettingsSectionCard(
       title: context.l10n.appSection,
@@ -92,8 +92,8 @@ class AppLogicSection extends ConsumerWidget {
         SettingTile(
           icon: Icons.alarm_on_rounded,
           iconColor: AppColors.medicalBlue,
-          title: isTr ? 'Hatırlatma Sorun Giderme' : 'Reminder Troubleshooting',
-          subtitle: isTr ? 'Bildirim, exact alarm ve pil ayarlarını kontrol et' : 'Check notification, exact alarm, and battery settings',
+          title: context.tr('reminder_troubleshooting'),
+          subtitle: context.tr('reminder_troubleshooting_desc'),
           onTap: () => context.push(AppRoutes.reminderTroubleshooting),
           isDark: isDark,
           isLast: true,
@@ -113,7 +113,7 @@ class AppLogicSection extends ConsumerWidget {
       builder: (ctx) => Container(
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: Theme.of(ctx).brightness == Brightness.dark ? AppColors.surfaceDark : Colors.white,
+          color: Theme.of(ctx).cardTheme.color ?? Theme.of(ctx).colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
         ),
         child: Column(

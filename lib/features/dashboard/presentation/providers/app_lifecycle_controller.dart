@@ -9,7 +9,6 @@ import '../../../../shared/data/services/ad_controller.dart';
 import '../../../../shared/providers/document_providers.dart';
 import '../../../../shared/providers/shared_prefs_provider.dart';
 import '../../../../core/security/session_lock_service.dart';
-import '../../../../core/security/security_controller.dart';
 
 final appLifecycleProvider = NotifierProvider<AppLifecycleController, bool>(
   AppLifecycleController.new,
@@ -35,7 +34,6 @@ class AppLifecycleController extends Notifier<bool> {
     }
 
     unawaited(_trackDailyLoginAchievements());
-    unawaited(ref.read(securityControllerProvider.notifier).applySecureScreenPolicy());
 
     final user = ref.read(userBehaviorProvider);
     NotificationTriggers.onAppOpen(user);

@@ -7,6 +7,7 @@ import '../../../../core/utils/external_launcher.dart';
 import '../../../../shared/data/services/wipe_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+import '../providers/profile_provider.dart';
 
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_hero.dart';
@@ -19,9 +20,10 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final profile = ref.watch(profileProvider);
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF7F9FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -30,6 +32,38 @@ class ProfileScreen extends ConsumerWidget {
               ProfileAppBar(isDark: isDark),
               const SizedBox(height: 32),
               ProfileHero(isDark: isDark),
+              if (profile.fullName.trim().isEmpty) ...[
+                const SizedBox(height: 24),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.brandBlue.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: AppColors.brandBlue.withValues(alpha: 0.25),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.info_outline_rounded, color: AppColors.brandBlue, size: 20),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          context.tr('profile_incomplete_warning'),
+                          style: TextStyle(
+                            fontSize: 13,
+                            height: 1.4,
+                            fontWeight: FontWeight.w600,
+                            color: isDark ? Colors.white70 : Colors.black87,
+                            fontFamily: 'Manrope',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: 48),
               EmergencyCard(isDark: isDark),
               const SizedBox(height: 40),
@@ -38,18 +72,21 @@ class ProfileScreen extends ConsumerWidget {
               _buildSectionTitle(context.l10n.personalHealthData, isDark),
               const SizedBox(height: 16),
               _buildNavigationItem(
+                context,
                 icon: Icons.person_outline_rounded,
                 title: context.l10n.personalInfo,
                 onTap: () => context.push(AppRoutes.personalInfo),
                 isDark: isDark,
               ),
               _buildNavigationItem(
+                context,
                 icon: Icons.assignment_outlined,
                 title: context.l10n.importantInfo,
                 onTap: () => context.push(AppRoutes.medicalInfo),
                 isDark: isDark,
               ),
               _buildNavigationItem(
+                context,
                 icon: Icons.emoji_events_outlined,
                 title: context.l10n.medalsTrophies,
                 onTap: () => context.push(AppRoutes.achievements),
@@ -59,12 +96,14 @@ class ProfileScreen extends ConsumerWidget {
               _buildSectionTitle(context.l10n.accountSettings, isDark),
               const SizedBox(height: 16),
               _buildNavigationItem(
+                context,
                 icon: Icons.settings_outlined,
                 title: context.l10n.appSettings,
                 onTap: () => context.push(AppRoutes.settings),
                 isDark: isDark,
               ),
               _buildNavigationItem(
+                context,
                 icon: Icons.bug_report_outlined,
                 title: context.l10n.reportIssue,
                 onTap: () => ExternalLauncher.launchEmail(
@@ -75,6 +114,7 @@ class ProfileScreen extends ConsumerWidget {
                 isDark: isDark,
               ),
               _buildNavigationItem(
+                context,
                 icon: Icons.delete_forever_rounded,
                 title: context.l10n.deleteAllData,
                 titleColor: AppColors.error,
@@ -89,7 +129,8 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildNavigationItem({
+  Widget _buildNavigationItem(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required VoidCallback onTap,
@@ -99,7 +140,7 @@ class ProfileScreen extends ConsumerWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
+        color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           if (!isDark)
@@ -116,7 +157,7 @@ class ProfileScreen extends ConsumerWidget {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: isDark ? Colors.white.withValues(alpha: 0.03) : const Color(0xFFF1F5F9),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(14),
           ),
           child: Icon(icon, color: titleColor ?? (isDark ? Colors.white70 : Colors.black87), size: 24),

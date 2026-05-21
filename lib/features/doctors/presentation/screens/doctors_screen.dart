@@ -19,10 +19,7 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
   String _searchTerm = '';
   String? _selectedCategory;
 
-  bool _isTr(BuildContext context) => Localizations.localeOf(context).languageCode == 'tr';
-  String _contactsTitle(BuildContext context) => _isTr(context) ? 'Kişiler / İletişim' : 'Person / Contacts';
-  String _searchHint(BuildContext context) => _isTr(context) ? 'Kişi, kurum veya kategori ara' : 'Search person, institution, or category';
-  String _noContactsFound(BuildContext context) => _isTr(context) ? 'Eşleşen kişi/iletişim bulunamadı' : 'No matching contacts found';
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +85,7 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       title: Text(
-        _contactsTitle(context),
+        context.l10n.contactsTitle,
         style: const TextStyle(
           fontWeight: FontWeight.w800,
           color: Color(0xFF005DA7),
@@ -116,7 +113,7 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
           onChanged: (v) => setState(() => _searchTerm = v),
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
           decoration: InputDecoration(
-            hintText: _searchHint(context),
+            hintText: context.l10n.contactsSearchHint,
             hintStyle: const TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.w400),
             prefixIcon: const Icon(Icons.search_rounded, color: Colors.blueGrey, size: 20),
             border: InputBorder.none,
@@ -168,7 +165,7 @@ class _DoctorsScreenState extends ConsumerState<DoctorsScreen> {
           Icon(Icons.contact_phone_outlined, size: 64, color: Colors.blueGrey.withValues(alpha: 0.2)),
           const SizedBox(height: 16),
           Text(
-            _noContactsFound(context),
+            context.l10n.noContactsFound,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blueGrey),
           ),
           const SizedBox(height: 16),

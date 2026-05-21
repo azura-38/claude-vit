@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../../core/bootstrap/app_bootstrap_controller.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/service_providers.dart';
+import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
 import '../../../../shared/data/services/notification_engine.dart';
 
@@ -20,8 +21,6 @@ class ReminderTroubleshootingScreen extends ConsumerStatefulWidget {
 class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubleshootingScreen> {
   bool? _notificationsAllowed;
   bool _isBusy = false;
-
-  bool get _isTr => Localizations.localeOf(context).languageCode == 'tr';
 
   @override
   void initState() {
@@ -50,30 +49,35 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
   }
 
   Future<void> _requestNotificationPermission() async {
+    final msg = context.l10n.snackNotifChecked;
     await _runBusy(() async {
       await ref.read(notificationServiceProvider).requestPermissions();
       await NotificationEngine.requestPermissions();
       await _refreshStatus();
-      _snack(_isTr ? 'Bildirim izni kontrol edildi.' : 'Notification permission checked.');
+      _snack(msg);
     });
   }
 
   Future<void> _requestExactAlarmPermission() async {
+    final msg = context.l10n.snackExactAlarmRequested;
     await _runBusy(() async {
       await ref.read(notificationServiceProvider).requestPermissions(requestExactAlarm: true);
       await NotificationEngine.requestPermissions();
       await _refreshStatus();
-      _snack(_isTr ? 'Kesin alarm izni istendi. Cihaz ayarında izin vermen gerekebilir.' : 'Exact alarm permission requested. You may need to allow it in device settings.');
+      _snack(msg);
     });
   }
 
   Future<void> _scheduleOneMinuteTest() async {
+    final title = context.l10n.testNotifTitle;
+    final body = context.l10n.testNotifBody;
+    final msg = context.l10n.snackTestSched;
     await _runBusy(() async {
       final when = DateTime.now().add(const Duration(minutes: 1));
       await NotificationEngine.scheduleAppointment(
         id: 'troubleshooting_test',
-        title: _isTr ? '⏰ VitaCase Hatırlatma Testi' : '⏰ VitaCase Reminder Test',
-        body: _isTr ? 'Bu test hatırlatması 1 dakika sonrası için kuruldu.' : 'This test reminder was scheduled for 1 minute later.',
+        title: title,
+        body: body,
         scheduleTime: when,
         payload: AppNotificationPayload(
           type: NotificationType.appointment,
@@ -81,14 +85,15 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
           occurrenceAt: when,
         ).encode(),
       );
-      _snack(_isTr ? 'Test hatırlatması 1 dakika sonrasına kuruldu.' : 'Test reminder scheduled for 1 minute later.');
+      _snack(msg);
     });
   }
 
   Future<void> _rescheduleSavedReminders() async {
+    final msg = context.l10n.snackReschedCompleted;
     await _runBusy(() async {
       await ref.read(appBootstrapProvider.notifier).forceRescheduleNotifications();
-      _snack(_isTr ? 'Mevcut ilaç ve randevu hatırlatmaları yeniden kuruldu.' : 'Saved medicine and appointment reminders were rescheduled.');
+      _snack(msg);
     });
   }
 
@@ -100,16 +105,16 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final statusText = _notificationsAllowed == null
-        ? (_isTr ? 'Kontrol ediliyor...' : 'Checking...')
+        ? context.l10n.statusChecking
         : _notificationsAllowed!
-            ? (_isTr ? 'Bildirim izni açık' : 'Notification permission is enabled')
-            : (_isTr ? 'Bildirim izni kapalı' : 'Notification permission is disabled');
+            ? context.l10n.statusEnabled
+            : context.l10n.statusDisabled;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
       appBar: AppBar(
         leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-        title: Text(_isTr ? 'Hatırlatma Sorun Giderme' : 'Reminder Troubleshooting'),
+        title: Text(context.l10n.reminderTroubleshooting),
         centerTitle: true,
       ),
       body: ListView(
@@ -118,62 +123,58 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
           _InfoCard(
             isDark: isDark,
             icon: Icons.alarm_rounded,
-            title: _isTr ? 'Hatırlatmalar neden gelmeyebilir?' : 'Why reminders may not arrive',
-            body: _isTr
-                ? 'Bildirim izni, kesin alarm izni veya cihazın pil yönetimi randevu ve ilaç hatırlatmalarını engelleyebilir. Önce izinleri kontrol et, pil optimizasyonunu sadece testler başarısızsa son seçenek olarak değerlendir.'
-                : 'Notification permission, exact alarm permission, or device battery management can block appointment and medicine reminders. Check permissions first; consider battery optimization only as a last step if tests fail.',
+            title: context.l10n.whyNoReminders,
+            body: context.l10n.whyNoRemindersDesc,
           ),
           const SizedBox(height: 16),
-          _StatusCard(isDark: isDark, title: _isTr ? 'Bildirim Durumu' : 'Notification Status', value: statusText),
+          _StatusCard(isDark: isDark, title: context.l10n.statusCardTitle, value: statusText),
           const SizedBox(height: 16),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '1. Bildirim iznini kontrol et' : '1. Check notification permission',
-            subtitle: _isTr ? 'Anlık bildirimler kapalıysa hiçbir hatırlatma görünmez.' : 'If instant notifications are disabled, no reminders will appear.',
+            title: context.l10n.checkNotifPermission,
+            subtitle: context.l10n.checkNotifPermissionDesc,
             icon: Icons.notifications_active_rounded,
-            buttonText: _isTr ? 'Bildirim İznini İste' : 'Request Notification Permission',
+            buttonText: context.l10n.reqNotifPermission,
             busy: _isBusy,
             onPressed: _requestNotificationPermission,
           ),
           const SizedBox(height: 12),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '2. Kesin alarm iznini kontrol et' : '2. Check exact alarm permission',
-            subtitle: _isTr ? 'Randevu ve ilaç saatlerinin tam zamanında çalışması için gereklidir.' : 'Required for appointment and medicine reminders to run on time.',
+            title: context.l10n.checkExactAlarm,
+            subtitle: context.l10n.checkExactAlarmDesc,
             icon: Icons.schedule_rounded,
-            buttonText: _isTr ? 'Exact Alarm İznini İste' : 'Request Exact Alarm Permission',
+            buttonText: context.l10n.reqExactAlarm,
             busy: _isBusy,
             onPressed: _requestExactAlarmPermission,
           ),
           const SizedBox(height: 12),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '3. Mevcut hatırlatmaları yeniden kur' : '3. Reschedule saved reminders',
-            subtitle: _isTr ? 'İzin verdikten sonra kayıtlı ilaç ve randevu hatırlatmalarını tekrar kurar.' : 'After granting permissions, schedules your saved medicine and appointment reminders again.',
+            title: context.l10n.reschedSaved,
+            subtitle: context.l10n.reschedSavedDesc,
             icon: Icons.restart_alt_rounded,
-            buttonText: _isTr ? 'Hatırlatmaları Yeniden Kur' : 'Reschedule Reminders',
+            buttonText: context.l10n.reschedBtn,
             busy: _isBusy,
             onPressed: _rescheduleSavedReminders,
           ),
           const SizedBox(height: 12),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '4. 1 dakika test hatırlatması kur' : '4. Schedule a 1-minute test reminder',
-            subtitle: _isTr ? 'Bu gelirse alarm sistemi çalışıyor demektir.' : 'If this arrives, the reminder system is working.',
+            title: context.l10n.schedTest,
+            subtitle: context.l10n.schedTestDesc,
             icon: Icons.timer_rounded,
-            buttonText: _isTr ? '1 Dakika Testi Kur' : 'Schedule 1-Minute Test',
+            buttonText: context.l10n.schedTestBtn,
             busy: _isBusy,
             onPressed: _scheduleOneMinuteTest,
           ),
           const SizedBox(height: 12),
           _ActionCard(
             isDark: isDark,
-            title: _isTr ? '5. Son seçenek: pil ayarlarını kontrol et' : '5. Last step: check battery settings',
-            subtitle: _isTr
-                ? 'Sadece yukarıdaki testler başarısızsa cihazın VitaCase için pil kısıtlamasını kontrol et.'
-                : 'Only if the tests above fail, check whether the device is restricting VitaCase battery usage.',
+            title: context.l10n.lastStepBattery,
+            subtitle: context.l10n.lastStepBatteryDesc,
             icon: Icons.battery_alert_rounded,
-            buttonText: _isTr ? 'Uygulama Ayarlarını Aç' : 'Open App Settings',
+            buttonText: context.l10n.openAppSettings,
             busy: _isBusy,
             onPressed: _openSystemSettings,
           ),

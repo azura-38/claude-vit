@@ -7,6 +7,7 @@ import 'package:open_filex/open_filex.dart';
 import '../../../../shared/domain/entities/document.dart';
 import '../../../../shared/providers/document_providers.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../providers/vault_controller.dart';
 import '../widgets/vault_action_button.dart';
 import '../widgets/vault_preview_overlay.dart';
@@ -30,23 +31,21 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
     _document = widget.document;
   }
 
-  bool get _isTr => Localizations.localeOf(context).languageCode == 'tr';
-
-  String get _title => _isTr ? 'Belge Kasası' : 'Document Vault';
-  String get _subtitle => _isTr ? 'Belge detaylarını güvenli şekilde görüntülüyorsun.' : 'Reviewing expanded document details.';
-  String get _editLabel => _isTr ? 'Düzenle' : 'Edit';
-  String get _openLabel => _isTr ? 'Aç' : 'Open';
-  String get _saveLabel => _isTr ? 'Kaydet' : 'Save';
-  String get _cancelLabel => _isTr ? 'İptal' : 'Cancel';
-  String get _nameLabel => _isTr ? 'Belge adı' : 'Document name';
-  String get _institutionLabel => _isTr ? 'Kurum / Hastane' : 'Institution / Hospital';
-  String get _personLabel => _isTr ? 'Doktor / İlgili kişi' : 'Doctor / Related person';
-  String get _notesLabel => _isTr ? 'Notlar' : 'Notes';
-  String get _savedLabel => _isTr ? 'Belge güncellendi.' : 'Document updated.';
-  String get _failedLabel => _isTr ? 'Belge güncellenemedi.' : 'Could not update document.';
-  String get _openFailedLabel => _isTr ? 'Belge açılamadı.' : 'Could not open document.';
-  String get _unknownLabel => _isTr ? 'Bilinmiyor' : 'Unknown';
-  String get _emptyNoteLabel => _isTr ? 'Ek not yok.' : 'No additional notes provided.';
+  String get _title => context.l10n.documentVault;
+  String get _subtitle => context.l10n.documentVaultViewSubtitle;
+  String get _editLabel => context.l10n.edit;
+  String get _openLabel => context.l10n.open;
+  String get _saveLabel => context.l10n.save;
+  String get _cancelLabel => context.l10n.cancel;
+  String get _nameLabel => context.l10n.documentName;
+  String get _institutionLabel => context.l10n.institutionHospital;
+  String get _personLabel => context.l10n.doctorRelatedPerson;
+  String get _notesLabel => context.l10n.notes;
+  String get _savedLabel => context.l10n.documentUpdated;
+  String get _failedLabel => context.l10n.documentUpdateFailed;
+  String get _openFailedLabel => context.l10n.documentOpenFailed;
+  String get _unknownLabel => context.l10n.unknown;
+  String get _emptyNoteLabel => context.l10n.noAdditionalNotes;
 
   Future<void> _showEditDialog() async {
     final nameController = TextEditingController(text: _document.fileName);
@@ -213,8 +212,8 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                       children: [
                         Row(
                           children: [
-                            Expanded(child: _InfoColumn(label: _isTr ? 'OLUŞTURULDU' : 'CREATED AT', value: DateFormat('dd.MM.yyyy').format(date))),
-                            Expanded(child: _InfoColumn(label: _isTr ? 'İLGİLİ KİŞİ' : 'PHYSICIAN', value: document.doctorName ?? 'N/A')),
+                            Expanded(child: _InfoColumn(label: context.l10n.createdAtLabel, value: DateFormat('dd.MM.yyyy').format(date))),
+                            Expanded(child: _InfoColumn(label: context.l10n.physicianLabel, value: document.doctorName ?? 'N/A')),
                           ],
                         ),
                         const SizedBox(height: 24),

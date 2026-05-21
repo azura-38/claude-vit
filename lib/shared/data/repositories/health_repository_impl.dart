@@ -7,7 +7,7 @@ import '../models/health_metric_model.dart';
 class HealthRepositoryImpl implements HealthRepository {
   final _store = stringMapStoreFactory.store('health_metrics');
 
-  Future<Database> get _db async => SembastDatabase().db;
+  Future<Database> get _db async => SembastDatabase().ready;
 
   @override
   Future<void> save(HealthMetric metric) async {

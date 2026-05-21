@@ -6,7 +6,12 @@ import '../../domain/models/user_profile.dart';
 
 // LEGACY ALIAS PROVIDERS TO FIX COMPILATION ERRORS
 final profileCreatedProvider = Provider<bool>(
-  (ref) => ref.watch(profileProvider).fullName.trim().isNotEmpty,
+  (ref) {
+    final nameCreated = ref.watch(profileProvider).fullName.trim().isNotEmpty;
+    if (nameCreated) return true;
+    final prefs = ref.watch(sharedPreferencesProvider);
+    return prefs.getBool('profile_creation_skipped') ?? false;
+  },
 );
 
 final profileNameProvider = Provider<String?>(

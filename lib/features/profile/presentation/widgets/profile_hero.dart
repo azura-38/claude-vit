@@ -37,7 +37,7 @@ class ProfileHero extends ConsumerWidget {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: isDark ? AppColors.surfaceDark : Colors.white,
+                  color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(40),
                   boxShadow: [
                     BoxShadow(

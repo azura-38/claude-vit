@@ -8,7 +8,7 @@ import '../models/appointment_model.dart';
 class AppointmentRepositoryImpl implements AppointmentRepository {
   final _store = stringMapStoreFactory.store('appointments');
 
-  Future<Database> get _db async => SembastDatabase().db;
+  Future<Database> get _db async => SembastDatabase().ready;
 
   @override
   Future<void> save(Appointment appointment) async {

@@ -23,7 +23,7 @@ class ActiveGoalsSection extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildSectionTitle(context.l10n.activeGoals, isDark),
-            const Icon(Icons.bolt_rounded, color: AppColors.medicalBlue, size: 18),
+            Icon(Icons.bolt_rounded, color: Theme.of(context).colorScheme.primary, size: 18),
           ],
         ),
         const SizedBox(height: 16),
@@ -34,7 +34,7 @@ class ActiveGoalsSection extends ConsumerWidget {
           current: progress['steps']!.toInt(),
           target: stepGoal,
           unit: context.l10n.steps,
-          accentColor: AppColors.medicalBlue,
+          accentColor: Theme.of(context).colorScheme.primary,
           actionLabel: context.l10n.speedUp,
           isDark: isDark,
         ),
@@ -69,7 +69,7 @@ class ActiveGoalsSection extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.surfaceDark : Colors.white,
+        color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           if (!isDark)
