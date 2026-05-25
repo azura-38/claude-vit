@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +21,21 @@ class ThemeSelectionScreen extends ConsumerStatefulWidget {
 class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
   AppThemeType? _previewTheme;
   bool _loadingAd = false;
+  Timer? _countdownTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _countdownTimer?.cancel();
+    super.dispose();
+  }
 
   Future<void> _apply(AppThemeType type) async {
     final unlock = ref.read(themeUnlockProvider.notifier);
@@ -47,15 +64,36 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
       await ref.read(themeTypeProvider.notifier).setTheme(type);
       if (!mounted) return;
       _showMessage(context.l10n.themeUnlocked);
-      context.pop();
+      setState(() {});
     } else {
       _showMessage(context.l10n.adUnavailableTryLater);
     }
   }
 
+  Future<void> _extendOneDay() async {
+    if (_loadingAd) return;
+    final okStr = context.l10n.oneDayAdded;
+    final failStr = context.l10n.adUnavailable;
+    setState(() => _loadingAd = true);
+    final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
+    if (!mounted) return;
+    setState(() => _loadingAd = false);
+    _showMessage(ok ? okStr : failStr);
+  }
+
   void _showMessage(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  String _formatRemaining(Duration duration) {
+    if (duration <= Duration.zero) return '00:00:00';
+    final days = duration.inDays;
+    final hours = duration.inHours.remainder(24).toString().padLeft(2, '0');
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    if (days > 0) return '${days}g $hours:$minutes:$seconds';
+    return '$hours:$minutes:$seconds';
   }
 
   @override
@@ -65,6 +103,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     final unlockNotifier = ref.read(themeUnlockProvider.notifier);
     final activePreview = _previewTheme ?? currentTheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final remaining = unlockNotifier.remainingDuration;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -81,8 +120,13 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
         children: [
           _ThemePreview(type: activePreview),
           const SizedBox(height: 20),
-          if (unlockUntil != null) _UnlockStatusCard(days: unlockNotifier.remainingDays),
-          if (unlockUntil != null) const SizedBox(height: 20),
+          _UnlockStatusCard(
+            isUnlocked: unlockUntil != null,
+            remainingText: _formatRemaining(remaining),
+            loading: _loadingAd,
+            onExtend: _extendOneDay,
+          ),
+          const SizedBox(height: 20),
           _SectionTitle(title: context.l10n.freeThemes),
           const SizedBox(height: 12),
           for (final type in AppThemeType.freeThemes)
@@ -113,30 +157,6 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
             ),
         ],
       ),
-      floatingActionButton: unlockNotifier.isUnlocked
-          ? FloatingActionButton.extended(
-              heroTag: 'themeExtendFab',
-              onPressed: _loadingAd
-                  ? null
-                  : () async {
-                      final okStr = context.l10n.oneDayAdded;
-                      final failStr = context.l10n.adUnavailable;
-                      setState(() => _loadingAd = true);
-                      final ok = await ref.read(themeUnlockProvider.notifier).watchAdToUnlockOrExtend();
-                      if (!mounted) return;
-                      setState(() => _loadingAd = false);
-                      _showMessage(ok ? okStr : failStr);
-                    },
-              icon: _loadingAd
-                  ? const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.play_circle_outline_rounded),
-              label: Text(context.l10n.addOneDay),
-            )
-          : null,
     );
   }
 }
@@ -319,23 +339,56 @@ class _ThemeTile extends StatelessWidget {
 }
 
 class _UnlockStatusCard extends StatelessWidget {
-  const _UnlockStatusCard({required this.days});
+  const _UnlockStatusCard({required this.isUnlocked, required this.remainingText, required this.loading, required this.onExtend});
 
-  final int days;
+  final bool isUnlocked;
+  final String remainingText;
+  final bool loading;
+  final VoidCallback onExtend;
 
   @override
   Widget build(BuildContext context) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.12)),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.verified_rounded, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 12),
-          Expanded(child: Text(context.l10n.rewardThemesActive(days))),
+          Row(
+            children: [
+              Icon(isUnlocked ? Icons.verified_rounded : Icons.lock_clock_rounded, color: Theme.of(context).colorScheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  isUnlocked ? (isTr ? 'Ödüllü temalar aktif' : 'Reward themes active') : (isTr ? 'Ödüllü temalar kilitli' : 'Reward themes locked'),
+                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            isUnlocked
+                ? (isTr ? 'Kalan süre: $remainingText' : 'Time left: $remainingText')
+                : (isTr ? 'Reklam izleyerek 1 gün açabilirsin.' : 'Watch an ad to unlock for 1 day.'),
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: loading ? null : onExtend,
+              icon: loading
+                  ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                  : const Icon(Icons.add_alarm_rounded),
+              label: Text(isTr ? '+1 Gün Ekle' : 'Add +1 Day'),
+            ),
+          ),
         ],
       ),
     );
@@ -354,9 +407,7 @@ class _SectionTitle extends StatelessWidget {
 }
 
 String _localizedThemeName(BuildContext context, AppThemeType type) {
-  if (type != AppThemeType.light && type != AppThemeType.dark) {
-    return type.label;
-  }
+  if (type != AppThemeType.light && type != AppThemeType.dark) return type.label;
 
   final language = Localizations.localeOf(context).languageCode;
   final names = _freeThemeNames[language] ?? _freeThemeNames['en']!;
@@ -364,44 +415,14 @@ String _localizedThemeName(BuildContext context, AppThemeType type) {
 }
 
 const Map<String, Map<AppThemeType, String>> _freeThemeNames = {
-  'en': {
-    AppThemeType.light: 'Light',
-    AppThemeType.dark: 'Dark',
-  },
-  'tr': {
-    AppThemeType.light: 'Açık',
-    AppThemeType.dark: 'Koyu',
-  },
-  'es': {
-    AppThemeType.light: 'Claro',
-    AppThemeType.dark: 'Oscuro',
-  },
-  'pt': {
-    AppThemeType.light: 'Claro',
-    AppThemeType.dark: 'Escuro',
-  },
-  'de': {
-    AppThemeType.light: 'Hell',
-    AppThemeType.dark: 'Dunkel',
-  },
-  'fr': {
-    AppThemeType.light: 'Clair',
-    AppThemeType.dark: 'Sombre',
-  },
-  'it': {
-    AppThemeType.light: 'Chiaro',
-    AppThemeType.dark: 'Scuro',
-  },
-  'hi': {
-    AppThemeType.light: 'हल्का',
-    AppThemeType.dark: 'गहरा',
-  },
-  'ja': {
-    AppThemeType.light: 'ライト',
-    AppThemeType.dark: 'ダーク',
-  },
-  'zh': {
-    AppThemeType.light: '浅色',
-    AppThemeType.dark: '深色',
-  },
+  'en': {AppThemeType.light: 'Light', AppThemeType.dark: 'Dark'},
+  'tr': {AppThemeType.light: 'Açık', AppThemeType.dark: 'Koyu'},
+  'es': {AppThemeType.light: 'Claro', AppThemeType.dark: 'Oscuro'},
+  'pt': {AppThemeType.light: 'Claro', AppThemeType.dark: 'Escuro'},
+  'de': {AppThemeType.light: 'Hell', AppThemeType.dark: 'Dunkel'},
+  'fr': {AppThemeType.light: 'Clair', AppThemeType.dark: 'Sombre'},
+  'it': {AppThemeType.light: 'Chiaro', AppThemeType.dark: 'Scuro'},
+  'hi': {AppThemeType.light: 'हल्का', AppThemeType.dark: 'गहरा'},
+  'ja': {AppThemeType.light: 'ライト', AppThemeType.dark: 'ダーク'},
+  'zh': {AppThemeType.light: '浅色', AppThemeType.dark: '深色'},
 };
