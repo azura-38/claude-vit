@@ -43,6 +43,7 @@ import '../../features/notifications/presentation/screens/refill_banner_notifica
 
 // Core
 import '../../features/auth/presentation/widgets/app_lock_gate.dart';
+import '../../shared/widgets/vitacase_shell_ad_frame.dart';
 import '../constants/app_routes.dart';
 import '../security/secure_screen_guard.dart';
 
@@ -56,6 +57,10 @@ class _RouterRefreshNotifier extends ChangeNotifier {
       notifyListeners();
     });
   }
+}
+
+Widget _withTopBanner(Widget child, {bool showBanner = true}) {
+  return VitaCaseShellAdFrame(showBanner: showBanner, child: child);
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -133,7 +138,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.home,
                     name: 'home',
-                    builder: (context, state) => const DashboardScreen(),
+                    builder: (context, state) => _withTopBanner(const DashboardScreen()),
                   ),
                 ],
               ),
@@ -142,7 +147,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.documents,
                     name: 'documents',
-                    builder: (context, state) => const SecureScreenGuard(child: DocumentVaultScreen()),
+                    builder: (context, state) => _withTopBanner(const SecureScreenGuard(child: DocumentVaultScreen())),
                   ),
                 ],
               ),
@@ -151,7 +156,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: '/explore',
                     name: 'explore',
-                    builder: (context, state) => const AchievementsScreen(),
+                    builder: (context, state) => _withTopBanner(const AchievementsScreen()),
                   ),
                 ],
               ),
@@ -160,7 +165,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.appointments,
                     name: 'appointments',
-                    builder: (context, state) => const AppointmentsScreen(),
+                    builder: (context, state) => _withTopBanner(const AppointmentsScreen()),
                     routes: [
                       GoRoute(
                         path: 'add',
@@ -176,7 +181,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: AppRoutes.profile,
                     name: 'profile',
-                    builder: (context, state) => const ProfileScreen(),
+                    builder: (context, state) => _withTopBanner(const ProfileScreen()),
                     routes: [
                       GoRoute(
                         path: 'edit',
@@ -192,12 +197,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.seasonPass,
             name: 'seasonPass',
-            builder: (context, state) => const SeasonPassScreen(),
+            builder: (context, state) => _withTopBanner(const SeasonPassScreen()),
           ),
           GoRoute(
             path: AppRoutes.achievements,
             name: 'achievements',
-            builder: (context, state) => const AchievementsScreen(),
+            builder: (context, state) => _withTopBanner(const AchievementsScreen()),
           ),
           GoRoute(
             path: AppRoutes.documentAdd,
@@ -207,7 +212,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.medicines,
             name: 'medicines',
-            builder: (context, state) => const MedicinesScreen(),
+            builder: (context, state) => _withTopBanner(const MedicinesScreen()),
             routes: [
               GoRoute(
                 path: 'add',
@@ -219,7 +224,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.healthStats,
             name: 'healthStats',
-            builder: (context, state) => const HealthStatsScreen(),
+            builder: (context, state) => _withTopBanner(const HealthStatsScreen()),
             routes: [
               GoRoute(
                 path: 'add',
@@ -231,7 +236,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.doctors,
             name: 'doctors',
-            builder: (context, state) => const DoctorsScreen(),
+            builder: (context, state) => _withTopBanner(const DoctorsScreen()),
             routes: [
               GoRoute(
                 path: 'add',
@@ -241,41 +246,41 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: ':id',
                 name: 'doctorDetail',
-                builder: (context, state) => DoctorDetailScreen(id: state.pathParameters['id']!),
+                builder: (context, state) => _withTopBanner(DoctorDetailScreen(id: state.pathParameters['id']!)),
               ),
             ],
           ),
           GoRoute(
             path: AppRoutes.personalInfo,
             name: 'profilePersonalInfo',
-            builder: (context, state) => const PersonalInformationScreen(),
+            builder: (context, state) => _withTopBanner(const PersonalInformationScreen()),
           ),
           GoRoute(
             path: AppRoutes.medicalInfo,
             name: 'medicalInfo',
-            builder: (context, state) => const ImportantInformationScreen(),
+            builder: (context, state) => _withTopBanner(const ImportantInformationScreen()),
           ),
           GoRoute(
             path: AppRoutes.settings,
             name: 'settings',
-            builder: (context, state) => const AppSettingsScreen(),
+            builder: (context, state) => _withTopBanner(const AppSettingsScreen()),
             routes: [
               GoRoute(
                 path: 'theme',
                 name: 'settingsTheme',
-                builder: (context, state) => const ThemeSelectionScreen(),
+                builder: (context, state) => _withTopBanner(const ThemeSelectionScreen()),
               ),
             ],
           ),
           GoRoute(
             path: AppRoutes.reminderTroubleshooting,
             name: 'reminderTroubleshooting',
-            builder: (context, state) => const ReminderTroubleshootingScreen(),
+            builder: (context, state) => _withTopBanner(const ReminderTroubleshootingScreen()),
           ),
           GoRoute(
             path: AppRoutes.diagnosticsPanel,
             name: 'diagnosticsPanel',
-            builder: (context, state) => const DebugPanelScreen(),
+            builder: (context, state) => _withTopBanner(const DebugPanelScreen()),
           ),
         ],
       ),
