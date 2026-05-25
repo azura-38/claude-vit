@@ -23,9 +23,13 @@ class NotificationEngine {
   static DateTime? _lastImmediateNotificationAt;
   static const Duration _immediateCooldown = Duration(seconds: 90);
 
+  static const _medicineChannel = 'medicine_reminders_v2';
+  static const _appointmentChannel = 'appointment_reminders_v2';
+  static const _smartChannel = 'smart_engagement_v2';
+
   static Future<void> Function(ReceivedAction)? _onActionReceivedCallback;
 
-  @pragma("vm:entry-point")
+  @pragma('vm:entry-point')
   static Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
     if (_onActionReceivedCallback != null) {
       await _onActionReceivedCallback!(receivedAction);
@@ -48,8 +52,8 @@ class NotificationEngine {
 
     final channels = [
       NotificationChannel(
-        channelGroupKey: 'medical_group',
-        channelKey: 'medicine_reminders',
+        channelGroupKey: 'medical_group_v2',
+        channelKey: _medicineChannel,
         channelName: 'Medicine Reminders',
         channelDescription: 'Notification channel for medication reminders',
         defaultColor: AppColors.medicalBlue,
@@ -57,58 +61,54 @@ class NotificationEngine {
         importance: NotificationImportance.Max,
         channelShowBadge: true,
         criticalAlerts: true,
-        icon: 'resource://drawable/ic_medication_notification',
+        playSound: true,
+        enableVibration: true,
       ),
       NotificationChannel(
-        channelGroupKey: 'medical_group',
-        channelKey: 'appointment_reminders',
+        channelGroupKey: 'medical_group_v2',
+        channelKey: _appointmentChannel,
         channelName: 'Appointment Reminders',
         channelDescription: 'Notification channel for appointments and plans',
         defaultColor: AppColors.medicalBlue,
         ledColor: Colors.white,
-        importance: NotificationImportance.High,
-        icon: 'resource://drawable/ic_appointment_notification',
+        importance: NotificationImportance.Max,
+        channelShowBadge: true,
+        playSound: true,
+        enableVibration: true,
       ),
       NotificationChannel(
-        channelGroupKey: 'system_group',
-        channelKey: 'smart_engagement',
+        channelGroupKey: 'system_group_v2',
+        channelKey: _smartChannel,
         channelName: 'Smart Engagement',
-        channelDescription: 'Smart behavioral notifications',
+        channelDescription: 'Smart behavioral and test notifications',
         defaultColor: AppColors.primaryIndigo,
         ledColor: Colors.white,
-        importance: NotificationImportance.High, // High importance so test notifications display as heads-up
-        icon: 'resource://drawable/ic_notification',
+        importance: NotificationImportance.Max,
+        channelShowBadge: true,
+        playSound: true,
+        enableVibration: true,
       ),
     ];
 
     final groups = [
-      NotificationChannelGroup(channelGroupKey: 'medical_group', channelGroupName: 'Health & Reminder Notifications'),
-      NotificationChannelGroup(channelGroupKey: 'system_group', channelGroupName: 'System Notifications'),
+      NotificationChannelGroup(channelGroupKey: 'medical_group_v2', channelGroupName: 'Health & Reminder Notifications'),
+      NotificationChannelGroup(channelGroupKey: 'system_group_v2', channelGroupName: 'System Notifications'),
     ];
 
     try {
       await AwesomeNotifications().initialize(
-        'resource://drawable/ic_notification',
+        null,
         channels,
         channelGroups: groups,
-        debug: false,
+        debug: true,
       );
-    } catch (e) {
-      debugPrint('[NotificationEngine] Initialization with ic_notification failed, trying fallback: $e');
-      try {
-        await AwesomeNotifications().initialize(
-          'resource://mipmap/ic_launcher',
-          channels,
-          channelGroups: groups,
-          debug: false,
-        );
-      } catch (fallbackError) {
-        debugPrint('[NotificationEngine] Fallback initialization failed: $fallbackError');
-      }
+      _isInitialized = true;
+      debugPrint('[NotificationEngine] Core initialized with safe default icon ✅');
+    } catch (e, st) {
+      debugPrint('[NotificationEngine] Initialization failed: $e');
+      debugPrintStack(stackTrace: st);
+      _isInitialized = false;
     }
-
-    _isInitialized = true;
-    debugPrint('[NotificationEngine] Core initialized ✅');
   }
 
   static Future<void> requestPermissions() async {
@@ -116,7 +116,7 @@ class NotificationEngine {
     if (!isAllowed) {
       await AwesomeNotifications().requestPermissionToSendNotifications();
     }
-    debugPrint('[NotificationEngine] Permissions requested ✅');
+    debugPrint('[NotificationEngine] Permission allowed: ${await AwesomeNotifications().isNotificationAllowed()}');
   }
 
   static Future<void> initialize() async {
@@ -174,20 +174,25 @@ class NotificationEngine {
     return hash.abs() & 0x7FFFFFFF;
   }
 
-  static Future<void> _createNotificationSafe({
+  static Future<bool> _createNotificationSafe({
     required NotificationContent content,
     List<NotificationActionButton>? actionButtons,
     NotificationCalendar? schedule,
   }) async {
     try {
-      await AwesomeNotifications().createNotification(
+      final created = await AwesomeNotifications().createNotification(
         content: content,
         actionButtons: actionButtons,
         schedule: schedule,
       );
-    } catch (e) {
+      debugPrint('[NotificationEngine] createNotification id=${content.id} channel=${content.channelKey} scheduled=${schedule != null} result=$created');
+      return created;
+    } catch (e, st) {
+      debugPrint('[NotificationEngine] Failed to create notification id=${content.id}: $e');
+      debugPrintStack(stackTrace: st);
+
       if (schedule != null && schedule.preciseAlarm == true) {
-        debugPrint('[NotificationEngine] Failed to create notification with preciseAlarm=true: $e. Retrying with preciseAlarm=false...');
+        debugPrint('[NotificationEngine] Retrying scheduled notification with preciseAlarm=false...');
         try {
           final fallbackSchedule = NotificationCalendar(
             era: schedule.era,
@@ -201,20 +206,23 @@ class NotificationEngine {
             weekOfYear: schedule.weekOfYear,
             timeZone: schedule.timeZone,
             repeats: schedule.repeats,
-            allowWhileIdle: schedule.allowWhileIdle,
+            allowWhileIdle: true,
             preciseAlarm: false,
           );
-          await AwesomeNotifications().createNotification(
+          final created = await AwesomeNotifications().createNotification(
             content: content,
             actionButtons: actionButtons,
             schedule: fallbackSchedule,
           );
-        } catch (fallbackError) {
+          debugPrint('[NotificationEngine] fallback createNotification result=$created');
+          return created;
+        } catch (fallbackError, fallbackSt) {
           debugPrint('[NotificationEngine] Failed to create fallback notification: $fallbackError');
+          debugPrintStack(stackTrace: fallbackSt);
+          return false;
         }
-      } else {
-        debugPrint('[NotificationEngine] Failed to create notification: $e');
       }
+      return false;
     }
   }
 
@@ -231,14 +239,12 @@ class NotificationEngine {
     await _createNotificationSafe(
       content: NotificationContent(
         id: notifId,
-        channelKey: 'medicine_reminders',
+        channelKey: _medicineChannel,
         title: title,
         body: _safeText(body),
         payload: {'entityId': id, 'payload': payload ?? ''},
         category: NotificationCategory.Reminder,
-        fullScreenIntent: true,
         wakeUpScreen: true,
-        icon: 'resource://drawable/ic_medication_notification',
       ),
       actionButtons: [
         NotificationActionButton(key: 'MARK_DONE', label: _label(tr: 'Aldım', en: 'Taken'), actionType: ActionType.Default),
@@ -261,17 +267,14 @@ class NotificationEngine {
     await _createNotificationSafe(
       content: NotificationContent(
         id: notifId,
-        channelKey: 'appointment_reminders',
+        channelKey: _appointmentChannel,
         title: title,
         body: _safeText(body),
         payload: {'entityId': id, 'payload': payload ?? ''},
         category: NotificationCategory.Event,
         wakeUpScreen: true,
-        icon: 'resource://drawable/ic_appointment_notification',
       ),
-      actionButtons: [
-        NotificationActionButton(key: 'OPEN_APPOINTMENT', label: _label(tr: 'Aç', en: 'Open'), actionType: ActionType.Default),
-      ],
+      actionButtons: [NotificationActionButton(key: 'OPEN_APPOINTMENT', label: _label(tr: 'Aç', en: 'Open'), actionType: ActionType.Default)],
       schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
     );
   }
@@ -289,12 +292,11 @@ class NotificationEngine {
 
     await _createNotificationSafe(
       content: NotificationContent(
-        id: getStableId(messageKey),
-        channelKey: 'smart_engagement',
+        id: getStableId('${messageKey}_${now.millisecondsSinceEpoch}'),
+        channelKey: _smartChannel,
         title: 'VitaCase',
         body: _translate(messageKey),
         category: NotificationCategory.Promo,
-        icon: 'resource://drawable/ic_notification',
       ),
     );
   }
@@ -306,11 +308,10 @@ class NotificationEngine {
     await _createNotificationSafe(
       content: NotificationContent(
         id: getStableId('smart_engagement_close'),
-        channelKey: 'smart_engagement',
+        channelKey: _smartChannel,
         title: 'VitaCase',
         body: _translate('smart_default'),
         category: NotificationCategory.Promo,
-        icon: 'resource://drawable/ic_notification',
       ),
       schedule: NotificationCalendar.fromDate(date: DateTime.now().add(const Duration(hours: 6)), preciseAlarm: true, allowWhileIdle: true),
     );
@@ -319,14 +320,14 @@ class NotificationEngine {
 
   static Future<void> testNotification() async {
     await _ensureReady(requestPermission: true);
+    final now = DateTime.now();
     await _createNotificationSafe(
       content: NotificationContent(
-        id: 9998,
-        channelKey: 'smart_engagement',
+        id: getStableId('test_${now.millisecondsSinceEpoch}'),
+        channelKey: _smartChannel,
         title: 'VitaCase ✅',
         body: _translate('notif_test_body'),
-        category: NotificationCategory.Promo,
-        icon: 'resource://drawable/ic_notification',
+        category: NotificationCategory.Status,
       ),
     );
   }
