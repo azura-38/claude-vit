@@ -25,11 +25,16 @@ class ThemeUnlockNotifier extends Notifier<DateTime?> {
     return until != null && DateTime.now().isBefore(until);
   }
 
-  int get remainingDays {
+  Duration get remainingDuration {
     final until = state;
-    if (until == null) return 0;
+    if (until == null) return Duration.zero;
     final diff = until.difference(DateTime.now());
-    if (diff.isNegative) return 0;
+    return diff.isNegative ? Duration.zero : diff;
+  }
+
+  int get remainingDays {
+    final diff = remainingDuration;
+    if (diff == Duration.zero) return 0;
     return diff.inDays + 1;
   }
 
@@ -42,9 +47,7 @@ class ThemeUnlockNotifier extends Notifier<DateTime?> {
 
     final prefs = ref.read(sharedPreferencesProvider);
     final now = DateTime.now();
-    final base = state != null && state!.isAfter(now)
-        ? state!
-        : now.add(const Duration(days: 2));
+    final base = state != null && state!.isAfter(now) ? state! : now;
     final next = base.add(const Duration(days: 1));
 
     await prefs.setString(_unlockUntilKey, next.toIso8601String());
