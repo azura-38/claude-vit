@@ -37,6 +37,15 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     super.dispose();
   }
 
+  void _safePop() {
+    if (!mounted) return;
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go('/settings');
+    }
+  }
+
   Future<void> _apply(AppThemeType type) async {
     final unlock = ref.read(themeUnlockProvider.notifier);
     final isLocked = type.isRewardTheme && !unlock.isUnlocked;
@@ -47,8 +56,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
     }
 
     await ref.read(themeTypeProvider.notifier).setTheme(type);
-    if (!mounted) return;
-    context.pop();
+    _safePop();
   }
 
   Future<void> _unlockWithAd(AppThemeType type) async {
@@ -112,7 +120,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.pop(),
+          onPressed: _safePop,
         ),
       ),
       body: ListView(
