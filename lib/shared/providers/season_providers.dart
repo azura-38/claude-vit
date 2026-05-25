@@ -18,7 +18,7 @@ class SeasonNotifier extends AsyncNotifier<UserSeasonProgress> {
   static const _lastAdSkipXpMilestoneKey = 'last_ad_skip_xp_milestone';
 
   late XPEngine _engine;
-  final _leaderboardRepo = LeaderboardRepository();
+  LeaderboardRepository get _leaderboardRepo => LeaderboardRepository();
 
   @override
   Future<UserSeasonProgress> build() async {

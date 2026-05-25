@@ -254,5 +254,10 @@
   "@unit_bpm": {
     "description": "Translation for unit_bpm",
     "placeholders": {}
+  },
+  "report_issue": "Fehler, Vorschlag, Wunsch & Beschwerde",
+  "@report_issue": {
+    "placeholders": {},
+    "description": "Translation for report_issue"
   }
 }

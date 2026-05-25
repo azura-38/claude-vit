@@ -14,6 +14,8 @@ import 'package:vitacase/core/theme/theme_visuals.dart';
 import '../widgets/vault_swipe_card.dart';
 import '../widgets/secure_banner.dart';
 import 'document_quick_view_screen.dart';
+import '../../../../shared/providers/shared_prefs_provider.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
 
 enum _VaultSortMode { newest, oldest, nameAZ }
 
@@ -31,9 +33,99 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
   _VaultSortMode _sortMode = _VaultSortMode.newest;
 
   @override
+  void initState() {
+    super.initState();
+    _checkPinPromotion();
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _checkPinPromotion() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      final hasPinValue = await ref.read(hasPinProvider.future);
+      if (!hasPinValue) {
+        final prefs = ref.read(sharedPreferencesProvider);
+        final shownBefore = prefs.getBool('vault_pin_promotion_shown') ?? false;
+        if (!shownBefore && mounted) {
+          await prefs.setBool('vault_pin_promotion_shown', true);
+          if (mounted) {
+            _showPinPromotionDialog();
+          }
+        }
+      }
+    });
+  }
+
+  void _showPinPromotionDialog() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (dialogContext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          icon: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.amber.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.gpp_maybe_rounded,
+              color: Colors.amber,
+              size: 40,
+            ),
+          ),
+          title: const Text(
+            'Kasanızı Koruyun',
+            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+          content: Text(
+            'Sağlık belgelerinizi ve hassas verilerinizi en üst düzeyde korumak için bir güvenlik PIN\'i oluşturmanızı öneririz.',
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.5,
+              color: isDark ? Colors.white70 : AppColors.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(
+                'Daha Sonra',
+                style: TextStyle(
+                  color: isDark ? Colors.white60 : AppColors.textSecondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+                context.push(AppRoutes.settings);
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
+              child: const Text(
+                'PIN Ayarla',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _openQuickView(BuildContext context, Document doc) {
@@ -148,6 +240,31 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
             ),
             const SizedBox(height: 20),
             const SecureBanner(),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.amber.withValues(alpha: isDark ? 0.15 : 0.08),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.amber.withValues(alpha: isDark ? 0.3 : 0.2)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.warning_amber_rounded, color: Colors.amber, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      "Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? Colors.amber[200] : Colors.amber[900],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 20),
             _VaultControls(
               isDark: isDark,

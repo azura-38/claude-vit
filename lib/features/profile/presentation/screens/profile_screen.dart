@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/utils/external_launcher.dart';
@@ -13,6 +14,10 @@ import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_hero.dart';
 import '../widgets/emergency_card.dart';
 import '../widgets/active_goals_section.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../../shared/providers/shared_prefs_provider.dart';
+import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/theme/theme_visuals.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -21,6 +26,12 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final profile = ref.watch(profileProvider);
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
+
+    final hasPinAsync = ref.watch(hasPinProvider);
+    final hasPin = hasPinAsync.valueOrNull ?? true;
+    final prefs = ref.watch(sharedPreferencesProvider);
+    final onboardingSkipped = prefs.getBool('profile_creation_skipped') ?? false;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -32,7 +43,94 @@ class ProfileScreen extends ConsumerWidget {
               ProfileAppBar(isDark: isDark),
               const SizedBox(height: 32),
               ProfileHero(isDark: isDark),
-              if (profile.fullName.trim().isEmpty) ...[
+              if (onboardingSkipped && !hasPin) ...[
+                const SizedBox(height: 24),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.amber.withValues(alpha: 0.12),
+                        Colors.orange.withValues(alpha: 0.08),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(
+                      color: Colors.orange.withValues(alpha: 0.25),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.orange.withValues(alpha: 0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.gpp_maybe_rounded,
+                          color: Colors.orange,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Güvenlik Kurulumu Eksik',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.orange,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: isDark ? Colors.white70 : AppColors.textSecondary,
+                                height: 1.45,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () => context.push(AppRoutes.settings),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Şimdi Kurulum Yap',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w800,
+                                      color: visuals.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Icon(
+                                    Icons.arrow_forward_rounded,
+                                    size: 14,
+                                    color: visuals.primary,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ).animate().fadeIn(delay: 200.ms).slideX(begin: 0.1),
+              ],
+              if (profile.fullName.trim().isEmpty && !(onboardingSkipped && !hasPin)) ...[
                 const SizedBox(height: 24),
                 Container(
                   padding: const EdgeInsets.all(16),
@@ -104,11 +202,11 @@ class ProfileScreen extends ConsumerWidget {
               ),
               _buildNavigationItem(
                 context,
-                icon: Icons.bug_report_outlined,
+                icon: Icons.feedback_outlined,
                 title: context.l10n.reportIssue,
                 onTap: () => ExternalLauncher.launchEmail(
                   'limanexsoftware@outlook.com',
-                  subject: 'VitaCase Error Report',
+                  subject: 'VitaCase Feedback & Support',
                   body: '\n\n---\nDevice info: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
                 ),
                 isDark: isDark,
@@ -195,24 +293,33 @@ class ProfileScreen extends ConsumerWidget {
   void _showDeleteAllDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: Text(
-          context.l10n.deleteAllData,
+          dialogContext.l10n.deleteAllData,
           style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold),
         ),
-        content: Text(context.l10n.wipeConfirm1),
+        content: Text(dialogContext.l10n.wipeConfirm1),
         actions: [
-          TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+          TextButton(
+            onPressed: () {
+              if (Navigator.of(dialogContext).canPop()) {
+                Navigator.of(dialogContext).pop();
+              }
+            },
+            child: Text(dialogContext.l10n.cancel),
+          ),
           TextButton(
             onPressed: () async {
-              context.pop();
+              if (Navigator.of(dialogContext).canPop()) {
+                Navigator.of(dialogContext).pop();
+              }
               await WipeService.fullWipe();
               if (context.mounted) {
                 context.go(AppRoutes.onboarding);
               }
             },
             style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: Text(context.l10n.wipeBtnFinal, style: const TextStyle(fontWeight: FontWeight.w900)),
+            child: Text(dialogContext.l10n.wipeBtnFinal, style: const TextStyle(fontWeight: FontWeight.w900)),
           ),
         ],
       ),

@@ -48,12 +48,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- Override Google Play Billing internal activity to prevent external direct/empty intents from causing NullPointerExceptions -->
-        <activity
-            android:name="com.android.billingclient.api.ProxyBillingActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            tools:replace="android:exported" />
     </application>
 
     <queries>

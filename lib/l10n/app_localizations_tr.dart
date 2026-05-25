@@ -422,7 +422,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get help_center => 'Yardım Merkezi';
 
   @override
-  String get report_issue => 'Sorun bildir';
+  String get report_issue => 'Hata, Öneri, İstek ve Şikayet';
 
   @override
   String get privacy_policy => 'Gizlilik Politikası';

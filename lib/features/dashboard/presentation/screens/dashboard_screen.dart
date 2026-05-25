@@ -24,18 +24,56 @@ import '../../../appointments/presentation/providers/appointment_providers.dart'
 import '../../../profile/presentation/providers/legacy_providers.dart';
 import '../../../profile/presentation/providers/settings_controller.dart';
 import '../../../gamification/presentation/providers/achievement_providers.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../../shared/providers/shared_prefs_provider.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(achievementProvider.notifier).showPendingNotifications();
+      
+      final prefs = ref.read(sharedPreferencesProvider);
+      if (prefs.getBool('db_corruption_recovery_triggered') == true) {
+        await prefs.remove('db_corruption_recovery_triggered');
+        if (context.mounted) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              title: Row(
+                children: [
+                  const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+                  const SizedBox(width: 8),
+                  const Text('Sistem Kurtarma', style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+              content: const Text(
+                'Veriler kurtarılamadı / uygulama güvenli başlatıldı',
+                style: TextStyle(fontSize: 14, height: 1.4),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Tamam', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+          );
+        }
+      }
     });
 
     final userName = ref.watch(profileNameProvider);
     final isGuest = userName == null || userName.isEmpty;
+
+    final hasPinAsync = ref.watch(hasPinProvider);
+    final hasPin = hasPinAsync.valueOrNull ?? true;
+    final prefs = ref.watch(sharedPreferencesProvider);
+    final onboardingSkipped = prefs.getBool('profile_creation_skipped') ?? false;
 
     ref.listen(seasonProvider, (previousAsync, nextAsync) {
       final previous = previousAsync?.asData?.value;
@@ -59,7 +97,14 @@ class DashboardScreen extends ConsumerWidget {
           children: [
             _TopAppBar(userName: userName ?? context.l10n.guestUser),
             const SizedBox(height: 24),
-            if (isGuest) ...[const _GuestBanner(), const SizedBox(height: 24)],
+            if (onboardingSkipped && !hasPin) ...[
+              const _SecuritySetupWarningBanner(),
+              const SizedBox(height: 24),
+            ],
+            if (isGuest && !(onboardingSkipped && !hasPin)) ...[
+              const _GuestBanner(),
+              const SizedBox(height: 24),
+            ],
             const _CtaFeatureCard(),
             const SizedBox(height: 24),
             const _MetricsGrid(),
@@ -908,5 +953,100 @@ class _MenuActionItem extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _SecuritySetupWarningBanner extends ConsumerWidget {
+  const _SecuritySetupWarningBanner();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.amber.withValues(alpha: 0.12),
+            Colors.orange.withValues(alpha: 0.08),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: Colors.orange.withValues(alpha: 0.25),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.orange.withValues(alpha: 0.12),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.gpp_maybe_rounded,
+              color: Colors.orange,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Güvenlik Kurulumu Eksik',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.orange,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isDark ? Colors.white70 : AppColors.textSecondary,
+                    height: 1.45,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () => context.push(AppRoutes.settings),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Şimdi Kurulum Yap',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                          color: visuals.primary,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 14,
+                        color: visuals.primary,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ).animate().fadeIn(delay: 200.ms).slideX(begin: 0.1);
   }
 }

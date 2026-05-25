@@ -219,6 +219,31 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                         const SizedBox(height: 24),
                         _InfoColumn(label: _notesLabel.toUpperCase(), value: document.note ?? _emptyNoteLabel, expanded: true),
                         const SizedBox(height: 28),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.amber.withValues(alpha: isDark ? 0.15 : 0.08),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.amber.withValues(alpha: isDark ? 0.3 : 0.2)),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.warning_amber_rounded, color: Colors.amber, size: 20),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  "Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: isDark ? Colors.amber[200] : Colors.amber[900],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 28),
                         const VaultPreviewOverlay(),
                         const SizedBox(height: 24),
                         Row(

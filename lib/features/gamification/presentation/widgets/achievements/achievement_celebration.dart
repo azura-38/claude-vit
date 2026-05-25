@@ -1,7 +1,8 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:ui';
+import 'dart:async';
 import '../../../../../shared/domain/entities/achievement.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
@@ -21,6 +22,7 @@ class AchievementCelebration extends StatefulWidget {
 
 class _AchievementCelebrationState extends State<AchievementCelebration> {
   late ConfettiController _confettiController;
+  Timer? _dismissTimer;
 
   @override
   void initState() {
@@ -29,10 +31,18 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
       duration: const Duration(seconds: 3),
     );
     _confettiController.play();
+
+    // Auto-dismiss after 4.5 seconds to keep interaction frictionless
+    _dismissTimer = Timer(const Duration(milliseconds: 4500), () {
+      if (mounted) {
+        widget.onClose();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _dismissTimer?.cancel();
     _confettiController.dispose();
     super.dispose();
   }
@@ -67,17 +77,6 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
     }
   }
 
-  Color _getDifficultyColor() {
-    switch (widget.achievement.difficulty) {
-      case AchievementDifficulty.hard:
-        return Colors.redAccent;
-      case AchievementDifficulty.medium:
-        return Colors.orangeAccent;
-      case AchievementDifficulty.easy:
-        return Colors.greenAccent;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -85,73 +84,77 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
     final tierColor = _getTierColor();
     final gradient = _getTierGradient();
 
+    final double topSafeArea = MediaQuery.of(context).padding.top;
+
     return Material(
       color: Colors.transparent,
       child: Stack(
-        alignment: Alignment.center,
         children: [
-          // Background Blur
+          // Background Light Blur & Dim (Non-intrusive)
           GestureDetector(
             onTap: widget.onClose,
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-              child: Container(color: Colors.black.withValues(alpha: 0.75)),
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: Container(
+                color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.12),
+              ),
             ),
           ),
 
-          // Confetti
+          // Refined local confetti burst
           Align(
             alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              colors: [tierColor, Colors.white, Colors.yellow, Colors.blue],
-              numberOfParticles: 50,
-              gravity: 0.2,
+            child: Padding(
+              padding: EdgeInsets.only(top: topSafeArea + 12),
+              child: ConfettiWidget(
+                confettiController: _confettiController,
+                blastDirectionality: BlastDirectionality.explosive,
+                shouldLoop: false,
+                colors: [tierColor, Colors.white, Colors.amber, Colors.cyan],
+                numberOfParticles: 24,
+                gravity: 0.15,
+              ),
             ),
           ),
 
-          // Content Card
-          Center(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 32),
-              padding: const EdgeInsets.all(32),
-              decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF1E293B) : Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: tierColor.withValues(alpha: 0.3),
-                    blurRadius: 40,
-                    spreadRadius: 10,
-                  ),
-                ],
-                border: Border.all(
-                  color: tierColor.withValues(alpha: 0.5),
-                  width: 2,
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Header Label
-                  Text(
-                    "ACHIEVEMENT UNLOCKED!",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                      color: tierColor,
+          // Sliding floating top-center toast card
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: EdgeInsets.only(top: topSafeArea + 16, left: 16, right: 16),
+              child: GestureDetector(
+                onTap: widget.onClose,
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 350),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? const Color(0xFF1E293B).withValues(alpha: 0.85)
+                        : Colors.white.withValues(alpha: 0.9),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: tierColor.withValues(alpha: 0.35),
+                      width: 1.2,
                     ),
-                  ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.5),
-
-                  const SizedBox(height: 24),
-
-                  // 3D Reddit-style Badge
-                  Container(
-                        width: 140,
-                        height: 140,
+                    boxShadow: [
+                      BoxShadow(
+                        color: tierColor.withValues(alpha: 0.2),
+                        blurRadius: 16,
+                        spreadRadius: -2,
+                      ),
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.12),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      // Floating 3D-style badge
+                      Container(
+                        width: 48,
+                        height: 48,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: LinearGradient(
@@ -161,184 +164,142 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: tierColor.withValues(alpha: 0.4),
-                              blurRadius: 30,
-                              spreadRadius: 5,
-                            ),
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.3),
-                              blurRadius: 15,
-                              offset: const Offset(0, 8),
+                              color: tierColor.withValues(alpha: 0.3),
+                              blurRadius: 10,
+                              spreadRadius: 1,
                             ),
                           ],
                         ),
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            // Inner gloss reflection (3D effect)
+                            // Glossy overlay
                             Positioned(
-                              top: 6,
-                              left: 16,
-                              right: 16,
-                              height: 24,
+                              top: 2,
+                              left: 6,
+                              right: 6,
+                              height: 10,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
+                                  gradient: LinearGradient(
                                     colors: [
-                                      Colors.white54,
+                                      Colors.white.withValues(alpha: 0.45),
                                       Colors.transparent,
                                     ],
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                   ),
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),
-                            // Achievement icon or emoji
                             Text(
                               widget.achievement.emoji,
-                              style: TextStyle(
-                                fontSize: 56,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withValues(alpha: 0.5),
-                                    blurRadius: 15,
-                                    offset: const Offset(0, 6),
-                                  ),
-                                ],
-                              ),
+                              style: const TextStyle(fontSize: 26),
                             ),
                           ],
                         ),
                       )
-                      .animate(onPlay: (controller) => controller.repeat())
-                      .shimmer(duration: 2.seconds, color: Colors.white24)
+                      .animate(onPlay: (c) => c.repeat(reverse: true))
+                      .slideY(begin: 0, end: 0.08, duration: 1.5.seconds, curve: Curves.easeInOut)
                       .animate()
-                      .scale(duration: 600.ms, curve: Curves.elasticOut),
+                      .scale(duration: 400.ms, curve: Curves.elasticOut),
 
-                  const SizedBox(height: 24),
+                      const SizedBox(width: 14),
 
-                  // Title
-                  Text(
-                    context.l10n(widget.achievement.title),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ).animate().fadeIn(delay: 300.ms).scale(),
-
-                  const SizedBox(height: 12),
-
-                  // Description
-                  Text(
-                    context.l10n(widget.achievement.description),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: isDark ? Colors.white70 : Colors.black54,
-                      height: 1.4,
-                    ),
-                  ).animate().fadeIn(delay: 500.ms),
-
-                  const SizedBox(height: 24),
-
-                  // Tier + Difficulty pills
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildPill(
-                        widget.achievement.tier.name.toUpperCase(),
-                        tierColor,
+                      // Text details
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Upper tag row
+                            Row(
+                              children: [
+                                Text(
+                                  "BAŞARI KAZANILDI",
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1.2,
+                                    color: tierColor,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  "•",
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    color: isDark ? Colors.white30 : Colors.black26,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.bolt_rounded,
+                                      color: Colors.amber,
+                                      size: 11,
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      "+${widget.achievement.xpReward} XP",
+                                      style: const TextStyle(
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              context.l10n(widget.achievement.title),
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.bold,
+                                color: isDark ? Colors.white : Colors.black87,
+                                height: 1.15,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              context.l10n(widget.achievement.description),
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                color: isDark ? Colors.white60 : Colors.black54,
+                                height: 1.25,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
+
                       const SizedBox(width: 8),
-                      _buildPill(
-                        widget.achievement.difficulty.name.toUpperCase(),
-                        _getDifficultyColor(),
+
+                      // Tiny Close Icon
+                      IconButton(
+                        onPressed: widget.onClose,
+                        icon: const Icon(Icons.close_rounded, size: 16),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        visualDensity: VisualDensity.compact,
+                        color: isDark ? Colors.white38 : Colors.black38,
                       ),
                     ],
-                  ).animate().fadeIn(delay: 600.ms),
-
-                  const SizedBox(height: 20),
-
-                  // XP Reward
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: tierColor.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: tierColor.withValues(alpha: 0.3),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.bolt, color: tierColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          "+${widget.achievement.xpReward} XP",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: tierColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ).animate().fadeIn(delay: 700.ms).slideY(begin: 1),
-
-                  const SizedBox(height: 32),
-
-                  // Close Button
-                  ElevatedButton(
-                    onPressed: widget.onClose,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: tierColor,
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(double.infinity, 56),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: const Text(
-                      "AWESOME!",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ).animate().fadeIn(delay: 900.ms),
-                ],
+                  ),
+                ),
               ),
-            ).animate().scale(duration: 400.ms, curve: Curves.easeOutBack),
-          ),
+            ),
+          )
+          .animate()
+          .slideY(begin: -0.15, end: 0, duration: 400.ms, curve: Curves.easeOutBack)
+          .fadeIn(duration: 250.ms),
         ],
-      ),
-    );
-  }
-
-  Widget _buildPill(String text, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.4)),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: color,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.2,
-        ),
       ),
     );
   }

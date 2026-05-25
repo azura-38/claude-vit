@@ -55,8 +55,9 @@ class ThemeUnlockNotifier extends Notifier<DateTime?> {
 
     final prefs = ref.read(sharedPreferencesProvider);
     final now = DateTime.now();
-    final base = state != null && state!.isAfter(now) ? state! : now;
-    final next = base.add(const Duration(days: 1));
+    final isNewUnlock = state == null || state!.isBefore(now);
+    final base = isNewUnlock ? now : state!;
+    final next = base.add(Duration(days: isNewUnlock ? 3 : 1));
 
     await prefs.setString(_unlockUntilKey, next.toIso8601String());
     state = next;

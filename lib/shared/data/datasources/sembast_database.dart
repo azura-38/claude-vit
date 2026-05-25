@@ -5,6 +5,8 @@ import 'package:sembast/sembast_io.dart';
 import '../services/encryption_service.dart';
 import 'database_codec.dart';
 import 'dart:io';
+import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseRecoveryRequiredException implements Exception {
   final Object cause;
@@ -54,10 +56,25 @@ class SembastDatabase {
       _db = await databaseFactory.openDatabase(dbPath, codec: codec);
       if (!_completer.isCompleted) _completer.complete(_db!);
     } catch (e, stackTrace) {
+      // Capture exception to Sentry
+      try {
+        await Sentry.captureException(e, stackTrace: stackTrace);
+      } catch (_) {}
+
+      // Set recovery trigger flag in SharedPreferences
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('db_corruption_recovery_triggered', true);
+      } catch (_) {}
+
       // Self-healing database recovery block
       try {
         final dbFile = File(dbPath);
         if (await dbFile.exists()) {
+          // Keep a backup before deleting
+          try {
+            await dbFile.copy('$dbPath.bak');
+          } catch (_) {}
           await dbFile.delete();
         }
         

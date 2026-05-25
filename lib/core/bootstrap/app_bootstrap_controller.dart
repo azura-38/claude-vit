@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../firebase_options.dart';
 import '../../shared/providers/document_providers.dart';
@@ -131,12 +132,24 @@ class AppBootstrapController extends AsyncNotifier<void> {
     ]);
   }
 
+  static Future<void> persistError(String message, String stack) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('last_error_message', message);
+      await prefs.setString('last_error_stack', stack);
+      await prefs.setInt('last_error_ts', DateTime.now().millisecondsSinceEpoch);
+    } catch (e) {
+      debugPrint('[Bootstrap] Failed to locally persist error: $e');
+    }
+  }
+
   void _setupErrorHandlers() {
     FlutterError.onError = (details) {
       debugPrint('[FlutterError] ${details.exceptionAsString()}');
       if (details.stack != null) {
         debugPrintStack(stackTrace: details.stack, label: '[FlutterError stack]');
       }
+      persistError(details.exceptionAsString(), details.stack?.toString() ?? '');
       if (!kIsWeb) {
         try {
           if (Firebase.apps.isNotEmpty) {
@@ -149,6 +162,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
     PlatformDispatcher.instance.onError = (error, stack) {
       debugPrint('[PlatformError] $error');
       debugPrintStack(stackTrace: stack, label: '[PlatformError stack]');
+      persistError(error.toString(), stack.toString());
       if (!kIsWeb) {
         try {
           if (Firebase.apps.isNotEmpty) {
@@ -162,7 +176,15 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
   Future<void> _setupCrashlytics() async {
     if (kIsWeb) return;
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    final originalOnError = FlutterError.onError;
+    FlutterError.onError = (details) {
+      try {
+        FirebaseCrashlytics.instance.recordFlutterError(details);
+      } catch (_) {}
+      if (originalOnError != null) {
+        originalOnError(details);
+      }
+    };
   }
 
   Future<void> _configureIdentity() async {

@@ -422,7 +422,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get help_center => 'Help Center';
 
   @override
-  String get report_issue => 'Report an issue';
+  String get report_issue => 'Error, Sugerencia, Solicitud y Queja';
 
   @override
   String get privacy_policy => 'Política de privacidad';

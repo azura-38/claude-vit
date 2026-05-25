@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'dart:io';
 
 import '../../../../core/config/app_config.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -9,6 +10,8 @@ import '../../../../core/notifications/app_notification_payload.dart';
 import '../../../../features/notifications/presentation/providers/notification_controller.dart';
 import '../../../../shared/data/services/ad_service.dart';
 import '../../../../shared/data/services/notification_engine.dart';
+import '../../../../shared/providers/shared_prefs_provider.dart';
+import '../../../../core/utils/external_launcher.dart';
 
 class DebugPanelScreen extends ConsumerWidget {
   const DebugPanelScreen({super.key});
@@ -23,6 +26,10 @@ class DebugPanelScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tr = _isTr(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final prefs = ref.watch(sharedPreferencesProvider);
+    final lastErrorMessage = prefs.getString('last_error_message');
+    final lastErrorStack = prefs.getString('last_error_stack');
+    final lastErrorTs = prefs.getInt('last_error_ts');
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
@@ -139,6 +146,111 @@ class DebugPanelScreen extends ConsumerWidget {
                   if (context.mounted) _snack(context, tr ? 'Sentry test hatası gönderildi.' : 'Sentry test error sent.');
                 },
               ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _DebugSection(
+            title: tr ? 'Sistem Hata Raporları' : 'System Error Reports',
+            isDark: isDark,
+            children: [
+              if (lastErrorTs != null) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 8, 18, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr ? 'Son Hata Detayları:' : 'Last Recorded Error:',
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.error),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '${tr ? 'Tarih' : 'Date'}: ${DateTime.fromMillisecondsSinceEpoch(lastErrorTs).toLocal()}',
+                        style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: isDark ? Colors.white10 : const Color.fromRGBO(0, 0, 0, 0.05),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          lastErrorMessage ?? '',
+                          style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                _DebugActionTile(
+                  icon: Icons.mail_outline_rounded,
+                  title: tr ? 'Son hatayı e-posta ile gönder' : 'Email last recorded error',
+                  subtitle: tr ? 'Tüm hata detaylarını mail olarak geliştiriciye iletir.' : 'Sends the full crash details to developers.',
+                  onTap: () {
+                    final body = '''
+VitaCase System Error Report
+============================
+Timestamp: ${DateTime.fromMillisecondsSinceEpoch(lastErrorTs).toLocal()}
+Device info: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}
+
+Error Message:
+$lastErrorMessage
+
+Stack Trace:
+$lastErrorStack
+''';
+                    ExternalLauncher.launchEmail(
+                      'limanexsoftware@outlook.com',
+                      subject: 'VitaCase System Error Report',
+                      body: body,
+                    );
+                  },
+                ),
+                _DebugActionTile(
+                  icon: Icons.delete_outline_rounded,
+                  title: tr ? 'Hata kaydını temizle' : 'Clear recorded error',
+                  subtitle: tr ? 'SharedPreferences üzerindeki hata logunu sıfırlar.' : 'Resets the error logs cached on device.',
+                  onTap: () async {
+                    await prefs.remove('last_error_message');
+                    await prefs.remove('last_error_stack');
+                    await prefs.remove('last_error_ts');
+                    if (context.mounted) {
+                      _snack(context, tr ? 'Hata kaydı temizlendi.' : 'Error log cleared.');
+                    }
+                  },
+                ),
+              ] else ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 8, 18, 12),
+                  child: Text(
+                    tr 
+                        ? 'Kayıtlı herhangi bir hata bulunamadı. Uygulama düzgün çalışıyor.' 
+                        : 'No errors have been recorded. The app is running smoothly.',
+                    style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                _DebugActionTile(
+                  icon: Icons.mail_outline_rounded,
+                  title: tr ? 'Uygulama raporunu e-posta ile gönder' : 'Email App Diagnostic Report',
+                  subtitle: tr ? 'Hata olmasa bile genel cihaz ve durum raporunu iletir.' : 'Sends a general diagnostic report of the app.',
+                  onTap: () {
+                    final body = '''
+VitaCase App Diagnostic Report
+==============================
+Timestamp: ${DateTime.now()}
+Device info: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}
+Status: OK (No errors recorded)
+''';
+                    ExternalLauncher.launchEmail(
+                      'limanexsoftware@outlook.com',
+                      subject: 'VitaCase General Diagnostic Report',
+                      body: body,
+                    );
+                  },
+                ),
+              ],
             ],
           ),
           const SizedBox(height: 16),

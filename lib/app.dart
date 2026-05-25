@@ -10,7 +10,6 @@ import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'features/dashboard/presentation/providers/app_lifecycle_controller.dart';
 import 'shared/providers/locale_provider.dart';
-import 'shared/widgets/misc/banner_ad_container.dart';
 
 class VitaCaseApp extends ConsumerStatefulWidget {
   const VitaCaseApp({super.key});
@@ -60,22 +59,15 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp> with WidgetsBindingOb
       supportedLocales: VitaAppLocalizationsDelegate.supportedLocales,
       routerConfig: router,
       builder: (context, child) {
-        final appBody = Column(
+        final appBody = Stack(
+          alignment: Alignment.center,
           children: [
-            const BannerAdContainer(),
-            Expanded(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  if (child != null) child,
-                  if (obscureScreen)
-                    BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                      child: Container(color: Colors.black.withValues(alpha: 0.1)),
-                    ),
-                ],
+            if (child != null) child,
+            if (obscureScreen)
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                child: Container(color: Colors.black.withValues(alpha: 0.1)),
               ),
-            ),
           ],
         );
 

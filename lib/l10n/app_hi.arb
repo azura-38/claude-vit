@@ -464,5 +464,10 @@
   "@ok": {
     "placeholders": {},
     "description": "Translation for ok"
+  },
+  "report_issue": "त्रुटि, सुझाव, अनुरोध और शिकायत",
+  "@report_issue": {
+    "placeholders": {},
+    "description": "Translation for report_issue"
   }
 }

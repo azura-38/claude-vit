@@ -422,7 +422,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get help_center => 'Help Center';
 
   @override
-  String get report_issue => 'Report an issue';
+  String get report_issue => '错误、建议、请求与投诉';
 
   @override
   String get privacy_policy => '隐私政策';

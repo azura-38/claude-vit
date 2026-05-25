@@ -634,16 +634,25 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(context.tr('delete'), style: const TextStyle(color: AppColors.error)),
-        content: Text(context.tr('delete_medicine_confirm')),
+        title: Text(ctx.tr('delete'), style: const TextStyle(color: AppColors.error)),
+        content: Text(ctx.tr('delete_medicine_confirm')),
         actions: [
-          TextButton(onPressed: () => context.pop(), child: Text(context.tr('cancel'))),
+          TextButton(
+            onPressed: () {
+              if (Navigator.of(ctx).canPop()) {
+                Navigator.of(ctx).pop();
+              }
+            },
+            child: Text(ctx.tr('cancel')),
+          ),
           TextButton(
             onPressed: () {
               ref.read(medicineListProvider.notifier).deleteMedicine(med.id);
-              context.pop();
+              if (Navigator.of(ctx).canPop()) {
+                Navigator.of(ctx).pop();
+              }
             },
-            child: Text(context.tr('delete'), style: const TextStyle(color: AppColors.error)),
+            child: Text(ctx.tr('delete'), style: const TextStyle(color: AppColors.error)),
           ),
         ],
       ),

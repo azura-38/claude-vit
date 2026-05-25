@@ -383,7 +383,7 @@ class _UnlockStatusCard extends StatelessWidget {
           Text(
             isUnlocked
                 ? (isTr ? 'Kalan süre: $remainingText' : 'Time left: $remainingText')
-                : (isTr ? 'Reklam izleyerek 1 gün açabilirsin.' : 'Watch an ad to unlock for 1 day.'),
+                : (isTr ? 'Reklam izleyerek 3 gün açabilirsin.' : 'Watch an ad to unlock for 3 days.'),
             style: const TextStyle(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 14),

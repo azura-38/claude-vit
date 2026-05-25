@@ -936,7 +936,7 @@ abstract class AppLocalizations {
   /// Translation for report_issue
   ///
   /// In en, this message translates to:
-  /// **'Report an issue'**
+  /// **'Error, Suggestion, Request & Complaint'**
   String get report_issue;
 
   /// Translation for privacy_policy

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/config/app_config.dart';
 import '../../domain/entities/leaderboard_user.dart';
 
 final leaderboardRepositoryProvider = Provider(
@@ -7,11 +8,12 @@ final leaderboardRepositoryProvider = Provider(
 );
 
 class LeaderboardRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore get _firestore => FirebaseFirestore.instance;
 
   static const String _collectionPath = 'leaderboard';
 
   Future<void> syncXP(String uid, int xp) async {
+    if (!AppConfig.isLeaderboardEnabled) return;
     try {
       await _firestore.collection(_collectionPath).doc(uid).set({
         'xp': xp,
@@ -23,6 +25,7 @@ class LeaderboardRepository {
   }
 
   Future<List<LeaderboardUser>> getTopUsers({int limit = 20}) async {
+    if (!AppConfig.isLeaderboardEnabled) return [];
     try {
       final snapshot =
           await _firestore

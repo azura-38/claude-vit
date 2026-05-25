@@ -683,17 +683,26 @@ class _AppointmentListCard extends ConsumerWidget {
   void _showDeleteConfirm(BuildContext context, WidgetRef ref, Appointment app) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(context.l10n.delete),
-        content: Text(context.l10n.deleteConfirmAppointment),
+      builder: (dialogContext) => AlertDialog(
+        title: Text(dialogContext.l10n.delete),
+        content: Text(dialogContext.l10n.deleteConfirmAppointment),
         actions: [
-          TextButton(onPressed: () => context.pop(), child: Text(context.l10n.cancel)),
+          TextButton(
+            onPressed: () {
+              if (Navigator.of(dialogContext).canPop()) {
+                Navigator.of(dialogContext).pop();
+              }
+            },
+            child: Text(dialogContext.l10n.cancel),
+          ),
           TextButton(
             onPressed: () {
               ref.read(appointmentListProvider.notifier).deleteAppointment(app.id);
-              context.pop();
+              if (Navigator.of(dialogContext).canPop()) {
+                Navigator.of(dialogContext).pop();
+              }
             },
-            child: Text(context.l10n.delete, style: const TextStyle(color: AppColors.error)),
+            child: Text(dialogContext.l10n.delete, style: const TextStyle(color: AppColors.error)),
           ),
         ],
       ),

@@ -22,10 +22,61 @@ class SecuritySection extends ConsumerWidget {
     final settings = ref.watch(settingsControllerProvider);
     final controller = ref.watch(settingsControllerProvider.notifier);
 
+    final hasPinAsync = ref.watch(hasPinProvider);
+    final hasPin = hasPinAsync.valueOrNull ?? false;
+
     return SettingsSectionCard(
       title: context.l10n.dataSecurity,
       isDark: isDark,
       children: [
+        if (!hasPin) ...[
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.amber.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.orange.withValues(alpha: 0.25)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.gpp_maybe_rounded, color: Colors.orange, size: 22),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'PIN Ayarlanmadı',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.orange,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Güvenliğiniz için uygulama kilidini (PIN) aktif edin.',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: isDark ? Colors.white70 : Colors.black54,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => _showPinSetupDialog(context, ref, controller),
+                  child: const Text(
+                    'Oluştur',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
         SettingTile(
           icon: Icons.lock_rounded,
           iconColor: Colors.green,
@@ -69,13 +120,108 @@ class SecuritySection extends ConsumerWidget {
 
   Future<void> _handleLockToggle(BuildContext context, WidgetRef ref, SettingsController controller, bool val) async {
     if (val) {
-      await controller.toggleLock(true);
-      AnalyticsService.log(AnalyticsService.appLockEnabled);
+      final pinService = ref.read(pinServiceProvider);
+      final hasPin = await pinService.hasPin();
+      if (!hasPin) {
+        if (context.mounted) {
+          _showPinSetupDialog(context, ref, controller);
+        }
+      } else {
+        await controller.toggleLock(true);
+        AnalyticsService.log(AnalyticsService.appLockEnabled);
+      }
     } else {
       await controller.toggleLock(false);
       await controller.toggleBiometric(false);
       AnalyticsService.log(AnalyticsService.appLockDisabled);
     }
+  }
+
+  void _showPinSetupDialog(BuildContext rootContext, WidgetRef ref, SettingsController controller) {
+    final newPinController = TextEditingController();
+    final confirmPinController = TextEditingController();
+    var isSaving = false;
+    var errorText = '';
+
+    showDialog<void>(
+      context: rootContext,
+      barrierDismissible: !isSaving,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            Future<void> save() async {
+              final newPin = newPinController.text.trim();
+              final confirmPin = confirmPinController.text.trim();
+
+              if (newPin.length != 6 || confirmPin.length != 6) {
+                setState(() => errorText = 'Lütfen 6 haneli bir PIN girin.');
+                return;
+              }
+
+              if (newPin != confirmPin) {
+                setState(() => errorText = context.l10n.lockPinMismatch);
+                return;
+              }
+
+              setState(() {
+                isSaving = true;
+                errorText = '';
+              });
+
+              try {
+                final pinService = ref.read(pinServiceProvider);
+                await pinService.setPin(newPin);
+                await controller.toggleLock(true);
+                ref.invalidate(hasPinProvider); // Refresh hasPin provider status
+                HapticFeedback.mediumImpact();
+
+                if (!dialogContext.mounted) return;
+                Navigator.pop(dialogContext);
+                if (rootContext.mounted) {
+                  ScaffoldMessenger.of(rootContext).showSnackBar(
+                    SnackBar(content: Text(rootContext.l10n.success)),
+                  );
+                }
+              } catch (e) {
+                setState(() {
+                  isSaving = false;
+                  errorText = 'PIN kaydedilemedi: $e';
+                });
+              }
+            }
+
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              title: const Text('Yeni PIN Oluştur', style: TextStyle(fontWeight: FontWeight.bold)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _PinField(controller: newPinController, label: '6 Haneli PIN Girin', enabled: !isSaving),
+                  const SizedBox(height: 12),
+                  _PinField(controller: confirmPinController, label: 'PIN\'i Doğrulayın', enabled: !isSaving),
+                  if (errorText.isNotEmpty) ...[
+                    const SizedBox(height: 12),
+                    Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+                  ],
+                ],
+              ),
+              actions: [
+                TextButton(onPressed: isSaving ? null : () => Navigator.pop(dialogContext), child: Text(context.l10n.cancel)),
+                FilledButton(
+                  onPressed: isSaving ? null : save,
+                  child: isSaving
+                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                      : Text(context.l10n.save),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    ).whenComplete(() {
+      newPinController.dispose();
+      confirmPinController.dispose();
+    });
   }
 
 
@@ -210,17 +356,26 @@ class SecuritySection extends ConsumerWidget {
   void _showWipeDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(context.l10n.clearAllData, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-        content: Text(context.l10n.wipeConfirm1),
+      builder: (dialogContext) => AlertDialog(
+        title: Text(dialogContext.l10n.clearAllData, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+        content: Text(dialogContext.l10n.wipeConfirm1),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text(context.l10n.cancel)),
+          TextButton(
+            onPressed: () {
+              if (Navigator.of(dialogContext).canPop()) {
+                Navigator.of(dialogContext).pop();
+              }
+            },
+            child: Text(dialogContext.l10n.cancel),
+          ),
           TextButton(
             onPressed: () async {
-              Navigator.pop(context);
+              if (Navigator.of(dialogContext).canPop()) {
+                Navigator.of(dialogContext).pop();
+              }
               await WipeService.fullWipe();
             },
-            child: Text(context.l10n.wipeBtnFinal, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            child: Text(dialogContext.l10n.wipeBtnFinal, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
           ),
         ],
       ),

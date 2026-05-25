@@ -449,5 +449,10 @@
   "@ok": {
     "placeholders": {},
     "description": "Translation for ok"
+  },
+  "report_issue": "不具合・提案・要望・苦情",
+  "@report_issue": {
+    "placeholders": {},
+    "description": "Translation for report_issue"
   }
 }

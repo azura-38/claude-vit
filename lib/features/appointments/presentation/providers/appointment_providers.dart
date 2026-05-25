@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/di/repository_providers.dart';
@@ -45,9 +46,14 @@ final nextAppointmentProvider = FutureProvider<Appointment?>((ref) async {
 class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   @override
   Future<List<Appointment>> build() async {
-    final useCase = ref.read(getAppointmentsUseCaseProvider);
-    final result = await useCase.call(NoParams());
-    return result.fold((l) => throw l, (r) => r);
+    try {
+      final useCase = ref.read(getAppointmentsUseCaseProvider);
+      final result = await useCase.call(NoParams());
+      return result.fold((l) => throw l, (r) => r);
+    } catch (e) {
+      debugPrint('[Appointments] DB not ready or error: $e');
+      return <Appointment>[];
+    }
   }
 
   Future<void> refresh() async {
