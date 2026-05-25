@@ -25,9 +25,6 @@ class AdService {
 
   static const _lastInterstitialKey = 'lastInterstitialShown';
   static const _lastAppOpenKey = 'lastAppOpenShown';
-  static const _appOpenDayKey = 'app_open_ad_day';
-  static const _appOpenCountKey = 'app_open_ad_count';
-  static const int maxAppOpenAdsPerDay = 2;
 
   Future<void> init() async {
     if (_initCompleter != null) return _initCompleter!.future;
@@ -60,7 +57,6 @@ class AdService {
 
   void loadInterstitial() {
     if (!_adsAvailable || AppConfig.interstitialAdId.isEmpty) return;
-    // The interstitial ad unit is registered as a Rewarded Interstitial in AdMob
     _loadRewardedInterstitial();
   }
 
@@ -115,73 +111,56 @@ class AdService {
       request: const AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) => _appOpenAd = ad,
-        onAdFailedToLoad: (error) => _appOpenAd = null,
+        onAdFailedToLoad: (error) {
+          debugPrint('[AdService] AppOpen failed to load: ${error.message}');
+          _appOpenAd = null;
+        },
       ),
     );
   }
 
-  int _todayKey() {
-    final now = DateTime.now();
-    return int.parse('${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}');
-  }
-
-  int _todayAppOpenCount() {
-    final prefs = _prefs;
-    if (prefs == null) return 0;
-    final today = _todayKey();
-    final storedDay = prefs.getInt(_appOpenDayKey);
-    if (storedDay != today) {
-      prefs.setInt(_appOpenDayKey, today);
-      prefs.setInt(_appOpenCountKey, 0);
-      return 0;
-    }
-    return prefs.getInt(_appOpenCountKey) ?? 0;
-  }
-
-  Future<void> _incrementTodayAppOpenCount() async {
-    final prefs = _prefs;
-    if (prefs == null) return;
-    final today = _todayKey();
-    final count = _todayAppOpenCount() + 1;
-    await prefs.setInt(_appOpenDayKey, today);
-    await prefs.setInt(_appOpenCountKey, count);
-  }
-
-  static Future<void> showAppOpenAd() async {
+  static Future<bool> showAppOpenAd() async {
     final service = AdService();
     await service.init();
-    if (!service._adsAvailable) return;
-
-    if (service._todayAppOpenCount() >= maxAppOpenAdsPerDay) return;
-
-    if (service.lastAppOpenShown != null) {
-      final elapsed = DateTime.now().difference(service.lastAppOpenShown!);
-      if (elapsed.inHours < 6) return;
-    }
+    if (!service._adsAvailable) return false;
 
     if (service._appOpenAd == null) {
       service.loadAppOpen();
-      return;
+      return false;
     }
 
+    final completer = Completer<bool>();
     service._appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (ad) {
+        AnalyticsService.log(AnalyticsService.appOpenAdShown);
+      },
       onAdDismissedFullScreenContent: (ad) {
         ad.dispose();
         service._appOpenAd = null;
         service.loadAppOpen();
+        if (!completer.isCompleted) completer.complete(true);
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         ad.dispose();
         service._appOpenAd = null;
         service.loadAppOpen();
+        if (!completer.isCompleted) completer.complete(false);
       },
     );
 
-    service._appOpenAd!.show();
-    AnalyticsService.log(AnalyticsService.appOpenAdShown);
-    service.lastAppOpenShown = DateTime.now();
-    await service._prefs?.setString(_lastAppOpenKey, service.lastAppOpenShown!.toIso8601String());
-    await service._incrementTodayAppOpenCount();
+    try {
+      service._appOpenAd!.show();
+      final shown = await completer.future;
+      if (shown) {
+        service.lastAppOpenShown = DateTime.now();
+        await service._prefs?.setString(_lastAppOpenKey, service.lastAppOpenShown!.toIso8601String());
+      }
+      return shown;
+    } catch (e) {
+      debugPrint('[AdService] AppOpen show failed: $e');
+      if (!completer.isCompleted) completer.complete(false);
+      return false;
+    }
   }
 
   Future<bool> _innerShowInterstitial() async {
@@ -192,7 +171,6 @@ class AdService {
       if (elapsed.inSeconds < 90) return false;
     }
 
-    // Try to show RewardedInterstitialAd first (our transition ad)
     if (_rewardedInterstitialAd != null) {
       final completer = Completer<bool>();
       _rewardedInterstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
@@ -231,7 +209,6 @@ class AdService {
       }
     }
 
-    // Fallback to classic InterstitialAd if available
     if (_interstitialAd != null) {
       final completer = Completer<bool>();
       _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
@@ -266,7 +243,6 @@ class AdService {
       }
     }
 
-    // No ad loaded — try to preload for next time
     loadInterstitial();
     return false;
   }
