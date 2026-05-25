@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,12 +13,18 @@ final themeUnlockProvider = NotifierProvider<ThemeUnlockNotifier, DateTime?>(
 class ThemeUnlockNotifier extends Notifier<DateTime?> {
   static const _unlockUntilKey = 'rewarded_theme_unlock_until';
 
+  Timer? _expiryTimer;
+
   @override
   DateTime? build() {
+    ref.onDispose(() => _expiryTimer?.cancel());
+
     final prefs = ref.watch(sharedPreferencesProvider);
     final raw = prefs.getString(_unlockUntilKey);
     final until = raw == null ? null : DateTime.tryParse(raw);
     if (until == null || DateTime.now().isAfter(until)) return null;
+
+    _scheduleExpiry(until);
     return until;
   }
 
@@ -52,6 +60,22 @@ class ThemeUnlockNotifier extends Notifier<DateTime?> {
 
     await prefs.setString(_unlockUntilKey, next.toIso8601String());
     state = next;
+    _scheduleExpiry(next);
     return true;
+  }
+
+  void _scheduleExpiry(DateTime until) {
+    _expiryTimer?.cancel();
+    final delay = until.difference(DateTime.now());
+    if (delay.isNegative || delay == Duration.zero) {
+      state = null;
+      return;
+    }
+
+    _expiryTimer = Timer(delay, () async {
+      final prefs = ref.read(sharedPreferencesProvider);
+      await prefs.remove(_unlockUntilKey);
+      state = null;
+    });
   }
 }
