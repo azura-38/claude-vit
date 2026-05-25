@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:vitacase/core/constants/app_colors.dart';
-import 'vitacase_banner_ad.dart';
 
 class VitaCaseBottomNav extends StatelessWidget {
   const VitaCaseBottomNav({super.key});
@@ -13,29 +12,23 @@ class VitaCaseBottomNav extends StatelessWidget {
         (isDark ? const Color(0xFF1C252E) : Colors.white);
     final shadowColor = isDark ? Colors.black26 : Colors.black.withValues(alpha: .04);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const VitaCaseBannerAd(),
-        Container(
-          height: 96,
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          decoration: BoxDecoration(
-            color: navBgColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
-            boxShadow: [BoxShadow(color: shadowColor, blurRadius: 30)],
-          ),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _NavItem(icon: Icons.home_outlined, label: "HOME"),
-              _NavItem(icon: Icons.folder_outlined, label: "VAULT"),
-              _NavItem(icon: Icons.shield_outlined, label: "SECURITY"),
-              _NavItem(icon: Icons.settings, label: "SETTINGS", active: true),
-            ],
-          ),
-        ),
-      ],
+    return Container(
+      height: 96,
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      decoration: BoxDecoration(
+        color: navBgColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
+        boxShadow: [BoxShadow(color: shadowColor, blurRadius: 30)],
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _NavItem(icon: Icons.home_outlined, label: "HOME"),
+          _NavItem(icon: Icons.folder_outlined, label: "VAULT"),
+          _NavItem(icon: Icons.shield_outlined, label: "SECURITY"),
+          _NavItem(icon: Icons.settings, label: "SETTINGS", active: true),
+        ],
+      ),
     );
   }
 }
