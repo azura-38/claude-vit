@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/ads/ad_visibility_policy.dart';
@@ -20,7 +22,12 @@ class AdController {
   static const String _shownCountKey = 'ad_shown_count';
   static const String _timeKey = 'ad_last_time';
   static const String _firstOpenKey = 'ad_first_open_time';
+  static const String _nextAppOpenAdAtKey = 'next_app_open_ad_at';
   static const String _onboardingKey = 'onboarding_completed';
+
+  static const Duration _initialAppOpenDelay = Duration(hours: 72);
+  static const Duration _minAppOpenInterval = Duration(hours: 48);
+  static const Duration _maxAppOpenInterval = Duration(hours: 72);
 
   AdController(this._ref, this._prefs, this._policy);
 
@@ -28,6 +35,11 @@ class AdController {
   int get _shownCount => _prefs.getInt(_shownCountKey) ?? 0;
   DateTime? get _lastAdTime {
     final millis = _prefs.getInt(_timeKey);
+    return millis != null ? DateTime.fromMillisecondsSinceEpoch(millis) : null;
+  }
+
+  DateTime? get _nextAppOpenAdAt {
+    final millis = _prefs.getInt(_nextAppOpenAdAtKey);
     return millis != null ? DateTime.fromMillisecondsSinceEpoch(millis) : null;
   }
 
@@ -77,12 +89,31 @@ class AdController {
     final firstOpenMillis = _prefs.getInt(_firstOpenKey);
     if (firstOpenMillis == null) {
       await _prefs.setInt(_firstOpenKey, now.millisecondsSinceEpoch);
+      await _prefs.setInt(_nextAppOpenAdAtKey, now.add(_initialAppOpenDelay).millisecondsSinceEpoch);
       return;
     }
 
-    final firstOpen = DateTime.fromMillisecondsSinceEpoch(firstOpenMillis);
-    if (now.difference(firstOpen).inDays < 7) return;
+    final nextAt = _nextAppOpenAdAt;
+    if (nextAt == null) {
+      await _prefs.setInt(_nextAppOpenAdAtKey, now.add(_initialAppOpenDelay).millisecondsSinceEpoch);
+      return;
+    }
 
-    await AdService.showAppOpenAd();
+    if (now.isBefore(nextAt)) return;
+
+    final shown = await AdService.showAppOpenAd();
+    if (shown) {
+      await _scheduleNextAppOpenAd(now);
+      await _trackAdAchievements();
+    }
+  }
+
+  Future<void> _scheduleNextAppOpenAd(DateTime from) async {
+    final random = Random();
+    final minHours = _minAppOpenInterval.inHours;
+    final maxHours = _maxAppOpenInterval.inHours;
+    final offsetHours = minHours + random.nextInt(maxHours - minHours + 1);
+    final next = from.add(Duration(hours: offsetHours));
+    await _prefs.setInt(_nextAppOpenAdAtKey, next.millisecondsSinceEpoch);
   }
 }
