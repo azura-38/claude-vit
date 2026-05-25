@@ -22,13 +22,13 @@ $EXCLUDES = @(
 )
 
 # --- 1. CLEANUP & PREP ---
-Write-Host "`n[1/4] Cleaning project..." -ForegroundColor Cyan
+Write-Host "`n[1/2] Cleaning project..." -ForegroundColor Cyan
 if (Test-Path "build") { Remove-Item -Path "build" -Recurse -Force -ErrorAction Ignore }
 flutter clean
 flutter pub get
 
 # --- 2. BUILD AAB ---
-Write-Host "`n[2/4] Building Android App Bundle (AAB)..." -ForegroundColor Cyan
+Write-Host "`n[2/2] Building Android App Bundle (AAB)..." -ForegroundColor Cyan
 if (Test-Path "build.env") {
     flutter build appbundle --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=build.env
 } else {
@@ -51,18 +51,7 @@ if (-not (Test-Path $AAB_FINAL_PATH)) {
     }
 }
 
-# --- 3. CREATE ZIP ---
-Write-Host "`n[3/4] Creating Selective Project ZIP..." -ForegroundColor Cyan
-$Version = (Select-String -Path "pubspec.yaml" -Pattern "version: (.*)").Matches.Groups[1].Value -replace '\+', '_'
-$ZipName = "vitacase_v$Version.zip"
-
-if (Test-Path $ZipName) { Remove-Item $ZipName }
-
-Write-Host "Archiving project to $ZipName..." -ForegroundColor Green
-Get-ChildItem -Path . -Exclude $EXCLUDES | Compress-Archive -DestinationPath $ZipName
-
-# --- 4. SUMMARY ---
+# --- 3. SUMMARY ---
 Write-Host "`n--- BUILD COMPLETE ---" -ForegroundColor Green
 Write-Host "RESULT AAB: $AAB_FINAL_PATH" -ForegroundColor White
-Write-Host "RESULT ZIP: $ZipName" -ForegroundColor White
 Write-Host "-----------------------`n"
