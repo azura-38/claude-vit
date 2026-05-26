@@ -13,35 +13,16 @@ class SupportedLanguage {
   const SupportedLanguage(this.code, this.name);
 }
 
-/// V1 language list.
-/// hi/ja/zh use runtime fallback for any untranslated ARB key until the full
-/// generated localization pack is produced.
+/// V1 safe language list.
+/// Other languages are temporarily disabled because their generated/runtime
+/// translation packs are not fully verified yet and can cause broken UI labels.
 const List<SupportedLanguage> supportedLanguages = [
-  SupportedLanguage('en', 'English'),
   SupportedLanguage('tr', 'Türkçe'),
-  SupportedLanguage('es', 'Español'),
-  SupportedLanguage('pt', 'Português'),
-  SupportedLanguage('de', 'Deutsch'),
-  SupportedLanguage('fr', 'Français'),
-  SupportedLanguage('it', 'Italiano'),
-  SupportedLanguage('hi', 'हिन्दी'),
-  SupportedLanguage('ja', '日本語'),
-  SupportedLanguage('zh', '简体中文'),
+  SupportedLanguage('en', 'English'),
 ];
 
 class LocaleNotifier extends Notifier<Locale> {
-  static const _supportedLocales = [
-    'en',
-    'tr',
-    'es',
-    'pt',
-    'de',
-    'fr',
-    'it',
-    'hi',
-    'ja',
-    'zh',
-  ];
+  static const _supportedLocales = ['tr', 'en'];
 
   @override
   Locale build() {
@@ -56,8 +37,8 @@ class LocaleNotifier extends Notifier<Locale> {
     }
 
     final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
-    if (_supportedLocales.contains(systemLocale.languageCode)) {
-      return Locale(systemLocale.languageCode);
+    if (systemLocale.languageCode == 'tr') {
+      return const Locale('tr');
     }
 
     return const Locale('en');
