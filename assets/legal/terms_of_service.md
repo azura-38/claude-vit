@@ -1,6 +1,6 @@
 # TERMS AND CONDITIONS
 
-**Last Updated: April 15, 2026**
+**Last Updated: May 26, 2026**
 
 ## 1. AGREEMENT TO TERMS
 
@@ -37,6 +37,23 @@ You agree that you will consult qualified professionals when needed.
 
 ---
 
+## 3A. MEDICATION AND APPOINTMENT RESPONSIBILITY
+
+VitaCase may help users organize medication information, appointment details, and reminders. However, the App does not provide medical advice, medication instructions, dosage recommendations, treatment guidance, or official appointment notices.
+
+Users are solely responsible for:
+
+* Following instructions from doctors, pharmacists, healthcare providers, clinics, hospitals, and other official sources
+* Checking medication dosage, timing, changes, and discontinuation instructions
+* Verifying appointment dates, times, locations, preparation requirements, cancellations, and changes
+* Maintaining independent records and backups of important information
+
+VitaCase reminders and notifications are not guaranteed. Notifications may be delayed, blocked, silenced, or fail to appear due to device settings, operating system limitations, battery optimization, app permissions, updates, technical issues, or user actions.
+
+You agree not to rely solely on VitaCase for medication use, appointment attendance, emergency decisions, or critical health-related actions.
+
+---
+
 ## 4. USER CONTENT & RESPONSIBILITY
 
 You retain full ownership of all content you upload.
@@ -48,37 +65,6 @@ You agree that:
 * Your data is accurate and lawful
 
 We do not access, monitor, or analyze user content.
-
----
-
-## 4A. SENSITIVE PERSONAL DATA DISCLAIMER
-
-VitaCase is not intended for the storage of highly sensitive personal data.
-
-Users are strongly discouraged from uploading or storing sensitive personal information, including but not limited to:
-
-* Biometric data (e.g., fingerprints, facial recognition data)
-* Genetic data
-* Government-issued identification numbers (e.g., social security numbers, ID numbers, passport numbers)
-* Financial account credentials (e.g., bank login details, card PINs)
-* Highly confidential medical records requiring regulatory protection
-* Any data subject to strict legal or regulatory protections
-
-If a user chooses to upload or store such sensitive information:
-
-* The user does so **entirely at their own risk**
-* The user assumes **full legal and security responsibility**
-* VitaCase shall **not be held liable** for any loss, misuse, breach, or unauthorized access to such data
-
-VitaCase does not provide specialized security infrastructure required for regulated sensitive data (such as HIPAA-compliant systems).
-
-By using the App, you acknowledge that:
-
-* You understand the risks of storing sensitive data
-* You accept full responsibility for any consequences
-* You will not hold VitaCase or Limanex Software liable for any damages arising from such use
-
-Users are solely responsible for ensuring compliance with all applicable data protection laws when storing personal information within the App.
 
 ---
 
@@ -161,6 +147,10 @@ We shall not be liable for:
 * Data loss
 * Indirect or consequential damages
 * Decisions made based on stored information
+* Missed medication reminders
+* Missed appointments
+* Delayed, blocked, or failed notifications
+* User-entered incorrect medication, appointment, or document information
 
 Our total liability is limited to:
 
@@ -243,54 +233,3 @@ We:
 * Do not assume responsibility for user actions
 
 All responsibility remains with the user.
-
----
-
-## 20. PREMIUM FEATURES & SUBSCRIPTIONS
-
-VitaCase may offer optional premium features through in-app purchases and subscription plans ("Premium Services").
-
-By purchasing or subscribing to Premium Services, you agree to the following:
-
-### 20.1 Subscription Billing
-
-* Subscriptions are billed through your app store account (e.g., Google Play)
-* Payment will be charged at the time of purchase confirmation
-* Subscriptions automatically renew unless canceled before the renewal date
-
-### 20.2 Pricing
-
-* Pricing may vary by region and is subject to change at any time
-* Any price changes will be communicated through the app or the app store
-
-### 20.3 Cancellation
-
-* You may cancel your subscription at any time through your app store account settings
-* Cancellation will take effect at the end of the current billing period
-* No refunds are provided for unused portions of a subscription, except as required by law
-
-### 20.4 Restore Purchases
-
-* Users may restore previously purchased subscriptions using the “Restore Purchases” feature within the app
-* Successful restoration depends on the app store account used during the original purchase
-
-### 20.5 Device Changes
-
-* Premium access is linked to the app store account used for purchase
-* If a user changes devices, access may require restoring purchases
-* Failure to restore purchases due to incorrect account usage is the user's responsibility
-
-### 20.6 Promotional Access
-
-* VitaCase may provide promotional codes or manual premium activation in certain cases
-* We reserve the right to grant, deny, or revoke promotional access at our sole discretion
-
-### 20.7 No Guarantee of Availability
-
-* Premium features may change, be modified, or discontinued at any time
-* We do not guarantee permanent availability of any specific premium feature
-
-### 20.8 Non-Transferable
-
-* Subscriptions and premium access are non-transferable
-* They may not be shared, sold, or reassigned to other users

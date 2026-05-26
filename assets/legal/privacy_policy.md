@@ -1,6 +1,6 @@
-# VITACASE –  PRIVACY POLICY
+# VITACASE – PRIVACY POLICY
 
-**Last updated: April 15, 2026**
+**Last updated: May 26, 2026**
 
 This Privacy Policy describes how Limanex Software ("we", "us", or "our") collects, uses, stores, and protects your information when you use the VitaCase mobile application ("App", "Service").
 
@@ -54,7 +54,22 @@ We do not intentionally collect:
 
 ## 3. 🧠 SENSITIVE INFORMATION
 
-The App may store sensitive data provided by users, including health-related information and personal documents.
+The App may store sensitive data provided by users, including:
+
+* Health-related information
+* Personal documents and files
+
+---
+
+## 3A. Medication, Appointment and Reminder Data
+
+VitaCase may allow users to save medication names, schedules, appointment details, reminder times, notes, and related personal records.
+
+This information is entered and controlled by the user. VitaCase does not verify, validate, analyze, interpret, or medically review medication, appointment, or health-related information.
+
+Users are responsible for ensuring that saved medication schedules, appointment details, reminders, and related records are accurate, current, and properly backed up.
+
+VitaCase notifications and reminders are provided only as a convenience feature and may be delayed, blocked, silenced, or fail to appear due to device settings, operating system restrictions, battery optimization, permission changes, app updates, or technical issues.
 
 👉 However:
 This data is user-provided only. We do not process, analyze, or interpret this data. We do not use this data for profiling or decision-making.
@@ -64,6 +79,7 @@ This data is user-provided only. We do not process, analyze, or interpret this d
 ## 4. ⚙️ HOW WE USE INFORMATION
 
 We process information only to:
+
 * Provide and maintain app functionality
 * Enable document storage and organization
 * Improve app performance and stability
@@ -75,94 +91,132 @@ We process information only to:
 ## 5. 🚫 WHAT WE DO NOT DO
 
 We explicitly do not:
+
 * Sell personal data
 * Access or review user documents
 * Use data for profiling or behavioral analysis
 * Use personal data for targeted advertising
 
+👉 We do not use user data for advertising profiling purposes.
+
 ---
 
 ## 6. 📢 DATA SHARING AND THIRD PARTIES
 
-We may share limited technical data with trusted third-party service providers (e.g., AdMob, Sentry).
+We may share limited technical data with trusted third-party service providers:
+
+Examples:
+
+* Advertising services (e.g., AdMob)
+* Crash reporting and analytics tools (e.g., Sentry)
 
 👉 Important:
 No personal documents are shared. No health data is shared. No sensitive content is transmitted.
 
 ---
 
-## 7. ⏳ DATA RETENTION
+## 7. 🍪 COOKIES AND TRACKING TECHNOLOGIES
 
-We retain data for as long as the user continues to use the app. Users can delete their files at any time or remove stored information manually. Deleting the app removes all local content.
+VitaCase does not use cookies.
+
+We may use limited tracking technologies only for:
+
+* App performance monitoring
+* Error tracking and diagnostics
 
 ---
 
-## 8. 🔐 DATA SECURITY
+## 8. 🌍 INTERNATIONAL DATA TRANSFERS
 
-We implement appropriate technical and organizational measures. ⚠️ However, no system is completely secure.
+Your information may be processed in countries outside your residence.
+
+We ensure:
+
+* Appropriate safeguards
+* Industry-standard protection measures
+* Compliance with applicable data protection laws
 
 ---
 
-## 9. 👶 CHILDREN’S PRIVACY
+## 9. ⏳ DATA RETENTION
+
+We retain data:
+
+👉 For as long as the user continues to use the app
+
+Users can:
+
+* Delete their files at any time
+* Remove stored information manually
+
+Technical data (e.g., crash logs) may be retained for a limited period for performance and security purposes.
+
+---
+
+## 10. 🔐 DATA SECURITY
+
+We implement appropriate technical and organizational measures, including:
+
+* Secure storage mechanisms
+* Access control systems
+* Industry-standard security practices
+
+⚠️ However, no system is completely secure.
+
+---
+
+## 11. 👶 CHILDREN'S PRIVACY
 
 The App is not intended for children under 13. We do not knowingly collect personal data from children.
 
 ---
 
-## 10. 📩 YOUR PRIVACY RIGHTS
+## 12. 📩 YOUR PRIVACY RIGHTS
 
-Depending on your location, you may have the right to access, delete, or correct your data. Contact us to exercise these rights.
+Depending on your location, you may have the right to:
 
----
+* Access your data
+* Request deletion
+* Request correction
+* Object to certain processing
 
-## 11. 📬 CONTACT INFORMATION
-
-For any privacy-related inquiries: 📧 limanexsoftware@outlook.com
-
----
-
-## 12. ⚠️ MEDICAL DISCLAIMER
-
-VitaCase is not a healthcare provider. The App does not provide medical advice, diagnose, or treat conditions.
+You may contact us to exercise these rights.
 
 ---
 
-## 13. 📄 DATA RESPONSIBILITY
+## 13. 📬 CONTACT INFORMATION
 
-Users are solely responsible for the content they upload and the accuracy of their information.
+For any privacy-related inquiries:
+
+📧 limanexsoftware@outlook.com
 
 ---
 
-## 14. 🔄 POLICY UPDATES
+## 14. ⚠️ MEDICAL DISCLAIMER
+
+VitaCase is not a healthcare provider.
+
+* The App does not provide medical advice
+* It does not diagnose or treat medical conditions
+* It should not be used as a substitute for professional healthcare
+
+Users should always consult qualified healthcare professionals.
+
+---
+
+## 15. 📄 DATA RESPONSIBILITY
+
+Users are solely responsible for:
+
+* The content they upload
+* The accuracy of their information
+
+We do not verify, validate, or interpret user data.
+
+Users are responsible for keeping independent backups of important documents, medication records, appointment details, and health-related information. VitaCase should not be used as the only source or only backup for critical records.
+
+---
+
+## 16. 🔄 POLICY UPDATES
 
 We may update this Privacy Policy from time to time. Users are encouraged to review this page periodically.
-
----
-
-## 15. 💰 PREMIUM FEATURES & PAYMENTS
-
-Payments are processed by third-party platforms (Google Play). We do not collect or store payment information (e.g., credit card details).
-
----
-
-## 16. 🔄 RESTORE PURCHASES
-
-Users may restore purchases using the "Restore Purchases" feature. Restoration depends on the app store account used for the original purchase.
-
----
-
-## 17. 📢 ADVERTISING & ANALYTICS
-
-The App may display ads and use analytics tools. We do not use personal documents or sensitive user data for advertising.
-
----
-
-## 18. ⚠️ DEVICE-BASED ACCESS
-
-Premium access may be linked to the device or app store account. If a user changes devices, a restore may be required.
-
----
-
-## 19. 🎁 PROMOTIONAL ACCESS
-
-We may grant premium access through promotional codes or manual activation. We reserve the right to grant or revoke promotional access at our sole discretion.

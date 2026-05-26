@@ -9,6 +9,7 @@ import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../shared/data/services/usage_limit_service.dart';
 import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
+import '../../../../shared/widgets/mini_responsibility_notice.dart';
 
 class DocumentAddScreen extends ConsumerStatefulWidget {
   const DocumentAddScreen({super.key});
@@ -140,6 +141,14 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
           children: [
             _SecureUploadCard(selectedFile: _selectedFile, onPickFile: _pickFile, isDark: isDark),
+            const SizedBox(height: 14),
+            MiniResponsibilityNotice(
+              icon: Icons.privacy_tip_outlined,
+              accentColor: AppColors.medicalBlue,
+              text: Localizations.localeOf(context).languageCode == 'tr'
+                  ? 'Yüklediğiniz belgelerin içeriği, doğruluğu, güncelliği ve yedeklenmesi sizin sorumluluğunuzdadır. Önemli belgeler için VitaCase\'i tek kaynak olarak kullanmayın.'
+                  : 'You are responsible for the content, accuracy, freshness, and backup of uploaded documents. Do not use VitaCase as the only source for important files.',
+            ),
             const SizedBox(height: 24),
             _SectionCard(
               isDark: isDark,
@@ -183,8 +192,6 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 TextField(controller: _noteController, maxLines: 4, decoration: InputDecoration(labelText: context.l10n.notes, alignLabelWithHint: true)),
               ],
             ),
-            const SizedBox(height: 24),
-            _PrivacyNotice(isDark: isDark),
           ],
         ),
       ),
@@ -297,29 +304,4 @@ class _SectionCard extends StatelessWidget {
   }
 }
 
-class _PrivacyNotice extends StatelessWidget {
-  const _PrivacyNotice({required this.isDark});
 
-  final bool isDark;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.medicalBlue.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(Icons.info_outline_rounded, color: AppColors.medicalBlue),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(context.l10n.localOrganizerDisclaimer, style: TextStyle(fontSize: 12, height: 1.45, color: isDark ? Colors.white70 : AppColors.textSecondary, fontWeight: FontWeight.w600)),
-          ),
-        ],
-      ),
-    );
-  }
-}

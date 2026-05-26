@@ -6,6 +6,7 @@ import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../shared/data/services/usage_limit_service.dart';
+import '../../../../shared/widgets/mini_responsibility_notice.dart';
 import 'providers/medication_form_provider.dart';
 import 'widgets/animated_segmented_control.dart';
 import 'widgets/premium_card.dart';
@@ -55,6 +56,14 @@ class AddMedicationScreen extends ConsumerWidget {
                   description: context.l10n.stayConsistentDesc,
                   reminderCount: state.reminderTimes.length,
                 ).animate().fadeIn().slideY(begin: .12),
+                const SizedBox(height: 14),
+                MiniResponsibilityNotice(
+                  icon: Icons.medical_information_outlined,
+                  accentColor: const Color(0xFFF59E0B),
+                  text: Localizations.localeOf(context).languageCode == 'tr'
+                      ? 'VitaCase yalnızca ilaç takibine yardımcı olur; tıbbi tavsiye vermez. Doz, saat ve kullanım kararlarında doktor veya eczacı talimatlarını esas alın.'
+                      : 'VitaCase only helps with medication tracking and does not provide medical advice. Always follow your doctor or pharmacist instructions for dosage and timing.',
+                ),
                 const SizedBox(height: 22),
                 PremiumCard(
                   child: Column(

@@ -35,6 +35,24 @@ Any information stored within the App:
 
 You agree that you will consult qualified professionals when needed.
 
+## 3A. MEDICATION AND APPOINTMENT RESPONSIBILITY
+
+## Medication and Appointment Responsibility
+
+VitaCase may help users organize medication information, appointment details, and reminders. However, the App does not provide medical advice, medication instructions, dosage recommendations, treatment guidance, or official appointment notices.
+
+Users are solely responsible for:
+
+* Following instructions from doctors, pharmacists, healthcare providers, clinics, hospitals, and other official sources
+* Checking medication dosage, timing, changes, and discontinuation instructions
+* Verifying appointment dates, times, locations, preparation requirements, cancellations, and changes
+* Maintaining independent records and backups of important information
+
+VitaCase reminders and notifications are not guaranteed. Notifications may be delayed, blocked, silenced, or fail to appear due to device settings, operating system limitations, battery optimization, app permissions, updates, technical issues, or user actions.
+
+You agree not to rely solely on VitaCase for medication use, appointment attendance, emergency decisions, or critical health-related actions.
+
+
 ---
 
 4. USER CONTENT & RESPONSIBILITY
@@ -130,6 +148,10 @@ We shall not be liable for:
 - Data loss
 - Indirect or consequential damages
 - Decisions made based on stored information
+* Missed medication reminders
+* Missed appointments
+* Delayed, blocked, or failed notifications
+* User-entered incorrect medication, appointment, or document information
 
 Our total liability is limited to:
 

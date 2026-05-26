@@ -7,6 +7,7 @@ import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../shared/data/services/usage_limit_service.dart';
+import '../../../../shared/widgets/mini_responsibility_notice.dart';
 import 'models/appointment_form_model.dart';
 import 'providers/appointment_form_provider.dart';
 import 'widgets/appointment_type_card.dart';
@@ -59,6 +60,14 @@ class CreateAppointmentScreen extends ConsumerWidget {
                 ).animate().fadeIn().slideY(begin: -.12),
                 const SizedBox(height: 22),
                 SmartSummaryCard(model: state).animate().fadeIn().slideY(begin: .15),
+                const SizedBox(height: 14),
+                MiniResponsibilityNotice(
+                  icon: Icons.event_note_outlined,
+                  accentColor: AppColors.brandBlue,
+                  text: Localizations.localeOf(context).languageCode == 'tr'
+                      ? 'VitaCase yalnızca randevu hatırlatmaya yardımcı olur; resmi kurum bildirimi yerine geçmez. Tarih, saat, konum ve değişiklikleri ayrıca kendiniz kontrol edin.'
+                      : 'VitaCase only helps remind you of appointments and does not replace official notices. Please check the date, time, location, and changes yourself.',
+                ),
                 const SizedBox(height: 24),
                 _card(
                   child: PremiumInput(

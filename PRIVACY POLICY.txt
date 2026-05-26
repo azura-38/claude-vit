@@ -1,5 +1,5 @@
 VITACASE – PRIVACY POLICY
-Last updated: April 20, 2026
+Last updated: May 26, 2026
 This Privacy Policy describes how Limanex Software ("we", "us", or "our") collects, uses, stores, and protects your information when you use the VitaCase mobile application ("App", "Service").
 1. 📱 ABOUT THE APPLICATION
 VitaCase is a personal document management application designed to allow users to:
@@ -33,6 +33,16 @@ Social media data
 The App may store sensitive data provided by users, including:
 Health-related information
 Personal documents and files
+
+3A.Medication, Appointment and Reminder Data
+
+VitaCase may allow users to save medication names, schedules, appointment details, reminder times, notes, and related personal records.
+
+This information is entered and controlled by the user. VitaCase does not verify, validate, analyze, interpret, or medically review medication, appointment, or health-related information.
+
+Users are responsible for ensuring that saved medication schedules, appointment details, reminders, and related records are accurate, current, and properly backed up.
+
+VitaCase notifications and reminders are provided only as a convenience feature and may be delayed, blocked, silenced, or fail to appear due to device settings, operating system restrictions, battery optimization, permission changes, app updates, or technical issues.
 👉 However:
 This data is user-provided only
 We do not process, analyze, or interpret this data
@@ -108,6 +118,7 @@ Users are solely responsible for:
 The content they upload
 The accuracy of their information
 We do not verify, validate, or interpret user data.
+Users are responsible for keeping independent backups of important documents, medication records, appointment details, and health-related information. VitaCase should not be used as the only source or only backup for critical records.
 16. 🔄 POLICY UPDATES
 We may update this Privacy Policy from time to time.
 Users are encouraged to review this page periodically.

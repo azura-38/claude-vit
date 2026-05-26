@@ -1,6 +1,6 @@
 # DISCLAIMER
 
-_Last updated: April 15, 2026_
+_Last updated: May 20, 2026_
 
 This Disclaimer applies to the VitaCase mobile application operated by **Limanex Software** ("Company", "we", "us", or "our").
 
@@ -39,6 +39,46 @@ We:
 * Do not take responsibility for legality
 
 Users are solely responsible for their data and how it is used.
+
+---
+
+## MEDICATION DISCLAIMER
+
+VitaCase may help users save medication names, schedules, stock information, and reminder times. However, the App does not provide medical advice, does not determine medication dosage, does not verify medication correctness, and does not guarantee that reminders will appear on time or at all.
+
+Medication use, dosage, timing, changes, and discontinuation must always be based on instructions from a qualified doctor, pharmacist, or healthcare provider.
+
+Users are solely responsible for independently tracking their medications and should not rely only on VitaCase notifications or records.
+
+---
+
+## APPOINTMENT DISCLAIMER
+
+VitaCase may help users save and organize appointment information. However, the App is not an official appointment system and does not replace notifications or confirmations from hospitals, clinics, doctors, healthcare providers, insurance companies, or other institutions.
+
+Users are solely responsible for verifying appointment dates, times, locations, preparation requirements, cancellations, and changes from official sources.
+
+VitaCase is not responsible for missed appointments, delayed reminders, incorrect user-entered information, or notification failures.
+
+---
+
+## NOTIFICATION DISCLAIMER
+
+VitaCase reminders and notifications are provided only as a convenience feature.
+
+Notifications may be delayed, blocked, silenced, or fail to appear due to device settings, notification permissions, operating system restrictions, battery optimization, date and time settings, app updates, app termination, storage issues, or other technical reasons.
+
+Users should not rely solely on VitaCase notifications for medication, appointments, emergencies, or other important actions.
+
+---
+
+## EMERGENCY DISCLAIMER
+
+VitaCase is not an emergency service.
+
+In case of a medical emergency, severe symptom, medication side effect, accident, or life-threatening situation, users must contact local emergency services, a doctor, or a qualified healthcare provider immediately.
+
+Users should not rely on VitaCase as a source of emergency assistance or urgent medical decision-making.
 
 ---
 
