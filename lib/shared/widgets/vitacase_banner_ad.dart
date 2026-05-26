@@ -16,6 +16,7 @@ class VitaCaseBannerAd extends ConsumerStatefulWidget {
 class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
   BannerAd? _bannerAd;
   bool _isLoaded = false;
+  bool _loadFailed = false;
 
   @override
   void didChangeDependencies() {
@@ -40,19 +41,22 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           if (!mounted) return;
+          debugPrint('[VitaCaseBannerAd] loaded');
           setState(() {
             _bannerAd = ad as BannerAd;
             _isLoaded = true;
+            _loadFailed = false;
           });
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
           if (!mounted) return;
+          debugPrint('[VitaCaseBannerAd] failed: ${error.code} ${error.message}');
           setState(() {
             _bannerAd = null;
             _isLoaded = false;
+            _loadFailed = true;
           });
-          debugPrint('[VitaCaseBannerAd] failed: ${error.code} ${error.message}');
         },
       ),
     );
@@ -64,22 +68,35 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
   @override
   Widget build(BuildContext context) {
     final policy = ref.watch(adVisibilityPolicyProvider);
-    if (!policy.canShowBanner || !_isLoaded || _bannerAd == null) {
-      return const SizedBox.shrink();
-    }
+    if (!policy.canShowBanner) return const SizedBox.shrink();
 
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        padding: const EdgeInsets.only(top: 6, bottom: 4),
-        child: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-          child: AdWidget(ad: _bannerAd!),
-        ),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return SizedBox(
+      width: double.infinity,
+      height: AdSize.banner.height.toDouble(),
+      child: Center(
+        child: _isLoaded && _bannerAd != null
+            ? SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              )
+            : Container(
+                width: AdSize.banner.width.toDouble(),
+                height: AdSize.banner.height.toDouble(),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.black.withValues(alpha: 0.025),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: kDebugMode && _loadFailed
+                    ? const Text(
+                        'Banner yüklenemedi',
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                      )
+                    : const SizedBox.shrink(),
+              ),
       ),
     );
   }
