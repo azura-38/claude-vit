@@ -11,6 +11,7 @@ import '../../../../features/notifications/presentation/providers/notification_c
 import '../../../../shared/data/services/ad_service.dart';
 import '../../../../shared/data/services/notification_engine.dart';
 import '../../../../shared/providers/shared_prefs_provider.dart';
+import '../../../../shared/widgets/vitacase_banner_ad.dart';
 import '../../../../core/utils/external_launcher.dart';
 
 class DebugPanelScreen extends ConsumerWidget {
@@ -103,6 +104,7 @@ class DebugPanelScreen extends ConsumerWidget {
             title: 'AdMob',
             isDark: isDark,
             children: [
+              _DebugBannerTestCard(isDark: isDark),
               _DebugActionTile(
                 icon: Icons.open_in_full_rounded,
                 title: tr ? 'App Open reklamı test et' : 'Test App Open ad',
@@ -225,8 +227,8 @@ $lastErrorStack
                 Padding(
                   padding: const EdgeInsets.fromLTRB(18, 8, 18, 12),
                   child: Text(
-                    tr 
-                        ? 'Kayıtlı herhangi bir hata bulunamadı. Uygulama düzgün çalışıyor.' 
+                    tr
+                        ? 'Kayıtlı herhangi bir hata bulunamadı. Uygulama düzgün çalışıyor.'
                         : 'No errors have been recorded. The app is running smoothly.',
                     style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
                   ),
@@ -328,6 +330,59 @@ class _DebugSection extends StatelessWidget {
           ),
           ...children,
         ],
+      ),
+    );
+  }
+}
+
+class _DebugBannerTestCard extends StatelessWidget {
+  const _DebugBannerTestCard({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = Localizations.localeOf(context).languageCode == 'tr';
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18, 6, 18, 12),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isDark ? Colors.white.withValues(alpha: 0.04) : const Color(0xFFF8FAFC),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.view_day_rounded, size: 18, color: AppColors.medicalBlue),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    tr ? 'Banner reklam testi' : 'Banner ad test',
+                    style: const TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              tr
+                  ? 'Aşağıdaki alanda banner yüklenirse AdMob çalışıyor demektir. Hata görünürse Logcat’te VitaCaseBannerAd satırını kontrol et.'
+                  : 'If a banner loads below, AdMob is working. If an error appears, check VitaCaseBannerAd in Logcat.',
+              style: TextStyle(fontSize: 12, height: 1.35, color: isDark ? Colors.white70 : AppColors.textSecondary, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 10),
+            const VitaCaseBannerAd(
+              ignoreVisibilityPolicy: true,
+              showPlaceholderWhenLoading: true,
+              showFailureMessage: true,
+            ),
+          ],
+        ),
       ),
     );
   }
