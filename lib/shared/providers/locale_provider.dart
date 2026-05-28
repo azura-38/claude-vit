@@ -17,12 +17,20 @@ class SupportedLanguage {
 /// Other languages are temporarily disabled because their generated/runtime
 /// translation packs are not fully verified yet and can cause broken UI labels.
 const List<SupportedLanguage> supportedLanguages = [
-  SupportedLanguage('tr', 'Türkçe'),
-  SupportedLanguage('en', 'English'),
+  SupportedLanguage('tr', '🇹🇷 Türkçe'),
+  SupportedLanguage('en', '🇬🇧 English'),
+  SupportedLanguage('de', '🇩🇪 Deutsch'),
+  SupportedLanguage('es', '🇪🇸 Español'),
+  SupportedLanguage('fr', '🇫🇷 Français'),
+  SupportedLanguage('it', '🇮🇹 Italiano'),
+  SupportedLanguage('pt', '🇵🇹 Português'),
+  SupportedLanguage('hi', '🇮🇳 हिन्दी'),
+  SupportedLanguage('ja', '🇯🇵 日本語'),
+  SupportedLanguage('zh', '🇨🇳 中文'),
 ];
 
 class LocaleNotifier extends Notifier<Locale> {
-  static const _supportedLocales = ['tr', 'en'];
+  static const _supportedLocales = ['tr', 'en', 'de', 'es', 'fr', 'it', 'pt', 'hi', 'ja', 'zh'];
 
   @override
   Locale build() {
@@ -37,8 +45,8 @@ class LocaleNotifier extends Notifier<Locale> {
     }
 
     final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
-    if (systemLocale.languageCode == 'tr') {
-      return const Locale('tr');
+    if (_supportedLocales.contains(systemLocale.languageCode)) {
+      return Locale(systemLocale.languageCode);
     }
 
     return const Locale('en');
@@ -49,3 +57,4 @@ class LocaleNotifier extends Notifier<Locale> {
     await ref.read(userPreferencesControllerProvider.notifier).updateLocale(languageCode);
   }
 }
+

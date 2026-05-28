@@ -48,7 +48,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get premium_feature => 'Premium-Funktion 🌟';
 
   @override
-  String get premium_required_desc => 'Premium membership is required for App Lock.';
+  String get premium_required_desc =>
+      'Für App Lock ist eine Premium-Mitgliedschaft erforderlich.';
 
   @override
   String get go_premium => 'Premium werden';
@@ -57,23 +58,24 @@ class AppLocalizationsDe extends AppLocalizations {
   String get index => 'Index';
 
   @override
-  String get view_weekly => 'Weekly';
+  String get view_weekly => 'Wöchentlich';
 
   @override
-  String get view_monthly => 'Monthly';
+  String get view_monthly => 'Monatlich';
 
   @override
   String get phone_country_code => 'Code';
 
   @override
-  String get coming_soon => 'Coming Soon';
+  String get coming_soon => 'Demnächst verfügbar';
 
   @override
-  String get coming_soon_desc => 'This feature will be available in the next update.';
+  String get coming_soon_desc =>
+      'Diese Funktion wird im nächsten Update verfügbar sein.';
 
   @override
   String tap_for_test(int count) {
-    return 'Tap $count more times for test notification';
+    return 'Tippen Sie mehrmals auf $count, um eine Testbenachrichtigung zu erhalten';
   }
 
   @override
@@ -83,16 +85,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get unit_l => 'L';
 
   @override
-  String get metric_water => 'Water';
+  String get metric_water => 'Wasser';
 
   @override
-  String get metric_steps => 'Steps';
+  String get metric_steps => 'Schritte';
 
   @override
-  String get metric_sleep => 'Sleep';
+  String get metric_sleep => 'Schlafen';
 
   @override
-  String get metric_heart_rate => 'Heart Rate';
+  String get metric_heart_rate => 'Herzfrequenz';
 
   @override
   String get unit_steps => 'Schritte';
@@ -104,178 +106,189 @@ class AppLocalizationsDe extends AppLocalizations {
   String get unit_bpm => 'BPM';
 
   @override
-  String get quick_actions_visibility => 'Quick Access Visibility';
+  String get quick_actions_visibility => 'Schnellzugriffssichtbarkeit';
 
   @override
-  String get personal_notes => 'Personal Notes';
+  String get personal_notes => 'Persönliche Notizen';
 
   @override
-  String get save_and_list => 'Save and List';
+  String get save_and_list => 'Speichern und auflisten';
 
   @override
-  String get doctor_info => 'Doctor Information';
+  String get doctor_info => 'Informationen zum Arzt';
 
   @override
-  String get add_doctor_desc => 'Keep your doctors contact info for quick access.';
+  String get add_doctor_desc =>
+      'Bewahren Sie die Kontaktinformationen Ihres Arztes auf, damit Sie schnell darauf zugreifen können.';
 
   @override
-  String get basic_info => 'Basic Information';
+  String get basic_info => 'Grundlegende Informationen';
 
   @override
-  String get institution_contact => 'Institution & Contact';
+  String get institution_contact => 'Institution & Kontakt';
 
   @override
-  String get notes_bio => 'Notes & Bio';
+  String get notes_bio => 'Notizen und Biografie';
 
   @override
-  String get unknown => 'Unknown';
+  String get unknown => 'Unbekannt';
 
   @override
-  String get hospital_clinic_name => 'Hospital / Clinic Name';
+  String get hospital_clinic_name => 'Name des Krankenhauses/der Klinik';
 
   @override
-  String get phone_number => 'Phone Number';
+  String get phone_number => 'Telefonnummer';
 
   @override
-  String get email_address => 'Email Address';
+  String get email_address => 'E-Mail-Adresse';
 
   @override
-  String get address => 'Address';
+  String get address => 'Adresse';
 
   @override
-  String get emergency_info => 'EMERGENCY INFORMATION';
+  String get emergency_info => 'NOTFALLINFORMATIONEN';
 
   @override
-  String get emergency_contact_name => 'Emergency Contact (Name)';
+  String get emergency_contact_name => 'Notfallkontakt (Name)';
 
   @override
-  String get emergency_contact_phone => 'Emergency Contact (Phone)';
+  String get emergency_contact_phone => 'Notfallkontakt (Telefon)';
 
   @override
   String get blood_type => 'Blutgruppe';
 
   @override
-  String get blood_unknown => 'Unknown';
+  String get blood_unknown => 'Unbekannt';
 
   @override
-  String get profile_updated => 'Profile updated! ✅';
+  String get profile_updated => 'Profil aktualisiert! ✅';
 
   @override
   String get please_enter_name => 'Bitte Namen eingeben';
 
   @override
-  String get continue_btn => 'Continue';
+  String get continue_btn => 'Weitermachen';
 
   @override
-  String get let_start => 'Let\'s Start';
+  String get let_start => 'Fangen wir an';
 
   @override
   String get ob_1_title => 'VitaCase';
 
   @override
-  String get ob_1_subtitle => 'All Your Files in One Place';
+  String get ob_1_subtitle => 'Alle Ihre Dateien an einem Ort';
 
   @override
-  String get ob_1_desc => 'Store your documents, appointments, and medications safely, always carry them with you.';
+  String get ob_1_desc =>
+      'Bewahren Sie Ihre Dokumente, Termine und Medikamente sicher auf und tragen Sie sie immer bei sich.';
 
   @override
-  String get ob_2_title => 'Organize All Your Files';
+  String get ob_2_title => 'Organisieren Sie alle Ihre Dateien';
 
   @override
-  String get ob_2_desc => 'Upload your documents, categorize them, and manage them easily.';
+  String get ob_2_desc =>
+      'Laden Sie Ihre Dokumente hoch, kategorisieren Sie sie und verwalten Sie sie einfach.';
 
   @override
-  String get ob_3_title => 'Save Your Appointments';
+  String get ob_3_title => 'Speichern Sie Ihre Termine';
 
   @override
-  String get ob_3_desc => 'Keep all your appointments in one place, never miss one with reminders.';
+  String get ob_3_desc =>
+      'Halten Sie alle Ihre Termine an einem Ort und verpassen Sie nie einen mit Erinnerungen.';
 
   @override
-  String get ob_4_title => 'Save and Track Your Medications';
+  String get ob_4_title => 'Speichern und verfolgen Sie Ihre Medikamente';
 
   @override
-  String get ob_4_desc => 'Record your medications and usage times, don’t forget to use them regularly with reminders.';
+  String get ob_4_desc =>
+      'Notieren Sie Ihre Medikamente und Einnahmezeiten und vergessen Sie nicht, sie regelmäßig mit Erinnerungen einzunehmen.';
 
   @override
-  String get ob_5_title => 'Save, Don’t Lose';
+  String get ob_5_title => 'Sparen, nicht verlieren';
 
   @override
-  String get ob_5_desc => 'Keep your appointments and medications safe, you stay relaxed.';
+  String get ob_5_desc =>
+      'Halten Sie Ihre Termine und Medikamente sicher ein, Sie bleiben entspannt.';
 
   @override
-  String get ob_feature_1_title => 'Secure Storage';
+  String get ob_feature_1_title => 'Sichere Lagerung';
 
   @override
-  String get ob_feature_1_desc => 'Your data is encrypted and only belongs to you.';
+  String get ob_feature_1_desc =>
+      'Ihre Daten sind verschlüsselt und gehören nur Ihnen.';
 
   @override
-  String get ob_feature_2_title => 'Reminders';
+  String get ob_feature_2_title => 'Erinnerungen';
 
   @override
-  String get ob_feature_2_desc => 'Never miss your appointment and medication times.';
+  String get ob_feature_2_desc =>
+      'Verpassen Sie niemals Ihre Termine und Medikamentenzeiten.';
 
   @override
-  String get ob_feature_3_title => 'Access Everywhere';
+  String get ob_feature_3_title => 'Überall Zugriff';
 
   @override
-  String get ob_feature_3_desc => 'Access all your information whenever you want.';
+  String get ob_feature_3_desc =>
+      'Greifen Sie jederzeit auf alle Ihre Informationen zu.';
 
   @override
-  String get hi => 'Hi';
+  String get hi => 'Hallo';
 
   @override
-  String get good_morning => 'GOOD MORNING';
+  String get good_morning => 'GUTEN MORGEN';
 
   @override
-  String get good_afternoon => 'GOOD AFTERNOON';
+  String get good_afternoon => 'GUTEN TAG';
 
   @override
-  String get good_evening => 'GOOD EVENING';
+  String get good_evening => 'GUTEN ABEND';
 
   @override
-  String get good_night => 'GOOD NIGHT';
+  String get good_night => 'GUTE NACHT';
 
   @override
-  String get synced => 'Synced';
+  String get synced => 'Synchronisiert';
 
   @override
-  String get guest_mode => 'Guest Mode Active';
+  String get guest_mode => 'Gastmodus aktiv';
 
   @override
-  String get guest_desc => 'Data is local only. Create an account to back up.';
+  String get guest_desc =>
+      'Die Daten sind nur lokal. Erstellen Sie ein Konto zum Sichern.';
 
   @override
-  String get guest_user => 'Guest User';
+  String get guest_user => 'Gastbenutzer';
 
   @override
-  String get all_records => 'Secure Archive';
+  String get all_records => 'Sicheres Archiv';
 
   @override
-  String get vault_is_empty => 'Your Vault is Ready';
+  String get vault_is_empty => 'Ihr Tresor ist bereit';
 
   @override
-  String get vault_desc => 'Store and organize your most important records in a private sanctuary.';
+  String get vault_desc =>
+      'Bewahren und organisieren Sie Ihre wichtigsten Unterlagen in einem privaten Rückzugsort.';
 
   @override
-  String get quick_access => 'QUICK ACCESS';
+  String get quick_access => 'SCHNELLER ZUGRIFF';
 
   @override
-  String get steps => 'Steps';
+  String get steps => 'Schritte';
 
   @override
-  String get heart => 'Heart';
+  String get heart => 'Herz';
 
   @override
-  String get sleep => 'Sleep';
+  String get sleep => 'Schlafen';
 
   @override
-  String get water => 'Water';
+  String get water => 'Wasser';
 
   @override
   String get bpm => 'BPM';
 
   @override
-  String get hours => 'Hours';
+  String get hours => 'Std';
 
   @override
   String get ml => 'ML';
@@ -296,7 +309,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get profile => 'Profil';
 
   @override
-  String get pharmacies => 'Pharmacies';
+  String get pharmacies => 'Apotheken';
 
   @override
   String get medicines => 'Medikamente';
@@ -305,13 +318,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get health_data => 'Gesundheitsdaten';
 
   @override
-  String get important_info => 'Important Info';
+  String get important_info => 'Wichtige Informationen';
 
   @override
-  String get create_profile => 'Create Your Profile';
+  String get create_profile => 'Erstellen Sie Ihr Profil';
 
   @override
-  String get profile_desc => 'We need a few details to personalize your journey.';
+  String get profile_desc =>
+      'Um Ihre Reise individuell zu gestalten, benötigen wir einige Angaben.';
 
   @override
   String get full_name => 'VOLLSTÄNDIGER NAME';
@@ -323,7 +337,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get birth_date => 'GEBURTSDATUM';
 
   @override
-  String get date_format_hint => 'DD.MM.YYYY';
+  String get date_format_hint => 'TT.MM.JJJJ';
 
   @override
   String get save_continue => 'Speichern und Weiter';
@@ -332,40 +346,44 @@ class AppLocalizationsDe extends AppLocalizations {
   String get security_badge_label => 'VITACASE ADVANCED ENCRYPTION v2.4';
 
   @override
-  String get health_stats => 'Health Hub';
+  String get health_stats => 'Gesundheitszentrum';
 
   @override
-  String get health_stats_desc => 'Your comprehensive daily health summary.';
+  String get health_stats_desc =>
+      'Ihre umfassende tägliche Gesundheitszusammenfassung.';
 
   @override
-  String get recent_activity => 'Recent Activity';
+  String get recent_activity => 'Letzte Aktivität';
 
   @override
-  String get no_health_records => 'No records found yet.';
+  String get no_health_records => 'Noch keine Datensätze gefunden.';
 
   @override
-  String get add_health_data => 'Add Health Data';
+  String get add_health_data => 'Gesundheitsdaten hinzufügen';
 
   @override
-  String get step_unit => 'steps';
+  String get step_unit => 'Schritte';
 
   @override
-  String get privacy_guarantee => 'Your data is safe';
+  String get privacy_guarantee => 'Ihre Daten sind sicher';
 
   @override
-  String get privacy_box_desc => 'Your information is securely stored and never shared.';
+  String get privacy_box_desc =>
+      'Ihre Daten werden sicher gespeichert und niemals weitergegeben.';
 
   @override
-  String get privacy_box_warning => 'Your data is private and stored securely on your device. Please avoid uploading highly sensitive information. You are responsible for the data you store.';
+  String get privacy_box_warning =>
+      'Ihre Daten sind vertraulich und werden sicher auf Ihrem Gerät gespeichert. Bitte vermeiden Sie das Hochladen hochsensibler Informationen. Sie sind für die von Ihnen gespeicherten Daten verantwortlich.';
 
   @override
-  String get docs_secure_storage_title => 'Secure Local Storage 🔒';
+  String get docs_secure_storage_title => 'Sicherer lokaler Speicher 🔒';
 
   @override
-  String get docs_secure_storage_desc => 'Your data stays on your device';
+  String get docs_secure_storage_desc => 'Ihre Daten bleiben auf Ihrem Gerät';
 
   @override
-  String get docs_sensitive_warning => 'Avoid storing highly sensitive information. You are responsible for your data.';
+  String get docs_sensitive_warning =>
+      'Vermeiden Sie die Speicherung hochsensibler Informationen. Sie sind für Ihre Daten verantwortlich.';
 
   @override
   String get gender_female => 'Weiblich';
@@ -377,52 +395,52 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gender_other => 'Andere';
 
   @override
-  String get appearance => 'APPEARANCE';
+  String get appearance => 'AUSSEHEN';
 
   @override
-  String get theme_settings => 'Theme Settings';
+  String get theme_settings => 'Theme-Einstellungen';
 
   @override
-  String get app_settings => 'APP SETTINGS';
+  String get app_settings => 'APP-EINSTELLUNGEN';
 
   @override
-  String get text_size => 'Text Size';
+  String get text_size => 'Textgröße';
 
   @override
-  String get quick_actions => 'Quick Actions';
+  String get quick_actions => 'Schnelle Aktionen';
 
   @override
-  String get data_security => 'DATA & SECURITY';
+  String get data_security => 'DATEN & SICHERHEIT';
 
   @override
-  String get app_lock => 'App Lock';
+  String get app_lock => 'App-Sperre';
 
   @override
-  String get backup_zip => 'Backup (ZIP)';
+  String get backup_zip => 'Sicherung (ZIP)';
 
   @override
-  String get import_backup => 'Restore Backup';
+  String get import_backup => 'Sicherung wiederherstellen';
 
   @override
-  String get import_desc => 'Import a ZIP backup file';
+  String get import_desc => 'Importieren Sie eine ZIP-Sicherungsdatei';
 
   @override
-  String get export_desc => 'Export documents';
+  String get export_desc => 'Dokumente exportieren';
 
   @override
   String get emergency_contact => 'Notfallkontakt';
 
   @override
-  String get daily_step_goal => 'Daily Step Goal';
+  String get daily_step_goal => 'Tägliches Schrittziel';
 
   @override
-  String get support_legal => 'SUPPORT & LEGAL';
+  String get support_legal => 'UNTERSTÜTZUNG & RECHTLICHES';
 
   @override
-  String get help_center => 'Help Center';
+  String get help_center => 'Hilfecenter';
 
   @override
-  String get report_issue => 'Fehler, Vorschlag, Wunsch & Beschwerde';
+  String get report_issue => 'Senden Sie Fehler, Vorschläge und Anfragen';
 
   @override
   String get privacy_policy => 'Datenschutzerklärung';
@@ -431,194 +449,199 @@ class AppLocalizationsDe extends AppLocalizations {
   String get terms_conditions => 'Allgemeine Geschäftsbedingungen';
 
   @override
-  String get legal_disclaimer => 'Legal Disclaimer';
+  String get legal_disclaimer => 'Haftungsausschluss';
 
   @override
-  String get legal => 'LEGAL';
+  String get legal => 'RECHTLICH';
 
   @override
-  String get lock_gate_title => 'VitaCase Locked';
+  String get lock_gate_title => 'VitaCase gesperrt';
 
   @override
-  String get lock_gate_desc => 'Please authenticate to access your secure document vault.';
+  String get lock_gate_desc =>
+      'Bitte authentifizieren Sie sich, um auf Ihren sicheren Dokumententresor zuzugreifen.';
 
   @override
-  String get lock_gate_unlock => 'Unlock with Biometrics';
+  String get lock_gate_unlock => 'Mit Biometrie freischalten';
 
   @override
-  String get lock_set_pin => 'Set Secure PIN';
+  String get lock_set_pin => 'Sichere PIN festlegen';
 
   @override
-  String get lock_confirm_pin => 'Confirm PIN';
+  String get lock_confirm_pin => 'PIN bestätigen';
 
   @override
-  String get lock_pin_mismatch => 'PINs do not match. Try again.';
+  String get lock_pin_mismatch =>
+      'PINs stimmen nicht überein. Versuchen Sie es erneut.';
 
   @override
-  String get lock_pin_incorrect => 'Incorrect PIN';
+  String get lock_pin_incorrect => 'Falsche PIN';
 
   @override
-  String get lock_use_biometrics => 'Use Biometrics';
+  String get lock_use_biometrics => 'Verwenden Sie Biometrie';
 
   @override
   String lock_too_many_attempts(int seconds) {
-    return 'Too many attempts. Try again in ${seconds}s.';
+    return 'Zu viele Versuche. Versuchen Sie es in ${seconds}s noch einmal.';
   }
 
   @override
-  String get lock_timeout_instant => 'Instant';
+  String get lock_timeout_instant => 'Sofort';
 
   @override
   String get lock_timeout_1min => '1 Minute';
 
   @override
-  String get lock_timeout_5min => '5 Minutes';
+  String get lock_timeout_5min => '5 Minuten';
 
   @override
-  String get lock_timeout_15min => '15 Minutes';
+  String get lock_timeout_15min => '15 Minuten';
 
   @override
-  String get lock_timeout => 'Lock Timeout';
+  String get lock_timeout => 'Sperrzeitüberschreitung';
 
   @override
-  String get change_pin => 'Change PIN';
+  String get change_pin => 'PIN ändern';
 
   @override
-  String get biometric_login => 'Biometric Login';
+  String get biometric_login => 'Biometrische Anmeldung';
 
   @override
-  String get biometric_unavailable => 'Biometric authentication is not available on this device.';
+  String get biometric_unavailable =>
+      'Die biometrische Authentifizierung ist auf diesem Gerät nicht verfügbar.';
 
   @override
-  String get digits => 'digits';
+  String get digits => 'Ziffern';
 
   @override
-  String get lock_skip_desc => 'You can set this up later from Settings.';
+  String get lock_skip_desc =>
+      'Sie können dies später in den Einstellungen einrichten.';
 
   @override
-  String get setup_pin_later => 'Set up later from Settings';
+  String get setup_pin_later => 'Später über die Einstellungen einrichten';
 
   @override
-  String get skip_pin_setup => 'Skip';
+  String get skip_pin_setup => 'Überspringen';
 
   @override
-  String get setup_app_lock => 'Set Up App Lock';
+  String get setup_app_lock => 'App-Sperre einrichten';
 
   @override
-  String get setup_app_lock_desc => 'Protect your data with a 6-digit PIN.';
+  String get setup_app_lock_desc =>
+      'Schützen Sie Ihre Daten mit einer 6-stelligen PIN.';
 
   @override
-  String get step_profile => 'Profile';
+  String get step_profile => 'Profil';
 
   @override
-  String get step_security => 'Security';
+  String get step_security => 'Sicherheit';
 
   @override
-  String get daily_missions => 'DAILY MISSIONS';
+  String get daily_missions => 'TÄGLICHE MISSIONEN';
 
   @override
-  String get mission_doc_daily => 'Add 1 Document';
+  String get mission_doc_daily => '1 Dokument hinzufügen';
 
   @override
-  String get mission_ad_daily => 'Watch 1 Ad';
+  String get mission_ad_daily => 'Sehen Sie sich 1 Anzeige an';
 
   @override
-  String get mission_app_daily => 'Schedule 1 Appointment';
+  String get mission_app_daily => 'Vereinbaren Sie einen Termin';
 
   @override
-  String get mission_med_daily => 'Add 1 Medicine';
+  String get mission_med_daily => 'Füge 1 Medizin hinzu';
 
   @override
-  String get export_data_zip => 'Export Data (.zip)';
+  String get export_data_zip => 'Daten exportieren (.zip)';
 
   @override
-  String get clear_all_data => 'Clear All Data';
+  String get clear_all_data => 'Alle Daten löschen';
 
   @override
-  String get quick_actions_desc => 'Quick shortcuts on dashboard';
+  String get quick_actions_desc => 'Schnelle Verknüpfungen im Dashboard';
 
   @override
   String get app_section => 'APP';
 
   @override
-  String get premium_required => 'Premium Required';
+  String get premium_required => 'Premium erforderlich';
 
   @override
   String get logout => 'Abmelden';
 
   @override
-  String get logout_confirm => 'Are you sure you want to log out?';
+  String get logout_confirm => 'Möchten Sie sich wirklich abmelden?';
 
   @override
-  String get yes_logout => 'Yes, Logout';
+  String get yes_logout => 'Ja, Abmelden';
 
   @override
   String get version => 'VERSION';
 
   @override
-  String get my_medicines => 'My Medicines';
+  String get my_medicines => 'Meine Medikamente';
 
   @override
   String med_count_desc(int count) {
-    return 'You have $count medicines for today.';
+    return 'Sie haben für heute $count Medikamente.';
   }
 
   @override
-  String get low_stock_warning => 'Low Stock';
+  String get low_stock_warning => 'Geringer Lagerbestand';
 
   @override
   String critical_level(String name) {
-    return 'Critical level for $name.';
+    return 'Kritischer Wert für $name.';
   }
 
   @override
-  String get refill => 'Refill';
+  String get refill => 'Nachfüllung';
 
   @override
-  String get intake_chart => 'Intake Compliance Chart';
+  String get intake_chart => 'Diagramm zur Einhaltung der Aufnahmebedingungen';
 
   @override
   String weekly_avg(int perc) {
-    return 'Weekly Avg: $perc%';
+    return 'Wöchentlicher Durchschnitt: $perc %';
   }
 
   @override
-  String get medicine_cabinet => 'Medicine Cabinet';
+  String get medicine_cabinet => 'Medizinschrank';
 
   @override
-  String get active_inventory => 'Your active inventory';
+  String get active_inventory => 'Ihr aktives Inventar';
 
   @override
   String get add => 'Hinzufügen';
 
   @override
-  String get daily_routine => 'Daily Routine';
+  String get daily_routine => 'Tagesablauf';
 
   @override
-  String get morning => 'Morning';
+  String get morning => 'Morgen';
 
   @override
-  String get afternoon => 'Afternoon';
+  String get afternoon => 'Nachmittag';
 
   @override
-  String get night => 'Night';
+  String get night => 'Nacht';
 
   @override
-  String get med_cabinet_add => 'New Medicine';
+  String get med_cabinet_add => 'Neue Medizin';
 
   @override
   String stock_left(int count) {
-    return '$count LEFT';
+    return '$count LINKS';
   }
 
   @override
-  String get vital_signs => 'Vital Signs';
+  String get vital_signs => 'Vitalfunktionen';
 
   @override
-  String get daily_goals => 'Daily Goals';
+  String get daily_goals => 'Tägliche Ziele';
 
   @override
-  String get activity => 'Activity';
+  String get activity => 'Aktivität';
 
   @override
   String get step_counter => 'Schrittzähler';
@@ -627,193 +650,207 @@ class AppLocalizationsDe extends AppLocalizations {
   String get water_tracker => 'Wasser-Tracker';
 
   @override
-  String get safety_footer_med => 'VitaCase is a management tool. It does not provide medical advice or dosage recommendations. Always follow your doctor\'s instructions.';
+  String get safety_footer_med =>
+      'VitaCase ist ein Management-Tool. Es erfolgt keine medizinische Beratung oder Dosierungsempfehlung. Befolgen Sie immer die Anweisungen Ihres Arztes.';
 
   @override
-  String get safety_footer_health => 'Health data is for informational purposes only. Consult a professional for diagnosis.';
+  String get safety_footer_health =>
+      'Gesundheitsdaten dienen ausschließlich Informationszwecken. Wenden Sie sich zur Diagnose an einen Fachmann.';
 
   @override
-  String get medical_device_warning => 'VitaCase is not a medical device. Always consult a professional.';
+  String get medical_device_warning =>
+      'VitaCase ist kein medizinisches Gerät. Konsultieren Sie immer einen Fachmann.';
 
   @override
-  String get management_tool_warning => 'VitaCase is a management tool, not a diagnostic service.';
+  String get management_tool_warning =>
+      'VitaCase ist ein Verwaltungstool, kein Diagnosedienst.';
 
   @override
-  String get hint_name => 'e.g. John Doe';
+  String get hint_name => 'z.B. John Doe';
 
   @override
-  String get hint_emergency => 'Full Name / Phone';
+  String get hint_emergency => 'Vollständiger Name/Telefon';
 
   @override
-  String get docs_title => 'Documents';
+  String get docs_title => 'Unterlagen';
 
   @override
-  String get docs_search_hint => 'Search your vault (document, note, identity...)';
+  String get docs_search_hint =>
+      'Durchsuchen Sie Ihren Tresor (Dokument, Notiz, Identität ...)';
 
   @override
-  String get docs_info_secure => 'Your documents are stored securely and are exclusive to you.';
+  String get docs_info_secure =>
+      'Ihre Dokumente werden sicher aufbewahrt und sind exklusiv für Sie.';
 
   @override
-  String get docs_info_encrypted => 'Your data is protected locally with encryption.';
+  String get docs_info_encrypted =>
+      'Ihre Daten werden lokal durch Verschlüsselung geschützt.';
 
   @override
-  String get docs_sort_all => 'All';
+  String get docs_sort_all => 'Alle';
 
   @override
-  String get docs_sort_newest => 'Newest';
+  String get docs_sort_newest => 'Neueste';
 
   @override
-  String get docs_sort_oldest => 'Oldest';
+  String get docs_sort_oldest => 'Älteste';
 
   @override
-  String get docs_empty_title => 'It\'s Empty Here';
+  String get docs_empty_title => 'Hier ist es leer';
 
   @override
-  String get docs_empty_subtitle => 'Start organizing your vault by adding your first document.';
+  String get docs_empty_subtitle =>
+      'Beginnen Sie mit der Organisation Ihres Tresors, indem Sie Ihr erstes Dokument hinzufügen.';
 
   @override
-  String get docs_category_health => 'Health';
+  String get docs_category_health => 'Gesundheit';
 
   @override
-  String get docs_category_identity => 'Identity';
+  String get docs_category_identity => 'Identität';
 
   @override
-  String get docs_category_finance => 'Finance';
+  String get docs_category_finance => 'Finanzen';
 
   @override
   String get docs_category_legal => 'Legal';
 
   @override
-  String get docs_category_notes => 'Notes';
+  String get docs_category_notes => 'Notizen';
 
   @override
-  String get docs_category_other => 'Other';
+  String get docs_category_other => 'Andere';
 
   @override
-  String get docs_loading_open => 'Opening Secure File...';
+  String get docs_loading_open => 'Sichere Datei öffnen...';
 
   @override
-  String get docs_loading_decrypt => 'AES-256 Decrypting';
+  String get docs_loading_decrypt => 'AES-256-Entschlüsselung';
 
   @override
-  String get docs_add_btn => 'ADD DOCUMENT';
+  String get docs_add_btn => 'DOKUMENT HINZUFÜGEN';
 
   @override
-  String get docs_add_title => 'Add Document';
+  String get docs_add_title => 'Dokument hinzufügen';
 
   @override
-  String get docs_add_source => 'Source / Institution (optional)';
+  String get docs_add_source => 'Quelle / Institution (optional)';
 
   @override
-  String get docs_add_person => 'Related Person / Detail';
+  String get docs_add_person => 'Zugehörige Person/Detail';
 
   @override
-  String get docs_add_cat => 'Category';
+  String get docs_add_cat => 'Kategorie';
 
   @override
-  String get docs_add_type => 'Document Type';
+  String get docs_add_type => 'Dokumenttyp';
 
   @override
-  String get docs_add_note => 'Note (optional)';
+  String get docs_add_note => 'Hinweis (optional)';
 
   @override
-  String get docs_add_secure => 'This info is encrypted with AES-256.';
+  String get docs_add_secure =>
+      'Diese Informationen werden mit AES-256 verschlüsselt.';
 
   @override
-  String get docs_add_pick_diff => 'Pick different file';
+  String get docs_add_pick_diff => 'Wählen Sie eine andere Datei';
 
   @override
-  String get docs_success => 'Document saved successfully!';
+  String get docs_success => 'Dokument erfolgreich gespeichert!';
 
   @override
-  String get docs_error_save => 'Failed to save document';
+  String get docs_error_save => 'Dokument konnte nicht gespeichert werden';
 
   @override
-  String get docs_error_pick => 'Please select a file';
+  String get docs_error_pick => 'Bitte wählen Sie eine Datei aus';
 
   @override
-  String get docs_error_source => 'Institution name is required for health docs';
+  String get docs_error_source =>
+      'Für Gesundheitsdokumente ist der Name der Institution erforderlich';
 
   @override
-  String get docs_error_size => 'File size must be max 10 MB';
+  String get docs_error_size => 'Die Dateigröße darf maximal 10 MB betragen';
 
   @override
-  String get docs_add_pick => 'Select Document / Image';
+  String get docs_add_pick => 'Wählen Sie Dokument/Bild';
 
   @override
-  String get docs_add_file_selected => 'Selected File';
+  String get docs_add_file_selected => 'Ausgewählte Datei';
 
   @override
-  String get docs_action_delete => 'Delete';
+  String get docs_action_delete => 'Löschen';
 
   @override
-  String get docs_no_results => 'No results found';
+  String get docs_no_results => 'Keine Ergebnisse gefunden';
 
   @override
-  String get docs_no_matching => 'No documents match your criteria';
+  String get docs_no_matching => 'Keine Dokumente entsprechen Ihren Kriterien';
 
   @override
-  String get docs_try_different => 'Try searching with a different keyword.';
+  String get docs_try_different =>
+      'Versuchen Sie, mit einem anderen Schlüsselwort zu suchen.';
 
   @override
-  String get docs_no_filter_match => 'No documents found for the selected filter.';
+  String get docs_no_filter_match =>
+      'Für den ausgewählten Filter wurden keine Dokumente gefunden.';
 
   @override
-  String get docs_show_all => 'SHOW ALL';
+  String get docs_show_all => 'ALLE ANZEIGEN';
 
   @override
-  String get privacy_warning_title => 'Privacy Warning';
+  String get privacy_warning_title => 'Datenschutzwarnung';
 
   @override
-  String get privacy_warning_desc => 'The sole responsibility for any sensitive information and uploaded documents belongs entirely to the user. Please be cautious when storing high-risk data.';
+  String get privacy_warning_desc =>
+      'Die alleinige Verantwortung für vertrauliche Informationen und hochgeladene Dokumente liegt vollständig beim Benutzer. Seien Sie bitte vorsichtig, wenn Sie risikoreiche Daten speichern.';
 
   @override
-  String get hint_select => 'Select';
+  String get hint_select => 'Wählen';
 
   @override
-  String get hint_institution => 'e.g. City Hospital, Bank, Notary';
+  String get hint_institution => 'z.B. Stadtkrankenhaus, Bank, Notar';
 
   @override
-  String get hint_person_detail => 'e.g. Dr. Mehmet, Lawyer Ahmet, Tax No';
+  String get hint_person_detail =>
+      'z.B. Dr. Mehmet, Rechtsanwalt Ahmet, Steuernummer';
 
   @override
-  String get hint_add_note => 'Add note...';
+  String get hint_add_note => 'Notiz hinzufügen...';
 
   @override
-  String get docs_category_prescriptions => 'Prescription';
+  String get docs_category_prescriptions => 'Rezept';
 
   @override
-  String get docs_category_reports => 'Report';
+  String get docs_category_reports => 'Bericht';
 
   @override
-  String get docs_category_test_results => 'Test Result';
+  String get docs_category_test_results => 'Testergebnis';
 
   @override
-  String get docs_category_images => 'Medical Image';
+  String get docs_category_images => 'Medizinisches Bild';
 
   @override
-  String get upcoming_appointment => 'UPCOMING APPOINTMENT';
+  String get upcoming_appointment => 'Bevorstehender Termin';
 
   @override
-  String get my_appointments => 'My Appointments';
+  String get my_appointments => 'Meine Termine';
 
   @override
-  String get weekly => 'Weekly';
+  String get weekly => 'Wöchentlich';
 
   @override
-  String get monthly => 'Monthly';
+  String get monthly => 'Monatlich';
 
   @override
-  String get no_more_appointments => 'No more appointments found.';
+  String get no_more_appointments => 'Keine weiteren Termine gefunden.';
 
   @override
-  String get add_new_appointment => 'Add New Appointment';
+  String get add_new_appointment => 'Neuen Termin hinzufügen';
 
   @override
-  String get join_meeting => 'Join Meeting';
+  String get join_meeting => 'Treten Sie der Besprechung bei';
 
   @override
-  String get location => 'Location';
+  String get location => 'Standort';
 
   @override
   String get today => 'Heute';
@@ -822,201 +859,211 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tomorrow => 'Morgen';
 
   @override
-  String get health_trend_desc => '7-Day Health Trend';
+  String get health_trend_desc => '7-Tage-Gesundheitstrend';
 
   @override
-  String get all_records_title => 'All Records';
+  String get all_records_title => 'Alle Aufzeichnungen';
 
   @override
-  String get personal_health_data => 'Personal Health Data';
+  String get personal_health_data => 'Persönliche Gesundheitsdaten';
 
   @override
-  String get personal_info => 'Personal Information';
+  String get personal_info => 'Persönliche Informationen';
 
   @override
-  String get account_settings => 'Account & Settings';
+  String get account_settings => 'Konto und Einstellungen';
 
   @override
-  String get emergency_card => 'Emergency Card';
+  String get emergency_card => 'Notfallkarte';
 
   @override
-  String get allergies => 'ALLERGIES';
+  String get allergies => 'ALLERGIEN';
 
   @override
-  String get none => 'None';
+  String get none => 'Keiner';
 
   @override
-  String get not_added => 'Not Added';
+  String get not_added => 'Nicht hinzugefügt';
 
   @override
-  String get active_goals => 'Active Goals';
+  String get active_goals => 'Aktive Ziele';
 
   @override
-  String get daily_steps => 'Daily Steps';
+  String get daily_steps => 'Tägliche Schritte';
 
   @override
-  String get water_intake => 'Water Intake';
+  String get water_intake => 'Wasseraufnahme';
 
   @override
-  String get liter_unit => 'Liters';
+  String get liter_unit => 'Liter';
 
   @override
-  String get speed_up => 'SPEED UP';
+  String get speed_up => 'BESCHLEUNIGEN';
 
   @override
-  String get stay_fresh => 'STAY FRESH';
+  String get stay_fresh => 'Bleiben Sie frisch';
 
   @override
-  String get target_label => 'Target';
+  String get target_label => 'Ziel';
 
   @override
-  String get logout_desc_safe => 'Are you sure you want to log out? Your data will remain securely stored on your device.';
+  String get logout_desc_safe =>
+      'Möchten Sie sich wirklich abmelden? Ihre Daten bleiben sicher auf Ihrem Gerät gespeichert.';
 
   @override
-  String get years_old => 'years old';
+  String get years_old => 'Jahre alt';
 
   @override
-  String get add_medicine => 'Add Medicine';
+  String get add_medicine => 'Medizin hinzufügen';
 
   @override
-  String get medicine_name => 'Medicine Name';
+  String get medicine_name => 'Name des Arzneimittels';
 
   @override
-  String get med_name_hint => 'e.g. Aspirin';
+  String get med_name_hint => 'z.B. Aspirin';
 
   @override
-  String get frequency => 'Frequency';
+  String get frequency => 'Frequenz';
 
   @override
-  String get reminder_times => 'Reminder Times';
+  String get reminder_times => 'Erinnerungszeiten';
 
   @override
-  String get current_stock => 'Current Stock';
+  String get current_stock => 'Aktueller Lagerbestand';
 
   @override
-  String get stock_warning => 'We will remind you when stock falls below 5 units.';
+  String get stock_warning =>
+      'Wir werden Sie daran erinnern, wenn der Lagerbestand unter 5 Einheiten fällt.';
 
   @override
-  String get hero_health_tip => 'For Your Health';
+  String get hero_health_tip => 'Für Ihre Gesundheit';
 
   @override
-  String get hero_consistency => 'Consistency is key';
+  String get hero_consistency => 'Konsistenz ist der Schlüssel';
 
   @override
-  String get med_added_success => 'Medicine added successfully!';
+  String get med_added_success => 'Medizin erfolgreich hinzugefügt!';
 
   @override
-  String get med_name_error => 'Please enter medicine name';
+  String get med_name_error =>
+      'Bitte geben Sie den Namen des Arzneimittels ein';
 
   @override
-  String get custom_freq_title => 'Custom Frequency';
+  String get custom_freq_title => 'Benutzerdefinierte Häufigkeit';
 
   @override
-  String get custom_freq_hint => 'e.g. Every 2 weeks';
+  String get custom_freq_hint => 'z.B. Alle 2 Wochen';
 
   @override
-  String get apply => 'Apply';
+  String get apply => 'Anwenden';
 
   @override
-  String get daily => 'Daily';
+  String get daily => 'Täglich';
 
   @override
-  String get custom => 'Custom';
+  String get custom => 'Brauch';
 
   @override
-  String get tablet => 'Tablet';
+  String get tablet => 'Tablette';
 
   @override
-  String get syrup => 'Syrup (ml)';
+  String get syrup => 'Sirup (ml)';
 
   @override
-  String get dose => 'Dose';
+  String get dose => 'Dosis';
 
   @override
-  String get capsule => 'Capsule';
+  String get capsule => 'Kapsel';
 
   @override
-  String get drops => 'Drops';
+  String get drops => 'Tropfen';
 
   @override
-  String get limit_title => 'Storage Full! 🚀';
+  String get limit_title => 'Speicher voll! 🚀';
 
   @override
   String limit_desc(int count) {
-    return 'Your current limit is $count documents. Would you like to watch a short video to gain +5 more slots?';
+    return 'Ihr aktuelles Limit beträgt $count Dokumente. Möchten Sie sich ein kurzes Video ansehen, um +5 weitere Slots zu gewinnen?';
   }
 
   @override
   String limit_desc_meds(int count) {
-    return 'Your current limit is $count medicines. Would you like to watch a short video to gain +5 more slots?';
+    return 'Ihr aktuelles Limit beträgt $count Medikamente. Möchten Sie sich ein kurzes Video ansehen, um +5 weitere Slots zu gewinnen?';
   }
 
   @override
   String limit_desc_appts(int count) {
-    return 'Your current limit is $count appointments. Would you like to watch a short video to gain +5 more slots?';
+    return 'Ihr aktuelles Limit beträgt $count Termine. Möchten Sie sich ein kurzes Video ansehen, um +5 weitere Slots zu gewinnen?';
   }
 
   @override
-  String get limit_close => 'CLOSE';
+  String get limit_close => 'SCHLIESSEN';
 
   @override
-  String get limit_reward_btn => 'WATCH AND GAIN';
+  String get limit_reward_btn => 'ZUSEHEN UND GEWINNEN';
 
   @override
-  String get limit_reward_success => 'Congratulations! +10 document slots added.';
+  String get limit_reward_success =>
+      'Glückwunsch! +10 Dokumentenplätze hinzugefügt.';
 
   @override
-  String get limit_ad_free_info => 'Safe & Private Local Storage 🛡️';
+  String get limit_ad_free_info => 'Sicherer und privater lokaler Speicher 🛡️';
 
   @override
   String limit_slots_used(int count, int limit) {
-    return '$count/$limit slots used';
+    return '$count/$limit Slots verwendet';
   }
 
   @override
-  String get lock_title => 'VitaCase Locked';
+  String get lock_title => 'VitaCase gesperrt';
 
   @override
-  String get lock_subtitle => 'Please verify to access';
+  String get lock_subtitle =>
+      'Bitte bestätigen Sie den Zugriff, um darauf zugreifen zu können';
 
   @override
-  String get unlock => 'Unlock';
+  String get unlock => 'Entsperren';
 
   @override
-  String get bmi_underweight => 'Underweight';
+  String get bmi_underweight => 'Untergewicht';
 
   @override
-  String get bmi_normal => 'Normal (Ideal)';
+  String get bmi_normal => 'Normal (ideal)';
 
   @override
-  String get bmi_overweight => 'Overweight';
+  String get bmi_overweight => 'Übergewicht';
 
   @override
-  String get bmi_obese => 'Obese';
+  String get bmi_obese => 'Fettleibig';
 
   @override
-  String get page_not_found => 'Page not found or an error occurred.';
+  String get page_not_found =>
+      'Seite nicht gefunden oder es ist ein Fehler aufgetreten.';
 
   @override
-  String get legal_onboarding_clause => 'I acknowledge that VitaCase is an offline-first vault. I bear sole responsibility for the security of my device and the sensitive health data stored within it.';
+  String get legal_onboarding_clause =>
+      'Ich erkenne an, dass VitaCase ein Offline-Tresor ist. Ich trage die alleinige Verantwortung für die Sicherheit meines Geräts und der darin gespeicherten sensiblen Gesundheitsdaten.';
 
   @override
-  String get delete_all_data => 'Delete All Data';
+  String get delete_all_data => 'Alle Daten löschen';
 
   @override
-  String get wipe_confirm_1 => 'All your data, documents, and settings will be permanently deleted. This action cannot be undone. Do you want to continue?';
+  String get wipe_confirm_1 =>
+      'Alle Ihre Daten, Dokumente und Einstellungen werden dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden. Möchten Sie fortfahren?';
 
   @override
-  String get wipe_confirm_2 => 'Are you ABSOLUTELY sure? All your medical archive and encrypted records will be wiped from this device.';
+  String get wipe_confirm_2 =>
+      'Sind Sie ABSOLUT sicher? Alle Ihre medizinischen Archive und verschlüsselten Aufzeichnungen werden von diesem Gerät gelöscht.';
 
   @override
-  String get final_warning => 'Final Security Warning';
+  String get final_warning => 'Letzte Sicherheitswarnung';
 
   @override
-  String get wipe_btn_final => 'YES, DELETE EVERYTHING';
+  String get wipe_btn_final => 'JA, ALLES LÖSCHEN';
 
   @override
-  String get all_data_deleted => 'All your data has been wiped. The app will now restart.';
+  String get all_data_deleted =>
+      'Alle Ihre Daten wurden gelöscht. Die App wird nun neu gestartet.';
 
   @override
   String get edit => 'Bearbeiten';
@@ -1025,254 +1072,263 @@ class AppLocalizationsDe extends AppLocalizations {
   String get delete => 'Löschen';
 
   @override
-  String get theme_selection_title => 'Theme Selection';
+  String get theme_selection_title => 'Themenauswahl';
 
   @override
-  String get watch_ad => 'Watch Ad';
+  String get watch_ad => 'Anzeige ansehen';
 
   @override
-  String get verify_sentry => 'Verify Sentry Integration';
+  String get verify_sentry => 'Überprüfen Sie die Sentry-Integration';
 
   @override
-  String get edit_panel_soon => 'Edit panel coming soon!';
+  String get edit_panel_soon => 'Das Bearbeitungsfeld folgt bald!';
 
   @override
-  String get add_new_record => 'Add New Record';
+  String get add_new_record => 'Neuen Datensatz hinzufügen';
 
   @override
-  String get category => 'Category';
+  String get category => 'Kategorie';
 
   @override
-  String get fill_required_fields => 'Please fill required fields';
+  String get fill_required_fields => 'Bitte füllen Sie die Pflichtfelder aus';
 
   @override
-  String get error_doctor_data => 'Please enter doctor name and department';
+  String get error_doctor_data =>
+      'Bitte geben Sie den Namen und die Abteilung des Arztes ein';
 
   @override
-  String get error_appointment_data => 'Please fill in the title and hospital/center fields';
+  String get error_appointment_data =>
+      'Bitte füllen Sie die Felder Titel und Krankenhaus/Zentrum aus';
 
   @override
-  String get appointment_reminder_title => 'Appointment Reminder';
+  String get appointment_reminder_title => 'Terminerinnerung';
 
   @override
   String appointment_reminder_body(String time, String doctor, String dept) {
-    return 'You have an appointment in $time: $doctor ($dept)';
+    return 'Sie haben einen Termin in $time: $doctor ($dept)';
   }
 
   @override
-  String get select_language => 'Select Language / Dil Seçin';
+  String get select_language => 'Wählen Sie Sprache / Dil Seçin';
 
   @override
   String get ok => 'OK';
 
   @override
-  String get text_size_small => 'Small';
+  String get text_size_small => 'Klein';
 
   @override
   String get text_size_medium => 'Medium';
 
   @override
-  String get text_size_large => 'Large';
+  String get text_size_large => 'Groß';
 
   @override
-  String get support_contact => 'To contact our support team: limanexsoftware@outlook.com';
+  String get support_contact =>
+      'Um unser Support-Team zu kontaktieren: limanexsoftware@outlook.com';
 
   @override
-  String get quick_actions_optimized => 'Quick Actions are already optimized for your profile.';
+  String get quick_actions_optimized =>
+      'Quick Actions sind bereits für Ihr Profil optimiert.';
 
   @override
-  String get medication_reminder => 'Medication Reminder';
+  String get medication_reminder => 'Erinnerung an Medikamente';
 
   @override
   String medication_reminder_body(String name, String dose) {
-    return 'Time for $name ($dose)';
+    return 'Zeit für $name ($dose)';
   }
 
   @override
-  String get no_doctors_found => 'No matching doctors found';
+  String get no_doctors_found => 'Keine passenden Ärzte gefunden';
 
   @override
-  String get clear_filters => 'Clear Filters';
+  String get clear_filters => 'Filter löschen';
 
   @override
-  String get verified => 'Verified';
+  String get verified => 'Verifiziert';
 
   @override
-  String get height_label => 'Height';
+  String get height_label => 'Höhe';
 
   @override
-  String get weight_label => 'Weight';
+  String get weight_label => 'Gewicht';
 
   @override
-  String get age_label => 'Age';
+  String get age_label => 'Alter';
 
   @override
-  String get identity_contact => 'Identity & Contact';
+  String get identity_contact => 'Identität & Kontakt';
 
   @override
-  String get id_number => 'ID Number';
+  String get id_number => 'ID-Nummer';
 
   @override
-  String get update_info => 'Update Info';
+  String get update_info => 'Informationen aktualisieren';
 
   @override
-  String get vita_badge => 'VitaCase User';
+  String get vita_badge => 'VitaCase-Benutzer';
 
   @override
-  String get default_job => 'Freelance / Health Enthusiast';
+  String get default_job => 'Freiberufler / Gesundheitsbegeisterter';
 
   @override
-  String get blood_type_val => 'A Rh+';
+  String get blood_type_val => 'Ein Rh+';
 
   @override
-  String get clinical_note => 'Clinical Note';
+  String get clinical_note => 'Klinischer Hinweis';
 
   @override
-  String get last_control => 'Last Control';
+  String get last_control => 'Letzte Kontrolle';
 
   @override
-  String get bmi_ideal => 'Ideal Weight Range';
+  String get bmi_ideal => 'Idealer Gewichtsbereich';
 
   @override
-  String get medical_info_desc_empty => 'Store your critical medical information here to carry it with you always.';
+  String get medical_info_desc_empty =>
+      'Bewahren Sie hier Ihre wichtigen medizinischen Informationen auf, damit Sie sie immer bei sich haben.';
 
   @override
-  String get category_critical => 'CRITICAL INFORMATION';
+  String get category_critical => 'KRITISCHE INFORMATIONEN';
 
   @override
-  String get category_important => 'IMPORTANT NOTES';
+  String get category_important => 'WICHTIGE HINWEISE';
 
   @override
-  String get category_general => 'GENERAL INFORMATION';
+  String get category_general => 'ALLGEMEINE INFORMATIONEN';
 
   @override
-  String get medical_info_desc => 'All medical records critical for your health.';
+  String get medical_info_desc =>
+      'Alle medizinischen Unterlagen, die für Ihre Gesundheit von entscheidender Bedeutung sind.';
 
   @override
-  String get title => 'Title';
+  String get title => 'Titel';
 
   @override
-  String get description => 'Description';
+  String get description => 'Beschreibung';
 
   @override
-  String get icon => 'Icon';
+  String get icon => 'Symbol';
 
   @override
-  String get save_record => 'Save Record';
+  String get save_record => 'Datensatz speichern';
 
   @override
-  String get critical => 'Critical';
+  String get critical => 'Kritisch';
 
   @override
-  String get important => 'Important';
+  String get important => 'Wichtig';
 
   @override
-  String get general => 'General';
+  String get general => 'Allgemein';
 
   @override
-  String get theme_unlock_desc => 'You can try this theme or watch an ad to unlock it permanently.';
+  String get theme_unlock_desc =>
+      'Sie können dieses Thema ausprobieren oder eine Anzeige ansehen, um es dauerhaft freizuschalten.';
 
   @override
-  String get theme_previewing => 'Theme is being previewed for 10 seconds...';
+  String get theme_previewing =>
+      'Das Thema wird 10 Sekunden lang in der Vorschau angezeigt...';
 
   @override
-  String get preview_10s => 'Preview (10s)';
+  String get preview_10s => 'Vorschau (10s)';
 
   @override
-  String get congratulations => 'Congratulations!';
+  String get congratulations => 'Glückwunsch!';
 
   @override
-  String get theme_unlocked_success => 'Your new theme is unlocked.';
+  String get theme_unlocked_success => 'Ihr neues Theme ist freigeschaltet.';
 
   @override
-  String get please_enter_at_least_one_data => 'Please enter at least one data point.';
+  String get please_enter_at_least_one_data =>
+      'Bitte geben Sie mindestens einen Datenpunkt ein.';
 
   @override
-  String get data_saved_success => 'Data saved successfully.';
+  String get data_saved_success => 'Daten erfolgreich gespeichert.';
 
   @override
-  String get add_data => 'Add Data';
+  String get add_data => 'Daten hinzufügen';
 
   @override
-  String get save_data => 'Save Data';
+  String get save_data => 'Daten speichern';
 
   @override
-  String get today_summary => 'Today\'s Summary';
+  String get today_summary => 'Die heutige Zusammenfassung';
 
   @override
-  String get target_water => 'Target Water';
+  String get target_water => 'Zielwasser';
 
   @override
-  String get target_steps => 'Target Steps';
+  String get target_steps => 'Zielschritte';
 
   @override
-  String get add_doctor => 'Add Doctor';
+  String get add_doctor => 'Arzt hinzufügen';
 
   @override
-  String get doctor_name_surname => 'Doctor Name Surname';
+  String get doctor_name_surname => 'Name des Arztes Nachname';
 
   @override
-  String get specialty_department => 'Specialty / Department';
+  String get specialty_department => 'Fachgebiet/Abteilung';
 
   @override
-  String get new_record => 'New Record';
+  String get new_record => 'Neuer Rekord';
 
   @override
-  String get appointment_updated => 'Appointment updated.';
+  String get appointment_updated => 'Termin aktualisiert.';
 
   @override
-  String get appointment_added => 'Appointment added successfully.';
+  String get appointment_added => 'Termin erfolgreich hinzugefügt.';
 
   @override
-  String get edit_appointment => 'Edit Appointment';
+  String get edit_appointment => 'Termin bearbeiten';
 
   @override
-  String get appointment_title => 'Appointment Title';
+  String get appointment_title => 'Titel des Termins';
 
   @override
-  String get importance_level => 'Importance Level';
+  String get importance_level => 'Wichtigkeitsstufe';
 
   @override
-  String get notes_optional => 'Notes (Optional)';
+  String get notes_optional => 'Notizen (optional)';
 
   @override
-  String get address_department => 'Full Address / Department';
+  String get address_department => 'Vollständige Adresse/Abteilung';
 
   @override
-  String get select_category => 'Select Category';
+  String get select_category => 'Kategorie auswählen';
 
   @override
-  String get category_meeting => 'Meeting';
+  String get category_meeting => 'Treffen';
 
   @override
-  String get category_reminder => 'Reminder';
+  String get category_reminder => 'Erinnerung';
 
   @override
-  String get category_other => 'Other';
+  String get category_other => 'Andere';
 
   @override
-  String get app_slogan => 'Digital Sanctuary';
+  String get app_slogan => 'Digitales Heiligtum';
 
   @override
-  String get day_monday_short => 'MON';
+  String get day_monday_short => 'MO';
 
   @override
-  String get day_tuesday_short => 'TUE';
+  String get day_tuesday_short => 'DI';
 
   @override
-  String get day_wednesday_short => 'WED';
+  String get day_wednesday_short => 'HEIRATEN';
 
   @override
-  String get day_thursday_short => 'THU';
+  String get day_thursday_short => 'DO';
 
   @override
-  String get day_friday_short => 'FRI';
+  String get day_friday_short => 'FR';
 
   @override
-  String get day_saturday_short => 'SAT';
+  String get day_saturday_short => 'SA';
 
   @override
-  String get day_sunday_short => 'SUN';
+  String get day_sunday_short => 'SONNE';
 
   @override
   String get day_monday_very_short => 'M';
@@ -1296,839 +1352,934 @@ class AppLocalizationsDe extends AppLocalizations {
   String get day_sunday_very_short => 'S';
 
   @override
-  String get delete_medicine_confirm => 'Are you sure you want to delete this medicine?';
+  String get delete_medicine_confirm =>
+      'Sind Sie sicher, dass Sie dieses Arzneimittel löschen möchten?';
 
   @override
-  String get i_agree_to => 'I have read and agree to the';
+  String get i_agree_to => 'Ich habe die gelesen und bin damit einverstanden';
 
   @override
-  String get read_privacy_policy => 'Privacy Policy';
+  String get read_privacy_policy => 'Datenschutzrichtlinie';
 
   @override
-  String get read_terms => 'Terms of Service';
+  String get read_terms => 'Nutzungsbedingungen';
 
   @override
-  String get read_disclaimer => 'Legal Disclaimer';
+  String get read_disclaimer => 'Haftungsausschluss';
 
   @override
-  String get must_agree => 'You must agree to all legal documents to continue.';
+  String get must_agree =>
+      'Um fortzufahren, müssen Sie allen rechtlichen Dokumenten zustimmen.';
 
   @override
-  String get legal_acceptance => 'Legal Acceptance';
+  String get legal_acceptance => 'Rechtliche Akzeptanz';
 
   @override
-  String get manage_subscription => 'Manage Subscription';
+  String get manage_subscription => 'Abonnement verwalten';
 
   @override
-  String get trust_offline_title => 'Offline Sanctuary';
+  String get trust_offline_title => 'Offline-Heiligtum';
 
   @override
-  String get trust_offline_desc => 'Your data never leaves your device.';
+  String get trust_offline_desc => 'Ihre Daten verlassen niemals Ihr Gerät.';
 
   @override
-  String get trust_encryption_title => 'AES-256 Encryption';
+  String get trust_encryption_title => 'AES-256-Verschlüsselung';
 
   @override
-  String get trust_encryption_desc => 'Protected with maximum security.';
+  String get trust_encryption_desc => 'Geschützt mit maximaler Sicherheit.';
 
   @override
-  String get trust_adfree_desc => 'An uninterrupted experience.';
+  String get trust_adfree_desc => 'Ein ununterbrochenes Erlebnis.';
 
   @override
-  String get medals_trophies => 'Medals & Trophies';
+  String get medals_trophies => 'Medaillen und Trophäen';
 
   @override
-  String get cat_streak => 'Daily Streak';
+  String get cat_streak => 'Täglicher Streik';
 
   @override
-  String get cat_ads => 'Support & Ads';
+  String get cat_ads => 'Support und Werbung';
 
   @override
-  String get cat_documents => 'Record Archive';
+  String get cat_documents => 'Aufzeichnungsarchiv';
 
   @override
-  String get cat_medications => 'Medicine Habits';
+  String get cat_medications => 'Medizinische Gewohnheiten';
 
   @override
-  String get cat_appointments => 'Clinical Visits';
+  String get cat_appointments => 'Klinische Besuche';
 
   @override
-  String get cat_profile => 'Identity';
+  String get cat_profile => 'Identität';
 
   @override
-  String get cat_emergency => 'Safety & Preparation';
+  String get cat_emergency => 'Sicherheit und Vorbereitung';
 
   @override
-  String get cat_health => 'Vital Monitoring';
+  String get cat_health => 'Vitalüberwachung';
 
   @override
-  String get cat_engagement => 'App Activity';
+  String get cat_engagement => 'App-Aktivität';
 
   @override
-  String get cat_special => 'Honors';
+  String get cat_special => 'Ehrungen';
 
   @override
-  String get cat_premium => 'Supporters';
+  String get cat_premium => 'Unterstützer';
 
   @override
-  String get cat_power_user => 'Legendary Status';
+  String get cat_power_user => 'Legendärer Status';
 
   @override
-  String get ach_legend_status => 'Legendary';
+  String get ach_legend_status => 'Legendär';
 
   @override
-  String get theme_boutique => 'Theme Boutique';
+  String get theme_boutique => 'Themenboutique';
 
   @override
-  String get days_left => 'days left';
+  String get days_left => 'Tage übrig';
 
   @override
-  String get unlocked => 'Unlocked';
+  String get unlocked => 'Entsperrt';
 
   @override
-  String get progress => 'Progress';
+  String get progress => 'Fortschritt';
 
   @override
-  String get ach_hidden_desc => 'Keep playing to discover this secret achievement.';
+  String get ach_hidden_desc =>
+      'Spielen Sie weiter, um diesen geheimen Erfolg zu entdecken.';
 
   @override
-  String get ach_login_1_desc => 'Every legendary journey begins with a single step. You ignited your first streak!';
+  String get ach_login_1_desc =>
+      'Jede legendäre Reise beginnt mit einem einzigen Schritt. Du hast deinen ersten Streak ausgelöst!';
 
   @override
-  String get ach_login_3_title => 'Warming Up';
+  String get ach_login_3_title => 'Aufwärmen';
 
   @override
-  String get ach_login_3_desc => 'Warm-up laps are over. You\'ve been here for 3 days straight, not bad at all! 🔥';
+  String get ach_login_3_desc =>
+      'Die Aufwärmrunden sind vorbei. Du bist jetzt seit 3 ​​Tagen hier, überhaupt nicht schlecht! 🔥';
 
   @override
-  String get ach_login_7_title => 'Consistent';
+  String get ach_login_7_title => 'Konsistent';
 
   @override
-  String get ach_login_7_desc => 'A whole week! You\'ve learned the ropes and lit the campfire.';
+  String get ach_login_7_desc =>
+      'Eine ganze Woche! Sie haben die Grundlagen erlernt und das Lagerfeuer angezündet.';
 
   @override
-  String get ach_login_14_title => 'Habitual';
+  String get ach_login_14_title => 'Gewohnheit';
 
   @override
-  String get ach_login_14_desc => 'Two weeks straight! This is how habits are forged. Congrats.';
+  String get ach_login_14_desc =>
+      'Zwei Wochen am Stück! So werden Gewohnheiten geschmiedet. Glückwunsch.';
 
   @override
-  String get ach_login_30_title => 'Addicted';
+  String get ach_login_30_title => 'Süchtig';
 
   @override
-  String get ach_login_30_desc => 'A whole month! We both know this is more than just a hobby now.';
+  String get ach_login_30_desc =>
+      'Einen ganzen Monat! Wir wissen beide, dass dies mittlerweile mehr als nur ein Hobby ist.';
 
   @override
-  String get ach_login_60_title => 'Loyal User';
+  String get ach_login_60_title => 'Treuer Benutzer';
 
   @override
-  String get ach_login_60_desc => 'Two months... Are you paying rent, friend? Welcome to your second home. 🏠';
+  String get ach_login_60_desc =>
+      'Zwei Monate... Zahlst du Miete, Freund? Willkommen in Ihrem zweiten Zuhause. 🏠';
 
   @override
-  String get ach_login_100_title => 'Expert';
+  String get ach_login_100_title => 'Experte';
 
   @override
-  String get ach_login_100_desc => 'Century! No power can break a massive 100-day streak. 💯';
+  String get ach_login_100_desc =>
+      'Jahrhundert! Keine Macht kann eine gewaltige 100-Tage-Serie durchbrechen. 💯';
 
   @override
-  String get ach_login_200_title => 'Legend';
+  String get ach_login_200_title => 'Legende';
 
   @override
-  String get ach_login_200_desc => '200 days. People are starting to suspect you\'re an AI bot. 🤖';
+  String get ach_login_200_desc =>
+      '200 Tage. Die Leute beginnen zu vermuten, dass Sie ein KI-Bot sind. 🤖';
 
   @override
-  String get ach_login_365_title => 'Legendary Year';
+  String get ach_login_365_title => 'Legendäres Jahr';
 
   @override
-  String get ach_login_365_desc => 'A full Solar year! You\'ve been here through everything. Coronation tomorrow. 👑';
+  String get ach_login_365_desc =>
+      'Ein volles Solarjahr! Du hast alles miterlebt. Krönung morgen. 👑';
 
   @override
-  String get ach_ads_1_title => 'First Ad';
+  String get ach_ads_1_title => 'Erste Anzeige';
 
   @override
-  String get ach_ads_1_desc => 'Ads are good... sometimes. Thanks for the tiny support!';
+  String get ach_ads_1_desc =>
+      'Werbung ist gut... manchmal. Danke für die kleine Unterstützung!';
 
   @override
-  String get ach_ads_5_title => 'Supporter';
+  String get ach_ads_5_title => 'Fan';
 
   @override
-  String get ach_ads_5_desc => 'You seem to love our sponsors as much as we do.';
+  String get ach_ads_5_desc =>
+      'Sie scheinen unsere Sponsoren genauso zu lieben wie wir.';
 
   @override
-  String get ach_ads_15_title => 'Loyal Viewer';
+  String get ach_ads_15_title => 'Treuer Zuschauer';
 
   @override
-  String get ach_ads_15_desc => 'Grab your popcorn, you completed a 15-ad marathon. 🍿';
+  String get ach_ads_15_desc =>
+      'Schnappen Sie sich Ihr Popcorn, Sie haben einen Marathon mit 15 Anzeigen absolviert. 🍿';
 
   @override
-  String get ach_ads_30_title => 'Keep it Up';
+  String get ach_ads_30_title => 'Weiter so';
 
   @override
-  String get ach_ads_30_desc => 'Like watching TV! Your support is worth its weight in gold.';
+  String get ach_ads_30_desc =>
+      'Wie Fernsehen! Ihre Unterstützung ist Gold wert.';
 
   @override
-  String get ach_ads_50_title => 'Power User';
+  String get ach_ads_50_title => 'Power-User';
 
   @override
-  String get ach_ads_50_desc => 'You can now predict which ad is coming to the second.';
+  String get ach_ads_50_desc =>
+      'Sie können jetzt vorhersagen, welche Anzeige als Zweite erscheint.';
 
   @override
-  String get ach_ads_100_title => 'Addicted';
+  String get ach_ads_100_title => 'Süchtig';
 
   @override
-  String get ach_ads_100_desc => '100 ads! We owe you a special medal for your patience.';
+  String get ach_ads_100_desc =>
+      '100 Anzeigen! Für Ihre Geduld schulden wir Ihnen eine besondere Medaille.';
 
   @override
-  String get ach_ads_250_title => 'Ad Master';
+  String get ach_ads_250_title => 'Anzeigenmaster';
 
   @override
-  String get ach_ads_250_desc => 'A marketing genius lost on the screen. Your support reached the sky.';
+  String get ach_ads_250_desc =>
+      'Ein Marketing-Genie, das auf der Leinwand verschwindet. Ihre Unterstützung erreichte den Himmel.';
 
   @override
-  String get ach_ads_500_title => 'Monetization King';
+  String get ach_ads_500_title => 'Monetarisierungskönig';
 
   @override
-  String get ach_ads_500_desc => 'Are you a financier? You\'re single-handedly running the market! 📉';
+  String get ach_ads_500_desc =>
+      'Sind Sie ein Finanzier? Sie beherrschen den Markt im Alleingang! 📉';
 
   @override
-  String get ach_doc_1_title => 'First Document';
+  String get ach_doc_1_title => 'Erstes Dokument';
 
   @override
-  String get ach_doc_1_desc => 'Not a government office, but you successfully filed your first document. 📇';
+  String get ach_doc_1_desc =>
+      'Kein Regierungsamt, aber Sie haben Ihr erstes Dokument erfolgreich eingereicht. 📇';
 
   @override
-  String get ach_doc_5_title => 'Beginning';
+  String get ach_doc_5_title => 'Anfang';
 
   @override
-  String get ach_doc_5_desc => 'Your first folder is almost full. You\'re getting organized.';
+  String get ach_doc_5_desc =>
+      'Ihr erster Ordner ist fast voll. Du organisierst dich.';
 
   @override
-  String get ach_doc_10_title => 'Regular User';
+  String get ach_doc_10_title => 'Normaler Benutzer';
 
   @override
-  String get ach_doc_10_desc => 'Files are piling up. Lost and Found would love to work with you.';
+  String get ach_doc_10_desc =>
+      'Die Akten stapeln sich. Lost and Found würde gerne mit Ihnen zusammenarbeiten.';
 
   @override
-  String get ach_doc_25_title => 'Archivist';
+  String get ach_doc_25_title => 'Archivar';
 
   @override
-  String get ach_doc_25_desc => 'Paperwork and all... You blew through 25 documents in your archive.';
+  String get ach_doc_25_desc =>
+      'Papierkram und so ... Sie haben 25 Dokumente in Ihrem Archiv durchgeblättert.';
 
   @override
   String get ach_doc_50_title => 'Professional';
 
   @override
-  String get ach_doc_50_desc => 'Forget secretarial work, this is what a professional filing knight looks like.';
+  String get ach_doc_50_desc =>
+      'Vergessen Sie die Sekretariatsarbeit, so sieht ein professioneller Aktenführer aus.';
 
   @override
-  String get ach_doc_100_title => 'Vault Master';
+  String get ach_doc_100_title => 'Tresormeister';
 
   @override
-  String get ach_doc_100_desc => '100 documents? Time to appoint a librarian for this massive archive. 📚';
+  String get ach_doc_100_desc =>
+      '100 Dokumente? Es ist Zeit, einen Bibliothekar für dieses riesige Archiv zu ernennen. 📚';
 
   @override
-  String get ach_doc_250_title => 'Data Collector';
+  String get ach_doc_250_title => 'Datensammler';
 
   @override
-  String get ach_doc_250_desc => 'Welcome to Big Data scenarios. You rule the stacks.';
+  String get ach_doc_250_desc =>
+      'Willkommen bei Big-Data-Szenarien. Sie beherrschen die Stapel.';
 
   @override
-  String get ach_doc_500_title => 'Digital Archive Expert';
+  String get ach_doc_500_title => 'Experte für digitale Archive';
 
   @override
-  String get ach_doc_500_desc => 'Digital Library of Alexandria! Your archives will live for generations.';
+  String get ach_doc_500_desc =>
+      'Digitale Bibliothek von Alexandria! Ihre Archive werden Generationen überdauern.';
 
   @override
-  String get ach_med_1_title => 'First Med';
+  String get ach_med_1_title => 'Erstes Med';
 
   @override
-  String get ach_med_1_desc => 'You started valuing yourself. A great milestone for your health.';
+  String get ach_med_1_desc =>
+      'Du hast angefangen, dich selbst wertzuschätzen. Ein toller Meilenstein für Ihre Gesundheit.';
 
   @override
-  String get ach_med_3_title => 'Tracking Started';
+  String get ach_med_3_title => 'Tracking gestartet';
 
   @override
-  String get ach_med_3_desc => 'Loyal to your prescription. Sip water and never miss reminders.';
+  String get ach_med_3_desc =>
+      'Getreu Ihrem Rezept. Trinken Sie Wasser und verpassen Sie keine Erinnerungen mehr.';
 
   @override
-  String get ach_med_5_title => 'Regular User';
+  String get ach_med_5_title => 'Normaler Benutzer';
 
   @override
-  String get ach_med_5_desc => 'Pharmacists\' favorite customer! You maintain your form carefully.';
+  String get ach_med_5_desc =>
+      'Der Lieblingskunde der Apotheker! Sie pflegen Ihr Formular sorgfältig.';
 
   @override
-  String get ach_med_10_title => 'Disciplined';
+  String get ach_med_10_title => 'Diszipliniert';
 
   @override
-  String get ach_med_10_desc => 'Meds on time, your body works like a clock. 10 times confirmed!';
+  String get ach_med_10_desc =>
+      'Pünktlich Medikamente einnehmen, Ihr Körper funktioniert wie eine Uhr. 10 Mal bestätigt!';
 
   @override
-  String get ach_med_25_title => 'Health Expert';
+  String get ach_med_25_title => 'Gesundheitsexperte';
 
   @override
-  String get ach_med_25_desc => 'You understand your body\'s language. Med log became an art for you.';
+  String get ach_med_25_desc =>
+      'Sie verstehen die Sprache Ihres Körpers. Med Log wurde für Sie zur Kunst.';
 
   @override
-  String get ach_med_50_title => 'Health Master';
+  String get ach_med_50_title => 'Gesundheitsmeister';
 
   @override
-  String get ach_med_50_desc => 'Even doctors envy your discipline. You are the master of your body chemistry! 🧬';
+  String get ach_med_50_desc =>
+      'Sogar Ärzte beneiden Sie um Ihre Disziplin. Sie sind der Meister Ihrer Körperchemie! 🧬';
 
   @override
-  String get ach_app_1_title => 'First Appt';
+  String get ach_app_1_title => 'Erste Appt';
 
   @override
-  String get ach_app_1_desc => 'No success without naturally planning! First calendar entry safely taken.';
+  String get ach_app_1_desc =>
+      'Kein Erfolg ohne natürliche Planung! Erster Kalendereintrag sicher übernommen.';
 
   @override
-  String get ach_app_3_title => 'Planning';
+  String get ach_app_3_title => 'Planung';
 
   @override
-  String get ach_app_3_desc => 'Time Management 101. You rise by staying loyal to your plans.';
+  String get ach_app_3_desc =>
+      'Zeitmanagement 101. Sie steigen auf, indem Sie Ihren Plänen treu bleiben.';
 
   @override
-  String get ach_app_5_title => 'Organized';
+  String get ach_app_5_title => 'Organisiert';
 
   @override
-  String get ach_app_5_desc => 'Your agenda is filling up. That busy but charismatic person is definitely you.';
+  String get ach_app_5_desc =>
+      'Ihr Terminkalender füllt sich. Diese vielbeschäftigte, aber charismatische Person sind definitiv Sie.';
 
   @override
-  String get ach_app_10_title => 'Disciplined Planner';
+  String get ach_app_10_title => 'Disziplinierter Planer';
 
   @override
-  String get ach_app_10_desc => 'No need for alarms, there\'s an atomic clock inside your head.';
+  String get ach_app_10_desc =>
+      'Kein Alarm nötig, in deinem Kopf läuft eine Atomuhr.';
 
   @override
-  String get ach_app_20_title => 'Planner Pro';
+  String get ach_app_20_title => 'Planer Pro';
 
   @override
-  String get ach_app_20_desc => 'Everything is clear to the minute... You\'re like a digital assistant!';
+  String get ach_app_20_desc =>
+      'Alles ist auf die Minute genau klar... Du bist wie ein digitaler Assistent!';
 
   @override
-  String get ach_app_30_title => 'Master Planner';
+  String get ach_app_30_title => 'Masterplaner';
 
   @override
-  String get ach_app_30_desc => 'Time bender! It seems impossible for one person to manage these appts... but it wasn\'t.';
+  String get ach_app_30_desc =>
+      'Zeitverzerrer! Für eine einzelne Person scheint es unmöglich, diese Anwendungen zu verwalten … aber das war nicht der Fall.';
 
   @override
-  String get ach_profile_created_title => 'Profile Created';
+  String get ach_profile_created_title => 'Profil erstellt';
 
   @override
-  String get ach_profile_created_desc => 'Officially joined us. You already made your digital mark!';
+  String get ach_profile_created_desc =>
+      'Offiziell beigetreten. Sie haben sich bereits einen digitalen Namen gemacht!';
 
   @override
-  String get ach_profile_completed_title => 'Profile Completed';
+  String get ach_profile_completed_title => 'Profil abgeschlossen';
 
   @override
-  String get ach_profile_completed_desc => 'You hate missing gaps, right? All info is perfectly full.';
+  String get ach_profile_completed_desc =>
+      'Du hasst es, Lücken zu verpassen, oder? Alle Informationen sind vollkommen vollständig.';
 
   @override
-  String get ach_profile_updated_title => 'Profile Updated';
+  String get ach_profile_updated_title => 'Profil aktualisiert';
 
   @override
-  String get ach_profile_updated_desc => 'Change is progress! You stayed in the game by refreshing yourself.';
+  String get ach_profile_updated_desc =>
+      'Veränderung ist Fortschritt! Du bist im Spiel geblieben, indem du dich erfrischt hast.';
 
   @override
-  String get ach_profile_with_photo_title => 'Profile Photo';
+  String get ach_profile_with_photo_title => 'Profilfoto';
 
   @override
-  String get ach_profile_with_photo_desc => 'Saved from being a faceless avatar. Smile for the camera! 📸';
+  String get ach_profile_with_photo_desc =>
+      'Davor gerettet, ein gesichtsloser Avatar zu sein. Lächle in die Kamera! 📸';
 
   @override
-  String get ach_profile_master_title => 'Profile Master';
+  String get ach_profile_master_title => 'Profilmeister';
 
   @override
-  String get ach_profile_master_desc => 'With your identity and bio, you are the sleekest user in the system.';
+  String get ach_profile_master_desc =>
+      'Mit Ihrer Identität und Biografie sind Sie der eleganteste Benutzer im System.';
 
   @override
-  String get ach_emergency_added_title => 'Emergency Card Added';
+  String get ach_emergency_added_title => 'Notfallkarte hinzugefügt';
 
   @override
-  String get ach_emergency_added_desc => 'Precaution is never left behind. Your emergency shield is active.';
+  String get ach_emergency_added_desc =>
+      'Die Vorsichtsmaßnahme wird niemals auf der Strecke gelassen. Ihr Notfallschild ist aktiv.';
 
   @override
-  String get ach_emergency_contact_title => 'Emergency Contact';
+  String get ach_emergency_contact_title => 'Notfallkontakt';
 
   @override
-  String get ach_emergency_contact_desc => 'It\'s clear who to call in tough times. Circle of trust created. 📞';
+  String get ach_emergency_contact_desc =>
+      'Es ist klar, wen man in schwierigen Zeiten anrufen muss. Es entsteht ein Vertrauenskreis. 📞';
 
   @override
-  String get ach_emergency_complete_title => 'Completed';
+  String get ach_emergency_complete_title => 'Vollendet';
 
   @override
-  String get ach_emergency_complete_desc => 'Ready for scenarios. Security level at the highest.';
+  String get ach_emergency_complete_desc =>
+      'Bereit für Szenarien. Sicherheitsniveau auf höchstem Niveau.';
 
   @override
-  String get ach_emergency_ready_title => 'Ready';
+  String get ach_emergency_ready_title => 'Bereit';
 
   @override
-  String get ach_emergency_ready_desc => 'Everything will work like a clock in red alert. Safely secured.';
+  String get ach_emergency_ready_desc =>
+      'Alles wird wie eine Uhr in Alarmbereitschaft funktionieren. Sicher gesichert.';
 
   @override
-  String get ach_emergency_master_title => 'Emergency Master';
+  String get ach_emergency_master_title => 'Notfallmeister';
 
   @override
-  String get ach_emergency_master_desc => 'Tough and cool enough to manage first aid before an ambulance arrives!';
+  String get ach_emergency_master_desc =>
+      'Robust und cool genug, um Erste Hilfe zu leisten, bevor ein Krankenwagen eintrifft!';
 
   @override
-  String get ach_health_1_title => 'First Data';
+  String get ach_health_1_title => 'Erste Daten';
 
   @override
-  String get ach_health_1_desc => 'You did yourself a favor today. Your body thanks you from the inside.';
+  String get ach_health_1_desc =>
+      'Du hast dir heute einen Gefallen getan. Ihr Körper dankt es Ihnen von innen.';
 
   @override
-  String get ach_health_5_title => 'Tracking Started';
+  String get ach_health_5_title => 'Tracking gestartet';
 
   @override
-  String get ach_health_5_desc => 'Data is piling up, you are advancing your conversation with your biorhythm.';
+  String get ach_health_5_desc =>
+      'Die Daten häufen sich, Sie treiben Ihr Gespräch mit Ihrem Biorhythmus voran.';
 
   @override
-  String get ach_health_10_title => 'Health Conscious';
+  String get ach_health_10_title => 'Gesundheitsbewusst';
 
   @override
-  String get ach_health_10_desc => 'You are a statistical wonder! Your body reads like an encrypted book. 📈';
+  String get ach_health_10_desc =>
+      'Du bist ein statistisches Wunder! Ihr Körper liest sich wie ein verschlüsseltes Buch. 📈';
 
   @override
-  String get ach_health_20_title => 'Regular Tracking';
+  String get ach_health_20_title => 'Regelmäßige Nachverfolgung';
 
   @override
-  String get ach_health_20_desc => 'You are like a machine. Pulse, metrics, steps... none escape your sensors.';
+  String get ach_health_20_desc =>
+      'Du bist wie eine Maschine. Puls, Messwerte, Schritte ... nichts entgeht Ihren Sensoren.';
 
   @override
-  String get ach_health_50_title => 'Health Expert';
+  String get ach_health_50_title => 'Gesundheitsexperte';
 
   @override
-  String get ach_health_50_desc => 'Approaching Cyborg level. The bond between you and your bio-data is unbreakable.';
+  String get ach_health_50_desc =>
+      'Annäherung an Cyborg-Niveau. Die Bindung zwischen Ihnen und Ihren Biodaten ist unzerbrechlich.';
 
   @override
-  String get ach_health_master_title => 'Health Master';
+  String get ach_health_master_title => 'Gesundheitsmeister';
 
   @override
-  String get ach_health_master_desc => 'High priest of the temple! You established absolute mastery over your own body. 🧘';
+  String get ach_health_master_desc =>
+      'Hohepriester des Tempels! Du hast die absolute Herrschaft über deinen eigenen Körper erlangt. 🧘';
 
   @override
-  String get ach_first_login_title => 'Welcome';
+  String get ach_first_login_title => 'Willkommen';
 
   @override
-  String get ach_first_login_desc => 'The actual adventure is just beginning. You just stepped inside.';
+  String get ach_first_login_desc =>
+      'Das eigentliche Abenteuer fängt gerade erst an. Du bist gerade eingetreten.';
 
   @override
-  String get ach_first_upload_title => 'Explorer';
+  String get ach_first_upload_title => 'Forscher';
 
   @override
-  String get ach_first_upload_desc => 'Left your first permanent mark. You are engraved here now.';
+  String get ach_first_upload_desc =>
+      'Du hast deine ersten bleibenden Spuren hinterlassen. Sie sind jetzt hier eingraviert.';
 
   @override
-  String get ach_first_ad_title => 'Free User';
+  String get ach_first_ad_title => 'Kostenloser Benutzer';
 
   @override
-  String get ach_first_ad_desc => 'First ad interaction! You gave lifeblood to the ecosystem.';
+  String get ach_first_ad_desc =>
+      'Erste Werbeinteraktion! Sie haben dem Ökosystem Lebenskraft gegeben.';
 
   @override
-  String get ach_first_premium_title => 'Premium User';
+  String get ach_first_premium_title => 'Premium-Benutzer';
 
   @override
-  String get ach_first_premium_desc => 'A matter of vision. Enjoy the VIP lounge, the red carpet is rolled out! 🎟️';
+  String get ach_first_premium_desc =>
+      'Eine Frage der Vision. Genießen Sie die VIP-Lounge, der rote Teppich ist ausgerollt! 🎟️';
 
   @override
-  String get ach_active_3_days_title => 'Active';
+  String get ach_active_3_days_title => 'Aktiv';
 
   @override
-  String get ach_active_3_days_desc => 'Cables are warming up, engines started. We feel your energy.';
+  String get ach_active_3_days_desc =>
+      'Die Kabel werden warm, die Motoren starten. Wir spüren deine Energie.';
 
   @override
-  String get ach_active_7_days_title => 'Loyal';
+  String get ach_active_7_days_title => 'Treu';
 
   @override
-  String get ach_active_7_days_desc => 'Synchronized with the system for a whole week. Things got electric!';
+  String get ach_active_7_days_desc =>
+      'Eine ganze Woche lang mit dem System synchronisiert. Es wurde elektrisch!';
 
   @override
-  String get ach_active_30_days_title => 'Core User';
+  String get ach_active_30_days_title => 'Hauptbenutzer';
 
   @override
-  String get ach_active_30_days_desc => 'Practically honorary staff now. This place wouldn\'t be the same without you.';
+  String get ach_active_30_days_desc =>
+      'Mittlerweile praktisch ehrenamtlich tätig. Ohne Sie wäre dieser Ort nicht derselbe.';
 
   @override
-  String get ach_streak_saved_title => 'Streak Savior';
+  String get ach_streak_saved_title => 'Streak-Retter';
 
   @override
-  String get ach_streak_saved_desc => 'Returned from the edge! Saving that beautiful streak was a great reflex.';
+  String get ach_streak_saved_desc =>
+      'Vom Rand zurückgekehrt! Diese schöne Serie zu retten war ein toller Reflex.';
 
   @override
-  String get ach_streak_saved_5_title => 'Resilient';
+  String get ach_streak_saved_5_title => 'Robust';
 
   @override
-  String get ach_streak_saved_5_desc => 'Not falling despite battle scars, you know how to rise when you stumble.';
+  String get ach_streak_saved_5_desc =>
+      'Trotz der Narben des Kampfes fällst du nicht und weißt, wie du wieder auferstehen kannst, wenn du stolperst.';
 
   @override
-  String get ach_streak_saved_10_title => 'Never Gives Up';
+  String get ach_streak_saved_10_title => 'Gibt niemals auf';
 
   @override
-  String get ach_streak_saved_10_desc => 'Are you a Phoenix? Rising from ashes is just a typical Tuesday activity for you. 🐦🔥';
+  String get ach_streak_saved_10_desc =>
+      'Bist du ein Phönix? Aus der Asche aufzuerstehen ist für Sie nur eine typische Dienstagsaktivität. 🐦🔥';
 
   @override
-  String get ach_streak_perfect_30_title => 'Perfect Streak';
+  String get ach_streak_perfect_30_title => 'Perfekter Streak';
 
   @override
-  String get ach_streak_perfect_30_desc => 'Not a single miss. You were perfect for 30 whole days, like a Swiss watch!';
+  String get ach_streak_perfect_30_desc =>
+      'Kein einziger Fehlschlag. Du warst 30 Tage lang perfekt, wie eine Schweizer Uhr!';
 
   @override
-  String get ach_premium_trial_used_title => 'Premium Experience';
+  String get ach_premium_trial_used_title => 'Premium-Erlebnis';
 
   @override
-  String get ach_premium_trial_used_desc => 'Opened the door to privileges. The view is mesmerizing, isn\'t it?';
+  String get ach_premium_trial_used_desc =>
+      'Öffnete die Tür zu Privilegien. Die Aussicht ist faszinierend, nicht wahr?';
 
   @override
-  String get ach_limit_breaker_title => 'Limit Breaker';
+  String get ach_limit_breaker_title => 'Grenzbrecher';
 
   @override
-  String get ach_limit_breaker_desc => 'Rules and limits are meant to be bent. You stepped out of the Matrix! 💥';
+  String get ach_limit_breaker_desc =>
+      'Regeln und Grenzen sind dazu da, gebogen zu werden. Du bist aus der Matrix herausgetreten! 💥';
 
   @override
-  String get ach_ad_skip_used_title => 'Ad Skip';
+  String get ach_ad_skip_used_title => 'Anzeigen überspringen';
 
   @override
-  String get ach_ad_skip_used_desc => 'You said I have no time for this, fast-forwarded time with one click.';
+  String get ach_ad_skip_used_desc =>
+      'Sie sagten, ich hätte dafür keine Zeit, spulen Sie die Zeit mit einem Klick vor.';
 
   @override
-  String get ach_reward_collector_title => 'Reward Collector';
+  String get ach_reward_collector_title => 'Belohnungssammler';
 
   @override
-  String get ach_reward_collector_desc => 'Scavenged every reward in corner. A true loot hunter! 🎁';
+  String get ach_reward_collector_desc =>
+      'Alle Belohnungen in der Ecke geplündert. Ein wahrer Beutejäger! 🎁';
 
   @override
-  String get ach_multi_feature_user_title => 'Multi Feature User';
+  String get ach_multi_feature_user_title => 'Multi-Feature-Benutzer';
 
   @override
-  String get ach_multi_feature_user_desc => 'Not a single button left untouched, curious explorer!';
+  String get ach_multi_feature_user_desc =>
+      'Kein einziger Knopf blieb unberührt, neugieriger Entdecker!';
 
   @override
-  String get ach_data_master_title => 'Data Master';
+  String get ach_data_master_title => 'Datenmaster';
 
   @override
-  String get ach_data_master_desc => 'Bytes and bits take shape around you. Absolute master of system data.';
+  String get ach_data_master_desc =>
+      'Um Sie herum nehmen Bytes und Bits Gestalt an. Absoluter Herr der Systemdaten.';
 
   @override
-  String get ach_organized_master_title => 'Ultra Organized';
+  String get ach_organized_master_title => 'Ultra organisiert';
 
   @override
-  String get ach_organized_master_desc => 'Marie Kondo would tip her hat to your order. Everything is millimetric.';
+  String get ach_organized_master_desc =>
+      'Marie Kondo würde vor Ihrer Bestellung ihren Hut ziehen. Alles ist millimetergenau.';
 
   @override
-  String get ach_security_master_title => 'Security Expert';
+  String get ach_security_master_title => 'Sicherheitsexperte';
 
   @override
-  String get ach_security_master_desc => 'Your account is a fortress, your passwords a cyber army. Intrusion is impossible! 🔐';
+  String get ach_security_master_desc =>
+      'Ihr Konto ist eine Festung, Ihre Passwörter eine Cyberarmee. Ein Eindringen ist unmöglich! 🔐';
 
   @override
-  String get ach_daily_master_title => 'Daily Master';
+  String get ach_daily_master_title => 'Täglicher Meister';
 
   @override
-  String get ach_daily_master_desc => 'Legendary loyal user who sees the sun and stars with us every day.';
+  String get ach_daily_master_desc =>
+      'Legendärer treuer Benutzer, der jeden Tag mit uns die Sonne und die Sterne sieht.';
 
   @override
-  String get backup_restore => 'Backup & Restore';
+  String get backup_restore => 'Sichern und Wiederherstellen';
 
   @override
-  String get backup_desc_settings => 'Encrypted local backup for this device only';
+  String get backup_desc_settings =>
+      'Verschlüsseltes lokales Backup nur für dieses Gerät';
 
   @override
-  String get smart_notifications => 'Smart Notifications';
+  String get smart_notifications => 'Intelligente Benachrichtigungen';
 
   @override
-  String get smart_streak_warning => '🔥 Streak is about to be lost! Why not check your data?';
+  String get smart_streak_warning =>
+      '🔥 Der Streak ist bald verloren! Warum prüfen Sie nicht Ihre Daten?';
 
   @override
-  String get smart_ad_reward => '🎁 Watch 1 ad → +5 limit! A new opportunity for you today.';
+  String get smart_ad_reward =>
+      '🎁 1 Anzeige ansehen → +5 Limit! Heute eine neue Chance für Sie.';
 
   @override
-  String get smart_doc_bonus => '📂 Add 1 document today → get a bonus! Keep everything safe.';
+  String get smart_doc_bonus =>
+      '📂 Fügen Sie noch heute 1 Dokument hinzu → erhalten Sie einen Bonus! Bewahren Sie alles sicher auf.';
 
   @override
-  String get smart_default => '👀 A small update is waiting for you, what can we do today?';
+  String get smart_default =>
+      '👀 Ein kleines Update wartet auf dich, was können wir heute tun?';
 
   @override
-  String get notif_bonus_ready => '🎁 Bonus waiting for you! Thanks for your help.';
+  String get notif_bonus_ready =>
+      '🎁 Bonus wartet auf Sie! Vielen Dank für Ihre Hilfe.';
 
   @override
-  String get notif_doc_safe => '🔥 Good job, your documents are safe! Keep going!';
+  String get notif_doc_safe =>
+      '🔥Gute Arbeit, Ihre Dokumente sind sicher! Weitermachen!';
 
   @override
   String level_up_desc(int level) {
-    return 'You reached Level $level! Check your Season Pass for new rewards.';
+    return 'Du hast Level $level erreicht! Schauen Sie in Ihrem Season Pass nach neuen Belohnungen.';
   }
 
   @override
-  String get notifications_active_msg => 'Notifications are active 🔔';
+  String get notifications_active_msg => 'Benachrichtigungen sind aktiv 🔔';
 
   @override
-  String get show_sensitive_details => 'Show details in notification';
+  String get show_sensitive_details =>
+      'Details in der Benachrichtigung anzeigen';
 
   @override
-  String get sensitive_details_visible => 'Medicine name is visible';
+  String get sensitive_details_visible =>
+      'Der Name des Arzneimittels ist sichtbar';
 
   @override
-  String get sensitive_details_hidden => 'Hidden (recommended)';
+  String get sensitive_details_hidden => 'Versteckt (empfohlen)';
 
   @override
-  String get quiet_hours => 'Quiet Hours';
+  String get quiet_hours => 'Ruhige Stunden';
 
   @override
-  String get quiet_hours_msg => 'We won\'t disturb you tonight 🌙';
+  String get quiet_hours_msg => 'Wir werden euch heute Abend nicht stören 🌙';
 
   @override
-  String get test_notification => 'Test Notification';
+  String get test_notification => 'Testbenachrichtigung';
 
   @override
-  String get test_notification_desc => 'Test the system immediately';
+  String get test_notification_desc => 'Testen Sie das System sofort';
 
   @override
-  String get test_notification_body => 'This is a test notification';
+  String get test_notification_body => 'Dies ist eine Testbenachrichtigung';
 
   @override
-  String get app_lock_unavailable => 'App lock is unavailable on this device.';
+  String get app_lock_unavailable =>
+      'Die App-Sperre ist auf diesem Gerät nicht verfügbar.';
 
   @override
-  String get backup_restore_desc => 'You can backup or restore your data encrypted. Backups are stored only on your device.';
+  String get backup_restore_desc =>
+      'Sie können Ihre Daten verschlüsselt sichern oder wiederherstellen. Backups werden nur auf Ihrem Gerät gespeichert.';
 
   @override
-  String get backup_export => 'Export Backup';
+  String get backup_export => 'Backup exportieren';
 
   @override
-  String get backup_export_desc => 'Create an encrypted ZIP backup';
+  String get backup_export_desc =>
+      'Erstellen Sie ein verschlüsseltes ZIP-Backup';
 
   @override
-  String get backup_import => 'Import Backup';
+  String get backup_import => 'Backup importieren';
 
   @override
-  String get backup_import_desc => 'Restore from an existing ZIP backup';
+  String get backup_import_desc =>
+      'Wiederherstellung aus einem vorhandenen ZIP-Backup';
 
   @override
-  String get warning => 'Warning';
+  String get warning => 'Warnung';
 
   @override
-  String get import_warning_desc => 'Restoring a backup will DELETE your current data and cannot be undone. Do you want to continue?';
+  String get import_warning_desc =>
+      'Das Wiederherstellen einer Sicherung löscht Ihre aktuellen Daten und kann nicht rückgängig gemacht werden. Möchten Sie fortfahren?';
 
   @override
-  String get yes_restore => 'Yes, Restore';
+  String get yes_restore => 'Ja, Wiederherstellen';
 
   @override
-  String get start_time => 'Start Time';
+  String get start_time => 'Startzeit';
 
   @override
-  String get end_time => 'End Time';
+  String get end_time => 'Endzeit';
 
   @override
-  String get email => 'Email';
+  String get email => 'E-Mail';
 
   @override
-  String get phone => 'Phone';
+  String get phone => 'Telefon';
 
   @override
-  String get add_record_success => 'Record saved successfully!';
+  String get add_record_success => 'Datensatz erfolgreich gespeichert!';
 
   @override
-  String get delete_confirm => 'Are you sure you want to delete this record?';
+  String get delete_confirm =>
+      'Sind Sie sicher, dass Sie diesen Datensatz löschen möchten?';
 
   @override
-  String get plus_5_slots => '+5 Slots Earned! 🚀';
+  String get plus_5_slots => '+5 Slots verdient! 🚀';
 
   @override
-  String get watch_to_unlock => 'Watch to unlock';
+  String get watch_to_unlock => 'Zum Entsperren ansehen';
 
   @override
   String remaining_days(int days) {
-    return 'Remaining: $days days';
+    return 'Verbleibend: $days Tage';
   }
 
   @override
-  String get add_1_day_success => '+1 day added! 🎉';
+  String get add_1_day_success => '+1 Tag hinzugefügt! 🎉';
 
   @override
-  String get plus_1_day => '+1 Day';
+  String get plus_1_day => '+1 Tag';
 
   @override
-  String get watch => 'WATCH';
+  String get watch => 'BETRACHTEN';
 
   @override
-  String get unlock_theme_question => 'Would you like to use this theme for 5 days for free?';
+  String get unlock_theme_question =>
+      'Möchten Sie dieses Theme 5 Tage lang kostenlos nutzen?';
 
   @override
-  String get watch_ad_plus_5 => 'WATCH AD (+5 days)';
+  String get watch_ad_plus_5 => 'ANZEIGE ANSEHEN (+5 Tage)';
 
   @override
-  String get preview_5s => 'Preview (5s)';
+  String get preview_5s => 'Vorschau (5s)';
 
   @override
-  String get free_secure_release => 'Free secure release';
+  String get free_secure_release => 'Kostenlose sichere Veröffentlichung';
 
   @override
-  String get encrypted_local_desc => 'Your encrypted documents stay local on this device. Ads support the free version.';
+  String get encrypted_local_desc =>
+      'Ihre verschlüsselten Dokumente bleiben lokal auf diesem Gerät. Anzeigen unterstützen die kostenlose Version.';
 
   @override
-  String get premium_soon => 'PREMIUM SOON';
+  String get premium_soon => 'PREMIUM BALD';
 
   @override
-  String get label_title => 'TITLE';
+  String get label_title => 'TITEL';
 
   @override
-  String get label_location => 'LOCATION / INSTITUTION (OPTIONAL)';
+  String get label_location => 'STANDORT / INSTITUTION (OPTIONAL)';
 
   @override
-  String get label_person => 'RELATED PERSON (OPTIONAL)';
+  String get label_person => 'Nahestehende Person (optional)';
 
   @override
-  String get label_date_time => 'DATE & TIME';
+  String get label_date_time => 'DATUM & ZEIT';
 
   @override
-  String get label_importance => 'IMPORTANCE';
+  String get label_importance => 'BEDEUTUNG';
 
   @override
-  String get label_reminder => 'REMINDER';
+  String get label_reminder => 'ERINNERUNG';
 
   @override
-  String get label_repeat => 'REPEAT';
+  String get label_repeat => 'WIEDERHOLEN';
 
   @override
-  String get label_notes => 'NOTES (OPTIONAL)';
+  String get label_notes => 'HINWEISE (OPTIONAL)';
 
   @override
-  String get hint_title => 'e.g. Doctor appointment, Meeting...';
+  String get hint_title => 'z.B. Arzttermin, Treffen...';
 
   @override
-  String get hint_location => 'Office, Home, Online, Hospital...';
+  String get hint_location => 'Büro, Zuhause, Online, Krankenhaus...';
 
   @override
-  String get hint_person => 'Name, Doctor, Lawyer...';
+  String get hint_person => 'Name, Arzt, Anwalt...';
 
   @override
-  String get hint_notes => 'Details, reminders...';
+  String get hint_notes => 'Details, Erinnerungen...';
 
   @override
-  String get suggest_doctor => 'Doctor';
+  String get suggest_doctor => 'Arzt';
 
   @override
-  String get suggest_meeting => 'Meeting';
+  String get suggest_meeting => 'Treffen';
 
   @override
-  String get suggest_personal => 'Personal';
+  String get suggest_personal => 'Persönlich';
 
   @override
   String get importance_low => 'Normal';
 
   @override
-  String get importance_medium => 'Important';
+  String get importance_medium => 'Wichtig';
 
   @override
-  String get importance_high => 'Critical';
+  String get importance_high => 'Kritisch';
 
   @override
-  String get reminder_10m => '10 min before';
+  String get reminder_10m => '10 Minuten vorher';
 
   @override
-  String get reminder_1h => '1 hour before';
+  String get reminder_1h => '1 Stunde vorher';
 
   @override
-  String get reminder_1d => '1 day before';
+  String get reminder_1d => '1 Tag vorher';
 
   @override
-  String get repeat_none => 'None';
+  String get repeat_none => 'Keiner';
 
   @override
-  String get repeat_daily => 'Daily';
+  String get repeat_daily => 'Täglich';
 
   @override
-  String get repeat_weekly => 'Weekly';
+  String get repeat_weekly => 'Wöchentlich';
 
   @override
-  String get label_date_added => 'DATE ADDED';
+  String get label_date_added => 'DATUM HINZUGEFÜGT';
 
   @override
-  String get label_document_date => 'DOCUMENT DATE';
+  String get label_document_date => 'DOKUMENTENDATUM';
 
   @override
-  String get download_to_device => 'DOWNLOAD TO DEVICE';
+  String get download_to_device => 'AUF GERÄT HERUNTERLADEN';
 
   @override
-  String get delete_permanently => 'DELETE PERMANENTLY';
+  String get delete_permanently => 'DAUERHAFT LÖSCHEN';
 
   @override
-  String get save_document => 'Save Document';
+  String get save_document => 'Dokument speichern';
 
   @override
-  String get success_doc_saved => 'Document saved successfully!';
+  String get success_doc_saved => 'Dokument erfolgreich gespeichert!';
 
   @override
   String error_failed_download(String error) {
-    return 'Failed to download: $error';
+    return 'Herunterladen fehlgeschlagen: $error';
   }
 
   @override
-  String get btn_add => 'Add';
+  String get btn_add => 'Hinzufügen';
 
   @override
-  String get docs_tag_lab => 'Lab Result';
+  String get docs_tag_lab => 'Laborergebnis';
 
   @override
-  String get docs_tag_radiology => 'Radiology';
+  String get docs_tag_radiology => 'Radiologie';
 
   @override
-  String get docs_tag_prescription => 'Prescription';
+  String get docs_tag_prescription => 'Rezept';
 
   @override
-  String get docs_tag_report => 'Doctor Report';
+  String get docs_tag_report => 'Arztbericht';
 
   @override
-  String get docs_tag_operation => 'Operation';
+  String get docs_tag_operation => 'Betrieb';
 
   @override
-  String get docs_tag_vaccination => 'Vaccination';
+  String get docs_tag_vaccination => 'Impfung';
 
   @override
-  String get docs_tag_other => 'Other';
+  String get docs_tag_other => 'Andere';
 
   @override
-  String get season_pass => 'Season Pass';
+  String get season_pass => 'Saisonpass';
 
   @override
   String level_label(int level) {
-    return 'Level $level';
+    return 'Ebene $level';
   }
 
   @override
-  String get premium_reward => 'Premium Reward';
+  String get premium_reward => 'Premium-Belohnung';
 
   @override
-  String get free_reward => 'Free Reward';
+  String get free_reward => 'Kostenlose Belohnung';
 
   @override
-  String get claim => 'CLAIM';
+  String get claim => 'BEANSPRUCHEN';
 
   @override
   String reward_doc_slots(int value) {
-    return '+$value Docs';
+    return '+$value Dokumente';
   }
 
   @override
-  String get premium_unavailable_title => 'Premium is not available in this release.';
+  String get premium_unavailable_title =>
+      'Premium ist in dieser Version nicht verfügbar.';
 
   @override
-  String get premium_unavailable_desc => 'VitaCase currently ships as a free app with local encrypted storage, ads, and optional reminders.';
+  String get premium_unavailable_desc =>
+      'VitaCase wird derzeit als kostenlose App mit lokalem verschlüsseltem Speicher, Anzeigen und optionalen Erinnerungen geliefert.';
 
   @override
-  String get btn_close => 'Close';
+  String get btn_close => 'Schließen';
 
   @override
-  String get accept => 'Accept';
+  String get accept => 'Akzeptieren';
 
   @override
-  String get btn_save => 'Save';
+  String get btn_save => 'Speichern';
 
   @override
   String get doctor_title_dr => 'Dr.';
 
   @override
-  String get doctor_title_uzm => 'Spec. Dr.';
+  String get doctor_title_uzm => 'Spez. Dr.';
 
   @override
   String get doctor_title_op => 'Op. Dr.';
@@ -2143,10 +2294,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get hint_doctor_name => 'Dr. John Doe';
 
   @override
-  String get hint_specialty => 'Cardiology';
+  String get hint_specialty => 'Kardiologie';
 
   @override
-  String get hint_hospital => 'City Hospital';
+  String get hint_hospital => 'Stadtkrankenhaus';
 
   @override
   String get hint_phone => '+1 (555) 000-0000';
@@ -2155,605 +2306,657 @@ class AppLocalizationsDe extends AppLocalizations {
   String get hint_email => 'john.doe@hospital.com';
 
   @override
-  String get hint_address => 'Main St. No:12...';
+  String get hint_address => 'Hauptstraße Nr. 12...';
 
   @override
-  String get hint_personal_notes => 'Notes about the doctor...';
+  String get hint_personal_notes => 'Hinweise zum Arzt...';
 
   @override
-  String get ad_reward_not_earned => 'Reward not earned. Please finish the ad to continue.';
+  String get ad_reward_not_earned =>
+      'Belohnung nicht verdient. Bitte beenden Sie die Anzeige, um fortzufahren.';
 
   @override
-  String get ad_unavailable => 'Ad unavailable.';
+  String get ad_unavailable => 'Anzeige nicht verfügbar.';
 
   @override
-  String get ad_failed => 'The rewarded ad could not be shown. Please try again.';
+  String get ad_failed =>
+      'Die belohnte Anzeige konnte nicht angezeigt werden. Bitte versuchen Sie es erneut.';
 
   @override
-  String get ad_watch_btn => 'Continue for free (watch ad)';
+  String get ad_watch_btn => 'Kostenlos weitermachen (Anzeige ansehen)';
 
   @override
-  String get btn_not_now => 'Not now';
+  String get btn_not_now => 'Nicht jetzt';
 
   @override
   String get theme_system => 'System';
 
   @override
-  String get theme_light => 'Light';
+  String get theme_light => 'Licht';
 
   @override
-  String get theme_dark => 'Dark';
+  String get theme_dark => 'Dunkel';
 
   @override
   String get lock_timeout_1m => '1 Minute';
 
   @override
-  String get lock_timeout_5m => '5 Minutes';
+  String get lock_timeout_5m => '5 Minuten';
 
   @override
-  String get lock_timeout_15m => '15 Minutes';
+  String get lock_timeout_15m => '15 Minuten';
 
   @override
-  String get error_title_required => 'Title is required';
+  String get error_title_required => 'Titel ist erforderlich';
 
   @override
-  String get notif_app_created_title => '🎯 Appointment Created';
+  String get notif_app_created_title => '🎯 Termin erstellt';
 
   @override
   String notif_app_created_body(String title) {
-    return '$title has been scheduled.';
+    return '$title wurde geplant.';
   }
 
   @override
-  String get notif_app_reminder_title => '📅 Appointment Reminder';
+  String get notif_app_reminder_title => '📅 Terminerinnerung';
 
   @override
   String notif_app_reminder_body(String title) {
-    return 'Your appointment for $title is approaching.';
+    return 'Ihr Termin für $title rückt näher.';
   }
 
   @override
-  String get no_appointments_found => 'No appointments found';
+  String get no_appointments_found => 'Keine Termine gefunden';
 
   @override
-  String get empty_appointments_desc => 'You haven\'t added any appointments yet. Tap the + button to add one.';
+  String get empty_appointments_desc =>
+      'Sie haben noch keine Termine hinzugefügt. Tippen Sie auf die Schaltfläche „+“, um eins hinzuzufügen.';
 
   @override
-  String get empty_appointments_filter_desc => 'No appointments found in this category.';
+  String get empty_appointments_filter_desc =>
+      'In dieser Kategorie wurden keine Termine gefunden.';
 
   @override
-  String get btn_add_appointment => 'ADD APPOINTMENT';
+  String get btn_add_appointment => 'TERMIN HINZUFÜGEN';
 
   @override
-  String get btn_clear_filters => 'CLEAR FILTERS';
+  String get btn_clear_filters => 'Klare Filter';
 
   @override
-  String get delete_confirm_appointment => 'Are you sure you want to delete this appointment?';
+  String get delete_confirm_appointment =>
+      'Sind Sie sicher, dass Sie diesen Termin löschen möchten?';
 
   @override
-  String get create_today_plan => 'Create Today\'s Plan';
+  String get create_today_plan => 'Erstellen Sie den heutigen Plan';
 
   @override
-  String get plan_time_desc => 'Organize your health schedule with ease.';
+  String get plan_time_desc =>
+      'Organisieren Sie Ihren Gesundheitsplan ganz einfach.';
 
   @override
-  String get docs_add_short => 'Add';
+  String get docs_add_short => 'Hinzufügen';
 
   @override
-  String get docs_open => 'OPEN';
+  String get docs_open => 'OFFEN';
 
   @override
-  String get docs_download => 'DOWNLOAD TO DEVICE';
+  String get docs_download => 'AUF GERÄT HERUNTERLADEN';
 
   @override
-  String get docs_delete_perm => 'DELETE PERMANENTLY';
+  String get docs_delete_perm => 'DAUERHAFT LÖSCHEN';
 
   @override
-  String get docs_date_added => 'Date Added';
+  String get docs_date_added => 'Datum hinzugefügt';
 
   @override
-  String get docs_document_date => 'Document Date';
+  String get docs_document_date => 'Dokumentdatum';
 
   @override
-  String get docs_save_success => 'Document saved successfully!';
+  String get docs_save_success => 'Dokument erfolgreich gespeichert!';
 
   @override
   String docs_download_failed(String error) {
-    return 'Failed to download: $error';
+    return 'Herunterladen fehlgeschlagen: $error';
   }
 
   @override
-  String get season_pass_title => 'Season Pass';
+  String get season_pass_title => 'Saisonpass';
 
   @override
   String season_level(int level) {
-    return 'Level $level';
+    return 'Ebene $level';
   }
 
   @override
-  String get claim_reward => 'CLAIM';
+  String get claim_reward => 'BEANSPRUCHEN';
 
   @override
-  String get confirm_agree => 'I Agree';
+  String get confirm_agree => 'Ich stimme zu';
 
   @override
-  String get specialty_department_hint => 'e.g. Cardiology';
+  String get specialty_department_hint => 'z.B. Kardiologie';
 
   @override
-  String get hospital_hint => 'e.g. City Hospital';
+  String get hospital_hint => 'z.B. Stadtkrankenhaus';
 
   @override
-  String get address_hint => 'Street, No, Building...';
+  String get address_hint => 'Straße, Nr., Gebäude...';
 
   @override
-  String get notes_hint => 'Personal notes about the doctor...';
+  String get notes_hint => 'Persönliche Notizen zum Arzt...';
 
   @override
-  String get standard_modes => 'Standard Modes';
+  String get standard_modes => 'Standardmodi';
 
   @override
-  String get premium_palettes => 'Premium Palettes';
+  String get premium_palettes => 'Premium-Paletten';
 
   @override
-  String get apply_theme => 'Apply Theme';
+  String get apply_theme => 'Theme anwenden';
 
   @override
-  String get theme_luxe_sanctuary => 'Luxe Sanctuary';
+  String get theme_luxe_sanctuary => 'Luxuriöses Heiligtum';
 
   @override
-  String get theme_midnight_neon => 'Midnight Neon';
+  String get theme_midnight_neon => 'Mitternachtsneon';
 
   @override
-  String get theme_amethyst_aura => 'Amethyst Aura';
+  String get theme_amethyst_aura => 'Amethyst-Aura';
 
   @override
-  String get theme_emerald_garden => 'Emerald Garden';
+  String get theme_emerald_garden => 'Smaragdgarten';
 
   @override
-  String get theme_ocean_serenity => 'Ocean Serenity';
+  String get theme_ocean_serenity => 'Gelassenheit des Ozeans';
 
   @override
-  String get theme_amber_glow => 'Amber Glow';
+  String get theme_amber_glow => 'Bernsteinfarbenes Leuchten';
 
   @override
-  String get db_recovery_title => 'Data Error';
+  String get db_recovery_title => 'Datenfehler';
 
   @override
-  String get db_recovery_desc => 'Could not access data. Would you like to try again?';
+  String get db_recovery_desc =>
+      'Auf die Daten konnte nicht zugegriffen werden. Möchten Sie es noch einmal versuchen?';
 
   @override
-  String get db_recovery_retry => 'Try Again';
+  String get db_recovery_retry => 'Versuchen Sie es erneut';
 
   @override
-  String get db_recovery_reset => 'Reset';
+  String get db_recovery_reset => 'Zurücksetzen';
 
   @override
-  String get notif_streak_warning_title => 'Check your daily plan';
+  String get notif_streak_warning_title => 'Überprüfen Sie Ihren Tagesplan';
 
   @override
-  String get notif_streak_warning_body => 'Open VitaCase to review today\'s reminders and saved items.';
+  String get notif_streak_warning_body =>
+      'Öffnen Sie VitaCase, um die heutigen Erinnerungen und gespeicherten Elemente zu überprüfen.';
 
   @override
-  String get notif_mission_reminder_title => '🎯 Daily Missions Pending';
+  String get notif_mission_reminder_title => '🎯 Tägliche Missionen ausstehend';
 
   @override
-  String get notif_mission_reminder_body => 'Don\'t miss out on your daily rewards! Complete your tasks now.';
+  String get notif_mission_reminder_body =>
+      'Verpassen Sie nicht Ihre täglichen Belohnungen! Erledigen Sie jetzt Ihre Aufgaben.';
 
   @override
-  String get notif_limit_reached_title => '🚀 Limit Reached';
+  String get notif_limit_reached_title => '🚀 Limit erreicht';
 
   @override
-  String get notif_limit_reached_body => 'You\'ve reached your free limit. Watch a rewarded ad to continue.';
+  String get notif_limit_reached_body =>
+      'Sie haben Ihr Gratislimit erreicht. Sehen Sie sich eine Anzeige mit Prämie an, um fortzufahren.';
 
   @override
-  String get notif_good_morning_title => '🌞 Good Morning!';
+  String get notif_good_morning_title => '🌞 Guten Morgen!';
 
   @override
-  String get notif_good_morning_body => 'Start your day with VitaCase, check your daily tasks.';
+  String get notif_good_morning_body =>
+      'Beginnen Sie Ihren Tag mit VitaCase und überprüfen Sie Ihre täglichen Aufgaben.';
 
   @override
-  String get notif_test_title => 'Test Notification';
+  String get notif_test_title => 'Testbenachrichtigung';
 
   @override
-  String get notif_test_body => 'Your notifications are working perfectly!';
+  String get notif_test_body =>
+      'Ihre Benachrichtigungen funktionieren einwandfrei!';
 
   @override
-  String get notif_appointment_reminder_title => '📅 Appointment Reminder';
+  String get notif_appointment_reminder_title => '📅 Terminerinnerung';
 
   @override
   String notif_appointment_reminder_body(String doctor) {
-    return 'Your appointment for $doctor is approaching.';
+    return 'Ihr Termin für $doctor rückt näher.';
   }
 
   @override
-  String get get_directions => 'Get Directions';
+  String get get_directions => 'Wegbeschreibung abrufen';
 
   @override
-  String get view_details => 'View Details';
+  String get view_details => 'Details anzeigen';
 
   @override
-  String get no_scheduled_meds_today => 'No medications scheduled for today.';
+  String get no_scheduled_meds_today =>
+      'Für heute sind keine Medikamente vorgesehen.';
 
   @override
-  String get add_appointment => 'Add Appointment';
+  String get add_appointment => 'Termin hinzufügen';
 
   @override
-  String get add_document => 'Add Document';
+  String get add_document => 'Dokument hinzufügen';
 
   @override
-  String get ach_login_1_title => 'The Beginning';
+  String get ach_login_1_title => 'Der Anfang';
 
   @override
-  String get people_contacts => 'People & Contacts';
+  String get people_contacts => 'Personen und Kontakte';
 
   @override
-  String get contacts_subtitle => 'People, institutions, and contact records';
+  String get contacts_subtitle =>
+      'Personen, Institutionen und Kontaktdatensätze';
 
   @override
-  String get add_contact_subtitle => 'Add a new person or institution';
+  String get add_contact_subtitle =>
+      'Fügen Sie eine neue Person oder Institution hinzu';
 
   @override
-  String get add_contact => 'Add Person / Contact';
+  String get add_contact => 'Person/Kontakt hinzufügen';
 
   @override
-  String get no_doctor => 'No doctor';
+  String get no_doctor => 'Kein Arzt';
 
   @override
-  String get no_institution => 'No institution';
+  String get no_institution => 'Keine Institution';
 
   @override
-  String get edit_personal_info => 'Edit personal information';
+  String get edit_personal_info => 'Persönliche Informationen bearbeiten';
 
   @override
-  String get personal_info_updated => 'Personal information updated.';
+  String get personal_info_updated => 'Persönliche Daten aktualisiert.';
 
   @override
-  String get edit_important_info => 'Edit important information';
+  String get edit_important_info => 'Bearbeiten Sie wichtige Informationen';
 
   @override
-  String get hint_allergies => 'Separate with commas: Pollen, Penicillin';
+  String get hint_allergies => 'Mit Kommas trennen: Pollen, Penicillin';
 
   @override
-  String get hint_medications => 'Separate with commas: Aspirin, Vitamin D';
+  String get hint_medications => 'Durch Kommas trennen: Aspirin, Vitamin D';
 
   @override
-  String get relationship => 'Relationship';
+  String get relationship => 'Beziehung';
 
   @override
-  String get hint_relationship => 'Spouse, mother, father, sibling...';
+  String get hint_relationship => 'Ehepartner, Mutter, Vater, Geschwister...';
 
   @override
-  String get important_info_updated => 'Important information updated.';
+  String get important_info_updated => 'Wichtige Informationen aktualisiert.';
 
   @override
-  String get reminder_troubleshooting => 'Reminder Troubleshooting';
+  String get reminder_troubleshooting => 'Erinnerung Fehlerbehebung';
 
   @override
-  String get reminder_troubleshooting_desc => 'Check notification, exact alarm, and battery settings';
+  String get reminder_troubleshooting_desc =>
+      'Überprüfen Sie die Benachrichtigung, den genauen Alarm und die Batterieeinstellungen';
 
   @override
-  String get status_checking => 'Checking...';
+  String get status_checking => 'Überprüfung...';
 
   @override
-  String get status_enabled => 'Notification permission is enabled';
+  String get status_enabled =>
+      'Die Benachrichtigungsberechtigung ist aktiviert';
 
   @override
-  String get status_disabled => 'Notification permission is disabled';
+  String get status_disabled =>
+      'Die Benachrichtigungsberechtigung ist deaktiviert';
 
   @override
-  String get why_no_reminders => 'Why reminders may not arrive';
+  String get why_no_reminders =>
+      'Warum Erinnerungen möglicherweise nicht eintreffen';
 
   @override
-  String get why_no_reminders_desc => 'Notification permission, exact alarm permission, or device battery management can block appointment and medicine reminders. Check permissions first; consider battery optimization only as a last step if tests fail.';
+  String get why_no_reminders_desc =>
+      'Benachrichtigungsberechtigungen, genaue Alarmberechtigungen oder die Batterieverwaltung des Geräts können Termin- und Medikamentenerinnerungen blockieren. Überprüfen Sie zuerst die Berechtigungen. Betrachten Sie die Batterieoptimierung nur als letzten Schritt, wenn die Tests fehlschlagen.';
 
   @override
-  String get status_card_title => 'Notification Status';
+  String get status_card_title => 'Benachrichtigungsstatus';
 
   @override
-  String get check_notif_permission => '1. Check notification permission';
+  String get check_notif_permission =>
+      '1. Überprüfen Sie die Benachrichtigungsberechtigung';
 
   @override
-  String get check_notif_permission_desc => 'If instant notifications are disabled, no reminders will appear.';
+  String get check_notif_permission_desc =>
+      'Wenn Sofortbenachrichtigungen deaktiviert sind, werden keine Erinnerungen angezeigt.';
 
   @override
-  String get req_notif_permission => 'Request Notification Permission';
+  String get req_notif_permission =>
+      'Fordern Sie eine Benachrichtigungserlaubnis an';
 
   @override
-  String get check_exact_alarm => '2. Check exact alarm permission';
+  String get check_exact_alarm =>
+      '2. Überprüfen Sie die genaue Alarmberechtigung';
 
   @override
-  String get check_exact_alarm_desc => 'Required for appointment and medicine reminders to run on time.';
+  String get check_exact_alarm_desc =>
+      'Erforderlich, damit Termin- und Medikamentenerinnerungen pünktlich erfolgen.';
 
   @override
-  String get req_exact_alarm => 'Request Exact Alarm Permission';
+  String get req_exact_alarm => 'Fordern Sie eine genaue Alarmberechtigung an';
 
   @override
-  String get resched_saved => '3. Reschedule saved reminders';
+  String get resched_saved => '3. Gespeicherte Erinnerungen neu planen';
 
   @override
-  String get resched_saved_desc => 'After granting permissions, schedules your saved medicine and appointment reminders again.';
+  String get resched_saved_desc =>
+      'Nachdem Sie die Berechtigungen erteilt haben, können Sie Ihre gespeicherten Medikamente und Terminerinnerungen erneut planen.';
 
   @override
-  String get resched_btn => 'Reschedule Reminders';
+  String get resched_btn => 'Erinnerungen verschieben';
 
   @override
-  String get sched_test => '4. Schedule a 1-minute test reminder';
+  String get sched_test => '4. Planen Sie eine einminütige Testerinnerung';
 
   @override
-  String get sched_test_desc => 'If this arrives, the reminder system is working.';
+  String get sched_test_desc =>
+      'Wenn dieser eintrifft, funktioniert das Erinnerungssystem.';
 
   @override
-  String get sched_test_btn => 'Schedule 1-Minute Test';
+  String get sched_test_btn => 'Planen Sie einen 1-Minuten-Test';
 
   @override
-  String get last_step_battery => '5. Last step: check battery settings';
+  String get last_step_battery =>
+      '5. Letzter Schritt: Batterieeinstellungen prüfen';
 
   @override
-  String get last_step_battery_desc => 'Only if the tests above fail, check whether the device is restricting VitaCase battery usage.';
+  String get last_step_battery_desc =>
+      'Überprüfen Sie nur, wenn die oben genannten Tests fehlschlagen, ob das Gerät die Nutzung des VitaCase-Akkus einschränkt.';
 
   @override
-  String get open_app_settings => 'Open App Settings';
+  String get open_app_settings => 'Öffnen Sie die App-Einstellungen';
 
   @override
-  String get snack_notif_checked => 'Notification permission checked.';
+  String get snack_notif_checked => 'Benachrichtigungsberechtigung überprüft.';
 
   @override
-  String get snack_exact_alarm_requested => 'Exact alarm permission requested. You may need to allow it in device settings.';
+  String get snack_exact_alarm_requested =>
+      'Genaue Alarmberechtigung angefordert. Möglicherweise müssen Sie dies in den Geräteeinstellungen zulassen.';
 
   @override
-  String get test_notif_title => '⏰ VitaCase Reminder Test';
+  String get test_notif_title => '⏰ VitaCase-Erinnerungstest';
 
   @override
-  String get test_notif_body => 'This test reminder was scheduled for 1 minute later.';
+  String get test_notif_body =>
+      'Diese Testerinnerung war für 1 Minute später geplant.';
 
   @override
-  String get snack_test_sched => 'Test reminder scheduled for 1 minute later.';
+  String get snack_test_sched => 'Testerinnerung für 1 Minute später geplant.';
 
   @override
-  String get snack_resched_completed => 'Saved medicine and appointment reminders were rescheduled.';
+  String get snack_resched_completed =>
+      'Gespeicherte Medikamente und Terminerinnerungen wurden verschoben.';
 
   @override
-  String get choose_pdf_or_image => 'Choose PDF or Image';
+  String get choose_pdf_or_image => 'Wählen Sie PDF oder Bild';
 
   @override
-  String get encrypted_local_file_info => 'Your file will be encrypted and stored locally on this device.';
+  String get encrypted_local_file_info =>
+      'Ihre Datei wird verschlüsselt und lokal auf diesem Gerät gespeichert.';
 
   @override
-  String get web_upload_info => 'File vault upload is available on Android/iOS builds.';
+  String get web_upload_info =>
+      'Das Hochladen von Dateitresoren ist für Android-/iOS-Builds verfügbar.';
 
   @override
-  String get web_preview_no_upload => 'Web preview does not store encrypted files. Use Android/iOS for vault upload.';
+  String get web_preview_no_upload =>
+      'In der Webvorschau werden keine verschlüsselten Dateien gespeichert. Verwenden Sie Android/iOS für den Tresor-Upload.';
 
   @override
-  String get choose_file_first => 'Please choose a PDF or image first.';
+  String get choose_file_first =>
+      'Bitte wählen Sie zunächst ein PDF oder Bild aus.';
 
   @override
-  String get document_saved => 'Document saved securely.';
+  String get document_saved => 'Dokument sicher gespeichert.';
 
   @override
   String save_document_failed(String error) {
-    return 'Could not save document: $error';
+    return 'Dokument konnte nicht gespeichert werden: $error';
   }
 
   @override
-  String get save_securely => 'Save Securely';
+  String get save_securely => 'Sicher speichern';
 
   @override
-  String get saving => 'Saving...';
+  String get saving => 'Sparen...';
 
   @override
-  String get local_organizer_disclaimer => 'VitaCase is a local document organizer. It does not diagnose, analyze, or provide medical advice.';
+  String get local_organizer_disclaimer =>
+      'VitaCase ist ein lokaler Dokumentenorganisator. Es erfolgt keine Diagnose, Analyse oder Bereitstellung medizinischer Ratschläge.';
 
   @override
-  String get terms_and_legal_agreement => 'I agree to the Privacy Policy, Terms & Conditions, and Legal Disclaimer.';
+  String get terms_and_legal_agreement =>
+      'Ich stimme den Datenschutzbestimmungen, den Allgemeinen Geschäftsbedingungen und dem Haftungsausschluss zu.';
 
   @override
-  String get free_themes => 'Free themes';
+  String get free_themes => 'Kostenlose Themen';
 
   @override
-  String get reward_themes => 'Reward themes';
+  String get reward_themes => 'Belohnungsthemen';
 
   @override
-  String get reward_themes_info => 'Watch one rewarded ad to unlock these themes for 3 days. Every extra ad adds +1 day.';
+  String get reward_themes_info =>
+      'Sehen Sie sich eine Anzeige mit Prämie an, um diese Themen 3 Tage lang freizuschalten. Jede zusätzliche Anzeige fügt +1 Tag hinzu.';
 
   @override
-  String get watch_ad_to_unlock => 'Watch ad to unlock';
+  String get watch_ad_to_unlock => 'Zum Entsperren die Anzeige ansehen';
 
   @override
-  String get tap_to_preview => 'Tap to preview';
+  String get tap_to_preview => 'Tippen Sie auf, um eine Vorschau anzuzeigen';
 
   @override
-  String get add_one_day => 'Add +1 day';
+  String get add_one_day => '+1 Tag hinzufügen';
 
   @override
-  String get one_day_added => '+1 day added.';
+  String get one_day_added => '+1 Tag hinzugefügt.';
 
   @override
-  String get ad_unavailable_try_later => 'Ad unavailable. Please try again later.';
+  String get ad_unavailable_try_later =>
+      'Anzeige nicht verfügbar. Bitte versuchen Sie es später noch einmal.';
 
   @override
-  String get theme_unlocked => 'Theme unlocked. Each extra ad adds +1 day.';
+  String get theme_unlocked =>
+      'Theme freigeschaltet. Jede zusätzliche Anzeige fügt +1 Tag hinzu.';
 
   @override
   String reward_themes_active(String days) {
-    return 'Reward themes active for $days day(s).';
+    return 'Prämienthemen aktiv für $days Tag(e).';
   }
 
   @override
-  String get lock_use_pin => 'Use PIN';
+  String get lock_use_pin => 'PIN verwenden';
 
   @override
-  String get pending => 'Pending';
+  String get pending => 'Ausstehend';
 
   @override
-  String get document_details_subtitle => 'Reviewing expanded document details.';
+  String get document_details_subtitle =>
+      'Überprüfen erweiterter Dokumentdetails.';
 
   @override
-  String get document_name => 'Document name';
+  String get document_name => 'Dokumentname';
 
   @override
-  String get document_name_hint => 'e.g. Blood test result';
+  String get document_name_hint => 'z.B. Ergebnis der Blutuntersuchung';
 
   @override
   String daily_limit_reached_message(int limit) {
-    return 'You reached today\'s create limit ($limit). You can add more tomorrow.';
+    return 'Sie haben das heutige Erstellungslimit erreicht ($limit). Sie können morgen weitere hinzufügen.';
   }
 
   @override
-  String get document_updated => 'Document updated.';
+  String get document_updated => 'Dokument aktualisiert.';
 
   @override
-  String get document_update_failed => 'Could not update document.';
+  String get document_update_failed =>
+      'Dokument konnte nicht aktualisiert werden.';
 
   @override
-  String get document_open_failed => 'Could not open document.';
+  String get document_open_failed => 'Dokument konnte nicht geöffnet werden.';
 
   @override
-  String get no_additional_notes => 'No additional notes provided.';
+  String get no_additional_notes =>
+      'Keine zusätzlichen Notizen bereitgestellt.';
 
   @override
-  String get created_at_label => 'CREATED AT';
+  String get created_at_label => 'ERSTELLT BEI';
 
   @override
-  String get physician_label => 'PHYSICIAN';
+  String get physician_label => 'ARZT';
 
   @override
-  String get open => 'Open';
+  String get open => 'Offen';
 
   @override
-  String get document_vault => 'Document Vault';
+  String get document_vault => 'Dokumententresor';
 
   @override
-  String get document_vault_view_subtitle => 'Reviewing expanded document details.';
+  String get document_vault_view_subtitle =>
+      'Überprüfen erweiterter Dokumentdetails.';
 
   @override
-  String get institution_hospital => 'Institution / Hospital';
+  String get institution_hospital => 'Einrichtung / Krankenhaus';
 
   @override
-  String get doctor_related_person => 'Doctor / Related person';
+  String get doctor_related_person => 'Arzt / nahestehende Person';
 
   @override
-  String get add_contact_title => 'Add Person / Contact';
+  String get add_contact_title => 'Person/Kontakt hinzufügen';
 
   @override
-  String get contact_info_title => 'Person / Contact Info';
+  String get contact_info_title => 'Personen-/Kontaktinformationen';
 
   @override
-  String get contact_info_desc => 'Keep important person, institution, and contact details for quick access.';
+  String get contact_info_desc =>
+      'Bewahren Sie wichtige Personen-, Institutions- und Kontaktdaten für einen schnellen Zugriff auf.';
 
   @override
-  String get person_contact_label => 'Person / Contact';
+  String get person_contact_label => 'Person / Kontakt';
 
   @override
-  String get category_area_label => 'Category / Area';
+  String get category_area_label => 'Kategorie / Bereich';
 
   @override
-  String get institution_source_label => 'Institution / Source';
+  String get institution_source_label => 'Institution / Quelle';
 
   @override
-  String get person_hint => 'e.g. Dr. Smith, advisor, clinic contact';
+  String get person_hint => 'z.B. Dr. Smith, Berater, Klinikkontakt';
 
   @override
-  String get category_hint => 'e.g. checkup, dental, therapy, consultation';
+  String get category_hint =>
+      'z.B. Untersuchung, Zahnbehandlung, Therapie, Beratung';
 
   @override
-  String get institution_hint => 'e.g. clinic, lab, office, online source';
+  String get institution_hint => 'z.B. Klinik, Labor, Büro, Online-Quelle';
 
   @override
-  String get required_contact_error => 'Please enter person/contact and category/area information.';
+  String get required_contact_error =>
+      'Bitte geben Sie Informationen zu Person/Kontakt und Kategorie/Bereich ein.';
 
   @override
-  String get contacts_title => 'Person / Contacts';
+  String get contacts_title => 'Person / Kontakte';
 
   @override
-  String get contacts_search_hint => 'Search person, institution, or category';
+  String get contacts_search_hint =>
+      'Suchen Sie nach Person, Institution oder Kategorie';
 
   @override
-  String get no_contacts_found => 'No matching contacts found';
+  String get no_contacts_found => 'Keine passenden Kontakte gefunden';
 
   @override
-  String get contact_detail_title => 'Person / Contact Detail';
+  String get contact_detail_title => 'Personen-/Kontaktdetails';
 
   @override
-  String get institution_source => 'Institution / Source';
+  String get institution_source => 'Institution / Quelle';
 
   @override
-  String get category_area => 'Category / Area';
+  String get category_area => 'Kategorie / Bereich';
 
   @override
-  String get sub_area => 'Sub-area';
+  String get sub_area => 'Untergebiet';
 
   @override
-  String get privacy_policy_short => 'Privacy Policy';
+  String get privacy_policy_short => 'Datenschutzrichtlinie';
 
   @override
-  String get terms_short => 'Terms';
+  String get terms_short => 'Bedingungen';
 
   @override
-  String get disclaimer_short => 'Disclaimer';
+  String get disclaimer_short => 'Haftungsausschluss';
 
   @override
   String debug_panel_taps_left(String remaining) {
-    return 'Debug panel: $remaining taps left.';
+    return 'Debug-Panel: $remaining tippt nach links.';
   }
 
   @override
-  String get delete_confirm_dialog_title => 'Delete document?';
+  String get delete_confirm_dialog_title => 'Dokument löschen?';
 
   @override
-  String get delete_confirm_dialog_desc => 'This document will be removed from the vault. This action cannot be undone.';
+  String get delete_confirm_dialog_desc =>
+      'Dieses Dokument wird aus dem Tresor entfernt. Diese Aktion kann nicht rückgängig gemacht werden.';
 
   @override
-  String get document_deleted_msg => 'Document deleted.';
+  String get document_deleted_msg => 'Dokument gelöscht.';
 
   @override
-  String get sort_newest_first => 'Newest first';
+  String get sort_newest_first => 'Das Neueste zuerst';
 
   @override
-  String get sort_oldest_first => 'Oldest first';
+  String get sort_oldest_first => 'Älteste zuerst';
 
   @override
   String get sort_a_z => 'A-Z';
 
   @override
-  String get sort_label => 'Sort';
+  String get sort_label => 'Sortieren';
 
   @override
-  String get medication_reminder_past_note => 'If the selected time has already passed today, the first reminder is scheduled for the next suitable time.';
+  String get medication_reminder_past_note =>
+      'Ist der ausgewählte Zeitpunkt heute bereits verstrichen, wird die erste Erinnerung zum nächsten passenden Zeitpunkt eingeplant.';
 
   @override
-  String get appointment_reminder_past_note => 'If the selected reminder time is already in the past, VitaCase chooses the nearest suitable time.';
+  String get appointment_reminder_past_note =>
+      'Liegt der gewählte Erinnerungszeitpunkt bereits in der Vergangenheit, wählt VitaCase den nächstgelegenen passenden Zeitpunkt.';
 
   @override
-  String get limit_unlock_token_title => 'Limit Unlock Token';
+  String get limit_unlock_token_title => 'Limit-Freischalt-Token';
 
   @override
-  String get limit_unlock_status_active => 'Active';
+  String get limit_unlock_status_active => 'Aktiv';
 
   @override
   String limit_unlock_status_coming_soon(String version) {
-    return 'Coming in $version';
+    return 'Kommt herein $version';
   }
 
   @override
   String limit_unlock_desc_active(String xp) {
-    return 'Every $xp XP grants 1 Limit Unlock Token. It is used automatically when the daily limit is reached.';
+    return 'Jede $xp XP gewährt 1 Limit-Freischalt-Token. Es wird automatisch verwendet, wenn das Tageslimit erreicht ist.';
   }
 
   @override
   String limit_unlock_desc_inactive(String version, String xp) {
-    return 'Disabled in V1. In $version, every $xp XP will grant 1 Limit Unlock Token.';
+    return 'In V1 deaktiviert. In $version gewährt jeder $xp XP 1 Limit-Freischalt-Token.';
   }
 
   @override
-  String get limit_unlock_stat_total_xp => 'Total XP';
+  String get limit_unlock_stat_total_xp => 'Gesamt-XP';
 
   @override
-  String get limit_unlock_stat_xp_left => 'XP left';
+  String get limit_unlock_stat_xp_left => 'XP übrig';
 
   @override
-  String get limit_unlock_stat_tokens => 'Tokens';
+  String get limit_unlock_stat_tokens => 'Token';
 
   @override
-  String get notes => 'Notes';
+  String get notes => 'Notizen';
 }

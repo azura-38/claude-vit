@@ -2,457 +2,3750 @@
   "@@locale": "zh",
   "app_name": "VitaCase",
   "@app_name": {
-    "placeholders": {},
     "description": "Translation for app_name"
   },
   "skip": "跳过",
   "@skip": {
-    "placeholders": {},
     "description": "Translation for skip"
   },
   "next": "下一步",
   "@next": {
-    "placeholders": {},
     "description": "Translation for next"
   },
   "start": "开始",
   "@start": {
-    "placeholders": {},
     "description": "Translation for start"
   },
   "back": "返回",
   "@back": {
-    "placeholders": {},
     "description": "Translation for back"
   },
   "save": "保存",
   "@save": {
-    "placeholders": {},
     "description": "Translation for save"
   },
   "cancel": "取消",
   "@cancel": {
-    "placeholders": {},
     "description": "Translation for cancel"
   },
   "error": "错误",
   "@error": {
-    "placeholders": {},
     "description": "Translation for error"
   },
   "success": "成功",
   "@success": {
-    "placeholders": {},
     "description": "Translation for success"
   },
   "loading": "加载中...",
   "@loading": {
-    "placeholders": {},
     "description": "Translation for loading"
   },
   "continue_btn": "继续",
   "@continue_btn": {
-    "placeholders": {},
     "description": "Translation for continue_btn"
   },
   "create_profile": "创建个人资料",
   "@create_profile": {
-    "placeholders": {},
     "description": "Translation for create_profile"
   },
   "profile_desc": "我们需要一些信息来个性化你的体验。",
   "@profile_desc": {
-    "placeholders": {},
     "description": "Translation for profile_desc"
   },
   "full_name": "姓名",
   "@full_name": {
-    "placeholders": {},
     "description": "Translation for full_name"
   },
   "gender": "性别",
   "@gender": {
-    "placeholders": {},
     "description": "Translation for gender"
   },
   "gender_female": "女性",
   "@gender_female": {
-    "placeholders": {},
     "description": "Translation for gender_female"
   },
   "gender_male": "男性",
   "@gender_male": {
-    "placeholders": {},
     "description": "Translation for gender_male"
   },
   "gender_other": "其他",
   "@gender_other": {
-    "placeholders": {},
     "description": "Translation for gender_other"
   },
   "birth_date": "出生日期",
   "@birth_date": {
-    "placeholders": {},
     "description": "Translation for birth_date"
   },
   "date_format_hint": "DD.MM.YYYY",
   "@date_format_hint": {
-    "placeholders": {},
     "description": "Translation for date_format_hint"
   },
   "select_language": "选择语言",
   "@select_language": {
-    "placeholders": {},
     "description": "Translation for select_language"
   },
   "please_enter_name": "请输入姓名",
   "@please_enter_name": {
-    "placeholders": {},
     "description": "Translation for please_enter_name"
   },
   "must_agree": "你必须同意法律文件才能继续。",
   "@must_agree": {
-    "placeholders": {},
     "description": "Translation for must_agree"
   },
   "step_profile": "个人资料",
   "@step_profile": {
-    "placeholders": {},
     "description": "Translation for step_profile"
   },
   "step_security": "安全",
   "@step_security": {
-    "placeholders": {},
     "description": "Translation for step_security"
   },
   "setup_app_lock": "设置应用锁",
   "@setup_app_lock": {
-    "placeholders": {},
     "description": "Translation for setup_app_lock"
   },
   "setup_app_lock_desc": "使用6位PIN保护你的数据。",
   "@setup_app_lock_desc": {
-    "placeholders": {},
     "description": "Translation for setup_app_lock_desc"
   },
   "lock_set_pin": "设置安全PIN",
   "@lock_set_pin": {
-    "placeholders": {},
     "description": "Translation for lock_set_pin"
   },
   "lock_confirm_pin": "确认PIN",
   "@lock_confirm_pin": {
-    "placeholders": {},
     "description": "Translation for lock_confirm_pin"
   },
   "lock_pin_mismatch": "PIN不匹配。请重试。",
   "@lock_pin_mismatch": {
-    "placeholders": {},
     "description": "Translation for lock_pin_mismatch"
   },
   "skip_pin_setup": "跳过",
   "@skip_pin_setup": {
-    "placeholders": {},
     "description": "Translation for skip_pin_setup"
   },
   "lock_skip_desc": "你可以稍后在设置中完成。",
   "@lock_skip_desc": {
-    "placeholders": {},
     "description": "Translation for lock_skip_desc"
   },
   "home": "首页",
   "@home": {
-    "placeholders": {},
     "description": "Translation for home"
   },
   "vault": "保险库",
   "@vault": {
-    "placeholders": {},
     "description": "Translation for vault"
   },
   "explore": "探索",
   "@explore": {
-    "placeholders": {},
     "description": "Translation for explore"
   },
   "appointments": "预约",
   "@appointments": {
-    "placeholders": {},
     "description": "Translation for appointments"
   },
   "profile": "个人资料",
   "@profile": {
-    "placeholders": {},
     "description": "Translation for profile"
   },
   "medicines": "药品",
   "@medicines": {
-    "placeholders": {},
     "description": "Translation for medicines"
   },
   "health_data": "健康数据",
   "@health_data": {
-    "placeholders": {},
     "description": "Translation for health_data"
   },
   "important_info": "重要信息",
   "@important_info": {
-    "placeholders": {},
     "description": "Translation for important_info"
   },
   "guest_user": "访客用户",
   "@guest_user": {
-    "placeholders": {},
     "description": "Translation for guest_user"
   },
   "hi": "你好",
   "@hi": {
-    "placeholders": {},
     "description": "Translation for hi"
   },
   "docs_title": "文档",
   "@docs_title": {
-    "placeholders": {},
     "description": "Translation for docs_title"
   },
   "docs_add_title": "添加文档",
   "@docs_add_title": {
-    "placeholders": {},
     "description": "Translation for docs_add_title"
   },
   "docs_add_btn": "添加文档",
   "@docs_add_btn": {
-    "placeholders": {},
     "description": "Translation for docs_add_btn"
   },
   "docs_add_pick": "选择文档 / 图片",
   "@docs_add_pick": {
-    "placeholders": {},
     "description": "Translation for docs_add_pick"
   },
   "docs_success": "文档已成功保存！",
   "@docs_success": {
-    "placeholders": {},
     "description": "Translation for docs_success"
   },
   "docs_error_pick": "请选择一个文件",
   "@docs_error_pick": {
-    "placeholders": {},
     "description": "Translation for docs_error_pick"
   },
   "docs_category_health": "健康",
   "@docs_category_health": {
-    "placeholders": {},
     "description": "Translation for docs_category_health"
   },
   "docs_category_identity": "身份",
   "@docs_category_identity": {
-    "placeholders": {},
     "description": "Translation for docs_category_identity"
   },
   "docs_category_finance": "财务",
   "@docs_category_finance": {
-    "placeholders": {},
     "description": "Translation for docs_category_finance"
   },
   "docs_category_legal": "法律",
   "@docs_category_legal": {
-    "placeholders": {},
     "description": "Translation for docs_category_legal"
   },
   "docs_category_notes": "笔记",
   "@docs_category_notes": {
-    "placeholders": {},
     "description": "Translation for docs_category_notes"
   },
   "docs_category_other": "其他",
   "@docs_category_other": {
-    "placeholders": {},
     "description": "Translation for docs_category_other"
   },
   "appointment_title": "预约标题",
   "@appointment_title": {
-    "placeholders": {},
     "description": "Translation for appointment_title"
   },
   "my_appointments": "我的预约",
   "@my_appointments": {
-    "placeholders": {},
     "description": "Translation for my_appointments"
   },
   "add_appointment": "添加预约",
   "@add_appointment": {
-    "placeholders": {},
     "description": "Translation for add_appointment"
   },
   "add_new_appointment": "添加新预约",
   "@add_new_appointment": {
-    "placeholders": {},
     "description": "Translation for add_new_appointment"
   },
   "appointment_added": "预约已成功添加。",
   "@appointment_added": {
-    "placeholders": {},
     "description": "Translation for appointment_added"
-  },
-  "appointment_created_success": "预约已成功创建。",
-  "@appointment_created_success": {
-    "placeholders": {},
-    "description": "Translation for appointment_created_success"
-  },
-  "failed_create_appointment": "无法创建预约。",
-  "@failed_create_appointment": {
-    "placeholders": {},
-    "description": "Translation for failed_create_appointment"
   },
   "location": "地点",
   "@location": {
-    "placeholders": {},
     "description": "Translation for location"
   },
   "today": "今天",
   "@today": {
-    "placeholders": {},
     "description": "Translation for today"
   },
   "tomorrow": "明天",
   "@tomorrow": {
-    "placeholders": {},
     "description": "Translation for tomorrow"
   },
   "health_stats": "健康中心",
   "@health_stats": {
-    "placeholders": {},
     "description": "Translation for health_stats"
   },
   "safety_footer_health": "健康数据仅供参考。如需诊断，请咨询专业人士。",
   "@safety_footer_health": {
-    "placeholders": {},
     "description": "Translation for safety_footer_health"
   },
   "medical_device_warning": "VitaCase不是医疗设备。请始终咨询专业人士。",
   "@medical_device_warning": {
-    "placeholders": {},
     "description": "Translation for medical_device_warning"
   },
   "management_tool_warning": "VitaCase是管理工具，不是诊断服务。",
   "@management_tool_warning": {
-    "placeholders": {},
     "description": "Translation for management_tool_warning"
   },
   "unit_ml": "ml",
   "@unit_ml": {
-    "placeholders": {},
     "description": "Translation for unit_ml"
   },
   "unit_l": "L",
   "@unit_l": {
-    "placeholders": {},
     "description": "Translation for unit_l"
   },
   "unit_steps": "步",
   "@unit_steps": {
-    "placeholders": {},
     "description": "Translation for unit_steps"
   },
   "unit_hours": "小时",
   "@unit_hours": {
-    "placeholders": {},
     "description": "Translation for unit_hours"
   },
   "unit_bpm": "BPM",
   "@unit_bpm": {
-    "placeholders": {},
     "description": "Translation for unit_bpm"
   },
   "steps": "步数",
   "@steps": {
-    "placeholders": {},
     "description": "Translation for steps"
   },
   "heart": "心率",
   "@heart": {
-    "placeholders": {},
     "description": "Translation for heart"
   },
   "sleep": "睡眠",
   "@sleep": {
-    "placeholders": {},
     "description": "Translation for sleep"
   },
   "water": "饮水",
   "@water": {
-    "placeholders": {},
     "description": "Translation for water"
   },
   "add_health_data": "添加健康数据",
   "@add_health_data": {
-    "placeholders": {},
     "description": "Translation for add_health_data"
   },
   "recent_activity": "最近活动",
   "@recent_activity": {
-    "placeholders": {},
     "description": "Translation for recent_activity"
   },
   "no_health_records": "尚无记录。",
   "@no_health_records": {
-    "placeholders": {},
     "description": "Translation for no_health_records"
   },
   "add_medicine": "添加药品",
   "@add_medicine": {
-    "placeholders": {},
     "description": "Translation for add_medicine"
   },
   "my_medicines": "我的药品",
   "@my_medicines": {
-    "placeholders": {},
     "description": "Translation for my_medicines"
   },
   "medicine_name": "药品名称",
   "@medicine_name": {
-    "placeholders": {},
     "description": "Translation for medicine_name"
   },
   "med_added_success": "药品已成功添加！",
   "@med_added_success": {
-    "placeholders": {},
     "description": "Translation for med_added_success"
   },
   "med_name_error": "请输入药品名称",
   "@med_name_error": {
-    "placeholders": {},
     "description": "Translation for med_name_error"
   },
   "app_lock": "应用锁",
   "@app_lock": {
-    "placeholders": {},
     "description": "Translation for app_lock"
   },
   "privacy_policy": "隐私政策",
   "@privacy_policy": {
-    "placeholders": {},
     "description": "Translation for privacy_policy"
   },
   "terms_conditions": "条款和条件",
   "@terms_conditions": {
-    "placeholders": {},
     "description": "Translation for terms_conditions"
   },
   "legal_disclaimer": "法律免责声明",
   "@legal_disclaimer": {
-    "placeholders": {},
     "description": "Translation for legal_disclaimer"
   },
   "ok": "确定",
   "@ok": {
-    "placeholders": {},
     "description": "Translation for ok"
   },
-  "report_issue": "错误、建议、请求与投诉",
+  "active": "积极的",
+  "@active": {
+    "description": "Translation for active"
+  },
+  "inactive": "不活跃",
+  "@inactive": {
+    "description": "Translation for inactive"
+  },
+  "premium_feature": "高级功能🌟",
+  "@premium_feature": {
+    "description": "Translation for premium_feature"
+  },
+  "premium_required_desc": "应用程序锁定需要高级会员资格。",
+  "@premium_required_desc": {
+    "description": "Translation for premium_required_desc"
+  },
+  "go_premium": "升级至高级版",
+  "@go_premium": {
+    "description": "Translation for go_premium"
+  },
+  "index": "指数",
+  "@index": {
+    "description": "Translation for index"
+  },
+  "view_weekly": "每周",
+  "@view_weekly": {
+    "description": "Translation for view_weekly"
+  },
+  "view_monthly": "每月",
+  "@view_monthly": {
+    "description": "Translation for view_monthly"
+  },
+  "phone_country_code": "代码",
+  "@phone_country_code": {
+    "description": "Translation for phone_country_code"
+  },
+  "coming_soon": "即将推出",
+  "@coming_soon": {
+    "description": "Translation for coming_soon"
+  },
+  "coming_soon_desc": "该功能将在下次更新中提供。",
+  "@coming_soon_desc": {
+    "description": "Translation for coming_soon_desc"
+  },
+  "tap_for_test": "多点按 {count} 次以获取测试通知",
+  "@tap_for_test": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for tap_for_test"
+  },
+  "metric_water": "水",
+  "@metric_water": {
+    "description": "Translation for metric_water"
+  },
+  "metric_steps": "步骤",
+  "@metric_steps": {
+    "description": "Translation for metric_steps"
+  },
+  "metric_sleep": "睡觉",
+  "@metric_sleep": {
+    "description": "Translation for metric_sleep"
+  },
+  "metric_heart_rate": "心率",
+  "@metric_heart_rate": {
+    "description": "Translation for metric_heart_rate"
+  },
+  "quick_actions_visibility": "快速访问可见性",
+  "@quick_actions_visibility": {
+    "description": "Translation for quick_actions_visibility"
+  },
+  "personal_notes": "个人笔记",
+  "@personal_notes": {
+    "description": "Translation for personal_notes"
+  },
+  "save_and_list": "保存并列出",
+  "@save_and_list": {
+    "description": "Translation for save_and_list"
+  },
+  "doctor_info": "医生信息",
+  "@doctor_info": {
+    "description": "Translation for doctor_info"
+  },
+  "add_doctor_desc": "保留您的医生联系信息以便快速访问。",
+  "@add_doctor_desc": {
+    "description": "Translation for add_doctor_desc"
+  },
+  "basic_info": "基本信息",
+  "@basic_info": {
+    "description": "Translation for basic_info"
+  },
+  "institution_contact": "机构及联系方式",
+  "@institution_contact": {
+    "description": "Translation for institution_contact"
+  },
+  "notes_bio": "笔记和简介",
+  "@notes_bio": {
+    "description": "Translation for notes_bio"
+  },
+  "unknown": "未知",
+  "@unknown": {
+    "description": "Translation for unknown"
+  },
+  "hospital_clinic_name": "医院/诊所名称",
+  "@hospital_clinic_name": {
+    "description": "Translation for hospital_clinic_name"
+  },
+  "phone_number": "电话号码",
+  "@phone_number": {
+    "description": "Translation for phone_number"
+  },
+  "email_address": "电子邮件",
+  "@email_address": {
+    "description": "Translation for email_address"
+  },
+  "address": "地址",
+  "@address": {
+    "description": "Translation for address"
+  },
+  "emergency_info": "紧急信息",
+  "@emergency_info": {
+    "description": "Translation for emergency_info"
+  },
+  "emergency_contact_name": "紧急联系人（姓名）",
+  "@emergency_contact_name": {
+    "description": "Translation for emergency_contact_name"
+  },
+  "emergency_contact_phone": "紧急联系方式（电话）",
+  "@emergency_contact_phone": {
+    "description": "Translation for emergency_contact_phone"
+  },
+  "blood_type": "血型",
+  "@blood_type": {
+    "description": "Translation for blood_type"
+  },
+  "blood_unknown": "未知",
+  "@blood_unknown": {
+    "description": "Translation for blood_unknown"
+  },
+  "profile_updated": "个人资料已更新！ ✅",
+  "@profile_updated": {
+    "description": "Translation for profile_updated"
+  },
+  "let_start": "让我们开始吧",
+  "@let_start": {
+    "description": "Translation for let_start"
+  },
+  "ob_1_title": "维塔箱",
+  "@ob_1_title": {
+    "description": "Translation for ob_1_title"
+  },
+  "ob_1_subtitle": "您的所有文件都集中在一处",
+  "@ob_1_subtitle": {
+    "description": "Translation for ob_1_subtitle"
+  },
+  "ob_1_desc": "安全地存放您的文件、预约和药物，并始终随身携带。",
+  "@ob_1_desc": {
+    "description": "Translation for ob_1_desc"
+  },
+  "ob_2_title": "整理您的所有文件",
+  "@ob_2_title": {
+    "description": "Translation for ob_2_title"
+  },
+  "ob_2_desc": "上传您的文档，对其进行分类并轻松管理它们。",
+  "@ob_2_desc": {
+    "description": "Translation for ob_2_desc"
+  },
+  "ob_3_title": "保存您的预约",
+  "@ob_3_title": {
+    "description": "Translation for ob_3_title"
+  },
+  "ob_3_desc": "将所有约会保存在一处，通过提醒，不错过任何一个。",
+  "@ob_3_desc": {
+    "description": "Translation for ob_3_desc"
+  },
+  "ob_4_title": "保存并跟踪您的药物",
+  "@ob_4_title": {
+    "description": "Translation for ob_4_title"
+  },
+  "ob_4_desc": "记录您的药物和使用时间，不要忘记定期使用并有提醒。",
+  "@ob_4_desc": {
+    "description": "Translation for ob_4_desc"
+  },
+  "ob_5_title": "保存，不要丢失",
+  "@ob_5_title": {
+    "description": "Translation for ob_5_title"
+  },
+  "ob_5_desc": "确保您的预约和药物安全，让您保持放松。",
+  "@ob_5_desc": {
+    "description": "Translation for ob_5_desc"
+  },
+  "ob_feature_1_title": "安全存储",
+  "@ob_feature_1_title": {
+    "description": "Translation for ob_feature_1_title"
+  },
+  "ob_feature_1_desc": "您的数据已加密且仅属于您。",
+  "@ob_feature_1_desc": {
+    "description": "Translation for ob_feature_1_desc"
+  },
+  "ob_feature_2_title": "提醒事项",
+  "@ob_feature_2_title": {
+    "description": "Translation for ob_feature_2_title"
+  },
+  "ob_feature_2_desc": "切勿错过您的预约和服药时间。",
+  "@ob_feature_2_desc": {
+    "description": "Translation for ob_feature_2_desc"
+  },
+  "ob_feature_3_title": "随处访问",
+  "@ob_feature_3_title": {
+    "description": "Translation for ob_feature_3_title"
+  },
+  "ob_feature_3_desc": "随时访问您的所有信息。",
+  "@ob_feature_3_desc": {
+    "description": "Translation for ob_feature_3_desc"
+  },
+  "good_morning": "早上好",
+  "@good_morning": {
+    "description": "Translation for good_morning"
+  },
+  "good_afternoon": "下午好",
+  "@good_afternoon": {
+    "description": "Translation for good_afternoon"
+  },
+  "good_evening": "晚上好",
+  "@good_evening": {
+    "description": "Translation for good_evening"
+  },
+  "good_night": "晚安",
+  "@good_night": {
+    "description": "Translation for good_night"
+  },
+  "synced": "已同步",
+  "@synced": {
+    "description": "Translation for synced"
+  },
+  "guest_mode": "访客模式激活",
+  "@guest_mode": {
+    "description": "Translation for guest_mode"
+  },
+  "guest_desc": "数据仅是本地的。创建一个帐户进行备份。",
+  "@guest_desc": {
+    "description": "Translation for guest_desc"
+  },
+  "all_records": "安全存档",
+  "@all_records": {
+    "description": "Translation for all_records"
+  },
+  "vault_is_empty": "您的保险库已准备就绪",
+  "@vault_is_empty": {
+    "description": "Translation for vault_is_empty"
+  },
+  "vault_desc": "在私人庇护所中存储和整理您最重要的记录。",
+  "@vault_desc": {
+    "description": "Translation for vault_desc"
+  },
+  "quick_access": "快速访问",
+  "@quick_access": {
+    "description": "Translation for quick_access"
+  },
+  "bpm": "业务流程管理",
+  "@bpm": {
+    "description": "Translation for bpm"
+  },
+  "hours": "时间",
+  "@hours": {
+    "description": "Translation for hours"
+  },
+  "ml": "机器学习",
+  "@ml": {
+    "description": "Translation for ml"
+  },
+  "pharmacies": "药房",
+  "@pharmacies": {
+    "description": "Translation for pharmacies"
+  },
+  "save_continue": "保存并继续",
+  "@save_continue": {
+    "description": "Translation for save_continue"
+  },
+  "security_badge_label": "VITACASE 高级加密 v2.4",
+  "@security_badge_label": {
+    "description": "Translation for security_badge_label"
+  },
+  "health_stats_desc": "您的全面每日健康摘要。",
+  "@health_stats_desc": {
+    "description": "Translation for health_stats_desc"
+  },
+  "step_unit": "步骤",
+  "@step_unit": {
+    "description": "Translation for step_unit"
+  },
+  "privacy_guarantee": "您的数据是安全的",
+  "@privacy_guarantee": {
+    "description": "Translation for privacy_guarantee"
+  },
+  "privacy_box_desc": "您的信息将被安全存储且绝不会被共享。",
+  "@privacy_box_desc": {
+    "description": "Translation for privacy_box_desc"
+  },
+  "privacy_box_warning": "您的数据是私密的并安全地存储在您的设备上。请避免上传高度敏感的信息。您对您存储的数据负责。",
+  "@privacy_box_warning": {
+    "description": "Translation for privacy_box_warning"
+  },
+  "docs_secure_storage_title": "安全的本地存储🔒",
+  "@docs_secure_storage_title": {
+    "description": "Translation for docs_secure_storage_title"
+  },
+  "docs_secure_storage_desc": "您的数据保留在您的设备上",
+  "@docs_secure_storage_desc": {
+    "description": "Translation for docs_secure_storage_desc"
+  },
+  "docs_sensitive_warning": "避免存储高度敏感的信息。您对您的数据负责。",
+  "@docs_sensitive_warning": {
+    "description": "Translation for docs_sensitive_warning"
+  },
+  "appearance": "外貌",
+  "@appearance": {
+    "description": "Translation for appearance"
+  },
+  "theme_settings": "主题设置",
+  "@theme_settings": {
+    "description": "Translation for theme_settings"
+  },
+  "app_settings": "应用程序设置",
+  "@app_settings": {
+    "description": "Translation for app_settings"
+  },
+  "text_size": "文字大小",
+  "@text_size": {
+    "description": "Translation for text_size"
+  },
+  "quick_actions": "快速行动",
+  "@quick_actions": {
+    "description": "Translation for quick_actions"
+  },
+  "data_security": "数据与安全",
+  "@data_security": {
+    "description": "Translation for data_security"
+  },
+  "backup_zip": "备份（ZIP）",
+  "@backup_zip": {
+    "description": "Translation for backup_zip"
+  },
+  "import_backup": "恢复备份",
+  "@import_backup": {
+    "description": "Translation for import_backup"
+  },
+  "import_desc": "导入 ZIP 备份文件",
+  "@import_desc": {
+    "description": "Translation for import_desc"
+  },
+  "export_desc": "出口文件",
+  "@export_desc": {
+    "description": "Translation for export_desc"
+  },
+  "emergency_contact": "紧急联系方式",
+  "@emergency_contact": {
+    "description": "Translation for emergency_contact"
+  },
+  "daily_step_goal": "每日步数目标",
+  "@daily_step_goal": {
+    "description": "Translation for daily_step_goal"
+  },
+  "support_legal": "支持与法律",
+  "@support_legal": {
+    "description": "Translation for support_legal"
+  },
+  "help_center": "帮助中心",
+  "@help_center": {
+    "description": "Translation for help_center"
+  },
+  "legal": "合法的",
+  "@legal": {
+    "description": "Translation for legal"
+  },
+  "lock_gate_title": "VitaCase 锁定",
+  "@lock_gate_title": {
+    "description": "Translation for lock_gate_title"
+  },
+  "lock_gate_desc": "请进行身份验证才能访问您的安全文档库。",
+  "@lock_gate_desc": {
+    "description": "Translation for lock_gate_desc"
+  },
+  "lock_gate_unlock": "使用生物识别技术解锁",
+  "@lock_gate_unlock": {
+    "description": "Translation for lock_gate_unlock"
+  },
+  "lock_pin_incorrect": "PIN 码不正确",
+  "@lock_pin_incorrect": {
+    "description": "Translation for lock_pin_incorrect"
+  },
+  "lock_use_biometrics": "使用生物识别技术",
+  "@lock_use_biometrics": {
+    "description": "Translation for lock_use_biometrics"
+  },
+  "lock_too_many_attempts": "尝试次数太多。请在 {seconds} 秒后重试。",
+  "@lock_too_many_attempts": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for lock_too_many_attempts"
+  },
+  "lock_timeout_instant": "立即的",
+  "@lock_timeout_instant": {
+    "description": "Translation for lock_timeout_instant"
+  },
+  "lock_timeout_1min": "1分钟",
+  "@lock_timeout_1min": {
+    "description": "Translation for lock_timeout_1min"
+  },
+  "lock_timeout_5min": "5分钟",
+  "@lock_timeout_5min": {
+    "description": "Translation for lock_timeout_5min"
+  },
+  "lock_timeout_15min": "15 分钟",
+  "@lock_timeout_15min": {
+    "description": "Translation for lock_timeout_15min"
+  },
+  "lock_timeout": "锁定超时",
+  "@lock_timeout": {
+    "description": "Translation for lock_timeout"
+  },
+  "change_pin": "更改密码",
+  "@change_pin": {
+    "description": "Translation for change_pin"
+  },
+  "biometric_login": "生物识别登录",
+  "@biometric_login": {
+    "description": "Translation for biometric_login"
+  },
+  "biometric_unavailable": "此设备不支持生物识别身份验证。",
+  "@biometric_unavailable": {
+    "description": "Translation for biometric_unavailable"
+  },
+  "digits": "数字",
+  "@digits": {
+    "description": "Translation for digits"
+  },
+  "setup_pin_later": "稍后从“设置”中进行设置",
+  "@setup_pin_later": {
+    "description": "Translation for setup_pin_later"
+  },
+  "daily_missions": "每日任务",
+  "@daily_missions": {
+    "description": "Translation for daily_missions"
+  },
+  "mission_doc_daily": "添加 1 个文档",
+  "@mission_doc_daily": {
+    "description": "Translation for mission_doc_daily"
+  },
+  "mission_ad_daily": "观看 1 个广告",
+  "@mission_ad_daily": {
+    "description": "Translation for mission_ad_daily"
+  },
+  "mission_app_daily": "附表 1 预约",
+  "@mission_app_daily": {
+    "description": "Translation for mission_app_daily"
+  },
+  "mission_med_daily": "添加 1 种药物",
+  "@mission_med_daily": {
+    "description": "Translation for mission_med_daily"
+  },
+  "export_data_zip": "导出数据 (.zip)",
+  "@export_data_zip": {
+    "description": "Translation for export_data_zip"
+  },
+  "clear_all_data": "清除所有数据",
+  "@clear_all_data": {
+    "description": "Translation for clear_all_data"
+  },
+  "quick_actions_desc": "仪表板上的快捷方式",
+  "@quick_actions_desc": {
+    "description": "Translation for quick_actions_desc"
+  },
+  "app_section": "应用程序",
+  "@app_section": {
+    "description": "Translation for app_section"
+  },
+  "premium_required": "需要保费",
+  "@premium_required": {
+    "description": "Translation for premium_required"
+  },
+  "logout": "退出",
+  "@logout": {
+    "description": "Translation for logout"
+  },
+  "logout_confirm": "您确定要退出吗？",
+  "@logout_confirm": {
+    "description": "Translation for logout_confirm"
+  },
+  "yes_logout": "是的，退出",
+  "@yes_logout": {
+    "description": "Translation for yes_logout"
+  },
+  "version": "版本",
+  "@version": {
+    "description": "Translation for version"
+  },
+  "med_count_desc": "您今天有 {count} 种药物。",
+  "@med_count_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for med_count_desc"
+  },
+  "low_stock_warning": "库存不足",
+  "@low_stock_warning": {
+    "description": "Translation for low_stock_warning"
+  },
+  "critical_level": "{name} 的临界级别。",
+  "@critical_level": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for critical_level"
+  },
+  "refill": "补充装",
+  "@refill": {
+    "description": "Translation for refill"
+  },
+  "intake_chart": "摄入量合规表",
+  "@intake_chart": {
+    "description": "Translation for intake_chart"
+  },
+  "weekly_avg": "每周平均值：{perc}%",
+  "@weekly_avg": {
+    "placeholders": {
+      "perc": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for weekly_avg"
+  },
+  "medicine_cabinet": "医药柜",
+  "@medicine_cabinet": {
+    "description": "Translation for medicine_cabinet"
+  },
+  "active_inventory": "您的活跃库存",
+  "@active_inventory": {
+    "description": "Translation for active_inventory"
+  },
+  "add": "添加",
+  "@add": {
+    "description": "Translation for add"
+  },
+  "daily_routine": "日常工作",
+  "@daily_routine": {
+    "description": "Translation for daily_routine"
+  },
+  "morning": "早晨",
+  "@morning": {
+    "description": "Translation for morning"
+  },
+  "afternoon": "下午",
+  "@afternoon": {
+    "description": "Translation for afternoon"
+  },
+  "night": "夜晚",
+  "@night": {
+    "description": "Translation for night"
+  },
+  "med_cabinet_add": "新药",
+  "@med_cabinet_add": {
+    "description": "Translation for med_cabinet_add"
+  },
+  "stock_left": "{count} 左",
+  "@stock_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for stock_left"
+  },
+  "vital_signs": "生命体征",
+  "@vital_signs": {
+    "description": "Translation for vital_signs"
+  },
+  "daily_goals": "每日目标",
+  "@daily_goals": {
+    "description": "Translation for daily_goals"
+  },
+  "activity": "活动",
+  "@activity": {
+    "description": "Translation for activity"
+  },
+  "step_counter": "计步器",
+  "@step_counter": {
+    "description": "Translation for step_counter"
+  },
+  "water_tracker": "水追踪器",
+  "@water_tracker": {
+    "description": "Translation for water_tracker"
+  },
+  "safety_footer_med": "VitaCase 是一个管理工具。它不提供医疗建议或剂量建议。请务必遵循医生的指示。",
+  "@safety_footer_med": {
+    "description": "Translation for safety_footer_med"
+  },
+  "hint_name": "例如约翰·多伊",
+  "@hint_name": {
+    "description": "Translation for hint_name"
+  },
+  "hint_emergency": "全名/电话",
+  "@hint_emergency": {
+    "description": "Translation for hint_emergency"
+  },
+  "docs_search_hint": "搜索您的保险库（文档、笔记、身份...）",
+  "@docs_search_hint": {
+    "description": "Translation for docs_search_hint"
+  },
+  "docs_info_secure": "您的文档将被安全存储并且仅供您使用。",
+  "@docs_info_secure": {
+    "description": "Translation for docs_info_secure"
+  },
+  "docs_info_encrypted": "您的数据在本地受到加密保护。",
+  "@docs_info_encrypted": {
+    "description": "Translation for docs_info_encrypted"
+  },
+  "docs_sort_all": "全部",
+  "@docs_sort_all": {
+    "description": "Translation for docs_sort_all"
+  },
+  "docs_sort_newest": "最新",
+  "@docs_sort_newest": {
+    "description": "Translation for docs_sort_newest"
+  },
+  "docs_sort_oldest": "最古老的",
+  "@docs_sort_oldest": {
+    "description": "Translation for docs_sort_oldest"
+  },
+  "docs_empty_title": "这里是空的",
+  "@docs_empty_title": {
+    "description": "Translation for docs_empty_title"
+  },
+  "docs_empty_subtitle": "通过添加您的第一个文档开始组织您的保管库。",
+  "@docs_empty_subtitle": {
+    "description": "Translation for docs_empty_subtitle"
+  },
+  "docs_loading_open": "正在打开安全文件...",
+  "@docs_loading_open": {
+    "description": "Translation for docs_loading_open"
+  },
+  "docs_loading_decrypt": "AES-256 解密",
+  "@docs_loading_decrypt": {
+    "description": "Translation for docs_loading_decrypt"
+  },
+  "docs_add_source": "来源/机构（可选）",
+  "@docs_add_source": {
+    "description": "Translation for docs_add_source"
+  },
+  "docs_add_person": "相关人员/详情",
+  "@docs_add_person": {
+    "description": "Translation for docs_add_person"
+  },
+  "docs_add_cat": "类别",
+  "@docs_add_cat": {
+    "description": "Translation for docs_add_cat"
+  },
+  "docs_add_type": "文件类型",
+  "@docs_add_type": {
+    "description": "Translation for docs_add_type"
+  },
+  "docs_add_note": "注意（可选）",
+  "@docs_add_note": {
+    "description": "Translation for docs_add_note"
+  },
+  "docs_add_secure": "此信息使用 AES-256 加密。",
+  "@docs_add_secure": {
+    "description": "Translation for docs_add_secure"
+  },
+  "docs_add_pick_diff": "选择不同的文件",
+  "@docs_add_pick_diff": {
+    "description": "Translation for docs_add_pick_diff"
+  },
+  "docs_error_save": "保存文档失败",
+  "@docs_error_save": {
+    "description": "Translation for docs_error_save"
+  },
+  "docs_error_source": "健康文件需要机构名称",
+  "@docs_error_source": {
+    "description": "Translation for docs_error_source"
+  },
+  "docs_error_size": "文件大小不得超过 10 MB",
+  "@docs_error_size": {
+    "description": "Translation for docs_error_size"
+  },
+  "docs_add_file_selected": "选定的文件",
+  "@docs_add_file_selected": {
+    "description": "Translation for docs_add_file_selected"
+  },
+  "docs_action_delete": "删除",
+  "@docs_action_delete": {
+    "description": "Translation for docs_action_delete"
+  },
+  "docs_no_results": "没有找到结果",
+  "@docs_no_results": {
+    "description": "Translation for docs_no_results"
+  },
+  "docs_no_matching": "没有符合您条件的文件",
+  "@docs_no_matching": {
+    "description": "Translation for docs_no_matching"
+  },
+  "docs_try_different": "尝试使用不同的关键字进行搜索。",
+  "@docs_try_different": {
+    "description": "Translation for docs_try_different"
+  },
+  "docs_no_filter_match": "未找到所选过滤器的文档。",
+  "@docs_no_filter_match": {
+    "description": "Translation for docs_no_filter_match"
+  },
+  "docs_show_all": "显示全部",
+  "@docs_show_all": {
+    "description": "Translation for docs_show_all"
+  },
+  "privacy_warning_title": "隐私警告",
+  "@privacy_warning_title": {
+    "description": "Translation for privacy_warning_title"
+  },
+  "privacy_warning_desc": "任何敏感信息和上传的文件的全部责任完全由用户承担。请谨慎存储高风险数据。",
+  "@privacy_warning_desc": {
+    "description": "Translation for privacy_warning_desc"
+  },
+  "hint_select": "选择",
+  "@hint_select": {
+    "description": "Translation for hint_select"
+  },
+  "hint_institution": "例如市医院、银行、公证人",
+  "@hint_institution": {
+    "description": "Translation for hint_institution"
+  },
+  "hint_person_detail": "例如穆罕默德博士，艾哈迈德律师，税号",
+  "@hint_person_detail": {
+    "description": "Translation for hint_person_detail"
+  },
+  "hint_add_note": "添加注释...",
+  "@hint_add_note": {
+    "description": "Translation for hint_add_note"
+  },
+  "docs_category_prescriptions": "处方",
+  "@docs_category_prescriptions": {
+    "description": "Translation for docs_category_prescriptions"
+  },
+  "docs_category_reports": "报告",
+  "@docs_category_reports": {
+    "description": "Translation for docs_category_reports"
+  },
+  "docs_category_test_results": "测试结果",
+  "@docs_category_test_results": {
+    "description": "Translation for docs_category_test_results"
+  },
+  "docs_category_images": "医学影像",
+  "@docs_category_images": {
+    "description": "Translation for docs_category_images"
+  },
+  "upcoming_appointment": "即将到来的约会",
+  "@upcoming_appointment": {
+    "description": "Translation for upcoming_appointment"
+  },
+  "weekly": "每周",
+  "@weekly": {
+    "description": "Translation for weekly"
+  },
+  "monthly": "每月",
+  "@monthly": {
+    "description": "Translation for monthly"
+  },
+  "no_more_appointments": "找不到更多约会。",
+  "@no_more_appointments": {
+    "description": "Translation for no_more_appointments"
+  },
+  "join_meeting": "加入会议",
+  "@join_meeting": {
+    "description": "Translation for join_meeting"
+  },
+  "health_trend_desc": "7 天健康趋势",
+  "@health_trend_desc": {
+    "description": "Translation for health_trend_desc"
+  },
+  "all_records_title": "所有记录",
+  "@all_records_title": {
+    "description": "Translation for all_records_title"
+  },
+  "personal_health_data": "个人健康数据",
+  "@personal_health_data": {
+    "description": "Translation for personal_health_data"
+  },
+  "personal_info": "个人信息",
+  "@personal_info": {
+    "description": "Translation for personal_info"
+  },
+  "account_settings": "账户与设置",
+  "@account_settings": {
+    "description": "Translation for account_settings"
+  },
+  "emergency_card": "应急卡",
+  "@emergency_card": {
+    "description": "Translation for emergency_card"
+  },
+  "allergies": "过敏",
+  "@allergies": {
+    "description": "Translation for allergies"
+  },
+  "none": "没有任何",
+  "@none": {
+    "description": "Translation for none"
+  },
+  "not_added": "未添加",
+  "@not_added": {
+    "description": "Translation for not_added"
+  },
+  "active_goals": "主动目标",
+  "@active_goals": {
+    "description": "Translation for active_goals"
+  },
+  "daily_steps": "每日步数",
+  "@daily_steps": {
+    "description": "Translation for daily_steps"
+  },
+  "water_intake": "饮水量",
+  "@water_intake": {
+    "description": "Translation for water_intake"
+  },
+  "liter_unit": "升",
+  "@liter_unit": {
+    "description": "Translation for liter_unit"
+  },
+  "speed_up": "加快",
+  "@speed_up": {
+    "description": "Translation for speed_up"
+  },
+  "stay_fresh": "保持新鲜感",
+  "@stay_fresh": {
+    "description": "Translation for stay_fresh"
+  },
+  "target_label": "目标",
+  "@target_label": {
+    "description": "Translation for target_label"
+  },
+  "logout_desc_safe": "您确定要退出吗？您的数据将安全地存储在您的设备上。",
+  "@logout_desc_safe": {
+    "description": "Translation for logout_desc_safe"
+  },
+  "years_old": "岁",
+  "@years_old": {
+    "description": "Translation for years_old"
+  },
+  "med_name_hint": "例如阿司匹林",
+  "@med_name_hint": {
+    "description": "Translation for med_name_hint"
+  },
+  "frequency": "频率",
+  "@frequency": {
+    "description": "Translation for frequency"
+  },
+  "reminder_times": "提醒时间",
+  "@reminder_times": {
+    "description": "Translation for reminder_times"
+  },
+  "current_stock": "当前库存",
+  "@current_stock": {
+    "description": "Translation for current_stock"
+  },
+  "stock_warning": "当库存低于 5 件时我们会提醒您。",
+  "@stock_warning": {
+    "description": "Translation for stock_warning"
+  },
+  "hero_health_tip": "为了您的健康",
+  "@hero_health_tip": {
+    "description": "Translation for hero_health_tip"
+  },
+  "hero_consistency": "一致性是关键",
+  "@hero_consistency": {
+    "description": "Translation for hero_consistency"
+  },
+  "custom_freq_title": "自定义频率",
+  "@custom_freq_title": {
+    "description": "Translation for custom_freq_title"
+  },
+  "custom_freq_hint": "例如每两周一次",
+  "@custom_freq_hint": {
+    "description": "Translation for custom_freq_hint"
+  },
+  "apply": "申请",
+  "@apply": {
+    "description": "Translation for apply"
+  },
+  "daily": "日常的",
+  "@daily": {
+    "description": "Translation for daily"
+  },
+  "custom": "风俗",
+  "@custom": {
+    "description": "Translation for custom"
+  },
+  "tablet": "药片",
+  "@tablet": {
+    "description": "Translation for tablet"
+  },
+  "syrup": "糖浆（毫升）",
+  "@syrup": {
+    "description": "Translation for syrup"
+  },
+  "dose": "剂量",
+  "@dose": {
+    "description": "Translation for dose"
+  },
+  "capsule": "胶囊",
+  "@capsule": {
+    "description": "Translation for capsule"
+  },
+  "drops": "滴",
+  "@drops": {
+    "description": "Translation for drops"
+  },
+  "limit_title": "存储已满！ 🚀",
+  "@limit_title": {
+    "description": "Translation for limit_title"
+  },
+  "limit_desc": "您当前的限制是 {count} 个文档。您想观看短片来获得+5个槽位吗？",
+  "@limit_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc"
+  },
+  "limit_desc_meds": "您当前的药品限额为 {count} 种。您想观看短片来获得+5个槽位吗？",
+  "@limit_desc_meds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_meds"
+  },
+  "limit_desc_appts": "您当前的预约次数限制为 {count} 次。您想观看短片来获得+5个槽位吗？",
+  "@limit_desc_appts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_appts"
+  },
+  "limit_close": "关闭",
+  "@limit_close": {
+    "description": "Translation for limit_close"
+  },
+  "limit_reward_btn": "观看并收获",
+  "@limit_reward_btn": {
+    "description": "Translation for limit_reward_btn"
+  },
+  "limit_reward_success": "恭喜！添加了 +10 个文档槽位。",
+  "@limit_reward_success": {
+    "description": "Translation for limit_reward_success"
+  },
+  "limit_ad_free_info": "安全私密的本地存储🛡️",
+  "@limit_ad_free_info": {
+    "description": "Translation for limit_ad_free_info"
+  },
+  "limit_slots_used": "使用的 {count}/{limit} 插槽",
+  "@limit_slots_used": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_slots_used"
+  },
+  "lock_title": "VitaCase 锁定",
+  "@lock_title": {
+    "description": "Translation for lock_title"
+  },
+  "lock_subtitle": "请验证才能访问",
+  "@lock_subtitle": {
+    "description": "Translation for lock_subtitle"
+  },
+  "unlock": "开锁",
+  "@unlock": {
+    "description": "Translation for unlock"
+  },
+  "bmi_underweight": "减持",
+  "@bmi_underweight": {
+    "description": "Translation for bmi_underweight"
+  },
+  "bmi_normal": "正常（理想）",
+  "@bmi_normal": {
+    "description": "Translation for bmi_normal"
+  },
+  "bmi_overweight": "超重",
+  "@bmi_overweight": {
+    "description": "Translation for bmi_overweight"
+  },
+  "bmi_obese": "肥胖",
+  "@bmi_obese": {
+    "description": "Translation for bmi_obese"
+  },
+  "page_not_found": "找不到页面或发生错误。",
+  "@page_not_found": {
+    "description": "Translation for page_not_found"
+  },
+  "legal_onboarding_clause": "我承认 VitaCase 是一个离线优先的保管库。我对我的设备及其中存储的敏感健康数据的安全承担全部责任。",
+  "@legal_onboarding_clause": {
+    "description": "Translation for legal_onboarding_clause"
+  },
+  "delete_all_data": "删除所有数据",
+  "@delete_all_data": {
+    "description": "Translation for delete_all_data"
+  },
+  "wipe_confirm_1": "您的所有数据、文档和设置都将被永久删除。此操作无法撤消。您想继续吗？",
+  "@wipe_confirm_1": {
+    "description": "Translation for wipe_confirm_1"
+  },
+  "wipe_confirm_2": "你绝对确定吗？您的所有医疗档案和加密记录都将从该设备中删除。",
+  "@wipe_confirm_2": {
+    "description": "Translation for wipe_confirm_2"
+  },
+  "final_warning": "最终安全警告",
+  "@final_warning": {
+    "description": "Translation for final_warning"
+  },
+  "wipe_btn_final": "是的，删除所有内容",
+  "@wipe_btn_final": {
+    "description": "Translation for wipe_btn_final"
+  },
+  "all_data_deleted": "您的所有数据已被擦除。该应用程序现在将重新启动。",
+  "@all_data_deleted": {
+    "description": "Translation for all_data_deleted"
+  },
+  "edit": "编辑",
+  "@edit": {
+    "description": "Translation for edit"
+  },
+  "delete": "删除",
+  "@delete": {
+    "description": "Translation for delete"
+  },
+  "theme_selection_title": "主题选择",
+  "@theme_selection_title": {
+    "description": "Translation for theme_selection_title"
+  },
+  "watch_ad": "观看广告",
+  "@watch_ad": {
+    "description": "Translation for watch_ad"
+  },
+  "verify_sentry": "验证哨兵集成",
+  "@verify_sentry": {
+    "description": "Translation for verify_sentry"
+  },
+  "edit_panel_soon": "编辑面板即将推出！",
+  "@edit_panel_soon": {
+    "description": "Translation for edit_panel_soon"
+  },
+  "add_new_record": "添加新记录",
+  "@add_new_record": {
+    "description": "Translation for add_new_record"
+  },
+  "category": "类别",
+  "@category": {
+    "description": "Translation for category"
+  },
+  "fill_required_fields": "请填写必填字段",
+  "@fill_required_fields": {
+    "description": "Translation for fill_required_fields"
+  },
+  "error_doctor_data": "请输入医生姓名及科室",
+  "@error_doctor_data": {
+    "description": "Translation for error_doctor_data"
+  },
+  "error_appointment_data": "请填写标题和医院/中心字段",
+  "@error_appointment_data": {
+    "description": "Translation for error_appointment_data"
+  },
+  "appointment_reminder_title": "预约提醒",
+  "@appointment_reminder_title": {
+    "description": "Translation for appointment_reminder_title"
+  },
+  "appointment_reminder_body": "您在 {time} 有预约：{doctor} ({dept})",
+  "@appointment_reminder_body": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "doctor": {
+        "type": "String"
+      },
+      "dept": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for appointment_reminder_body"
+  },
+  "text_size_small": "小的",
+  "@text_size_small": {
+    "description": "Translation for text_size_small"
+  },
+  "text_size_medium": "中等的",
+  "@text_size_medium": {
+    "description": "Translation for text_size_medium"
+  },
+  "text_size_large": "大的",
+  "@text_size_large": {
+    "description": "Translation for text_size_large"
+  },
+  "support_contact": "要联系我们的支持团队：limanexsoftware@outlook.com",
+  "@support_contact": {
+    "description": "Translation for support_contact"
+  },
+  "quick_actions_optimized": "快速操作已针对您的个人资料进行了优化。",
+  "@quick_actions_optimized": {
+    "description": "Translation for quick_actions_optimized"
+  },
+  "medication_reminder": "服药提醒",
+  "@medication_reminder": {
+    "description": "Translation for medication_reminder"
+  },
+  "medication_reminder_body": "{name} ({dose}) 的时间",
+  "@medication_reminder_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dose": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for medication_reminder_body"
+  },
+  "no_doctors_found": "未找到匹配的医生",
+  "@no_doctors_found": {
+    "description": "Translation for no_doctors_found"
+  },
+  "clear_filters": "清除过滤器",
+  "@clear_filters": {
+    "description": "Translation for clear_filters"
+  },
+  "verified": "已验证",
+  "@verified": {
+    "description": "Translation for verified"
+  },
+  "height_label": "高度",
+  "@height_label": {
+    "description": "Translation for height_label"
+  },
+  "weight_label": "重量",
+  "@weight_label": {
+    "description": "Translation for weight_label"
+  },
+  "age_label": "年龄",
+  "@age_label": {
+    "description": "Translation for age_label"
+  },
+  "identity_contact": "身份与联系方式",
+  "@identity_contact": {
+    "description": "Translation for identity_contact"
+  },
+  "id_number": "身份证号码",
+  "@id_number": {
+    "description": "Translation for id_number"
+  },
+  "update_info": "更新信息",
+  "@update_info": {
+    "description": "Translation for update_info"
+  },
+  "vita_badge": "维塔案例用户",
+  "@vita_badge": {
+    "description": "Translation for vita_badge"
+  },
+  "default_job": "自由职业者/健康爱好者",
+  "@default_job": {
+    "description": "Translation for default_job"
+  },
+  "blood_type_val": "铑+",
+  "@blood_type_val": {
+    "description": "Translation for blood_type_val"
+  },
+  "clinical_note": "临床记录",
+  "@clinical_note": {
+    "description": "Translation for clinical_note"
+  },
+  "last_control": "最后控制",
+  "@last_control": {
+    "description": "Translation for last_control"
+  },
+  "bmi_ideal": "理想体重范围",
+  "@bmi_ideal": {
+    "description": "Translation for bmi_ideal"
+  },
+  "medical_info_desc_empty": "将您的重要医疗信息存储在这里，以便随身携带。",
+  "@medical_info_desc_empty": {
+    "description": "Translation for medical_info_desc_empty"
+  },
+  "category_critical": "关键信息",
+  "@category_critical": {
+    "description": "Translation for category_critical"
+  },
+  "category_important": "重要提示",
+  "@category_important": {
+    "description": "Translation for category_important"
+  },
+  "category_general": "一般信息",
+  "@category_general": {
+    "description": "Translation for category_general"
+  },
+  "medical_info_desc": "所有对您的健康至关重要的医疗记录。",
+  "@medical_info_desc": {
+    "description": "Translation for medical_info_desc"
+  },
+  "title": "标题",
+  "@title": {
+    "description": "Translation for title"
+  },
+  "description": "描述",
+  "@description": {
+    "description": "Translation for description"
+  },
+  "icon": "图标",
+  "@icon": {
+    "description": "Translation for icon"
+  },
+  "save_record": "保存记录",
+  "@save_record": {
+    "description": "Translation for save_record"
+  },
+  "critical": "批判的",
+  "@critical": {
+    "description": "Translation for critical"
+  },
+  "important": "重要的",
+  "@important": {
+    "description": "Translation for important"
+  },
+  "general": "一般的",
+  "@general": {
+    "description": "Translation for general"
+  },
+  "theme_unlock_desc": "您可以尝试此主题或观看广告以永久解锁它。",
+  "@theme_unlock_desc": {
+    "description": "Translation for theme_unlock_desc"
+  },
+  "theme_previewing": "主题正在预览 10 秒...",
+  "@theme_previewing": {
+    "description": "Translation for theme_previewing"
+  },
+  "preview_10s": "预览（10 秒）",
+  "@preview_10s": {
+    "description": "Translation for preview_10s"
+  },
+  "congratulations": "恭喜！",
+  "@congratulations": {
+    "description": "Translation for congratulations"
+  },
+  "theme_unlocked_success": "您的新主题已解锁。",
+  "@theme_unlocked_success": {
+    "description": "Translation for theme_unlocked_success"
+  },
+  "please_enter_at_least_one_data": "请输入至少一个数据点。",
+  "@please_enter_at_least_one_data": {
+    "description": "Translation for please_enter_at_least_one_data"
+  },
+  "data_saved_success": "数据保存成功。",
+  "@data_saved_success": {
+    "description": "Translation for data_saved_success"
+  },
+  "add_data": "添加数据",
+  "@add_data": {
+    "description": "Translation for add_data"
+  },
+  "save_data": "保存数据",
+  "@save_data": {
+    "description": "Translation for save_data"
+  },
+  "today_summary": "今日总结",
+  "@today_summary": {
+    "description": "Translation for today_summary"
+  },
+  "target_water": "目标水",
+  "@target_water": {
+    "description": "Translation for target_water"
+  },
+  "target_steps": "目标步数",
+  "@target_steps": {
+    "description": "Translation for target_steps"
+  },
+  "add_doctor": "添加医生",
+  "@add_doctor": {
+    "description": "Translation for add_doctor"
+  },
+  "doctor_name_surname": "医生姓名",
+  "@doctor_name_surname": {
+    "description": "Translation for doctor_name_surname"
+  },
+  "specialty_department": "专业/部门",
+  "@specialty_department": {
+    "description": "Translation for specialty_department"
+  },
+  "new_record": "新纪录",
+  "@new_record": {
+    "description": "Translation for new_record"
+  },
+  "appointment_updated": "约会已更新。",
+  "@appointment_updated": {
+    "description": "Translation for appointment_updated"
+  },
+  "edit_appointment": "编辑预约",
+  "@edit_appointment": {
+    "description": "Translation for edit_appointment"
+  },
+  "importance_level": "重要性级别",
+  "@importance_level": {
+    "description": "Translation for importance_level"
+  },
+  "notes_optional": "注释（可选）",
+  "@notes_optional": {
+    "description": "Translation for notes_optional"
+  },
+  "address_department": "详细地址/部门",
+  "@address_department": {
+    "description": "Translation for address_department"
+  },
+  "select_category": "选择类别",
+  "@select_category": {
+    "description": "Translation for select_category"
+  },
+  "category_meeting": "会议",
+  "@category_meeting": {
+    "description": "Translation for category_meeting"
+  },
+  "category_reminder": "提醒",
+  "@category_reminder": {
+    "description": "Translation for category_reminder"
+  },
+  "category_other": "其他",
+  "@category_other": {
+    "description": "Translation for category_other"
+  },
+  "app_slogan": "数字庇护所",
+  "@app_slogan": {
+    "description": "Translation for app_slogan"
+  },
+  "day_monday_short": "周一",
+  "@day_monday_short": {
+    "description": "Translation for day_monday_short"
+  },
+  "day_tuesday_short": "治疗费用",
+  "@day_tuesday_short": {
+    "description": "Translation for day_tuesday_short"
+  },
+  "day_wednesday_short": "周三",
+  "@day_wednesday_short": {
+    "description": "Translation for day_wednesday_short"
+  },
+  "day_thursday_short": "周四",
+  "@day_thursday_short": {
+    "description": "Translation for day_thursday_short"
+  },
+  "day_friday_short": "弗瑞",
+  "@day_friday_short": {
+    "description": "Translation for day_friday_short"
+  },
+  "day_saturday_short": "SAT",
+  "@day_saturday_short": {
+    "description": "Translation for day_saturday_short"
+  },
+  "day_sunday_short": "太阳",
+  "@day_sunday_short": {
+    "description": "Translation for day_sunday_short"
+  },
+  "day_monday_very_short": "中号",
+  "@day_monday_very_short": {
+    "description": "Translation for day_monday_very_short"
+  },
+  "day_tuesday_very_short": "时间",
+  "@day_tuesday_very_short": {
+    "description": "Translation for day_tuesday_very_short"
+  },
+  "day_wednesday_very_short": "瓦",
+  "@day_wednesday_very_short": {
+    "description": "Translation for day_wednesday_very_short"
+  },
+  "day_thursday_very_short": "时间",
+  "@day_thursday_very_short": {
+    "description": "Translation for day_thursday_very_short"
+  },
+  "day_friday_very_short": "F",
+  "@day_friday_very_short": {
+    "description": "Translation for day_friday_very_short"
+  },
+  "day_saturday_very_short": "S",
+  "@day_saturday_very_short": {
+    "description": "Translation for day_saturday_very_short"
+  },
+  "day_sunday_very_short": "S",
+  "@day_sunday_very_short": {
+    "description": "Translation for day_sunday_very_short"
+  },
+  "delete_medicine_confirm": "您确定要删除该药品吗？",
+  "@delete_medicine_confirm": {
+    "description": "Translation for delete_medicine_confirm"
+  },
+  "i_agree_to": "我已阅读并同意",
+  "@i_agree_to": {
+    "description": "Translation for i_agree_to"
+  },
+  "read_privacy_policy": "隐私政策",
+  "@read_privacy_policy": {
+    "description": "Translation for read_privacy_policy"
+  },
+  "read_terms": "服务条款",
+  "@read_terms": {
+    "description": "Translation for read_terms"
+  },
+  "read_disclaimer": "法律免责声明",
+  "@read_disclaimer": {
+    "description": "Translation for read_disclaimer"
+  },
+  "legal_acceptance": "法律认可",
+  "@legal_acceptance": {
+    "description": "Translation for legal_acceptance"
+  },
+  "manage_subscription": "管理订阅",
+  "@manage_subscription": {
+    "description": "Translation for manage_subscription"
+  },
+  "trust_offline_title": "线下庇护所",
+  "@trust_offline_title": {
+    "description": "Translation for trust_offline_title"
+  },
+  "trust_offline_desc": "您的数据永远不会离开您的设备。",
+  "@trust_offline_desc": {
+    "description": "Translation for trust_offline_desc"
+  },
+  "trust_encryption_title": "AES-256 加密",
+  "@trust_encryption_title": {
+    "description": "Translation for trust_encryption_title"
+  },
+  "trust_encryption_desc": "受到最大程度的安全保护。",
+  "@trust_encryption_desc": {
+    "description": "Translation for trust_encryption_desc"
+  },
+  "trust_adfree_desc": "不间断的体验。",
+  "@trust_adfree_desc": {
+    "description": "Translation for trust_adfree_desc"
+  },
+  "medals_trophies": "奖牌和奖杯",
+  "@medals_trophies": {
+    "description": "Translation for medals_trophies"
+  },
+  "cat_streak": "每日连胜",
+  "@cat_streak": {
+    "description": "Translation for cat_streak"
+  },
+  "cat_ads": "支持与广告",
+  "@cat_ads": {
+    "description": "Translation for cat_ads"
+  },
+  "cat_documents": "记录存档",
+  "@cat_documents": {
+    "description": "Translation for cat_documents"
+  },
+  "cat_medications": "用药习惯",
+  "@cat_medications": {
+    "description": "Translation for cat_medications"
+  },
+  "cat_appointments": "临床就诊",
+  "@cat_appointments": {
+    "description": "Translation for cat_appointments"
+  },
+  "cat_profile": "身份",
+  "@cat_profile": {
+    "description": "Translation for cat_profile"
+  },
+  "cat_emergency": "安全与准备",
+  "@cat_emergency": {
+    "description": "Translation for cat_emergency"
+  },
+  "cat_health": "生命体征监测",
+  "@cat_health": {
+    "description": "Translation for cat_health"
+  },
+  "cat_engagement": "应用程序活动",
+  "@cat_engagement": {
+    "description": "Translation for cat_engagement"
+  },
+  "cat_special": "荣誉资质",
+  "@cat_special": {
+    "description": "Translation for cat_special"
+  },
+  "cat_premium": "支持者",
+  "@cat_premium": {
+    "description": "Translation for cat_premium"
+  },
+  "cat_power_user": "传奇地位",
+  "@cat_power_user": {
+    "description": "Translation for cat_power_user"
+  },
+  "ach_legend_status": "传奇",
+  "@ach_legend_status": {
+    "description": "Translation for ach_legend_status"
+  },
+  "theme_boutique": "主题精品",
+  "@theme_boutique": {
+    "description": "Translation for theme_boutique"
+  },
+  "days_left": "剩余天数",
+  "@days_left": {
+    "description": "Translation for days_left"
+  },
+  "unlocked": "解锁",
+  "@unlocked": {
+    "description": "Translation for unlocked"
+  },
+  "progress": "进步",
+  "@progress": {
+    "description": "Translation for progress"
+  },
+  "ach_hidden_desc": "继续玩，发现这个秘密成就。",
+  "@ach_hidden_desc": {
+    "description": "Translation for ach_hidden_desc"
+  },
+  "ach_login_1_desc": "每一段传奇旅程都是从一步开始的。你点燃了你的第一次连胜！",
+  "@ach_login_1_desc": {
+    "description": "Translation for ach_login_1_desc"
+  },
+  "ach_login_3_title": "热身",
+  "@ach_login_3_title": {
+    "description": "Translation for ach_login_3_title"
+  },
+  "ach_login_3_desc": "热身圈结束。你已经在这里连续三天了，一点也不差！ 🔥",
+  "@ach_login_3_desc": {
+    "description": "Translation for ach_login_3_desc"
+  },
+  "ach_login_7_title": "持续的",
+  "@ach_login_7_title": {
+    "description": "Translation for ach_login_7_title"
+  },
+  "ach_login_7_desc": "整整一个星期！您已经掌握了诀窍并点燃了篝火。",
+  "@ach_login_7_desc": {
+    "description": "Translation for ach_login_7_desc"
+  },
+  "ach_login_14_title": "习惯性的",
+  "@ach_login_14_title": {
+    "description": "Translation for ach_login_14_title"
+  },
+  "ach_login_14_desc": "连续两周！ This is how habits are forged.恭喜。",
+  "@ach_login_14_desc": {
+    "description": "Translation for ach_login_14_desc"
+  },
+  "ach_login_30_title": "上瘾了",
+  "@ach_login_30_title": {
+    "description": "Translation for ach_login_30_title"
+  },
+  "ach_login_30_desc": "整整一个月！我们都知道现在这不仅仅是一种爱好。",
+  "@ach_login_30_desc": {
+    "description": "Translation for ach_login_30_desc"
+  },
+  "ach_login_60_title": "忠实用户",
+  "@ach_login_60_title": {
+    "description": "Translation for ach_login_60_title"
+  },
+  "ach_login_60_desc": "两个月...朋友，你付房租了吗？欢迎来到您的第二个家。 🏠",
+  "@ach_login_60_desc": {
+    "description": "Translation for ach_login_60_desc"
+  },
+  "ach_login_100_title": "专家",
+  "@ach_login_100_title": {
+    "description": "Translation for ach_login_100_title"
+  },
+  "ach_login_100_desc": "世纪！没有任何力量可以打破连续 100 天的巨大记录。 💯",
+  "@ach_login_100_desc": {
+    "description": "Translation for ach_login_100_desc"
+  },
+  "ach_login_200_title": "传奇",
+  "@ach_login_200_title": {
+    "description": "Translation for ach_login_200_title"
+  },
+  "ach_login_200_desc": "200天。人们开始怀疑你是一个人工智能机器人。 🤖",
+  "@ach_login_200_desc": {
+    "description": "Translation for ach_login_200_desc"
+  },
+  "ach_login_365_title": "传奇之年",
+  "@ach_login_365_title": {
+    "description": "Translation for ach_login_365_title"
+  },
+  "ach_login_365_desc": "一个完整的太阳年！你一直在这里经历一切。明天加冕。 👑",
+  "@ach_login_365_desc": {
+    "description": "Translation for ach_login_365_desc"
+  },
+  "ach_ads_1_title": "第一个广告",
+  "@ach_ads_1_title": {
+    "description": "Translation for ach_ads_1_title"
+  },
+  "ach_ads_1_desc": "广告有时是好的。感谢小小支持！",
+  "@ach_ads_1_desc": {
+    "description": "Translation for ach_ads_1_desc"
+  },
+  "ach_ads_5_title": "支持者",
+  "@ach_ads_5_title": {
+    "description": "Translation for ach_ads_5_title"
+  },
+  "ach_ads_5_desc": "您似乎和我们一样热爱我们的赞助商。",
+  "@ach_ads_5_desc": {
+    "description": "Translation for ach_ads_5_desc"
+  },
+  "ach_ads_15_title": "忠实观众",
+  "@ach_ads_15_title": {
+    "description": "Translation for ach_ads_15_title"
+  },
+  "ach_ads_15_desc": "拿起你的爆米花，你完成了 15 个广告的马拉松。 🍿",
+  "@ach_ads_15_desc": {
+    "description": "Translation for ach_ads_15_desc"
+  },
+  "ach_ads_30_title": "继续努力吧",
+  "@ach_ads_30_title": {
+    "description": "Translation for ach_ads_30_title"
+  },
+  "ach_ads_30_desc": "就像看电视一样！您的支持是有价值的。",
+  "@ach_ads_30_desc": {
+    "description": "Translation for ach_ads_30_desc"
+  },
+  "ach_ads_50_title": "高级用户",
+  "@ach_ads_50_title": {
+    "description": "Translation for ach_ads_50_title"
+  },
+  "ach_ads_50_desc": "您现在可以预测哪个广告将出现在第二个广告中。",
+  "@ach_ads_50_desc": {
+    "description": "Translation for ach_ads_50_desc"
+  },
+  "ach_ads_100_title": "上瘾了",
+  "@ach_ads_100_title": {
+    "description": "Translation for ach_ads_100_title"
+  },
+  "ach_ads_100_desc": "100个广告！由于您的耐心，我们欠您一枚特殊的奖章。",
+  "@ach_ads_100_desc": {
+    "description": "Translation for ach_ads_100_desc"
+  },
+  "ach_ads_250_title": "广告大师",
+  "@ach_ads_250_title": {
+    "description": "Translation for ach_ads_250_title"
+  },
+  "ach_ads_250_desc": "一位营销天才消失在银幕上。您的支持到达了天空。",
+  "@ach_ads_250_desc": {
+    "description": "Translation for ach_ads_250_desc"
+  },
+  "ach_ads_500_title": "变现王",
+  "@ach_ads_500_title": {
+    "description": "Translation for ach_ads_500_title"
+  },
+  "ach_ads_500_desc": "你是金融家吗？你正在以一己之力掌控市场！ 📉",
+  "@ach_ads_500_desc": {
+    "description": "Translation for ach_ads_500_desc"
+  },
+  "ach_doc_1_title": "第一份文件",
+  "@ach_doc_1_title": {
+    "description": "Translation for ach_doc_1_title"
+  },
+  "ach_doc_1_desc": "不是政府办公室，但您成功提交了第一份文件。 📇",
+  "@ach_doc_1_desc": {
+    "description": "Translation for ach_doc_1_desc"
+  },
+  "ach_doc_5_title": "开始",
+  "@ach_doc_5_title": {
+    "description": "Translation for ach_doc_5_title"
+  },
+  "ach_doc_5_desc": "您的第一个文件夹几乎已满。你正在变得有条理。",
+  "@ach_doc_5_desc": {
+    "description": "Translation for ach_doc_5_desc"
+  },
+  "ach_doc_10_title": "普通用户",
+  "@ach_doc_10_title": {
+    "description": "Translation for ach_doc_10_title"
+  },
+  "ach_doc_10_desc": "文件堆积如山。失物招领处很乐意与您合作。",
+  "@ach_doc_10_desc": {
+    "description": "Translation for ach_doc_10_desc"
+  },
+  "ach_doc_25_title": "档案管理员",
+  "@ach_doc_25_title": {
+    "description": "Translation for ach_doc_25_title"
+  },
+  "ach_doc_25_desc": "文书工作和所有...您翻阅了档案中的 25 份文件。",
+  "@ach_doc_25_desc": {
+    "description": "Translation for ach_doc_25_desc"
+  },
+  "ach_doc_50_title": "专业的",
+  "@ach_doc_50_title": {
+    "description": "Translation for ach_doc_50_title"
+  },
+  "ach_doc_50_desc": "忘掉秘书工作吧，这就是职业档案骑士的样子。",
+  "@ach_doc_50_desc": {
+    "description": "Translation for ach_doc_50_desc"
+  },
+  "ach_doc_100_title": "避难所大师",
+  "@ach_doc_100_title": {
+    "description": "Translation for ach_doc_100_title"
+  },
+  "ach_doc_100_desc": "100份文件？是时候为这个庞大的档案任命一名图书管理员了。 📚",
+  "@ach_doc_100_desc": {
+    "description": "Translation for ach_doc_100_desc"
+  },
+  "ach_doc_250_title": "数据收集器",
+  "@ach_doc_250_title": {
+    "description": "Translation for ach_doc_250_title"
+  },
+  "ach_doc_250_desc": "欢迎来到大数据场景。你统治着堆栈。",
+  "@ach_doc_250_desc": {
+    "description": "Translation for ach_doc_250_desc"
+  },
+  "ach_doc_500_title": "数字档案专家",
+  "@ach_doc_500_title": {
+    "description": "Translation for ach_doc_500_title"
+  },
+  "ach_doc_500_desc": "亚历山大数字图书馆！您的档案将世代相传。",
+  "@ach_doc_500_desc": {
+    "description": "Translation for ach_doc_500_desc"
+  },
+  "ach_med_1_title": "第一医学",
+  "@ach_med_1_title": {
+    "description": "Translation for ach_med_1_title"
+  },
+  "ach_med_1_desc": "你开始重视自己。对您的健康而言，这是一个伟大的里程碑。",
+  "@ach_med_1_desc": {
+    "description": "Translation for ach_med_1_desc"
+  },
+  "ach_med_3_title": "追踪开始",
+  "@ach_med_3_title": {
+    "description": "Translation for ach_med_3_title"
+  },
+  "ach_med_3_desc": "忠于您的处方。喝水，不错过提醒。",
+  "@ach_med_3_desc": {
+    "description": "Translation for ach_med_3_desc"
+  },
+  "ach_med_5_title": "普通用户",
+  "@ach_med_5_title": {
+    "description": "Translation for ach_med_5_title"
+  },
+  "ach_med_5_desc": "药剂师最喜欢的顾客！你小心翼翼地维护你的形式。",
+  "@ach_med_5_desc": {
+    "description": "Translation for ach_med_5_desc"
+  },
+  "ach_med_10_title": "遵守纪律",
+  "@ach_med_10_title": {
+    "description": "Translation for ach_med_10_title"
+  },
+  "ach_med_10_desc": "按时服药，你的身体就像时钟一样运转。 10次​​确认！",
+  "@ach_med_10_desc": {
+    "description": "Translation for ach_med_10_desc"
+  },
+  "ach_med_25_title": "健康专家",
+  "@ach_med_25_title": {
+    "description": "Translation for ach_med_25_title"
+  },
+  "ach_med_25_desc": "你了解你的身体语言。医学日志对您来说成为一门艺术。",
+  "@ach_med_25_desc": {
+    "description": "Translation for ach_med_25_desc"
+  },
+  "ach_med_50_title": "健康大师",
+  "@ach_med_50_title": {
+    "description": "Translation for ach_med_50_title"
+  },
+  "ach_med_50_desc": "连医生都羡慕你的纪律。你是身体化学的大师！ 🧬",
+  "@ach_med_50_desc": {
+    "description": "Translation for ach_med_50_desc"
+  },
+  "ach_app_1_title": "第一次预约",
+  "@ach_app_1_title": {
+    "description": "Translation for ach_app_1_title"
+  },
+  "ach_app_1_desc": "没有自然的计划就没有成功！第一个日历条目已安全获取。",
+  "@ach_app_1_desc": {
+    "description": "Translation for ach_app_1_desc"
+  },
+  "ach_app_3_title": "规划",
+  "@ach_app_3_title": {
+    "description": "Translation for ach_app_3_title"
+  },
+  "ach_app_3_desc": "时间管理 101. 通过忠于自己的计划，你会进步。",
+  "@ach_app_3_desc": {
+    "description": "Translation for ach_app_3_desc"
+  },
+  "ach_app_5_title": "有组织",
+  "@ach_app_5_title": {
+    "description": "Translation for ach_app_5_title"
+  },
+  "ach_app_5_desc": "你的议程已经满了。那个忙碌但有魅力的人绝对是你。",
+  "@ach_app_5_desc": {
+    "description": "Translation for ach_app_5_desc"
+  },
+  "ach_app_10_title": "纪律严明的规划师",
+  "@ach_app_10_title": {
+    "description": "Translation for ach_app_10_title"
+  },
+  "ach_app_10_desc": "不需要闹钟，你脑子里就有一个原子钟。",
+  "@ach_app_10_desc": {
+    "description": "Translation for ach_app_10_desc"
+  },
+  "ach_app_20_title": "规划师专业版",
+  "@ach_app_20_title": {
+    "description": "Translation for ach_app_20_title"
+  },
+  "ach_app_20_desc": "一切都一目了然...您就像一个数字助理！",
+  "@ach_app_20_desc": {
+    "description": "Translation for ach_app_20_desc"
+  },
+  "ach_app_30_title": "总体规划师",
+  "@ach_app_30_title": {
+    "description": "Translation for ach_app_30_title"
+  },
+  "ach_app_30_desc": "时间扭曲者！一个人似乎不可能管理这些应用程序……但事实并非如此。",
+  "@ach_app_30_desc": {
+    "description": "Translation for ach_app_30_desc"
+  },
+  "ach_profile_created_title": "个人资料已创建",
+  "@ach_profile_created_title": {
+    "description": "Translation for ach_profile_created_title"
+  },
+  "ach_profile_created_desc": "正式加入我们。您已经做出了数字标记！",
+  "@ach_profile_created_desc": {
+    "description": "Translation for ach_profile_created_desc"
+  },
+  "ach_profile_completed_title": "个人资料已完成",
+  "@ach_profile_completed_title": {
+    "description": "Translation for ach_profile_completed_title"
+  },
+  "ach_profile_completed_desc": "你讨厌缺失空白，对吧？所有信息都非常完整。",
+  "@ach_profile_completed_desc": {
+    "description": "Translation for ach_profile_completed_desc"
+  },
+  "ach_profile_updated_title": "个人资料已更新",
+  "@ach_profile_updated_title": {
+    "description": "Translation for ach_profile_updated_title"
+  },
+  "ach_profile_updated_desc": "改变就是进步！你通过刷新自己留在了游戏中。",
+  "@ach_profile_updated_desc": {
+    "description": "Translation for ach_profile_updated_desc"
+  },
+  "ach_profile_with_photo_title": "个人资料照片",
+  "@ach_profile_with_photo_title": {
+    "description": "Translation for ach_profile_with_photo_title"
+  },
+  "ach_profile_with_photo_desc": "免于成为无面化身。对着镜头微笑！ 📸",
+  "@ach_profile_with_photo_desc": {
+    "description": "Translation for ach_profile_with_photo_desc"
+  },
+  "ach_profile_master_title": "轮廓大师",
+  "@ach_profile_master_title": {
+    "description": "Translation for ach_profile_master_title"
+  },
+  "ach_profile_master_desc": "凭借您的身份和简历，您是系统中最时尚的用户。",
+  "@ach_profile_master_desc": {
+    "description": "Translation for ach_profile_master_desc"
+  },
+  "ach_emergency_added_title": "添加紧急卡",
+  "@ach_emergency_added_title": {
+    "description": "Translation for ach_emergency_added_title"
+  },
+  "ach_emergency_added_desc": "预防措施永远不会落下。您的紧急防护罩已启用。",
+  "@ach_emergency_added_desc": {
+    "description": "Translation for ach_emergency_added_desc"
+  },
+  "ach_emergency_contact_title": "紧急联系方式",
+  "@ach_emergency_contact_title": {
+    "description": "Translation for ach_emergency_contact_title"
+  },
+  "ach_emergency_contact_desc": "在困难时期该给谁打电话是很清楚的。创建了信任圈。 📞",
+  "@ach_emergency_contact_desc": {
+    "description": "Translation for ach_emergency_contact_desc"
+  },
+  "ach_emergency_complete_title": "完全的",
+  "@ach_emergency_complete_title": {
+    "description": "Translation for ach_emergency_complete_title"
+  },
+  "ach_emergency_complete_desc": "为场景做好准备。安全级别最高。",
+  "@ach_emergency_complete_desc": {
+    "description": "Translation for ach_emergency_complete_desc"
+  },
+  "ach_emergency_ready_title": "准备好",
+  "@ach_emergency_ready_title": {
+    "description": "Translation for ach_emergency_ready_title"
+  },
+  "ach_emergency_ready_desc": "一切都会像红色警报中的时钟一样运转。安全固定。",
+  "@ach_emergency_ready_desc": {
+    "description": "Translation for ach_emergency_ready_desc"
+  },
+  "ach_emergency_master_title": "急救大师",
+  "@ach_emergency_master_title": {
+    "description": "Translation for ach_emergency_master_title"
+  },
+  "ach_emergency_master_desc": "足够坚韧和冷静，可以在救护车到达之前进行急救！",
+  "@ach_emergency_master_desc": {
+    "description": "Translation for ach_emergency_master_desc"
+  },
+  "ach_health_1_title": "第一数据",
+  "@ach_health_1_title": {
+    "description": "Translation for ach_health_1_title"
+  },
+  "ach_health_1_desc": "你今天帮了自己一个忙。你的身体从内部感谢你。",
+  "@ach_health_1_desc": {
+    "description": "Translation for ach_health_1_desc"
+  },
+  "ach_health_5_title": "追踪开始",
+  "@ach_health_5_title": {
+    "description": "Translation for ach_health_5_title"
+  },
+  "ach_health_5_desc": "数据正在堆积，你正在与你的生物节律进行对话。",
+  "@ach_health_5_desc": {
+    "description": "Translation for ach_health_5_desc"
+  },
+  "ach_health_10_title": "健康意识",
+  "@ach_health_10_title": {
+    "description": "Translation for ach_health_10_title"
+  },
+  "ach_health_10_desc": "你是一个统计奇迹！你的身体读起来就像一本加密的书。 📈",
+  "@ach_health_10_desc": {
+    "description": "Translation for ach_health_10_desc"
+  },
+  "ach_health_20_title": "定期追踪",
+  "@ach_health_20_title": {
+    "description": "Translation for ach_health_20_title"
+  },
+  "ach_health_20_desc": "你就像一台机器。脉搏、指标、步数……都逃不过您的传感器。",
+  "@ach_health_20_desc": {
+    "description": "Translation for ach_health_20_desc"
+  },
+  "ach_health_50_title": "健康专家",
+  "@ach_health_50_title": {
+    "description": "Translation for ach_health_50_title"
+  },
+  "ach_health_50_desc": "接近机器人水平。您和您的生物数据之间的联系是牢不可破的。",
+  "@ach_health_50_desc": {
+    "description": "Translation for ach_health_50_desc"
+  },
+  "ach_health_master_title": "健康大师",
+  "@ach_health_master_title": {
+    "description": "Translation for ach_health_master_title"
+  },
+  "ach_health_master_desc": "圣殿的大祭司！你建立了对自己身体的绝对掌控。 🧘",
+  "@ach_health_master_desc": {
+    "description": "Translation for ach_health_master_desc"
+  },
+  "ach_first_login_title": "欢迎",
+  "@ach_first_login_title": {
+    "description": "Translation for ach_first_login_title"
+  },
+  "ach_first_login_desc": "真正的冒险才刚刚开始。你刚刚踏进去。",
+  "@ach_first_login_desc": {
+    "description": "Translation for ach_first_login_desc"
+  },
+  "ach_first_upload_title": "探险家",
+  "@ach_first_upload_title": {
+    "description": "Translation for ach_first_upload_title"
+  },
+  "ach_first_upload_desc": "留下你的第一个永久印记。你现在被刻在这里。",
+  "@ach_first_upload_desc": {
+    "description": "Translation for ach_first_upload_desc"
+  },
+  "ach_first_ad_title": "免费用户",
+  "@ach_first_ad_title": {
+    "description": "Translation for ach_first_ad_title"
+  },
+  "ach_first_ad_desc": "第一次广告互动！您为生态系统提供了生命线。",
+  "@ach_first_ad_desc": {
+    "description": "Translation for ach_first_ad_desc"
+  },
+  "ach_first_premium_title": "高级用户",
+  "@ach_first_premium_title": {
+    "description": "Translation for ach_first_premium_title"
+  },
+  "ach_first_premium_desc": "一个愿景问题。享受VIP休息室，红地毯已铺开！ 🎟️",
+  "@ach_first_premium_desc": {
+    "description": "Translation for ach_first_premium_desc"
+  },
+  "ach_active_3_days_title": "积极的",
+  "@ach_active_3_days_title": {
+    "description": "Translation for ach_active_3_days_title"
+  },
+  "ach_active_3_days_desc": "电缆正在预热，发动机已启动。我们感受到你的能量。",
+  "@ach_active_3_days_desc": {
+    "description": "Translation for ach_active_3_days_desc"
+  },
+  "ach_active_7_days_title": "忠诚",
+  "@ach_active_7_days_title": {
+    "description": "Translation for ach_active_7_days_title"
+  },
+  "ach_active_7_days_desc": "与系统同步整整一周。事情变得电动了！",
+  "@ach_active_7_days_desc": {
+    "description": "Translation for ach_active_7_days_desc"
+  },
+  "ach_active_30_days_title": "核心用户",
+  "@ach_active_30_days_title": {
+    "description": "Translation for ach_active_30_days_title"
+  },
+  "ach_active_30_days_desc": "现在实际上是名誉职员。没有你，这个地方就不一样了。",
+  "@ach_active_30_days_desc": {
+    "description": "Translation for ach_active_30_days_desc"
+  },
+  "ach_streak_saved_title": "连胜救星",
+  "@ach_streak_saved_title": {
+    "description": "Translation for ach_streak_saved_title"
+  },
+  "ach_streak_saved_desc": "从边缘回来了！挽救那场漂亮的连胜是一种很好的反应。",
+  "@ach_streak_saved_desc": {
+    "description": "Translation for ach_streak_saved_desc"
+  },
+  "ach_streak_saved_5_title": "有弹性的",
+  "@ach_streak_saved_5_title": {
+    "description": "Translation for ach_streak_saved_5_title"
+  },
+  "ach_streak_saved_5_desc": "虽伤痕累累不倒下，跌倒时才知道如何爬起来。",
+  "@ach_streak_saved_5_desc": {
+    "description": "Translation for ach_streak_saved_5_desc"
+  },
+  "ach_streak_saved_10_title": "永不放弃",
+  "@ach_streak_saved_10_title": {
+    "description": "Translation for ach_streak_saved_10_title"
+  },
+  "ach_streak_saved_10_desc": "你是凤凰吗？从灰烬中复活对你来说只是典型的周二活动。 🐦🔥",
+  "@ach_streak_saved_10_desc": {
+    "description": "Translation for ach_streak_saved_10_desc"
+  },
+  "ach_streak_perfect_30_title": "完美连胜",
+  "@ach_streak_perfect_30_title": {
+    "description": "Translation for ach_streak_perfect_30_title"
+  },
+  "ach_streak_perfect_30_desc": "没有一个错过。你整整 30 天都是完美的，就像瑞士手表一样！",
+  "@ach_streak_perfect_30_desc": {
+    "description": "Translation for ach_streak_perfect_30_desc"
+  },
+  "ach_premium_trial_used_title": "优质体验",
+  "@ach_premium_trial_used_title": {
+    "description": "Translation for ach_premium_trial_used_title"
+  },
+  "ach_premium_trial_used_desc": "打开了特权之门。这景色令人着迷，不是吗？",
+  "@ach_premium_trial_used_desc": {
+    "description": "Translation for ach_premium_trial_used_desc"
+  },
+  "ach_limit_breaker_title": "极限突破者",
+  "@ach_limit_breaker_title": {
+    "description": "Translation for ach_limit_breaker_title"
+  },
+  "ach_limit_breaker_desc": "规则和限制是用来改变的。你走出了黑客帝国！ 💥",
+  "@ach_limit_breaker_desc": {
+    "description": "Translation for ach_limit_breaker_desc"
+  },
+  "ach_ad_skip_used_title": "跳过广告",
+  "@ach_ad_skip_used_title": {
+    "description": "Translation for ach_ad_skip_used_title"
+  },
+  "ach_ad_skip_used_desc": "你说我没时间，一键快进时间。",
+  "@ach_ad_skip_used_desc": {
+    "description": "Translation for ach_ad_skip_used_desc"
+  },
+  "ach_reward_collector_title": "奖励收集者",
+  "@ach_reward_collector_title": {
+    "description": "Translation for ach_reward_collector_title"
+  },
+  "ach_reward_collector_desc": "扫荡了角落里的所有奖励。真正的战利品猎人！ 🎁",
+  "@ach_reward_collector_desc": {
+    "description": "Translation for ach_reward_collector_desc"
+  },
+  "ach_multi_feature_user_title": "多功能用户",
+  "@ach_multi_feature_user_title": {
+    "description": "Translation for ach_multi_feature_user_title"
+  },
+  "ach_multi_feature_user_desc": "好奇的探险家，没有一个按钮没有被触动过！",
+  "@ach_multi_feature_user_desc": {
+    "description": "Translation for ach_multi_feature_user_desc"
+  },
+  "ach_data_master_title": "数据大师",
+  "@ach_data_master_title": {
+    "description": "Translation for ach_data_master_title"
+  },
+  "ach_data_master_desc": "字节和位在你周围形成。系统数据的绝对掌握。",
+  "@ach_data_master_desc": {
+    "description": "Translation for ach_data_master_desc"
+  },
+  "ach_organized_master_title": "超有组织性",
+  "@ach_organized_master_title": {
+    "description": "Translation for ach_organized_master_title"
+  },
+  "ach_organized_master_desc": "近藤玛丽惠 (Marie Kondo) 一定会向您致敬。一切都是毫米级的。",
+  "@ach_organized_master_desc": {
+    "description": "Translation for ach_organized_master_desc"
+  },
+  "ach_security_master_title": "安全专家",
+  "@ach_security_master_title": {
+    "description": "Translation for ach_security_master_title"
+  },
+  "ach_security_master_desc": "您的帐户是一座堡垒，您的密码是一支网络军队。入侵是不可能的！ 🔐",
+  "@ach_security_master_desc": {
+    "description": "Translation for ach_security_master_desc"
+  },
+  "ach_daily_master_title": "每日大师",
+  "@ach_daily_master_title": {
+    "description": "Translation for ach_daily_master_title"
+  },
+  "ach_daily_master_desc": "每天和我们一起看太阳、看星星的传奇忠实用户。",
+  "@ach_daily_master_desc": {
+    "description": "Translation for ach_daily_master_desc"
+  },
+  "backup_restore": "备份与恢复",
+  "@backup_restore": {
+    "description": "Translation for backup_restore"
+  },
+  "backup_desc_settings": "仅适用于此设备的加密本地备份",
+  "@backup_desc_settings": {
+    "description": "Translation for backup_desc_settings"
+  },
+  "smart_notifications": "智能通知",
+  "@smart_notifications": {
+    "description": "Translation for smart_notifications"
+  },
+  "smart_streak_warning": "🔥 连胜即将消失！为什么不检查你的数据？",
+  "@smart_streak_warning": {
+    "description": "Translation for smart_streak_warning"
+  },
+  "smart_ad_reward": "🎁 观看 1 个广告 → +5 限制！今天给你一个新的机会。",
+  "@smart_ad_reward": {
+    "description": "Translation for smart_ad_reward"
+  },
+  "smart_doc_bonus": "📂 今天添加 1 个文档 → 获得奖金！确保一切安全。",
+  "@smart_doc_bonus": {
+    "description": "Translation for smart_doc_bonus"
+  },
+  "smart_default": "👀 一个小更新正在等待着您，今天我们能做什么？",
+  "@smart_default": {
+    "description": "Translation for smart_default"
+  },
+  "notif_bonus_ready": "🎁 奖金等你来拿！感谢您的帮助。",
+  "@notif_bonus_ready": {
+    "description": "Translation for notif_bonus_ready"
+  },
+  "notif_doc_safe": "🔥 干得好，您的文件很安全！继续前进！",
+  "@notif_doc_safe": {
+    "description": "Translation for notif_doc_safe"
+  },
+  "level_up_desc": "您已达到等级 {level}！检查您的季票以获得新奖励。",
+  "@level_up_desc": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_up_desc"
+  },
+  "notifications_active_msg": "通知已激活🔔",
+  "@notifications_active_msg": {
+    "description": "Translation for notifications_active_msg"
+  },
+  "show_sensitive_details": "在通知中显示详细信息",
+  "@show_sensitive_details": {
+    "description": "Translation for show_sensitive_details"
+  },
+  "sensitive_details_visible": "药名可见",
+  "@sensitive_details_visible": {
+    "description": "Translation for sensitive_details_visible"
+  },
+  "sensitive_details_hidden": "隐藏（推荐）",
+  "@sensitive_details_hidden": {
+    "description": "Translation for sensitive_details_hidden"
+  },
+  "quiet_hours": "安静时间",
+  "@quiet_hours": {
+    "description": "Translation for quiet_hours"
+  },
+  "quiet_hours_msg": "今晚我们不会打扰你🌙",
+  "@quiet_hours_msg": {
+    "description": "Translation for quiet_hours_msg"
+  },
+  "test_notification": "测试通知",
+  "@test_notification": {
+    "description": "Translation for test_notification"
+  },
+  "test_notification_desc": "立即测试系统",
+  "@test_notification_desc": {
+    "description": "Translation for test_notification_desc"
+  },
+  "test_notification_body": "这是测试通知",
+  "@test_notification_body": {
+    "description": "Translation for test_notification_body"
+  },
+  "app_lock_unavailable": "应用程序锁定在此设备上不可用。",
+  "@app_lock_unavailable": {
+    "description": "Translation for app_lock_unavailable"
+  },
+  "backup_restore_desc": "您可以加密备份或恢复数据。备份仅存储在您的设备上。",
+  "@backup_restore_desc": {
+    "description": "Translation for backup_restore_desc"
+  },
+  "backup_export": "导出备份",
+  "@backup_export": {
+    "description": "Translation for backup_export"
+  },
+  "backup_export_desc": "创建加密的 ZIP 备份",
+  "@backup_export_desc": {
+    "description": "Translation for backup_export_desc"
+  },
+  "backup_import": "导入备份",
+  "@backup_import": {
+    "description": "Translation for backup_import"
+  },
+  "backup_import_desc": "从现有 ZIP 备份恢复",
+  "@backup_import_desc": {
+    "description": "Translation for backup_import_desc"
+  },
+  "warning": "警告",
+  "@warning": {
+    "description": "Translation for warning"
+  },
+  "import_warning_desc": "恢复备份将删除您当前的数据并且无法撤消。您想继续吗？",
+  "@import_warning_desc": {
+    "description": "Translation for import_warning_desc"
+  },
+  "yes_restore": "是的，恢复",
+  "@yes_restore": {
+    "description": "Translation for yes_restore"
+  },
+  "start_time": "开始时间",
+  "@start_time": {
+    "description": "Translation for start_time"
+  },
+  "end_time": "结束时间",
+  "@end_time": {
+    "description": "Translation for end_time"
+  },
+  "email": "电子邮件",
+  "@email": {
+    "description": "Translation for email"
+  },
+  "phone": "电话",
+  "@phone": {
+    "description": "Translation for phone"
+  },
+  "add_record_success": "记录保存成功！",
+  "@add_record_success": {
+    "description": "Translation for add_record_success"
+  },
+  "delete_confirm": "您确定要删除此记录吗？",
+  "@delete_confirm": {
+    "description": "Translation for delete_confirm"
+  },
+  "plus_5_slots": "已获得 +5 个位置！ 🚀",
+  "@plus_5_slots": {
+    "description": "Translation for plus_5_slots"
+  },
+  "watch_to_unlock": "观看解锁",
+  "@watch_to_unlock": {
+    "description": "Translation for watch_to_unlock"
+  },
+  "remaining_days": "剩余时间：{days} 天",
+  "@remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for remaining_days"
+  },
+  "add_1_day_success": "添加+1 天！ 🎉",
+  "@add_1_day_success": {
+    "description": "Translation for add_1_day_success"
+  },
+  "plus_1_day": "+1 天",
+  "@plus_1_day": {
+    "description": "Translation for plus_1_day"
+  },
+  "watch": "手表",
+  "@watch": {
+    "description": "Translation for watch"
+  },
+  "unlock_theme_question": "您想免费使用这个主题 5 天吗？",
+  "@unlock_theme_question": {
+    "description": "Translation for unlock_theme_question"
+  },
+  "watch_ad_plus_5": "观看广告（+5 天）",
+  "@watch_ad_plus_5": {
+    "description": "Translation for watch_ad_plus_5"
+  },
+  "preview_5s": "预览（5 秒）",
+  "@preview_5s": {
+    "description": "Translation for preview_5s"
+  },
+  "free_secure_release": "免费安全发布",
+  "@free_secure_release": {
+    "description": "Translation for free_secure_release"
+  },
+  "encrypted_local_desc": "您的加密文档保留在此设备上的本地位置。免费版本支持广告。",
+  "@encrypted_local_desc": {
+    "description": "Translation for encrypted_local_desc"
+  },
+  "premium_soon": "即将推出高级版",
+  "@premium_soon": {
+    "description": "Translation for premium_soon"
+  },
+  "label_title": "标题",
+  "@label_title": {
+    "description": "Translation for label_title"
+  },
+  "label_location": "地点/机构（可选）",
+  "@label_location": {
+    "description": "Translation for label_location"
+  },
+  "label_person": "相关人员（可选）",
+  "@label_person": {
+    "description": "Translation for label_person"
+  },
+  "label_date_time": "日期和时间",
+  "@label_date_time": {
+    "description": "Translation for label_date_time"
+  },
+  "label_importance": "重要性",
+  "@label_importance": {
+    "description": "Translation for label_importance"
+  },
+  "label_reminder": "提醒",
+  "@label_reminder": {
+    "description": "Translation for label_reminder"
+  },
+  "label_repeat": "重复",
+  "@label_repeat": {
+    "description": "Translation for label_repeat"
+  },
+  "label_notes": "注释（可选）",
+  "@label_notes": {
+    "description": "Translation for label_notes"
+  },
+  "hint_title": "例如医生预约、会议...",
+  "@hint_title": {
+    "description": "Translation for hint_title"
+  },
+  "hint_location": "办公室、家庭、网络、医院...",
+  "@hint_location": {
+    "description": "Translation for hint_location"
+  },
+  "hint_person": "姓名、医生、律师...",
+  "@hint_person": {
+    "description": "Translation for hint_person"
+  },
+  "hint_notes": "详细信息、提醒...",
+  "@hint_notes": {
+    "description": "Translation for hint_notes"
+  },
+  "suggest_doctor": "医生",
+  "@suggest_doctor": {
+    "description": "Translation for suggest_doctor"
+  },
+  "suggest_meeting": "会议",
+  "@suggest_meeting": {
+    "description": "Translation for suggest_meeting"
+  },
+  "suggest_personal": "个人的",
+  "@suggest_personal": {
+    "description": "Translation for suggest_personal"
+  },
+  "importance_low": "普通的",
+  "@importance_low": {
+    "description": "Translation for importance_low"
+  },
+  "importance_medium": "重要的",
+  "@importance_medium": {
+    "description": "Translation for importance_medium"
+  },
+  "importance_high": "批判的",
+  "@importance_high": {
+    "description": "Translation for importance_high"
+  },
+  "reminder_10m": "10分钟前",
+  "@reminder_10m": {
+    "description": "Translation for reminder_10m"
+  },
+  "reminder_1h": "1小时前",
+  "@reminder_1h": {
+    "description": "Translation for reminder_1h"
+  },
+  "reminder_1d": "1天前",
+  "@reminder_1d": {
+    "description": "Translation for reminder_1d"
+  },
+  "repeat_none": "没有任何",
+  "@repeat_none": {
+    "description": "Translation for repeat_none"
+  },
+  "repeat_daily": "日常的",
+  "@repeat_daily": {
+    "description": "Translation for repeat_daily"
+  },
+  "repeat_weekly": "每周",
+  "@repeat_weekly": {
+    "description": "Translation for repeat_weekly"
+  },
+  "label_date_added": "添加日期",
+  "@label_date_added": {
+    "description": "Translation for label_date_added"
+  },
+  "label_document_date": "文件日期",
+  "@label_document_date": {
+    "description": "Translation for label_document_date"
+  },
+  "download_to_device": "下载到设备",
+  "@download_to_device": {
+    "description": "Translation for download_to_device"
+  },
+  "delete_permanently": "永久删除",
+  "@delete_permanently": {
+    "description": "Translation for delete_permanently"
+  },
+  "save_document": "保存文档",
+  "@save_document": {
+    "description": "Translation for save_document"
+  },
+  "success_doc_saved": "文档保存成功！",
+  "@success_doc_saved": {
+    "description": "Translation for success_doc_saved"
+  },
+  "error_failed_download": "下载失败：{error}",
+  "@error_failed_download": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for error_failed_download"
+  },
+  "btn_add": "添加",
+  "@btn_add": {
+    "description": "Translation for btn_add"
+  },
+  "docs_tag_lab": "实验室结果",
+  "@docs_tag_lab": {
+    "description": "Translation for docs_tag_lab"
+  },
+  "docs_tag_radiology": "放射科",
+  "@docs_tag_radiology": {
+    "description": "Translation for docs_tag_radiology"
+  },
+  "docs_tag_prescription": "处方",
+  "@docs_tag_prescription": {
+    "description": "Translation for docs_tag_prescription"
+  },
+  "docs_tag_report": "医生报告",
+  "@docs_tag_report": {
+    "description": "Translation for docs_tag_report"
+  },
+  "docs_tag_operation": "手术",
+  "@docs_tag_operation": {
+    "description": "Translation for docs_tag_operation"
+  },
+  "docs_tag_vaccination": "疫苗接种",
+  "@docs_tag_vaccination": {
+    "description": "Translation for docs_tag_vaccination"
+  },
+  "docs_tag_other": "其他",
+  "@docs_tag_other": {
+    "description": "Translation for docs_tag_other"
+  },
+  "season_pass": "季票",
+  "@season_pass": {
+    "description": "Translation for season_pass"
+  },
+  "level_label": "级别 {level}",
+  "@level_label": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_label"
+  },
+  "premium_reward": "高级奖励",
+  "@premium_reward": {
+    "description": "Translation for premium_reward"
+  },
+  "free_reward": "免费奖励",
+  "@free_reward": {
+    "description": "Translation for free_reward"
+  },
+  "claim": "宣称",
+  "@claim": {
+    "description": "Translation for claim"
+  },
+  "reward_doc_slots": "+{value} 文档",
+  "@reward_doc_slots": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for reward_doc_slots"
+  },
+  "premium_unavailable_title": "此版本中不提供高级版。",
+  "@premium_unavailable_title": {
+    "description": "Translation for premium_unavailable_title"
+  },
+  "premium_unavailable_desc": "VitaCase 目前作为免费应用程序提供，带有本地加密存储、广告和可选提醒。",
+  "@premium_unavailable_desc": {
+    "description": "Translation for premium_unavailable_desc"
+  },
+  "btn_close": "关闭",
+  "@btn_close": {
+    "description": "Translation for btn_close"
+  },
+  "accept": "接受",
+  "@accept": {
+    "description": "Translation for accept"
+  },
+  "btn_save": "节省",
+  "@btn_save": {
+    "description": "Translation for btn_save"
+  },
+  "doctor_title_dr": "博士。",
+  "@doctor_title_dr": {
+    "description": "Translation for doctor_title_dr"
+  },
+  "doctor_title_uzm": "规格博士。",
+  "@doctor_title_uzm": {
+    "description": "Translation for doctor_title_uzm"
+  },
+  "doctor_title_op": "作品。博士。",
+  "@doctor_title_op": {
+    "description": "Translation for doctor_title_op"
+  },
+  "doctor_title_prof": "教授、博士",
+  "@doctor_title_prof": {
+    "description": "Translation for doctor_title_prof"
+  },
+  "doctor_title_doc": "副教授。教授。",
+  "@doctor_title_doc": {
+    "description": "Translation for doctor_title_doc"
+  },
+  "hint_doctor_name": "约翰·多伊博士",
+  "@hint_doctor_name": {
+    "description": "Translation for hint_doctor_name"
+  },
+  "hint_specialty": "心脏病学",
+  "@hint_specialty": {
+    "description": "Translation for hint_specialty"
+  },
+  "hint_hospital": "市医院",
+  "@hint_hospital": {
+    "description": "Translation for hint_hospital"
+  },
+  "hint_phone": "+1 (555) 000-0000",
+  "@hint_phone": {
+    "description": "Translation for hint_phone"
+  },
+  "hint_email": "john.doe@hospital.com",
+  "@hint_email": {
+    "description": "Translation for hint_email"
+  },
+  "hint_address": "主街号：12...",
+  "@hint_address": {
+    "description": "Translation for hint_address"
+  },
+  "hint_personal_notes": "关于医生的注意事项...",
+  "@hint_personal_notes": {
+    "description": "Translation for hint_personal_notes"
+  },
+  "ad_reward_not_earned": "奖励未获得。请完成广告以继续。",
+  "@ad_reward_not_earned": {
+    "description": "Translation for ad_reward_not_earned"
+  },
+  "ad_unavailable": "广告不可用。",
+  "@ad_unavailable": {
+    "description": "Translation for ad_unavailable"
+  },
+  "ad_failed": "激励广告无法展示。请再试一次。",
+  "@ad_failed": {
+    "description": "Translation for ad_failed"
+  },
+  "ad_watch_btn": "免费继续（观看广告）",
+  "@ad_watch_btn": {
+    "description": "Translation for ad_watch_btn"
+  },
+  "btn_not_now": "现在不要",
+  "@btn_not_now": {
+    "description": "Translation for btn_not_now"
+  },
+  "theme_system": "系统",
+  "@theme_system": {
+    "description": "Translation for theme_system"
+  },
+  "theme_light": "光",
+  "@theme_light": {
+    "description": "Translation for theme_light"
+  },
+  "theme_dark": "黑暗的",
+  "@theme_dark": {
+    "description": "Translation for theme_dark"
+  },
+  "lock_timeout_1m": "1分钟",
+  "@lock_timeout_1m": {
+    "description": "Translation for lock_timeout_1m"
+  },
+  "lock_timeout_5m": "5分钟",
+  "@lock_timeout_5m": {
+    "description": "Translation for lock_timeout_5m"
+  },
+  "lock_timeout_15m": "15 分钟",
+  "@lock_timeout_15m": {
+    "description": "Translation for lock_timeout_15m"
+  },
+  "error_title_required": "标题为必填项",
+  "@error_title_required": {
+    "description": "Translation for error_title_required"
+  },
+  "notif_app_created_title": "🎯 预约已创建",
+  "@notif_app_created_title": {
+    "description": "Translation for notif_app_created_title"
+  },
+  "notif_app_created_body": "{title} 已安排。",
+  "@notif_app_created_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_created_body"
+  },
+  "notif_app_reminder_title": "📅 预约提醒",
+  "@notif_app_reminder_title": {
+    "description": "Translation for notif_app_reminder_title"
+  },
+  "notif_app_reminder_body": "您的 {title} 预约即将到来。",
+  "@notif_app_reminder_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_reminder_body"
+  },
+  "no_appointments_found": "没有找到约会",
+  "@no_appointments_found": {
+    "description": "Translation for no_appointments_found"
+  },
+  "empty_appointments_desc": "您尚未添加任何约会。点击 + 按钮添加一个。",
+  "@empty_appointments_desc": {
+    "description": "Translation for empty_appointments_desc"
+  },
+  "empty_appointments_filter_desc": "在此类别中找不到约会。",
+  "@empty_appointments_filter_desc": {
+    "description": "Translation for empty_appointments_filter_desc"
+  },
+  "btn_add_appointment": "添加预约",
+  "@btn_add_appointment": {
+    "description": "Translation for btn_add_appointment"
+  },
+  "btn_clear_filters": "清除过滤器",
+  "@btn_clear_filters": {
+    "description": "Translation for btn_clear_filters"
+  },
+  "delete_confirm_appointment": "您确定要删除此约会吗？",
+  "@delete_confirm_appointment": {
+    "description": "Translation for delete_confirm_appointment"
+  },
+  "create_today_plan": "制定今天的计划",
+  "@create_today_plan": {
+    "description": "Translation for create_today_plan"
+  },
+  "plan_time_desc": "轻松安排您的健康日程。",
+  "@plan_time_desc": {
+    "description": "Translation for plan_time_desc"
+  },
+  "docs_add_short": "添加",
+  "@docs_add_short": {
+    "description": "Translation for docs_add_short"
+  },
+  "docs_open": "打开",
+  "@docs_open": {
+    "description": "Translation for docs_open"
+  },
+  "docs_download": "下载到设备",
+  "@docs_download": {
+    "description": "Translation for docs_download"
+  },
+  "docs_delete_perm": "永久删除",
+  "@docs_delete_perm": {
+    "description": "Translation for docs_delete_perm"
+  },
+  "docs_date_added": "添加日期",
+  "@docs_date_added": {
+    "description": "Translation for docs_date_added"
+  },
+  "docs_document_date": "文件日期",
+  "@docs_document_date": {
+    "description": "Translation for docs_document_date"
+  },
+  "docs_save_success": "文档保存成功！",
+  "@docs_save_success": {
+    "description": "Translation for docs_save_success"
+  },
+  "docs_download_failed": "下载失败：{error}",
+  "@docs_download_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for docs_download_failed"
+  },
+  "season_pass_title": "季票",
+  "@season_pass_title": {
+    "description": "Translation for season_pass_title"
+  },
+  "season_level": "级别 {level}",
+  "@season_level": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for season_level"
+  },
+  "claim_reward": "宣称",
+  "@claim_reward": {
+    "description": "Translation for claim_reward"
+  },
+  "confirm_agree": "我同意",
+  "@confirm_agree": {
+    "description": "Translation for confirm_agree"
+  },
+  "specialty_department_hint": "例如心脏病学",
+  "@specialty_department_hint": {
+    "description": "Translation for specialty_department_hint"
+  },
+  "hospital_hint": "例如市医院",
+  "@hospital_hint": {
+    "description": "Translation for hospital_hint"
+  },
+  "address_hint": "街道、不、建筑物……",
+  "@address_hint": {
+    "description": "Translation for address_hint"
+  },
+  "notes_hint": "关于医生的个人笔记...",
+  "@notes_hint": {
+    "description": "Translation for notes_hint"
+  },
+  "standard_modes": "标准模式",
+  "@standard_modes": {
+    "description": "Translation for standard_modes"
+  },
+  "premium_palettes": "高级调色板",
+  "@premium_palettes": {
+    "description": "Translation for premium_palettes"
+  },
+  "apply_theme": "应用主题",
+  "@apply_theme": {
+    "description": "Translation for apply_theme"
+  },
+  "theme_luxe_sanctuary": "豪华庇护所",
+  "@theme_luxe_sanctuary": {
+    "description": "Translation for theme_luxe_sanctuary"
+  },
+  "theme_midnight_neon": "午夜霓虹灯",
+  "@theme_midnight_neon": {
+    "description": "Translation for theme_midnight_neon"
+  },
+  "theme_amethyst_aura": "紫水晶光环",
+  "@theme_amethyst_aura": {
+    "description": "Translation for theme_amethyst_aura"
+  },
+  "theme_emerald_garden": "翡翠花园",
+  "@theme_emerald_garden": {
+    "description": "Translation for theme_emerald_garden"
+  },
+  "theme_ocean_serenity": "海洋宁静",
+  "@theme_ocean_serenity": {
+    "description": "Translation for theme_ocean_serenity"
+  },
+  "theme_amber_glow": "琥珀色光芒",
+  "@theme_amber_glow": {
+    "description": "Translation for theme_amber_glow"
+  },
+  "db_recovery_title": "数据错误",
+  "@db_recovery_title": {
+    "description": "Translation for db_recovery_title"
+  },
+  "db_recovery_desc": "无法访问数据。您想再试一次吗？",
+  "@db_recovery_desc": {
+    "description": "Translation for db_recovery_desc"
+  },
+  "db_recovery_retry": "再试一次",
+  "@db_recovery_retry": {
+    "description": "Translation for db_recovery_retry"
+  },
+  "db_recovery_reset": "重置",
+  "@db_recovery_reset": {
+    "description": "Translation for db_recovery_reset"
+  },
+  "notif_streak_warning_title": "检查您的每日计划",
+  "@notif_streak_warning_title": {
+    "description": "Translation for notif_streak_warning_title"
+  },
+  "notif_streak_warning_body": "打开 VitaCase 查看今天的提醒和保存的项目。",
+  "@notif_streak_warning_body": {
+    "description": "Translation for notif_streak_warning_body"
+  },
+  "notif_mission_reminder_title": "🎯 每日任务待定",
+  "@notif_mission_reminder_title": {
+    "description": "Translation for notif_mission_reminder_title"
+  },
+  "notif_mission_reminder_body": "不要错过每日奖励！现在就完成你的任务。",
+  "@notif_mission_reminder_body": {
+    "description": "Translation for notif_mission_reminder_body"
+  },
+  "notif_limit_reached_title": "🚀 已达到限制",
+  "@notif_limit_reached_title": {
+    "description": "Translation for notif_limit_reached_title"
+  },
+  "notif_limit_reached_body": "您已达到免费限额。观看激励广告以继续。",
+  "@notif_limit_reached_body": {
+    "description": "Translation for notif_limit_reached_body"
+  },
+  "notif_good_morning_title": "🌞早上好！",
+  "@notif_good_morning_title": {
+    "description": "Translation for notif_good_morning_title"
+  },
+  "notif_good_morning_body": "使用 VitaCase 开始新的一天，检查您的日常任务。",
+  "@notif_good_morning_body": {
+    "description": "Translation for notif_good_morning_body"
+  },
+  "notif_test_title": "测试通知",
+  "@notif_test_title": {
+    "description": "Translation for notif_test_title"
+  },
+  "notif_test_body": "您的通知工作正常！",
+  "@notif_test_body": {
+    "description": "Translation for notif_test_body"
+  },
+  "notif_appointment_reminder_title": "📅 预约提醒",
+  "@notif_appointment_reminder_title": {
+    "description": "Translation for notif_appointment_reminder_title"
+  },
+  "notif_appointment_reminder_body": "您的 {doctor} 预约即将到来。",
+  "@notif_appointment_reminder_body": {
+    "placeholders": {
+      "doctor": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_appointment_reminder_body"
+  },
+  "get_directions": "获取路线",
+  "@get_directions": {
+    "description": "Translation for get_directions"
+  },
+  "view_details": "查看详情",
+  "@view_details": {
+    "description": "Translation for view_details"
+  },
+  "no_scheduled_meds_today": "今天没有安排药物。",
+  "@no_scheduled_meds_today": {
+    "description": "Translation for no_scheduled_meds_today"
+  },
+  "add_document": "添加文档",
+  "@add_document": {
+    "description": "Translation for add_document"
+  },
+  "ach_login_1_title": "开始",
+  "@ach_login_1_title": {
+    "description": "Translation for ach_login_1_title"
+  },
+  "people_contacts": "人员及联系人",
+  "@people_contacts": {
+    "description": "Translation for people_contacts"
+  },
+  "contacts_subtitle": "人员、机构和联系记录",
+  "@contacts_subtitle": {
+    "description": "Translation for contacts_subtitle"
+  },
+  "add_contact_subtitle": "添加新的个人或机构",
+  "@add_contact_subtitle": {
+    "description": "Translation for add_contact_subtitle"
+  },
+  "add_contact": "添加人员/联系人",
+  "@add_contact": {
+    "description": "Translation for add_contact"
+  },
+  "no_doctor": "没有医生",
+  "@no_doctor": {
+    "description": "Translation for no_doctor"
+  },
+  "no_institution": "无机构",
+  "@no_institution": {
+    "description": "Translation for no_institution"
+  },
+  "edit_personal_info": "编辑个人信息",
+  "@edit_personal_info": {
+    "description": "Translation for edit_personal_info"
+  },
+  "personal_info_updated": "个人信息已更新。",
+  "@personal_info_updated": {
+    "description": "Translation for personal_info_updated"
+  },
+  "edit_important_info": "编辑重要信息",
+  "@edit_important_info": {
+    "description": "Translation for edit_important_info"
+  },
+  "hint_allergies": "用逗号分隔：花粉、青霉素",
+  "@hint_allergies": {
+    "description": "Translation for hint_allergies"
+  },
+  "hint_medications": "用逗号分隔：阿司匹林、维生素 D",
+  "@hint_medications": {
+    "description": "Translation for hint_medications"
+  },
+  "relationship": "关系",
+  "@relationship": {
+    "description": "Translation for relationship"
+  },
+  "hint_relationship": "配偶、母亲、父亲、兄弟姐妹……",
+  "@hint_relationship": {
+    "description": "Translation for hint_relationship"
+  },
+  "important_info_updated": "重要信息已更新。",
+  "@important_info_updated": {
+    "description": "Translation for important_info_updated"
+  },
+  "reminder_troubleshooting": "提醒 故障排除",
+  "@reminder_troubleshooting": {
+    "description": "Translation for reminder_troubleshooting"
+  },
+  "reminder_troubleshooting_desc": "检查通知、确切的警报和电池设置",
+  "@reminder_troubleshooting_desc": {
+    "description": "Translation for reminder_troubleshooting_desc"
+  },
+  "status_checking": "检查...",
+  "@status_checking": {
+    "description": "Translation for status_checking"
+  },
+  "status_enabled": "通知权限已开启",
+  "@status_enabled": {
+    "description": "Translation for status_enabled"
+  },
+  "status_disabled": "通知权限已禁用",
+  "@status_disabled": {
+    "description": "Translation for status_disabled"
+  },
+  "why_no_reminders": "为什么提醒可能无法到达",
+  "@why_no_reminders": {
+    "description": "Translation for why_no_reminders"
+  },
+  "why_no_reminders_desc": "通知权限、精确警报权限或设备电池管理可以阻止预约和药物提醒。先检查权限；如果测试失败，仅将电池优化视为最后一步。",
+  "@why_no_reminders_desc": {
+    "description": "Translation for why_no_reminders_desc"
+  },
+  "status_card_title": "通知状态",
+  "@status_card_title": {
+    "description": "Translation for status_card_title"
+  },
+  "check_notif_permission": "1.检查通知权限",
+  "@check_notif_permission": {
+    "description": "Translation for check_notif_permission"
+  },
+  "check_notif_permission_desc": "如果禁用即时通知，则不会出现任何提醒。",
+  "@check_notif_permission_desc": {
+    "description": "Translation for check_notif_permission_desc"
+  },
+  "req_notif_permission": "请求通知权限",
+  "@req_notif_permission": {
+    "description": "Translation for req_notif_permission"
+  },
+  "check_exact_alarm": "2. 检查具体的报警权限",
+  "@check_exact_alarm": {
+    "description": "Translation for check_exact_alarm"
+  },
+  "check_exact_alarm_desc": "需要预约和药物提醒才能按时运行。",
+  "@check_exact_alarm_desc": {
+    "description": "Translation for check_exact_alarm_desc"
+  },
+  "req_exact_alarm": "请求确切的警报权限",
+  "@req_exact_alarm": {
+    "description": "Translation for req_exact_alarm"
+  },
+  "resched_saved": "3. 重新安排已保存的提醒",
+  "@resched_saved": {
+    "description": "Translation for resched_saved"
+  },
+  "resched_saved_desc": "授予权限后，再次安排您保存的药物和预约提醒。",
+  "@resched_saved_desc": {
+    "description": "Translation for resched_saved_desc"
+  },
+  "resched_btn": "重新安排提醒",
+  "@resched_btn": {
+    "description": "Translation for resched_btn"
+  },
+  "sched_test": "4.安排1分钟测试提醒",
+  "@sched_test": {
+    "description": "Translation for sched_test"
+  },
+  "sched_test_desc": "如果到达，则提醒系统正在工作。",
+  "@sched_test_desc": {
+    "description": "Translation for sched_test_desc"
+  },
+  "sched_test_btn": "安排 1 分钟测试",
+  "@sched_test_btn": {
+    "description": "Translation for sched_test_btn"
+  },
+  "last_step_battery": "5.最后一步：检查电池设置",
+  "@last_step_battery": {
+    "description": "Translation for last_step_battery"
+  },
+  "last_step_battery_desc": "仅当上述测试失败时，才检查设备是否限制 VitaCase 电池的使用。",
+  "@last_step_battery_desc": {
+    "description": "Translation for last_step_battery_desc"
+  },
+  "open_app_settings": "打开应用程序设置",
+  "@open_app_settings": {
+    "description": "Translation for open_app_settings"
+  },
+  "snack_notif_checked": "检查通知权限。",
+  "@snack_notif_checked": {
+    "description": "Translation for snack_notif_checked"
+  },
+  "snack_exact_alarm_requested": "请求准确的警报许可。您可能需要在设备设置中允许它。",
+  "@snack_exact_alarm_requested": {
+    "description": "Translation for snack_exact_alarm_requested"
+  },
+  "test_notif_title": "⏰ VitaCase 提醒测试",
+  "@test_notif_title": {
+    "description": "Translation for test_notif_title"
+  },
+  "test_notif_body": "本次测试提醒安排在 1 分钟后。",
+  "@test_notif_body": {
+    "description": "Translation for test_notif_body"
+  },
+  "snack_test_sched": "安排在 1 分钟后进行测试提醒。",
+  "@snack_test_sched": {
+    "description": "Translation for snack_test_sched"
+  },
+  "snack_resched_completed": "节省的药品和预约提醒已重新安排。",
+  "@snack_resched_completed": {
+    "description": "Translation for snack_resched_completed"
+  },
+  "choose_pdf_or_image": "选择 PDF 或图像",
+  "@choose_pdf_or_image": {
+    "description": "Translation for choose_pdf_or_image"
+  },
+  "encrypted_local_file_info": "您的文件将被加密并本地存储在此设备上。",
+  "@encrypted_local_file_info": {
+    "description": "Translation for encrypted_local_file_info"
+  },
+  "web_upload_info": "文件库上传可在 Android/iOS 版本上使用。",
+  "@web_upload_info": {
+    "description": "Translation for web_upload_info"
+  },
+  "web_preview_no_upload": "Web 预览不存储加密文件。使用 Android/iOS 进行库上传。",
+  "@web_preview_no_upload": {
+    "description": "Translation for web_preview_no_upload"
+  },
+  "choose_file_first": "请先选择 PDF 或图像。",
+  "@choose_file_first": {
+    "description": "Translation for choose_file_first"
+  },
+  "document_saved": "文档安全保存。",
+  "@document_saved": {
+    "description": "Translation for document_saved"
+  },
+  "save_document_failed": "无法保存文档：{error}",
+  "@save_document_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for save_document_failed"
+  },
+  "save_securely": "安全保存",
+  "@save_securely": {
+    "description": "Translation for save_securely"
+  },
+  "saving": "保存...",
+  "@saving": {
+    "description": "Translation for saving"
+  },
+  "local_organizer_disclaimer": "VitaCase 是一个本地文档管理器。它不诊断、分析或提供医疗建议。",
+  "@local_organizer_disclaimer": {
+    "description": "Translation for local_organizer_disclaimer"
+  },
+  "terms_and_legal_agreement": "我同意隐私政策、条款和条件以及法律免责声明。",
+  "@terms_and_legal_agreement": {
+    "description": "Translation for terms_and_legal_agreement"
+  },
+  "free_themes": "免费主题",
+  "@free_themes": {
+    "description": "Translation for free_themes"
+  },
+  "reward_themes": "奖励主题",
+  "@reward_themes": {
+    "description": "Translation for reward_themes"
+  },
+  "reward_themes_info": "观看一则奖励广告即可解锁这些主题 3 天。每个额外的广告都会增加 +1 天。",
+  "@reward_themes_info": {
+    "description": "Translation for reward_themes_info"
+  },
+  "watch_ad_to_unlock": "看广告解锁",
+  "@watch_ad_to_unlock": {
+    "description": "Translation for watch_ad_to_unlock"
+  },
+  "tap_to_preview": "点击预览",
+  "@tap_to_preview": {
+    "description": "Translation for tap_to_preview"
+  },
+  "add_one_day": "添加 +1 天",
+  "@add_one_day": {
+    "description": "Translation for add_one_day"
+  },
+  "one_day_added": "添加+1 天。",
+  "@one_day_added": {
+    "description": "Translation for one_day_added"
+  },
+  "ad_unavailable_try_later": "广告不可用。请稍后重试。",
+  "@ad_unavailable_try_later": {
+    "description": "Translation for ad_unavailable_try_later"
+  },
+  "theme_unlocked": "主题已解锁。 Each extra ad adds +1 day.",
+  "@theme_unlocked": {
+    "description": "Translation for theme_unlocked"
+  },
+  "reward_themes_active": "奖励主题持续 {days} 天。",
+  "@reward_themes_active": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for reward_themes_active"
+  },
+  "lock_use_pin": "使用密码",
+  "@lock_use_pin": {
+    "description": "Translation for lock_use_pin"
+  },
+  "pending": "待办的",
+  "@pending": {
+    "description": "Translation for pending"
+  },
+  "document_details_subtitle": "审查扩展的文档详细信息。",
+  "@document_details_subtitle": {
+    "description": "Translation for document_details_subtitle"
+  },
+  "document_name": "文件名称",
+  "@document_name": {
+    "description": "Translation for document_name"
+  },
+  "document_name_hint": "例如验血结果",
+  "@document_name_hint": {
+    "description": "Translation for document_name_hint"
+  },
+  "daily_limit_reached_message": "您已达到今天的创建限制 ({limit})。明天你可以添加更多。",
+  "@daily_limit_reached_message": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for daily_limit_reached_message"
+  },
+  "document_updated": "文档已更新。",
+  "@document_updated": {
+    "description": "Translation for document_updated"
+  },
+  "document_update_failed": "无法更新文档。",
+  "@document_update_failed": {
+    "description": "Translation for document_update_failed"
+  },
+  "document_open_failed": "无法打开文档。",
+  "@document_open_failed": {
+    "description": "Translation for document_open_failed"
+  },
+  "no_additional_notes": "没有提供额外的注释。",
+  "@no_additional_notes": {
+    "description": "Translation for no_additional_notes"
+  },
+  "created_at_label": "创建于",
+  "@created_at_label": {
+    "description": "Translation for created_at_label"
+  },
+  "physician_label": "医师",
+  "@physician_label": {
+    "description": "Translation for physician_label"
+  },
+  "open": "打开",
+  "@open": {
+    "description": "Translation for open"
+  },
+  "document_vault": "文件库",
+  "@document_vault": {
+    "description": "Translation for document_vault"
+  },
+  "document_vault_view_subtitle": "审查扩展的文档详细信息。",
+  "@document_vault_view_subtitle": {
+    "description": "Translation for document_vault_view_subtitle"
+  },
+  "institution_hospital": "机构/医院",
+  "@institution_hospital": {
+    "description": "Translation for institution_hospital"
+  },
+  "doctor_related_person": "医生/相关人员",
+  "@doctor_related_person": {
+    "description": "Translation for doctor_related_person"
+  },
+  "add_contact_title": "添加人员/联系人",
+  "@add_contact_title": {
+    "description": "Translation for add_contact_title"
+  },
+  "contact_info_title": "人员/联系信息",
+  "@contact_info_title": {
+    "description": "Translation for contact_info_title"
+  },
+  "contact_info_desc": "保留重要的人员、机构和联系方式以便快速访问。",
+  "@contact_info_desc": {
+    "description": "Translation for contact_info_desc"
+  },
+  "person_contact_label": "人/联系方式",
+  "@person_contact_label": {
+    "description": "Translation for person_contact_label"
+  },
+  "category_area_label": "类别/领域",
+  "@category_area_label": {
+    "description": "Translation for category_area_label"
+  },
+  "institution_source_label": "机构/来源",
+  "@institution_source_label": {
+    "description": "Translation for institution_source_label"
+  },
+  "person_hint": "例如史密斯博士，顾问，诊所联系人",
+  "@person_hint": {
+    "description": "Translation for person_hint"
+  },
+  "category_hint": "例如检查、牙科、治疗、咨询",
+  "@category_hint": {
+    "description": "Translation for category_hint"
+  },
+  "institution_hint": "例如诊所、实验室、办公室、在线资源",
+  "@institution_hint": {
+    "description": "Translation for institution_hint"
+  },
+  "required_contact_error": "请输入人员/联系人和类别/区域信息。",
+  "@required_contact_error": {
+    "description": "Translation for required_contact_error"
+  },
+  "contacts_title": "人员/联系人",
+  "@contacts_title": {
+    "description": "Translation for contacts_title"
+  },
+  "contacts_search_hint": "搜索个人、机构或类别",
+  "@contacts_search_hint": {
+    "description": "Translation for contacts_search_hint"
+  },
+  "no_contacts_found": "未找到匹配的联系人",
+  "@no_contacts_found": {
+    "description": "Translation for no_contacts_found"
+  },
+  "contact_detail_title": "人员/联系方式",
+  "@contact_detail_title": {
+    "description": "Translation for contact_detail_title"
+  },
+  "institution_source": "机构/来源",
+  "@institution_source": {
+    "description": "Translation for institution_source"
+  },
+  "category_area": "类别/领域",
+  "@category_area": {
+    "description": "Translation for category_area"
+  },
+  "sub_area": "分区",
+  "@sub_area": {
+    "description": "Translation for sub_area"
+  },
+  "privacy_policy_short": "隐私政策",
+  "@privacy_policy_short": {
+    "description": "Translation for privacy_policy_short"
+  },
+  "terms_short": "条款",
+  "@terms_short": {
+    "description": "Translation for terms_short"
+  },
+  "disclaimer_short": "免责声明",
+  "@disclaimer_short": {
+    "description": "Translation for disclaimer_short"
+  },
+  "debug_panel_taps_left": "调试面板：{remaining} 点击左侧。",
+  "@debug_panel_taps_left": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for debug_panel_taps_left"
+  },
+  "delete_confirm_dialog_title": "删除文档？",
+  "@delete_confirm_dialog_title": {
+    "description": "Translation for delete_confirm_dialog_title"
+  },
+  "delete_confirm_dialog_desc": "该文档将从保管库中删除。此操作无法撤消。",
+  "@delete_confirm_dialog_desc": {
+    "description": "Translation for delete_confirm_dialog_desc"
+  },
+  "document_deleted_msg": "文档已删除。",
+  "@document_deleted_msg": {
+    "description": "Translation for document_deleted_msg"
+  },
+  "sort_newest_first": "最新的优先",
+  "@sort_newest_first": {
+    "description": "Translation for sort_newest_first"
+  },
+  "sort_oldest_first": "最老的在前",
+  "@sort_oldest_first": {
+    "description": "Translation for sort_oldest_first"
+  },
+  "sort_a_z": "A-Z",
+  "@sort_a_z": {
+    "description": "Translation for sort_a_z"
+  },
+  "sort_label": "种类",
+  "@sort_label": {
+    "description": "Translation for sort_label"
+  },
+  "medication_reminder_past_note": "如果今天已过了所选时间，则第一次提醒将安排在下一个合适的时间。",
+  "@medication_reminder_past_note": {
+    "description": "Translation for medication_reminder_past_note"
+  },
+  "appointment_reminder_past_note": "如果选择的提醒时间已经过去，VitaCase 会选择最近的合适时间。",
+  "@appointment_reminder_past_note": {
+    "description": "Translation for appointment_reminder_past_note"
+  },
+  "limit_unlock_token_title": "限制解锁令牌",
+  "@limit_unlock_token_title": {
+    "description": "Translation for limit_unlock_token_title"
+  },
+  "limit_unlock_status_active": "积极的",
+  "@limit_unlock_status_active": {
+    "description": "Translation for limit_unlock_status_active"
+  },
+  "limit_unlock_status_coming_soon": "即将到来 {version}",
+  "@limit_unlock_status_coming_soon": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_status_coming_soon"
+  },
+  "limit_unlock_desc_active": "每个 {xp} XP 都会授予 1 个限制解锁令牌。当达到每日限额时，它会自动使用。",
+  "@limit_unlock_desc_active": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_active"
+  },
+  "limit_unlock_desc_inactive": "在 V1 中禁用。在 {version} 中，每 {xp} XP 将授予 1 个限制解锁令牌。",
+  "@limit_unlock_desc_inactive": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_inactive"
+  },
+  "limit_unlock_stat_total_xp": "总经验值",
+  "@limit_unlock_stat_total_xp": {
+    "description": "Translation for limit_unlock_stat_total_xp"
+  },
+  "limit_unlock_stat_xp_left": "XP 左",
+  "@limit_unlock_stat_xp_left": {
+    "description": "Translation for limit_unlock_stat_xp_left"
+  },
+  "limit_unlock_stat_tokens": "代币",
+  "@limit_unlock_stat_tokens": {
+    "description": "Translation for limit_unlock_stat_tokens"
+  },
+  "notes": "笔记",
+  "@notes": {
+    "description": "Translation for notes"
+  },
+  "report_issue": "发送错误、建议和请求",
   "@report_issue": {
-    "placeholders": {},
     "description": "Translation for report_issue"
   }
 }

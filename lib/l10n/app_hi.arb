@@ -2,472 +2,3750 @@
   "@@locale": "hi",
   "app_name": "VitaCase",
   "@app_name": {
-    "placeholders": {},
     "description": "Translation for app_name"
   },
   "skip": "छोड़ें",
   "@skip": {
-    "placeholders": {},
     "description": "Translation for skip"
   },
   "next": "अगला",
   "@next": {
-    "placeholders": {},
     "description": "Translation for next"
   },
   "start": "शुरू करें",
   "@start": {
-    "placeholders": {},
     "description": "Translation for start"
   },
   "back": "वापस",
   "@back": {
-    "placeholders": {},
     "description": "Translation for back"
   },
   "save": "सेव करें",
   "@save": {
-    "placeholders": {},
     "description": "Translation for save"
   },
   "cancel": "रद्द करें",
   "@cancel": {
-    "placeholders": {},
     "description": "Translation for cancel"
   },
   "error": "त्रुटि",
   "@error": {
-    "placeholders": {},
     "description": "Translation for error"
   },
   "success": "सफल",
   "@success": {
-    "placeholders": {},
     "description": "Translation for success"
   },
   "loading": "लोड हो रहा है...",
   "@loading": {
-    "placeholders": {},
     "description": "Translation for loading"
   },
   "continue_btn": "जारी रखें",
   "@continue_btn": {
-    "placeholders": {},
     "description": "Translation for continue_btn"
   },
   "create_profile": "अपनी प्रोफ़ाइल बनाएं",
   "@create_profile": {
-    "placeholders": {},
     "description": "Translation for create_profile"
   },
   "profile_desc": "आपके अनुभव को व्यक्तिगत बनाने के लिए कुछ जानकारी चाहिए।",
   "@profile_desc": {
-    "placeholders": {},
     "description": "Translation for profile_desc"
   },
   "full_name": "पूरा नाम",
   "@full_name": {
-    "placeholders": {},
     "description": "Translation for full_name"
   },
   "gender": "लिंग",
   "@gender": {
-    "placeholders": {},
     "description": "Translation for gender"
   },
   "gender_female": "महिला",
   "@gender_female": {
-    "placeholders": {},
     "description": "Translation for gender_female"
   },
   "gender_male": "पुरुष",
   "@gender_male": {
-    "placeholders": {},
     "description": "Translation for gender_male"
   },
   "gender_other": "अन्य",
   "@gender_other": {
-    "placeholders": {},
     "description": "Translation for gender_other"
   },
   "birth_date": "जन्म तिथि",
   "@birth_date": {
-    "placeholders": {},
     "description": "Translation for birth_date"
   },
   "date_format_hint": "DD.MM.YYYY",
   "@date_format_hint": {
-    "placeholders": {},
     "description": "Translation for date_format_hint"
   },
   "select_language": "भाषा चुनें",
   "@select_language": {
-    "placeholders": {},
     "description": "Translation for select_language"
   },
   "please_enter_name": "कृपया नाम दर्ज करें",
   "@please_enter_name": {
-    "placeholders": {},
     "description": "Translation for please_enter_name"
   },
   "must_agree": "जारी रखने के लिए आपको कानूनी दस्तावेज़ स्वीकार करने होंगे।",
   "@must_agree": {
-    "placeholders": {},
     "description": "Translation for must_agree"
   },
   "step_profile": "प्रोफ़ाइल",
   "@step_profile": {
-    "placeholders": {},
     "description": "Translation for step_profile"
   },
   "step_security": "सुरक्षा",
   "@step_security": {
-    "placeholders": {},
     "description": "Translation for step_security"
   },
   "setup_app_lock": "ऐप लॉक सेट करें",
   "@setup_app_lock": {
-    "placeholders": {},
     "description": "Translation for setup_app_lock"
   },
   "setup_app_lock_desc": "अपने डेटा को 6 अंकों के PIN से सुरक्षित करें।",
   "@setup_app_lock_desc": {
-    "placeholders": {},
     "description": "Translation for setup_app_lock_desc"
   },
   "lock_set_pin": "सुरक्षित PIN सेट करें",
   "@lock_set_pin": {
-    "placeholders": {},
     "description": "Translation for lock_set_pin"
   },
   "lock_confirm_pin": "PIN की पुष्टि करें",
   "@lock_confirm_pin": {
-    "placeholders": {},
     "description": "Translation for lock_confirm_pin"
   },
   "lock_pin_mismatch": "PIN मेल नहीं खाते। फिर कोशिश करें।",
   "@lock_pin_mismatch": {
-    "placeholders": {},
     "description": "Translation for lock_pin_mismatch"
   },
   "skip_pin_setup": "छोड़ें",
   "@skip_pin_setup": {
-    "placeholders": {},
     "description": "Translation for skip_pin_setup"
   },
   "lock_skip_desc": "आप इसे बाद में Settings से सेट कर सकते हैं।",
   "@lock_skip_desc": {
-    "placeholders": {},
     "description": "Translation for lock_skip_desc"
   },
   "home": "होम",
   "@home": {
-    "placeholders": {},
     "description": "Translation for home"
   },
   "vault": "वॉल्ट",
   "@vault": {
-    "placeholders": {},
     "description": "Translation for vault"
   },
   "explore": "एक्सप्लोर",
   "@explore": {
-    "placeholders": {},
     "description": "Translation for explore"
   },
   "appointments": "अपॉइंटमेंट",
   "@appointments": {
-    "placeholders": {},
     "description": "Translation for appointments"
   },
   "profile": "प्रोफ़ाइल",
   "@profile": {
-    "placeholders": {},
     "description": "Translation for profile"
   },
   "medicines": "दवाएं",
   "@medicines": {
-    "placeholders": {},
     "description": "Translation for medicines"
   },
   "health_data": "स्वास्थ्य डेटा",
   "@health_data": {
-    "placeholders": {},
     "description": "Translation for health_data"
   },
   "important_info": "महत्वपूर्ण जानकारी",
   "@important_info": {
-    "placeholders": {},
     "description": "Translation for important_info"
   },
   "guest_user": "अतिथि उपयोगकर्ता",
   "@guest_user": {
-    "placeholders": {},
     "description": "Translation for guest_user"
   },
   "hi": "नमस्ते",
   "@hi": {
-    "placeholders": {},
     "description": "Translation for hi"
   },
   "docs_title": "दस्तावेज़",
   "@docs_title": {
-    "placeholders": {},
     "description": "Translation for docs_title"
   },
   "docs_add_title": "दस्तावेज़ जोड़ें",
   "@docs_add_title": {
-    "placeholders": {},
     "description": "Translation for docs_add_title"
   },
   "docs_add_btn": "दस्तावेज़ जोड़ें",
   "@docs_add_btn": {
-    "placeholders": {},
     "description": "Translation for docs_add_btn"
   },
   "docs_add_pick": "दस्तावेज़ / छवि चुनें",
   "@docs_add_pick": {
-    "placeholders": {},
     "description": "Translation for docs_add_pick"
   },
   "docs_success": "दस्तावेज़ सफलतापूर्वक सेव हुआ!",
   "@docs_success": {
-    "placeholders": {},
     "description": "Translation for docs_success"
   },
   "docs_error_pick": "कृपया एक फ़ाइल चुनें",
   "@docs_error_pick": {
-    "placeholders": {},
     "description": "Translation for docs_error_pick"
   },
   "docs_category_health": "स्वास्थ्य",
   "@docs_category_health": {
-    "placeholders": {},
     "description": "Translation for docs_category_health"
   },
   "docs_category_identity": "पहचान",
   "@docs_category_identity": {
-    "placeholders": {},
     "description": "Translation for docs_category_identity"
   },
   "docs_category_finance": "वित्त",
   "@docs_category_finance": {
-    "placeholders": {},
     "description": "Translation for docs_category_finance"
   },
   "docs_category_legal": "कानूनी",
   "@docs_category_legal": {
-    "placeholders": {},
     "description": "Translation for docs_category_legal"
   },
   "docs_category_notes": "नोट्स",
   "@docs_category_notes": {
-    "placeholders": {},
     "description": "Translation for docs_category_notes"
   },
   "docs_category_other": "अन्य",
   "@docs_category_other": {
-    "placeholders": {},
     "description": "Translation for docs_category_other"
   },
   "appointment_title": "अपॉइंटमेंट शीर्षक",
   "@appointment_title": {
-    "placeholders": {},
     "description": "Translation for appointment_title"
   },
   "my_appointments": "मेरे अपॉइंटमेंट",
   "@my_appointments": {
-    "placeholders": {},
     "description": "Translation for my_appointments"
   },
   "add_appointment": "अपॉइंटमेंट जोड़ें",
   "@add_appointment": {
-    "placeholders": {},
     "description": "Translation for add_appointment"
   },
   "add_new_appointment": "नया अपॉइंटमेंट जोड़ें",
   "@add_new_appointment": {
-    "placeholders": {},
     "description": "Translation for add_new_appointment"
   },
   "appointment_added": "अपॉइंटमेंट सफलतापूर्वक जोड़ा गया।",
   "@appointment_added": {
-    "placeholders": {},
     "description": "Translation for appointment_added"
-  },
-  "appointment_created_success": "अपॉइंटमेंट सफलतापूर्वक बनाया गया।",
-  "@appointment_created_success": {
-    "placeholders": {},
-    "description": "Translation for appointment_created_success"
-  },
-  "failed_create_appointment": "अपॉइंटमेंट बनाया नहीं जा सका।",
-  "@failed_create_appointment": {
-    "placeholders": {},
-    "description": "Translation for failed_create_appointment"
   },
   "location": "स्थान",
   "@location": {
-    "placeholders": {},
     "description": "Translation for location"
   },
   "today": "आज",
   "@today": {
-    "placeholders": {},
     "description": "Translation for today"
   },
   "tomorrow": "कल",
   "@tomorrow": {
-    "placeholders": {},
     "description": "Translation for tomorrow"
   },
   "health_stats": "स्वास्थ्य हब",
   "@health_stats": {
-    "placeholders": {},
     "description": "Translation for health_stats"
   },
   "safety_footer_health": "स्वास्थ्य डेटा केवल जानकारी के लिए है। निदान के लिए विशेषज्ञ से सलाह लें।",
   "@safety_footer_health": {
-    "placeholders": {},
     "description": "Translation for safety_footer_health"
   },
   "safety_footer_med": "VitaCase एक प्रबंधन टूल है। यह चिकित्सा सलाह या खुराक सुझाव नहीं देता। हमेशा अपने डॉक्टर के निर्देशों का पालन करें।",
   "@safety_footer_med": {
-    "placeholders": {},
     "description": "Translation for safety_footer_med"
   },
   "medical_device_warning": "VitaCase कोई मेडिकल डिवाइस नहीं है। हमेशा विशेषज्ञ से सलाह लें।",
   "@medical_device_warning": {
-    "placeholders": {},
     "description": "Translation for medical_device_warning"
   },
   "management_tool_warning": "VitaCase एक प्रबंधन टूल है, निदान सेवा नहीं।",
   "@management_tool_warning": {
-    "placeholders": {},
     "description": "Translation for management_tool_warning"
   },
   "unit_ml": "ml",
   "@unit_ml": {
-    "placeholders": {},
     "description": "Translation for unit_ml"
   },
   "unit_l": "L",
   "@unit_l": {
-    "placeholders": {},
     "description": "Translation for unit_l"
   },
   "unit_steps": "कदम",
   "@unit_steps": {
-    "placeholders": {},
     "description": "Translation for unit_steps"
   },
   "unit_hours": "घंटे",
   "@unit_hours": {
-    "placeholders": {},
     "description": "Translation for unit_hours"
   },
   "unit_bpm": "BPM",
   "@unit_bpm": {
-    "placeholders": {},
     "description": "Translation for unit_bpm"
   },
   "steps": "कदम",
   "@steps": {
-    "placeholders": {},
     "description": "Translation for steps"
   },
   "heart": "हृदय",
   "@heart": {
-    "placeholders": {},
     "description": "Translation for heart"
   },
   "sleep": "नींद",
   "@sleep": {
-    "placeholders": {},
     "description": "Translation for sleep"
   },
   "water": "पानी",
   "@water": {
-    "placeholders": {},
     "description": "Translation for water"
   },
   "add_health_data": "स्वास्थ्य डेटा जोड़ें",
   "@add_health_data": {
-    "placeholders": {},
     "description": "Translation for add_health_data"
   },
   "recent_activity": "हाल की गतिविधि",
   "@recent_activity": {
-    "placeholders": {},
     "description": "Translation for recent_activity"
   },
   "no_health_records": "अभी कोई रिकॉर्ड नहीं मिला।",
   "@no_health_records": {
-    "placeholders": {},
     "description": "Translation for no_health_records"
   },
   "add_medicine": "दवा जोड़ें",
   "@add_medicine": {
-    "placeholders": {},
     "description": "Translation for add_medicine"
   },
   "my_medicines": "मेरी दवाएं",
   "@my_medicines": {
-    "placeholders": {},
     "description": "Translation for my_medicines"
   },
   "medicine_name": "दवा का नाम",
   "@medicine_name": {
-    "placeholders": {},
     "description": "Translation for medicine_name"
   },
   "med_added_success": "दवा सफलतापूर्वक जोड़ी गई!",
   "@med_added_success": {
-    "placeholders": {},
     "description": "Translation for med_added_success"
   },
   "med_name_error": "कृपया दवा का नाम दर्ज करें",
   "@med_name_error": {
-    "placeholders": {},
     "description": "Translation for med_name_error"
   },
   "app_lock": "ऐप लॉक",
   "@app_lock": {
-    "placeholders": {},
     "description": "Translation for app_lock"
-  },
-  "settings": "सेटिंग्स",
-  "@settings": {
-    "placeholders": {},
-    "description": "Translation for settings"
   },
   "privacy_policy": "गोपनीयता नीति",
   "@privacy_policy": {
-    "placeholders": {},
     "description": "Translation for privacy_policy"
   },
   "terms_conditions": "नियम और शर्तें",
   "@terms_conditions": {
-    "placeholders": {},
     "description": "Translation for terms_conditions"
   },
   "legal_disclaimer": "कानूनी अस्वीकरण",
   "@legal_disclaimer": {
-    "placeholders": {},
     "description": "Translation for legal_disclaimer"
   },
   "delete_all_data": "सारा डेटा हटाएं",
   "@delete_all_data": {
-    "placeholders": {},
     "description": "Translation for delete_all_data"
   },
   "ok": "ठीक है",
   "@ok": {
-    "placeholders": {},
     "description": "Translation for ok"
   },
-  "report_issue": "त्रुटि, सुझाव, अनुरोध और शिकायत",
+  "active": "सक्रिय",
+  "@active": {
+    "description": "Translation for active"
+  },
+  "inactive": "निष्क्रिय",
+  "@inactive": {
+    "description": "Translation for inactive"
+  },
+  "premium_feature": "प्रीमियम सुविधा 🌟",
+  "@premium_feature": {
+    "description": "Translation for premium_feature"
+  },
+  "premium_required_desc": "ऐप लॉक के लिए प्रीमियम सदस्यता आवश्यक है।",
+  "@premium_required_desc": {
+    "description": "Translation for premium_required_desc"
+  },
+  "go_premium": "प्रीमियम के लिए जाएँ",
+  "@go_premium": {
+    "description": "Translation for go_premium"
+  },
+  "index": "अनुक्रमणिका",
+  "@index": {
+    "description": "Translation for index"
+  },
+  "view_weekly": "साप्ताहिक",
+  "@view_weekly": {
+    "description": "Translation for view_weekly"
+  },
+  "view_monthly": "महीने के",
+  "@view_monthly": {
+    "description": "Translation for view_monthly"
+  },
+  "phone_country_code": "कोड",
+  "@phone_country_code": {
+    "description": "Translation for phone_country_code"
+  },
+  "coming_soon": "जल्द आ रहा है",
+  "@coming_soon": {
+    "description": "Translation for coming_soon"
+  },
+  "coming_soon_desc": "यह सुविधा अगले अपडेट में उपलब्ध होगी.",
+  "@coming_soon_desc": {
+    "description": "Translation for coming_soon_desc"
+  },
+  "tap_for_test": "परीक्षण अधिसूचना के लिए {count} अधिक बार टैप करें",
+  "@tap_for_test": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for tap_for_test"
+  },
+  "metric_water": "पानी",
+  "@metric_water": {
+    "description": "Translation for metric_water"
+  },
+  "metric_steps": "कदम",
+  "@metric_steps": {
+    "description": "Translation for metric_steps"
+  },
+  "metric_sleep": "नींद",
+  "@metric_sleep": {
+    "description": "Translation for metric_sleep"
+  },
+  "metric_heart_rate": "हृदय दर",
+  "@metric_heart_rate": {
+    "description": "Translation for metric_heart_rate"
+  },
+  "quick_actions_visibility": "त्वरित पहुँच दृश्यता",
+  "@quick_actions_visibility": {
+    "description": "Translation for quick_actions_visibility"
+  },
+  "personal_notes": "व्यक्तिगत टिप्पणियाँ",
+  "@personal_notes": {
+    "description": "Translation for personal_notes"
+  },
+  "save_and_list": "सहेजें और सूचीबद्ध करें",
+  "@save_and_list": {
+    "description": "Translation for save_and_list"
+  },
+  "doctor_info": "डॉक्टर सूचना",
+  "@doctor_info": {
+    "description": "Translation for doctor_info"
+  },
+  "add_doctor_desc": "त्वरित पहुंच के लिए अपने डॉक्टरों की संपर्क जानकारी रखें।",
+  "@add_doctor_desc": {
+    "description": "Translation for add_doctor_desc"
+  },
+  "basic_info": "मूल जानकारी",
+  "@basic_info": {
+    "description": "Translation for basic_info"
+  },
+  "institution_contact": "संस्था एवं संपर्क",
+  "@institution_contact": {
+    "description": "Translation for institution_contact"
+  },
+  "notes_bio": "नोट्स और बायो",
+  "@notes_bio": {
+    "description": "Translation for notes_bio"
+  },
+  "unknown": "अज्ञात",
+  "@unknown": {
+    "description": "Translation for unknown"
+  },
+  "hospital_clinic_name": "अस्पताल/क्लिनिक का नाम",
+  "@hospital_clinic_name": {
+    "description": "Translation for hospital_clinic_name"
+  },
+  "phone_number": "फ़ोन नंबर",
+  "@phone_number": {
+    "description": "Translation for phone_number"
+  },
+  "email_address": "मेल पता",
+  "@email_address": {
+    "description": "Translation for email_address"
+  },
+  "address": "पता",
+  "@address": {
+    "description": "Translation for address"
+  },
+  "emergency_info": "आपातकालीन सूचना",
+  "@emergency_info": {
+    "description": "Translation for emergency_info"
+  },
+  "emergency_contact_name": "आपातकालीन संपर्क (नाम)",
+  "@emergency_contact_name": {
+    "description": "Translation for emergency_contact_name"
+  },
+  "emergency_contact_phone": "आपातकालीन संपर्क (फ़ोन)",
+  "@emergency_contact_phone": {
+    "description": "Translation for emergency_contact_phone"
+  },
+  "blood_type": "रक्त प्रकार",
+  "@blood_type": {
+    "description": "Translation for blood_type"
+  },
+  "blood_unknown": "अज्ञात",
+  "@blood_unknown": {
+    "description": "Translation for blood_unknown"
+  },
+  "profile_updated": "प्रोफाइल अद्यतन किया गया! ✅",
+  "@profile_updated": {
+    "description": "Translation for profile_updated"
+  },
+  "let_start": "चलो शुरू करो",
+  "@let_start": {
+    "description": "Translation for let_start"
+  },
+  "ob_1_title": "विटाकेस",
+  "@ob_1_title": {
+    "description": "Translation for ob_1_title"
+  },
+  "ob_1_subtitle": "आपकी सभी फ़ाइलें एक ही स्थान पर",
+  "@ob_1_subtitle": {
+    "description": "Translation for ob_1_subtitle"
+  },
+  "ob_1_desc": "अपने दस्तावेज़, अपॉइंटमेंट और दवाएँ सुरक्षित रूप से रखें, उन्हें हमेशा अपने साथ रखें।",
+  "@ob_1_desc": {
+    "description": "Translation for ob_1_desc"
+  },
+  "ob_2_title": "अपनी सभी फ़ाइलें व्यवस्थित करें",
+  "@ob_2_title": {
+    "description": "Translation for ob_2_title"
+  },
+  "ob_2_desc": "अपने दस्तावेज़ अपलोड करें, उन्हें वर्गीकृत करें और उन्हें आसानी से प्रबंधित करें।",
+  "@ob_2_desc": {
+    "description": "Translation for ob_2_desc"
+  },
+  "ob_3_title": "अपनी नियुक्तियाँ सहेजें",
+  "@ob_3_title": {
+    "description": "Translation for ob_3_title"
+  },
+  "ob_3_desc": "अपने सभी अपॉइंटमेंट एक ही स्थान पर रखें, अनुस्मारक के साथ कभी भी एक भी अपॉइंटमेंट न चूकें।",
+  "@ob_3_desc": {
+    "description": "Translation for ob_3_desc"
+  },
+  "ob_4_title": "अपनी दवाएं सहेजें और ट्रैक करें",
+  "@ob_4_title": {
+    "description": "Translation for ob_4_title"
+  },
+  "ob_4_desc": "अपनी दवाओं और उपयोग के समय को रिकॉर्ड करें, अनुस्मारक के साथ उनका नियमित रूप से उपयोग करना न भूलें।",
+  "@ob_4_desc": {
+    "description": "Translation for ob_4_desc"
+  },
+  "ob_5_title": "बचाओ, हारो मत",
+  "@ob_5_title": {
+    "description": "Translation for ob_5_title"
+  },
+  "ob_5_desc": "अपनी नियुक्तियाँ और दवाएँ सुरक्षित रखें, आप निश्चिंत रहें।",
+  "@ob_5_desc": {
+    "description": "Translation for ob_5_desc"
+  },
+  "ob_feature_1_title": "सुरक्षित भंडारण",
+  "@ob_feature_1_title": {
+    "description": "Translation for ob_feature_1_title"
+  },
+  "ob_feature_1_desc": "आपका डेटा एन्क्रिप्टेड है और केवल आपका है।",
+  "@ob_feature_1_desc": {
+    "description": "Translation for ob_feature_1_desc"
+  },
+  "ob_feature_2_title": "अनुस्मारक",
+  "@ob_feature_2_title": {
+    "description": "Translation for ob_feature_2_title"
+  },
+  "ob_feature_2_desc": "अपनी अपॉइंटमेंट और दवा का समय कभी न चूकें।",
+  "@ob_feature_2_desc": {
+    "description": "Translation for ob_feature_2_desc"
+  },
+  "ob_feature_3_title": "हर जगह पहुंचें",
+  "@ob_feature_3_title": {
+    "description": "Translation for ob_feature_3_title"
+  },
+  "ob_feature_3_desc": "जब भी आप चाहें अपनी सारी जानकारी एक्सेस करें।",
+  "@ob_feature_3_desc": {
+    "description": "Translation for ob_feature_3_desc"
+  },
+  "good_morning": "शुभ प्रभात",
+  "@good_morning": {
+    "description": "Translation for good_morning"
+  },
+  "good_afternoon": "शुभ दोपहर",
+  "@good_afternoon": {
+    "description": "Translation for good_afternoon"
+  },
+  "good_evening": "शुभ संध्या",
+  "@good_evening": {
+    "description": "Translation for good_evening"
+  },
+  "good_night": "शुभ रात्रि",
+  "@good_night": {
+    "description": "Translation for good_night"
+  },
+  "synced": "सिंक किया गया",
+  "@synced": {
+    "description": "Translation for synced"
+  },
+  "guest_mode": "अतिथि मोड सक्रिय",
+  "@guest_mode": {
+    "description": "Translation for guest_mode"
+  },
+  "guest_desc": "डेटा केवल स्थानीय है. बैकअप लेने के लिए एक खाता बनाएं.",
+  "@guest_desc": {
+    "description": "Translation for guest_desc"
+  },
+  "all_records": "सुरक्षित पुरालेख",
+  "@all_records": {
+    "description": "Translation for all_records"
+  },
+  "vault_is_empty": "आपकी तिजोरी तैयार है",
+  "@vault_is_empty": {
+    "description": "Translation for vault_is_empty"
+  },
+  "vault_desc": "अपने सबसे महत्वपूर्ण अभिलेखों को एक निजी अभयारण्य में संग्रहीत और व्यवस्थित करें।",
+  "@vault_desc": {
+    "description": "Translation for vault_desc"
+  },
+  "quick_access": "त्वरित पहुंच",
+  "@quick_access": {
+    "description": "Translation for quick_access"
+  },
+  "bpm": "बीपीएम",
+  "@bpm": {
+    "description": "Translation for bpm"
+  },
+  "hours": "घंटे",
+  "@hours": {
+    "description": "Translation for hours"
+  },
+  "ml": "एमएल",
+  "@ml": {
+    "description": "Translation for ml"
+  },
+  "pharmacies": "फार्मेसी",
+  "@pharmacies": {
+    "description": "Translation for pharmacies"
+  },
+  "save_continue": "सहेजें और जारी रखें",
+  "@save_continue": {
+    "description": "Translation for save_continue"
+  },
+  "security_badge_label": "विटाकेस उन्नत एन्क्रिप्शन v2.4",
+  "@security_badge_label": {
+    "description": "Translation for security_badge_label"
+  },
+  "health_stats_desc": "आपका व्यापक दैनिक स्वास्थ्य सारांश।",
+  "@health_stats_desc": {
+    "description": "Translation for health_stats_desc"
+  },
+  "step_unit": "कदम",
+  "@step_unit": {
+    "description": "Translation for step_unit"
+  },
+  "privacy_guarantee": "आपका डेटा सुरक्षित है",
+  "@privacy_guarantee": {
+    "description": "Translation for privacy_guarantee"
+  },
+  "privacy_box_desc": "आपकी जानकारी सुरक्षित रूप से संग्रहीत की जाती है और कभी भी साझा नहीं की जाती है।",
+  "@privacy_box_desc": {
+    "description": "Translation for privacy_box_desc"
+  },
+  "privacy_box_warning": "आपका डेटा निजी है और आपके डिवाइस पर सुरक्षित रूप से संग्रहीत है। कृपया अत्यधिक संवेदनशील जानकारी अपलोड करने से बचें। आप जो डेटा संग्रहीत करते हैं उसके लिए आप ज़िम्मेदार हैं।",
+  "@privacy_box_warning": {
+    "description": "Translation for privacy_box_warning"
+  },
+  "docs_secure_storage_title": "सुरक्षित स्थानीय भंडारण 🔒",
+  "@docs_secure_storage_title": {
+    "description": "Translation for docs_secure_storage_title"
+  },
+  "docs_secure_storage_desc": "आपका डेटा आपके डिवाइस पर रहता है",
+  "@docs_secure_storage_desc": {
+    "description": "Translation for docs_secure_storage_desc"
+  },
+  "docs_sensitive_warning": "अत्यधिक संवेदनशील जानकारी संग्रहीत करने से बचें. आप अपने डेटा के लिए ज़िम्मेदार हैं.",
+  "@docs_sensitive_warning": {
+    "description": "Translation for docs_sensitive_warning"
+  },
+  "appearance": "उपस्थिति",
+  "@appearance": {
+    "description": "Translation for appearance"
+  },
+  "theme_settings": "थीम सेटिंग्स",
+  "@theme_settings": {
+    "description": "Translation for theme_settings"
+  },
+  "app_settings": "ऐप सेटिंग",
+  "@app_settings": {
+    "description": "Translation for app_settings"
+  },
+  "text_size": "टेक्स्ट का साइज़",
+  "@text_size": {
+    "description": "Translation for text_size"
+  },
+  "quick_actions": "त्वरित कार्रवाई",
+  "@quick_actions": {
+    "description": "Translation for quick_actions"
+  },
+  "data_security": "डेटा और सुरक्षा",
+  "@data_security": {
+    "description": "Translation for data_security"
+  },
+  "backup_zip": "बैकअप (ज़िप)",
+  "@backup_zip": {
+    "description": "Translation for backup_zip"
+  },
+  "import_backup": "बैकअप बहाल",
+  "@import_backup": {
+    "description": "Translation for import_backup"
+  },
+  "import_desc": "एक ज़िप बैकअप फ़ाइल आयात करें",
+  "@import_desc": {
+    "description": "Translation for import_desc"
+  },
+  "export_desc": "दस्तावेज़ निर्यात करें",
+  "@export_desc": {
+    "description": "Translation for export_desc"
+  },
+  "emergency_contact": "आपातकालीन संपर्क",
+  "@emergency_contact": {
+    "description": "Translation for emergency_contact"
+  },
+  "daily_step_goal": "दैनिक कदम लक्ष्य",
+  "@daily_step_goal": {
+    "description": "Translation for daily_step_goal"
+  },
+  "support_legal": "समर्थन एवं कानूनी",
+  "@support_legal": {
+    "description": "Translation for support_legal"
+  },
+  "help_center": "सहायता केंद्र",
+  "@help_center": {
+    "description": "Translation for help_center"
+  },
+  "legal": "कानूनी",
+  "@legal": {
+    "description": "Translation for legal"
+  },
+  "lock_gate_title": "विटाकेस लॉक",
+  "@lock_gate_title": {
+    "description": "Translation for lock_gate_title"
+  },
+  "lock_gate_desc": "कृपया अपने सुरक्षित दस्तावेज़ वॉल्ट तक पहुंचने के लिए प्रमाणित करें।",
+  "@lock_gate_desc": {
+    "description": "Translation for lock_gate_desc"
+  },
+  "lock_gate_unlock": "बायोमेट्रिक्स से अनलॉक करें",
+  "@lock_gate_unlock": {
+    "description": "Translation for lock_gate_unlock"
+  },
+  "lock_pin_incorrect": "ग़लत पिन",
+  "@lock_pin_incorrect": {
+    "description": "Translation for lock_pin_incorrect"
+  },
+  "lock_use_biometrics": "बायोमेट्रिक्स का प्रयोग करें",
+  "@lock_use_biometrics": {
+    "description": "Translation for lock_use_biometrics"
+  },
+  "lock_too_many_attempts": "बहुत अधिक प्रयास. {seconds}s में पुनः प्रयास करें।",
+  "@lock_too_many_attempts": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for lock_too_many_attempts"
+  },
+  "lock_timeout_instant": "तुरंत",
+  "@lock_timeout_instant": {
+    "description": "Translation for lock_timeout_instant"
+  },
+  "lock_timeout_1min": "1 मिनट",
+  "@lock_timeout_1min": {
+    "description": "Translation for lock_timeout_1min"
+  },
+  "lock_timeout_5min": "5 मिनट",
+  "@lock_timeout_5min": {
+    "description": "Translation for lock_timeout_5min"
+  },
+  "lock_timeout_15min": "15 मिनटों",
+  "@lock_timeout_15min": {
+    "description": "Translation for lock_timeout_15min"
+  },
+  "lock_timeout": "लॉक टाइमआउट",
+  "@lock_timeout": {
+    "description": "Translation for lock_timeout"
+  },
+  "change_pin": "पिन बदलें",
+  "@change_pin": {
+    "description": "Translation for change_pin"
+  },
+  "biometric_login": "बायोमेट्रिक लॉगिन",
+  "@biometric_login": {
+    "description": "Translation for biometric_login"
+  },
+  "biometric_unavailable": "इस डिवाइस पर बायोमेट्रिक प्रमाणीकरण उपलब्ध नहीं है.",
+  "@biometric_unavailable": {
+    "description": "Translation for biometric_unavailable"
+  },
+  "digits": "अंक",
+  "@digits": {
+    "description": "Translation for digits"
+  },
+  "setup_pin_later": "बाद में सेटिंग्स से सेट अप करें",
+  "@setup_pin_later": {
+    "description": "Translation for setup_pin_later"
+  },
+  "daily_missions": "दैनिक मिशन",
+  "@daily_missions": {
+    "description": "Translation for daily_missions"
+  },
+  "mission_doc_daily": "1 दस्तावेज़ जोड़ें",
+  "@mission_doc_daily": {
+    "description": "Translation for mission_doc_daily"
+  },
+  "mission_ad_daily": "1 विज्ञापन देखें",
+  "@mission_ad_daily": {
+    "description": "Translation for mission_ad_daily"
+  },
+  "mission_app_daily": "अनुसूची 1 नियुक्ति",
+  "@mission_app_daily": {
+    "description": "Translation for mission_app_daily"
+  },
+  "mission_med_daily": "1 औषधि जोड़ें",
+  "@mission_med_daily": {
+    "description": "Translation for mission_med_daily"
+  },
+  "export_data_zip": "डेटा निर्यात करें (.zip)",
+  "@export_data_zip": {
+    "description": "Translation for export_data_zip"
+  },
+  "clear_all_data": "सभी डेटा साफ़ करें",
+  "@clear_all_data": {
+    "description": "Translation for clear_all_data"
+  },
+  "quick_actions_desc": "डैशबोर्ड पर त्वरित शॉर्टकट",
+  "@quick_actions_desc": {
+    "description": "Translation for quick_actions_desc"
+  },
+  "app_section": "अनुप्रयोग",
+  "@app_section": {
+    "description": "Translation for app_section"
+  },
+  "premium_required": "प्रीमियम आवश्यक",
+  "@premium_required": {
+    "description": "Translation for premium_required"
+  },
+  "logout": "लॉग आउट",
+  "@logout": {
+    "description": "Translation for logout"
+  },
+  "logout_confirm": "क्या आप लॉग आउट करना चाहते हैं?",
+  "@logout_confirm": {
+    "description": "Translation for logout_confirm"
+  },
+  "yes_logout": "हाँ, लॉगआउट करें",
+  "@yes_logout": {
+    "description": "Translation for yes_logout"
+  },
+  "version": "संस्करण",
+  "@version": {
+    "description": "Translation for version"
+  },
+  "med_count_desc": "आपके पास आज के लिए {count} दवाएं हैं।",
+  "@med_count_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for med_count_desc"
+  },
+  "low_stock_warning": "कम स्टॉक",
+  "@low_stock_warning": {
+    "description": "Translation for low_stock_warning"
+  },
+  "critical_level": "{name} के लिए गंभीर स्तर।",
+  "@critical_level": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for critical_level"
+  },
+  "refill": "फिर से भरना",
+  "@refill": {
+    "description": "Translation for refill"
+  },
+  "intake_chart": "सेवन अनुपालन चार्ट",
+  "@intake_chart": {
+    "description": "Translation for intake_chart"
+  },
+  "weekly_avg": "साप्ताहिक औसत: {perc}%",
+  "@weekly_avg": {
+    "placeholders": {
+      "perc": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for weekly_avg"
+  },
+  "medicine_cabinet": "दवा कैबिनेट",
+  "@medicine_cabinet": {
+    "description": "Translation for medicine_cabinet"
+  },
+  "active_inventory": "आपकी सक्रिय सूची",
+  "@active_inventory": {
+    "description": "Translation for active_inventory"
+  },
+  "add": "जोड़ना",
+  "@add": {
+    "description": "Translation for add"
+  },
+  "daily_routine": "दैनिक दिनचर्या",
+  "@daily_routine": {
+    "description": "Translation for daily_routine"
+  },
+  "morning": "सुबह",
+  "@morning": {
+    "description": "Translation for morning"
+  },
+  "afternoon": "दोपहर",
+  "@afternoon": {
+    "description": "Translation for afternoon"
+  },
+  "night": "रात",
+  "@night": {
+    "description": "Translation for night"
+  },
+  "med_cabinet_add": "नई चिकित्सा",
+  "@med_cabinet_add": {
+    "description": "Translation for med_cabinet_add"
+  },
+  "stock_left": "{count} बाएँ",
+  "@stock_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for stock_left"
+  },
+  "vital_signs": "जीवन के संकेत",
+  "@vital_signs": {
+    "description": "Translation for vital_signs"
+  },
+  "daily_goals": "दैनिक लक्ष्य",
+  "@daily_goals": {
+    "description": "Translation for daily_goals"
+  },
+  "activity": "गतिविधि",
+  "@activity": {
+    "description": "Translation for activity"
+  },
+  "step_counter": "चरण काउंटर",
+  "@step_counter": {
+    "description": "Translation for step_counter"
+  },
+  "water_tracker": "जल ट्रैकर",
+  "@water_tracker": {
+    "description": "Translation for water_tracker"
+  },
+  "hint_name": "जैसे जॉन डो",
+  "@hint_name": {
+    "description": "Translation for hint_name"
+  },
+  "hint_emergency": "पूरा नाम/फ़ोन",
+  "@hint_emergency": {
+    "description": "Translation for hint_emergency"
+  },
+  "docs_search_hint": "अपनी तिजोरी खोजें (दस्तावेज़, नोट, पहचान...)",
+  "@docs_search_hint": {
+    "description": "Translation for docs_search_hint"
+  },
+  "docs_info_secure": "आपके दस्तावेज़ सुरक्षित रूप से संग्रहीत हैं और केवल आपके लिए हैं।",
+  "@docs_info_secure": {
+    "description": "Translation for docs_info_secure"
+  },
+  "docs_info_encrypted": "आपका डेटा एन्क्रिप्शन के साथ स्थानीय रूप से सुरक्षित है।",
+  "@docs_info_encrypted": {
+    "description": "Translation for docs_info_encrypted"
+  },
+  "docs_sort_all": "सभी",
+  "@docs_sort_all": {
+    "description": "Translation for docs_sort_all"
+  },
+  "docs_sort_newest": "नवीनतम",
+  "@docs_sort_newest": {
+    "description": "Translation for docs_sort_newest"
+  },
+  "docs_sort_oldest": "सबसे पुराने",
+  "@docs_sort_oldest": {
+    "description": "Translation for docs_sort_oldest"
+  },
+  "docs_empty_title": "यह यहाँ खाली है",
+  "@docs_empty_title": {
+    "description": "Translation for docs_empty_title"
+  },
+  "docs_empty_subtitle": "अपना पहला दस्तावेज़ जोड़कर अपनी तिजोरी को व्यवस्थित करना शुरू करें।",
+  "@docs_empty_subtitle": {
+    "description": "Translation for docs_empty_subtitle"
+  },
+  "docs_loading_open": "सुरक्षित फ़ाइल खोली जा रही है...",
+  "@docs_loading_open": {
+    "description": "Translation for docs_loading_open"
+  },
+  "docs_loading_decrypt": "एईएस-256 डिक्रिप्टिंग",
+  "@docs_loading_decrypt": {
+    "description": "Translation for docs_loading_decrypt"
+  },
+  "docs_add_source": "स्रोत/संस्थान (वैकल्पिक)",
+  "@docs_add_source": {
+    "description": "Translation for docs_add_source"
+  },
+  "docs_add_person": "संबंधित व्यक्ति/विस्तार",
+  "@docs_add_person": {
+    "description": "Translation for docs_add_person"
+  },
+  "docs_add_cat": "वर्ग",
+  "@docs_add_cat": {
+    "description": "Translation for docs_add_cat"
+  },
+  "docs_add_type": "दस्तावेज़ प्रकार",
+  "@docs_add_type": {
+    "description": "Translation for docs_add_type"
+  },
+  "docs_add_note": "नोट (वैकल्पिक)",
+  "@docs_add_note": {
+    "description": "Translation for docs_add_note"
+  },
+  "docs_add_secure": "यह जानकारी AES-256 के साथ एन्क्रिप्टेड है।",
+  "@docs_add_secure": {
+    "description": "Translation for docs_add_secure"
+  },
+  "docs_add_pick_diff": "भिन्न फ़ाइल चुनें",
+  "@docs_add_pick_diff": {
+    "description": "Translation for docs_add_pick_diff"
+  },
+  "docs_error_save": "दस्तावेज़ सहेजने में विफल",
+  "@docs_error_save": {
+    "description": "Translation for docs_error_save"
+  },
+  "docs_error_source": "स्वास्थ्य दस्तावेज़ों के लिए संस्थान का नाम आवश्यक है",
+  "@docs_error_source": {
+    "description": "Translation for docs_error_source"
+  },
+  "docs_error_size": "फ़ाइल का आकार अधिकतम 10 एमबी होना चाहिए",
+  "@docs_error_size": {
+    "description": "Translation for docs_error_size"
+  },
+  "docs_add_file_selected": "चयनित फ़ाइल",
+  "@docs_add_file_selected": {
+    "description": "Translation for docs_add_file_selected"
+  },
+  "docs_action_delete": "मिटाना",
+  "@docs_action_delete": {
+    "description": "Translation for docs_action_delete"
+  },
+  "docs_no_results": "कोई परिणाम नहीं मिला",
+  "@docs_no_results": {
+    "description": "Translation for docs_no_results"
+  },
+  "docs_no_matching": "कोई भी दस्तावेज़ आपके मानदंड से मेल नहीं खाता",
+  "@docs_no_matching": {
+    "description": "Translation for docs_no_matching"
+  },
+  "docs_try_different": "किसी भिन्न कीवर्ड से खोजने का प्रयास करें.",
+  "@docs_try_different": {
+    "description": "Translation for docs_try_different"
+  },
+  "docs_no_filter_match": "चयनित फ़िल्टर के लिए कोई दस्तावेज़ नहीं मिला.",
+  "@docs_no_filter_match": {
+    "description": "Translation for docs_no_filter_match"
+  },
+  "docs_show_all": "सब दिखाएं",
+  "@docs_show_all": {
+    "description": "Translation for docs_show_all"
+  },
+  "privacy_warning_title": "गोपनीयता चेतावनी",
+  "@privacy_warning_title": {
+    "description": "Translation for privacy_warning_title"
+  },
+  "privacy_warning_desc": "किसी भी संवेदनशील जानकारी और अपलोड किए गए दस्तावेज़ की जिम्मेदारी पूरी तरह से उपयोगकर्ता की है। कृपया उच्च जोखिम वाला डेटा संग्रहीत करते समय सावधान रहें।",
+  "@privacy_warning_desc": {
+    "description": "Translation for privacy_warning_desc"
+  },
+  "hint_select": "चुनना",
+  "@hint_select": {
+    "description": "Translation for hint_select"
+  },
+  "hint_institution": "जैसे सिटी हॉस्पिटल, बैंक, नोटरी",
+  "@hint_institution": {
+    "description": "Translation for hint_institution"
+  },
+  "hint_person_detail": "जैसे डॉ. मेहमत, वकील अहमत, टैक्स नं",
+  "@hint_person_detail": {
+    "description": "Translation for hint_person_detail"
+  },
+  "hint_add_note": "नोट जोड़े...",
+  "@hint_add_note": {
+    "description": "Translation for hint_add_note"
+  },
+  "docs_category_prescriptions": "नुस्खा",
+  "@docs_category_prescriptions": {
+    "description": "Translation for docs_category_prescriptions"
+  },
+  "docs_category_reports": "प्रतिवेदन",
+  "@docs_category_reports": {
+    "description": "Translation for docs_category_reports"
+  },
+  "docs_category_test_results": "परीक्षा परिणाम",
+  "@docs_category_test_results": {
+    "description": "Translation for docs_category_test_results"
+  },
+  "docs_category_images": "चिकित्सा छवि",
+  "@docs_category_images": {
+    "description": "Translation for docs_category_images"
+  },
+  "upcoming_appointment": "आगामी नियुक्ति",
+  "@upcoming_appointment": {
+    "description": "Translation for upcoming_appointment"
+  },
+  "weekly": "साप्ताहिक",
+  "@weekly": {
+    "description": "Translation for weekly"
+  },
+  "monthly": "महीने के",
+  "@monthly": {
+    "description": "Translation for monthly"
+  },
+  "no_more_appointments": "कोई और नियुक्ति नहीं मिली.",
+  "@no_more_appointments": {
+    "description": "Translation for no_more_appointments"
+  },
+  "join_meeting": "बैठक में शामिल",
+  "@join_meeting": {
+    "description": "Translation for join_meeting"
+  },
+  "health_trend_desc": "7-दिवसीय स्वास्थ्य रुझान",
+  "@health_trend_desc": {
+    "description": "Translation for health_trend_desc"
+  },
+  "all_records_title": "सभी रिकार्ड",
+  "@all_records_title": {
+    "description": "Translation for all_records_title"
+  },
+  "personal_health_data": "व्यक्तिगत स्वास्थ्य डेटा",
+  "@personal_health_data": {
+    "description": "Translation for personal_health_data"
+  },
+  "personal_info": "व्यक्तिगत जानकारी",
+  "@personal_info": {
+    "description": "Translation for personal_info"
+  },
+  "account_settings": "अकाउंट सेटिंग",
+  "@account_settings": {
+    "description": "Translation for account_settings"
+  },
+  "emergency_card": "आपातकालीन कार्ड",
+  "@emergency_card": {
+    "description": "Translation for emergency_card"
+  },
+  "allergies": "एलर्जी",
+  "@allergies": {
+    "description": "Translation for allergies"
+  },
+  "none": "कोई नहीं",
+  "@none": {
+    "description": "Translation for none"
+  },
+  "not_added": "नहीं जोड़ा गया",
+  "@not_added": {
+    "description": "Translation for not_added"
+  },
+  "active_goals": "सक्रिय लक्ष्य",
+  "@active_goals": {
+    "description": "Translation for active_goals"
+  },
+  "daily_steps": "दैनिक कदम",
+  "@daily_steps": {
+    "description": "Translation for daily_steps"
+  },
+  "water_intake": "पानी का सेवन",
+  "@water_intake": {
+    "description": "Translation for water_intake"
+  },
+  "liter_unit": "लीटर",
+  "@liter_unit": {
+    "description": "Translation for liter_unit"
+  },
+  "speed_up": "गति बढ़ाना",
+  "@speed_up": {
+    "description": "Translation for speed_up"
+  },
+  "stay_fresh": "तरोताजा रहें",
+  "@stay_fresh": {
+    "description": "Translation for stay_fresh"
+  },
+  "target_label": "लक्ष्य",
+  "@target_label": {
+    "description": "Translation for target_label"
+  },
+  "logout_desc_safe": "क्या आप लॉग आउट करना चाहते हैं? आपका डेटा आपके डिवाइस पर सुरक्षित रूप से संग्रहीत रहेगा।",
+  "@logout_desc_safe": {
+    "description": "Translation for logout_desc_safe"
+  },
+  "years_old": "वर्षों पुराना",
+  "@years_old": {
+    "description": "Translation for years_old"
+  },
+  "med_name_hint": "जैसे एस्पिरिन",
+  "@med_name_hint": {
+    "description": "Translation for med_name_hint"
+  },
+  "frequency": "आवृत्ति",
+  "@frequency": {
+    "description": "Translation for frequency"
+  },
+  "reminder_times": "अनुस्मारक टाइम्स",
+  "@reminder_times": {
+    "description": "Translation for reminder_times"
+  },
+  "current_stock": "वर्तमान स्टॉक",
+  "@current_stock": {
+    "description": "Translation for current_stock"
+  },
+  "stock_warning": "जब स्टॉक 5 यूनिट से कम हो जाएगा तो हम आपको याद दिलाएंगे।",
+  "@stock_warning": {
+    "description": "Translation for stock_warning"
+  },
+  "hero_health_tip": "आपके स्वास्थ्य के लिए",
+  "@hero_health_tip": {
+    "description": "Translation for hero_health_tip"
+  },
+  "hero_consistency": "संगति प्रमुख है",
+  "@hero_consistency": {
+    "description": "Translation for hero_consistency"
+  },
+  "custom_freq_title": "कस्टम आवृत्ति",
+  "@custom_freq_title": {
+    "description": "Translation for custom_freq_title"
+  },
+  "custom_freq_hint": "जैसे प्रत्येक 2 हफ्ते",
+  "@custom_freq_hint": {
+    "description": "Translation for custom_freq_hint"
+  },
+  "apply": "आवेदन करना",
+  "@apply": {
+    "description": "Translation for apply"
+  },
+  "daily": "दैनिक",
+  "@daily": {
+    "description": "Translation for daily"
+  },
+  "custom": "रिवाज़",
+  "@custom": {
+    "description": "Translation for custom"
+  },
+  "tablet": "गोली",
+  "@tablet": {
+    "description": "Translation for tablet"
+  },
+  "syrup": "सिरप (एमएल)",
+  "@syrup": {
+    "description": "Translation for syrup"
+  },
+  "dose": "खुराक",
+  "@dose": {
+    "description": "Translation for dose"
+  },
+  "capsule": "कैप्सूल",
+  "@capsule": {
+    "description": "Translation for capsule"
+  },
+  "drops": "ड्रॉप",
+  "@drops": {
+    "description": "Translation for drops"
+  },
+  "limit_title": "भंडारण पूर्ण! 🚀",
+  "@limit_title": {
+    "description": "Translation for limit_title"
+  },
+  "limit_desc": "आपकी वर्तमान सीमा {count} दस्तावेज़ है। क्या आप +5 और स्लॉट हासिल करने के लिए एक छोटा वीडियो देखना चाहेंगे?",
+  "@limit_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc"
+  },
+  "limit_desc_meds": "आपकी वर्तमान सीमा {count} दवाएं हैं। क्या आप +5 और स्लॉट हासिल करने के लिए एक छोटा वीडियो देखना चाहेंगे?",
+  "@limit_desc_meds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_meds"
+  },
+  "limit_desc_appts": "आपकी वर्तमान सीमा {count} नियुक्तियाँ हैं। क्या आप +5 और स्लॉट हासिल करने के लिए एक छोटा वीडियो देखना चाहेंगे?",
+  "@limit_desc_appts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_appts"
+  },
+  "limit_close": "बंद करना",
+  "@limit_close": {
+    "description": "Translation for limit_close"
+  },
+  "limit_reward_btn": "देखें और लाभ उठाएं",
+  "@limit_reward_btn": {
+    "description": "Translation for limit_reward_btn"
+  },
+  "limit_reward_success": "बधाई हो! +10 दस्तावेज़ स्लॉट जोड़े गए।",
+  "@limit_reward_success": {
+    "description": "Translation for limit_reward_success"
+  },
+  "limit_ad_free_info": "सुरक्षित एवं निजी स्थानीय भंडारण 🛡️",
+  "@limit_ad_free_info": {
+    "description": "Translation for limit_ad_free_info"
+  },
+  "limit_slots_used": "{count}/{limit} स्लॉट का उपयोग किया गया",
+  "@limit_slots_used": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_slots_used"
+  },
+  "lock_title": "विटाकेस लॉक",
+  "@lock_title": {
+    "description": "Translation for lock_title"
+  },
+  "lock_subtitle": "कृपया पहुंच के लिए सत्यापित करें",
+  "@lock_subtitle": {
+    "description": "Translation for lock_subtitle"
+  },
+  "unlock": "अनलॉक",
+  "@unlock": {
+    "description": "Translation for unlock"
+  },
+  "bmi_underweight": "वजन",
+  "@bmi_underweight": {
+    "description": "Translation for bmi_underweight"
+  },
+  "bmi_normal": "सामान्य (आदर्श)",
+  "@bmi_normal": {
+    "description": "Translation for bmi_normal"
+  },
+  "bmi_overweight": "अधिक वजन",
+  "@bmi_overweight": {
+    "description": "Translation for bmi_overweight"
+  },
+  "bmi_obese": "मोटा",
+  "@bmi_obese": {
+    "description": "Translation for bmi_obese"
+  },
+  "page_not_found": "पेज नहीं मिला या कोई त्रुटि हुई.",
+  "@page_not_found": {
+    "description": "Translation for page_not_found"
+  },
+  "legal_onboarding_clause": "मैं स्वीकार करता हूं कि VitaCase एक ऑफ़लाइन-प्रथम वॉल्ट है। मैं अपने डिवाइस और उसमें संग्रहीत संवेदनशील स्वास्थ्य डेटा की सुरक्षा की पूरी जिम्मेदारी लेता हूं।",
+  "@legal_onboarding_clause": {
+    "description": "Translation for legal_onboarding_clause"
+  },
+  "wipe_confirm_1": "आपका सारा डेटा, दस्तावेज़ और सेटिंग्स स्थायी रूप से हटा दी जाएंगी। इस एक्शन को वापस नहीं किया जा सकता। क्या आप जारी रखना चाहते हैं?",
+  "@wipe_confirm_1": {
+    "description": "Translation for wipe_confirm_1"
+  },
+  "wipe_confirm_2": "क्या आप पूर्णतः आश्वस्त हैं? आपके सभी मेडिकल संग्रह और एन्क्रिप्टेड रिकॉर्ड इस डिवाइस से मिटा दिए जाएंगे।",
+  "@wipe_confirm_2": {
+    "description": "Translation for wipe_confirm_2"
+  },
+  "final_warning": "अंतिम सुरक्षा चेतावनी",
+  "@final_warning": {
+    "description": "Translation for final_warning"
+  },
+  "wipe_btn_final": "हाँ, सब कुछ हटा दें",
+  "@wipe_btn_final": {
+    "description": "Translation for wipe_btn_final"
+  },
+  "all_data_deleted": "आपका सारा डेटा मिटा दिया गया है. ऐप अब पुनः आरंभ होगा.",
+  "@all_data_deleted": {
+    "description": "Translation for all_data_deleted"
+  },
+  "edit": "संपादन करना",
+  "@edit": {
+    "description": "Translation for edit"
+  },
+  "delete": "मिटाना",
+  "@delete": {
+    "description": "Translation for delete"
+  },
+  "theme_selection_title": "थीम चयन",
+  "@theme_selection_title": {
+    "description": "Translation for theme_selection_title"
+  },
+  "watch_ad": "विज्ञापन देखें",
+  "@watch_ad": {
+    "description": "Translation for watch_ad"
+  },
+  "verify_sentry": "संतरी एकीकरण सत्यापित करें",
+  "@verify_sentry": {
+    "description": "Translation for verify_sentry"
+  },
+  "edit_panel_soon": "संपादन पैनल जल्द ही आ रहा है!",
+  "@edit_panel_soon": {
+    "description": "Translation for edit_panel_soon"
+  },
+  "add_new_record": "नया रिकॉर्ड जोड़ें",
+  "@add_new_record": {
+    "description": "Translation for add_new_record"
+  },
+  "category": "वर्ग",
+  "@category": {
+    "description": "Translation for category"
+  },
+  "fill_required_fields": "कृपया आवश्यक फ़ील्ड भरें",
+  "@fill_required_fields": {
+    "description": "Translation for fill_required_fields"
+  },
+  "error_doctor_data": "कृपया डॉक्टर का नाम और विभाग दर्ज करें",
+  "@error_doctor_data": {
+    "description": "Translation for error_doctor_data"
+  },
+  "error_appointment_data": "कृपया शीर्षक और अस्पताल/केंद्र फ़ील्ड भरें",
+  "@error_appointment_data": {
+    "description": "Translation for error_appointment_data"
+  },
+  "appointment_reminder_title": "नियुक्ति अनुस्मारक",
+  "@appointment_reminder_title": {
+    "description": "Translation for appointment_reminder_title"
+  },
+  "appointment_reminder_body": "आपके पास {time} में अपॉइंटमेंट है: {doctor} ({dept})",
+  "@appointment_reminder_body": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "doctor": {
+        "type": "String"
+      },
+      "dept": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for appointment_reminder_body"
+  },
+  "text_size_small": "छोटा",
+  "@text_size_small": {
+    "description": "Translation for text_size_small"
+  },
+  "text_size_medium": "मध्यम",
+  "@text_size_medium": {
+    "description": "Translation for text_size_medium"
+  },
+  "text_size_large": "बड़ा",
+  "@text_size_large": {
+    "description": "Translation for text_size_large"
+  },
+  "support_contact": "हमारी सहायता टीम से संपर्क करने के लिए: limanexsoftware@outlook.com",
+  "@support_contact": {
+    "description": "Translation for support_contact"
+  },
+  "quick_actions_optimized": "त्वरित कार्रवाइयां आपकी प्रोफ़ाइल के लिए पहले से ही अनुकूलित हैं।",
+  "@quick_actions_optimized": {
+    "description": "Translation for quick_actions_optimized"
+  },
+  "medication_reminder": "दवा अनुस्मारक",
+  "@medication_reminder": {
+    "description": "Translation for medication_reminder"
+  },
+  "medication_reminder_body": "{name} ({dose}) के लिए समय",
+  "@medication_reminder_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dose": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for medication_reminder_body"
+  },
+  "no_doctors_found": "कोई मेल खाता डॉक्टर नहीं मिला",
+  "@no_doctors_found": {
+    "description": "Translation for no_doctors_found"
+  },
+  "clear_filters": "फ़िल्टर साफ़ करें",
+  "@clear_filters": {
+    "description": "Translation for clear_filters"
+  },
+  "verified": "सत्यापित",
+  "@verified": {
+    "description": "Translation for verified"
+  },
+  "height_label": "ऊंचाई",
+  "@height_label": {
+    "description": "Translation for height_label"
+  },
+  "weight_label": "वज़न",
+  "@weight_label": {
+    "description": "Translation for weight_label"
+  },
+  "age_label": "आयु",
+  "@age_label": {
+    "description": "Translation for age_label"
+  },
+  "identity_contact": "पहचान एवं संपर्क",
+  "@identity_contact": {
+    "description": "Translation for identity_contact"
+  },
+  "id_number": "आईडी नंबर",
+  "@id_number": {
+    "description": "Translation for id_number"
+  },
+  "update_info": "जानकारी अपडेट करें",
+  "@update_info": {
+    "description": "Translation for update_info"
+  },
+  "vita_badge": "विटाकेस उपयोगकर्ता",
+  "@vita_badge": {
+    "description": "Translation for vita_badge"
+  },
+  "default_job": "फ्रीलांस/स्वास्थ्य उत्साही",
+  "@default_job": {
+    "description": "Translation for default_job"
+  },
+  "blood_type_val": "एक Rh+",
+  "@blood_type_val": {
+    "description": "Translation for blood_type_val"
+  },
+  "clinical_note": "क्लिनिकल नोट",
+  "@clinical_note": {
+    "description": "Translation for clinical_note"
+  },
+  "last_control": "अंतिम नियंत्रण",
+  "@last_control": {
+    "description": "Translation for last_control"
+  },
+  "bmi_ideal": "आदर्श वजन सीमा",
+  "@bmi_ideal": {
+    "description": "Translation for bmi_ideal"
+  },
+  "medical_info_desc_empty": "अपनी महत्वपूर्ण चिकित्सा जानकारी को हमेशा अपने साथ रखने के लिए यहां संग्रहीत करें।",
+  "@medical_info_desc_empty": {
+    "description": "Translation for medical_info_desc_empty"
+  },
+  "category_critical": "महत्वपूर्ण जानकारी",
+  "@category_critical": {
+    "description": "Translation for category_critical"
+  },
+  "category_important": "महत्वपूर्ण टिप्पणियाँ",
+  "@category_important": {
+    "description": "Translation for category_important"
+  },
+  "category_general": "सामान्य जानकारी",
+  "@category_general": {
+    "description": "Translation for category_general"
+  },
+  "medical_info_desc": "सभी मेडिकल रिकॉर्ड आपके स्वास्थ्य के लिए महत्वपूर्ण हैं।",
+  "@medical_info_desc": {
+    "description": "Translation for medical_info_desc"
+  },
+  "title": "शीर्षक",
+  "@title": {
+    "description": "Translation for title"
+  },
+  "description": "विवरण",
+  "@description": {
+    "description": "Translation for description"
+  },
+  "icon": "आइकन",
+  "@icon": {
+    "description": "Translation for icon"
+  },
+  "save_record": "रिकॉर्ड सहेजें",
+  "@save_record": {
+    "description": "Translation for save_record"
+  },
+  "critical": "गंभीर",
+  "@critical": {
+    "description": "Translation for critical"
+  },
+  "important": "महत्वपूर्ण",
+  "@important": {
+    "description": "Translation for important"
+  },
+  "general": "सामान्य",
+  "@general": {
+    "description": "Translation for general"
+  },
+  "theme_unlock_desc": "आप इस थीम को आज़मा सकते हैं या इसे स्थायी रूप से अनलॉक करने के लिए कोई विज्ञापन देख सकते हैं।",
+  "@theme_unlock_desc": {
+    "description": "Translation for theme_unlock_desc"
+  },
+  "theme_previewing": "थीम का पूर्वावलोकन 10 सेकंड के लिए किया जा रहा है...",
+  "@theme_previewing": {
+    "description": "Translation for theme_previewing"
+  },
+  "preview_10s": "पूर्वावलोकन (10s)",
+  "@preview_10s": {
+    "description": "Translation for preview_10s"
+  },
+  "congratulations": "बधाई हो!",
+  "@congratulations": {
+    "description": "Translation for congratulations"
+  },
+  "theme_unlocked_success": "आपकी नई थीम अनलॉक हो गई है.",
+  "@theme_unlocked_success": {
+    "description": "Translation for theme_unlocked_success"
+  },
+  "please_enter_at_least_one_data": "कृपया कम से कम एक डेटा बिंदु दर्ज करें.",
+  "@please_enter_at_least_one_data": {
+    "description": "Translation for please_enter_at_least_one_data"
+  },
+  "data_saved_success": "डेटा सफलतापूर्वक सहेजा गया.",
+  "@data_saved_success": {
+    "description": "Translation for data_saved_success"
+  },
+  "add_data": "डेटा जोड़ें",
+  "@add_data": {
+    "description": "Translation for add_data"
+  },
+  "save_data": "डेटा सहेजें",
+  "@save_data": {
+    "description": "Translation for save_data"
+  },
+  "today_summary": "आज का सारांश",
+  "@today_summary": {
+    "description": "Translation for today_summary"
+  },
+  "target_water": "लक्ष्य जल",
+  "@target_water": {
+    "description": "Translation for target_water"
+  },
+  "target_steps": "लक्ष्य कदम",
+  "@target_steps": {
+    "description": "Translation for target_steps"
+  },
+  "add_doctor": "डॉक्टर जोड़ें",
+  "@add_doctor": {
+    "description": "Translation for add_doctor"
+  },
+  "doctor_name_surname": "डॉक्टर का नाम उपनाम",
+  "@doctor_name_surname": {
+    "description": "Translation for doctor_name_surname"
+  },
+  "specialty_department": "विशेषता/विभाग",
+  "@specialty_department": {
+    "description": "Translation for specialty_department"
+  },
+  "new_record": "नया रिकार्ड",
+  "@new_record": {
+    "description": "Translation for new_record"
+  },
+  "appointment_updated": "नियुक्ति अद्यतन की गई.",
+  "@appointment_updated": {
+    "description": "Translation for appointment_updated"
+  },
+  "edit_appointment": "नियुक्ति संपादित करें",
+  "@edit_appointment": {
+    "description": "Translation for edit_appointment"
+  },
+  "importance_level": "महत्व स्तर",
+  "@importance_level": {
+    "description": "Translation for importance_level"
+  },
+  "notes_optional": "नोट्स (वैकल्पिक)",
+  "@notes_optional": {
+    "description": "Translation for notes_optional"
+  },
+  "address_department": "पूरा पता/विभाग",
+  "@address_department": {
+    "description": "Translation for address_department"
+  },
+  "select_category": "श्रेणी चुनना",
+  "@select_category": {
+    "description": "Translation for select_category"
+  },
+  "category_meeting": "बैठक",
+  "@category_meeting": {
+    "description": "Translation for category_meeting"
+  },
+  "category_reminder": "अनुस्मारक",
+  "@category_reminder": {
+    "description": "Translation for category_reminder"
+  },
+  "category_other": "अन्य",
+  "@category_other": {
+    "description": "Translation for category_other"
+  },
+  "app_slogan": "डिजिटल अभयारण्य",
+  "@app_slogan": {
+    "description": "Translation for app_slogan"
+  },
+  "day_monday_short": "सोम",
+  "@day_monday_short": {
+    "description": "Translation for day_monday_short"
+  },
+  "day_tuesday_short": "मंगल",
+  "@day_tuesday_short": {
+    "description": "Translation for day_tuesday_short"
+  },
+  "day_wednesday_short": "बुध",
+  "@day_wednesday_short": {
+    "description": "Translation for day_wednesday_short"
+  },
+  "day_thursday_short": "गुरु",
+  "@day_thursday_short": {
+    "description": "Translation for day_thursday_short"
+  },
+  "day_friday_short": "शुक्र",
+  "@day_friday_short": {
+    "description": "Translation for day_friday_short"
+  },
+  "day_saturday_short": "बैठा",
+  "@day_saturday_short": {
+    "description": "Translation for day_saturday_short"
+  },
+  "day_sunday_short": "सूरज",
+  "@day_sunday_short": {
+    "description": "Translation for day_sunday_short"
+  },
+  "day_monday_very_short": "एम",
+  "@day_monday_very_short": {
+    "description": "Translation for day_monday_very_short"
+  },
+  "day_tuesday_very_short": "टी",
+  "@day_tuesday_very_short": {
+    "description": "Translation for day_tuesday_very_short"
+  },
+  "day_wednesday_very_short": "डब्ल्यू",
+  "@day_wednesday_very_short": {
+    "description": "Translation for day_wednesday_very_short"
+  },
+  "day_thursday_very_short": "टी",
+  "@day_thursday_very_short": {
+    "description": "Translation for day_thursday_very_short"
+  },
+  "day_friday_very_short": "एफ",
+  "@day_friday_very_short": {
+    "description": "Translation for day_friday_very_short"
+  },
+  "day_saturday_very_short": "एस",
+  "@day_saturday_very_short": {
+    "description": "Translation for day_saturday_very_short"
+  },
+  "day_sunday_very_short": "एस",
+  "@day_sunday_very_short": {
+    "description": "Translation for day_sunday_very_short"
+  },
+  "delete_medicine_confirm": "क्या आप वाकई इस दवा को हटाना चाहते हैं?",
+  "@delete_medicine_confirm": {
+    "description": "Translation for delete_medicine_confirm"
+  },
+  "i_agree_to": "मैने नियमों को पढ़ लिया और उनसे सहमत हूँ",
+  "@i_agree_to": {
+    "description": "Translation for i_agree_to"
+  },
+  "read_privacy_policy": "गोपनीयता नीति",
+  "@read_privacy_policy": {
+    "description": "Translation for read_privacy_policy"
+  },
+  "read_terms": "सेवा की शर्तें",
+  "@read_terms": {
+    "description": "Translation for read_terms"
+  },
+  "read_disclaimer": "कानूनी अस्वीकरण",
+  "@read_disclaimer": {
+    "description": "Translation for read_disclaimer"
+  },
+  "legal_acceptance": "कानूनी स्वीकृति",
+  "@legal_acceptance": {
+    "description": "Translation for legal_acceptance"
+  },
+  "manage_subscription": "सदस्यता प्रबंधित करें",
+  "@manage_subscription": {
+    "description": "Translation for manage_subscription"
+  },
+  "trust_offline_title": "ऑफ़लाइन अभयारण्य",
+  "@trust_offline_title": {
+    "description": "Translation for trust_offline_title"
+  },
+  "trust_offline_desc": "आपका डेटा कभी भी आपका डिवाइस नहीं छोड़ता.",
+  "@trust_offline_desc": {
+    "description": "Translation for trust_offline_desc"
+  },
+  "trust_encryption_title": "एईएस-256 एन्क्रिप्शन",
+  "@trust_encryption_title": {
+    "description": "Translation for trust_encryption_title"
+  },
+  "trust_encryption_desc": "अधिकतम सुरक्षा के साथ संरक्षित.",
+  "@trust_encryption_desc": {
+    "description": "Translation for trust_encryption_desc"
+  },
+  "trust_adfree_desc": "एक निर्बाध अनुभव.",
+  "@trust_adfree_desc": {
+    "description": "Translation for trust_adfree_desc"
+  },
+  "medals_trophies": "पदक और ट्राफियां",
+  "@medals_trophies": {
+    "description": "Translation for medals_trophies"
+  },
+  "cat_streak": "दैनिक लकीर",
+  "@cat_streak": {
+    "description": "Translation for cat_streak"
+  },
+  "cat_ads": "समर्थन एवं विज्ञापन",
+  "@cat_ads": {
+    "description": "Translation for cat_ads"
+  },
+  "cat_documents": "रिकार्ड पुरालेख",
+  "@cat_documents": {
+    "description": "Translation for cat_documents"
+  },
+  "cat_medications": "चिकित्सा की आदतें",
+  "@cat_medications": {
+    "description": "Translation for cat_medications"
+  },
+  "cat_appointments": "क्लिनिकल विजिट",
+  "@cat_appointments": {
+    "description": "Translation for cat_appointments"
+  },
+  "cat_profile": "पहचान",
+  "@cat_profile": {
+    "description": "Translation for cat_profile"
+  },
+  "cat_emergency": "सुरक्षा एवं तैयारी",
+  "@cat_emergency": {
+    "description": "Translation for cat_emergency"
+  },
+  "cat_health": "महत्वपूर्ण निगरानी",
+  "@cat_health": {
+    "description": "Translation for cat_health"
+  },
+  "cat_engagement": "ऐप गतिविधि",
+  "@cat_engagement": {
+    "description": "Translation for cat_engagement"
+  },
+  "cat_special": "सम्मान",
+  "@cat_special": {
+    "description": "Translation for cat_special"
+  },
+  "cat_premium": "समर्थकों",
+  "@cat_premium": {
+    "description": "Translation for cat_premium"
+  },
+  "cat_power_user": "पौराणिक स्थिति",
+  "@cat_power_user": {
+    "description": "Translation for cat_power_user"
+  },
+  "ach_legend_status": "प्रसिद्ध",
+  "@ach_legend_status": {
+    "description": "Translation for ach_legend_status"
+  },
+  "theme_boutique": "थीम बुटीक",
+  "@theme_boutique": {
+    "description": "Translation for theme_boutique"
+  },
+  "days_left": "दिन शेष",
+  "@days_left": {
+    "description": "Translation for days_left"
+  },
+  "unlocked": "अनलॉक किया",
+  "@unlocked": {
+    "description": "Translation for unlocked"
+  },
+  "progress": "प्रगति",
+  "@progress": {
+    "description": "Translation for progress"
+  },
+  "ach_hidden_desc": "इस गुप्त उपलब्धि को खोजने के लिए खेलते रहें।",
+  "@ach_hidden_desc": {
+    "description": "Translation for ach_hidden_desc"
+  },
+  "ach_login_1_desc": "हर पौराणिक यात्रा एक कदम से शुरू होती है। आपने अपनी पहली किरण प्रज्वलित की!",
+  "@ach_login_1_desc": {
+    "description": "Translation for ach_login_1_desc"
+  },
+  "ach_login_3_title": "तैयार करना",
+  "@ach_login_3_title": {
+    "description": "Translation for ach_login_3_title"
+  },
+  "ach_login_3_desc": "वार्म-अप लैप्स खत्म हो गए हैं। आप लगातार तीन दिनों से यहां हैं, बिल्कुल भी बुरा नहीं है! 🔥",
+  "@ach_login_3_desc": {
+    "description": "Translation for ach_login_3_desc"
+  },
+  "ach_login_7_title": "सुसंगत",
+  "@ach_login_7_title": {
+    "description": "Translation for ach_login_7_title"
+  },
+  "ach_login_7_desc": "पूरा एक सप्ताह! आपने रस्सियाँ सीख ली हैं और कैम्पफ़ायर जला लिया है।",
+  "@ach_login_7_desc": {
+    "description": "Translation for ach_login_7_desc"
+  },
+  "ach_login_14_title": "अभ्यस्त",
+  "@ach_login_14_title": {
+    "description": "Translation for ach_login_14_title"
+  },
+  "ach_login_14_desc": "सीधे दो सप्ताह! आदतें इसी तरह बनती हैं. बधाई।",
+  "@ach_login_14_desc": {
+    "description": "Translation for ach_login_14_desc"
+  },
+  "ach_login_30_title": "आदी",
+  "@ach_login_30_title": {
+    "description": "Translation for ach_login_30_title"
+  },
+  "ach_login_30_desc": "पूरा महीना! हम दोनों जानते हैं कि यह अब सिर्फ एक शौक से कहीं अधिक है।",
+  "@ach_login_30_desc": {
+    "description": "Translation for ach_login_30_desc"
+  },
+  "ach_login_60_title": "वफादार उपयोगकर्ता",
+  "@ach_login_60_title": {
+    "description": "Translation for ach_login_60_title"
+  },
+  "ach_login_60_desc": "दो महीने...क्या आप किराया दे रहे हैं, दोस्त? आपके दूसरे घर में आपका स्वागत है। 🏠",
+  "@ach_login_60_desc": {
+    "description": "Translation for ach_login_60_desc"
+  },
+  "ach_login_100_title": "विशेषज्ञ",
+  "@ach_login_100_title": {
+    "description": "Translation for ach_login_100_title"
+  },
+  "ach_login_100_desc": "शतक! कोई भी ताकत 100 दिन की विशाल श्रृंखला को नहीं तोड़ सकती। 💯",
+  "@ach_login_100_desc": {
+    "description": "Translation for ach_login_100_desc"
+  },
+  "ach_login_200_title": "दंतकथा",
+  "@ach_login_200_title": {
+    "description": "Translation for ach_login_200_title"
+  },
+  "ach_login_200_desc": "200 दिन. लोगों को संदेह होने लगा है कि आप एक एआई बॉट हैं। 🤖",
+  "@ach_login_200_desc": {
+    "description": "Translation for ach_login_200_desc"
+  },
+  "ach_login_365_title": "पौराणिक वर्ष",
+  "@ach_login_365_title": {
+    "description": "Translation for ach_login_365_title"
+  },
+  "ach_login_365_desc": "एक पूर्ण सौर वर्ष! आप हर चीज़ के माध्यम से यहाँ रहे हैं। राज्याभिषेक कल. 👑",
+  "@ach_login_365_desc": {
+    "description": "Translation for ach_login_365_desc"
+  },
+  "ach_ads_1_title": "पहला विज्ञापन",
+  "@ach_ads_1_title": {
+    "description": "Translation for ach_ads_1_title"
+  },
+  "ach_ads_1_desc": "विज्ञापन अच्छे होते हैं... कभी-कभी। छोटे से समर्थन के लिए धन्यवाद!",
+  "@ach_ads_1_desc": {
+    "description": "Translation for ach_ads_1_desc"
+  },
+  "ach_ads_5_title": "समर्थक",
+  "@ach_ads_5_title": {
+    "description": "Translation for ach_ads_5_title"
+  },
+  "ach_ads_5_desc": "ऐसा लगता है कि आप भी हमारे प्रायोजकों से उतना ही प्यार करते हैं जितना हम करते हैं।",
+  "@ach_ads_5_desc": {
+    "description": "Translation for ach_ads_5_desc"
+  },
+  "ach_ads_15_title": "वफादार दर्शक",
+  "@ach_ads_15_title": {
+    "description": "Translation for ach_ads_15_title"
+  },
+  "ach_ads_15_desc": "अपना पॉपकॉर्न लीजिए, आपने 15-विज्ञापन मैराथन पूरी कर ली है। 🍿",
+  "@ach_ads_15_desc": {
+    "description": "Translation for ach_ads_15_desc"
+  },
+  "ach_ads_30_title": "इसे जारी रखो",
+  "@ach_ads_30_title": {
+    "description": "Translation for ach_ads_30_title"
+  },
+  "ach_ads_30_desc": "जैसे टीवी देखना! आपका समर्थन सोने के वजन के बराबर है।",
+  "@ach_ads_30_desc": {
+    "description": "Translation for ach_ads_30_desc"
+  },
+  "ach_ads_50_title": "पॉवर उपयोगकर्ता",
+  "@ach_ads_50_title": {
+    "description": "Translation for ach_ads_50_title"
+  },
+  "ach_ads_50_desc": "अब आप अनुमान लगा सकते हैं कि कौन सा विज्ञापन दूसरे नंबर पर आ रहा है।",
+  "@ach_ads_50_desc": {
+    "description": "Translation for ach_ads_50_desc"
+  },
+  "ach_ads_100_title": "आदी",
+  "@ach_ads_100_title": {
+    "description": "Translation for ach_ads_100_title"
+  },
+  "ach_ads_100_desc": "100 विज्ञापन! आपके धैर्य के लिए हम आपके ऋणी हैं।",
+  "@ach_ads_100_desc": {
+    "description": "Translation for ach_ads_100_desc"
+  },
+  "ach_ads_250_title": "विज्ञापन मास्टर",
+  "@ach_ads_250_title": {
+    "description": "Translation for ach_ads_250_title"
+  },
+  "ach_ads_250_desc": "एक मार्केटिंग प्रतिभा स्क्रीन पर खो गई। आपका समर्थन आसमान तक पहुंच गया.",
+  "@ach_ads_250_desc": {
+    "description": "Translation for ach_ads_250_desc"
+  },
+  "ach_ads_500_title": "मुद्रीकरण राजा",
+  "@ach_ads_500_title": {
+    "description": "Translation for ach_ads_500_title"
+  },
+  "ach_ads_500_desc": "क्या आप फाइनेंसर हैं? आप अकेले ही बाज़ार चला रहे हैं! 📉",
+  "@ach_ads_500_desc": {
+    "description": "Translation for ach_ads_500_desc"
+  },
+  "ach_doc_1_title": "पहला दस्तावेज़",
+  "@ach_doc_1_title": {
+    "description": "Translation for ach_doc_1_title"
+  },
+  "ach_doc_1_desc": "कोई सरकारी कार्यालय नहीं, लेकिन आपने अपना पहला दस्तावेज़ सफलतापूर्वक दाखिल कर दिया। 📇",
+  "@ach_doc_1_desc": {
+    "description": "Translation for ach_doc_1_desc"
+  },
+  "ach_doc_5_title": "शुरुआत",
+  "@ach_doc_5_title": {
+    "description": "Translation for ach_doc_5_title"
+  },
+  "ach_doc_5_desc": "आपका पहला फ़ोल्डर लगभग भर गया है. आप संगठित हो रहे हैं.",
+  "@ach_doc_5_desc": {
+    "description": "Translation for ach_doc_5_desc"
+  },
+  "ach_doc_10_title": "नियमित उपयोगकर्ता",
+  "@ach_doc_10_title": {
+    "description": "Translation for ach_doc_10_title"
+  },
+  "ach_doc_10_desc": "फाइलों का अंबार लगा हुआ है. लॉस्ट एंड फाउंड आपके साथ काम करना पसंद करेगा।",
+  "@ach_doc_10_desc": {
+    "description": "Translation for ach_doc_10_desc"
+  },
+  "ach_doc_25_title": "पुरालेखपाल",
+  "@ach_doc_25_title": {
+    "description": "Translation for ach_doc_25_title"
+  },
+  "ach_doc_25_desc": "कागज़ी कार्रवाई और सब कुछ... आपने अपने संग्रह में 25 दस्तावेज़ों का अवलोकन किया।",
+  "@ach_doc_25_desc": {
+    "description": "Translation for ach_doc_25_desc"
+  },
+  "ach_doc_50_title": "पेशेवर",
+  "@ach_doc_50_title": {
+    "description": "Translation for ach_doc_50_title"
+  },
+  "ach_doc_50_desc": "सचिवीय कार्य को भूल जाइए, एक पेशेवर फाइलिंग नाइट ऐसा दिखता है।",
+  "@ach_doc_50_desc": {
+    "description": "Translation for ach_doc_50_desc"
+  },
+  "ach_doc_100_title": "तिजोरी मास्टर",
+  "@ach_doc_100_title": {
+    "description": "Translation for ach_doc_100_title"
+  },
+  "ach_doc_100_desc": "100 दस्तावेज़? इस विशाल संग्रह के लिए एक लाइब्रेरियन नियुक्त करने का समय आ गया है। 📚",
+  "@ach_doc_100_desc": {
+    "description": "Translation for ach_doc_100_desc"
+  },
+  "ach_doc_250_title": "डेटा कलेक्टर",
+  "@ach_doc_250_title": {
+    "description": "Translation for ach_doc_250_title"
+  },
+  "ach_doc_250_desc": "बिग डेटा परिदृश्यों में आपका स्वागत है। आप ढेरों पर शासन करते हैं।",
+  "@ach_doc_250_desc": {
+    "description": "Translation for ach_doc_250_desc"
+  },
+  "ach_doc_500_title": "डिजिटल पुरालेख विशेषज्ञ",
+  "@ach_doc_500_title": {
+    "description": "Translation for ach_doc_500_title"
+  },
+  "ach_doc_500_desc": "अलेक्जेंड्रिया की डिजिटल लाइब्रेरी! आपके अभिलेख पीढ़ियों तक जीवित रहेंगे।",
+  "@ach_doc_500_desc": {
+    "description": "Translation for ach_doc_500_desc"
+  },
+  "ach_med_1_title": "पहला मेड",
+  "@ach_med_1_title": {
+    "description": "Translation for ach_med_1_title"
+  },
+  "ach_med_1_desc": "आपने खुद को महत्व देना शुरू कर दिया। आपके स्वास्थ्य के लिए एक महान मील का पत्थर।",
+  "@ach_med_1_desc": {
+    "description": "Translation for ach_med_1_desc"
+  },
+  "ach_med_3_title": "ट्रैकिंग शुरू हुई",
+  "@ach_med_3_title": {
+    "description": "Translation for ach_med_3_title"
+  },
+  "ach_med_3_desc": "आपके नुस्खे के प्रति वफादार. पानी पियें और अनुस्मारक कभी न चूकें।",
+  "@ach_med_3_desc": {
+    "description": "Translation for ach_med_3_desc"
+  },
+  "ach_med_5_title": "नियमित उपयोगकर्ता",
+  "@ach_med_5_title": {
+    "description": "Translation for ach_med_5_title"
+  },
+  "ach_med_5_desc": "फार्मासिस्टों का पसंदीदा ग्राहक! आप अपना फॉर्म सावधानी से बनाए रखें.",
+  "@ach_med_5_desc": {
+    "description": "Translation for ach_med_5_desc"
+  },
+  "ach_med_10_title": "अनुशासित",
+  "@ach_med_10_title": {
+    "description": "Translation for ach_med_10_title"
+  },
+  "ach_med_10_desc": "समय पर दवा लें, आपका शरीर घड़ी की तरह काम करता है। 10 बार पुष्टि की गई!",
+  "@ach_med_10_desc": {
+    "description": "Translation for ach_med_10_desc"
+  },
+  "ach_med_25_title": "स्वास्थ्य विशेषज्ञ",
+  "@ach_med_25_title": {
+    "description": "Translation for ach_med_25_title"
+  },
+  "ach_med_25_desc": "आप अपने शरीर की भाषा को समझते हैं। मेड लॉग आपके लिए एक कला बन गया।",
+  "@ach_med_25_desc": {
+    "description": "Translation for ach_med_25_desc"
+  },
+  "ach_med_50_title": "स्वास्थ्य गुरु",
+  "@ach_med_50_title": {
+    "description": "Translation for ach_med_50_title"
+  },
+  "ach_med_50_desc": "डॉक्टर भी आपके अनुशासन से ईर्ष्या करते हैं। आप अपने शरीर रसायन विज्ञान के स्वामी हैं! 🧬",
+  "@ach_med_50_desc": {
+    "description": "Translation for ach_med_50_desc"
+  },
+  "ach_app_1_title": "प्रथम Appt",
+  "@ach_app_1_title": {
+    "description": "Translation for ach_app_1_title"
+  },
+  "ach_app_1_desc": "स्वाभाविक योजना के बिना कोई सफलता नहीं! पहली कैलेंडर प्रविष्टि सुरक्षित रूप से ली गई।",
+  "@ach_app_1_desc": {
+    "description": "Translation for ach_app_1_desc"
+  },
+  "ach_app_3_title": "योजना",
+  "@ach_app_3_title": {
+    "description": "Translation for ach_app_3_title"
+  },
+  "ach_app_3_desc": "समय प्रबंधन 101. आप अपनी योजनाओं के प्रति वफादार रहकर आगे बढ़ते हैं।",
+  "@ach_app_3_desc": {
+    "description": "Translation for ach_app_3_desc"
+  },
+  "ach_app_5_title": "संगठित",
+  "@ach_app_5_title": {
+    "description": "Translation for ach_app_5_title"
+  },
+  "ach_app_5_desc": "आपका एजेंडा पूरा हो रहा है. वह व्यस्त लेकिन करिश्माई व्यक्ति निश्चित रूप से आप ही हैं।",
+  "@ach_app_5_desc": {
+    "description": "Translation for ach_app_5_desc"
+  },
+  "ach_app_10_title": "अनुशासित योजनाकार",
+  "@ach_app_10_title": {
+    "description": "Translation for ach_app_10_title"
+  },
+  "ach_app_10_desc": "अलार्म की कोई ज़रूरत नहीं, आपके सिर के अंदर एक परमाणु घड़ी है।",
+  "@ach_app_10_desc": {
+    "description": "Translation for ach_app_10_desc"
+  },
+  "ach_app_20_title": "नियोजक प्रो",
+  "@ach_app_20_title": {
+    "description": "Translation for ach_app_20_title"
+  },
+  "ach_app_20_desc": "हर चीज़ एक मिनट में स्पष्ट है... आप एक डिजिटल सहायक की तरह हैं!",
+  "@ach_app_20_desc": {
+    "description": "Translation for ach_app_20_desc"
+  },
+  "ach_app_30_title": "मास्टर प्लानर",
+  "@ach_app_30_title": {
+    "description": "Translation for ach_app_30_title"
+  },
+  "ach_app_30_desc": "समय को झुकाने वाला! एक व्यक्ति के लिए इन ऐप्स को प्रबंधित करना असंभव लगता है... लेकिन ऐसा नहीं था।",
+  "@ach_app_30_desc": {
+    "description": "Translation for ach_app_30_desc"
+  },
+  "ach_profile_created_title": "प्रोफ़ाइल बनाई गई",
+  "@ach_profile_created_title": {
+    "description": "Translation for ach_profile_created_title"
+  },
+  "ach_profile_created_desc": "आधिकारिक तौर पर हमसे जुड़े. आपने पहले ही अपनी डिजिटल पहचान बना ली है!",
+  "@ach_profile_created_desc": {
+    "description": "Translation for ach_profile_created_desc"
+  },
+  "ach_profile_completed_title": "प्रोफ़ाइल पूर्ण हुई",
+  "@ach_profile_completed_title": {
+    "description": "Translation for ach_profile_completed_title"
+  },
+  "ach_profile_completed_desc": "आपको कमियाँ गायब होने से नफरत है, है ना? सारी जानकारी बिल्कुल पूर्ण है.",
+  "@ach_profile_completed_desc": {
+    "description": "Translation for ach_profile_completed_desc"
+  },
+  "ach_profile_updated_title": "प्रोफाइल अद्यतन किया गया",
+  "@ach_profile_updated_title": {
+    "description": "Translation for ach_profile_updated_title"
+  },
+  "ach_profile_updated_desc": "परिवर्तन ही प्रगति है! आप खुद को तरोताजा कर खेल में बने रहे.'",
+  "@ach_profile_updated_desc": {
+    "description": "Translation for ach_profile_updated_desc"
+  },
+  "ach_profile_with_photo_title": "खाते की फोटो",
+  "@ach_profile_with_photo_title": {
+    "description": "Translation for ach_profile_with_photo_title"
+  },
+  "ach_profile_with_photo_desc": "चेहराविहीन अवतार होने से बचाया. कैमरे के लिए मुस्कुराएँ! 📸",
+  "@ach_profile_with_photo_desc": {
+    "description": "Translation for ach_profile_with_photo_desc"
+  },
+  "ach_profile_master_title": "प्रोफ़ाइल मास्टर",
+  "@ach_profile_master_title": {
+    "description": "Translation for ach_profile_master_title"
+  },
+  "ach_profile_master_desc": "अपनी पहचान और जीवनी के साथ, आप सिस्टम में सबसे अच्छे उपयोगकर्ता हैं।",
+  "@ach_profile_master_desc": {
+    "description": "Translation for ach_profile_master_desc"
+  },
+  "ach_emergency_added_title": "आपातकालीन कार्ड जोड़ा गया",
+  "@ach_emergency_added_title": {
+    "description": "Translation for ach_emergency_added_title"
+  },
+  "ach_emergency_added_desc": "सावधानी कभी पीछे नहीं रहती. आपकी आपातकालीन ढाल सक्रिय है.",
+  "@ach_emergency_added_desc": {
+    "description": "Translation for ach_emergency_added_desc"
+  },
+  "ach_emergency_contact_title": "आपातकालीन संपर्क",
+  "@ach_emergency_contact_title": {
+    "description": "Translation for ach_emergency_contact_title"
+  },
+  "ach_emergency_contact_desc": "यह स्पष्ट है कि कठिन समय में किसे बुलाना है। विश्वास का घेरा बनाया गया. 📞",
+  "@ach_emergency_contact_desc": {
+    "description": "Translation for ach_emergency_contact_desc"
+  },
+  "ach_emergency_complete_title": "पुरा होना।",
+  "@ach_emergency_complete_title": {
+    "description": "Translation for ach_emergency_complete_title"
+  },
+  "ach_emergency_complete_desc": "परिदृश्यों के लिए तैयार. सुरक्षा का स्तर उच्चतम पर.",
+  "@ach_emergency_complete_desc": {
+    "description": "Translation for ach_emergency_complete_desc"
+  },
+  "ach_emergency_ready_title": "तैयार",
+  "@ach_emergency_ready_title": {
+    "description": "Translation for ach_emergency_ready_title"
+  },
+  "ach_emergency_ready_desc": "सब कुछ रेड अलर्ट वाली घड़ी की तरह काम करेगा। सुरक्षित रूप से सुरक्षित.",
+  "@ach_emergency_ready_desc": {
+    "description": "Translation for ach_emergency_ready_desc"
+  },
+  "ach_emergency_master_title": "आपातकालीन मास्टर",
+  "@ach_emergency_master_title": {
+    "description": "Translation for ach_emergency_master_title"
+  },
+  "ach_emergency_master_desc": "एम्बुलेंस आने से पहले प्राथमिक चिकित्सा का प्रबंधन करने के लिए पर्याप्त कठिन और अच्छा!",
+  "@ach_emergency_master_desc": {
+    "description": "Translation for ach_emergency_master_desc"
+  },
+  "ach_health_1_title": "पहला डेटा",
+  "@ach_health_1_title": {
+    "description": "Translation for ach_health_1_title"
+  },
+  "ach_health_1_desc": "तुमने आज अपने ऊपर एक उपकार किया। आपका शरीर आपको अंदर से धन्यवाद देता है।",
+  "@ach_health_1_desc": {
+    "description": "Translation for ach_health_1_desc"
+  },
+  "ach_health_5_title": "ट्रैकिंग शुरू हुई",
+  "@ach_health_5_title": {
+    "description": "Translation for ach_health_5_title"
+  },
+  "ach_health_5_desc": "डेटा ढेर हो रहा है, आप अपनी बायोरिदम के साथ अपनी बातचीत को आगे बढ़ा रहे हैं।",
+  "@ach_health_5_desc": {
+    "description": "Translation for ach_health_5_desc"
+  },
+  "ach_health_10_title": "स्वास्थ्य के प्रति जागरूक",
+  "@ach_health_10_title": {
+    "description": "Translation for ach_health_10_title"
+  },
+  "ach_health_10_desc": "आप एक सांख्यिकीय आश्चर्य हैं! आपका शरीर एक एन्क्रिप्टेड किताब की तरह पढ़ता है। 📈",
+  "@ach_health_10_desc": {
+    "description": "Translation for ach_health_10_desc"
+  },
+  "ach_health_20_title": "नियमित ट्रैकिंग",
+  "@ach_health_20_title": {
+    "description": "Translation for ach_health_20_title"
+  },
+  "ach_health_20_desc": "आप एक मशीन की तरह हैं. पल्स, मेट्रिक्स, चरण... कोई भी आपके सेंसर से बच नहीं पाता।",
+  "@ach_health_20_desc": {
+    "description": "Translation for ach_health_20_desc"
+  },
+  "ach_health_50_title": "स्वास्थ्य विशेषज्ञ",
+  "@ach_health_50_title": {
+    "description": "Translation for ach_health_50_title"
+  },
+  "ach_health_50_desc": "साइबोर्ग स्तर के करीब पहुंच रहा है। आपके और आपके बायोडाटा के बीच का बंधन अटूट है।",
+  "@ach_health_50_desc": {
+    "description": "Translation for ach_health_50_desc"
+  },
+  "ach_health_master_title": "स्वास्थ्य गुरु",
+  "@ach_health_master_title": {
+    "description": "Translation for ach_health_master_title"
+  },
+  "ach_health_master_desc": "मन्दिर के महायाजक! आपने अपने शरीर पर पूर्ण स्वामित्व स्थापित कर लिया। 🧘",
+  "@ach_health_master_desc": {
+    "description": "Translation for ach_health_master_desc"
+  },
+  "ach_first_login_title": "स्वागत",
+  "@ach_first_login_title": {
+    "description": "Translation for ach_first_login_title"
+  },
+  "ach_first_login_desc": "वास्तविक रोमांच तो अभी शुरू हो रहा है। आपने अभी-अभी अंदर कदम रखा है।",
+  "@ach_first_login_desc": {
+    "description": "Translation for ach_first_login_desc"
+  },
+  "ach_first_upload_title": "एक्सप्लोरर",
+  "@ach_first_upload_title": {
+    "description": "Translation for ach_first_upload_title"
+  },
+  "ach_first_upload_desc": "अपना पहला स्थायी निशान छोड़ा. अब आप यहाँ उत्कीर्ण हैं।",
+  "@ach_first_upload_desc": {
+    "description": "Translation for ach_first_upload_desc"
+  },
+  "ach_first_ad_title": "निःशुल्क उपयोगकर्ता",
+  "@ach_first_ad_title": {
+    "description": "Translation for ach_first_ad_title"
+  },
+  "ach_first_ad_desc": "पहला विज्ञापन इंटरैक्शन! आपने पारिस्थितिकी तंत्र को जीवनदान दिया।",
+  "@ach_first_ad_desc": {
+    "description": "Translation for ach_first_ad_desc"
+  },
+  "ach_first_premium_title": "प्रीमियम उपयोगकर्ता",
+  "@ach_first_premium_title": {
+    "description": "Translation for ach_first_premium_title"
+  },
+  "ach_first_premium_desc": "दृष्टि की बात. वीआईपी लाउंज का आनंद लें, लाल कालीन बिछा हुआ है! 🎟️",
+  "@ach_first_premium_desc": {
+    "description": "Translation for ach_first_premium_desc"
+  },
+  "ach_active_3_days_title": "सक्रिय",
+  "@ach_active_3_days_title": {
+    "description": "Translation for ach_active_3_days_title"
+  },
+  "ach_active_3_days_desc": "केबल गर्म हो रहे हैं, इंजन चालू हो गए हैं। हम आपकी ऊर्जा को महसूस करते हैं।",
+  "@ach_active_3_days_desc": {
+    "description": "Translation for ach_active_3_days_desc"
+  },
+  "ach_active_7_days_title": "वफादार",
+  "@ach_active_7_days_title": {
+    "description": "Translation for ach_active_7_days_title"
+  },
+  "ach_active_7_days_desc": "पूरे एक सप्ताह तक सिस्टम के साथ सिंक्रोनाइज़ किया गया। चीजों में बिजली आ गई!",
+  "@ach_active_7_days_desc": {
+    "description": "Translation for ach_active_7_days_desc"
+  },
+  "ach_active_30_days_title": "मूल उपयोगकर्ता",
+  "@ach_active_30_days_title": {
+    "description": "Translation for ach_active_30_days_title"
+  },
+  "ach_active_30_days_desc": "अब व्यावहारिक रूप से मानद कर्मचारी। आपके बिना यह जगह पहले जैसी नहीं होती।",
+  "@ach_active_30_days_desc": {
+    "description": "Translation for ach_active_30_days_desc"
+  },
+  "ach_streak_saved_title": "लकीर उद्धारकर्ता",
+  "@ach_streak_saved_title": {
+    "description": "Translation for ach_streak_saved_title"
+  },
+  "ach_streak_saved_desc": "किनारे से लौट आये! उस खूबसूरत लकीर को सहेजना एक महान प्रतिक्रिया थी।",
+  "@ach_streak_saved_desc": {
+    "description": "Translation for ach_streak_saved_desc"
+  },
+  "ach_streak_saved_5_title": "लचीला",
+  "@ach_streak_saved_5_title": {
+    "description": "Translation for ach_streak_saved_5_title"
+  },
+  "ach_streak_saved_5_desc": "युद्ध के घावों के बावजूद नहीं गिरना, आप जानते हैं कि ठोकर लगने पर कैसे उठना है।",
+  "@ach_streak_saved_5_desc": {
+    "description": "Translation for ach_streak_saved_5_desc"
+  },
+  "ach_streak_saved_10_title": "कभी हार नहीं मानता",
+  "@ach_streak_saved_10_title": {
+    "description": "Translation for ach_streak_saved_10_title"
+  },
+  "ach_streak_saved_10_desc": "क्या आप फ़ीनिक्स हैं? राख से उठना आपके लिए एक सामान्य मंगलवार की गतिविधि है। 🐦🔥",
+  "@ach_streak_saved_10_desc": {
+    "description": "Translation for ach_streak_saved_10_desc"
+  },
+  "ach_streak_perfect_30_title": "परफेक्ट स्ट्रीक",
+  "@ach_streak_perfect_30_title": {
+    "description": "Translation for ach_streak_perfect_30_title"
+  },
+  "ach_streak_perfect_30_desc": "एक भी चूक नहीं. आप पूरे 30 दिनों तक स्विस घड़ी की तरह परिपूर्ण थे!",
+  "@ach_streak_perfect_30_desc": {
+    "description": "Translation for ach_streak_perfect_30_desc"
+  },
+  "ach_premium_trial_used_title": "प्रीमियम अनुभव",
+  "@ach_premium_trial_used_title": {
+    "description": "Translation for ach_premium_trial_used_title"
+  },
+  "ach_premium_trial_used_desc": "विशेषाधिकारों का द्वार खोल दिया. यह दृश्य मंत्रमुग्ध कर देने वाला है, है ना?",
+  "@ach_premium_trial_used_desc": {
+    "description": "Translation for ach_premium_trial_used_desc"
+  },
+  "ach_limit_breaker_title": "सीमा तोड़ने वाला",
+  "@ach_limit_breaker_title": {
+    "description": "Translation for ach_limit_breaker_title"
+  },
+  "ach_limit_breaker_desc": "नियम और सीमाएं झुकने के लिए ही होती हैं। आप मैट्रिक्स से बाहर निकल गए! 💥",
+  "@ach_limit_breaker_desc": {
+    "description": "Translation for ach_limit_breaker_desc"
+  },
+  "ach_ad_skip_used_title": "विज्ञापन छोड़ें",
+  "@ach_ad_skip_used_title": {
+    "description": "Translation for ach_ad_skip_used_title"
+  },
+  "ach_ad_skip_used_desc": "आपने कहा कि मेरे पास इसके लिए समय नहीं है, एक क्लिक के साथ तेजी से आगे बढ़ने का समय।",
+  "@ach_ad_skip_used_desc": {
+    "description": "Translation for ach_ad_skip_used_desc"
+  },
+  "ach_reward_collector_title": "पुरस्कार संग्राहक",
+  "@ach_reward_collector_title": {
+    "description": "Translation for ach_reward_collector_title"
+  },
+  "ach_reward_collector_desc": "कोने में रखे हर इनाम को खंगाल डाला। एक सच्चा लूट शिकारी! 🎁",
+  "@ach_reward_collector_desc": {
+    "description": "Translation for ach_reward_collector_desc"
+  },
+  "ach_multi_feature_user_title": "मल्टी फ़ीचर उपयोगकर्ता",
+  "@ach_multi_feature_user_title": {
+    "description": "Translation for ach_multi_feature_user_title"
+  },
+  "ach_multi_feature_user_desc": "एक भी बटन अछूता नहीं बचा, जिज्ञासु खोजकर्ता!",
+  "@ach_multi_feature_user_desc": {
+    "description": "Translation for ach_multi_feature_user_desc"
+  },
+  "ach_data_master_title": "डेटा मास्टर",
+  "@ach_data_master_title": {
+    "description": "Translation for ach_data_master_title"
+  },
+  "ach_data_master_desc": "बाइट्स और बिट्स आपके चारों ओर आकार लेते हैं। सिस्टम डेटा का पूर्ण स्वामी।",
+  "@ach_data_master_desc": {
+    "description": "Translation for ach_data_master_desc"
+  },
+  "ach_organized_master_title": "अति संगठित",
+  "@ach_organized_master_title": {
+    "description": "Translation for ach_organized_master_title"
+  },
+  "ach_organized_master_desc": "मैरी कोंडो आपके आदेश पर अपनी टोपी टिप देंगी। सब कुछ मिलीमीटर है.",
+  "@ach_organized_master_desc": {
+    "description": "Translation for ach_organized_master_desc"
+  },
+  "ach_security_master_title": "सुरक्षा विशेषज्ञ",
+  "@ach_security_master_title": {
+    "description": "Translation for ach_security_master_title"
+  },
+  "ach_security_master_desc": "आपका खाता एक किला है, आपके पासवर्ड एक साइबर सेना। घुसपैठ असंभव है! 🔐",
+  "@ach_security_master_desc": {
+    "description": "Translation for ach_security_master_desc"
+  },
+  "ach_daily_master_title": "दैनिक मास्टर",
+  "@ach_daily_master_title": {
+    "description": "Translation for ach_daily_master_title"
+  },
+  "ach_daily_master_desc": "महान वफ़ादार उपयोगकर्ता जो हर दिन हमारे साथ सूरज और तारे देखता है।",
+  "@ach_daily_master_desc": {
+    "description": "Translation for ach_daily_master_desc"
+  },
+  "backup_restore": "बैकअप और पुनर्स्थापना",
+  "@backup_restore": {
+    "description": "Translation for backup_restore"
+  },
+  "backup_desc_settings": "केवल इस डिवाइस के लिए एन्क्रिप्टेड स्थानीय बैकअप",
+  "@backup_desc_settings": {
+    "description": "Translation for backup_desc_settings"
+  },
+  "smart_notifications": "स्मार्ट सूचनाएं",
+  "@smart_notifications": {
+    "description": "Translation for smart_notifications"
+  },
+  "smart_streak_warning": "🔥 स्ट्रीक खोने वाली है! अपना डेटा क्यों नहीं जांचते?",
+  "@smart_streak_warning": {
+    "description": "Translation for smart_streak_warning"
+  },
+  "smart_ad_reward": "🎁 1 विज्ञापन देखें → +5 सीमा! आज आपके लिए एक नया अवसर.",
+  "@smart_ad_reward": {
+    "description": "Translation for smart_ad_reward"
+  },
+  "smart_doc_bonus": "📂 आज ही 1 दस्तावेज़ जोड़ें → बोनस प्राप्त करें! सब कुछ सुरक्षित रखें.",
+  "@smart_doc_bonus": {
+    "description": "Translation for smart_doc_bonus"
+  },
+  "smart_default": "👀 एक छोटा सा अपडेट आपका इंतजार कर रहा है, आज हम क्या कर सकते हैं?",
+  "@smart_default": {
+    "description": "Translation for smart_default"
+  },
+  "notif_bonus_ready": "🎁 बोनस आपका इंतजार कर रहा है! आपकी सहायता के लिए धन्यवाद.",
+  "@notif_bonus_ready": {
+    "description": "Translation for notif_bonus_ready"
+  },
+  "notif_doc_safe": "🔥 अच्छा काम, आपके दस्तावेज़ सुरक्षित हैं! जाता रहना!",
+  "@notif_doc_safe": {
+    "description": "Translation for notif_doc_safe"
+  },
+  "level_up_desc": "आप स्तर {level} पर पहुंच गए! नए पुरस्कारों के लिए अपना सीज़न पास जांचें।",
+  "@level_up_desc": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_up_desc"
+  },
+  "notifications_active_msg": "सूचनाएं सक्रिय हैं 🔔",
+  "@notifications_active_msg": {
+    "description": "Translation for notifications_active_msg"
+  },
+  "show_sensitive_details": "अधिसूचना में विवरण दिखाएं",
+  "@show_sensitive_details": {
+    "description": "Translation for show_sensitive_details"
+  },
+  "sensitive_details_visible": "दवा का नाम दिख रहा है",
+  "@sensitive_details_visible": {
+    "description": "Translation for sensitive_details_visible"
+  },
+  "sensitive_details_hidden": "छिपा हुआ (अनुशंसित)",
+  "@sensitive_details_hidden": {
+    "description": "Translation for sensitive_details_hidden"
+  },
+  "quiet_hours": "शांत घंटे",
+  "@quiet_hours": {
+    "description": "Translation for quiet_hours"
+  },
+  "quiet_hours_msg": "हम आपको आज रात परेशान नहीं करेंगे 🌙",
+  "@quiet_hours_msg": {
+    "description": "Translation for quiet_hours_msg"
+  },
+  "test_notification": "परीक्षण अधिसूचना",
+  "@test_notification": {
+    "description": "Translation for test_notification"
+  },
+  "test_notification_desc": "सिस्टम का तुरंत परीक्षण करें",
+  "@test_notification_desc": {
+    "description": "Translation for test_notification_desc"
+  },
+  "test_notification_body": "यह एक परीक्षण अधिसूचना है",
+  "@test_notification_body": {
+    "description": "Translation for test_notification_body"
+  },
+  "app_lock_unavailable": "इस डिवाइस पर ऐप लॉक उपलब्ध नहीं है.",
+  "@app_lock_unavailable": {
+    "description": "Translation for app_lock_unavailable"
+  },
+  "backup_restore_desc": "आप एन्क्रिप्टेड अपने डेटा का बैकअप ले सकते हैं या उसे पुनर्स्थापित कर सकते हैं। बैकअप केवल आपके डिवाइस पर संग्रहीत होते हैं।",
+  "@backup_restore_desc": {
+    "description": "Translation for backup_restore_desc"
+  },
+  "backup_export": "बैकअप निर्यात करें",
+  "@backup_export": {
+    "description": "Translation for backup_export"
+  },
+  "backup_export_desc": "एक एन्क्रिप्टेड ज़िप बैकअप बनाएं",
+  "@backup_export_desc": {
+    "description": "Translation for backup_export_desc"
+  },
+  "backup_import": "बैकअप आयात करें",
+  "@backup_import": {
+    "description": "Translation for backup_import"
+  },
+  "backup_import_desc": "मौजूदा ज़िप बैकअप से पुनर्स्थापित करें",
+  "@backup_import_desc": {
+    "description": "Translation for backup_import_desc"
+  },
+  "warning": "चेतावनी",
+  "@warning": {
+    "description": "Translation for warning"
+  },
+  "import_warning_desc": "बैकअप पुनर्स्थापित करने से आपका वर्तमान डेटा हट जाएगा और इसे पूर्ववत नहीं किया जा सकेगा। क्या आप जारी रखना चाहते हैं?",
+  "@import_warning_desc": {
+    "description": "Translation for import_warning_desc"
+  },
+  "yes_restore": "हाँ, पुनर्स्थापित करें",
+  "@yes_restore": {
+    "description": "Translation for yes_restore"
+  },
+  "start_time": "समय शुरू",
+  "@start_time": {
+    "description": "Translation for start_time"
+  },
+  "end_time": "अंत समय",
+  "@end_time": {
+    "description": "Translation for end_time"
+  },
+  "email": "ईमेल",
+  "@email": {
+    "description": "Translation for email"
+  },
+  "phone": "फ़ोन",
+  "@phone": {
+    "description": "Translation for phone"
+  },
+  "add_record_success": "रिकॉर्ड सफलतापूर्वक सहेजा गया!",
+  "@add_record_success": {
+    "description": "Translation for add_record_success"
+  },
+  "delete_confirm": "क्या आप वाकई यह रिकॉर्ड हटाना चाहते हैं?",
+  "@delete_confirm": {
+    "description": "Translation for delete_confirm"
+  },
+  "plus_5_slots": "+5 स्लॉट अर्जित! 🚀",
+  "@plus_5_slots": {
+    "description": "Translation for plus_5_slots"
+  },
+  "watch_to_unlock": "अनलॉक करने के लिए देखें",
+  "@watch_to_unlock": {
+    "description": "Translation for watch_to_unlock"
+  },
+  "remaining_days": "शेष: {days} दिन",
+  "@remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for remaining_days"
+  },
+  "add_1_day_success": "+1 दिन जोड़ा गया! 🎉",
+  "@add_1_day_success": {
+    "description": "Translation for add_1_day_success"
+  },
+  "plus_1_day": "+1 दिन",
+  "@plus_1_day": {
+    "description": "Translation for plus_1_day"
+  },
+  "watch": "घड़ी",
+  "@watch": {
+    "description": "Translation for watch"
+  },
+  "unlock_theme_question": "क्या आप इस थीम का 5 दिनों तक निःशुल्क उपयोग करना चाहेंगे?",
+  "@unlock_theme_question": {
+    "description": "Translation for unlock_theme_question"
+  },
+  "watch_ad_plus_5": "विज्ञापन देखें (+5 दिन)",
+  "@watch_ad_plus_5": {
+    "description": "Translation for watch_ad_plus_5"
+  },
+  "preview_5s": "पूर्वावलोकन (5s)",
+  "@preview_5s": {
+    "description": "Translation for preview_5s"
+  },
+  "free_secure_release": "निःशुल्क सुरक्षित रिहाई",
+  "@free_secure_release": {
+    "description": "Translation for free_secure_release"
+  },
+  "encrypted_local_desc": "आपके एन्क्रिप्टेड दस्तावेज़ इस डिवाइस पर स्थानीय रहते हैं। विज्ञापन निःशुल्क संस्करण का समर्थन करते हैं.",
+  "@encrypted_local_desc": {
+    "description": "Translation for encrypted_local_desc"
+  },
+  "premium_soon": "प्रीमियम जल्द ही",
+  "@premium_soon": {
+    "description": "Translation for premium_soon"
+  },
+  "label_title": "शीर्षक",
+  "@label_title": {
+    "description": "Translation for label_title"
+  },
+  "label_location": "स्थान/संस्थान (वैकल्पिक)",
+  "@label_location": {
+    "description": "Translation for label_location"
+  },
+  "label_person": "संबंधित व्यक्ति (वैकल्पिक)",
+  "@label_person": {
+    "description": "Translation for label_person"
+  },
+  "label_date_time": "दिनांक समय",
+  "@label_date_time": {
+    "description": "Translation for label_date_time"
+  },
+  "label_importance": "महत्त्व",
+  "@label_importance": {
+    "description": "Translation for label_importance"
+  },
+  "label_reminder": "अनुस्मारक",
+  "@label_reminder": {
+    "description": "Translation for label_reminder"
+  },
+  "label_repeat": "दोहराना",
+  "@label_repeat": {
+    "description": "Translation for label_repeat"
+  },
+  "label_notes": "नोट्स (वैकल्पिक)",
+  "@label_notes": {
+    "description": "Translation for label_notes"
+  },
+  "hint_title": "जैसे डॉक्टर की नियुक्ति, बैठक...",
+  "@hint_title": {
+    "description": "Translation for hint_title"
+  },
+  "hint_location": "कार्यालय, घर, ऑनलाइन, अस्पताल...",
+  "@hint_location": {
+    "description": "Translation for hint_location"
+  },
+  "hint_person": "नाम, डॉक्टर, वकील...",
+  "@hint_person": {
+    "description": "Translation for hint_person"
+  },
+  "hint_notes": "विवरण, अनुस्मारक...",
+  "@hint_notes": {
+    "description": "Translation for hint_notes"
+  },
+  "suggest_doctor": "चिकित्सक",
+  "@suggest_doctor": {
+    "description": "Translation for suggest_doctor"
+  },
+  "suggest_meeting": "बैठक",
+  "@suggest_meeting": {
+    "description": "Translation for suggest_meeting"
+  },
+  "suggest_personal": "निजी",
+  "@suggest_personal": {
+    "description": "Translation for suggest_personal"
+  },
+  "importance_low": "सामान्य",
+  "@importance_low": {
+    "description": "Translation for importance_low"
+  },
+  "importance_medium": "महत्वपूर्ण",
+  "@importance_medium": {
+    "description": "Translation for importance_medium"
+  },
+  "importance_high": "गंभीर",
+  "@importance_high": {
+    "description": "Translation for importance_high"
+  },
+  "reminder_10m": "10 मिनट पहले",
+  "@reminder_10m": {
+    "description": "Translation for reminder_10m"
+  },
+  "reminder_1h": "1 घंटा पहले",
+  "@reminder_1h": {
+    "description": "Translation for reminder_1h"
+  },
+  "reminder_1d": "1 दिन पहले",
+  "@reminder_1d": {
+    "description": "Translation for reminder_1d"
+  },
+  "repeat_none": "कोई नहीं",
+  "@repeat_none": {
+    "description": "Translation for repeat_none"
+  },
+  "repeat_daily": "दैनिक",
+  "@repeat_daily": {
+    "description": "Translation for repeat_daily"
+  },
+  "repeat_weekly": "साप्ताहिक",
+  "@repeat_weekly": {
+    "description": "Translation for repeat_weekly"
+  },
+  "label_date_added": "तिथि जोड़ी",
+  "@label_date_added": {
+    "description": "Translation for label_date_added"
+  },
+  "label_document_date": "कागजातों की तारीख",
+  "@label_document_date": {
+    "description": "Translation for label_document_date"
+  },
+  "download_to_device": "डिवाइस पर डाउनलोड करें",
+  "@download_to_device": {
+    "description": "Translation for download_to_device"
+  },
+  "delete_permanently": "स्थायी रूप से हटाएँ",
+  "@delete_permanently": {
+    "description": "Translation for delete_permanently"
+  },
+  "save_document": "दस्तावेज़ सहेजें",
+  "@save_document": {
+    "description": "Translation for save_document"
+  },
+  "success_doc_saved": "दस्तावेज़ सफलतापूर्वक सहेजा गया!",
+  "@success_doc_saved": {
+    "description": "Translation for success_doc_saved"
+  },
+  "error_failed_download": "डाउनलोड करने में विफल: {error}",
+  "@error_failed_download": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for error_failed_download"
+  },
+  "btn_add": "जोड़ना",
+  "@btn_add": {
+    "description": "Translation for btn_add"
+  },
+  "docs_tag_lab": "लैब परिणाम",
+  "@docs_tag_lab": {
+    "description": "Translation for docs_tag_lab"
+  },
+  "docs_tag_radiology": "रेडियोलॉजी",
+  "@docs_tag_radiology": {
+    "description": "Translation for docs_tag_radiology"
+  },
+  "docs_tag_prescription": "नुस्खा",
+  "@docs_tag_prescription": {
+    "description": "Translation for docs_tag_prescription"
+  },
+  "docs_tag_report": "डॉक्टर रिपोर्ट",
+  "@docs_tag_report": {
+    "description": "Translation for docs_tag_report"
+  },
+  "docs_tag_operation": "संचालन",
+  "@docs_tag_operation": {
+    "description": "Translation for docs_tag_operation"
+  },
+  "docs_tag_vaccination": "टीकाकरण",
+  "@docs_tag_vaccination": {
+    "description": "Translation for docs_tag_vaccination"
+  },
+  "docs_tag_other": "अन्य",
+  "@docs_tag_other": {
+    "description": "Translation for docs_tag_other"
+  },
+  "season_pass": "मौसम के पास",
+  "@season_pass": {
+    "description": "Translation for season_pass"
+  },
+  "level_label": "स्तर {level}",
+  "@level_label": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_label"
+  },
+  "premium_reward": "प्रीमियम इनाम",
+  "@premium_reward": {
+    "description": "Translation for premium_reward"
+  },
+  "free_reward": "मुफ़्त इनाम",
+  "@free_reward": {
+    "description": "Translation for free_reward"
+  },
+  "claim": "दावा",
+  "@claim": {
+    "description": "Translation for claim"
+  },
+  "reward_doc_slots": "+{value} दस्तावेज़",
+  "@reward_doc_slots": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for reward_doc_slots"
+  },
+  "premium_unavailable_title": "इस रिलीज़ में प्रीमियम उपलब्ध नहीं है.",
+  "@premium_unavailable_title": {
+    "description": "Translation for premium_unavailable_title"
+  },
+  "premium_unavailable_desc": "VitaCase वर्तमान में स्थानीय एन्क्रिप्टेड स्टोरेज, विज्ञापनों और वैकल्पिक अनुस्मारक के साथ एक निःशुल्क ऐप के रूप में उपलब्ध है।",
+  "@premium_unavailable_desc": {
+    "description": "Translation for premium_unavailable_desc"
+  },
+  "btn_close": "बंद करना",
+  "@btn_close": {
+    "description": "Translation for btn_close"
+  },
+  "accept": "स्वीकार करना",
+  "@accept": {
+    "description": "Translation for accept"
+  },
+  "btn_save": "बचाना",
+  "@btn_save": {
+    "description": "Translation for btn_save"
+  },
+  "doctor_title_dr": "डॉ।",
+  "@doctor_title_dr": {
+    "description": "Translation for doctor_title_dr"
+  },
+  "doctor_title_uzm": "विशेष. डॉ।",
+  "@doctor_title_uzm": {
+    "description": "Translation for doctor_title_uzm"
+  },
+  "doctor_title_op": "ऑप. डॉ।",
+  "@doctor_title_op": {
+    "description": "Translation for doctor_title_op"
+  },
+  "doctor_title_prof": "प्रोफेसर डॉ.",
+  "@doctor_title_prof": {
+    "description": "Translation for doctor_title_prof"
+  },
+  "doctor_title_doc": "सहो. प्रो",
+  "@doctor_title_doc": {
+    "description": "Translation for doctor_title_doc"
+  },
+  "hint_doctor_name": "डॉ. जॉन डो",
+  "@hint_doctor_name": {
+    "description": "Translation for hint_doctor_name"
+  },
+  "hint_specialty": "कार्डियलजी",
+  "@hint_specialty": {
+    "description": "Translation for hint_specialty"
+  },
+  "hint_hospital": "सिटी हॉस्पिटल",
+  "@hint_hospital": {
+    "description": "Translation for hint_hospital"
+  },
+  "hint_phone": "+1 (555) 000-00000",
+  "@hint_phone": {
+    "description": "Translation for hint_phone"
+  },
+  "hint_email": "john.doe@hospital.com",
+  "@hint_email": {
+    "description": "Translation for hint_email"
+  },
+  "hint_address": "मुख्य सड़क संख्या:12...",
+  "@hint_address": {
+    "description": "Translation for hint_address"
+  },
+  "hint_personal_notes": "डॉक्टर के बारे में नोट्स...",
+  "@hint_personal_notes": {
+    "description": "Translation for hint_personal_notes"
+  },
+  "ad_reward_not_earned": "पुरस्कार अर्जित नहीं हुआ. जारी रखने के लिए कृपया विज्ञापन समाप्त करें।",
+  "@ad_reward_not_earned": {
+    "description": "Translation for ad_reward_not_earned"
+  },
+  "ad_unavailable": "विज्ञापन अनुपलब्ध.",
+  "@ad_unavailable": {
+    "description": "Translation for ad_unavailable"
+  },
+  "ad_failed": "पुरस्कृत विज्ञापन नहीं दिखाया जा सका. कृपया पुन: प्रयास करें।",
+  "@ad_failed": {
+    "description": "Translation for ad_failed"
+  },
+  "ad_watch_btn": "निःशुल्क जारी रखें (विज्ञापन देखें)",
+  "@ad_watch_btn": {
+    "description": "Translation for ad_watch_btn"
+  },
+  "btn_not_now": "अभी नहीं",
+  "@btn_not_now": {
+    "description": "Translation for btn_not_now"
+  },
+  "theme_system": "प्रणाली",
+  "@theme_system": {
+    "description": "Translation for theme_system"
+  },
+  "theme_light": "रोशनी",
+  "@theme_light": {
+    "description": "Translation for theme_light"
+  },
+  "theme_dark": "अँधेरा",
+  "@theme_dark": {
+    "description": "Translation for theme_dark"
+  },
+  "lock_timeout_1m": "1 मिनट",
+  "@lock_timeout_1m": {
+    "description": "Translation for lock_timeout_1m"
+  },
+  "lock_timeout_5m": "5 मिनट",
+  "@lock_timeout_5m": {
+    "description": "Translation for lock_timeout_5m"
+  },
+  "lock_timeout_15m": "15 मिनटों",
+  "@lock_timeout_15m": {
+    "description": "Translation for lock_timeout_15m"
+  },
+  "error_title_required": "शीर्षक आवश्यक है",
+  "@error_title_required": {
+    "description": "Translation for error_title_required"
+  },
+  "notif_app_created_title": "🎯नियुक्ति बनाई गई",
+  "@notif_app_created_title": {
+    "description": "Translation for notif_app_created_title"
+  },
+  "notif_app_created_body": "{title} शेड्यूल कर दिया गया है.",
+  "@notif_app_created_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_created_body"
+  },
+  "notif_app_reminder_title": "📅 नियुक्ति अनुस्मारक",
+  "@notif_app_reminder_title": {
+    "description": "Translation for notif_app_reminder_title"
+  },
+  "notif_app_reminder_body": "{title} के लिए आपकी नियुक्ति निकट आ रही है।",
+  "@notif_app_reminder_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_reminder_body"
+  },
+  "no_appointments_found": "कोई नियुक्ति नहीं मिली",
+  "@no_appointments_found": {
+    "description": "Translation for no_appointments_found"
+  },
+  "empty_appointments_desc": "आपने अभी तक कोई अपॉइंटमेंट नहीं जोड़ा है. एक जोड़ने के लिए + बटन पर टैप करें।",
+  "@empty_appointments_desc": {
+    "description": "Translation for empty_appointments_desc"
+  },
+  "empty_appointments_filter_desc": "इस श्रेणी में कोई नियुक्ति नहीं मिली.",
+  "@empty_appointments_filter_desc": {
+    "description": "Translation for empty_appointments_filter_desc"
+  },
+  "btn_add_appointment": "अपॉइंटमेंट जोड़ें",
+  "@btn_add_appointment": {
+    "description": "Translation for btn_add_appointment"
+  },
+  "btn_clear_filters": "फ़िल्टर साफ़ करें",
+  "@btn_clear_filters": {
+    "description": "Translation for btn_clear_filters"
+  },
+  "delete_confirm_appointment": "क्या आप वाकई इस नियुक्ति को हटाना चाहते हैं?",
+  "@delete_confirm_appointment": {
+    "description": "Translation for delete_confirm_appointment"
+  },
+  "create_today_plan": "आज की योजना बनाएं",
+  "@create_today_plan": {
+    "description": "Translation for create_today_plan"
+  },
+  "plan_time_desc": "अपने स्वास्थ्य कार्यक्रम को आसानी से व्यवस्थित करें।",
+  "@plan_time_desc": {
+    "description": "Translation for plan_time_desc"
+  },
+  "docs_add_short": "जोड़ना",
+  "@docs_add_short": {
+    "description": "Translation for docs_add_short"
+  },
+  "docs_open": "खुला",
+  "@docs_open": {
+    "description": "Translation for docs_open"
+  },
+  "docs_download": "डिवाइस पर डाउनलोड करें",
+  "@docs_download": {
+    "description": "Translation for docs_download"
+  },
+  "docs_delete_perm": "स्थायी रूप से हटाएँ",
+  "@docs_delete_perm": {
+    "description": "Translation for docs_delete_perm"
+  },
+  "docs_date_added": "तिथि जोड़ी",
+  "@docs_date_added": {
+    "description": "Translation for docs_date_added"
+  },
+  "docs_document_date": "कागजातों की तारीख",
+  "@docs_document_date": {
+    "description": "Translation for docs_document_date"
+  },
+  "docs_save_success": "दस्तावेज़ सफलतापूर्वक सहेजा गया!",
+  "@docs_save_success": {
+    "description": "Translation for docs_save_success"
+  },
+  "docs_download_failed": "डाउनलोड करने में विफल: {error}",
+  "@docs_download_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for docs_download_failed"
+  },
+  "season_pass_title": "मौसम के पास",
+  "@season_pass_title": {
+    "description": "Translation for season_pass_title"
+  },
+  "season_level": "स्तर {level}",
+  "@season_level": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for season_level"
+  },
+  "claim_reward": "दावा",
+  "@claim_reward": {
+    "description": "Translation for claim_reward"
+  },
+  "confirm_agree": "मैं सहमत हूं",
+  "@confirm_agree": {
+    "description": "Translation for confirm_agree"
+  },
+  "specialty_department_hint": "जैसे कार्डियलजी",
+  "@specialty_department_hint": {
+    "description": "Translation for specialty_department_hint"
+  },
+  "hospital_hint": "जैसे सिटी हॉस्पिटल",
+  "@hospital_hint": {
+    "description": "Translation for hospital_hint"
+  },
+  "address_hint": "सड़क, नहीं, भवन...",
+  "@address_hint": {
+    "description": "Translation for address_hint"
+  },
+  "notes_hint": "डॉक्टर के बारे में व्यक्तिगत नोट्स...",
+  "@notes_hint": {
+    "description": "Translation for notes_hint"
+  },
+  "standard_modes": "मानक मोड",
+  "@standard_modes": {
+    "description": "Translation for standard_modes"
+  },
+  "premium_palettes": "प्रीमियम पैलेट्स",
+  "@premium_palettes": {
+    "description": "Translation for premium_palettes"
+  },
+  "apply_theme": "विषय लागू करें",
+  "@apply_theme": {
+    "description": "Translation for apply_theme"
+  },
+  "theme_luxe_sanctuary": "लक्स अभयारण्य",
+  "@theme_luxe_sanctuary": {
+    "description": "Translation for theme_luxe_sanctuary"
+  },
+  "theme_midnight_neon": "आधी रात नियॉन",
+  "@theme_midnight_neon": {
+    "description": "Translation for theme_midnight_neon"
+  },
+  "theme_amethyst_aura": "नीलम आभा",
+  "@theme_amethyst_aura": {
+    "description": "Translation for theme_amethyst_aura"
+  },
+  "theme_emerald_garden": "पन्ना उद्यान",
+  "@theme_emerald_garden": {
+    "description": "Translation for theme_emerald_garden"
+  },
+  "theme_ocean_serenity": "महासागरीय शांति",
+  "@theme_ocean_serenity": {
+    "description": "Translation for theme_ocean_serenity"
+  },
+  "theme_amber_glow": "एम्बर चमक",
+  "@theme_amber_glow": {
+    "description": "Translation for theme_amber_glow"
+  },
+  "db_recovery_title": "डेटा त्रुटि",
+  "@db_recovery_title": {
+    "description": "Translation for db_recovery_title"
+  },
+  "db_recovery_desc": "डेटा तक नहीं पहुंच सका. क्या आप इसे फिर से आजमाना चाहेंगे?",
+  "@db_recovery_desc": {
+    "description": "Translation for db_recovery_desc"
+  },
+  "db_recovery_retry": "पुनः प्रयास करें",
+  "@db_recovery_retry": {
+    "description": "Translation for db_recovery_retry"
+  },
+  "db_recovery_reset": "रीसेट करें",
+  "@db_recovery_reset": {
+    "description": "Translation for db_recovery_reset"
+  },
+  "notif_streak_warning_title": "अपनी दैनिक योजना जांचें",
+  "@notif_streak_warning_title": {
+    "description": "Translation for notif_streak_warning_title"
+  },
+  "notif_streak_warning_body": "आज के अनुस्मारक और सहेजे गए आइटम की समीक्षा करने के लिए VitaCase खोलें।",
+  "@notif_streak_warning_body": {
+    "description": "Translation for notif_streak_warning_body"
+  },
+  "notif_mission_reminder_title": "🎯 दैनिक मिशन लंबित",
+  "@notif_mission_reminder_title": {
+    "description": "Translation for notif_mission_reminder_title"
+  },
+  "notif_mission_reminder_body": "अपने दैनिक पुरस्कारों से न चूकें! अभी अपना कार्य पूरा करें.",
+  "@notif_mission_reminder_body": {
+    "description": "Translation for notif_mission_reminder_body"
+  },
+  "notif_limit_reached_title": "🚀 सीमा आ गई",
+  "@notif_limit_reached_title": {
+    "description": "Translation for notif_limit_reached_title"
+  },
+  "notif_limit_reached_body": "आप अपनी मुफ़्त सीमा तक पहुँच गए हैं. जारी रखने के लिए पुरस्कृत विज्ञापन देखें।",
+  "@notif_limit_reached_body": {
+    "description": "Translation for notif_limit_reached_body"
+  },
+  "notif_good_morning_title": "🌞 सुप्रभात!",
+  "@notif_good_morning_title": {
+    "description": "Translation for notif_good_morning_title"
+  },
+  "notif_good_morning_body": "अपने दिन की शुरुआत VitaCase से करें, अपने दैनिक कार्यों की जाँच करें।",
+  "@notif_good_morning_body": {
+    "description": "Translation for notif_good_morning_body"
+  },
+  "notif_test_title": "परीक्षण अधिसूचना",
+  "@notif_test_title": {
+    "description": "Translation for notif_test_title"
+  },
+  "notif_test_body": "आपकी सूचनाएं पूरी तरह से काम कर रही हैं!",
+  "@notif_test_body": {
+    "description": "Translation for notif_test_body"
+  },
+  "notif_appointment_reminder_title": "📅 नियुक्ति अनुस्मारक",
+  "@notif_appointment_reminder_title": {
+    "description": "Translation for notif_appointment_reminder_title"
+  },
+  "notif_appointment_reminder_body": "{doctor} के लिए आपकी नियुक्ति निकट आ रही है।",
+  "@notif_appointment_reminder_body": {
+    "placeholders": {
+      "doctor": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_appointment_reminder_body"
+  },
+  "get_directions": "दिशा - निर्देश प्राप्त करें",
+  "@get_directions": {
+    "description": "Translation for get_directions"
+  },
+  "view_details": "विवरण देखें",
+  "@view_details": {
+    "description": "Translation for view_details"
+  },
+  "no_scheduled_meds_today": "आज के लिए कोई दवा निर्धारित नहीं है।",
+  "@no_scheduled_meds_today": {
+    "description": "Translation for no_scheduled_meds_today"
+  },
+  "add_document": "दस्तावेज़ जोड़ें",
+  "@add_document": {
+    "description": "Translation for add_document"
+  },
+  "ach_login_1_title": "शुरुआत",
+  "@ach_login_1_title": {
+    "description": "Translation for ach_login_1_title"
+  },
+  "people_contacts": "लोग और संपर्क",
+  "@people_contacts": {
+    "description": "Translation for people_contacts"
+  },
+  "contacts_subtitle": "लोग, संस्थान और संपर्क रिकॉर्ड",
+  "@contacts_subtitle": {
+    "description": "Translation for contacts_subtitle"
+  },
+  "add_contact_subtitle": "कोई नया व्यक्ति या संस्था जोड़ें",
+  "@add_contact_subtitle": {
+    "description": "Translation for add_contact_subtitle"
+  },
+  "add_contact": "व्यक्ति/संपर्क जोड़ें",
+  "@add_contact": {
+    "description": "Translation for add_contact"
+  },
+  "no_doctor": "कोई डॉक्टर नहीं",
+  "@no_doctor": {
+    "description": "Translation for no_doctor"
+  },
+  "no_institution": "कोई संस्था नहीं",
+  "@no_institution": {
+    "description": "Translation for no_institution"
+  },
+  "edit_personal_info": "व्यक्तिगत जानकारी संपादित करें",
+  "@edit_personal_info": {
+    "description": "Translation for edit_personal_info"
+  },
+  "personal_info_updated": "व्यक्तिगत जानकारी अपडेट की गई.",
+  "@personal_info_updated": {
+    "description": "Translation for personal_info_updated"
+  },
+  "edit_important_info": "महत्वपूर्ण जानकारी संपादित करें",
+  "@edit_important_info": {
+    "description": "Translation for edit_important_info"
+  },
+  "hint_allergies": "अल्पविराम से अलग करें: पराग, पेनिसिलिन",
+  "@hint_allergies": {
+    "description": "Translation for hint_allergies"
+  },
+  "hint_medications": "अल्पविराम से अलग करें: एस्पिरिन, विटामिन डी",
+  "@hint_medications": {
+    "description": "Translation for hint_medications"
+  },
+  "relationship": "संबंध",
+  "@relationship": {
+    "description": "Translation for relationship"
+  },
+  "hint_relationship": "जीवनसाथी, माता, पिता, भाई-बहन...",
+  "@hint_relationship": {
+    "description": "Translation for hint_relationship"
+  },
+  "important_info_updated": "महत्वपूर्ण जानकारी अपडेट की गई.",
+  "@important_info_updated": {
+    "description": "Translation for important_info_updated"
+  },
+  "reminder_troubleshooting": "अनुस्मारक समस्या निवारण",
+  "@reminder_troubleshooting": {
+    "description": "Translation for reminder_troubleshooting"
+  },
+  "reminder_troubleshooting_desc": "अधिसूचना, सटीक अलार्म और बैटरी सेटिंग्स जांचें",
+  "@reminder_troubleshooting_desc": {
+    "description": "Translation for reminder_troubleshooting_desc"
+  },
+  "status_checking": "जाँच हो रही है...",
+  "@status_checking": {
+    "description": "Translation for status_checking"
+  },
+  "status_enabled": "अधिसूचना अनुमति सक्षम है",
+  "@status_enabled": {
+    "description": "Translation for status_enabled"
+  },
+  "status_disabled": "अधिसूचना अनुमति अक्षम है",
+  "@status_disabled": {
+    "description": "Translation for status_disabled"
+  },
+  "why_no_reminders": "अनुस्मारक क्यों नहीं आ सकते?",
+  "@why_no_reminders": {
+    "description": "Translation for why_no_reminders"
+  },
+  "why_no_reminders_desc": "अधिसूचना अनुमति, सटीक अलार्म अनुमति, या डिवाइस बैटरी प्रबंधन अपॉइंटमेंट और दवा अनुस्मारक को अवरुद्ध कर सकता है। पहले अनुमतियाँ जांचें; परीक्षण विफल होने पर बैटरी अनुकूलन को केवल अंतिम चरण मानें।",
+  "@why_no_reminders_desc": {
+    "description": "Translation for why_no_reminders_desc"
+  },
+  "status_card_title": "अधिसूचना स्थिति",
+  "@status_card_title": {
+    "description": "Translation for status_card_title"
+  },
+  "check_notif_permission": "1. अधिसूचना अनुमति की जाँच करें",
+  "@check_notif_permission": {
+    "description": "Translation for check_notif_permission"
+  },
+  "check_notif_permission_desc": "यदि त्वरित सूचनाएं अक्षम हैं, तो कोई अनुस्मारक दिखाई नहीं देगा।",
+  "@check_notif_permission_desc": {
+    "description": "Translation for check_notif_permission_desc"
+  },
+  "req_notif_permission": "अधिसूचना अनुमति का अनुरोध करें",
+  "@req_notif_permission": {
+    "description": "Translation for req_notif_permission"
+  },
+  "check_exact_alarm": "2. सटीक अलार्म अनुमति की जाँच करें",
+  "@check_exact_alarm": {
+    "description": "Translation for check_exact_alarm"
+  },
+  "check_exact_alarm_desc": "अपॉइंटमेंट और दवा अनुस्मारक समय पर चलाने के लिए आवश्यक है।",
+  "@check_exact_alarm_desc": {
+    "description": "Translation for check_exact_alarm_desc"
+  },
+  "req_exact_alarm": "सटीक अलार्म अनुमति का अनुरोध करें",
+  "@req_exact_alarm": {
+    "description": "Translation for req_exact_alarm"
+  },
+  "resched_saved": "3. सहेजे गए अनुस्मारक को पुनर्निर्धारित करें",
+  "@resched_saved": {
+    "description": "Translation for resched_saved"
+  },
+  "resched_saved_desc": "अनुमतियाँ देने के बाद, अपनी सहेजी गई दवा और अपॉइंटमेंट अनुस्मारक को फिर से शेड्यूल करें।",
+  "@resched_saved_desc": {
+    "description": "Translation for resched_saved_desc"
+  },
+  "resched_btn": "अनुस्मारक पुनर्निर्धारित करें",
+  "@resched_btn": {
+    "description": "Translation for resched_btn"
+  },
+  "sched_test": "4. 1 मिनट का परीक्षण अनुस्मारक शेड्यूल करें",
+  "@sched_test": {
+    "description": "Translation for sched_test"
+  },
+  "sched_test_desc": "यदि यह आता है, तो अनुस्मारक प्रणाली काम कर रही है।",
+  "@sched_test_desc": {
+    "description": "Translation for sched_test_desc"
+  },
+  "sched_test_btn": "शेड्यूल 1-मिनट का टेस्ट",
+  "@sched_test_btn": {
+    "description": "Translation for sched_test_btn"
+  },
+  "last_step_battery": "5. अंतिम चरण: बैटरी सेटिंग्स जांचें",
+  "@last_step_battery": {
+    "description": "Translation for last_step_battery"
+  },
+  "last_step_battery_desc": "केवल यदि उपरोक्त परीक्षण विफल हो जाते हैं, तो जांचें कि डिवाइस विटाकेस बैटरी उपयोग को प्रतिबंधित कर रहा है या नहीं।",
+  "@last_step_battery_desc": {
+    "description": "Translation for last_step_battery_desc"
+  },
+  "open_app_settings": "ऐप सेटिंग खोलें",
+  "@open_app_settings": {
+    "description": "Translation for open_app_settings"
+  },
+  "snack_notif_checked": "अधिसूचना अनुमति की जाँच की गई.",
+  "@snack_notif_checked": {
+    "description": "Translation for snack_notif_checked"
+  },
+  "snack_exact_alarm_requested": "सटीक अलार्म अनुमति का अनुरोध किया गया. आपको डिवाइस सेटिंग्स में इसकी अनुमति देने की आवश्यकता हो सकती है।",
+  "@snack_exact_alarm_requested": {
+    "description": "Translation for snack_exact_alarm_requested"
+  },
+  "test_notif_title": "⏰ विटाकेस रिमाइंडर टेस्ट",
+  "@test_notif_title": {
+    "description": "Translation for test_notif_title"
+  },
+  "test_notif_body": "यह परीक्षण अनुस्मारक 1 मिनट बाद के लिए निर्धारित किया गया था।",
+  "@test_notif_body": {
+    "description": "Translation for test_notif_body"
+  },
+  "snack_test_sched": "परीक्षण अनुस्मारक 1 मिनट बाद के लिए निर्धारित है।",
+  "@snack_test_sched": {
+    "description": "Translation for snack_test_sched"
+  },
+  "snack_resched_completed": "सहेजी गई दवा और अपॉइंटमेंट अनुस्मारक को पुनर्निर्धारित किया गया।",
+  "@snack_resched_completed": {
+    "description": "Translation for snack_resched_completed"
+  },
+  "choose_pdf_or_image": "पीडीएफ या छवि चुनें",
+  "@choose_pdf_or_image": {
+    "description": "Translation for choose_pdf_or_image"
+  },
+  "encrypted_local_file_info": "आपकी फ़ाइल एन्क्रिप्ट की जाएगी और इस डिवाइस पर स्थानीय रूप से संग्रहीत की जाएगी।",
+  "@encrypted_local_file_info": {
+    "description": "Translation for encrypted_local_file_info"
+  },
+  "web_upload_info": "फ़ाइल वॉल्ट अपलोड एंड्रॉइड/आईओएस बिल्ड पर उपलब्ध है।",
+  "@web_upload_info": {
+    "description": "Translation for web_upload_info"
+  },
+  "web_preview_no_upload": "वेब पूर्वावलोकन एन्क्रिप्टेड फ़ाइलों को संग्रहीत नहीं करता है। वॉल्ट अपलोड के लिए Android/iOS का उपयोग करें।",
+  "@web_preview_no_upload": {
+    "description": "Translation for web_preview_no_upload"
+  },
+  "choose_file_first": "कृपया पहले एक पीडीएफ या छवि चुनें।",
+  "@choose_file_first": {
+    "description": "Translation for choose_file_first"
+  },
+  "document_saved": "दस्तावेज़ सुरक्षित रूप से सहेजा गया.",
+  "@document_saved": {
+    "description": "Translation for document_saved"
+  },
+  "save_document_failed": "दस्तावेज़ सहेजा नहीं जा सका: {error}",
+  "@save_document_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for save_document_failed"
+  },
+  "save_securely": "सुरक्षित रूप से सहेजें",
+  "@save_securely": {
+    "description": "Translation for save_securely"
+  },
+  "saving": "सहेजा जा रहा है...",
+  "@saving": {
+    "description": "Translation for saving"
+  },
+  "local_organizer_disclaimer": "VitaCase एक स्थानीय दस्तावेज़ आयोजक है। यह निदान, विश्लेषण या चिकित्सा सलाह प्रदान नहीं करता है।",
+  "@local_organizer_disclaimer": {
+    "description": "Translation for local_organizer_disclaimer"
+  },
+  "terms_and_legal_agreement": "मैं गोपनीयता नीति, नियम एवं शर्तों और कानूनी अस्वीकरण से सहमत हूं।",
+  "@terms_and_legal_agreement": {
+    "description": "Translation for terms_and_legal_agreement"
+  },
+  "free_themes": "निःशुल्क थीम",
+  "@free_themes": {
+    "description": "Translation for free_themes"
+  },
+  "reward_themes": "इनाम थीम",
+  "@reward_themes": {
+    "description": "Translation for reward_themes"
+  },
+  "reward_themes_info": "3 दिनों के लिए इन थीमों को अनलॉक करने के लिए एक पुरस्कृत विज्ञापन देखें। प्रत्येक अतिरिक्त विज्ञापन +1 दिन जोड़ता है।",
+  "@reward_themes_info": {
+    "description": "Translation for reward_themes_info"
+  },
+  "watch_ad_to_unlock": "अनलॉक करने के लिए विज्ञापन देखें",
+  "@watch_ad_to_unlock": {
+    "description": "Translation for watch_ad_to_unlock"
+  },
+  "tap_to_preview": "पूर्वावलोकन करने के लिए टैप करें",
+  "@tap_to_preview": {
+    "description": "Translation for tap_to_preview"
+  },
+  "add_one_day": "+1 दिन जोड़ें",
+  "@add_one_day": {
+    "description": "Translation for add_one_day"
+  },
+  "one_day_added": "+1 दिन जोड़ा गया.",
+  "@one_day_added": {
+    "description": "Translation for one_day_added"
+  },
+  "ad_unavailable_try_later": "विज्ञापन अनुपलब्ध. कृपया बाद में पुन: प्रयास करें।",
+  "@ad_unavailable_try_later": {
+    "description": "Translation for ad_unavailable_try_later"
+  },
+  "theme_unlocked": "थीम अनलॉक की गई. प्रत्येक अतिरिक्त विज्ञापन +1 दिन जोड़ता है।",
+  "@theme_unlocked": {
+    "description": "Translation for theme_unlocked"
+  },
+  "reward_themes_active": "इनाम थीम {days} दिन के लिए सक्रिय हैं।",
+  "@reward_themes_active": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for reward_themes_active"
+  },
+  "lock_use_pin": "पिन का प्रयोग करें",
+  "@lock_use_pin": {
+    "description": "Translation for lock_use_pin"
+  },
+  "pending": "लंबित",
+  "@pending": {
+    "description": "Translation for pending"
+  },
+  "document_details_subtitle": "विस्तारित दस्तावेज़ विवरण की समीक्षा करना।",
+  "@document_details_subtitle": {
+    "description": "Translation for document_details_subtitle"
+  },
+  "document_name": "दस्तावेज़ का नाम",
+  "@document_name": {
+    "description": "Translation for document_name"
+  },
+  "document_name_hint": "जैसे रक्त परीक्षण परिणाम",
+  "@document_name_hint": {
+    "description": "Translation for document_name_hint"
+  },
+  "daily_limit_reached_message": "आप आज की निर्माण सीमा ({limit}) तक पहुंच गए हैं। आप कल और भी जोड़ सकते हैं।",
+  "@daily_limit_reached_message": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for daily_limit_reached_message"
+  },
+  "document_updated": "दस्तावेज़ अद्यतन किया गया.",
+  "@document_updated": {
+    "description": "Translation for document_updated"
+  },
+  "document_update_failed": "दस्तावेज़ अद्यतन नहीं किया जा सका.",
+  "@document_update_failed": {
+    "description": "Translation for document_update_failed"
+  },
+  "document_open_failed": "दस्तावेज़ नहीं खोला जा सका.",
+  "@document_open_failed": {
+    "description": "Translation for document_open_failed"
+  },
+  "no_additional_notes": "कोई अतिरिक्त नोट उपलब्ध नहीं कराया गया.",
+  "@no_additional_notes": {
+    "description": "Translation for no_additional_notes"
+  },
+  "created_at_label": "पर बनाया गया",
+  "@created_at_label": {
+    "description": "Translation for created_at_label"
+  },
+  "physician_label": "चिकित्सक",
+  "@physician_label": {
+    "description": "Translation for physician_label"
+  },
+  "open": "खुला",
+  "@open": {
+    "description": "Translation for open"
+  },
+  "document_vault": "दस्तावेज़ तिजोरी",
+  "@document_vault": {
+    "description": "Translation for document_vault"
+  },
+  "document_vault_view_subtitle": "विस्तारित दस्तावेज़ विवरण की समीक्षा करना।",
+  "@document_vault_view_subtitle": {
+    "description": "Translation for document_vault_view_subtitle"
+  },
+  "institution_hospital": "संस्थान/अस्पताल",
+  "@institution_hospital": {
+    "description": "Translation for institution_hospital"
+  },
+  "doctor_related_person": "डॉक्टर/संबंधित व्यक्ति",
+  "@doctor_related_person": {
+    "description": "Translation for doctor_related_person"
+  },
+  "add_contact_title": "व्यक्ति/संपर्क जोड़ें",
+  "@add_contact_title": {
+    "description": "Translation for add_contact_title"
+  },
+  "contact_info_title": "व्यक्ति/संपर्क जानकारी",
+  "@contact_info_title": {
+    "description": "Translation for contact_info_title"
+  },
+  "contact_info_desc": "त्वरित पहुंच के लिए महत्वपूर्ण व्यक्ति, संस्थान और संपर्क विवरण रखें।",
+  "@contact_info_desc": {
+    "description": "Translation for contact_info_desc"
+  },
+  "person_contact_label": "व्यक्ति/संपर्क",
+  "@person_contact_label": {
+    "description": "Translation for person_contact_label"
+  },
+  "category_area_label": "श्रेणी/क्षेत्र",
+  "@category_area_label": {
+    "description": "Translation for category_area_label"
+  },
+  "institution_source_label": "संस्था/स्रोत",
+  "@institution_source_label": {
+    "description": "Translation for institution_source_label"
+  },
+  "person_hint": "जैसे डॉ. स्मिथ, सलाहकार, क्लिनिक संपर्क",
+  "@person_hint": {
+    "description": "Translation for person_hint"
+  },
+  "category_hint": "जैसे जांच, दंत चिकित्सा, चिकित्सा, परामर्श",
+  "@category_hint": {
+    "description": "Translation for category_hint"
+  },
+  "institution_hint": "जैसे क्लिनिक, लैब, कार्यालय, ऑनलाइन स्रोत",
+  "@institution_hint": {
+    "description": "Translation for institution_hint"
+  },
+  "required_contact_error": "कृपया व्यक्ति/संपर्क और श्रेणी/क्षेत्र की जानकारी दर्ज करें।",
+  "@required_contact_error": {
+    "description": "Translation for required_contact_error"
+  },
+  "contacts_title": "व्यक्ति/संपर्क",
+  "@contacts_title": {
+    "description": "Translation for contacts_title"
+  },
+  "contacts_search_hint": "व्यक्ति, संस्था या श्रेणी खोजें",
+  "@contacts_search_hint": {
+    "description": "Translation for contacts_search_hint"
+  },
+  "no_contacts_found": "कोई मेल खाता संपर्क नहीं मिला",
+  "@no_contacts_found": {
+    "description": "Translation for no_contacts_found"
+  },
+  "contact_detail_title": "व्यक्ति/संपर्क विवरण",
+  "@contact_detail_title": {
+    "description": "Translation for contact_detail_title"
+  },
+  "institution_source": "संस्था/स्रोत",
+  "@institution_source": {
+    "description": "Translation for institution_source"
+  },
+  "category_area": "श्रेणी/क्षेत्र",
+  "@category_area": {
+    "description": "Translation for category_area"
+  },
+  "sub_area": "उपक्षेत्र",
+  "@sub_area": {
+    "description": "Translation for sub_area"
+  },
+  "privacy_policy_short": "गोपनीयता नीति",
+  "@privacy_policy_short": {
+    "description": "Translation for privacy_policy_short"
+  },
+  "terms_short": "शर्तें",
+  "@terms_short": {
+    "description": "Translation for terms_short"
+  },
+  "disclaimer_short": "अस्वीकरण",
+  "@disclaimer_short": {
+    "description": "Translation for disclaimer_short"
+  },
+  "debug_panel_taps_left": "डीबग पैनल: {remaining} बाईं ओर टैप करें।",
+  "@debug_panel_taps_left": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for debug_panel_taps_left"
+  },
+  "delete_confirm_dialog_title": "दस्तावेज़ हटाएँ?",
+  "@delete_confirm_dialog_title": {
+    "description": "Translation for delete_confirm_dialog_title"
+  },
+  "delete_confirm_dialog_desc": "यह दस्तावेज़ तिजोरी से हटा दिया जाएगा. इस एक्शन को वापस नहीं किया जा सकता।",
+  "@delete_confirm_dialog_desc": {
+    "description": "Translation for delete_confirm_dialog_desc"
+  },
+  "document_deleted_msg": "दस्तावेज़ हटा दिया गया.",
+  "@document_deleted_msg": {
+    "description": "Translation for document_deleted_msg"
+  },
+  "sort_newest_first": "सबसे पहले नवीनतम",
+  "@sort_newest_first": {
+    "description": "Translation for sort_newest_first"
+  },
+  "sort_oldest_first": "सबसे पुराना पहले",
+  "@sort_oldest_first": {
+    "description": "Translation for sort_oldest_first"
+  },
+  "sort_a_z": "ए-जेड",
+  "@sort_a_z": {
+    "description": "Translation for sort_a_z"
+  },
+  "sort_label": "क्रम से लगाना",
+  "@sort_label": {
+    "description": "Translation for sort_label"
+  },
+  "medication_reminder_past_note": "यदि चयनित समय आज पहले ही बीत चुका है, तो पहला अनुस्मारक अगले उपयुक्त समय के लिए निर्धारित किया गया है।",
+  "@medication_reminder_past_note": {
+    "description": "Translation for medication_reminder_past_note"
+  },
+  "appointment_reminder_past_note": "यदि चयनित अनुस्मारक समय पहले से ही अतीत में है, तो VitaCase निकटतम उपयुक्त समय चुनता है।",
+  "@appointment_reminder_past_note": {
+    "description": "Translation for appointment_reminder_past_note"
+  },
+  "limit_unlock_token_title": "लिमिट अनलॉक टोकन",
+  "@limit_unlock_token_title": {
+    "description": "Translation for limit_unlock_token_title"
+  },
+  "limit_unlock_status_active": "सक्रिय",
+  "@limit_unlock_status_active": {
+    "description": "Translation for limit_unlock_status_active"
+  },
+  "limit_unlock_status_coming_soon": "{version} में आ रहा है",
+  "@limit_unlock_status_coming_soon": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_status_coming_soon"
+  },
+  "limit_unlock_desc_active": "प्रत्येक {xp} XP 1 लिमिट अनलॉक टोकन प्रदान करता है। दैनिक सीमा पूरी होने पर इसका उपयोग स्वचालित रूप से किया जाता है।",
+  "@limit_unlock_desc_active": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_active"
+  },
+  "limit_unlock_desc_inactive": "V1 में अक्षम. {version} में, प्रत्येक {xp} XP 1 लिमिट अनलॉक टोकन देगा।",
+  "@limit_unlock_desc_inactive": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_inactive"
+  },
+  "limit_unlock_stat_total_xp": "कुल एक्सपी",
+  "@limit_unlock_stat_total_xp": {
+    "description": "Translation for limit_unlock_stat_total_xp"
+  },
+  "limit_unlock_stat_xp_left": "एक्सपी चला गया",
+  "@limit_unlock_stat_xp_left": {
+    "description": "Translation for limit_unlock_stat_xp_left"
+  },
+  "limit_unlock_stat_tokens": "टोकन",
+  "@limit_unlock_stat_tokens": {
+    "description": "Translation for limit_unlock_stat_tokens"
+  },
+  "notes": "टिप्पणियाँ",
+  "@notes": {
+    "description": "Translation for notes"
+  },
+  "report_issue": "बग, सुझाव एवं अनुरोध भेजें",
   "@report_issue": {
-    "placeholders": {},
     "description": "Translation for report_issue"
   }
 }

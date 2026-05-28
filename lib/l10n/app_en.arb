@@ -689,7 +689,7 @@
     "description": "Translation for help_center",
     "placeholders": {}
   },
-  "report_issue": "Error, Suggestion, Request & Complaint",
+  "report_issue": "Send Bug, Suggestion & Request",
   "@report_issue": {
     "description": "Translation for report_issue",
     "placeholders": {}

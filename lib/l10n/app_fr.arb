@@ -2,262 +2,3750 @@
   "@@locale": "fr",
   "app_name": "VitaCase",
   "@app_name": {
-    "description": "Translation for app_name",
-    "placeholders": {}
+    "description": "Translation for app_name"
   },
   "skip": "Passer",
   "@skip": {
-    "description": "Translation for skip",
-    "placeholders": {}
+    "description": "Translation for skip"
   },
   "next": "Suivant",
   "@next": {
-    "description": "Translation for next",
-    "placeholders": {}
+    "description": "Translation for next"
   },
   "start": "Démarrer",
   "@start": {
-    "description": "Translation for start",
-    "placeholders": {}
+    "description": "Translation for start"
   },
   "back": "Retour",
   "@back": {
-    "description": "Translation for back",
-    "placeholders": {}
+    "description": "Translation for back"
   },
   "save": "Enregistrer",
   "@save": {
-    "description": "Translation for save",
-    "placeholders": {}
+    "description": "Translation for save"
   },
   "cancel": "Annuler",
   "@cancel": {
-    "description": "Translation for cancel",
-    "placeholders": {}
+    "description": "Translation for cancel"
   },
   "error": "Erreur",
   "@error": {
-    "description": "Translation for error",
-    "placeholders": {}
+    "description": "Translation for error"
   },
   "success": "Succès",
   "@success": {
-    "description": "Translation for success",
-    "placeholders": {}
+    "description": "Translation for success"
   },
   "loading": "Chargement...",
   "@loading": {
-    "description": "Translation for loading",
-    "placeholders": {}
+    "description": "Translation for loading"
   },
   "active": "Actif",
   "@active": {
-    "description": "Translation for active",
-    "placeholders": {}
+    "description": "Translation for active"
   },
   "inactive": "Inactif",
   "@inactive": {
-    "description": "Translation for inactive",
-    "placeholders": {}
+    "description": "Translation for inactive"
   },
   "home": "Accueil",
   "@home": {
-    "description": "Translation for home",
-    "placeholders": {}
+    "description": "Translation for home"
   },
   "vault": "Coffre-fort",
   "@vault": {
-    "description": "Translation for vault",
-    "placeholders": {}
+    "description": "Translation for vault"
   },
   "explore": "Explorer",
   "@explore": {
-    "description": "Translation for explore",
-    "placeholders": {}
+    "description": "Translation for explore"
   },
   "appointments": "Rendez-vous",
   "@appointments": {
-    "description": "Translation for appointments",
-    "placeholders": {}
+    "description": "Translation for appointments"
   },
   "profile": "Profil",
   "@profile": {
-    "description": "Translation for profile",
-    "placeholders": {}
+    "description": "Translation for profile"
   },
   "medicines": "Médicaments",
   "@medicines": {
-    "description": "Translation for medicines",
-    "placeholders": {}
+    "description": "Translation for medicines"
   },
   "health_data": "Données de santé",
   "@health_data": {
-    "description": "Translation for health_data",
-    "placeholders": {}
-  },
-  "settings": "Paramètres",
-  "@settings": {
-    "description": "Translation for settings",
-    "placeholders": {}
+    "description": "Translation for health_data"
   },
   "logout": "Déconnexion",
   "@logout": {
-    "description": "Translation for logout",
-    "placeholders": {}
+    "description": "Translation for logout"
   },
   "today": "Aujourd'hui",
   "@today": {
-    "description": "Translation for today",
-    "placeholders": {}
+    "description": "Translation for today"
   },
   "tomorrow": "Demain",
   "@tomorrow": {
-    "description": "Translation for tomorrow",
-    "placeholders": {}
+    "description": "Translation for tomorrow"
   },
   "add": "Ajouter",
   "@add": {
-    "description": "Translation for add",
-    "placeholders": {}
+    "description": "Translation for add"
   },
   "edit": "Modifier",
   "@edit": {
-    "description": "Translation for edit",
-    "placeholders": {}
+    "description": "Translation for edit"
   },
   "delete": "Supprimer",
   "@delete": {
-    "description": "Translation for delete",
-    "placeholders": {}
-  },
-  "confirm": "Confirmer",
-  "@confirm": {
-    "description": "Translation for confirm",
-    "placeholders": {}
+    "description": "Translation for delete"
   },
   "save_continue": "Enregistrer et continuer",
   "@save_continue": {
-    "description": "Translation for save_continue",
-    "placeholders": {}
+    "description": "Translation for save_continue"
   },
   "please_enter_name": "Veuillez entrer un nom",
   "@please_enter_name": {
-    "description": "Translation for please_enter_name",
-    "placeholders": {}
+    "description": "Translation for please_enter_name"
   },
   "full_name": "NOM COMPLET",
   "@full_name": {
-    "description": "Translation for full_name",
-    "placeholders": {}
+    "description": "Translation for full_name"
   },
   "gender": "GENRE",
   "@gender": {
-    "description": "Translation for gender",
-    "placeholders": {}
+    "description": "Translation for gender"
   },
   "birth_date": "DATE DE NAISSANCE",
   "@birth_date": {
-    "description": "Translation for birth_date",
-    "placeholders": {}
+    "description": "Translation for birth_date"
   },
   "gender_female": "Femme",
   "@gender_female": {
-    "description": "Translation for gender_female",
-    "placeholders": {}
+    "description": "Translation for gender_female"
   },
   "gender_male": "Homme",
   "@gender_male": {
-    "description": "Translation for gender_male",
-    "placeholders": {}
+    "description": "Translation for gender_male"
   },
   "gender_other": "Autre",
   "@gender_other": {
-    "description": "Translation for gender_other",
-    "placeholders": {}
+    "description": "Translation for gender_other"
   },
   "premium_feature": "Fonctionnalité Premium 🌟",
   "@premium_feature": {
-    "description": "Translation for premium_feature",
-    "placeholders": {}
+    "description": "Translation for premium_feature"
   },
   "go_premium": "Passer au Premium",
   "@go_premium": {
-    "description": "Translation for go_premium",
-    "placeholders": {}
+    "description": "Translation for go_premium"
   },
   "privacy_policy": "Politique de confidentialité",
   "@privacy_policy": {
-    "description": "Translation for privacy_policy",
-    "placeholders": {}
+    "description": "Translation for privacy_policy"
   },
   "terms_conditions": "Conditions générales",
   "@terms_conditions": {
-    "description": "Translation for terms_conditions",
-    "placeholders": {}
+    "description": "Translation for terms_conditions"
   },
   "emergency_contact": "Contact d'urgence",
   "@emergency_contact": {
-    "description": "Translation for emergency_contact",
-    "placeholders": {}
+    "description": "Translation for emergency_contact"
   },
   "blood_type": "Groupe sanguin",
   "@blood_type": {
-    "description": "Translation for blood_type",
-    "placeholders": {}
+    "description": "Translation for blood_type"
   },
   "step_counter": "Podomètre",
   "@step_counter": {
-    "description": "Translation for step_counter",
-    "placeholders": {}
+    "description": "Translation for step_counter"
   },
   "water_tracker": "Suivi de l'eau",
   "@water_tracker": {
-    "description": "Translation for water_tracker",
-    "placeholders": {}
-  },
-  "reminder": "Rappel",
-  "@reminder": {
-    "description": "Translation for reminder",
-    "placeholders": {}
-  },
-  "dosage": "Dosage",
-  "@dosage": {
-    "description": "Translation for dosage",
-    "placeholders": {}
-  },
-  "stock": "Stock",
-  "@stock": {
-    "description": "Translation for stock",
-    "placeholders": {}
+    "description": "Translation for water_tracker"
   },
   "unit_ml": "ml",
   "@unit_ml": {
-    "description": "Translation for unit_ml",
-    "placeholders": {}
+    "description": "Translation for unit_ml"
   },
   "unit_l": "L",
   "@unit_l": {
-    "description": "Translation for unit_l",
-    "placeholders": {}
+    "description": "Translation for unit_l"
   },
   "unit_steps": "pas",
   "@unit_steps": {
-    "description": "Translation for unit_steps",
-    "placeholders": {}
+    "description": "Translation for unit_steps"
   },
   "unit_hours": "heures",
   "@unit_hours": {
-    "description": "Translation for unit_hours",
-    "placeholders": {}
+    "description": "Translation for unit_hours"
   },
   "unit_bpm": "BPM",
   "@unit_bpm": {
-    "description": "Translation for unit_bpm",
-    "placeholders": {}
+    "description": "Translation for unit_bpm"
   },
-  "report_issue": "Erreur, Suggestion, Demande et Plainte",
+  "premium_required_desc": "Un abonnement Premium est requis pour App Lock.",
+  "@premium_required_desc": {
+    "description": "Translation for premium_required_desc"
+  },
+  "index": "Indice",
+  "@index": {
+    "description": "Translation for index"
+  },
+  "view_weekly": "Hebdomadaire",
+  "@view_weekly": {
+    "description": "Translation for view_weekly"
+  },
+  "view_monthly": "Mensuel",
+  "@view_monthly": {
+    "description": "Translation for view_monthly"
+  },
+  "phone_country_code": "Code",
+  "@phone_country_code": {
+    "description": "Translation for phone_country_code"
+  },
+  "coming_soon": "À venir",
+  "@coming_soon": {
+    "description": "Translation for coming_soon"
+  },
+  "coming_soon_desc": "Cette fonctionnalité sera disponible dans la prochaine mise à jour.",
+  "@coming_soon_desc": {
+    "description": "Translation for coming_soon_desc"
+  },
+  "tap_for_test": "Appuyez plusieurs fois sur {count} pour recevoir une notification de test.",
+  "@tap_for_test": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for tap_for_test"
+  },
+  "metric_water": "Eau",
+  "@metric_water": {
+    "description": "Translation for metric_water"
+  },
+  "metric_steps": "Mesures",
+  "@metric_steps": {
+    "description": "Translation for metric_steps"
+  },
+  "metric_sleep": "Dormir",
+  "@metric_sleep": {
+    "description": "Translation for metric_sleep"
+  },
+  "metric_heart_rate": "Fréquence cardiaque",
+  "@metric_heart_rate": {
+    "description": "Translation for metric_heart_rate"
+  },
+  "quick_actions_visibility": "Visibilité d'accès rapide",
+  "@quick_actions_visibility": {
+    "description": "Translation for quick_actions_visibility"
+  },
+  "personal_notes": "Notes personnelles",
+  "@personal_notes": {
+    "description": "Translation for personal_notes"
+  },
+  "save_and_list": "Enregistrer et lister",
+  "@save_and_list": {
+    "description": "Translation for save_and_list"
+  },
+  "doctor_info": "Informations sur le médecin",
+  "@doctor_info": {
+    "description": "Translation for doctor_info"
+  },
+  "add_doctor_desc": "Conservez les coordonnées de vos médecins pour un accès rapide.",
+  "@add_doctor_desc": {
+    "description": "Translation for add_doctor_desc"
+  },
+  "basic_info": "Informations de base",
+  "@basic_info": {
+    "description": "Translation for basic_info"
+  },
+  "institution_contact": "Établissement et contact",
+  "@institution_contact": {
+    "description": "Translation for institution_contact"
+  },
+  "notes_bio": "Notes et biographie",
+  "@notes_bio": {
+    "description": "Translation for notes_bio"
+  },
+  "unknown": "Inconnu",
+  "@unknown": {
+    "description": "Translation for unknown"
+  },
+  "hospital_clinic_name": "Nom de l'hôpital/clinique",
+  "@hospital_clinic_name": {
+    "description": "Translation for hospital_clinic_name"
+  },
+  "phone_number": "Numéro de téléphone",
+  "@phone_number": {
+    "description": "Translation for phone_number"
+  },
+  "email_address": "Adresse email",
+  "@email_address": {
+    "description": "Translation for email_address"
+  },
+  "address": "Adresse",
+  "@address": {
+    "description": "Translation for address"
+  },
+  "emergency_info": "INFORMATIONS D'URGENCE",
+  "@emergency_info": {
+    "description": "Translation for emergency_info"
+  },
+  "emergency_contact_name": "Personne à contacter en cas d'urgence (nom)",
+  "@emergency_contact_name": {
+    "description": "Translation for emergency_contact_name"
+  },
+  "emergency_contact_phone": "Contact d'urgence (téléphone)",
+  "@emergency_contact_phone": {
+    "description": "Translation for emergency_contact_phone"
+  },
+  "blood_unknown": "Inconnu",
+  "@blood_unknown": {
+    "description": "Translation for blood_unknown"
+  },
+  "profile_updated": "Profil mis à jour ! ✅",
+  "@profile_updated": {
+    "description": "Translation for profile_updated"
+  },
+  "continue_btn": "Continuer",
+  "@continue_btn": {
+    "description": "Translation for continue_btn"
+  },
+  "let_start": "Commençons",
+  "@let_start": {
+    "description": "Translation for let_start"
+  },
+  "ob_1_title": "VitaCase",
+  "@ob_1_title": {
+    "description": "Translation for ob_1_title"
+  },
+  "ob_1_subtitle": "Tous vos fichiers au même endroit",
+  "@ob_1_subtitle": {
+    "description": "Translation for ob_1_subtitle"
+  },
+  "ob_1_desc": "Conservez vos documents, rendez-vous et médicaments en toute sécurité, emportez-les toujours avec vous.",
+  "@ob_1_desc": {
+    "description": "Translation for ob_1_desc"
+  },
+  "ob_2_title": "Organisez tous vos fichiers",
+  "@ob_2_title": {
+    "description": "Translation for ob_2_title"
+  },
+  "ob_2_desc": "Téléchargez vos documents, catégorisez-les et gérez-les facilement.",
+  "@ob_2_desc": {
+    "description": "Translation for ob_2_desc"
+  },
+  "ob_3_title": "Enregistrez vos rendez-vous",
+  "@ob_3_title": {
+    "description": "Translation for ob_3_title"
+  },
+  "ob_3_desc": "Gardez tous vos rendez-vous au même endroit, n'en manquez jamais un grâce aux rappels.",
+  "@ob_3_desc": {
+    "description": "Translation for ob_3_desc"
+  },
+  "ob_4_title": "Enregistrez et suivez vos médicaments",
+  "@ob_4_title": {
+    "description": "Translation for ob_4_title"
+  },
+  "ob_4_desc": "Enregistrez vos médicaments et les durées d'utilisation, n'oubliez pas de les utiliser régulièrement avec des rappels.",
+  "@ob_4_desc": {
+    "description": "Translation for ob_4_desc"
+  },
+  "ob_5_title": "Économisez, ne perdez pas",
+  "@ob_5_title": {
+    "description": "Translation for ob_5_title"
+  },
+  "ob_5_desc": "Gardez vos rendez-vous et vos médicaments en sécurité, vous restez détendu.",
+  "@ob_5_desc": {
+    "description": "Translation for ob_5_desc"
+  },
+  "ob_feature_1_title": "Stockage sécurisé",
+  "@ob_feature_1_title": {
+    "description": "Translation for ob_feature_1_title"
+  },
+  "ob_feature_1_desc": "Vos données sont cryptées et n'appartiennent qu'à vous.",
+  "@ob_feature_1_desc": {
+    "description": "Translation for ob_feature_1_desc"
+  },
+  "ob_feature_2_title": "Rappels",
+  "@ob_feature_2_title": {
+    "description": "Translation for ob_feature_2_title"
+  },
+  "ob_feature_2_desc": "Ne manquez jamais vos rendez-vous et vos heures de prise de médicaments.",
+  "@ob_feature_2_desc": {
+    "description": "Translation for ob_feature_2_desc"
+  },
+  "ob_feature_3_title": "Accédez partout",
+  "@ob_feature_3_title": {
+    "description": "Translation for ob_feature_3_title"
+  },
+  "ob_feature_3_desc": "Accédez à toutes vos informations quand vous le souhaitez.",
+  "@ob_feature_3_desc": {
+    "description": "Translation for ob_feature_3_desc"
+  },
+  "hi": "Salut",
+  "@hi": {
+    "description": "Translation for hi"
+  },
+  "good_morning": "BONJOUR",
+  "@good_morning": {
+    "description": "Translation for good_morning"
+  },
+  "good_afternoon": "BON APRÈS-MIDI",
+  "@good_afternoon": {
+    "description": "Translation for good_afternoon"
+  },
+  "good_evening": "BONNE SOIRÉE",
+  "@good_evening": {
+    "description": "Translation for good_evening"
+  },
+  "good_night": "BONNE NUIT",
+  "@good_night": {
+    "description": "Translation for good_night"
+  },
+  "synced": "Synchronisé",
+  "@synced": {
+    "description": "Translation for synced"
+  },
+  "guest_mode": "Mode Invité actif",
+  "@guest_mode": {
+    "description": "Translation for guest_mode"
+  },
+  "guest_desc": "Les données sont locales uniquement. Créez un compte pour sauvegarder.",
+  "@guest_desc": {
+    "description": "Translation for guest_desc"
+  },
+  "guest_user": "Utilisateur invité",
+  "@guest_user": {
+    "description": "Translation for guest_user"
+  },
+  "all_records": "Archives sécurisées",
+  "@all_records": {
+    "description": "Translation for all_records"
+  },
+  "vault_is_empty": "Votre coffre-fort est prêt",
+  "@vault_is_empty": {
+    "description": "Translation for vault_is_empty"
+  },
+  "vault_desc": "Stockez et organisez vos documents les plus importants dans un sanctuaire privé.",
+  "@vault_desc": {
+    "description": "Translation for vault_desc"
+  },
+  "quick_access": "ACCÈS RAPIDE",
+  "@quick_access": {
+    "description": "Translation for quick_access"
+  },
+  "steps": "Mesures",
+  "@steps": {
+    "description": "Translation for steps"
+  },
+  "heart": "Cœur",
+  "@heart": {
+    "description": "Translation for heart"
+  },
+  "sleep": "Dormir",
+  "@sleep": {
+    "description": "Translation for sleep"
+  },
+  "water": "Eau",
+  "@water": {
+    "description": "Translation for water"
+  },
+  "bpm": "temporisation",
+  "@bpm": {
+    "description": "Translation for bpm"
+  },
+  "hours": "Heures",
+  "@hours": {
+    "description": "Translation for hours"
+  },
+  "ml": "ML",
+  "@ml": {
+    "description": "Translation for ml"
+  },
+  "pharmacies": "Pharmacies",
+  "@pharmacies": {
+    "description": "Translation for pharmacies"
+  },
+  "important_info": "Informations importantes",
+  "@important_info": {
+    "description": "Translation for important_info"
+  },
+  "create_profile": "Créez votre profil",
+  "@create_profile": {
+    "description": "Translation for create_profile"
+  },
+  "profile_desc": "Nous avons besoin de quelques détails pour personnaliser votre voyage.",
+  "@profile_desc": {
+    "description": "Translation for profile_desc"
+  },
+  "date_format_hint": "JJ.MM.AAAA",
+  "@date_format_hint": {
+    "description": "Translation for date_format_hint"
+  },
+  "security_badge_label": "VITACASE CHIFFREMENT AVANCÉ v2.4",
+  "@security_badge_label": {
+    "description": "Translation for security_badge_label"
+  },
+  "health_stats": "Centre de santé",
+  "@health_stats": {
+    "description": "Translation for health_stats"
+  },
+  "health_stats_desc": "Votre résumé de santé quotidien complet.",
+  "@health_stats_desc": {
+    "description": "Translation for health_stats_desc"
+  },
+  "recent_activity": "Activité récente",
+  "@recent_activity": {
+    "description": "Translation for recent_activity"
+  },
+  "no_health_records": "Aucun enregistrement trouvé pour l'instant.",
+  "@no_health_records": {
+    "description": "Translation for no_health_records"
+  },
+  "add_health_data": "Ajouter des données de santé",
+  "@add_health_data": {
+    "description": "Translation for add_health_data"
+  },
+  "step_unit": "mesures",
+  "@step_unit": {
+    "description": "Translation for step_unit"
+  },
+  "privacy_guarantee": "Vos données sont en sécurité",
+  "@privacy_guarantee": {
+    "description": "Translation for privacy_guarantee"
+  },
+  "privacy_box_desc": "Vos informations sont stockées en toute sécurité et ne sont jamais partagées.",
+  "@privacy_box_desc": {
+    "description": "Translation for privacy_box_desc"
+  },
+  "privacy_box_warning": "Vos données sont privées et stockées en toute sécurité sur votre appareil. Veuillez éviter de télécharger des informations hautement sensibles. Vous êtes responsable des données que vous stockez.",
+  "@privacy_box_warning": {
+    "description": "Translation for privacy_box_warning"
+  },
+  "docs_secure_storage_title": "Stockage local sécurisé 🔒",
+  "@docs_secure_storage_title": {
+    "description": "Translation for docs_secure_storage_title"
+  },
+  "docs_secure_storage_desc": "Vos données restent sur votre appareil",
+  "@docs_secure_storage_desc": {
+    "description": "Translation for docs_secure_storage_desc"
+  },
+  "docs_sensitive_warning": "Évitez de stocker des informations hautement sensibles. Vous êtes responsable de vos données.",
+  "@docs_sensitive_warning": {
+    "description": "Translation for docs_sensitive_warning"
+  },
+  "appearance": "APPARENCE",
+  "@appearance": {
+    "description": "Translation for appearance"
+  },
+  "theme_settings": "Paramètres du thème",
+  "@theme_settings": {
+    "description": "Translation for theme_settings"
+  },
+  "app_settings": "PARAMÈTRES DE L'APPLICATION",
+  "@app_settings": {
+    "description": "Translation for app_settings"
+  },
+  "text_size": "Taille du texte",
+  "@text_size": {
+    "description": "Translation for text_size"
+  },
+  "quick_actions": "Actions rapides",
+  "@quick_actions": {
+    "description": "Translation for quick_actions"
+  },
+  "data_security": "DONNÉES ET SÉCURITÉ",
+  "@data_security": {
+    "description": "Translation for data_security"
+  },
+  "app_lock": "Verrouillage d'application",
+  "@app_lock": {
+    "description": "Translation for app_lock"
+  },
+  "backup_zip": "Sauvegarde (ZIP)",
+  "@backup_zip": {
+    "description": "Translation for backup_zip"
+  },
+  "import_backup": "Restaurer la sauvegarde",
+  "@import_backup": {
+    "description": "Translation for import_backup"
+  },
+  "import_desc": "Importer un fichier de sauvegarde ZIP",
+  "@import_desc": {
+    "description": "Translation for import_desc"
+  },
+  "export_desc": "Exporter des documents",
+  "@export_desc": {
+    "description": "Translation for export_desc"
+  },
+  "daily_step_goal": "Objectif de pas quotidien",
+  "@daily_step_goal": {
+    "description": "Translation for daily_step_goal"
+  },
+  "support_legal": "ASSISTANCE & JURIDIQUE",
+  "@support_legal": {
+    "description": "Translation for support_legal"
+  },
+  "help_center": "Centre d'aide",
+  "@help_center": {
+    "description": "Translation for help_center"
+  },
+  "legal_disclaimer": "Mentions légales",
+  "@legal_disclaimer": {
+    "description": "Translation for legal_disclaimer"
+  },
+  "legal": "LÉGAL",
+  "@legal": {
+    "description": "Translation for legal"
+  },
+  "lock_gate_title": "VitaCase verrouillé",
+  "@lock_gate_title": {
+    "description": "Translation for lock_gate_title"
+  },
+  "lock_gate_desc": "Veuillez vous authentifier pour accéder à votre coffre-fort sécurisé.",
+  "@lock_gate_desc": {
+    "description": "Translation for lock_gate_desc"
+  },
+  "lock_gate_unlock": "Débloquez avec la biométrie",
+  "@lock_gate_unlock": {
+    "description": "Translation for lock_gate_unlock"
+  },
+  "lock_set_pin": "Définir un code PIN sécurisé",
+  "@lock_set_pin": {
+    "description": "Translation for lock_set_pin"
+  },
+  "lock_confirm_pin": "Confirmer le code PIN",
+  "@lock_confirm_pin": {
+    "description": "Translation for lock_confirm_pin"
+  },
+  "lock_pin_mismatch": "Les codes PIN ne correspondent pas. Essayer à nouveau.",
+  "@lock_pin_mismatch": {
+    "description": "Translation for lock_pin_mismatch"
+  },
+  "lock_pin_incorrect": "Code PIN incorrect",
+  "@lock_pin_incorrect": {
+    "description": "Translation for lock_pin_incorrect"
+  },
+  "lock_use_biometrics": "Utiliser la biométrie",
+  "@lock_use_biometrics": {
+    "description": "Translation for lock_use_biometrics"
+  },
+  "lock_too_many_attempts": "Trop de tentatives. Réessayez dans {seconds}s.",
+  "@lock_too_many_attempts": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for lock_too_many_attempts"
+  },
+  "lock_timeout_instant": "Instantané",
+  "@lock_timeout_instant": {
+    "description": "Translation for lock_timeout_instant"
+  },
+  "lock_timeout_1min": "1 minute",
+  "@lock_timeout_1min": {
+    "description": "Translation for lock_timeout_1min"
+  },
+  "lock_timeout_5min": "5 minutes",
+  "@lock_timeout_5min": {
+    "description": "Translation for lock_timeout_5min"
+  },
+  "lock_timeout_15min": "15 minutes",
+  "@lock_timeout_15min": {
+    "description": "Translation for lock_timeout_15min"
+  },
+  "lock_timeout": "Délai de verrouillage",
+  "@lock_timeout": {
+    "description": "Translation for lock_timeout"
+  },
+  "change_pin": "Changer le code PIN",
+  "@change_pin": {
+    "description": "Translation for change_pin"
+  },
+  "biometric_login": "Connexion biométrique",
+  "@biometric_login": {
+    "description": "Translation for biometric_login"
+  },
+  "biometric_unavailable": "L'authentification biométrique n'est pas disponible sur cet appareil.",
+  "@biometric_unavailable": {
+    "description": "Translation for biometric_unavailable"
+  },
+  "digits": "chiffres",
+  "@digits": {
+    "description": "Translation for digits"
+  },
+  "lock_skip_desc": "Vous pourrez configurer cela plus tard à partir des paramètres.",
+  "@lock_skip_desc": {
+    "description": "Translation for lock_skip_desc"
+  },
+  "setup_pin_later": "Configurer plus tard à partir des paramètres",
+  "@setup_pin_later": {
+    "description": "Translation for setup_pin_later"
+  },
+  "skip_pin_setup": "Sauter",
+  "@skip_pin_setup": {
+    "description": "Translation for skip_pin_setup"
+  },
+  "setup_app_lock": "Configurer le verrouillage des applications",
+  "@setup_app_lock": {
+    "description": "Translation for setup_app_lock"
+  },
+  "setup_app_lock_desc": "Protégez vos données avec un code PIN à 6 chiffres.",
+  "@setup_app_lock_desc": {
+    "description": "Translation for setup_app_lock_desc"
+  },
+  "step_profile": "Profil",
+  "@step_profile": {
+    "description": "Translation for step_profile"
+  },
+  "step_security": "Sécurité",
+  "@step_security": {
+    "description": "Translation for step_security"
+  },
+  "daily_missions": "MISSIONS QUOTIDIENNES",
+  "@daily_missions": {
+    "description": "Translation for daily_missions"
+  },
+  "mission_doc_daily": "Ajouter 1 document",
+  "@mission_doc_daily": {
+    "description": "Translation for mission_doc_daily"
+  },
+  "mission_ad_daily": "Regarder 1 annonce",
+  "@mission_ad_daily": {
+    "description": "Translation for mission_ad_daily"
+  },
+  "mission_app_daily": "Calendrier 1 Rendez-vous",
+  "@mission_app_daily": {
+    "description": "Translation for mission_app_daily"
+  },
+  "mission_med_daily": "Ajouter 1 médicament",
+  "@mission_med_daily": {
+    "description": "Translation for mission_med_daily"
+  },
+  "export_data_zip": "Exporter des données (.zip)",
+  "@export_data_zip": {
+    "description": "Translation for export_data_zip"
+  },
+  "clear_all_data": "Effacer toutes les données",
+  "@clear_all_data": {
+    "description": "Translation for clear_all_data"
+  },
+  "quick_actions_desc": "Raccourcis rapides sur le tableau de bord",
+  "@quick_actions_desc": {
+    "description": "Translation for quick_actions_desc"
+  },
+  "app_section": "APPLICATION",
+  "@app_section": {
+    "description": "Translation for app_section"
+  },
+  "premium_required": "Prime requise",
+  "@premium_required": {
+    "description": "Translation for premium_required"
+  },
+  "logout_confirm": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "@logout_confirm": {
+    "description": "Translation for logout_confirm"
+  },
+  "yes_logout": "Oui, déconnexion",
+  "@yes_logout": {
+    "description": "Translation for yes_logout"
+  },
+  "version": "VERSION",
+  "@version": {
+    "description": "Translation for version"
+  },
+  "my_medicines": "Mes médicaments",
+  "@my_medicines": {
+    "description": "Translation for my_medicines"
+  },
+  "med_count_desc": "Vous avez {count} médicaments pour aujourd'hui.",
+  "@med_count_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for med_count_desc"
+  },
+  "low_stock_warning": "Stock faible",
+  "@low_stock_warning": {
+    "description": "Translation for low_stock_warning"
+  },
+  "critical_level": "Niveau critique pour {name}.",
+  "@critical_level": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for critical_level"
+  },
+  "refill": "Recharge",
+  "@refill": {
+    "description": "Translation for refill"
+  },
+  "intake_chart": "Tableau de conformité des apports",
+  "@intake_chart": {
+    "description": "Translation for intake_chart"
+  },
+  "weekly_avg": "Moyenne hebdomadaire : {perc} %",
+  "@weekly_avg": {
+    "placeholders": {
+      "perc": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for weekly_avg"
+  },
+  "medicine_cabinet": "Armoire à pharmacie",
+  "@medicine_cabinet": {
+    "description": "Translation for medicine_cabinet"
+  },
+  "active_inventory": "Votre inventaire actif",
+  "@active_inventory": {
+    "description": "Translation for active_inventory"
+  },
+  "daily_routine": "Routine quotidienne",
+  "@daily_routine": {
+    "description": "Translation for daily_routine"
+  },
+  "morning": "Matin",
+  "@morning": {
+    "description": "Translation for morning"
+  },
+  "afternoon": "Après-midi",
+  "@afternoon": {
+    "description": "Translation for afternoon"
+  },
+  "night": "Nuit",
+  "@night": {
+    "description": "Translation for night"
+  },
+  "med_cabinet_add": "Nouvelle médecine",
+  "@med_cabinet_add": {
+    "description": "Translation for med_cabinet_add"
+  },
+  "stock_left": "{count} GAUCHE",
+  "@stock_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for stock_left"
+  },
+  "vital_signs": "Signes vitaux",
+  "@vital_signs": {
+    "description": "Translation for vital_signs"
+  },
+  "daily_goals": "Objectifs quotidiens",
+  "@daily_goals": {
+    "description": "Translation for daily_goals"
+  },
+  "activity": "Activité",
+  "@activity": {
+    "description": "Translation for activity"
+  },
+  "safety_footer_med": "VitaCase est un outil de gestion. Il ne fournit aucun avis médical ni recommandation posologique. Suivez toujours les instructions de votre médecin.",
+  "@safety_footer_med": {
+    "description": "Translation for safety_footer_med"
+  },
+  "safety_footer_health": "Les données de santé sont fournies à titre informatif uniquement. Consultez un professionnel pour un diagnostic.",
+  "@safety_footer_health": {
+    "description": "Translation for safety_footer_health"
+  },
+  "medical_device_warning": "VitaCase n'est pas un dispositif médical. Consultez toujours un professionnel.",
+  "@medical_device_warning": {
+    "description": "Translation for medical_device_warning"
+  },
+  "management_tool_warning": "VitaCase est un outil de gestion et non un service de diagnostic.",
+  "@management_tool_warning": {
+    "description": "Translation for management_tool_warning"
+  },
+  "hint_name": "par ex. John Doe",
+  "@hint_name": {
+    "description": "Translation for hint_name"
+  },
+  "hint_emergency": "Nom complet/téléphone",
+  "@hint_emergency": {
+    "description": "Translation for hint_emergency"
+  },
+  "docs_title": "Documents",
+  "@docs_title": {
+    "description": "Translation for docs_title"
+  },
+  "docs_search_hint": "Rechercher dans votre coffre-fort (document, note, identité...)",
+  "@docs_search_hint": {
+    "description": "Translation for docs_search_hint"
+  },
+  "docs_info_secure": "Vos documents sont stockés en toute sécurité et vous sont exclusifs.",
+  "@docs_info_secure": {
+    "description": "Translation for docs_info_secure"
+  },
+  "docs_info_encrypted": "Vos données sont protégées localement par cryptage.",
+  "@docs_info_encrypted": {
+    "description": "Translation for docs_info_encrypted"
+  },
+  "docs_sort_all": "Tous",
+  "@docs_sort_all": {
+    "description": "Translation for docs_sort_all"
+  },
+  "docs_sort_newest": "Le plus récent",
+  "@docs_sort_newest": {
+    "description": "Translation for docs_sort_newest"
+  },
+  "docs_sort_oldest": "Le plus ancien",
+  "@docs_sort_oldest": {
+    "description": "Translation for docs_sort_oldest"
+  },
+  "docs_empty_title": "C'est vide ici",
+  "@docs_empty_title": {
+    "description": "Translation for docs_empty_title"
+  },
+  "docs_empty_subtitle": "Commencez à organiser votre coffre-fort en ajoutant votre premier document.",
+  "@docs_empty_subtitle": {
+    "description": "Translation for docs_empty_subtitle"
+  },
+  "docs_category_health": "Santé",
+  "@docs_category_health": {
+    "description": "Translation for docs_category_health"
+  },
+  "docs_category_identity": "Identité",
+  "@docs_category_identity": {
+    "description": "Translation for docs_category_identity"
+  },
+  "docs_category_finance": "Finance",
+  "@docs_category_finance": {
+    "description": "Translation for docs_category_finance"
+  },
+  "docs_category_legal": "Légal",
+  "@docs_category_legal": {
+    "description": "Translation for docs_category_legal"
+  },
+  "docs_category_notes": "Remarques",
+  "@docs_category_notes": {
+    "description": "Translation for docs_category_notes"
+  },
+  "docs_category_other": "Autre",
+  "@docs_category_other": {
+    "description": "Translation for docs_category_other"
+  },
+  "docs_loading_open": "Ouverture du fichier sécurisé...",
+  "@docs_loading_open": {
+    "description": "Translation for docs_loading_open"
+  },
+  "docs_loading_decrypt": "Décryptage AES-256",
+  "@docs_loading_decrypt": {
+    "description": "Translation for docs_loading_decrypt"
+  },
+  "docs_add_btn": "AJOUTER UN DOCUMENT",
+  "@docs_add_btn": {
+    "description": "Translation for docs_add_btn"
+  },
+  "docs_add_title": "Ajouter un document",
+  "@docs_add_title": {
+    "description": "Translation for docs_add_title"
+  },
+  "docs_add_source": "Source/Institution (facultatif)",
+  "@docs_add_source": {
+    "description": "Translation for docs_add_source"
+  },
+  "docs_add_person": "Personne liée/Détail",
+  "@docs_add_person": {
+    "description": "Translation for docs_add_person"
+  },
+  "docs_add_cat": "Catégorie",
+  "@docs_add_cat": {
+    "description": "Translation for docs_add_cat"
+  },
+  "docs_add_type": "Type de document",
+  "@docs_add_type": {
+    "description": "Translation for docs_add_type"
+  },
+  "docs_add_note": "Remarque (facultatif)",
+  "@docs_add_note": {
+    "description": "Translation for docs_add_note"
+  },
+  "docs_add_secure": "Ces informations sont cryptées avec AES-256.",
+  "@docs_add_secure": {
+    "description": "Translation for docs_add_secure"
+  },
+  "docs_add_pick_diff": "Choisissez un fichier différent",
+  "@docs_add_pick_diff": {
+    "description": "Translation for docs_add_pick_diff"
+  },
+  "docs_success": "Document enregistré avec succès !",
+  "@docs_success": {
+    "description": "Translation for docs_success"
+  },
+  "docs_error_save": "Échec de l'enregistrement du document",
+  "@docs_error_save": {
+    "description": "Translation for docs_error_save"
+  },
+  "docs_error_pick": "Veuillez sélectionner un fichier",
+  "@docs_error_pick": {
+    "description": "Translation for docs_error_pick"
+  },
+  "docs_error_source": "Le nom de l'établissement est requis pour les documents de santé",
+  "@docs_error_source": {
+    "description": "Translation for docs_error_source"
+  },
+  "docs_error_size": "La taille du fichier doit être maximale de 10 Mo",
+  "@docs_error_size": {
+    "description": "Translation for docs_error_size"
+  },
+  "docs_add_pick": "Sélectionnez Document/Image",
+  "@docs_add_pick": {
+    "description": "Translation for docs_add_pick"
+  },
+  "docs_add_file_selected": "Fichier sélectionné",
+  "@docs_add_file_selected": {
+    "description": "Translation for docs_add_file_selected"
+  },
+  "docs_action_delete": "Supprimer",
+  "@docs_action_delete": {
+    "description": "Translation for docs_action_delete"
+  },
+  "docs_no_results": "Aucun résultat trouvé",
+  "@docs_no_results": {
+    "description": "Translation for docs_no_results"
+  },
+  "docs_no_matching": "Aucun document ne correspond à vos critères",
+  "@docs_no_matching": {
+    "description": "Translation for docs_no_matching"
+  },
+  "docs_try_different": "Essayez de rechercher avec un mot-clé différent.",
+  "@docs_try_different": {
+    "description": "Translation for docs_try_different"
+  },
+  "docs_no_filter_match": "Aucun document trouvé pour le filtre sélectionné.",
+  "@docs_no_filter_match": {
+    "description": "Translation for docs_no_filter_match"
+  },
+  "docs_show_all": "AFFICHER TOUT",
+  "@docs_show_all": {
+    "description": "Translation for docs_show_all"
+  },
+  "privacy_warning_title": "Avertissement de confidentialité",
+  "@privacy_warning_title": {
+    "description": "Translation for privacy_warning_title"
+  },
+  "privacy_warning_desc": "La seule responsabilité de toute information sensible et document téléchargé incombe entièrement à l'utilisateur. Soyez prudent lorsque vous stockez des données à haut risque.",
+  "@privacy_warning_desc": {
+    "description": "Translation for privacy_warning_desc"
+  },
+  "hint_select": "Sélectionner",
+  "@hint_select": {
+    "description": "Translation for hint_select"
+  },
+  "hint_institution": "par ex. Hôpital municipal, banque, notaire",
+  "@hint_institution": {
+    "description": "Translation for hint_institution"
+  },
+  "hint_person_detail": "par ex. Dr Mehmet, avocat Ahmet, numéro d'impôt",
+  "@hint_person_detail": {
+    "description": "Translation for hint_person_detail"
+  },
+  "hint_add_note": "Ajouter une note...",
+  "@hint_add_note": {
+    "description": "Translation for hint_add_note"
+  },
+  "docs_category_prescriptions": "Ordonnance",
+  "@docs_category_prescriptions": {
+    "description": "Translation for docs_category_prescriptions"
+  },
+  "docs_category_reports": "Rapport",
+  "@docs_category_reports": {
+    "description": "Translation for docs_category_reports"
+  },
+  "docs_category_test_results": "Résultat du test",
+  "@docs_category_test_results": {
+    "description": "Translation for docs_category_test_results"
+  },
+  "docs_category_images": "Image Médicale",
+  "@docs_category_images": {
+    "description": "Translation for docs_category_images"
+  },
+  "upcoming_appointment": "RENDEZ-VOUS À VENIR",
+  "@upcoming_appointment": {
+    "description": "Translation for upcoming_appointment"
+  },
+  "my_appointments": "Mes rendez-vous",
+  "@my_appointments": {
+    "description": "Translation for my_appointments"
+  },
+  "weekly": "Hebdomadaire",
+  "@weekly": {
+    "description": "Translation for weekly"
+  },
+  "monthly": "Mensuel",
+  "@monthly": {
+    "description": "Translation for monthly"
+  },
+  "no_more_appointments": "Plus aucun rendez-vous trouvé.",
+  "@no_more_appointments": {
+    "description": "Translation for no_more_appointments"
+  },
+  "add_new_appointment": "Ajouter un nouveau rendez-vous",
+  "@add_new_appointment": {
+    "description": "Translation for add_new_appointment"
+  },
+  "join_meeting": "Rejoindre la réunion",
+  "@join_meeting": {
+    "description": "Translation for join_meeting"
+  },
+  "location": "Emplacement",
+  "@location": {
+    "description": "Translation for location"
+  },
+  "health_trend_desc": "Tendance santé sur 7 jours",
+  "@health_trend_desc": {
+    "description": "Translation for health_trend_desc"
+  },
+  "all_records_title": "Tous les enregistrements",
+  "@all_records_title": {
+    "description": "Translation for all_records_title"
+  },
+  "personal_health_data": "Données de santé personnelles",
+  "@personal_health_data": {
+    "description": "Translation for personal_health_data"
+  },
+  "personal_info": "Informations personnelles",
+  "@personal_info": {
+    "description": "Translation for personal_info"
+  },
+  "account_settings": "Paramètres du compte",
+  "@account_settings": {
+    "description": "Translation for account_settings"
+  },
+  "emergency_card": "Carte d'urgence",
+  "@emergency_card": {
+    "description": "Translation for emergency_card"
+  },
+  "allergies": "ALLERGIES",
+  "@allergies": {
+    "description": "Translation for allergies"
+  },
+  "none": "Aucun",
+  "@none": {
+    "description": "Translation for none"
+  },
+  "not_added": "Non ajouté",
+  "@not_added": {
+    "description": "Translation for not_added"
+  },
+  "active_goals": "Objectifs actifs",
+  "@active_goals": {
+    "description": "Translation for active_goals"
+  },
+  "daily_steps": "Étapes quotidiennes",
+  "@daily_steps": {
+    "description": "Translation for daily_steps"
+  },
+  "water_intake": "Prise d'eau",
+  "@water_intake": {
+    "description": "Translation for water_intake"
+  },
+  "liter_unit": "Litres",
+  "@liter_unit": {
+    "description": "Translation for liter_unit"
+  },
+  "speed_up": "ACCÉLÉRER",
+  "@speed_up": {
+    "description": "Translation for speed_up"
+  },
+  "stay_fresh": "RESTEZ FRAIS",
+  "@stay_fresh": {
+    "description": "Translation for stay_fresh"
+  },
+  "target_label": "Cible",
+  "@target_label": {
+    "description": "Translation for target_label"
+  },
+  "logout_desc_safe": "Êtes-vous sûr de vouloir vous déconnecter ? Vos données resteront stockées en toute sécurité sur votre appareil.",
+  "@logout_desc_safe": {
+    "description": "Translation for logout_desc_safe"
+  },
+  "years_old": "ans",
+  "@years_old": {
+    "description": "Translation for years_old"
+  },
+  "add_medicine": "Ajouter un médicament",
+  "@add_medicine": {
+    "description": "Translation for add_medicine"
+  },
+  "medicine_name": "Nom du médicament",
+  "@medicine_name": {
+    "description": "Translation for medicine_name"
+  },
+  "med_name_hint": "par ex. Aspirine",
+  "@med_name_hint": {
+    "description": "Translation for med_name_hint"
+  },
+  "frequency": "Fréquence",
+  "@frequency": {
+    "description": "Translation for frequency"
+  },
+  "reminder_times": "Horaires de rappel",
+  "@reminder_times": {
+    "description": "Translation for reminder_times"
+  },
+  "current_stock": "Stock actuel",
+  "@current_stock": {
+    "description": "Translation for current_stock"
+  },
+  "stock_warning": "Nous vous rappellerons lorsque le stock descendra en dessous de 5 unités.",
+  "@stock_warning": {
+    "description": "Translation for stock_warning"
+  },
+  "hero_health_tip": "Pour votre santé",
+  "@hero_health_tip": {
+    "description": "Translation for hero_health_tip"
+  },
+  "hero_consistency": "La cohérence est la clé",
+  "@hero_consistency": {
+    "description": "Translation for hero_consistency"
+  },
+  "med_added_success": "Médecine ajoutée avec succès !",
+  "@med_added_success": {
+    "description": "Translation for med_added_success"
+  },
+  "med_name_error": "Veuillez saisir le nom du médicament",
+  "@med_name_error": {
+    "description": "Translation for med_name_error"
+  },
+  "custom_freq_title": "Fréquence personnalisée",
+  "@custom_freq_title": {
+    "description": "Translation for custom_freq_title"
+  },
+  "custom_freq_hint": "par ex. Toutes les 2 semaines",
+  "@custom_freq_hint": {
+    "description": "Translation for custom_freq_hint"
+  },
+  "apply": "Appliquer",
+  "@apply": {
+    "description": "Translation for apply"
+  },
+  "daily": "Tous les jours",
+  "@daily": {
+    "description": "Translation for daily"
+  },
+  "custom": "Coutume",
+  "@custom": {
+    "description": "Translation for custom"
+  },
+  "tablet": "Comprimé",
+  "@tablet": {
+    "description": "Translation for tablet"
+  },
+  "syrup": "Sirop (ml)",
+  "@syrup": {
+    "description": "Translation for syrup"
+  },
+  "dose": "Dose",
+  "@dose": {
+    "description": "Translation for dose"
+  },
+  "capsule": "Capsule",
+  "@capsule": {
+    "description": "Translation for capsule"
+  },
+  "drops": "Gouttes",
+  "@drops": {
+    "description": "Translation for drops"
+  },
+  "limit_title": "Stockage plein ! 🚀",
+  "@limit_title": {
+    "description": "Translation for limit_title"
+  },
+  "limit_desc": "Votre limite actuelle est de {count} documents. Souhaitez-vous regarder une courte vidéo pour gagner +5 emplacements supplémentaires ?",
+  "@limit_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc"
+  },
+  "limit_desc_meds": "Votre limite actuelle est de {count} médicaments. Souhaitez-vous regarder une courte vidéo pour gagner +5 emplacements supplémentaires ?",
+  "@limit_desc_meds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_meds"
+  },
+  "limit_desc_appts": "Votre limite actuelle est de {count} rendez-vous. Souhaitez-vous regarder une courte vidéo pour gagner +5 emplacements supplémentaires ?",
+  "@limit_desc_appts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_appts"
+  },
+  "limit_close": "FERMER",
+  "@limit_close": {
+    "description": "Translation for limit_close"
+  },
+  "limit_reward_btn": "REGARDER ET GAGNER",
+  "@limit_reward_btn": {
+    "description": "Translation for limit_reward_btn"
+  },
+  "limit_reward_success": "Félicitations! +10 emplacements pour documents ajoutés.",
+  "@limit_reward_success": {
+    "description": "Translation for limit_reward_success"
+  },
+  "limit_ad_free_info": "Stockage local sécurisé et privé 🛡️",
+  "@limit_ad_free_info": {
+    "description": "Translation for limit_ad_free_info"
+  },
+  "limit_slots_used": "{count}/{limit} emplacements utilisés",
+  "@limit_slots_used": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_slots_used"
+  },
+  "lock_title": "VitaCase verrouillé",
+  "@lock_title": {
+    "description": "Translation for lock_title"
+  },
+  "lock_subtitle": "Veuillez vérifier pour accéder",
+  "@lock_subtitle": {
+    "description": "Translation for lock_subtitle"
+  },
+  "unlock": "Ouvrir",
+  "@unlock": {
+    "description": "Translation for unlock"
+  },
+  "bmi_underweight": "Insuffisance pondérale",
+  "@bmi_underweight": {
+    "description": "Translation for bmi_underweight"
+  },
+  "bmi_normal": "Normal (idéal)",
+  "@bmi_normal": {
+    "description": "Translation for bmi_normal"
+  },
+  "bmi_overweight": "Embonpoint",
+  "@bmi_overweight": {
+    "description": "Translation for bmi_overweight"
+  },
+  "bmi_obese": "Obèse",
+  "@bmi_obese": {
+    "description": "Translation for bmi_obese"
+  },
+  "page_not_found": "Page introuvable ou une erreur s'est produite.",
+  "@page_not_found": {
+    "description": "Translation for page_not_found"
+  },
+  "legal_onboarding_clause": "Je reconnais que VitaCase est un premier coffre-fort hors ligne. Je suis seul responsable de la sécurité de mon appareil et des données de santé sensibles qui y sont stockées.",
+  "@legal_onboarding_clause": {
+    "description": "Translation for legal_onboarding_clause"
+  },
+  "delete_all_data": "Supprimer toutes les données",
+  "@delete_all_data": {
+    "description": "Translation for delete_all_data"
+  },
+  "wipe_confirm_1": "Toutes vos données, documents et paramètres seront définitivement supprimés. Cette action ne peut pas être annulée. Voulez-vous continuer ?",
+  "@wipe_confirm_1": {
+    "description": "Translation for wipe_confirm_1"
+  },
+  "wipe_confirm_2": "Etes-vous ABSOLUMENT sûr ? Toutes vos archives médicales et dossiers cryptés seront effacés de cet appareil.",
+  "@wipe_confirm_2": {
+    "description": "Translation for wipe_confirm_2"
+  },
+  "final_warning": "Dernier avertissement de sécurité",
+  "@final_warning": {
+    "description": "Translation for final_warning"
+  },
+  "wipe_btn_final": "OUI, TOUT SUPPRIMER",
+  "@wipe_btn_final": {
+    "description": "Translation for wipe_btn_final"
+  },
+  "all_data_deleted": "Toutes vos données ont été effacées. L'application va maintenant redémarrer.",
+  "@all_data_deleted": {
+    "description": "Translation for all_data_deleted"
+  },
+  "theme_selection_title": "Sélection de thèmes",
+  "@theme_selection_title": {
+    "description": "Translation for theme_selection_title"
+  },
+  "watch_ad": "Regarder l'annonce",
+  "@watch_ad": {
+    "description": "Translation for watch_ad"
+  },
+  "verify_sentry": "Vérifier l'intégration de Sentry",
+  "@verify_sentry": {
+    "description": "Translation for verify_sentry"
+  },
+  "edit_panel_soon": "Le panneau d'édition sera bientôt disponible !",
+  "@edit_panel_soon": {
+    "description": "Translation for edit_panel_soon"
+  },
+  "add_new_record": "Ajouter un nouvel enregistrement",
+  "@add_new_record": {
+    "description": "Translation for add_new_record"
+  },
+  "category": "Catégorie",
+  "@category": {
+    "description": "Translation for category"
+  },
+  "fill_required_fields": "Veuillez remplir les champs obligatoires",
+  "@fill_required_fields": {
+    "description": "Translation for fill_required_fields"
+  },
+  "error_doctor_data": "Veuillez entrer le nom du médecin et le département",
+  "@error_doctor_data": {
+    "description": "Translation for error_doctor_data"
+  },
+  "error_appointment_data": "Veuillez remplir les champs titre et hôpital/centre",
+  "@error_appointment_data": {
+    "description": "Translation for error_appointment_data"
+  },
+  "appointment_reminder_title": "Rappel de rendez-vous",
+  "@appointment_reminder_title": {
+    "description": "Translation for appointment_reminder_title"
+  },
+  "appointment_reminder_body": "Vous avez un rendez-vous dans {time} : {doctor} ({dept})",
+  "@appointment_reminder_body": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "doctor": {
+        "type": "String"
+      },
+      "dept": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for appointment_reminder_body"
+  },
+  "select_language": "Sélectionnez la langue / Dil Seçin",
+  "@select_language": {
+    "description": "Translation for select_language"
+  },
+  "ok": "D'ACCORD",
+  "@ok": {
+    "description": "Translation for ok"
+  },
+  "text_size_small": "Petit",
+  "@text_size_small": {
+    "description": "Translation for text_size_small"
+  },
+  "text_size_medium": "Moyen",
+  "@text_size_medium": {
+    "description": "Translation for text_size_medium"
+  },
+  "text_size_large": "Grand",
+  "@text_size_large": {
+    "description": "Translation for text_size_large"
+  },
+  "support_contact": "Pour contacter notre équipe d'assistance : limanexsoftware@outlook.com",
+  "@support_contact": {
+    "description": "Translation for support_contact"
+  },
+  "quick_actions_optimized": "Les actions rapides sont déjà optimisées pour votre profil.",
+  "@quick_actions_optimized": {
+    "description": "Translation for quick_actions_optimized"
+  },
+  "medication_reminder": "Rappel de médicaments",
+  "@medication_reminder": {
+    "description": "Translation for medication_reminder"
+  },
+  "medication_reminder_body": "Heure pour {name} ({dose})",
+  "@medication_reminder_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dose": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for medication_reminder_body"
+  },
+  "no_doctors_found": "Aucun médecin correspondant trouvé",
+  "@no_doctors_found": {
+    "description": "Translation for no_doctors_found"
+  },
+  "clear_filters": "Effacer les filtres",
+  "@clear_filters": {
+    "description": "Translation for clear_filters"
+  },
+  "verified": "Vérifié",
+  "@verified": {
+    "description": "Translation for verified"
+  },
+  "height_label": "Hauteur",
+  "@height_label": {
+    "description": "Translation for height_label"
+  },
+  "weight_label": "Poids",
+  "@weight_label": {
+    "description": "Translation for weight_label"
+  },
+  "age_label": "Âge",
+  "@age_label": {
+    "description": "Translation for age_label"
+  },
+  "identity_contact": "Identité & Contact",
+  "@identity_contact": {
+    "description": "Translation for identity_contact"
+  },
+  "id_number": "Numéro d'identification",
+  "@id_number": {
+    "description": "Translation for id_number"
+  },
+  "update_info": "Mettre à jour les informations",
+  "@update_info": {
+    "description": "Translation for update_info"
+  },
+  "vita_badge": "Utilisateur VitaCase",
+  "@vita_badge": {
+    "description": "Translation for vita_badge"
+  },
+  "default_job": "Freelance / Passionné de santé",
+  "@default_job": {
+    "description": "Translation for default_job"
+  },
+  "blood_type_val": "Un Rh+",
+  "@blood_type_val": {
+    "description": "Translation for blood_type_val"
+  },
+  "clinical_note": "Note clinique",
+  "@clinical_note": {
+    "description": "Translation for clinical_note"
+  },
+  "last_control": "Dernier contrôle",
+  "@last_control": {
+    "description": "Translation for last_control"
+  },
+  "bmi_ideal": "Plage de poids idéale",
+  "@bmi_ideal": {
+    "description": "Translation for bmi_ideal"
+  },
+  "medical_info_desc_empty": "Conservez vos informations médicales critiques ici pour les emporter toujours avec vous.",
+  "@medical_info_desc_empty": {
+    "description": "Translation for medical_info_desc_empty"
+  },
+  "category_critical": "INFORMATIONS CRITIQUES",
+  "@category_critical": {
+    "description": "Translation for category_critical"
+  },
+  "category_important": "REMARQUES IMPORTANTES",
+  "@category_important": {
+    "description": "Translation for category_important"
+  },
+  "category_general": "INFORMATIONS GÉNÉRALES",
+  "@category_general": {
+    "description": "Translation for category_general"
+  },
+  "medical_info_desc": "Tous les dossiers médicaux critiques pour votre santé.",
+  "@medical_info_desc": {
+    "description": "Translation for medical_info_desc"
+  },
+  "title": "Titre",
+  "@title": {
+    "description": "Translation for title"
+  },
+  "description": "Description",
+  "@description": {
+    "description": "Translation for description"
+  },
+  "icon": "Icône",
+  "@icon": {
+    "description": "Translation for icon"
+  },
+  "save_record": "Enregistrer l'enregistrement",
+  "@save_record": {
+    "description": "Translation for save_record"
+  },
+  "critical": "Critique",
+  "@critical": {
+    "description": "Translation for critical"
+  },
+  "important": "Important",
+  "@important": {
+    "description": "Translation for important"
+  },
+  "general": "Général",
+  "@general": {
+    "description": "Translation for general"
+  },
+  "theme_unlock_desc": "Vous pouvez essayer ce thème ou regarder une annonce pour le déverrouiller définitivement.",
+  "@theme_unlock_desc": {
+    "description": "Translation for theme_unlock_desc"
+  },
+  "theme_previewing": "Le thème est en cours de prévisualisation pendant 10 secondes...",
+  "@theme_previewing": {
+    "description": "Translation for theme_previewing"
+  },
+  "preview_10s": "Aperçu (10 s)",
+  "@preview_10s": {
+    "description": "Translation for preview_10s"
+  },
+  "congratulations": "Félicitations!",
+  "@congratulations": {
+    "description": "Translation for congratulations"
+  },
+  "theme_unlocked_success": "Votre nouveau thème est débloqué.",
+  "@theme_unlocked_success": {
+    "description": "Translation for theme_unlocked_success"
+  },
+  "please_enter_at_least_one_data": "Veuillez saisir au moins un point de données.",
+  "@please_enter_at_least_one_data": {
+    "description": "Translation for please_enter_at_least_one_data"
+  },
+  "data_saved_success": "Données enregistrées avec succès.",
+  "@data_saved_success": {
+    "description": "Translation for data_saved_success"
+  },
+  "add_data": "Ajouter des données",
+  "@add_data": {
+    "description": "Translation for add_data"
+  },
+  "save_data": "Enregistrer les données",
+  "@save_data": {
+    "description": "Translation for save_data"
+  },
+  "today_summary": "Le résumé du jour",
+  "@today_summary": {
+    "description": "Translation for today_summary"
+  },
+  "target_water": "Cibler l'eau",
+  "@target_water": {
+    "description": "Translation for target_water"
+  },
+  "target_steps": "Étapes cibles",
+  "@target_steps": {
+    "description": "Translation for target_steps"
+  },
+  "add_doctor": "Ajouter un médecin",
+  "@add_doctor": {
+    "description": "Translation for add_doctor"
+  },
+  "doctor_name_surname": "Nom du médecin Prénom",
+  "@doctor_name_surname": {
+    "description": "Translation for doctor_name_surname"
+  },
+  "specialty_department": "Spécialité / Département",
+  "@specialty_department": {
+    "description": "Translation for specialty_department"
+  },
+  "new_record": "Nouveau record",
+  "@new_record": {
+    "description": "Translation for new_record"
+  },
+  "appointment_updated": "Rendez-vous mis à jour.",
+  "@appointment_updated": {
+    "description": "Translation for appointment_updated"
+  },
+  "appointment_added": "Rendez-vous ajouté avec succès.",
+  "@appointment_added": {
+    "description": "Translation for appointment_added"
+  },
+  "edit_appointment": "Modifier le rendez-vous",
+  "@edit_appointment": {
+    "description": "Translation for edit_appointment"
+  },
+  "appointment_title": "Titre du rendez-vous",
+  "@appointment_title": {
+    "description": "Translation for appointment_title"
+  },
+  "importance_level": "Niveau d'importance",
+  "@importance_level": {
+    "description": "Translation for importance_level"
+  },
+  "notes_optional": "Remarques (facultatif)",
+  "@notes_optional": {
+    "description": "Translation for notes_optional"
+  },
+  "address_department": "Adresse complète/Département",
+  "@address_department": {
+    "description": "Translation for address_department"
+  },
+  "select_category": "Sélectionnez une catégorie",
+  "@select_category": {
+    "description": "Translation for select_category"
+  },
+  "category_meeting": "Réunion",
+  "@category_meeting": {
+    "description": "Translation for category_meeting"
+  },
+  "category_reminder": "Rappel",
+  "@category_reminder": {
+    "description": "Translation for category_reminder"
+  },
+  "category_other": "Autre",
+  "@category_other": {
+    "description": "Translation for category_other"
+  },
+  "app_slogan": "Sanctuaire numérique",
+  "@app_slogan": {
+    "description": "Translation for app_slogan"
+  },
+  "day_monday_short": "LUN",
+  "@day_monday_short": {
+    "description": "Translation for day_monday_short"
+  },
+  "day_tuesday_short": "MAR",
+  "@day_tuesday_short": {
+    "description": "Translation for day_tuesday_short"
+  },
+  "day_wednesday_short": "ÉPOUSER",
+  "@day_wednesday_short": {
+    "description": "Translation for day_wednesday_short"
+  },
+  "day_thursday_short": "JEU",
+  "@day_thursday_short": {
+    "description": "Translation for day_thursday_short"
+  },
+  "day_friday_short": "VEN",
+  "@day_friday_short": {
+    "description": "Translation for day_friday_short"
+  },
+  "day_saturday_short": "ASSIS",
+  "@day_saturday_short": {
+    "description": "Translation for day_saturday_short"
+  },
+  "day_sunday_short": "SOLEIL",
+  "@day_sunday_short": {
+    "description": "Translation for day_sunday_short"
+  },
+  "day_monday_very_short": "M.",
+  "@day_monday_very_short": {
+    "description": "Translation for day_monday_very_short"
+  },
+  "day_tuesday_very_short": "T",
+  "@day_tuesday_very_short": {
+    "description": "Translation for day_tuesday_very_short"
+  },
+  "day_wednesday_very_short": "W",
+  "@day_wednesday_very_short": {
+    "description": "Translation for day_wednesday_very_short"
+  },
+  "day_thursday_very_short": "T",
+  "@day_thursday_very_short": {
+    "description": "Translation for day_thursday_very_short"
+  },
+  "day_friday_very_short": "F",
+  "@day_friday_very_short": {
+    "description": "Translation for day_friday_very_short"
+  },
+  "day_saturday_very_short": "S",
+  "@day_saturday_very_short": {
+    "description": "Translation for day_saturday_very_short"
+  },
+  "day_sunday_very_short": "S",
+  "@day_sunday_very_short": {
+    "description": "Translation for day_sunday_very_short"
+  },
+  "delete_medicine_confirm": "Êtes-vous sûr de vouloir supprimer ce médicament ?",
+  "@delete_medicine_confirm": {
+    "description": "Translation for delete_medicine_confirm"
+  },
+  "i_agree_to": "J'ai lu et j'accepte le",
+  "@i_agree_to": {
+    "description": "Translation for i_agree_to"
+  },
+  "read_privacy_policy": "politique de confidentialité",
+  "@read_privacy_policy": {
+    "description": "Translation for read_privacy_policy"
+  },
+  "read_terms": "Conditions d'utilisation",
+  "@read_terms": {
+    "description": "Translation for read_terms"
+  },
+  "read_disclaimer": "Mentions légales",
+  "@read_disclaimer": {
+    "description": "Translation for read_disclaimer"
+  },
+  "must_agree": "Vous devez accepter tous les documents juridiques pour continuer.",
+  "@must_agree": {
+    "description": "Translation for must_agree"
+  },
+  "legal_acceptance": "Acceptation légale",
+  "@legal_acceptance": {
+    "description": "Translation for legal_acceptance"
+  },
+  "manage_subscription": "Gérer l'abonnement",
+  "@manage_subscription": {
+    "description": "Translation for manage_subscription"
+  },
+  "trust_offline_title": "Sanctuaire hors ligne",
+  "@trust_offline_title": {
+    "description": "Translation for trust_offline_title"
+  },
+  "trust_offline_desc": "Vos données ne quittent jamais votre appareil.",
+  "@trust_offline_desc": {
+    "description": "Translation for trust_offline_desc"
+  },
+  "trust_encryption_title": "Cryptage AES-256",
+  "@trust_encryption_title": {
+    "description": "Translation for trust_encryption_title"
+  },
+  "trust_encryption_desc": "Protégé avec une sécurité maximale.",
+  "@trust_encryption_desc": {
+    "description": "Translation for trust_encryption_desc"
+  },
+  "trust_adfree_desc": "Une expérience ininterrompue.",
+  "@trust_adfree_desc": {
+    "description": "Translation for trust_adfree_desc"
+  },
+  "medals_trophies": "Médailles et trophées",
+  "@medals_trophies": {
+    "description": "Translation for medals_trophies"
+  },
+  "cat_streak": "Série quotidienne",
+  "@cat_streak": {
+    "description": "Translation for cat_streak"
+  },
+  "cat_ads": "Assistance et publicités",
+  "@cat_ads": {
+    "description": "Translation for cat_ads"
+  },
+  "cat_documents": "Archives d'enregistrement",
+  "@cat_documents": {
+    "description": "Translation for cat_documents"
+  },
+  "cat_medications": "Habitudes médicales",
+  "@cat_medications": {
+    "description": "Translation for cat_medications"
+  },
+  "cat_appointments": "Visites cliniques",
+  "@cat_appointments": {
+    "description": "Translation for cat_appointments"
+  },
+  "cat_profile": "Identité",
+  "@cat_profile": {
+    "description": "Translation for cat_profile"
+  },
+  "cat_emergency": "Sécurité et préparation",
+  "@cat_emergency": {
+    "description": "Translation for cat_emergency"
+  },
+  "cat_health": "Surveillance vitale",
+  "@cat_health": {
+    "description": "Translation for cat_health"
+  },
+  "cat_engagement": "Activité de l'application",
+  "@cat_engagement": {
+    "description": "Translation for cat_engagement"
+  },
+  "cat_special": "Honneurs",
+  "@cat_special": {
+    "description": "Translation for cat_special"
+  },
+  "cat_premium": "Partisans",
+  "@cat_premium": {
+    "description": "Translation for cat_premium"
+  },
+  "cat_power_user": "Statut Légendaire",
+  "@cat_power_user": {
+    "description": "Translation for cat_power_user"
+  },
+  "ach_legend_status": "Légendaire",
+  "@ach_legend_status": {
+    "description": "Translation for ach_legend_status"
+  },
+  "theme_boutique": "Boutique thématique",
+  "@theme_boutique": {
+    "description": "Translation for theme_boutique"
+  },
+  "days_left": "jours restants",
+  "@days_left": {
+    "description": "Translation for days_left"
+  },
+  "unlocked": "Débloqué",
+  "@unlocked": {
+    "description": "Translation for unlocked"
+  },
+  "progress": "Progrès",
+  "@progress": {
+    "description": "Translation for progress"
+  },
+  "ach_hidden_desc": "Continuez à jouer pour découvrir cette réussite secrète.",
+  "@ach_hidden_desc": {
+    "description": "Translation for ach_hidden_desc"
+  },
+  "ach_login_1_desc": "Chaque voyage légendaire commence par un seul pas. Vous avez déclenché votre première séquence !",
+  "@ach_login_1_desc": {
+    "description": "Translation for ach_login_1_desc"
+  },
+  "ach_login_3_title": "Échauffement",
+  "@ach_login_3_title": {
+    "description": "Translation for ach_login_3_title"
+  },
+  "ach_login_3_desc": "Les tours d’échauffement sont terminés. Vous êtes ici depuis 3 jours d'affilée, pas mal du tout ! 🔥",
+  "@ach_login_3_desc": {
+    "description": "Translation for ach_login_3_desc"
+  },
+  "ach_login_7_title": "Cohérent",
+  "@ach_login_7_title": {
+    "description": "Translation for ach_login_7_title"
+  },
+  "ach_login_7_desc": "Une semaine entière ! Vous avez appris les ficelles du métier et allumé le feu de camp.",
+  "@ach_login_7_desc": {
+    "description": "Translation for ach_login_7_desc"
+  },
+  "ach_login_14_title": "Habituel",
+  "@ach_login_14_title": {
+    "description": "Translation for ach_login_14_title"
+  },
+  "ach_login_14_desc": "Deux semaines d'affilée ! C’est ainsi que se forgent les habitudes. Bravo.",
+  "@ach_login_14_desc": {
+    "description": "Translation for ach_login_14_desc"
+  },
+  "ach_login_30_title": "Accro",
+  "@ach_login_30_title": {
+    "description": "Translation for ach_login_30_title"
+  },
+  "ach_login_30_desc": "Un mois entier ! Nous savons tous les deux que c’est désormais plus qu’un simple passe-temps.",
+  "@ach_login_30_desc": {
+    "description": "Translation for ach_login_30_desc"
+  },
+  "ach_login_60_title": "Utilisateur fidèle",
+  "@ach_login_60_title": {
+    "description": "Translation for ach_login_60_title"
+  },
+  "ach_login_60_desc": "Deux mois... Payez-vous un loyer, mon ami ? Bienvenue dans votre résidence secondaire. 🏠",
+  "@ach_login_60_desc": {
+    "description": "Translation for ach_login_60_desc"
+  },
+  "ach_login_100_title": "Expert",
+  "@ach_login_100_title": {
+    "description": "Translation for ach_login_100_title"
+  },
+  "ach_login_100_desc": "Siècle! Aucune puissance ne peut briser une séquence massive de 100 jours. 💯",
+  "@ach_login_100_desc": {
+    "description": "Translation for ach_login_100_desc"
+  },
+  "ach_login_200_title": "Légende",
+  "@ach_login_200_title": {
+    "description": "Translation for ach_login_200_title"
+  },
+  "ach_login_200_desc": "200 jours. Les gens commencent à soupçonner que vous êtes un robot IA. 🤖",
+  "@ach_login_200_desc": {
+    "description": "Translation for ach_login_200_desc"
+  },
+  "ach_login_365_title": "Année légendaire",
+  "@ach_login_365_title": {
+    "description": "Translation for ach_login_365_title"
+  },
+  "ach_login_365_desc": "Une année solaire complète ! Vous avez tout vécu ici. Couronnement demain. 👑",
+  "@ach_login_365_desc": {
+    "description": "Translation for ach_login_365_desc"
+  },
+  "ach_ads_1_title": "Première annonce",
+  "@ach_ads_1_title": {
+    "description": "Translation for ach_ads_1_title"
+  },
+  "ach_ads_1_desc": "Les publicités sont bonnes... parfois. Merci pour le petit soutien !",
+  "@ach_ads_1_desc": {
+    "description": "Translation for ach_ads_1_desc"
+  },
+  "ach_ads_5_title": "Supporter",
+  "@ach_ads_5_title": {
+    "description": "Translation for ach_ads_5_title"
+  },
+  "ach_ads_5_desc": "Vous semblez aimer nos sponsors autant que nous.",
+  "@ach_ads_5_desc": {
+    "description": "Translation for ach_ads_5_desc"
+  },
+  "ach_ads_15_title": "Visionneuse fidèle",
+  "@ach_ads_15_title": {
+    "description": "Translation for ach_ads_15_title"
+  },
+  "ach_ads_15_desc": "Prenez votre pop-corn, vous avez terminé un marathon de 15 publicités. 🍿",
+  "@ach_ads_15_desc": {
+    "description": "Translation for ach_ads_15_desc"
+  },
+  "ach_ads_30_title": "Continuez comme ça",
+  "@ach_ads_30_title": {
+    "description": "Translation for ach_ads_30_title"
+  },
+  "ach_ads_30_desc": "Comme regarder la télé ! Votre soutien vaut son pesant d’or.",
+  "@ach_ads_30_desc": {
+    "description": "Translation for ach_ads_30_desc"
+  },
+  "ach_ads_50_title": "Utilisateur expérimenté",
+  "@ach_ads_50_title": {
+    "description": "Translation for ach_ads_50_title"
+  },
+  "ach_ads_50_desc": "Vous pouvez désormais prédire quelle annonce arrivera à la seconde près.",
+  "@ach_ads_50_desc": {
+    "description": "Translation for ach_ads_50_desc"
+  },
+  "ach_ads_100_title": "Accro",
+  "@ach_ads_100_title": {
+    "description": "Translation for ach_ads_100_title"
+  },
+  "ach_ads_100_desc": "100 annonces ! Nous vous devons une médaille spéciale pour votre patience.",
+  "@ach_ads_100_desc": {
+    "description": "Translation for ach_ads_100_desc"
+  },
+  "ach_ads_250_title": "Maître des annonces",
+  "@ach_ads_250_title": {
+    "description": "Translation for ach_ads_250_title"
+  },
+  "ach_ads_250_desc": "Un génie du marketing perdu à l'écran. Votre soutien a atteint le ciel.",
+  "@ach_ads_250_desc": {
+    "description": "Translation for ach_ads_250_desc"
+  },
+  "ach_ads_500_title": "Roi de la monétisation",
+  "@ach_ads_500_title": {
+    "description": "Translation for ach_ads_500_title"
+  },
+  "ach_ads_500_desc": "Êtes-vous un financier? Vous dirigez à vous seul le marché ! 📉",
+  "@ach_ads_500_desc": {
+    "description": "Translation for ach_ads_500_desc"
+  },
+  "ach_doc_1_title": "Premier document",
+  "@ach_doc_1_title": {
+    "description": "Translation for ach_doc_1_title"
+  },
+  "ach_doc_1_desc": "Ce n'est pas un bureau gouvernemental, mais vous avez déposé avec succès votre premier document. 📇",
+  "@ach_doc_1_desc": {
+    "description": "Translation for ach_doc_1_desc"
+  },
+  "ach_doc_5_title": "Début",
+  "@ach_doc_5_title": {
+    "description": "Translation for ach_doc_5_title"
+  },
+  "ach_doc_5_desc": "Votre premier dossier est presque plein. Vous vous organisez.",
+  "@ach_doc_5_desc": {
+    "description": "Translation for ach_doc_5_desc"
+  },
+  "ach_doc_10_title": "Utilisateur régulier",
+  "@ach_doc_10_title": {
+    "description": "Translation for ach_doc_10_title"
+  },
+  "ach_doc_10_desc": "Les dossiers s’accumulent. Lost and Found aimerait travailler avec vous.",
+  "@ach_doc_10_desc": {
+    "description": "Translation for ach_doc_10_desc"
+  },
+  "ach_doc_25_title": "Archiviste",
+  "@ach_doc_25_title": {
+    "description": "Translation for ach_doc_25_title"
+  },
+  "ach_doc_25_desc": "La paperasse et tout... Vous avez parcouru 25 documents dans vos archives.",
+  "@ach_doc_25_desc": {
+    "description": "Translation for ach_doc_25_desc"
+  },
+  "ach_doc_50_title": "Professionnel",
+  "@ach_doc_50_title": {
+    "description": "Translation for ach_doc_50_title"
+  },
+  "ach_doc_50_desc": "Oubliez le travail de secrétariat, voilà à quoi ressemble un chevalier de classement professionnel.",
+  "@ach_doc_50_desc": {
+    "description": "Translation for ach_doc_50_desc"
+  },
+  "ach_doc_100_title": "Maître du coffre-fort",
+  "@ach_doc_100_title": {
+    "description": "Translation for ach_doc_100_title"
+  },
+  "ach_doc_100_desc": "100 documents ? Il est temps de nommer un bibliothécaire pour ces archives massives. 📚",
+  "@ach_doc_100_desc": {
+    "description": "Translation for ach_doc_100_desc"
+  },
+  "ach_doc_250_title": "Collecteur de données",
+  "@ach_doc_250_title": {
+    "description": "Translation for ach_doc_250_title"
+  },
+  "ach_doc_250_desc": "Bienvenue dans les scénarios Big Data. Vous dirigez les piles.",
+  "@ach_doc_250_desc": {
+    "description": "Translation for ach_doc_250_desc"
+  },
+  "ach_doc_500_title": "Expert en archives numériques",
+  "@ach_doc_500_title": {
+    "description": "Translation for ach_doc_500_title"
+  },
+  "ach_doc_500_desc": "Bibliothèque numérique d'Alexandrie ! Vos archives vivront pendant des générations.",
+  "@ach_doc_500_desc": {
+    "description": "Translation for ach_doc_500_desc"
+  },
+  "ach_med_1_title": "Première médecine",
+  "@ach_med_1_title": {
+    "description": "Translation for ach_med_1_title"
+  },
+  "ach_med_1_desc": "Vous avez commencé à vous valoriser. Une grande étape pour votre santé.",
+  "@ach_med_1_desc": {
+    "description": "Translation for ach_med_1_desc"
+  },
+  "ach_med_3_title": "Suivi démarré",
+  "@ach_med_3_title": {
+    "description": "Translation for ach_med_3_title"
+  },
+  "ach_med_3_desc": "Fidèle à votre prescription. Sirotez de l'eau et ne manquez jamais de rappels.",
+  "@ach_med_3_desc": {
+    "description": "Translation for ach_med_3_desc"
+  },
+  "ach_med_5_title": "Utilisateur régulier",
+  "@ach_med_5_title": {
+    "description": "Translation for ach_med_5_title"
+  },
+  "ach_med_5_desc": "Le client préféré des pharmaciens ! Vous conservez soigneusement votre formulaire.",
+  "@ach_med_5_desc": {
+    "description": "Translation for ach_med_5_desc"
+  },
+  "ach_med_10_title": "Discipliné",
+  "@ach_med_10_title": {
+    "description": "Translation for ach_med_10_title"
+  },
+  "ach_med_10_desc": "Prenez vos médicaments à temps, votre corps fonctionne comme une horloge. 10 fois confirmé !",
+  "@ach_med_10_desc": {
+    "description": "Translation for ach_med_10_desc"
+  },
+  "ach_med_25_title": "Expert en santé",
+  "@ach_med_25_title": {
+    "description": "Translation for ach_med_25_title"
+  },
+  "ach_med_25_desc": "Vous comprenez le langage de votre corps. Med Log est devenu un art pour vous.",
+  "@ach_med_25_desc": {
+    "description": "Translation for ach_med_25_desc"
+  },
+  "ach_med_50_title": "Maître de Santé",
+  "@ach_med_50_title": {
+    "description": "Translation for ach_med_50_title"
+  },
+  "ach_med_50_desc": "Même les médecins envient votre discipline. Vous êtes le maître de la chimie de votre corps ! 🧬",
+  "@ach_med_50_desc": {
+    "description": "Translation for ach_med_50_desc"
+  },
+  "ach_app_1_title": "Premier rendez-vous",
+  "@ach_app_1_title": {
+    "description": "Translation for ach_app_1_title"
+  },
+  "ach_app_1_desc": "Pas de réussite sans planification naturelle ! Première entrée du calendrier prise en toute sécurité.",
+  "@ach_app_1_desc": {
+    "description": "Translation for ach_app_1_desc"
+  },
+  "ach_app_3_title": "Planification",
+  "@ach_app_3_title": {
+    "description": "Translation for ach_app_3_title"
+  },
+  "ach_app_3_desc": "Gestion du temps 101. Vous progressez en restant fidèle à vos projets.",
+  "@ach_app_3_desc": {
+    "description": "Translation for ach_app_3_desc"
+  },
+  "ach_app_5_title": "Organisé",
+  "@ach_app_5_title": {
+    "description": "Translation for ach_app_5_title"
+  },
+  "ach_app_5_desc": "Votre agenda se remplit. Cette personne occupée mais charismatique, c’est définitivement vous.",
+  "@ach_app_5_desc": {
+    "description": "Translation for ach_app_5_desc"
+  },
+  "ach_app_10_title": "Planificateur discipliné",
+  "@ach_app_10_title": {
+    "description": "Translation for ach_app_10_title"
+  },
+  "ach_app_10_desc": "Pas besoin d'alarmes, il y a une horloge atomique dans votre tête.",
+  "@ach_app_10_desc": {
+    "description": "Translation for ach_app_10_desc"
+  },
+  "ach_app_20_title": "Planificateur Pro",
+  "@ach_app_20_title": {
+    "description": "Translation for ach_app_20_title"
+  },
+  "ach_app_20_desc": "Tout est clair à la minute près... Vous êtes comme un assistant numérique !",
+  "@ach_app_20_desc": {
+    "description": "Translation for ach_app_20_desc"
+  },
+  "ach_app_30_title": "Planificateur principal",
+  "@ach_app_30_title": {
+    "description": "Translation for ach_app_30_title"
+  },
+  "ach_app_30_desc": "Maître du temps ! Il semble impossible pour une seule personne de gérer ces rendez-vous... mais ce n'était pas le cas.",
+  "@ach_app_30_desc": {
+    "description": "Translation for ach_app_30_desc"
+  },
+  "ach_profile_created_title": "Profil créé",
+  "@ach_profile_created_title": {
+    "description": "Translation for ach_profile_created_title"
+  },
+  "ach_profile_created_desc": "Nous a officiellement rejoint. Vous avez déjà fait votre marque numérique !",
+  "@ach_profile_created_desc": {
+    "description": "Translation for ach_profile_created_desc"
+  },
+  "ach_profile_completed_title": "Profil complété",
+  "@ach_profile_completed_title": {
+    "description": "Translation for ach_profile_completed_title"
+  },
+  "ach_profile_completed_desc": "Vous détestez manquer des espaces, n'est-ce pas ? Toutes les informations sont parfaitement complètes.",
+  "@ach_profile_completed_desc": {
+    "description": "Translation for ach_profile_completed_desc"
+  },
+  "ach_profile_updated_title": "Profil mis à jour",
+  "@ach_profile_updated_title": {
+    "description": "Translation for ach_profile_updated_title"
+  },
+  "ach_profile_updated_desc": "Le changement est un progrès ! Vous êtes resté dans le jeu en vous rafraîchissant.",
+  "@ach_profile_updated_desc": {
+    "description": "Translation for ach_profile_updated_desc"
+  },
+  "ach_profile_with_photo_title": "Photo de profil",
+  "@ach_profile_with_photo_title": {
+    "description": "Translation for ach_profile_with_photo_title"
+  },
+  "ach_profile_with_photo_desc": "Sauvé d'être un avatar sans visage. Souriez à la caméra ! 📸",
+  "@ach_profile_with_photo_desc": {
+    "description": "Translation for ach_profile_with_photo_desc"
+  },
+  "ach_profile_master_title": "Maître du profil",
+  "@ach_profile_master_title": {
+    "description": "Translation for ach_profile_master_title"
+  },
+  "ach_profile_master_desc": "Avec votre identité et votre biographie, vous êtes l'utilisateur le plus élégant du système.",
+  "@ach_profile_master_desc": {
+    "description": "Translation for ach_profile_master_desc"
+  },
+  "ach_emergency_added_title": "Carte d'urgence ajoutée",
+  "@ach_emergency_added_title": {
+    "description": "Translation for ach_emergency_added_title"
+  },
+  "ach_emergency_added_desc": "La précaution n’est jamais en reste. Votre bouclier d'urgence est actif.",
+  "@ach_emergency_added_desc": {
+    "description": "Translation for ach_emergency_added_desc"
+  },
+  "ach_emergency_contact_title": "Contact d'urgence",
+  "@ach_emergency_contact_title": {
+    "description": "Translation for ach_emergency_contact_title"
+  },
+  "ach_emergency_contact_desc": "Il est clair qui appeler dans les moments difficiles. Cercle de confiance créé. 📞",
+  "@ach_emergency_contact_desc": {
+    "description": "Translation for ach_emergency_contact_desc"
+  },
+  "ach_emergency_complete_title": "Complété",
+  "@ach_emergency_complete_title": {
+    "description": "Translation for ach_emergency_complete_title"
+  },
+  "ach_emergency_complete_desc": "Prêt pour les scénarios. Niveau de sécurité au plus haut.",
+  "@ach_emergency_complete_desc": {
+    "description": "Translation for ach_emergency_complete_desc"
+  },
+  "ach_emergency_ready_title": "Prêt",
+  "@ach_emergency_ready_title": {
+    "description": "Translation for ach_emergency_ready_title"
+  },
+  "ach_emergency_ready_desc": "Tout fonctionnera comme une horloge en alerte rouge. Sécurisé en toute sécurité.",
+  "@ach_emergency_ready_desc": {
+    "description": "Translation for ach_emergency_ready_desc"
+  },
+  "ach_emergency_master_title": "Maître d'urgence",
+  "@ach_emergency_master_title": {
+    "description": "Translation for ach_emergency_master_title"
+  },
+  "ach_emergency_master_desc": "Assez robuste et cool pour gérer les premiers secours avant l'arrivée d'une ambulance !",
+  "@ach_emergency_master_desc": {
+    "description": "Translation for ach_emergency_master_desc"
+  },
+  "ach_health_1_title": "Premières données",
+  "@ach_health_1_title": {
+    "description": "Translation for ach_health_1_title"
+  },
+  "ach_health_1_desc": "Vous vous êtes rendu service aujourd'hui. Votre corps vous remercie de l'intérieur.",
+  "@ach_health_1_desc": {
+    "description": "Translation for ach_health_1_desc"
+  },
+  "ach_health_5_title": "Suivi démarré",
+  "@ach_health_5_title": {
+    "description": "Translation for ach_health_5_title"
+  },
+  "ach_health_5_desc": "Les données s’accumulent, vous avancez dans votre conversation avec votre biorythme.",
+  "@ach_health_5_desc": {
+    "description": "Translation for ach_health_5_desc"
+  },
+  "ach_health_10_title": "Conscient de sa santé",
+  "@ach_health_10_title": {
+    "description": "Translation for ach_health_10_title"
+  },
+  "ach_health_10_desc": "Vous êtes une merveille statistique ! Votre corps se lit comme un livre crypté. 📈",
+  "@ach_health_10_desc": {
+    "description": "Translation for ach_health_10_desc"
+  },
+  "ach_health_20_title": "Suivi régulier",
+  "@ach_health_20_title": {
+    "description": "Translation for ach_health_20_title"
+  },
+  "ach_health_20_desc": "Vous êtes comme une machine. Pouls, mesures, pas... aucun n'échappe à vos capteurs.",
+  "@ach_health_20_desc": {
+    "description": "Translation for ach_health_20_desc"
+  },
+  "ach_health_50_title": "Expert en santé",
+  "@ach_health_50_title": {
+    "description": "Translation for ach_health_50_title"
+  },
+  "ach_health_50_desc": "Approche du niveau Cyborg. Le lien entre vous et vos biodonnées est indissoluble.",
+  "@ach_health_50_desc": {
+    "description": "Translation for ach_health_50_desc"
+  },
+  "ach_health_master_title": "Maître de Santé",
+  "@ach_health_master_title": {
+    "description": "Translation for ach_health_master_title"
+  },
+  "ach_health_master_desc": "Grand prêtre du temple ! Vous avez acquis une maîtrise absolue sur votre propre corps. 🧘",
+  "@ach_health_master_desc": {
+    "description": "Translation for ach_health_master_desc"
+  },
+  "ach_first_login_title": "Accueillir",
+  "@ach_first_login_title": {
+    "description": "Translation for ach_first_login_title"
+  },
+  "ach_first_login_desc": "La véritable aventure ne fait que commencer. Vous venez d'entrer.",
+  "@ach_first_login_desc": {
+    "description": "Translation for ach_first_login_desc"
+  },
+  "ach_first_upload_title": "Explorateur",
+  "@ach_first_upload_title": {
+    "description": "Translation for ach_first_upload_title"
+  },
+  "ach_first_upload_desc": "Vous avez laissé votre première marque permanente. Vous êtes gravé ici maintenant.",
+  "@ach_first_upload_desc": {
+    "description": "Translation for ach_first_upload_desc"
+  },
+  "ach_first_ad_title": "Utilisateur gratuit",
+  "@ach_first_ad_title": {
+    "description": "Translation for ach_first_ad_title"
+  },
+  "ach_first_ad_desc": "Première interaction publicitaire ! Vous avez donné l’élément vital à l’écosystème.",
+  "@ach_first_ad_desc": {
+    "description": "Translation for ach_first_ad_desc"
+  },
+  "ach_first_premium_title": "Utilisateur Premium",
+  "@ach_first_premium_title": {
+    "description": "Translation for ach_first_premium_title"
+  },
+  "ach_first_premium_desc": "Une question de vision. Profitez du salon VIP, le tapis rouge est déroulé ! 🎟️",
+  "@ach_first_premium_desc": {
+    "description": "Translation for ach_first_premium_desc"
+  },
+  "ach_active_3_days_title": "Actif",
+  "@ach_active_3_days_title": {
+    "description": "Translation for ach_active_3_days_title"
+  },
+  "ach_active_3_days_desc": "Les câbles chauffent, les moteurs démarrent. Nous ressentons votre énergie.",
+  "@ach_active_3_days_desc": {
+    "description": "Translation for ach_active_3_days_desc"
+  },
+  "ach_active_7_days_title": "Loyal",
+  "@ach_active_7_days_title": {
+    "description": "Translation for ach_active_7_days_title"
+  },
+  "ach_active_7_days_desc": "Synchronisé avec le système pendant une semaine entière. Les choses sont devenues électriques !",
+  "@ach_active_7_days_desc": {
+    "description": "Translation for ach_active_7_days_desc"
+  },
+  "ach_active_30_days_title": "Utilisateur principal",
+  "@ach_active_30_days_title": {
+    "description": "Translation for ach_active_30_days_title"
+  },
+  "ach_active_30_days_desc": "Personnel pratiquement honoraire maintenant. Cet endroit ne serait pas le même sans toi.",
+  "@ach_active_30_days_desc": {
+    "description": "Translation for ach_active_30_days_desc"
+  },
+  "ach_streak_saved_title": "Sauveur de séquence",
+  "@ach_streak_saved_title": {
+    "description": "Translation for ach_streak_saved_title"
+  },
+  "ach_streak_saved_desc": "De retour du bord ! Sauver cette belle séquence a été un super réflexe.",
+  "@ach_streak_saved_desc": {
+    "description": "Translation for ach_streak_saved_desc"
+  },
+  "ach_streak_saved_5_title": "Résilient",
+  "@ach_streak_saved_5_title": {
+    "description": "Translation for ach_streak_saved_5_title"
+  },
+  "ach_streak_saved_5_desc": "Ne tombant pas malgré les cicatrices des combats, vous savez vous relever lorsque vous trébuchez.",
+  "@ach_streak_saved_5_desc": {
+    "description": "Translation for ach_streak_saved_5_desc"
+  },
+  "ach_streak_saved_10_title": "N'abandonne jamais",
+  "@ach_streak_saved_10_title": {
+    "description": "Translation for ach_streak_saved_10_title"
+  },
+  "ach_streak_saved_10_desc": "Êtes-vous un Phénix ? Renaître de ses cendres n'est qu'une activité typique du mardi pour vous. 🐦🔥",
+  "@ach_streak_saved_10_desc": {
+    "description": "Translation for ach_streak_saved_10_desc"
+  },
+  "ach_streak_perfect_30_title": "Série parfaite",
+  "@ach_streak_perfect_30_title": {
+    "description": "Translation for ach_streak_perfect_30_title"
+  },
+  "ach_streak_perfect_30_desc": "Pas un seul raté. Tu as été parfaite pendant 30 jours entiers, comme une montre suisse !",
+  "@ach_streak_perfect_30_desc": {
+    "description": "Translation for ach_streak_perfect_30_desc"
+  },
+  "ach_premium_trial_used_title": "Expérience Premium",
+  "@ach_premium_trial_used_title": {
+    "description": "Translation for ach_premium_trial_used_title"
+  },
+  "ach_premium_trial_used_desc": "A ouvert la porte aux privilèges. La vue est fascinante, n'est-ce pas ?",
+  "@ach_premium_trial_used_desc": {
+    "description": "Translation for ach_premium_trial_used_desc"
+  },
+  "ach_limit_breaker_title": "Briseur de limite",
+  "@ach_limit_breaker_title": {
+    "description": "Translation for ach_limit_breaker_title"
+  },
+  "ach_limit_breaker_desc": "Les règles et les limites sont censées être contournées. Vous êtes sorti de la Matrice ! 💥",
+  "@ach_limit_breaker_desc": {
+    "description": "Translation for ach_limit_breaker_desc"
+  },
+  "ach_ad_skip_used_title": "Ignorer l'annonce",
+  "@ach_ad_skip_used_title": {
+    "description": "Translation for ach_ad_skip_used_title"
+  },
+  "ach_ad_skip_used_desc": "Vous avez dit que je n'avais pas le temps pour ça, avancer rapidement en un seul clic.",
+  "@ach_ad_skip_used_desc": {
+    "description": "Translation for ach_ad_skip_used_desc"
+  },
+  "ach_reward_collector_title": "Collectionneur de récompenses",
+  "@ach_reward_collector_title": {
+    "description": "Translation for ach_reward_collector_title"
+  },
+  "ach_reward_collector_desc": "J'ai récupéré toutes les récompenses dans le coin. Un vrai chasseur de butin ! 🎁",
+  "@ach_reward_collector_desc": {
+    "description": "Translation for ach_reward_collector_desc"
+  },
+  "ach_multi_feature_user_title": "Utilisateur multi-fonctionnalités",
+  "@ach_multi_feature_user_title": {
+    "description": "Translation for ach_multi_feature_user_title"
+  },
+  "ach_multi_feature_user_desc": "Pas un seul bouton n’est laissé intact, explorateur curieux !",
+  "@ach_multi_feature_user_desc": {
+    "description": "Translation for ach_multi_feature_user_desc"
+  },
+  "ach_data_master_title": "Maître des données",
+  "@ach_data_master_title": {
+    "description": "Translation for ach_data_master_title"
+  },
+  "ach_data_master_desc": "Les octets et les bits prennent forme autour de vous. Maîtrise absolue des données système.",
+  "@ach_data_master_desc": {
+    "description": "Translation for ach_data_master_desc"
+  },
+  "ach_organized_master_title": "Ultra organisé",
+  "@ach_organized_master_title": {
+    "description": "Translation for ach_organized_master_title"
+  },
+  "ach_organized_master_desc": "Marie Kondo tirerait son chapeau à votre commande. Tout est millimétrique.",
+  "@ach_organized_master_desc": {
+    "description": "Translation for ach_organized_master_desc"
+  },
+  "ach_security_master_title": "Expert en sécurité",
+  "@ach_security_master_title": {
+    "description": "Translation for ach_security_master_title"
+  },
+  "ach_security_master_desc": "Votre compte est une forteresse, vos mots de passe une cyber-armée. L'intrusion est impossible ! 🔐",
+  "@ach_security_master_desc": {
+    "description": "Translation for ach_security_master_desc"
+  },
+  "ach_daily_master_title": "Maître quotidien",
+  "@ach_daily_master_title": {
+    "description": "Translation for ach_daily_master_title"
+  },
+  "ach_daily_master_desc": "Utilisateur fidèle et légendaire qui voit le soleil et les étoiles avec nous tous les jours.",
+  "@ach_daily_master_desc": {
+    "description": "Translation for ach_daily_master_desc"
+  },
+  "backup_restore": "Sauvegarde et restauration",
+  "@backup_restore": {
+    "description": "Translation for backup_restore"
+  },
+  "backup_desc_settings": "Sauvegarde locale cryptée pour cet appareil uniquement",
+  "@backup_desc_settings": {
+    "description": "Translation for backup_desc_settings"
+  },
+  "smart_notifications": "Notifications intelligentes",
+  "@smart_notifications": {
+    "description": "Translation for smart_notifications"
+  },
+  "smart_streak_warning": "🔥 La séquence est sur le point d'être perdue ! Pourquoi ne pas vérifier vos données ?",
+  "@smart_streak_warning": {
+    "description": "Translation for smart_streak_warning"
+  },
+  "smart_ad_reward": "🎁 Regarder 1 annonce → +5 limite ! Une nouvelle opportunité pour vous aujourd'hui.",
+  "@smart_ad_reward": {
+    "description": "Translation for smart_ad_reward"
+  },
+  "smart_doc_bonus": "📂 Ajoutez 1 document aujourd'hui → obtenez un bonus ! Gardez tout en sécurité.",
+  "@smart_doc_bonus": {
+    "description": "Translation for smart_doc_bonus"
+  },
+  "smart_default": "👀 Une petite mise à jour vous attend, que pouvons-nous faire aujourd'hui ?",
+  "@smart_default": {
+    "description": "Translation for smart_default"
+  },
+  "notif_bonus_ready": "🎁 Des bonus vous attendent ! Merci pour votre aide.",
+  "@notif_bonus_ready": {
+    "description": "Translation for notif_bonus_ready"
+  },
+  "notif_doc_safe": "🔥 Bon travail, vos documents sont en sécurité ! Continue!",
+  "@notif_doc_safe": {
+    "description": "Translation for notif_doc_safe"
+  },
+  "level_up_desc": "Vous avez atteint le niveau {level} ! Vérifiez votre Season Pass pour de nouvelles récompenses.",
+  "@level_up_desc": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_up_desc"
+  },
+  "notifications_active_msg": "Les notifications sont actives 🔔",
+  "@notifications_active_msg": {
+    "description": "Translation for notifications_active_msg"
+  },
+  "show_sensitive_details": "Afficher les détails dans la notification",
+  "@show_sensitive_details": {
+    "description": "Translation for show_sensitive_details"
+  },
+  "sensitive_details_visible": "Le nom du médicament est visible",
+  "@sensitive_details_visible": {
+    "description": "Translation for sensitive_details_visible"
+  },
+  "sensitive_details_hidden": "Caché (recommandé)",
+  "@sensitive_details_hidden": {
+    "description": "Translation for sensitive_details_hidden"
+  },
+  "quiet_hours": "Heures calmes",
+  "@quiet_hours": {
+    "description": "Translation for quiet_hours"
+  },
+  "quiet_hours_msg": "Nous ne vous dérangerons pas ce soir 🌙",
+  "@quiet_hours_msg": {
+    "description": "Translation for quiet_hours_msg"
+  },
+  "test_notification": "Avis de test",
+  "@test_notification": {
+    "description": "Translation for test_notification"
+  },
+  "test_notification_desc": "Testez le système immédiatement",
+  "@test_notification_desc": {
+    "description": "Translation for test_notification_desc"
+  },
+  "test_notification_body": "Ceci est une notification de test",
+  "@test_notification_body": {
+    "description": "Translation for test_notification_body"
+  },
+  "app_lock_unavailable": "Le verrouillage des applications n'est pas disponible sur cet appareil.",
+  "@app_lock_unavailable": {
+    "description": "Translation for app_lock_unavailable"
+  },
+  "backup_restore_desc": "Vous pouvez sauvegarder ou restaurer vos données cryptées. Les sauvegardes sont stockées uniquement sur votre appareil.",
+  "@backup_restore_desc": {
+    "description": "Translation for backup_restore_desc"
+  },
+  "backup_export": "Exporter la sauvegarde",
+  "@backup_export": {
+    "description": "Translation for backup_export"
+  },
+  "backup_export_desc": "Créer une sauvegarde ZIP cryptée",
+  "@backup_export_desc": {
+    "description": "Translation for backup_export_desc"
+  },
+  "backup_import": "Importer une sauvegarde",
+  "@backup_import": {
+    "description": "Translation for backup_import"
+  },
+  "backup_import_desc": "Restaurer à partir d'une sauvegarde ZIP existante",
+  "@backup_import_desc": {
+    "description": "Translation for backup_import_desc"
+  },
+  "warning": "Avertissement",
+  "@warning": {
+    "description": "Translation for warning"
+  },
+  "import_warning_desc": "La restauration d'une sauvegarde SUPPRIMERA vos données actuelles et ne pourra pas être annulée. Voulez-vous continuer ?",
+  "@import_warning_desc": {
+    "description": "Translation for import_warning_desc"
+  },
+  "yes_restore": "Oui, restaurer",
+  "@yes_restore": {
+    "description": "Translation for yes_restore"
+  },
+  "start_time": "Heure de début",
+  "@start_time": {
+    "description": "Translation for start_time"
+  },
+  "end_time": "Heure de fin",
+  "@end_time": {
+    "description": "Translation for end_time"
+  },
+  "email": "E-mail",
+  "@email": {
+    "description": "Translation for email"
+  },
+  "phone": "Téléphone",
+  "@phone": {
+    "description": "Translation for phone"
+  },
+  "add_record_success": "Enregistrement enregistré avec succès !",
+  "@add_record_success": {
+    "description": "Translation for add_record_success"
+  },
+  "delete_confirm": "Êtes-vous sûr de vouloir supprimer cet enregistrement ?",
+  "@delete_confirm": {
+    "description": "Translation for delete_confirm"
+  },
+  "plus_5_slots": "+5 emplacements gagnés ! 🚀",
+  "@plus_5_slots": {
+    "description": "Translation for plus_5_slots"
+  },
+  "watch_to_unlock": "Regardez pour débloquer",
+  "@watch_to_unlock": {
+    "description": "Translation for watch_to_unlock"
+  },
+  "remaining_days": "Restant : {days} jours",
+  "@remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for remaining_days"
+  },
+  "add_1_day_success": "+1 jour ajouté ! 🎉",
+  "@add_1_day_success": {
+    "description": "Translation for add_1_day_success"
+  },
+  "plus_1_day": "+1 jour",
+  "@plus_1_day": {
+    "description": "Translation for plus_1_day"
+  },
+  "watch": "MONTRE",
+  "@watch": {
+    "description": "Translation for watch"
+  },
+  "unlock_theme_question": "Souhaitez-vous utiliser ce thème pendant 5 jours gratuitement ?",
+  "@unlock_theme_question": {
+    "description": "Translation for unlock_theme_question"
+  },
+  "watch_ad_plus_5": "REGARDER L'ANNONCE (+5 jours)",
+  "@watch_ad_plus_5": {
+    "description": "Translation for watch_ad_plus_5"
+  },
+  "preview_5s": "Aperçu (5s)",
+  "@preview_5s": {
+    "description": "Translation for preview_5s"
+  },
+  "free_secure_release": "Libération sécurisée gratuite",
+  "@free_secure_release": {
+    "description": "Translation for free_secure_release"
+  },
+  "encrypted_local_desc": "Vos documents cryptés restent locaux sur cet appareil. Les annonces prennent en charge la version gratuite.",
+  "@encrypted_local_desc": {
+    "description": "Translation for encrypted_local_desc"
+  },
+  "premium_soon": "BIENTÔT PREMIUM",
+  "@premium_soon": {
+    "description": "Translation for premium_soon"
+  },
+  "label_title": "TITRE",
+  "@label_title": {
+    "description": "Translation for label_title"
+  },
+  "label_location": "LIEU / INSTITUTION (OPTIONNEL)",
+  "@label_location": {
+    "description": "Translation for label_location"
+  },
+  "label_person": "PERSONNE LIÉE (OPTIONNEL)",
+  "@label_person": {
+    "description": "Translation for label_person"
+  },
+  "label_date_time": "DATE ET HEURE",
+  "@label_date_time": {
+    "description": "Translation for label_date_time"
+  },
+  "label_importance": "IMPORTANCE",
+  "@label_importance": {
+    "description": "Translation for label_importance"
+  },
+  "label_reminder": "RAPPEL",
+  "@label_reminder": {
+    "description": "Translation for label_reminder"
+  },
+  "label_repeat": "RÉPÉTER",
+  "@label_repeat": {
+    "description": "Translation for label_repeat"
+  },
+  "label_notes": "REMARQUES (OPTIONNEL)",
+  "@label_notes": {
+    "description": "Translation for label_notes"
+  },
+  "hint_title": "par ex. Rendez-vous chez le médecin, Réunion...",
+  "@hint_title": {
+    "description": "Translation for hint_title"
+  },
+  "hint_location": "Bureau, maison, en ligne, hôpital...",
+  "@hint_location": {
+    "description": "Translation for hint_location"
+  },
+  "hint_person": "Nom, médecin, avocat...",
+  "@hint_person": {
+    "description": "Translation for hint_person"
+  },
+  "hint_notes": "Détails, rappels...",
+  "@hint_notes": {
+    "description": "Translation for hint_notes"
+  },
+  "suggest_doctor": "Médecin",
+  "@suggest_doctor": {
+    "description": "Translation for suggest_doctor"
+  },
+  "suggest_meeting": "Réunion",
+  "@suggest_meeting": {
+    "description": "Translation for suggest_meeting"
+  },
+  "suggest_personal": "Personnel",
+  "@suggest_personal": {
+    "description": "Translation for suggest_personal"
+  },
+  "importance_low": "Normale",
+  "@importance_low": {
+    "description": "Translation for importance_low"
+  },
+  "importance_medium": "Important",
+  "@importance_medium": {
+    "description": "Translation for importance_medium"
+  },
+  "importance_high": "Critique",
+  "@importance_high": {
+    "description": "Translation for importance_high"
+  },
+  "reminder_10m": "10 minutes avant",
+  "@reminder_10m": {
+    "description": "Translation for reminder_10m"
+  },
+  "reminder_1h": "1 heure avant",
+  "@reminder_1h": {
+    "description": "Translation for reminder_1h"
+  },
+  "reminder_1d": "1 jour avant",
+  "@reminder_1d": {
+    "description": "Translation for reminder_1d"
+  },
+  "repeat_none": "Aucun",
+  "@repeat_none": {
+    "description": "Translation for repeat_none"
+  },
+  "repeat_daily": "Tous les jours",
+  "@repeat_daily": {
+    "description": "Translation for repeat_daily"
+  },
+  "repeat_weekly": "Hebdomadaire",
+  "@repeat_weekly": {
+    "description": "Translation for repeat_weekly"
+  },
+  "label_date_added": "DATE AJOUTÉE",
+  "@label_date_added": {
+    "description": "Translation for label_date_added"
+  },
+  "label_document_date": "DATE DU DOCUMENT",
+  "@label_document_date": {
+    "description": "Translation for label_document_date"
+  },
+  "download_to_device": "TÉLÉCHARGER SUR L'APPAREIL",
+  "@download_to_device": {
+    "description": "Translation for download_to_device"
+  },
+  "delete_permanently": "SUPPRIMER DÉFINITIVEMENT",
+  "@delete_permanently": {
+    "description": "Translation for delete_permanently"
+  },
+  "save_document": "Enregistrer le document",
+  "@save_document": {
+    "description": "Translation for save_document"
+  },
+  "success_doc_saved": "Document enregistré avec succès !",
+  "@success_doc_saved": {
+    "description": "Translation for success_doc_saved"
+  },
+  "error_failed_download": "Échec du téléchargement : {error}",
+  "@error_failed_download": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for error_failed_download"
+  },
+  "btn_add": "Ajouter",
+  "@btn_add": {
+    "description": "Translation for btn_add"
+  },
+  "docs_tag_lab": "Résultat du laboratoire",
+  "@docs_tag_lab": {
+    "description": "Translation for docs_tag_lab"
+  },
+  "docs_tag_radiology": "Radiologie",
+  "@docs_tag_radiology": {
+    "description": "Translation for docs_tag_radiology"
+  },
+  "docs_tag_prescription": "Ordonnance",
+  "@docs_tag_prescription": {
+    "description": "Translation for docs_tag_prescription"
+  },
+  "docs_tag_report": "Rapport du médecin",
+  "@docs_tag_report": {
+    "description": "Translation for docs_tag_report"
+  },
+  "docs_tag_operation": "Opération",
+  "@docs_tag_operation": {
+    "description": "Translation for docs_tag_operation"
+  },
+  "docs_tag_vaccination": "Vaccination",
+  "@docs_tag_vaccination": {
+    "description": "Translation for docs_tag_vaccination"
+  },
+  "docs_tag_other": "Autre",
+  "@docs_tag_other": {
+    "description": "Translation for docs_tag_other"
+  },
+  "season_pass": "Pass de saison",
+  "@season_pass": {
+    "description": "Translation for season_pass"
+  },
+  "level_label": "Niveau {level}",
+  "@level_label": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_label"
+  },
+  "premium_reward": "Récompense premium",
+  "@premium_reward": {
+    "description": "Translation for premium_reward"
+  },
+  "free_reward": "Récompense gratuite",
+  "@free_reward": {
+    "description": "Translation for free_reward"
+  },
+  "claim": "RÉCLAMER",
+  "@claim": {
+    "description": "Translation for claim"
+  },
+  "reward_doc_slots": "+{value} Documents",
+  "@reward_doc_slots": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for reward_doc_slots"
+  },
+  "premium_unavailable_title": "Premium n'est pas disponible dans cette version.",
+  "@premium_unavailable_title": {
+    "description": "Translation for premium_unavailable_title"
+  },
+  "premium_unavailable_desc": "VitaCase est actuellement livré sous forme d'application gratuite avec un stockage local crypté, des publicités et des rappels facultatifs.",
+  "@premium_unavailable_desc": {
+    "description": "Translation for premium_unavailable_desc"
+  },
+  "btn_close": "Fermer",
+  "@btn_close": {
+    "description": "Translation for btn_close"
+  },
+  "accept": "Accepter",
+  "@accept": {
+    "description": "Translation for accept"
+  },
+  "btn_save": "Sauvegarder",
+  "@btn_save": {
+    "description": "Translation for btn_save"
+  },
+  "doctor_title_dr": "Dr.",
+  "@doctor_title_dr": {
+    "description": "Translation for doctor_title_dr"
+  },
+  "doctor_title_uzm": "Spéc. Dr.",
+  "@doctor_title_uzm": {
+    "description": "Translation for doctor_title_uzm"
+  },
+  "doctor_title_op": "Op. Dr.",
+  "@doctor_title_op": {
+    "description": "Translation for doctor_title_op"
+  },
+  "doctor_title_prof": "Prof. Dr.",
+  "@doctor_title_prof": {
+    "description": "Translation for doctor_title_prof"
+  },
+  "doctor_title_doc": "Assoc. Prof.",
+  "@doctor_title_doc": {
+    "description": "Translation for doctor_title_doc"
+  },
+  "hint_doctor_name": "Dr John Doe",
+  "@hint_doctor_name": {
+    "description": "Translation for hint_doctor_name"
+  },
+  "hint_specialty": "Cardiologie",
+  "@hint_specialty": {
+    "description": "Translation for hint_specialty"
+  },
+  "hint_hospital": "Hôpital de la ville",
+  "@hint_hospital": {
+    "description": "Translation for hint_hospital"
+  },
+  "hint_phone": "+1 (555) 000-0000",
+  "@hint_phone": {
+    "description": "Translation for hint_phone"
+  },
+  "hint_email": "john.doe@hospital.com",
+  "@hint_email": {
+    "description": "Translation for hint_email"
+  },
+  "hint_address": "Rue principale n° : 12...",
+  "@hint_address": {
+    "description": "Translation for hint_address"
+  },
+  "hint_personal_notes": "Notes sur le médecin...",
+  "@hint_personal_notes": {
+    "description": "Translation for hint_personal_notes"
+  },
+  "ad_reward_not_earned": "Récompense non gagnée. Veuillez terminer l'annonce pour continuer.",
+  "@ad_reward_not_earned": {
+    "description": "Translation for ad_reward_not_earned"
+  },
+  "ad_unavailable": "Annonce indisponible.",
+  "@ad_unavailable": {
+    "description": "Translation for ad_unavailable"
+  },
+  "ad_failed": "L'annonce récompensée n'a pas pu être diffusée. Veuillez réessayer.",
+  "@ad_failed": {
+    "description": "Translation for ad_failed"
+  },
+  "ad_watch_btn": "Continuer gratuitement (regarder l'annonce)",
+  "@ad_watch_btn": {
+    "description": "Translation for ad_watch_btn"
+  },
+  "btn_not_now": "Pas maintenant",
+  "@btn_not_now": {
+    "description": "Translation for btn_not_now"
+  },
+  "theme_system": "Système",
+  "@theme_system": {
+    "description": "Translation for theme_system"
+  },
+  "theme_light": "Lumière",
+  "@theme_light": {
+    "description": "Translation for theme_light"
+  },
+  "theme_dark": "Sombre",
+  "@theme_dark": {
+    "description": "Translation for theme_dark"
+  },
+  "lock_timeout_1m": "1 minute",
+  "@lock_timeout_1m": {
+    "description": "Translation for lock_timeout_1m"
+  },
+  "lock_timeout_5m": "5 minutes",
+  "@lock_timeout_5m": {
+    "description": "Translation for lock_timeout_5m"
+  },
+  "lock_timeout_15m": "15 minutes",
+  "@lock_timeout_15m": {
+    "description": "Translation for lock_timeout_15m"
+  },
+  "error_title_required": "Le titre est requis",
+  "@error_title_required": {
+    "description": "Translation for error_title_required"
+  },
+  "notif_app_created_title": "🎯 Rendez-vous créé",
+  "@notif_app_created_title": {
+    "description": "Translation for notif_app_created_title"
+  },
+  "notif_app_created_body": "{title} a été planifié.",
+  "@notif_app_created_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_created_body"
+  },
+  "notif_app_reminder_title": "📅 Rappel de rendez-vous",
+  "@notif_app_reminder_title": {
+    "description": "Translation for notif_app_reminder_title"
+  },
+  "notif_app_reminder_body": "Votre rendez-vous pour {title} approche.",
+  "@notif_app_reminder_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_reminder_body"
+  },
+  "no_appointments_found": "Aucun rendez-vous trouvé",
+  "@no_appointments_found": {
+    "description": "Translation for no_appointments_found"
+  },
+  "empty_appointments_desc": "Vous n'avez pas encore ajouté de rendez-vous. Appuyez sur le bouton + pour en ajouter un.",
+  "@empty_appointments_desc": {
+    "description": "Translation for empty_appointments_desc"
+  },
+  "empty_appointments_filter_desc": "Aucun rendez-vous trouvé dans cette catégorie.",
+  "@empty_appointments_filter_desc": {
+    "description": "Translation for empty_appointments_filter_desc"
+  },
+  "btn_add_appointment": "AJOUTER RENDEZ-VOUS",
+  "@btn_add_appointment": {
+    "description": "Translation for btn_add_appointment"
+  },
+  "btn_clear_filters": "EFFACER LES FILTRES",
+  "@btn_clear_filters": {
+    "description": "Translation for btn_clear_filters"
+  },
+  "delete_confirm_appointment": "Êtes-vous sûr de vouloir supprimer ce rendez-vous ?",
+  "@delete_confirm_appointment": {
+    "description": "Translation for delete_confirm_appointment"
+  },
+  "create_today_plan": "Créer le plan d'aujourd'hui",
+  "@create_today_plan": {
+    "description": "Translation for create_today_plan"
+  },
+  "plan_time_desc": "Organisez facilement votre planning de santé.",
+  "@plan_time_desc": {
+    "description": "Translation for plan_time_desc"
+  },
+  "docs_add_short": "Ajouter",
+  "@docs_add_short": {
+    "description": "Translation for docs_add_short"
+  },
+  "docs_open": "OUVRIR",
+  "@docs_open": {
+    "description": "Translation for docs_open"
+  },
+  "docs_download": "TÉLÉCHARGER SUR L'APPAREIL",
+  "@docs_download": {
+    "description": "Translation for docs_download"
+  },
+  "docs_delete_perm": "SUPPRIMER DÉFINITIVEMENT",
+  "@docs_delete_perm": {
+    "description": "Translation for docs_delete_perm"
+  },
+  "docs_date_added": "Date d'ajout",
+  "@docs_date_added": {
+    "description": "Translation for docs_date_added"
+  },
+  "docs_document_date": "Date du document",
+  "@docs_document_date": {
+    "description": "Translation for docs_document_date"
+  },
+  "docs_save_success": "Document enregistré avec succès !",
+  "@docs_save_success": {
+    "description": "Translation for docs_save_success"
+  },
+  "docs_download_failed": "Échec du téléchargement : {error}",
+  "@docs_download_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for docs_download_failed"
+  },
+  "season_pass_title": "Pass de saison",
+  "@season_pass_title": {
+    "description": "Translation for season_pass_title"
+  },
+  "season_level": "Niveau {level}",
+  "@season_level": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for season_level"
+  },
+  "claim_reward": "RÉCLAMER",
+  "@claim_reward": {
+    "description": "Translation for claim_reward"
+  },
+  "confirm_agree": "Je suis d'accord",
+  "@confirm_agree": {
+    "description": "Translation for confirm_agree"
+  },
+  "specialty_department_hint": "par ex. Cardiologie",
+  "@specialty_department_hint": {
+    "description": "Translation for specialty_department_hint"
+  },
+  "hospital_hint": "par ex. Hôpital de la ville",
+  "@hospital_hint": {
+    "description": "Translation for hospital_hint"
+  },
+  "address_hint": "Rue, non, bâtiment...",
+  "@address_hint": {
+    "description": "Translation for address_hint"
+  },
+  "notes_hint": "Notes personnelles sur le médecin...",
+  "@notes_hint": {
+    "description": "Translation for notes_hint"
+  },
+  "standard_modes": "Modes standards",
+  "@standard_modes": {
+    "description": "Translation for standard_modes"
+  },
+  "premium_palettes": "Palettes haut de gamme",
+  "@premium_palettes": {
+    "description": "Translation for premium_palettes"
+  },
+  "apply_theme": "Appliquer le thème",
+  "@apply_theme": {
+    "description": "Translation for apply_theme"
+  },
+  "theme_luxe_sanctuary": "Sanctuaire de luxe",
+  "@theme_luxe_sanctuary": {
+    "description": "Translation for theme_luxe_sanctuary"
+  },
+  "theme_midnight_neon": "Néon de minuit",
+  "@theme_midnight_neon": {
+    "description": "Translation for theme_midnight_neon"
+  },
+  "theme_amethyst_aura": "Aura d'améthyste",
+  "@theme_amethyst_aura": {
+    "description": "Translation for theme_amethyst_aura"
+  },
+  "theme_emerald_garden": "Jardin d'émeraude",
+  "@theme_emerald_garden": {
+    "description": "Translation for theme_emerald_garden"
+  },
+  "theme_ocean_serenity": "Sérénité de l'océan",
+  "@theme_ocean_serenity": {
+    "description": "Translation for theme_ocean_serenity"
+  },
+  "theme_amber_glow": "Ambre Lueur",
+  "@theme_amber_glow": {
+    "description": "Translation for theme_amber_glow"
+  },
+  "db_recovery_title": "Erreur de données",
+  "@db_recovery_title": {
+    "description": "Translation for db_recovery_title"
+  },
+  "db_recovery_desc": "Impossible d'accéder aux données. Souhaitez-vous réessayer ?",
+  "@db_recovery_desc": {
+    "description": "Translation for db_recovery_desc"
+  },
+  "db_recovery_retry": "Essayer à nouveau",
+  "@db_recovery_retry": {
+    "description": "Translation for db_recovery_retry"
+  },
+  "db_recovery_reset": "Réinitialiser",
+  "@db_recovery_reset": {
+    "description": "Translation for db_recovery_reset"
+  },
+  "notif_streak_warning_title": "Vérifiez votre programme quotidien",
+  "@notif_streak_warning_title": {
+    "description": "Translation for notif_streak_warning_title"
+  },
+  "notif_streak_warning_body": "Ouvrez VitaCase pour consulter les rappels du jour et les éléments enregistrés.",
+  "@notif_streak_warning_body": {
+    "description": "Translation for notif_streak_warning_body"
+  },
+  "notif_mission_reminder_title": "🎯 Missions quotidiennes en attente",
+  "@notif_mission_reminder_title": {
+    "description": "Translation for notif_mission_reminder_title"
+  },
+  "notif_mission_reminder_body": "Ne manquez pas vos récompenses quotidiennes ! Terminez vos tâches maintenant.",
+  "@notif_mission_reminder_body": {
+    "description": "Translation for notif_mission_reminder_body"
+  },
+  "notif_limit_reached_title": "🚀 Limite atteinte",
+  "@notif_limit_reached_title": {
+    "description": "Translation for notif_limit_reached_title"
+  },
+  "notif_limit_reached_body": "Vous avez atteint votre limite gratuite. Regardez une annonce avec récompense pour continuer.",
+  "@notif_limit_reached_body": {
+    "description": "Translation for notif_limit_reached_body"
+  },
+  "notif_good_morning_title": "🌞 Bonjour !",
+  "@notif_good_morning_title": {
+    "description": "Translation for notif_good_morning_title"
+  },
+  "notif_good_morning_body": "Commencez votre journée avec VitaCase, vérifiez vos tâches quotidiennes.",
+  "@notif_good_morning_body": {
+    "description": "Translation for notif_good_morning_body"
+  },
+  "notif_test_title": "Avis de test",
+  "@notif_test_title": {
+    "description": "Translation for notif_test_title"
+  },
+  "notif_test_body": "Vos notifications fonctionnent parfaitement !",
+  "@notif_test_body": {
+    "description": "Translation for notif_test_body"
+  },
+  "notif_appointment_reminder_title": "📅 Rappel de rendez-vous",
+  "@notif_appointment_reminder_title": {
+    "description": "Translation for notif_appointment_reminder_title"
+  },
+  "notif_appointment_reminder_body": "Votre rendez-vous pour {doctor} approche.",
+  "@notif_appointment_reminder_body": {
+    "placeholders": {
+      "doctor": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_appointment_reminder_body"
+  },
+  "get_directions": "Obtenir un itinéraire",
+  "@get_directions": {
+    "description": "Translation for get_directions"
+  },
+  "view_details": "Afficher les détails",
+  "@view_details": {
+    "description": "Translation for view_details"
+  },
+  "no_scheduled_meds_today": "Aucun médicament prévu pour aujourd'hui.",
+  "@no_scheduled_meds_today": {
+    "description": "Translation for no_scheduled_meds_today"
+  },
+  "add_appointment": "Ajouter un rendez-vous",
+  "@add_appointment": {
+    "description": "Translation for add_appointment"
+  },
+  "add_document": "Ajouter un document",
+  "@add_document": {
+    "description": "Translation for add_document"
+  },
+  "ach_login_1_title": "Le début",
+  "@ach_login_1_title": {
+    "description": "Translation for ach_login_1_title"
+  },
+  "people_contacts": "Personnes et contacts",
+  "@people_contacts": {
+    "description": "Translation for people_contacts"
+  },
+  "contacts_subtitle": "Personnes, institutions et enregistrements de contacts",
+  "@contacts_subtitle": {
+    "description": "Translation for contacts_subtitle"
+  },
+  "add_contact_subtitle": "Ajouter une nouvelle personne ou institution",
+  "@add_contact_subtitle": {
+    "description": "Translation for add_contact_subtitle"
+  },
+  "add_contact": "Ajouter une personne/un contact",
+  "@add_contact": {
+    "description": "Translation for add_contact"
+  },
+  "no_doctor": "Pas de médecin",
+  "@no_doctor": {
+    "description": "Translation for no_doctor"
+  },
+  "no_institution": "Aucun établissement",
+  "@no_institution": {
+    "description": "Translation for no_institution"
+  },
+  "edit_personal_info": "Modifier les informations personnelles",
+  "@edit_personal_info": {
+    "description": "Translation for edit_personal_info"
+  },
+  "personal_info_updated": "Informations personnelles mises à jour.",
+  "@personal_info_updated": {
+    "description": "Translation for personal_info_updated"
+  },
+  "edit_important_info": "Modifier les informations importantes",
+  "@edit_important_info": {
+    "description": "Translation for edit_important_info"
+  },
+  "hint_allergies": "Séparez par des virgules : Pollen, Pénicilline",
+  "@hint_allergies": {
+    "description": "Translation for hint_allergies"
+  },
+  "hint_medications": "Séparez par des virgules : Aspirine, Vitamine D",
+  "@hint_medications": {
+    "description": "Translation for hint_medications"
+  },
+  "relationship": "Relation",
+  "@relationship": {
+    "description": "Translation for relationship"
+  },
+  "hint_relationship": "Conjoint, mère, père, frère ou sœur...",
+  "@hint_relationship": {
+    "description": "Translation for hint_relationship"
+  },
+  "important_info_updated": "Informations importantes mises à jour.",
+  "@important_info_updated": {
+    "description": "Translation for important_info_updated"
+  },
+  "reminder_troubleshooting": "Rappel Dépannage",
+  "@reminder_troubleshooting": {
+    "description": "Translation for reminder_troubleshooting"
+  },
+  "reminder_troubleshooting_desc": "Vérifiez les paramètres de notification, d'alarme exacte et de batterie",
+  "@reminder_troubleshooting_desc": {
+    "description": "Translation for reminder_troubleshooting_desc"
+  },
+  "status_checking": "Vérification...",
+  "@status_checking": {
+    "description": "Translation for status_checking"
+  },
+  "status_enabled": "L'autorisation de notification est activée",
+  "@status_enabled": {
+    "description": "Translation for status_enabled"
+  },
+  "status_disabled": "L'autorisation de notification est désactivée",
+  "@status_disabled": {
+    "description": "Translation for status_disabled"
+  },
+  "why_no_reminders": "Pourquoi les rappels peuvent ne pas arriver",
+  "@why_no_reminders": {
+    "description": "Translation for why_no_reminders"
+  },
+  "why_no_reminders_desc": "L'autorisation de notification, l'autorisation d'alarme exacte ou la gestion de la batterie de l'appareil peuvent bloquer les rappels de rendez-vous et de médicaments. Vérifiez d'abord les autorisations ; ne considérez l’optimisation de la batterie que comme une dernière étape en cas d’échec des tests.",
+  "@why_no_reminders_desc": {
+    "description": "Translation for why_no_reminders_desc"
+  },
+  "status_card_title": "Statut des notifications",
+  "@status_card_title": {
+    "description": "Translation for status_card_title"
+  },
+  "check_notif_permission": "1. Vérifiez l'autorisation de notification",
+  "@check_notif_permission": {
+    "description": "Translation for check_notif_permission"
+  },
+  "check_notif_permission_desc": "Si les notifications instantanées sont désactivées, aucun rappel n'apparaîtra.",
+  "@check_notif_permission_desc": {
+    "description": "Translation for check_notif_permission_desc"
+  },
+  "req_notif_permission": "Demander une autorisation de notification",
+  "@req_notif_permission": {
+    "description": "Translation for req_notif_permission"
+  },
+  "check_exact_alarm": "2. Vérifiez l'autorisation exacte de l'alarme",
+  "@check_exact_alarm": {
+    "description": "Translation for check_exact_alarm"
+  },
+  "check_exact_alarm_desc": "Nécessaire pour que les rappels de rendez-vous et de médicaments soient exécutés à temps.",
+  "@check_exact_alarm_desc": {
+    "description": "Translation for check_exact_alarm_desc"
+  },
+  "req_exact_alarm": "Demander l'autorisation exacte de l'alarme",
+  "@req_exact_alarm": {
+    "description": "Translation for req_exact_alarm"
+  },
+  "resched_saved": "3. Reprogrammer les rappels enregistrés",
+  "@resched_saved": {
+    "description": "Translation for resched_saved"
+  },
+  "resched_saved_desc": "Après avoir accordé les autorisations, planifiez à nouveau vos rappels de médicaments et de rendez-vous enregistrés.",
+  "@resched_saved_desc": {
+    "description": "Translation for resched_saved_desc"
+  },
+  "resched_btn": "Reprogrammer les rappels",
+  "@resched_btn": {
+    "description": "Translation for resched_btn"
+  },
+  "sched_test": "4. Planifiez un rappel de test d'une minute",
+  "@sched_test": {
+    "description": "Translation for sched_test"
+  },
+  "sched_test_desc": "Si cela arrive, le système de rappel fonctionne.",
+  "@sched_test_desc": {
+    "description": "Translation for sched_test_desc"
+  },
+  "sched_test_btn": "Programmer un test d'une minute",
+  "@sched_test_btn": {
+    "description": "Translation for sched_test_btn"
+  },
+  "last_step_battery": "5. Dernière étape : vérifier les paramètres de la batterie",
+  "@last_step_battery": {
+    "description": "Translation for last_step_battery"
+  },
+  "last_step_battery_desc": "Uniquement si les tests ci-dessus échouent, vérifiez si l'appareil limite l'utilisation de la batterie VitaCase.",
+  "@last_step_battery_desc": {
+    "description": "Translation for last_step_battery_desc"
+  },
+  "open_app_settings": "Ouvrir les paramètres de l'application",
+  "@open_app_settings": {
+    "description": "Translation for open_app_settings"
+  },
+  "snack_notif_checked": "Autorisation de notification vérifiée.",
+  "@snack_notif_checked": {
+    "description": "Translation for snack_notif_checked"
+  },
+  "snack_exact_alarm_requested": "Autorisation d'alarme exacte demandée. Vous devrez peut-être l'autoriser dans les paramètres de l'appareil.",
+  "@snack_exact_alarm_requested": {
+    "description": "Translation for snack_exact_alarm_requested"
+  },
+  "test_notif_title": "⏰ Test de rappel VitaCase",
+  "@test_notif_title": {
+    "description": "Translation for test_notif_title"
+  },
+  "test_notif_body": "Ce rappel de test était programmé 1 minute plus tard.",
+  "@test_notif_body": {
+    "description": "Translation for test_notif_body"
+  },
+  "snack_test_sched": "Rappel du test prévu 1 minute plus tard.",
+  "@snack_test_sched": {
+    "description": "Translation for snack_test_sched"
+  },
+  "snack_resched_completed": "Les médicaments sauvegardés et les rappels de rendez-vous ont été reprogrammés.",
+  "@snack_resched_completed": {
+    "description": "Translation for snack_resched_completed"
+  },
+  "choose_pdf_or_image": "Choisissez PDF ou Image",
+  "@choose_pdf_or_image": {
+    "description": "Translation for choose_pdf_or_image"
+  },
+  "encrypted_local_file_info": "Votre fichier sera crypté et stocké localement sur cet appareil.",
+  "@encrypted_local_file_info": {
+    "description": "Translation for encrypted_local_file_info"
+  },
+  "web_upload_info": "Le téléchargement du coffre-fort de fichiers est disponible sur les versions Android/iOS.",
+  "@web_upload_info": {
+    "description": "Translation for web_upload_info"
+  },
+  "web_preview_no_upload": "L'aperçu Web ne stocke pas les fichiers cryptés. Utilisez Android/iOS pour le téléchargement vers le coffre-fort.",
+  "@web_preview_no_upload": {
+    "description": "Translation for web_preview_no_upload"
+  },
+  "choose_file_first": "Veuillez d'abord choisir un PDF ou une image.",
+  "@choose_file_first": {
+    "description": "Translation for choose_file_first"
+  },
+  "document_saved": "Document enregistré en toute sécurité.",
+  "@document_saved": {
+    "description": "Translation for document_saved"
+  },
+  "save_document_failed": "Impossible d'enregistrer le document : {error}",
+  "@save_document_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for save_document_failed"
+  },
+  "save_securely": "Enregistrez en toute sécurité",
+  "@save_securely": {
+    "description": "Translation for save_securely"
+  },
+  "saving": "Économie...",
+  "@saving": {
+    "description": "Translation for saving"
+  },
+  "local_organizer_disclaimer": "VitaCase est un organisateur de documents local. Il ne diagnostique, n’analyse ni ne fournit de conseils médicaux.",
+  "@local_organizer_disclaimer": {
+    "description": "Translation for local_organizer_disclaimer"
+  },
+  "terms_and_legal_agreement": "J'accepte la politique de confidentialité, les conditions générales et la clause de non-responsabilité.",
+  "@terms_and_legal_agreement": {
+    "description": "Translation for terms_and_legal_agreement"
+  },
+  "free_themes": "Thèmes gratuits",
+  "@free_themes": {
+    "description": "Translation for free_themes"
+  },
+  "reward_themes": "Thèmes de récompense",
+  "@reward_themes": {
+    "description": "Translation for reward_themes"
+  },
+  "reward_themes_info": "Regardez une annonce récompensée pour débloquer ces thèmes pendant 3 jours. Chaque annonce supplémentaire ajoute +1 jour.",
+  "@reward_themes_info": {
+    "description": "Translation for reward_themes_info"
+  },
+  "watch_ad_to_unlock": "Regardez l'annonce pour débloquer",
+  "@watch_ad_to_unlock": {
+    "description": "Translation for watch_ad_to_unlock"
+  },
+  "tap_to_preview": "Appuyez pour prévisualiser",
+  "@tap_to_preview": {
+    "description": "Translation for tap_to_preview"
+  },
+  "add_one_day": "Ajouter +1 jour",
+  "@add_one_day": {
+    "description": "Translation for add_one_day"
+  },
+  "one_day_added": "+1 jour ajouté.",
+  "@one_day_added": {
+    "description": "Translation for one_day_added"
+  },
+  "ad_unavailable_try_later": "Annonce indisponible. Veuillez réessayer plus tard.",
+  "@ad_unavailable_try_later": {
+    "description": "Translation for ad_unavailable_try_later"
+  },
+  "theme_unlocked": "Thème débloqué. Chaque annonce supplémentaire ajoute +1 jour.",
+  "@theme_unlocked": {
+    "description": "Translation for theme_unlocked"
+  },
+  "reward_themes_active": "Thèmes de récompense actifs pendant {days} jour(s).",
+  "@reward_themes_active": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for reward_themes_active"
+  },
+  "lock_use_pin": "Utiliser le code PIN",
+  "@lock_use_pin": {
+    "description": "Translation for lock_use_pin"
+  },
+  "pending": "En attente",
+  "@pending": {
+    "description": "Translation for pending"
+  },
+  "document_details_subtitle": "Révision des détails détaillés du document.",
+  "@document_details_subtitle": {
+    "description": "Translation for document_details_subtitle"
+  },
+  "document_name": "Nom du document",
+  "@document_name": {
+    "description": "Translation for document_name"
+  },
+  "document_name_hint": "par ex. Résultat de la prise de sang",
+  "@document_name_hint": {
+    "description": "Translation for document_name_hint"
+  },
+  "daily_limit_reached_message": "Vous avez atteint la limite de création d'aujourd'hui ({limit}). Vous pourrez en ajouter davantage demain.",
+  "@daily_limit_reached_message": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for daily_limit_reached_message"
+  },
+  "document_updated": "Document mis à jour.",
+  "@document_updated": {
+    "description": "Translation for document_updated"
+  },
+  "document_update_failed": "Impossible de mettre à jour le document.",
+  "@document_update_failed": {
+    "description": "Translation for document_update_failed"
+  },
+  "document_open_failed": "Impossible d'ouvrir le document.",
+  "@document_open_failed": {
+    "description": "Translation for document_open_failed"
+  },
+  "no_additional_notes": "Aucune note supplémentaire fournie.",
+  "@no_additional_notes": {
+    "description": "Translation for no_additional_notes"
+  },
+  "created_at_label": "CRÉÉ À",
+  "@created_at_label": {
+    "description": "Translation for created_at_label"
+  },
+  "physician_label": "MÉDECIN",
+  "@physician_label": {
+    "description": "Translation for physician_label"
+  },
+  "open": "Ouvrir",
+  "@open": {
+    "description": "Translation for open"
+  },
+  "document_vault": "Coffre-fort de documents",
+  "@document_vault": {
+    "description": "Translation for document_vault"
+  },
+  "document_vault_view_subtitle": "Révision des détails détaillés du document.",
+  "@document_vault_view_subtitle": {
+    "description": "Translation for document_vault_view_subtitle"
+  },
+  "institution_hospital": "Établissement/Hôpital",
+  "@institution_hospital": {
+    "description": "Translation for institution_hospital"
+  },
+  "doctor_related_person": "Médecin / Personne liée",
+  "@doctor_related_person": {
+    "description": "Translation for doctor_related_person"
+  },
+  "add_contact_title": "Ajouter une personne/un contact",
+  "@add_contact_title": {
+    "description": "Translation for add_contact_title"
+  },
+  "contact_info_title": "Personne/Coordonnées",
+  "@contact_info_title": {
+    "description": "Translation for contact_info_title"
+  },
+  "contact_info_desc": "Conservez les coordonnées importantes des personnes, des institutions et des contacts pour un accès rapide.",
+  "@contact_info_desc": {
+    "description": "Translation for contact_info_desc"
+  },
+  "person_contact_label": "Personne / Contact",
+  "@person_contact_label": {
+    "description": "Translation for person_contact_label"
+  },
+  "category_area_label": "Catégorie / Zone",
+  "@category_area_label": {
+    "description": "Translation for category_area_label"
+  },
+  "institution_source_label": "Établissement/Source",
+  "@institution_source_label": {
+    "description": "Translation for institution_source_label"
+  },
+  "person_hint": "par ex. Dr Smith, conseiller, contact clinique",
+  "@person_hint": {
+    "description": "Translation for person_hint"
+  },
+  "category_hint": "par ex. check-up, dentaire, thérapie, consultation",
+  "@category_hint": {
+    "description": "Translation for category_hint"
+  },
+  "institution_hint": "par ex. clinique, laboratoire, bureau, source en ligne",
+  "@institution_hint": {
+    "description": "Translation for institution_hint"
+  },
+  "required_contact_error": "Veuillez saisir les informations sur la personne/le contact et la catégorie/la zone.",
+  "@required_contact_error": {
+    "description": "Translation for required_contact_error"
+  },
+  "contacts_title": "Personne/Contacts",
+  "@contacts_title": {
+    "description": "Translation for contacts_title"
+  },
+  "contacts_search_hint": "Rechercher une personne, une institution ou une catégorie",
+  "@contacts_search_hint": {
+    "description": "Translation for contacts_search_hint"
+  },
+  "no_contacts_found": "Aucun contact correspondant trouvé",
+  "@no_contacts_found": {
+    "description": "Translation for no_contacts_found"
+  },
+  "contact_detail_title": "Personne/Coordonnées",
+  "@contact_detail_title": {
+    "description": "Translation for contact_detail_title"
+  },
+  "institution_source": "Établissement/Source",
+  "@institution_source": {
+    "description": "Translation for institution_source"
+  },
+  "category_area": "Catégorie / Zone",
+  "@category_area": {
+    "description": "Translation for category_area"
+  },
+  "sub_area": "Sous-zone",
+  "@sub_area": {
+    "description": "Translation for sub_area"
+  },
+  "privacy_policy_short": "politique de confidentialité",
+  "@privacy_policy_short": {
+    "description": "Translation for privacy_policy_short"
+  },
+  "terms_short": "Termes",
+  "@terms_short": {
+    "description": "Translation for terms_short"
+  },
+  "disclaimer_short": "Clause de non-responsabilité",
+  "@disclaimer_short": {
+    "description": "Translation for disclaimer_short"
+  },
+  "debug_panel_taps_left": "Panneau de débogage : {remaining} tape vers la gauche.",
+  "@debug_panel_taps_left": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for debug_panel_taps_left"
+  },
+  "delete_confirm_dialog_title": "Supprimer le document ?",
+  "@delete_confirm_dialog_title": {
+    "description": "Translation for delete_confirm_dialog_title"
+  },
+  "delete_confirm_dialog_desc": "Ce document sera supprimé du coffre-fort. Cette action ne peut pas être annulée.",
+  "@delete_confirm_dialog_desc": {
+    "description": "Translation for delete_confirm_dialog_desc"
+  },
+  "document_deleted_msg": "Document supprimé.",
+  "@document_deleted_msg": {
+    "description": "Translation for document_deleted_msg"
+  },
+  "sort_newest_first": "Le plus récent en premier",
+  "@sort_newest_first": {
+    "description": "Translation for sort_newest_first"
+  },
+  "sort_oldest_first": "Le plus ancien en premier",
+  "@sort_oldest_first": {
+    "description": "Translation for sort_oldest_first"
+  },
+  "sort_a_z": "A à Z",
+  "@sort_a_z": {
+    "description": "Translation for sort_a_z"
+  },
+  "sort_label": "Trier",
+  "@sort_label": {
+    "description": "Translation for sort_label"
+  },
+  "medication_reminder_past_note": "Si l'heure sélectionnée est déjà passée aujourd'hui, le premier rappel est programmé pour la prochaine heure appropriée.",
+  "@medication_reminder_past_note": {
+    "description": "Translation for medication_reminder_past_note"
+  },
+  "appointment_reminder_past_note": "Si l'heure de rappel sélectionnée est déjà passée, VitaCase choisit l'heure appropriée la plus proche.",
+  "@appointment_reminder_past_note": {
+    "description": "Translation for appointment_reminder_past_note"
+  },
+  "limit_unlock_token_title": "Limiter le jeton de déverrouillage",
+  "@limit_unlock_token_title": {
+    "description": "Translation for limit_unlock_token_title"
+  },
+  "limit_unlock_status_active": "Actif",
+  "@limit_unlock_status_active": {
+    "description": "Translation for limit_unlock_status_active"
+  },
+  "limit_unlock_status_coming_soon": "Arrivée dans {version}",
+  "@limit_unlock_status_coming_soon": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_status_coming_soon"
+  },
+  "limit_unlock_desc_active": "Chaque {xp} XP accorde 1 jeton de déverrouillage de limite. Il est utilisé automatiquement lorsque la limite journalière est atteinte.",
+  "@limit_unlock_desc_active": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_active"
+  },
+  "limit_unlock_desc_inactive": "Désactivé dans la V1. Dans {version}, chaque {xp} XP accordera 1 jeton de déverrouillage limite.",
+  "@limit_unlock_desc_inactive": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_inactive"
+  },
+  "limit_unlock_stat_total_xp": "XP totale",
+  "@limit_unlock_stat_total_xp": {
+    "description": "Translation for limit_unlock_stat_total_xp"
+  },
+  "limit_unlock_stat_xp_left": "XP restant",
+  "@limit_unlock_stat_xp_left": {
+    "description": "Translation for limit_unlock_stat_xp_left"
+  },
+  "limit_unlock_stat_tokens": "Jetons",
+  "@limit_unlock_stat_tokens": {
+    "description": "Translation for limit_unlock_stat_tokens"
+  },
+  "notes": "Remarques",
+  "@notes": {
+    "description": "Translation for notes"
+  },
+  "report_issue": "Envoyer un bug, une suggestion et une demande",
   "@report_issue": {
-    "placeholders": {},
     "description": "Translation for report_issue"
   }
 }

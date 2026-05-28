@@ -689,7 +689,7 @@
     "description": "Translation for help_center",
     "placeholders": {}
   },
-  "report_issue": "Hata, Öneri, İstek ve Şikayet",
+  "report_issue": "Hata, Öneri ve İstek Gönder",
   "@report_issue": {
     "description": "Translation for report_issue",
     "placeholders": {}

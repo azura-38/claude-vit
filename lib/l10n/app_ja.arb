@@ -2,457 +2,3750 @@
   "@@locale": "ja",
   "app_name": "VitaCase",
   "@app_name": {
-    "placeholders": {},
     "description": "Translation for app_name"
   },
   "skip": "スキップ",
   "@skip": {
-    "placeholders": {},
     "description": "Translation for skip"
   },
   "next": "次へ",
   "@next": {
-    "placeholders": {},
     "description": "Translation for next"
   },
   "start": "開始",
   "@start": {
-    "placeholders": {},
     "description": "Translation for start"
   },
   "back": "戻る",
   "@back": {
-    "placeholders": {},
     "description": "Translation for back"
   },
   "save": "保存",
   "@save": {
-    "placeholders": {},
     "description": "Translation for save"
   },
   "cancel": "キャンセル",
   "@cancel": {
-    "placeholders": {},
     "description": "Translation for cancel"
   },
   "error": "エラー",
   "@error": {
-    "placeholders": {},
     "description": "Translation for error"
   },
   "success": "成功",
   "@success": {
-    "placeholders": {},
     "description": "Translation for success"
   },
   "loading": "読み込み中...",
   "@loading": {
-    "placeholders": {},
     "description": "Translation for loading"
   },
   "continue_btn": "続ける",
   "@continue_btn": {
-    "placeholders": {},
     "description": "Translation for continue_btn"
   },
   "create_profile": "プロフィールを作成",
   "@create_profile": {
-    "placeholders": {},
     "description": "Translation for create_profile"
   },
   "profile_desc": "体験をパーソナライズするために、いくつかの情報が必要です。",
   "@profile_desc": {
-    "placeholders": {},
     "description": "Translation for profile_desc"
   },
   "full_name": "氏名",
   "@full_name": {
-    "placeholders": {},
     "description": "Translation for full_name"
   },
   "gender": "性別",
   "@gender": {
-    "placeholders": {},
     "description": "Translation for gender"
   },
   "gender_female": "女性",
   "@gender_female": {
-    "placeholders": {},
     "description": "Translation for gender_female"
   },
   "gender_male": "男性",
   "@gender_male": {
-    "placeholders": {},
     "description": "Translation for gender_male"
   },
   "gender_other": "その他",
   "@gender_other": {
-    "placeholders": {},
     "description": "Translation for gender_other"
   },
   "birth_date": "生年月日",
   "@birth_date": {
-    "placeholders": {},
     "description": "Translation for birth_date"
   },
   "date_format_hint": "DD.MM.YYYY",
   "@date_format_hint": {
-    "placeholders": {},
     "description": "Translation for date_format_hint"
   },
   "select_language": "言語を選択",
   "@select_language": {
-    "placeholders": {},
     "description": "Translation for select_language"
   },
   "please_enter_name": "名前を入力してください",
   "@please_enter_name": {
-    "placeholders": {},
     "description": "Translation for please_enter_name"
   },
   "must_agree": "続行するには法的文書に同意する必要があります。",
   "@must_agree": {
-    "placeholders": {},
     "description": "Translation for must_agree"
   },
   "step_profile": "プロフィール",
   "@step_profile": {
-    "placeholders": {},
     "description": "Translation for step_profile"
   },
   "step_security": "セキュリティ",
   "@step_security": {
-    "placeholders": {},
     "description": "Translation for step_security"
   },
   "setup_app_lock": "アプリロックを設定",
   "@setup_app_lock": {
-    "placeholders": {},
     "description": "Translation for setup_app_lock"
   },
   "setup_app_lock_desc": "6桁のPINでデータを保護します。",
   "@setup_app_lock_desc": {
-    "placeholders": {},
     "description": "Translation for setup_app_lock_desc"
   },
   "lock_set_pin": "安全なPINを設定",
   "@lock_set_pin": {
-    "placeholders": {},
     "description": "Translation for lock_set_pin"
   },
   "lock_confirm_pin": "PINを確認",
   "@lock_confirm_pin": {
-    "placeholders": {},
     "description": "Translation for lock_confirm_pin"
   },
   "lock_pin_mismatch": "PINが一致しません。もう一度お試しください。",
   "@lock_pin_mismatch": {
-    "placeholders": {},
     "description": "Translation for lock_pin_mismatch"
   },
   "skip_pin_setup": "スキップ",
   "@skip_pin_setup": {
-    "placeholders": {},
     "description": "Translation for skip_pin_setup"
   },
   "lock_skip_desc": "後で設定から設定できます。",
   "@lock_skip_desc": {
-    "placeholders": {},
     "description": "Translation for lock_skip_desc"
   },
   "home": "ホーム",
   "@home": {
-    "placeholders": {},
     "description": "Translation for home"
   },
   "vault": "保管庫",
   "@vault": {
-    "placeholders": {},
     "description": "Translation for vault"
   },
   "explore": "探索",
   "@explore": {
-    "placeholders": {},
     "description": "Translation for explore"
   },
   "appointments": "予定",
   "@appointments": {
-    "placeholders": {},
     "description": "Translation for appointments"
   },
   "profile": "プロフィール",
   "@profile": {
-    "placeholders": {},
     "description": "Translation for profile"
   },
   "medicines": "薬",
   "@medicines": {
-    "placeholders": {},
     "description": "Translation for medicines"
   },
   "health_data": "健康データ",
   "@health_data": {
-    "placeholders": {},
     "description": "Translation for health_data"
   },
   "important_info": "重要情報",
   "@important_info": {
-    "placeholders": {},
     "description": "Translation for important_info"
   },
   "guest_user": "ゲストユーザー",
   "@guest_user": {
-    "placeholders": {},
     "description": "Translation for guest_user"
   },
   "hi": "こんにちは",
   "@hi": {
-    "placeholders": {},
     "description": "Translation for hi"
   },
   "docs_title": "ドキュメント",
   "@docs_title": {
-    "placeholders": {},
     "description": "Translation for docs_title"
   },
   "docs_add_title": "ドキュメントを追加",
   "@docs_add_title": {
-    "placeholders": {},
     "description": "Translation for docs_add_title"
   },
   "docs_add_btn": "ドキュメントを追加",
   "@docs_add_btn": {
-    "placeholders": {},
     "description": "Translation for docs_add_btn"
   },
   "docs_add_pick": "ドキュメント / 画像を選択",
   "@docs_add_pick": {
-    "placeholders": {},
     "description": "Translation for docs_add_pick"
   },
   "docs_success": "ドキュメントが正常に保存されました！",
   "@docs_success": {
-    "placeholders": {},
     "description": "Translation for docs_success"
   },
   "docs_error_pick": "ファイルを選択してください",
   "@docs_error_pick": {
-    "placeholders": {},
     "description": "Translation for docs_error_pick"
   },
   "docs_category_health": "健康",
   "@docs_category_health": {
-    "placeholders": {},
     "description": "Translation for docs_category_health"
   },
   "docs_category_identity": "身分証明",
   "@docs_category_identity": {
-    "placeholders": {},
     "description": "Translation for docs_category_identity"
   },
   "docs_category_finance": "金融",
   "@docs_category_finance": {
-    "placeholders": {},
     "description": "Translation for docs_category_finance"
   },
   "docs_category_legal": "法務",
   "@docs_category_legal": {
-    "placeholders": {},
     "description": "Translation for docs_category_legal"
   },
   "docs_category_notes": "メモ",
   "@docs_category_notes": {
-    "placeholders": {},
     "description": "Translation for docs_category_notes"
   },
   "docs_category_other": "その他",
   "@docs_category_other": {
-    "placeholders": {},
     "description": "Translation for docs_category_other"
   },
   "appointment_title": "予定タイトル",
   "@appointment_title": {
-    "placeholders": {},
     "description": "Translation for appointment_title"
   },
   "my_appointments": "私の予定",
   "@my_appointments": {
-    "placeholders": {},
     "description": "Translation for my_appointments"
   },
   "add_appointment": "予定を追加",
   "@add_appointment": {
-    "placeholders": {},
     "description": "Translation for add_appointment"
   },
   "add_new_appointment": "新しい予定を追加",
   "@add_new_appointment": {
-    "placeholders": {},
     "description": "Translation for add_new_appointment"
   },
   "appointment_added": "予定が正常に追加されました。",
   "@appointment_added": {
-    "placeholders": {},
     "description": "Translation for appointment_added"
-  },
-  "appointment_created_success": "予定が正常に作成されました。",
-  "@appointment_created_success": {
-    "placeholders": {},
-    "description": "Translation for appointment_created_success"
-  },
-  "failed_create_appointment": "予定を作成できませんでした。",
-  "@failed_create_appointment": {
-    "placeholders": {},
-    "description": "Translation for failed_create_appointment"
   },
   "location": "場所",
   "@location": {
-    "placeholders": {},
     "description": "Translation for location"
   },
   "today": "今日",
   "@today": {
-    "placeholders": {},
     "description": "Translation for today"
   },
   "tomorrow": "明日",
   "@tomorrow": {
-    "placeholders": {},
     "description": "Translation for tomorrow"
   },
   "health_stats": "ヘルスハブ",
   "@health_stats": {
-    "placeholders": {},
     "description": "Translation for health_stats"
   },
   "safety_footer_health": "健康データは情報提供のみを目的としています。診断については専門家にご相談ください。",
   "@safety_footer_health": {
-    "placeholders": {},
     "description": "Translation for safety_footer_health"
   },
   "medical_device_warning": "VitaCaseは医療機器ではありません。必ず専門家にご相談ください。",
   "@medical_device_warning": {
-    "placeholders": {},
     "description": "Translation for medical_device_warning"
   },
   "management_tool_warning": "VitaCaseは管理ツールであり、診断サービスではありません。",
   "@management_tool_warning": {
-    "placeholders": {},
     "description": "Translation for management_tool_warning"
   },
   "unit_ml": "ml",
   "@unit_ml": {
-    "placeholders": {},
     "description": "Translation for unit_ml"
   },
   "unit_l": "L",
   "@unit_l": {
-    "placeholders": {},
     "description": "Translation for unit_l"
   },
   "unit_steps": "歩",
   "@unit_steps": {
-    "placeholders": {},
     "description": "Translation for unit_steps"
   },
   "unit_hours": "時間",
   "@unit_hours": {
-    "placeholders": {},
     "description": "Translation for unit_hours"
   },
   "unit_bpm": "BPM",
   "@unit_bpm": {
-    "placeholders": {},
     "description": "Translation for unit_bpm"
   },
   "steps": "歩数",
   "@steps": {
-    "placeholders": {},
     "description": "Translation for steps"
   },
   "heart": "心拍",
   "@heart": {
-    "placeholders": {},
     "description": "Translation for heart"
   },
   "sleep": "睡眠",
   "@sleep": {
-    "placeholders": {},
     "description": "Translation for sleep"
   },
   "water": "水分",
   "@water": {
-    "placeholders": {},
     "description": "Translation for water"
   },
   "add_health_data": "健康データを追加",
   "@add_health_data": {
-    "placeholders": {},
     "description": "Translation for add_health_data"
   },
   "recent_activity": "最近の活動",
   "@recent_activity": {
-    "placeholders": {},
     "description": "Translation for recent_activity"
   },
   "no_health_records": "まだ記録がありません。",
   "@no_health_records": {
-    "placeholders": {},
     "description": "Translation for no_health_records"
   },
   "add_medicine": "薬を追加",
   "@add_medicine": {
-    "placeholders": {},
     "description": "Translation for add_medicine"
   },
   "my_medicines": "私の薬",
   "@my_medicines": {
-    "placeholders": {},
     "description": "Translation for my_medicines"
   },
   "medicine_name": "薬の名前",
   "@medicine_name": {
-    "placeholders": {},
     "description": "Translation for medicine_name"
   },
   "med_added_success": "薬が正常に追加されました！",
   "@med_added_success": {
-    "placeholders": {},
     "description": "Translation for med_added_success"
   },
   "med_name_error": "薬の名前を入力してください",
   "@med_name_error": {
-    "placeholders": {},
     "description": "Translation for med_name_error"
   },
   "app_lock": "アプリロック",
   "@app_lock": {
-    "placeholders": {},
     "description": "Translation for app_lock"
   },
   "privacy_policy": "プライバシーポリシー",
   "@privacy_policy": {
-    "placeholders": {},
     "description": "Translation for privacy_policy"
   },
   "terms_conditions": "利用規約",
   "@terms_conditions": {
-    "placeholders": {},
     "description": "Translation for terms_conditions"
   },
   "legal_disclaimer": "法的免責事項",
   "@legal_disclaimer": {
-    "placeholders": {},
     "description": "Translation for legal_disclaimer"
   },
   "ok": "OK",
   "@ok": {
-    "placeholders": {},
     "description": "Translation for ok"
   },
-  "report_issue": "不具合・提案・要望・苦情",
+  "active": "アクティブ",
+  "@active": {
+    "description": "Translation for active"
+  },
+  "inactive": "非アクティブ",
+  "@inactive": {
+    "description": "Translation for inactive"
+  },
+  "premium_feature": "プレミアム機能 🌟",
+  "@premium_feature": {
+    "description": "Translation for premium_feature"
+  },
+  "premium_required_desc": "アプリロックにはプレミアムメンバーシップが必要です。",
+  "@premium_required_desc": {
+    "description": "Translation for premium_required_desc"
+  },
+  "go_premium": "プレミアムに行く",
+  "@go_premium": {
+    "description": "Translation for go_premium"
+  },
+  "index": "索引",
+  "@index": {
+    "description": "Translation for index"
+  },
+  "view_weekly": "毎週",
+  "@view_weekly": {
+    "description": "Translation for view_weekly"
+  },
+  "view_monthly": "毎月",
+  "@view_monthly": {
+    "description": "Translation for view_monthly"
+  },
+  "phone_country_code": "コード",
+  "@phone_country_code": {
+    "description": "Translation for phone_country_code"
+  },
+  "coming_soon": "近日公開",
+  "@coming_soon": {
+    "description": "Translation for coming_soon"
+  },
+  "coming_soon_desc": "この機能は次回のアップデートで利用できるようになる予定です。",
+  "@coming_soon_desc": {
+    "description": "Translation for coming_soon_desc"
+  },
+  "tap_for_test": "テスト通知を行うには {count} をさらに何回もタップします",
+  "@tap_for_test": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for tap_for_test"
+  },
+  "metric_water": "水",
+  "@metric_water": {
+    "description": "Translation for metric_water"
+  },
+  "metric_steps": "ステップ",
+  "@metric_steps": {
+    "description": "Translation for metric_steps"
+  },
+  "metric_sleep": "寝る",
+  "@metric_sleep": {
+    "description": "Translation for metric_sleep"
+  },
+  "metric_heart_rate": "心拍",
+  "@metric_heart_rate": {
+    "description": "Translation for metric_heart_rate"
+  },
+  "quick_actions_visibility": "クイックアクセスの可視性",
+  "@quick_actions_visibility": {
+    "description": "Translation for quick_actions_visibility"
+  },
+  "personal_notes": "個人的なメモ",
+  "@personal_notes": {
+    "description": "Translation for personal_notes"
+  },
+  "save_and_list": "保存してリストする",
+  "@save_and_list": {
+    "description": "Translation for save_and_list"
+  },
+  "doctor_info": "医師情報",
+  "@doctor_info": {
+    "description": "Translation for doctor_info"
+  },
+  "add_doctor_desc": "すぐにアクセスできるように、医師の連絡先情報を保管してください。",
+  "@add_doctor_desc": {
+    "description": "Translation for add_doctor_desc"
+  },
+  "basic_info": "基本情報",
+  "@basic_info": {
+    "description": "Translation for basic_info"
+  },
+  "institution_contact": "機関と連絡先",
+  "@institution_contact": {
+    "description": "Translation for institution_contact"
+  },
+  "notes_bio": "メモと略歴",
+  "@notes_bio": {
+    "description": "Translation for notes_bio"
+  },
+  "unknown": "未知",
+  "@unknown": {
+    "description": "Translation for unknown"
+  },
+  "hospital_clinic_name": "病院・クリニック名",
+  "@hospital_clinic_name": {
+    "description": "Translation for hospital_clinic_name"
+  },
+  "phone_number": "電話番号",
+  "@phone_number": {
+    "description": "Translation for phone_number"
+  },
+  "email_address": "電子メールアドレス",
+  "@email_address": {
+    "description": "Translation for email_address"
+  },
+  "address": "住所",
+  "@address": {
+    "description": "Translation for address"
+  },
+  "emergency_info": "緊急情報",
+  "@emergency_info": {
+    "description": "Translation for emergency_info"
+  },
+  "emergency_contact_name": "緊急連絡先（名前）",
+  "@emergency_contact_name": {
+    "description": "Translation for emergency_contact_name"
+  },
+  "emergency_contact_phone": "緊急連絡先（電話）",
+  "@emergency_contact_phone": {
+    "description": "Translation for emergency_contact_phone"
+  },
+  "blood_type": "血液型",
+  "@blood_type": {
+    "description": "Translation for blood_type"
+  },
+  "blood_unknown": "未知",
+  "@blood_unknown": {
+    "description": "Translation for blood_unknown"
+  },
+  "profile_updated": "プロフィール更新しました！ ✅",
+  "@profile_updated": {
+    "description": "Translation for profile_updated"
+  },
+  "let_start": "始めましょう",
+  "@let_start": {
+    "description": "Translation for let_start"
+  },
+  "ob_1_title": "ビタケース",
+  "@ob_1_title": {
+    "description": "Translation for ob_1_title"
+  },
+  "ob_1_subtitle": "すべてのファイルを 1 か所に",
+  "@ob_1_subtitle": {
+    "description": "Translation for ob_1_subtitle"
+  },
+  "ob_1_desc": "書類、予定、薬などを安全に保管し、常に持ち歩きましょう。",
+  "@ob_1_desc": {
+    "description": "Translation for ob_1_desc"
+  },
+  "ob_2_title": "すべてのファイルを整理する",
+  "@ob_2_title": {
+    "description": "Translation for ob_2_title"
+  },
+  "ob_2_desc": "ドキュメントをアップロードして分類し、簡単に管理します。",
+  "@ob_2_desc": {
+    "description": "Translation for ob_2_desc"
+  },
+  "ob_3_title": "予定を保存する",
+  "@ob_3_title": {
+    "description": "Translation for ob_3_title"
+  },
+  "ob_3_desc": "すべての予定を 1 か所に保管し、リマインダーで予定を忘れることはありません。",
+  "@ob_3_desc": {
+    "description": "Translation for ob_3_desc"
+  },
+  "ob_4_title": "薬を保存して追跡する",
+  "@ob_4_title": {
+    "description": "Translation for ob_4_title"
+  },
+  "ob_4_desc": "薬と使用時間を記録し、リマインダーを付けて定期的に使用することを忘れないでください。",
+  "@ob_4_desc": {
+    "description": "Translation for ob_4_desc"
+  },
+  "ob_5_title": "救って、失わないでください",
+  "@ob_5_title": {
+    "description": "Translation for ob_5_title"
+  },
+  "ob_5_desc": "予約や薬を安全に保ち、リラックスした状態を保ちます。",
+  "@ob_5_desc": {
+    "description": "Translation for ob_5_desc"
+  },
+  "ob_feature_1_title": "安全なストレージ",
+  "@ob_feature_1_title": {
+    "description": "Translation for ob_feature_1_title"
+  },
+  "ob_feature_1_desc": "あなたのデータは暗号化されており、あなただけのものです。",
+  "@ob_feature_1_desc": {
+    "description": "Translation for ob_feature_1_desc"
+  },
+  "ob_feature_2_title": "リマインダー",
+  "@ob_feature_2_title": {
+    "description": "Translation for ob_feature_2_title"
+  },
+  "ob_feature_2_desc": "予約時間と薬の時間を忘れないでください。",
+  "@ob_feature_2_desc": {
+    "description": "Translation for ob_feature_2_desc"
+  },
+  "ob_feature_3_title": "どこからでもアクセス",
+  "@ob_feature_3_title": {
+    "description": "Translation for ob_feature_3_title"
+  },
+  "ob_feature_3_desc": "いつでも好きなときにすべての情報にアクセスできます。",
+  "@ob_feature_3_desc": {
+    "description": "Translation for ob_feature_3_desc"
+  },
+  "good_morning": "おはよう",
+  "@good_morning": {
+    "description": "Translation for good_morning"
+  },
+  "good_afternoon": "こんにちは",
+  "@good_afternoon": {
+    "description": "Translation for good_afternoon"
+  },
+  "good_evening": "こんばんは",
+  "@good_evening": {
+    "description": "Translation for good_evening"
+  },
+  "good_night": "おやすみ",
+  "@good_night": {
+    "description": "Translation for good_night"
+  },
+  "synced": "同期済み",
+  "@synced": {
+    "description": "Translation for synced"
+  },
+  "guest_mode": "ゲストモードがアクティブです",
+  "@guest_mode": {
+    "description": "Translation for guest_mode"
+  },
+  "guest_desc": "データはローカルのみです。バックアップするアカウントを作成します。",
+  "@guest_desc": {
+    "description": "Translation for guest_desc"
+  },
+  "all_records": "安全なアーカイブ",
+  "@all_records": {
+    "description": "Translation for all_records"
+  },
+  "vault_is_empty": "保管庫の準備ができました",
+  "@vault_is_empty": {
+    "description": "Translation for vault_is_empty"
+  },
+  "vault_desc": "最も重要な記録をプライベートな聖域に保管し、整理します。",
+  "@vault_desc": {
+    "description": "Translation for vault_desc"
+  },
+  "quick_access": "クイックアクセス",
+  "@quick_access": {
+    "description": "Translation for quick_access"
+  },
+  "bpm": "BPM",
+  "@bpm": {
+    "description": "Translation for bpm"
+  },
+  "hours": "営業時間",
+  "@hours": {
+    "description": "Translation for hours"
+  },
+  "ml": "ML",
+  "@ml": {
+    "description": "Translation for ml"
+  },
+  "pharmacies": "薬局",
+  "@pharmacies": {
+    "description": "Translation for pharmacies"
+  },
+  "save_continue": "保存して続行",
+  "@save_continue": {
+    "description": "Translation for save_continue"
+  },
+  "security_badge_label": "VITACASE 高度な暗号化 v2.4",
+  "@security_badge_label": {
+    "description": "Translation for security_badge_label"
+  },
+  "health_stats_desc": "毎日の健康に関する包括的なサマリー。",
+  "@health_stats_desc": {
+    "description": "Translation for health_stats_desc"
+  },
+  "step_unit": "ステップ",
+  "@step_unit": {
+    "description": "Translation for step_unit"
+  },
+  "privacy_guarantee": "あなたのデータは安全です",
+  "@privacy_guarantee": {
+    "description": "Translation for privacy_guarantee"
+  },
+  "privacy_box_desc": "あなたの情報は安全に保管され、決して共有されません。",
+  "@privacy_box_desc": {
+    "description": "Translation for privacy_box_desc"
+  },
+  "privacy_box_warning": "データは非公開であり、デバイスに安全に保存されます。機密性の高い情報のアップロードは避けてください。あなたは保存したデータに対して責任を負います。",
+  "@privacy_box_warning": {
+    "description": "Translation for privacy_box_warning"
+  },
+  "docs_secure_storage_title": "安全なローカルストレージ 🔒",
+  "@docs_secure_storage_title": {
+    "description": "Translation for docs_secure_storage_title"
+  },
+  "docs_secure_storage_desc": "データはデバイス上に残ります",
+  "@docs_secure_storage_desc": {
+    "description": "Translation for docs_secure_storage_desc"
+  },
+  "docs_sensitive_warning": "機密性の高い情報の保存は避けてください。あなたは自分のデータに対して責任を負います。",
+  "@docs_sensitive_warning": {
+    "description": "Translation for docs_sensitive_warning"
+  },
+  "appearance": "外観",
+  "@appearance": {
+    "description": "Translation for appearance"
+  },
+  "theme_settings": "テーマの設定",
+  "@theme_settings": {
+    "description": "Translation for theme_settings"
+  },
+  "app_settings": "アプリの設定",
+  "@app_settings": {
+    "description": "Translation for app_settings"
+  },
+  "text_size": "文字サイズ",
+  "@text_size": {
+    "description": "Translation for text_size"
+  },
+  "quick_actions": "クイックアクション",
+  "@quick_actions": {
+    "description": "Translation for quick_actions"
+  },
+  "data_security": "データとセキュリティ",
+  "@data_security": {
+    "description": "Translation for data_security"
+  },
+  "backup_zip": "バックアップ(ZIP)",
+  "@backup_zip": {
+    "description": "Translation for backup_zip"
+  },
+  "import_backup": "バックアップを復元する",
+  "@import_backup": {
+    "description": "Translation for import_backup"
+  },
+  "import_desc": "ZIPバックアップファイルをインポートする",
+  "@import_desc": {
+    "description": "Translation for import_desc"
+  },
+  "export_desc": "書類のエクスポート",
+  "@export_desc": {
+    "description": "Translation for export_desc"
+  },
+  "emergency_contact": "緊急連絡先",
+  "@emergency_contact": {
+    "description": "Translation for emergency_contact"
+  },
+  "daily_step_goal": "毎日の歩数目標",
+  "@daily_step_goal": {
+    "description": "Translation for daily_step_goal"
+  },
+  "support_legal": "サポートと法的事項",
+  "@support_legal": {
+    "description": "Translation for support_legal"
+  },
+  "help_center": "ヘルプセンター",
+  "@help_center": {
+    "description": "Translation for help_center"
+  },
+  "legal": "法律上の",
+  "@legal": {
+    "description": "Translation for legal"
+  },
+  "lock_gate_title": "VitaCase がロックされました",
+  "@lock_gate_title": {
+    "description": "Translation for lock_gate_title"
+  },
+  "lock_gate_desc": "安全な文書保管庫にアクセスするには認証を行ってください。",
+  "@lock_gate_desc": {
+    "description": "Translation for lock_gate_desc"
+  },
+  "lock_gate_unlock": "生体認証によるロック解除",
+  "@lock_gate_unlock": {
+    "description": "Translation for lock_gate_unlock"
+  },
+  "lock_pin_incorrect": "間違ったPIN",
+  "@lock_pin_incorrect": {
+    "description": "Translation for lock_pin_incorrect"
+  },
+  "lock_use_biometrics": "生体認証を使用する",
+  "@lock_use_biometrics": {
+    "description": "Translation for lock_use_biometrics"
+  },
+  "lock_too_many_attempts": "試行回数が多すぎます。 {seconds}秒後にもう一度お試しください。",
+  "@lock_too_many_attempts": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for lock_too_many_attempts"
+  },
+  "lock_timeout_instant": "インスタント",
+  "@lock_timeout_instant": {
+    "description": "Translation for lock_timeout_instant"
+  },
+  "lock_timeout_1min": "1分",
+  "@lock_timeout_1min": {
+    "description": "Translation for lock_timeout_1min"
+  },
+  "lock_timeout_5min": "5分",
+  "@lock_timeout_5min": {
+    "description": "Translation for lock_timeout_5min"
+  },
+  "lock_timeout_15min": "15分",
+  "@lock_timeout_15min": {
+    "description": "Translation for lock_timeout_15min"
+  },
+  "lock_timeout": "ロックタイムアウト",
+  "@lock_timeout": {
+    "description": "Translation for lock_timeout"
+  },
+  "change_pin": "PINの変更",
+  "@change_pin": {
+    "description": "Translation for change_pin"
+  },
+  "biometric_login": "生体認証ログイン",
+  "@biometric_login": {
+    "description": "Translation for biometric_login"
+  },
+  "biometric_unavailable": "このデバイスでは生体認証は利用できません。",
+  "@biometric_unavailable": {
+    "description": "Translation for biometric_unavailable"
+  },
+  "digits": "数字",
+  "@digits": {
+    "description": "Translation for digits"
+  },
+  "setup_pin_later": "後で「設定」から設定する",
+  "@setup_pin_later": {
+    "description": "Translation for setup_pin_later"
+  },
+  "daily_missions": "デイリーミッション",
+  "@daily_missions": {
+    "description": "Translation for daily_missions"
+  },
+  "mission_doc_daily": "1 ドキュメントを追加",
+  "@mission_doc_daily": {
+    "description": "Translation for mission_doc_daily"
+  },
+  "mission_ad_daily": "1 件の広告を見る",
+  "@mission_ad_daily": {
+    "description": "Translation for mission_ad_daily"
+  },
+  "mission_app_daily": "スケジュール 1 予約",
+  "@mission_app_daily": {
+    "description": "Translation for mission_app_daily"
+  },
+  "mission_med_daily": "薬を1つ追加",
+  "@mission_med_daily": {
+    "description": "Translation for mission_med_daily"
+  },
+  "export_data_zip": "データのエクスポート (.zip)",
+  "@export_data_zip": {
+    "description": "Translation for export_data_zip"
+  },
+  "clear_all_data": "すべてのデータをクリア",
+  "@clear_all_data": {
+    "description": "Translation for clear_all_data"
+  },
+  "quick_actions_desc": "ダッシュボード上のクイックショートカット",
+  "@quick_actions_desc": {
+    "description": "Translation for quick_actions_desc"
+  },
+  "app_section": "アプリ",
+  "@app_section": {
+    "description": "Translation for app_section"
+  },
+  "premium_required": "プレミアムが必要です",
+  "@premium_required": {
+    "description": "Translation for premium_required"
+  },
+  "logout": "ログアウト",
+  "@logout": {
+    "description": "Translation for logout"
+  },
+  "logout_confirm": "ログアウトしてもよろしいですか?",
+  "@logout_confirm": {
+    "description": "Translation for logout_confirm"
+  },
+  "yes_logout": "はい、ログアウトします",
+  "@yes_logout": {
+    "description": "Translation for yes_logout"
+  },
+  "version": "バージョン",
+  "@version": {
+    "description": "Translation for version"
+  },
+  "med_count_desc": "今日の薬は {count} 個あります。",
+  "@med_count_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for med_count_desc"
+  },
+  "low_stock_warning": "在庫僅少",
+  "@low_stock_warning": {
+    "description": "Translation for low_stock_warning"
+  },
+  "critical_level": "{name} の重大レベル。",
+  "@critical_level": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for critical_level"
+  },
+  "refill": "リフィル",
+  "@refill": {
+    "description": "Translation for refill"
+  },
+  "intake_chart": "摂取コンプライアンスチャート",
+  "@intake_chart": {
+    "description": "Translation for intake_chart"
+  },
+  "weekly_avg": "週平均: {perc}%",
+  "@weekly_avg": {
+    "placeholders": {
+      "perc": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for weekly_avg"
+  },
+  "medicine_cabinet": "薬品棚",
+  "@medicine_cabinet": {
+    "description": "Translation for medicine_cabinet"
+  },
+  "active_inventory": "アクティブな在庫",
+  "@active_inventory": {
+    "description": "Translation for active_inventory"
+  },
+  "add": "追加",
+  "@add": {
+    "description": "Translation for add"
+  },
+  "daily_routine": "日課",
+  "@daily_routine": {
+    "description": "Translation for daily_routine"
+  },
+  "morning": "朝",
+  "@morning": {
+    "description": "Translation for morning"
+  },
+  "afternoon": "午後",
+  "@afternoon": {
+    "description": "Translation for afternoon"
+  },
+  "night": "夜",
+  "@night": {
+    "description": "Translation for night"
+  },
+  "med_cabinet_add": "新しい医学",
+  "@med_cabinet_add": {
+    "description": "Translation for med_cabinet_add"
+  },
+  "stock_left": "{count} 左",
+  "@stock_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for stock_left"
+  },
+  "vital_signs": "バイタルサイン",
+  "@vital_signs": {
+    "description": "Translation for vital_signs"
+  },
+  "daily_goals": "毎日の目標",
+  "@daily_goals": {
+    "description": "Translation for daily_goals"
+  },
+  "activity": "活動",
+  "@activity": {
+    "description": "Translation for activity"
+  },
+  "step_counter": "ステップカウンター",
+  "@step_counter": {
+    "description": "Translation for step_counter"
+  },
+  "water_tracker": "水分追跡装置",
+  "@water_tracker": {
+    "description": "Translation for water_tracker"
+  },
+  "safety_footer_med": "VitaCase は管理ツールです。医学的なアドバイスや推奨用量を提供するものではありません。必ず医師の指示に従ってください。",
+  "@safety_footer_med": {
+    "description": "Translation for safety_footer_med"
+  },
+  "hint_name": "例えばジョン・ドゥ",
+  "@hint_name": {
+    "description": "Translation for hint_name"
+  },
+  "hint_emergency": "氏名 / 電話番号",
+  "@hint_emergency": {
+    "description": "Translation for hint_emergency"
+  },
+  "docs_search_hint": "保管庫を検索します (文書、メモ、ID など)。",
+  "@docs_search_hint": {
+    "description": "Translation for docs_search_hint"
+  },
+  "docs_info_secure": "あなたの文書は安全に保管され、あなた専用です。",
+  "@docs_info_secure": {
+    "description": "Translation for docs_info_secure"
+  },
+  "docs_info_encrypted": "データは暗号化によってローカルで保護されます。",
+  "@docs_info_encrypted": {
+    "description": "Translation for docs_info_encrypted"
+  },
+  "docs_sort_all": "全て",
+  "@docs_sort_all": {
+    "description": "Translation for docs_sort_all"
+  },
+  "docs_sort_newest": "最新",
+  "@docs_sort_newest": {
+    "description": "Translation for docs_sort_newest"
+  },
+  "docs_sort_oldest": "最古の",
+  "@docs_sort_oldest": {
+    "description": "Translation for docs_sort_oldest"
+  },
+  "docs_empty_title": "ここは空いています",
+  "@docs_empty_title": {
+    "description": "Translation for docs_empty_title"
+  },
+  "docs_empty_subtitle": "最初のドキュメントを追加して、Vault の整理を始めます。",
+  "@docs_empty_subtitle": {
+    "description": "Translation for docs_empty_subtitle"
+  },
+  "docs_loading_open": "安全なファイルを開いています...",
+  "@docs_loading_open": {
+    "description": "Translation for docs_loading_open"
+  },
+  "docs_loading_decrypt": "AES-256 復号化",
+  "@docs_loading_decrypt": {
+    "description": "Translation for docs_loading_decrypt"
+  },
+  "docs_add_source": "情報源/機関 (オプション)",
+  "@docs_add_source": {
+    "description": "Translation for docs_add_source"
+  },
+  "docs_add_person": "関係者・詳細",
+  "@docs_add_person": {
+    "description": "Translation for docs_add_person"
+  },
+  "docs_add_cat": "カテゴリ",
+  "@docs_add_cat": {
+    "description": "Translation for docs_add_cat"
+  },
+  "docs_add_type": "文書の種類",
+  "@docs_add_type": {
+    "description": "Translation for docs_add_type"
+  },
+  "docs_add_note": "注記 (オプション)",
+  "@docs_add_note": {
+    "description": "Translation for docs_add_note"
+  },
+  "docs_add_secure": "この情報は AES-256 で暗号化されます。",
+  "@docs_add_secure": {
+    "description": "Translation for docs_add_secure"
+  },
+  "docs_add_pick_diff": "別のファイルを選択してください",
+  "@docs_add_pick_diff": {
+    "description": "Translation for docs_add_pick_diff"
+  },
+  "docs_error_save": "ドキュメントの保存に失敗しました",
+  "@docs_error_save": {
+    "description": "Translation for docs_error_save"
+  },
+  "docs_error_source": "健康書類には機関名が必要です",
+  "@docs_error_source": {
+    "description": "Translation for docs_error_source"
+  },
+  "docs_error_size": "ファイルサイズは最大10MBである必要があります",
+  "@docs_error_size": {
+    "description": "Translation for docs_error_size"
+  },
+  "docs_add_file_selected": "選択したファイル",
+  "@docs_add_file_selected": {
+    "description": "Translation for docs_add_file_selected"
+  },
+  "docs_action_delete": "消去",
+  "@docs_action_delete": {
+    "description": "Translation for docs_action_delete"
+  },
+  "docs_no_results": "結果が見つかりませんでした",
+  "@docs_no_results": {
+    "description": "Translation for docs_no_results"
+  },
+  "docs_no_matching": "条件に一致する文書はありません",
+  "@docs_no_matching": {
+    "description": "Translation for docs_no_matching"
+  },
+  "docs_try_different": "別のキーワードで検索してみてください。",
+  "@docs_try_different": {
+    "description": "Translation for docs_try_different"
+  },
+  "docs_no_filter_match": "選択したフィルターのドキュメントが見つかりませんでした。",
+  "@docs_no_filter_match": {
+    "description": "Translation for docs_no_filter_match"
+  },
+  "docs_show_all": "すべて表示",
+  "@docs_show_all": {
+    "description": "Translation for docs_show_all"
+  },
+  "privacy_warning_title": "プライバシーに関する警告",
+  "@privacy_warning_title": {
+    "description": "Translation for privacy_warning_title"
+  },
+  "privacy_warning_desc": "機密情報およびアップロードされたドキュメントに対する単独の責任は、すべてユーザーに帰属します。危険性の高いデータを保存する場合は注意してください。",
+  "@privacy_warning_desc": {
+    "description": "Translation for privacy_warning_desc"
+  },
+  "hint_select": "選択",
+  "@hint_select": {
+    "description": "Translation for hint_select"
+  },
+  "hint_institution": "例えば市立病院、銀行、公証人",
+  "@hint_institution": {
+    "description": "Translation for hint_institution"
+  },
+  "hint_person_detail": "例えばメフメット博士、アーメット弁護士、税金番号",
+  "@hint_person_detail": {
+    "description": "Translation for hint_person_detail"
+  },
+  "hint_add_note": "メモを追加...",
+  "@hint_add_note": {
+    "description": "Translation for hint_add_note"
+  },
+  "docs_category_prescriptions": "処方箋",
+  "@docs_category_prescriptions": {
+    "description": "Translation for docs_category_prescriptions"
+  },
+  "docs_category_reports": "報告",
+  "@docs_category_reports": {
+    "description": "Translation for docs_category_reports"
+  },
+  "docs_category_test_results": "試験結果",
+  "@docs_category_test_results": {
+    "description": "Translation for docs_category_test_results"
+  },
+  "docs_category_images": "医用画像",
+  "@docs_category_images": {
+    "description": "Translation for docs_category_images"
+  },
+  "upcoming_appointment": "今後の予定",
+  "@upcoming_appointment": {
+    "description": "Translation for upcoming_appointment"
+  },
+  "weekly": "毎週",
+  "@weekly": {
+    "description": "Translation for weekly"
+  },
+  "monthly": "毎月",
+  "@monthly": {
+    "description": "Translation for monthly"
+  },
+  "no_more_appointments": "これ以上の予定は見つかりません。",
+  "@no_more_appointments": {
+    "description": "Translation for no_more_appointments"
+  },
+  "join_meeting": "ミーティングに参加する",
+  "@join_meeting": {
+    "description": "Translation for join_meeting"
+  },
+  "health_trend_desc": "7日間の健康傾向",
+  "@health_trend_desc": {
+    "description": "Translation for health_trend_desc"
+  },
+  "all_records_title": "すべての記録",
+  "@all_records_title": {
+    "description": "Translation for all_records_title"
+  },
+  "personal_health_data": "個人の健康データ",
+  "@personal_health_data": {
+    "description": "Translation for personal_health_data"
+  },
+  "personal_info": "個人情報",
+  "@personal_info": {
+    "description": "Translation for personal_info"
+  },
+  "account_settings": "アカウント設定",
+  "@account_settings": {
+    "description": "Translation for account_settings"
+  },
+  "emergency_card": "緊急カード",
+  "@emergency_card": {
+    "description": "Translation for emergency_card"
+  },
+  "allergies": "アレルギー",
+  "@allergies": {
+    "description": "Translation for allergies"
+  },
+  "none": "なし",
+  "@none": {
+    "description": "Translation for none"
+  },
+  "not_added": "追加されていません",
+  "@not_added": {
+    "description": "Translation for not_added"
+  },
+  "active_goals": "アクティブな目標",
+  "@active_goals": {
+    "description": "Translation for active_goals"
+  },
+  "daily_steps": "毎日の歩数",
+  "@daily_steps": {
+    "description": "Translation for daily_steps"
+  },
+  "water_intake": "水分摂取量",
+  "@water_intake": {
+    "description": "Translation for water_intake"
+  },
+  "liter_unit": "リットル",
+  "@liter_unit": {
+    "description": "Translation for liter_unit"
+  },
+  "speed_up": "スピードアップ",
+  "@speed_up": {
+    "description": "Translation for speed_up"
+  },
+  "stay_fresh": "新鮮さを保つ",
+  "@stay_fresh": {
+    "description": "Translation for stay_fresh"
+  },
+  "target_label": "ターゲット",
+  "@target_label": {
+    "description": "Translation for target_label"
+  },
+  "logout_desc_safe": "ログアウトしてもよろしいですか?データはデバイスに安全に保存されたままになります。",
+  "@logout_desc_safe": {
+    "description": "Translation for logout_desc_safe"
+  },
+  "years_old": "歳",
+  "@years_old": {
+    "description": "Translation for years_old"
+  },
+  "med_name_hint": "例えばアスピリン",
+  "@med_name_hint": {
+    "description": "Translation for med_name_hint"
+  },
+  "frequency": "頻度",
+  "@frequency": {
+    "description": "Translation for frequency"
+  },
+  "reminder_times": "リマインダー時間",
+  "@reminder_times": {
+    "description": "Translation for reminder_times"
+  },
+  "current_stock": "現在の在庫",
+  "@current_stock": {
+    "description": "Translation for current_stock"
+  },
+  "stock_warning": "在庫が5個を下回った場合はお知らせします。",
+  "@stock_warning": {
+    "description": "Translation for stock_warning"
+  },
+  "hero_health_tip": "あなたの健康のために",
+  "@hero_health_tip": {
+    "description": "Translation for hero_health_tip"
+  },
+  "hero_consistency": "一貫性が鍵です",
+  "@hero_consistency": {
+    "description": "Translation for hero_consistency"
+  },
+  "custom_freq_title": "カスタム周波数",
+  "@custom_freq_title": {
+    "description": "Translation for custom_freq_title"
+  },
+  "custom_freq_hint": "例えば2週間ごと",
+  "@custom_freq_hint": {
+    "description": "Translation for custom_freq_hint"
+  },
+  "apply": "適用する",
+  "@apply": {
+    "description": "Translation for apply"
+  },
+  "daily": "毎日",
+  "@daily": {
+    "description": "Translation for daily"
+  },
+  "custom": "カスタム",
+  "@custom": {
+    "description": "Translation for custom"
+  },
+  "tablet": "錠剤",
+  "@tablet": {
+    "description": "Translation for tablet"
+  },
+  "syrup": "シロップ(ml)",
+  "@syrup": {
+    "description": "Translation for syrup"
+  },
+  "dose": "用量",
+  "@dose": {
+    "description": "Translation for dose"
+  },
+  "capsule": "カプセル",
+  "@capsule": {
+    "description": "Translation for capsule"
+  },
+  "drops": "ドロップ",
+  "@drops": {
+    "description": "Translation for drops"
+  },
+  "limit_title": "ストレージがいっぱいです! 🚀",
+  "@limit_title": {
+    "description": "Translation for limit_title"
+  },
+  "limit_desc": "現在の制限は {count} ドキュメントです。短いビデオを見て、さらに 5 スロットを獲得しますか?",
+  "@limit_desc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc"
+  },
+  "limit_desc_meds": "現在の制限は {count} 個の医薬品です。短いビデオを見て、さらに 5 スロットを獲得しますか?",
+  "@limit_desc_meds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_meds"
+  },
+  "limit_desc_appts": "現在の制限は {count} 件の予定です。短いビデオを見て、さらに 5 スロットを獲得しますか?",
+  "@limit_desc_appts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_desc_appts"
+  },
+  "limit_close": "近い",
+  "@limit_close": {
+    "description": "Translation for limit_close"
+  },
+  "limit_reward_btn": "見て得する",
+  "@limit_reward_btn": {
+    "description": "Translation for limit_reward_btn"
+  },
+  "limit_reward_success": "おめでとう！ +10 ドキュメントスロットが追加されました。",
+  "@limit_reward_success": {
+    "description": "Translation for limit_reward_success"
+  },
+  "limit_ad_free_info": "安全でプライベートなローカルストレージ 🛡️",
+  "@limit_ad_free_info": {
+    "description": "Translation for limit_ad_free_info"
+  },
+  "limit_slots_used": "{count}/{limit} スロットが使用されています",
+  "@limit_slots_used": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for limit_slots_used"
+  },
+  "lock_title": "VitaCase がロックされました",
+  "@lock_title": {
+    "description": "Translation for lock_title"
+  },
+  "lock_subtitle": "アクセスするには確認してください",
+  "@lock_subtitle": {
+    "description": "Translation for lock_subtitle"
+  },
+  "unlock": "ロックを解除する",
+  "@unlock": {
+    "description": "Translation for unlock"
+  },
+  "bmi_underweight": "低体重",
+  "@bmi_underweight": {
+    "description": "Translation for bmi_underweight"
+  },
+  "bmi_normal": "通常（理想）",
+  "@bmi_normal": {
+    "description": "Translation for bmi_normal"
+  },
+  "bmi_overweight": "太りすぎ",
+  "@bmi_overweight": {
+    "description": "Translation for bmi_overweight"
+  },
+  "bmi_obese": "肥満",
+  "@bmi_obese": {
+    "description": "Translation for bmi_obese"
+  },
+  "page_not_found": "ページが見つからないか、エラーが発生しました。",
+  "@page_not_found": {
+    "description": "Translation for page_not_found"
+  },
+  "legal_onboarding_clause": "VitaCase がオフラインファーストの保管庫であることを認めます。私のデバイスとその中に保存されている機密の健康データのセキュリティについては私が単独で責任を負います。",
+  "@legal_onboarding_clause": {
+    "description": "Translation for legal_onboarding_clause"
+  },
+  "delete_all_data": "すべてのデータを削除する",
+  "@delete_all_data": {
+    "description": "Translation for delete_all_data"
+  },
+  "wipe_confirm_1": "すべてのデータ、ドキュメント、設定は完全に削除されます。この操作は元に戻すことができません。続けますか?",
+  "@wipe_confirm_1": {
+    "description": "Translation for wipe_confirm_1"
+  },
+  "wipe_confirm_2": "本当に大丈夫ですか?すべての医療アーカイブと暗号化された記録はこのデバイスから消去されます。",
+  "@wipe_confirm_2": {
+    "description": "Translation for wipe_confirm_2"
+  },
+  "final_warning": "セキュリティに関する最終警告",
+  "@final_warning": {
+    "description": "Translation for final_warning"
+  },
+  "wipe_btn_final": "はい、すべて削除します",
+  "@wipe_btn_final": {
+    "description": "Translation for wipe_btn_final"
+  },
+  "all_data_deleted": "すべてのデータが消去されました。アプリが再起動されます。",
+  "@all_data_deleted": {
+    "description": "Translation for all_data_deleted"
+  },
+  "edit": "編集",
+  "@edit": {
+    "description": "Translation for edit"
+  },
+  "delete": "消去",
+  "@delete": {
+    "description": "Translation for delete"
+  },
+  "theme_selection_title": "テーマの選択",
+  "@theme_selection_title": {
+    "description": "Translation for theme_selection_title"
+  },
+  "watch_ad": "広告を見る",
+  "@watch_ad": {
+    "description": "Translation for watch_ad"
+  },
+  "verify_sentry": "Sentry の統合を確認する",
+  "@verify_sentry": {
+    "description": "Translation for verify_sentry"
+  },
+  "edit_panel_soon": "編集パネルは近日公開予定です。",
+  "@edit_panel_soon": {
+    "description": "Translation for edit_panel_soon"
+  },
+  "add_new_record": "新しいレコードを追加",
+  "@add_new_record": {
+    "description": "Translation for add_new_record"
+  },
+  "category": "カテゴリ",
+  "@category": {
+    "description": "Translation for category"
+  },
+  "fill_required_fields": "必須フィールドに入力してください",
+  "@fill_required_fields": {
+    "description": "Translation for fill_required_fields"
+  },
+  "error_doctor_data": "医師名と診療科を入力してください",
+  "@error_doctor_data": {
+    "description": "Translation for error_doctor_data"
+  },
+  "error_appointment_data": "タイトルと病院/センターのフィールドを入力してください",
+  "@error_appointment_data": {
+    "description": "Translation for error_appointment_data"
+  },
+  "appointment_reminder_title": "予約のリマインダー",
+  "@appointment_reminder_title": {
+    "description": "Translation for appointment_reminder_title"
+  },
+  "appointment_reminder_body": "{time}: {doctor} ({dept}) に予定があります",
+  "@appointment_reminder_body": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "doctor": {
+        "type": "String"
+      },
+      "dept": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for appointment_reminder_body"
+  },
+  "text_size_small": "小さい",
+  "@text_size_small": {
+    "description": "Translation for text_size_small"
+  },
+  "text_size_medium": "中くらい",
+  "@text_size_medium": {
+    "description": "Translation for text_size_medium"
+  },
+  "text_size_large": "大きい",
+  "@text_size_large": {
+    "description": "Translation for text_size_large"
+  },
+  "support_contact": "サポート チームに連絡するには: limanexsoftware@outlook.com",
+  "@support_contact": {
+    "description": "Translation for support_contact"
+  },
+  "quick_actions_optimized": "クイック アクションは、プロファイルに合わせてすでに最適化されています。",
+  "@quick_actions_optimized": {
+    "description": "Translation for quick_actions_optimized"
+  },
+  "medication_reminder": "服薬リマインダー",
+  "@medication_reminder": {
+    "description": "Translation for medication_reminder"
+  },
+  "medication_reminder_body": "{name} ({dose}) の時間",
+  "@medication_reminder_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dose": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for medication_reminder_body"
+  },
+  "no_doctors_found": "一致する医師が見つかりませんでした",
+  "@no_doctors_found": {
+    "description": "Translation for no_doctors_found"
+  },
+  "clear_filters": "フィルターをクリアする",
+  "@clear_filters": {
+    "description": "Translation for clear_filters"
+  },
+  "verified": "確認済み",
+  "@verified": {
+    "description": "Translation for verified"
+  },
+  "height_label": "身長",
+  "@height_label": {
+    "description": "Translation for height_label"
+  },
+  "weight_label": "重さ",
+  "@weight_label": {
+    "description": "Translation for weight_label"
+  },
+  "age_label": "年",
+  "@age_label": {
+    "description": "Translation for age_label"
+  },
+  "identity_contact": "身元と連絡先",
+  "@identity_contact": {
+    "description": "Translation for identity_contact"
+  },
+  "id_number": "ID番号",
+  "@id_number": {
+    "description": "Translation for id_number"
+  },
+  "update_info": "アップデート情報",
+  "@update_info": {
+    "description": "Translation for update_info"
+  },
+  "vita_badge": "VitaCase ユーザー",
+  "@vita_badge": {
+    "description": "Translation for vita_badge"
+  },
+  "default_job": "フリーランス / 健康愛好家",
+  "@default_job": {
+    "description": "Translation for default_job"
+  },
+  "blood_type_val": "Rh+",
+  "@blood_type_val": {
+    "description": "Translation for blood_type_val"
+  },
+  "clinical_note": "臨床ノート",
+  "@clinical_note": {
+    "description": "Translation for clinical_note"
+  },
+  "last_control": "ラストコントロール",
+  "@last_control": {
+    "description": "Translation for last_control"
+  },
+  "bmi_ideal": "理想的な体重の範囲",
+  "@bmi_ideal": {
+    "description": "Translation for bmi_ideal"
+  },
+  "medical_info_desc_empty": "重要な医療情報をここに保管して、いつでも持ち運べます。",
+  "@medical_info_desc_empty": {
+    "description": "Translation for medical_info_desc_empty"
+  },
+  "category_critical": "重要な情報",
+  "@category_critical": {
+    "description": "Translation for category_critical"
+  },
+  "category_important": "重要な注意事項",
+  "@category_important": {
+    "description": "Translation for category_important"
+  },
+  "category_general": "一般情報",
+  "@category_general": {
+    "description": "Translation for category_general"
+  },
+  "medical_info_desc": "あなたの健康にとって重要なすべての医療記録。",
+  "@medical_info_desc": {
+    "description": "Translation for medical_info_desc"
+  },
+  "title": "タイトル",
+  "@title": {
+    "description": "Translation for title"
+  },
+  "description": "説明",
+  "@description": {
+    "description": "Translation for description"
+  },
+  "icon": "アイコン",
+  "@icon": {
+    "description": "Translation for icon"
+  },
+  "save_record": "記録の保存",
+  "@save_record": {
+    "description": "Translation for save_record"
+  },
+  "critical": "致命的",
+  "@critical": {
+    "description": "Translation for critical"
+  },
+  "important": "重要",
+  "@important": {
+    "description": "Translation for important"
+  },
+  "general": "一般的な",
+  "@general": {
+    "description": "Translation for general"
+  },
+  "theme_unlock_desc": "このテーマを試すか、広告を視聴して永久にロックを解除することができます。",
+  "@theme_unlock_desc": {
+    "description": "Translation for theme_unlock_desc"
+  },
+  "theme_previewing": "テーマは 10 秒間プレビューされています...",
+  "@theme_previewing": {
+    "description": "Translation for theme_previewing"
+  },
+  "preview_10s": "プレビュー (10 秒)",
+  "@preview_10s": {
+    "description": "Translation for preview_10s"
+  },
+  "congratulations": "おめでとう！",
+  "@congratulations": {
+    "description": "Translation for congratulations"
+  },
+  "theme_unlocked_success": "新しいテーマのロックが解除されました。",
+  "@theme_unlocked_success": {
+    "description": "Translation for theme_unlocked_success"
+  },
+  "please_enter_at_least_one_data": "少なくとも 1 つのデータ ポイントを入力してください。",
+  "@please_enter_at_least_one_data": {
+    "description": "Translation for please_enter_at_least_one_data"
+  },
+  "data_saved_success": "データは正常に保存されました。",
+  "@data_saved_success": {
+    "description": "Translation for data_saved_success"
+  },
+  "add_data": "データの追加",
+  "@add_data": {
+    "description": "Translation for add_data"
+  },
+  "save_data": "セーブデータ",
+  "@save_data": {
+    "description": "Translation for save_data"
+  },
+  "today_summary": "今日のまとめ",
+  "@today_summary": {
+    "description": "Translation for today_summary"
+  },
+  "target_water": "対象水",
+  "@target_water": {
+    "description": "Translation for target_water"
+  },
+  "target_steps": "目標ステップ",
+  "@target_steps": {
+    "description": "Translation for target_steps"
+  },
+  "add_doctor": "医師を追加",
+  "@add_doctor": {
+    "description": "Translation for add_doctor"
+  },
+  "doctor_name_surname": "医師名 姓",
+  "@doctor_name_surname": {
+    "description": "Translation for doctor_name_surname"
+  },
+  "specialty_department": "専門・学科",
+  "@specialty_department": {
+    "description": "Translation for specialty_department"
+  },
+  "new_record": "新記録",
+  "@new_record": {
+    "description": "Translation for new_record"
+  },
+  "appointment_updated": "予定が更新されました。",
+  "@appointment_updated": {
+    "description": "Translation for appointment_updated"
+  },
+  "edit_appointment": "予定を編集する",
+  "@edit_appointment": {
+    "description": "Translation for edit_appointment"
+  },
+  "importance_level": "重要度",
+  "@importance_level": {
+    "description": "Translation for importance_level"
+  },
+  "notes_optional": "注記 (オプション)",
+  "@notes_optional": {
+    "description": "Translation for notes_optional"
+  },
+  "address_department": "完全な住所/所属",
+  "@address_department": {
+    "description": "Translation for address_department"
+  },
+  "select_category": "カテゴリの選択",
+  "@select_category": {
+    "description": "Translation for select_category"
+  },
+  "category_meeting": "ミーティング",
+  "@category_meeting": {
+    "description": "Translation for category_meeting"
+  },
+  "category_reminder": "リマインダー",
+  "@category_reminder": {
+    "description": "Translation for category_reminder"
+  },
+  "category_other": "他の",
+  "@category_other": {
+    "description": "Translation for category_other"
+  },
+  "app_slogan": "デジタルサンクチュアリ",
+  "@app_slogan": {
+    "description": "Translation for app_slogan"
+  },
+  "day_monday_short": "月",
+  "@day_monday_short": {
+    "description": "Translation for day_monday_short"
+  },
+  "day_tuesday_short": "火曜日",
+  "@day_tuesday_short": {
+    "description": "Translation for day_tuesday_short"
+  },
+  "day_wednesday_short": "水",
+  "@day_wednesday_short": {
+    "description": "Translation for day_wednesday_short"
+  },
+  "day_thursday_short": "木",
+  "@day_thursday_short": {
+    "description": "Translation for day_thursday_short"
+  },
+  "day_friday_short": "金曜日",
+  "@day_friday_short": {
+    "description": "Translation for day_friday_short"
+  },
+  "day_saturday_short": "土",
+  "@day_saturday_short": {
+    "description": "Translation for day_saturday_short"
+  },
+  "day_sunday_short": "太陽",
+  "@day_sunday_short": {
+    "description": "Translation for day_sunday_short"
+  },
+  "day_monday_very_short": "M",
+  "@day_monday_very_short": {
+    "description": "Translation for day_monday_very_short"
+  },
+  "day_tuesday_very_short": "T",
+  "@day_tuesday_very_short": {
+    "description": "Translation for day_tuesday_very_short"
+  },
+  "day_wednesday_very_short": "W",
+  "@day_wednesday_very_short": {
+    "description": "Translation for day_wednesday_very_short"
+  },
+  "day_thursday_very_short": "T",
+  "@day_thursday_very_short": {
+    "description": "Translation for day_thursday_very_short"
+  },
+  "day_friday_very_short": "F",
+  "@day_friday_very_short": {
+    "description": "Translation for day_friday_very_short"
+  },
+  "day_saturday_very_short": "S",
+  "@day_saturday_very_short": {
+    "description": "Translation for day_saturday_very_short"
+  },
+  "day_sunday_very_short": "S",
+  "@day_sunday_very_short": {
+    "description": "Translation for day_sunday_very_short"
+  },
+  "delete_medicine_confirm": "この薬を削除してもよろしいですか?",
+  "@delete_medicine_confirm": {
+    "description": "Translation for delete_medicine_confirm"
+  },
+  "i_agree_to": "を読んで同意します",
+  "@i_agree_to": {
+    "description": "Translation for i_agree_to"
+  },
+  "read_privacy_policy": "プライバシーポリシー",
+  "@read_privacy_policy": {
+    "description": "Translation for read_privacy_policy"
+  },
+  "read_terms": "利用規約",
+  "@read_terms": {
+    "description": "Translation for read_terms"
+  },
+  "read_disclaimer": "法的免責事項",
+  "@read_disclaimer": {
+    "description": "Translation for read_disclaimer"
+  },
+  "legal_acceptance": "法的承認",
+  "@legal_acceptance": {
+    "description": "Translation for legal_acceptance"
+  },
+  "manage_subscription": "サブスクリプションの管理",
+  "@manage_subscription": {
+    "description": "Translation for manage_subscription"
+  },
+  "trust_offline_title": "オフラインサンクチュアリ",
+  "@trust_offline_title": {
+    "description": "Translation for trust_offline_title"
+  },
+  "trust_offline_desc": "データがデバイスの外に出ることはありません。",
+  "@trust_offline_desc": {
+    "description": "Translation for trust_offline_desc"
+  },
+  "trust_encryption_title": "AES-256暗号化",
+  "@trust_encryption_title": {
+    "description": "Translation for trust_encryption_title"
+  },
+  "trust_encryption_desc": "最大限のセキュリティで保護されています。",
+  "@trust_encryption_desc": {
+    "description": "Translation for trust_encryption_desc"
+  },
+  "trust_adfree_desc": "途切れることのない体験。",
+  "@trust_adfree_desc": {
+    "description": "Translation for trust_adfree_desc"
+  },
+  "medals_trophies": "メダルとトロフィー",
+  "@medals_trophies": {
+    "description": "Translation for medals_trophies"
+  },
+  "cat_streak": "毎日の連続記録",
+  "@cat_streak": {
+    "description": "Translation for cat_streak"
+  },
+  "cat_ads": "サポートと広告",
+  "@cat_ads": {
+    "description": "Translation for cat_ads"
+  },
+  "cat_documents": "記録アーカイブ",
+  "@cat_documents": {
+    "description": "Translation for cat_documents"
+  },
+  "cat_medications": "薬の習慣",
+  "@cat_medications": {
+    "description": "Translation for cat_medications"
+  },
+  "cat_appointments": "臨床訪問",
+  "@cat_appointments": {
+    "description": "Translation for cat_appointments"
+  },
+  "cat_profile": "身元",
+  "@cat_profile": {
+    "description": "Translation for cat_profile"
+  },
+  "cat_emergency": "安全性と準備",
+  "@cat_emergency": {
+    "description": "Translation for cat_emergency"
+  },
+  "cat_health": "バイタルモニタリング",
+  "@cat_health": {
+    "description": "Translation for cat_health"
+  },
+  "cat_engagement": "アプリのアクティビティ",
+  "@cat_engagement": {
+    "description": "Translation for cat_engagement"
+  },
+  "cat_special": "栄誉",
+  "@cat_special": {
+    "description": "Translation for cat_special"
+  },
+  "cat_premium": "サポーター",
+  "@cat_premium": {
+    "description": "Translation for cat_premium"
+  },
+  "cat_power_user": "レジェンドステータス",
+  "@cat_power_user": {
+    "description": "Translation for cat_power_user"
+  },
+  "ach_legend_status": "伝説の",
+  "@ach_legend_status": {
+    "description": "Translation for ach_legend_status"
+  },
+  "theme_boutique": "テーマブティック",
+  "@theme_boutique": {
+    "description": "Translation for theme_boutique"
+  },
+  "days_left": "残り日数",
+  "@days_left": {
+    "description": "Translation for days_left"
+  },
+  "unlocked": "ロック解除済み",
+  "@unlocked": {
+    "description": "Translation for unlocked"
+  },
+  "progress": "進捗",
+  "@progress": {
+    "description": "Translation for progress"
+  },
+  "ach_hidden_desc": "この秘密の成果を発見するためにプレイを続けてください。",
+  "@ach_hidden_desc": {
+    "description": "Translation for ach_hidden_desc"
+  },
+  "ach_login_1_desc": "すべての伝説的な旅は一歩から始まります。最初の連勝記録を達成しました!",
+  "@ach_login_1_desc": {
+    "description": "Translation for ach_login_1_desc"
+  },
+  "ach_login_3_title": "ウォーミングアップ",
+  "@ach_login_3_title": {
+    "description": "Translation for ach_login_3_title"
+  },
+  "ach_login_3_desc": "ウォームアップラップが終わりました。 3日連続でここに来ましたね、全然悪くないですよ！ 🔥",
+  "@ach_login_3_desc": {
+    "description": "Translation for ach_login_3_desc"
+  },
+  "ach_login_7_title": "一貫性のある",
+  "@ach_login_7_title": {
+    "description": "Translation for ach_login_7_title"
+  },
+  "ach_login_7_desc": "丸一週間！コツを学び、キャンプファイヤーに火をつけました。",
+  "@ach_login_7_desc": {
+    "description": "Translation for ach_login_7_desc"
+  },
+  "ach_login_14_title": "習慣的な",
+  "@ach_login_14_title": {
+    "description": "Translation for ach_login_14_title"
+  },
+  "ach_login_14_desc": "2週連続！習慣はこうやって鍛えられるのです。おめでとうございます。",
+  "@ach_login_14_desc": {
+    "description": "Translation for ach_login_14_desc"
+  },
+  "ach_login_30_title": "中毒",
+  "@ach_login_30_title": {
+    "description": "Translation for ach_login_30_title"
+  },
+  "ach_login_30_desc": "まるまる一ヶ月！私たち二人とも、これが単なる趣味ではないことを知っています。",
+  "@ach_login_30_desc": {
+    "description": "Translation for ach_login_30_desc"
+  },
+  "ach_login_60_title": "忠実なユーザー",
+  "@ach_login_60_title": {
+    "description": "Translation for ach_login_60_title"
+  },
+  "ach_login_60_desc": "2か月... 家賃払ってますか、友達？あなたの第二の家へようこそ。 🏠",
+  "@ach_login_60_desc": {
+    "description": "Translation for ach_login_60_desc"
+  },
+  "ach_login_100_title": "専門家",
+  "@ach_login_100_title": {
+    "description": "Translation for ach_login_100_title"
+  },
+  "ach_login_100_desc": "世紀！いかなる力も100日連続記録を破ることはできません。 💯",
+  "@ach_login_100_desc": {
+    "description": "Translation for ach_login_100_desc"
+  },
+  "ach_login_200_title": "伝説",
+  "@ach_login_200_title": {
+    "description": "Translation for ach_login_200_title"
+  },
+  "ach_login_200_desc": "200日。人々はあなたが AI ボットではないかと疑い始めています。 🤖",
+  "@ach_login_200_desc": {
+    "description": "Translation for ach_login_200_desc"
+  },
+  "ach_login_365_title": "伝説の年",
+  "@ach_login_365_title": {
+    "description": "Translation for ach_login_365_title"
+  },
+  "ach_login_365_desc": "まるまる太陽年！あなたはすべてを乗り越えてここに来ました。明日は戴冠式。 👑",
+  "@ach_login_365_desc": {
+    "description": "Translation for ach_login_365_desc"
+  },
+  "ach_ads_1_title": "最初の広告",
+  "@ach_ads_1_title": {
+    "description": "Translation for ach_ads_1_title"
+  },
+  "ach_ads_1_desc": "広告は良いものです...時々。小さなサポートに感謝します！",
+  "@ach_ads_1_desc": {
+    "description": "Translation for ach_ads_1_desc"
+  },
+  "ach_ads_5_title": "サポーター",
+  "@ach_ads_5_title": {
+    "description": "Translation for ach_ads_5_title"
+  },
+  "ach_ads_5_desc": "あなたも私たちと同じようにスポンサーを愛しているようですね。",
+  "@ach_ads_5_desc": {
+    "description": "Translation for ach_ads_5_desc"
+  },
+  "ach_ads_15_title": "忠実な視聴者",
+  "@ach_ads_15_title": {
+    "description": "Translation for ach_ads_15_title"
+  },
+  "ach_ads_15_desc": "ポップコーンを手に取って、15 広告マラソンを完走しました。 🍿",
+  "@ach_ads_15_desc": {
+    "description": "Translation for ach_ads_15_desc"
+  },
+  "ach_ads_30_title": "それを維持する",
+  "@ach_ads_30_title": {
+    "description": "Translation for ach_ads_30_title"
+  },
+  "ach_ads_30_desc": "テレビを見ているみたいに！あなたのサポートは金の重みに値します。",
+  "@ach_ads_30_desc": {
+    "description": "Translation for ach_ads_30_desc"
+  },
+  "ach_ads_50_title": "パワーユーザー",
+  "@ach_ads_50_title": {
+    "description": "Translation for ach_ads_50_title"
+  },
+  "ach_ads_50_desc": "どの広告が 2 番目に表示されるかを予測できるようになりました。",
+  "@ach_ads_50_desc": {
+    "description": "Translation for ach_ads_50_desc"
+  },
+  "ach_ads_100_title": "中毒",
+  "@ach_ads_100_title": {
+    "description": "Translation for ach_ads_100_title"
+  },
+  "ach_ads_100_desc": "広告100枚！あなたの忍耐に対して、私たちはあなたに特別なメダルを授ける義務があります。",
+  "@ach_ads_100_desc": {
+    "description": "Translation for ach_ads_100_desc"
+  },
+  "ach_ads_250_title": "アドマスター",
+  "@ach_ads_250_title": {
+    "description": "Translation for ach_ads_250_title"
+  },
+  "ach_ads_250_desc": "マーケティングの天才がスクリーンに消えた。皆様のご支援は空まで届きました。",
+  "@ach_ads_250_desc": {
+    "description": "Translation for ach_ads_250_desc"
+  },
+  "ach_ads_500_title": "マネタイズキング",
+  "@ach_ads_500_title": {
+    "description": "Translation for ach_ads_500_title"
+  },
+  "ach_ads_500_desc": "あなたは金融業者ですか？あなたは単独で市場を運営しています。 📉",
+  "@ach_ads_500_desc": {
+    "description": "Translation for ach_ads_500_desc"
+  },
+  "ach_doc_1_title": "最初の文書",
+  "@ach_doc_1_title": {
+    "description": "Translation for ach_doc_1_title"
+  },
+  "ach_doc_1_desc": "役所ではありませんが、初めての書類提出に成功しました。 📇",
+  "@ach_doc_1_desc": {
+    "description": "Translation for ach_doc_1_desc"
+  },
+  "ach_doc_5_title": "始まり",
+  "@ach_doc_5_title": {
+    "description": "Translation for ach_doc_5_title"
+  },
+  "ach_doc_5_desc": "最初のフォルダーがほぼいっぱいです。整理整頓が進んでいます。",
+  "@ach_doc_5_desc": {
+    "description": "Translation for ach_doc_5_desc"
+  },
+  "ach_doc_10_title": "一般ユーザー",
+  "@ach_doc_10_title": {
+    "description": "Translation for ach_doc_10_title"
+  },
+  "ach_doc_10_desc": "ファイルが溜まっていきます。 Lost and Found はあなたと協力したいと思っています。",
+  "@ach_doc_10_desc": {
+    "description": "Translation for ach_doc_10_desc"
+  },
+  "ach_doc_25_title": "アーキビスト",
+  "@ach_doc_25_title": {
+    "description": "Translation for ach_doc_25_title"
+  },
+  "ach_doc_25_desc": "書類手続きもすべて... アーカイブ内の 25 件の文書を調べました。",
+  "@ach_doc_25_desc": {
+    "description": "Translation for ach_doc_25_desc"
+  },
+  "ach_doc_50_title": "プロ",
+  "@ach_doc_50_title": {
+    "description": "Translation for ach_doc_50_title"
+  },
+  "ach_doc_50_desc": "秘書の仕事は忘れてください。これがプロのファイリングナイトの姿です。",
+  "@ach_doc_50_desc": {
+    "description": "Translation for ach_doc_50_desc"
+  },
+  "ach_doc_100_title": "ボールトマスター",
+  "@ach_doc_100_title": {
+    "description": "Translation for ach_doc_100_title"
+  },
+  "ach_doc_100_desc": "書類100枚？この大規模なアーカイブの司書を任命する時期が来ました。 📚",
+  "@ach_doc_100_desc": {
+    "description": "Translation for ach_doc_100_desc"
+  },
+  "ach_doc_250_title": "データコレクター",
+  "@ach_doc_250_title": {
+    "description": "Translation for ach_doc_250_title"
+  },
+  "ach_doc_250_desc": "ビッグデータ シナリオへようこそ。あなたはスタックを支配します。",
+  "@ach_doc_250_desc": {
+    "description": "Translation for ach_doc_250_desc"
+  },
+  "ach_doc_500_title": "デジタルアーカイブの専門家",
+  "@ach_doc_500_title": {
+    "description": "Translation for ach_doc_500_title"
+  },
+  "ach_doc_500_desc": "アレクサンドリアのデジタル図書館！あなたのアーカイブは何世代にもわたって残ります。",
+  "@ach_doc_500_desc": {
+    "description": "Translation for ach_doc_500_desc"
+  },
+  "ach_med_1_title": "ファーストメッド",
+  "@ach_med_1_title": {
+    "description": "Translation for ach_med_1_title"
+  },
+  "ach_med_1_desc": "あなたは自分自身を大切にし始めました。あなたの健康にとって素晴らしいマイルストーンです。",
+  "@ach_med_1_desc": {
+    "description": "Translation for ach_med_1_desc"
+  },
+  "ach_med_3_title": "追跡を開始しました",
+  "@ach_med_3_title": {
+    "description": "Translation for ach_med_3_title"
+  },
+  "ach_med_3_desc": "あなたの処方箋に忠実です。水を飲んで、リマインダーを見逃すことはありません。",
+  "@ach_med_3_desc": {
+    "description": "Translation for ach_med_3_desc"
+  },
+  "ach_med_5_title": "一般ユーザー",
+  "@ach_med_5_title": {
+    "description": "Translation for ach_med_5_title"
+  },
+  "ach_med_5_desc": "薬剤師のお気に入りのお客様！フォームを注意深く維持しています。",
+  "@ach_med_5_desc": {
+    "description": "Translation for ach_med_5_desc"
+  },
+  "ach_med_10_title": "規律正しい",
+  "@ach_med_10_title": {
+    "description": "Translation for ach_med_10_title"
+  },
+  "ach_med_10_desc": "薬を時間通りに服用すれば、体は時計のように機能します。 10回確定！",
+  "@ach_med_10_desc": {
+    "description": "Translation for ach_med_10_desc"
+  },
+  "ach_med_25_title": "健康専門家",
+  "@ach_med_25_title": {
+    "description": "Translation for ach_med_25_title"
+  },
+  "ach_med_25_desc": "あなたは自分の体の言語を理解しています。 Med log はあなたにとって芸術になりました。",
+  "@ach_med_25_desc": {
+    "description": "Translation for ach_med_25_desc"
+  },
+  "ach_med_50_title": "ヘルスマスター",
+  "@ach_med_50_title": {
+    "description": "Translation for ach_med_50_title"
+  },
+  "ach_med_50_desc": "医者もあなたの規律を羨ましく思っています。あなたはあなたの体の化学の達人です！ 🧬",
+  "@ach_med_50_desc": {
+    "description": "Translation for ach_med_50_desc"
+  },
+  "ach_app_1_title": "最初の診察",
+  "@ach_app_1_title": {
+    "description": "Translation for ach_app_1_title"
+  },
+  "ach_app_1_desc": "自然に計画を立てなければ成功はありません。初めてのカレンダーエントリーが無事に完了しました。",
+  "@ach_app_1_desc": {
+    "description": "Translation for ach_app_1_desc"
+  },
+  "ach_app_3_title": "企画",
+  "@ach_app_3_title": {
+    "description": "Translation for ach_app_3_title"
+  },
+  "ach_app_3_desc": "時間管理 101. 自分の計画に忠実であり続けることで上昇します。",
+  "@ach_app_3_desc": {
+    "description": "Translation for ach_app_3_desc"
+  },
+  "ach_app_5_title": "整頓された",
+  "@ach_app_5_title": {
+    "description": "Translation for ach_app_5_title"
+  },
+  "ach_app_5_desc": "あなたの予定はいっぱいになってきています。多忙だけどカリスマ性のあるあの人は、きっとあなたです。",
+  "@ach_app_5_desc": {
+    "description": "Translation for ach_app_5_desc"
+  },
+  "ach_app_10_title": "規律あるプランナー",
+  "@ach_app_10_title": {
+    "description": "Translation for ach_app_10_title"
+  },
+  "ach_app_10_desc": "アラームは必要ありません。頭の中に原子時計があります。",
+  "@ach_app_10_desc": {
+    "description": "Translation for ach_app_10_desc"
+  },
+  "ach_app_20_title": "プランナープロ",
+  "@ach_app_20_title": {
+    "description": "Translation for ach_app_20_title"
+  },
+  "ach_app_20_desc": "すべてが分まで明確です...あなたはデジタルアシスタントのようなものです!",
+  "@ach_app_20_desc": {
+    "description": "Translation for ach_app_20_desc"
+  },
+  "ach_app_30_title": "マスタープランナー",
+  "@ach_app_30_title": {
+    "description": "Translation for ach_app_30_title"
+  },
+  "ach_app_30_desc": "タイムベンダー！これらのアプリケーションを 1 人で管理するのは不可能に思えます...しかし、そうではありませんでした。",
+  "@ach_app_30_desc": {
+    "description": "Translation for ach_app_30_desc"
+  },
+  "ach_profile_created_title": "プロファイルが作成されました",
+  "@ach_profile_created_title": {
+    "description": "Translation for ach_profile_created_title"
+  },
+  "ach_profile_created_desc": "正式に加入しました。すでにデジタルマークを作成しています。",
+  "@ach_profile_created_desc": {
+    "description": "Translation for ach_profile_created_desc"
+  },
+  "ach_profile_completed_title": "プロファイルが完了しました",
+  "@ach_profile_completed_title": {
+    "description": "Translation for ach_profile_completed_title"
+  },
+  "ach_profile_completed_desc": "ギャップを見逃すのは嫌いですよね？すべての情報が完璧に詰まっています。",
+  "@ach_profile_completed_desc": {
+    "description": "Translation for ach_profile_completed_desc"
+  },
+  "ach_profile_updated_title": "プロフィールが更新されました",
+  "@ach_profile_updated_title": {
+    "description": "Translation for ach_profile_updated_title"
+  },
+  "ach_profile_updated_desc": "変化は進歩です！リフレッシュして試合に残りましたね。",
+  "@ach_profile_updated_desc": {
+    "description": "Translation for ach_profile_updated_desc"
+  },
+  "ach_profile_with_photo_title": "プロフィール写真",
+  "@ach_profile_with_photo_title": {
+    "description": "Translation for ach_profile_with_photo_title"
+  },
+  "ach_profile_with_photo_desc": "顔のないアバターから救われました。カメラに向かって笑顔で！ 📸",
+  "@ach_profile_with_photo_desc": {
+    "description": "Translation for ach_profile_with_photo_desc"
+  },
+  "ach_profile_master_title": "プロファイルマスター",
+  "@ach_profile_master_title": {
+    "description": "Translation for ach_profile_master_title"
+  },
+  "ach_profile_master_desc": "あなたの ID と経歴により、あなたはシステム内で最も洗練されたユーザーになります。",
+  "@ach_profile_master_desc": {
+    "description": "Translation for ach_profile_master_desc"
+  },
+  "ach_emergency_added_title": "緊急カードを追加しました",
+  "@ach_emergency_added_title": {
+    "description": "Translation for ach_emergency_added_title"
+  },
+  "ach_emergency_added_desc": "予防策が取り残されることはありません。緊急シールドが作動しています。",
+  "@ach_emergency_added_desc": {
+    "description": "Translation for ach_emergency_added_desc"
+  },
+  "ach_emergency_contact_title": "緊急連絡先",
+  "@ach_emergency_contact_title": {
+    "description": "Translation for ach_emergency_contact_title"
+  },
+  "ach_emergency_contact_desc": "困難なときに誰に電話すればよいかは明らかです。信頼の輪が生まれました。 📞",
+  "@ach_emergency_contact_desc": {
+    "description": "Translation for ach_emergency_contact_desc"
+  },
+  "ach_emergency_complete_title": "完了",
+  "@ach_emergency_complete_title": {
+    "description": "Translation for ach_emergency_complete_title"
+  },
+  "ach_emergency_complete_desc": "シナリオの準備ができました。セキュリティレベルは最高。",
+  "@ach_emergency_complete_desc": {
+    "description": "Translation for ach_emergency_complete_desc"
+  },
+  "ach_emergency_ready_title": "準備ができて",
+  "@ach_emergency_ready_title": {
+    "description": "Translation for ach_emergency_ready_title"
+  },
+  "ach_emergency_ready_desc": "すべてが緊急警報の時計のように機能します。安全に確保されています。",
+  "@ach_emergency_ready_desc": {
+    "description": "Translation for ach_emergency_ready_desc"
+  },
+  "ach_emergency_master_title": "エマージェンシーマスター",
+  "@ach_emergency_master_title": {
+    "description": "Translation for ach_emergency_master_title"
+  },
+  "ach_emergency_master_desc": "救急車が到着する前に応急処置を行えるほどタフでクールです。",
+  "@ach_emergency_master_desc": {
+    "description": "Translation for ach_emergency_master_desc"
+  },
+  "ach_health_1_title": "最初のデータ",
+  "@ach_health_1_title": {
+    "description": "Translation for ach_health_1_title"
+  },
+  "ach_health_1_desc": "今日はあなたが自分に良いことをしてくれました。あなたの体は内側からあなたに感謝します。",
+  "@ach_health_1_desc": {
+    "description": "Translation for ach_health_1_desc"
+  },
+  "ach_health_5_title": "追跡を開始しました",
+  "@ach_health_5_title": {
+    "description": "Translation for ach_health_5_title"
+  },
+  "ach_health_5_desc": "データが蓄積され、バイオリズムとの会話が進んでいます。",
+  "@ach_health_5_desc": {
+    "description": "Translation for ach_health_5_desc"
+  },
+  "ach_health_10_title": "健康志向",
+  "@ach_health_10_title": {
+    "description": "Translation for ach_health_10_title"
+  },
+  "ach_health_10_desc": "あなたは統計上の驚異です!あなたの体は暗号化された本のように読み取れます。 📈",
+  "@ach_health_10_desc": {
+    "description": "Translation for ach_health_10_desc"
+  },
+  "ach_health_20_title": "定期的な追跡",
+  "@ach_health_20_title": {
+    "description": "Translation for ach_health_20_title"
+  },
+  "ach_health_20_desc": "あなたは機械のようなものです。脈拍、指標、歩数...どれもセンサーから逃れることはできません。",
+  "@ach_health_20_desc": {
+    "description": "Translation for ach_health_20_desc"
+  },
+  "ach_health_50_title": "健康専門家",
+  "@ach_health_50_title": {
+    "description": "Translation for ach_health_50_title"
+  },
+  "ach_health_50_desc": "サイボーグレベルに近づいている。あなたとあなたのバイオデータとの間の絆は切れることがありません。",
+  "@ach_health_50_desc": {
+    "description": "Translation for ach_health_50_desc"
+  },
+  "ach_health_master_title": "ヘルスマスター",
+  "@ach_health_master_title": {
+    "description": "Translation for ach_health_master_title"
+  },
+  "ach_health_master_desc": "神殿の大神官よ！あなたは自分自身の体に対する絶対的な支配を確立しました。 🧘",
+  "@ach_health_master_desc": {
+    "description": "Translation for ach_health_master_desc"
+  },
+  "ach_first_login_title": "いらっしゃいませ",
+  "@ach_first_login_title": {
+    "description": "Translation for ach_first_login_title"
+  },
+  "ach_first_login_desc": "本当の冒険はまだ始まったばかりです。あなたはちょうど中に足を踏み入れたところです。",
+  "@ach_first_login_desc": {
+    "description": "Translation for ach_first_login_desc"
+  },
+  "ach_first_upload_title": "エクスプローラ",
+  "@ach_first_upload_title": {
+    "description": "Translation for ach_first_upload_title"
+  },
+  "ach_first_upload_desc": "初めて永久的な足跡を残しました。あなたは今ここに刻まれています。",
+  "@ach_first_upload_desc": {
+    "description": "Translation for ach_first_upload_desc"
+  },
+  "ach_first_ad_title": "無料ユーザー",
+  "@ach_first_ad_title": {
+    "description": "Translation for ach_first_ad_title"
+  },
+  "ach_first_ad_desc": "初めての広告インタラクション!あなたは生態系に活力を与えました。",
+  "@ach_first_ad_desc": {
+    "description": "Translation for ach_first_ad_desc"
+  },
+  "ach_first_premium_title": "プレミアムユーザー",
+  "@ach_first_premium_title": {
+    "description": "Translation for ach_first_premium_title"
+  },
+  "ach_first_premium_desc": "ビジョンの問題。レッドカーペットが敷かれ、VIP ラウンジをお楽しみください。 🎟️",
+  "@ach_first_premium_desc": {
+    "description": "Translation for ach_first_premium_desc"
+  },
+  "ach_active_3_days_title": "アクティブ",
+  "@ach_active_3_days_title": {
+    "description": "Translation for ach_active_3_days_title"
+  },
+  "ach_active_3_days_desc": "ケーブルが暖まり、エンジンが始動しました。私たちはあなたのエネルギーを感じます。",
+  "@ach_active_3_days_desc": {
+    "description": "Translation for ach_active_3_days_desc"
+  },
+  "ach_active_7_days_title": "忠実な",
+  "@ach_active_7_days_title": {
+    "description": "Translation for ach_active_7_days_title"
+  },
+  "ach_active_7_days_desc": "丸 1 週間システムと同期されます。物事が電気的になりました！",
+  "@ach_active_7_days_desc": {
+    "description": "Translation for ach_active_7_days_desc"
+  },
+  "ach_active_30_days_title": "コアユーザー",
+  "@ach_active_30_days_title": {
+    "description": "Translation for ach_active_30_days_title"
+  },
+  "ach_active_30_days_desc": "今では実質名誉職員。あなたなしではこの場所は同じではありません。",
+  "@ach_active_30_days_desc": {
+    "description": "Translation for ach_active_30_days_desc"
+  },
+  "ach_streak_saved_title": "ストリークセイバー",
+  "@ach_streak_saved_title": {
+    "description": "Translation for ach_streak_saved_title"
+  },
+  "ach_streak_saved_desc": "端から戻ってきた！その美しい筋を保存したのは素晴らしい反射神経でした。",
+  "@ach_streak_saved_desc": {
+    "description": "Translation for ach_streak_saved_desc"
+  },
+  "ach_streak_saved_5_title": "弾力性のある",
+  "@ach_streak_saved_5_title": {
+    "description": "Translation for ach_streak_saved_5_title"
+  },
+  "ach_streak_saved_5_desc": "戦いの傷跡にもかかわらず転ぶことはなく、つまずいたときに立ち上がる方法を知っています。",
+  "@ach_streak_saved_5_desc": {
+    "description": "Translation for ach_streak_saved_5_desc"
+  },
+  "ach_streak_saved_10_title": "決してあきらめない",
+  "@ach_streak_saved_10_title": {
+    "description": "Translation for ach_streak_saved_10_title"
+  },
+  "ach_streak_saved_10_desc": "あなたはフェニックスですか？灰から立ち上がることは、あなたにとって典型的な火曜日の活動にすぎません。 🐦🔥",
+  "@ach_streak_saved_10_desc": {
+    "description": "Translation for ach_streak_saved_10_desc"
+  },
+  "ach_streak_perfect_30_title": "パーフェクトストリーク",
+  "@ach_streak_perfect_30_title": {
+    "description": "Translation for ach_streak_perfect_30_title"
+  },
+  "ach_streak_perfect_30_desc": "ミスは一つもありません。あなたはスイスの時計のように、丸 30 日間完璧でした。",
+  "@ach_streak_perfect_30_desc": {
+    "description": "Translation for ach_streak_perfect_30_desc"
+  },
+  "ach_premium_trial_used_title": "プレミアムな体験",
+  "@ach_premium_trial_used_title": {
+    "description": "Translation for ach_premium_trial_used_title"
+  },
+  "ach_premium_trial_used_desc": "特権への扉を開きました。この景色はとても魅力的ですよね。",
+  "@ach_premium_trial_used_desc": {
+    "description": "Translation for ach_premium_trial_used_desc"
+  },
+  "ach_limit_breaker_title": "リミットブレイカー",
+  "@ach_limit_breaker_title": {
+    "description": "Translation for ach_limit_breaker_title"
+  },
+  "ach_limit_breaker_desc": "ルールと制限は曲げられるためにある。マトリックスから抜け出してしまいました！ 💥",
+  "@ach_limit_breaker_desc": {
+    "description": "Translation for ach_limit_breaker_desc"
+  },
+  "ach_ad_skip_used_title": "広告スキップ",
+  "@ach_ad_skip_used_title": {
+    "description": "Translation for ach_ad_skip_used_title"
+  },
+  "ach_ad_skip_used_desc": "ワンクリックで時間を早送りする時間がないって言ってたよね。",
+  "@ach_ad_skip_used_desc": {
+    "description": "Translation for ach_ad_skip_used_desc"
+  },
+  "ach_reward_collector_title": "報酬コレクター",
+  "@ach_reward_collector_title": {
+    "description": "Translation for ach_reward_collector_title"
+  },
+  "ach_reward_collector_desc": "隅にあるすべての報酬をあさりました。まさに戦利品ハンター！ 🎁",
+  "@ach_reward_collector_desc": {
+    "description": "Translation for ach_reward_collector_desc"
+  },
+  "ach_multi_feature_user_title": "多機能ユーザー",
+  "@ach_multi_feature_user_title": {
+    "description": "Translation for ach_multi_feature_user_title"
+  },
+  "ach_multi_feature_user_desc": "ボタンひとつも触っていない、好奇心旺盛な探検家!",
+  "@ach_multi_feature_user_desc": {
+    "description": "Translation for ach_multi_feature_user_desc"
+  },
+  "ach_data_master_title": "データマスター",
+  "@ach_data_master_title": {
+    "description": "Translation for ach_data_master_title"
+  },
+  "ach_data_master_desc": "バイトやビットがあなたの周りで形を作ります。システムデータの絶対的なマスター。",
+  "@ach_data_master_desc": {
+    "description": "Translation for ach_data_master_desc"
+  },
+  "ach_organized_master_title": "超組織的",
+  "@ach_organized_master_title": {
+    "description": "Translation for ach_organized_master_title"
+  },
+  "ach_organized_master_desc": "近藤麻理恵ならあなたの注文に脱帽するでしょう。すべてはミリメートルです。",
+  "@ach_organized_master_desc": {
+    "description": "Translation for ach_organized_master_desc"
+  },
+  "ach_security_master_title": "セキュリティ専門家",
+  "@ach_security_master_title": {
+    "description": "Translation for ach_security_master_title"
+  },
+  "ach_security_master_desc": "あなたのアカウントは要塞であり、パスワードはサイバー軍です。侵入は不可能です！ 🔐",
+  "@ach_security_master_desc": {
+    "description": "Translation for ach_security_master_desc"
+  },
+  "ach_daily_master_title": "デイリーマスター",
+  "@ach_daily_master_title": {
+    "description": "Translation for ach_daily_master_title"
+  },
+  "ach_daily_master_desc": "毎日私たちと一緒に太陽や星を見ている伝説の愛用者。",
+  "@ach_daily_master_desc": {
+    "description": "Translation for ach_daily_master_desc"
+  },
+  "backup_restore": "バックアップと復元",
+  "@backup_restore": {
+    "description": "Translation for backup_restore"
+  },
+  "backup_desc_settings": "このデバイスのみの暗号化されたローカル バックアップ",
+  "@backup_desc_settings": {
+    "description": "Translation for backup_desc_settings"
+  },
+  "smart_notifications": "スマート通知",
+  "@smart_notifications": {
+    "description": "Translation for smart_notifications"
+  },
+  "smart_streak_warning": "🔥 連勝記録がもうすぐ失われます!データを確認してみませんか?",
+  "@smart_streak_warning": {
+    "description": "Translation for smart_streak_warning"
+  },
+  "smart_ad_reward": "🎁 広告を 1 回視聴 → +5 制限!今日はあなたにとって新たなチャンスです。",
+  "@smart_ad_reward": {
+    "description": "Translation for smart_ad_reward"
+  },
+  "smart_doc_bonus": "📂 今日ドキュメントを 1 件追加 → ボーナスを獲得!すべてを安全に保管してください。",
+  "@smart_doc_bonus": {
+    "description": "Translation for smart_doc_bonus"
+  },
+  "smart_default": "👀 小さなアップデートがあなたを待っています。今日は何ができるでしょうか?",
+  "@smart_default": {
+    "description": "Translation for smart_default"
+  },
+  "notif_bonus_ready": "🎁 ボーナスがあなたを待っています!ご協力いただきありがとうございます。",
+  "@notif_bonus_ready": {
+    "description": "Translation for notif_bonus_ready"
+  },
+  "notif_doc_safe": "🔥 よくやった、書類は無事だ!続けて！",
+  "@notif_doc_safe": {
+    "description": "Translation for notif_doc_safe"
+  },
+  "level_up_desc": "レベル{level}に到達しました!新しい報酬についてはシーズンパスを確認してください。",
+  "@level_up_desc": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_up_desc"
+  },
+  "notifications_active_msg": "通知がアクティブになっています 🔔",
+  "@notifications_active_msg": {
+    "description": "Translation for notifications_active_msg"
+  },
+  "show_sensitive_details": "通知に詳細を表示",
+  "@show_sensitive_details": {
+    "description": "Translation for show_sensitive_details"
+  },
+  "sensitive_details_visible": "薬名が見える",
+  "@sensitive_details_visible": {
+    "description": "Translation for sensitive_details_visible"
+  },
+  "sensitive_details_hidden": "非表示 (推奨)",
+  "@sensitive_details_hidden": {
+    "description": "Translation for sensitive_details_hidden"
+  },
+  "quiet_hours": "静かな時間",
+  "@quiet_hours": {
+    "description": "Translation for quiet_hours"
+  },
+  "quiet_hours_msg": "今夜は邪魔しません🌙",
+  "@quiet_hours_msg": {
+    "description": "Translation for quiet_hours_msg"
+  },
+  "test_notification": "テスト通知",
+  "@test_notification": {
+    "description": "Translation for test_notification"
+  },
+  "test_notification_desc": "すぐにシステムをテストしてください",
+  "@test_notification_desc": {
+    "description": "Translation for test_notification_desc"
+  },
+  "test_notification_body": "テストのお知らせです",
+  "@test_notification_body": {
+    "description": "Translation for test_notification_body"
+  },
+  "app_lock_unavailable": "このデバイスではアプリ ロックを使用できません。",
+  "@app_lock_unavailable": {
+    "description": "Translation for app_lock_unavailable"
+  },
+  "backup_restore_desc": "データを暗号化してバックアップまたは復元できます。バックアップはデバイスにのみ保存されます。",
+  "@backup_restore_desc": {
+    "description": "Translation for backup_restore_desc"
+  },
+  "backup_export": "バックアップのエクスポート",
+  "@backup_export": {
+    "description": "Translation for backup_export"
+  },
+  "backup_export_desc": "暗号化されたZIPバックアップを作成する",
+  "@backup_export_desc": {
+    "description": "Translation for backup_export_desc"
+  },
+  "backup_import": "インポートバックアップ",
+  "@backup_import": {
+    "description": "Translation for backup_import"
+  },
+  "backup_import_desc": "既存の ZIP バックアップから復元する",
+  "@backup_import_desc": {
+    "description": "Translation for backup_import_desc"
+  },
+  "warning": "警告",
+  "@warning": {
+    "description": "Translation for warning"
+  },
+  "import_warning_desc": "バックアップを復元すると現在のデータが削除され、元に戻すことはできません。続けますか?",
+  "@import_warning_desc": {
+    "description": "Translation for import_warning_desc"
+  },
+  "yes_restore": "はい、復元します",
+  "@yes_restore": {
+    "description": "Translation for yes_restore"
+  },
+  "start_time": "開始時間",
+  "@start_time": {
+    "description": "Translation for start_time"
+  },
+  "end_time": "終了時間",
+  "@end_time": {
+    "description": "Translation for end_time"
+  },
+  "email": "電子メール",
+  "@email": {
+    "description": "Translation for email"
+  },
+  "phone": "電話",
+  "@phone": {
+    "description": "Translation for phone"
+  },
+  "add_record_success": "レコードは正常に保存されました。",
+  "@add_record_success": {
+    "description": "Translation for add_record_success"
+  },
+  "delete_confirm": "このレコードを削除してもよろしいですか?",
+  "@delete_confirm": {
+    "description": "Translation for delete_confirm"
+  },
+  "plus_5_slots": "+5 スロットを獲得しました! 🚀",
+  "@plus_5_slots": {
+    "description": "Translation for plus_5_slots"
+  },
+  "watch_to_unlock": "ロックを解除するには視聴してください",
+  "@watch_to_unlock": {
+    "description": "Translation for watch_to_unlock"
+  },
+  "remaining_days": "残り: {days} 日",
+  "@remaining_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for remaining_days"
+  },
+  "add_1_day_success": "+1日追加！ 🎉",
+  "@add_1_day_success": {
+    "description": "Translation for add_1_day_success"
+  },
+  "plus_1_day": "+1日",
+  "@plus_1_day": {
+    "description": "Translation for plus_1_day"
+  },
+  "watch": "時計",
+  "@watch": {
+    "description": "Translation for watch"
+  },
+  "unlock_theme_question": "このテーマを 5 日間無料で使用しませんか?",
+  "@unlock_theme_question": {
+    "description": "Translation for unlock_theme_question"
+  },
+  "watch_ad_plus_5": "広告を見る (+5 日)",
+  "@watch_ad_plus_5": {
+    "description": "Translation for watch_ad_plus_5"
+  },
+  "preview_5s": "プレビュー (5 秒)",
+  "@preview_5s": {
+    "description": "Translation for preview_5s"
+  },
+  "free_secure_release": "無料の安全なリリース",
+  "@free_secure_release": {
+    "description": "Translation for free_secure_release"
+  },
+  "encrypted_local_desc": "暗号化されたドキュメントはこのデバイス上でローカルに残ります。広告は無料版をサポートしています。",
+  "@encrypted_local_desc": {
+    "description": "Translation for encrypted_local_desc"
+  },
+  "premium_soon": "プレミアムもうすぐ",
+  "@premium_soon": {
+    "description": "Translation for premium_soon"
+  },
+  "label_title": "タイトル",
+  "@label_title": {
+    "description": "Translation for label_title"
+  },
+  "label_location": "場所/機関 (オプション)",
+  "@label_location": {
+    "description": "Translation for label_location"
+  },
+  "label_person": "関係者 (任意)",
+  "@label_person": {
+    "description": "Translation for label_person"
+  },
+  "label_date_time": "日付と時刻",
+  "@label_date_time": {
+    "description": "Translation for label_date_time"
+  },
+  "label_importance": "重要性",
+  "@label_importance": {
+    "description": "Translation for label_importance"
+  },
+  "label_reminder": "リマインダー",
+  "@label_reminder": {
+    "description": "Translation for label_reminder"
+  },
+  "label_repeat": "繰り返す",
+  "@label_repeat": {
+    "description": "Translation for label_repeat"
+  },
+  "label_notes": "注記 (オプション)",
+  "@label_notes": {
+    "description": "Translation for label_notes"
+  },
+  "hint_title": "例えば医師の予約、会議...",
+  "@hint_title": {
+    "description": "Translation for hint_title"
+  },
+  "hint_location": "オフィス、自宅、オンライン、病院...",
+  "@hint_location": {
+    "description": "Translation for hint_location"
+  },
+  "hint_person": "名前、医師、弁護士…",
+  "@hint_person": {
+    "description": "Translation for hint_person"
+  },
+  "hint_notes": "詳細、注意事項...",
+  "@hint_notes": {
+    "description": "Translation for hint_notes"
+  },
+  "suggest_doctor": "医者",
+  "@suggest_doctor": {
+    "description": "Translation for suggest_doctor"
+  },
+  "suggest_meeting": "ミーティング",
+  "@suggest_meeting": {
+    "description": "Translation for suggest_meeting"
+  },
+  "suggest_personal": "個人的",
+  "@suggest_personal": {
+    "description": "Translation for suggest_personal"
+  },
+  "importance_low": "普通",
+  "@importance_low": {
+    "description": "Translation for importance_low"
+  },
+  "importance_medium": "重要",
+  "@importance_medium": {
+    "description": "Translation for importance_medium"
+  },
+  "importance_high": "致命的",
+  "@importance_high": {
+    "description": "Translation for importance_high"
+  },
+  "reminder_10m": "10分前",
+  "@reminder_10m": {
+    "description": "Translation for reminder_10m"
+  },
+  "reminder_1h": "1時間前",
+  "@reminder_1h": {
+    "description": "Translation for reminder_1h"
+  },
+  "reminder_1d": "1日前",
+  "@reminder_1d": {
+    "description": "Translation for reminder_1d"
+  },
+  "repeat_none": "なし",
+  "@repeat_none": {
+    "description": "Translation for repeat_none"
+  },
+  "repeat_daily": "毎日",
+  "@repeat_daily": {
+    "description": "Translation for repeat_daily"
+  },
+  "repeat_weekly": "毎週",
+  "@repeat_weekly": {
+    "description": "Translation for repeat_weekly"
+  },
+  "label_date_added": "追加日",
+  "@label_date_added": {
+    "description": "Translation for label_date_added"
+  },
+  "label_document_date": "文書の日付",
+  "@label_document_date": {
+    "description": "Translation for label_document_date"
+  },
+  "download_to_device": "デバイスにダウンロード",
+  "@download_to_device": {
+    "description": "Translation for download_to_device"
+  },
+  "delete_permanently": "完全に削除",
+  "@delete_permanently": {
+    "description": "Translation for delete_permanently"
+  },
+  "save_document": "文書の保存",
+  "@save_document": {
+    "description": "Translation for save_document"
+  },
+  "success_doc_saved": "ドキュメントは正常に保存されました。",
+  "@success_doc_saved": {
+    "description": "Translation for success_doc_saved"
+  },
+  "error_failed_download": "ダウンロードに失敗しました: {error}",
+  "@error_failed_download": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for error_failed_download"
+  },
+  "btn_add": "追加",
+  "@btn_add": {
+    "description": "Translation for btn_add"
+  },
+  "docs_tag_lab": "ラボの結果",
+  "@docs_tag_lab": {
+    "description": "Translation for docs_tag_lab"
+  },
+  "docs_tag_radiology": "放射線科",
+  "@docs_tag_radiology": {
+    "description": "Translation for docs_tag_radiology"
+  },
+  "docs_tag_prescription": "処方箋",
+  "@docs_tag_prescription": {
+    "description": "Translation for docs_tag_prescription"
+  },
+  "docs_tag_report": "ドクターレポート",
+  "@docs_tag_report": {
+    "description": "Translation for docs_tag_report"
+  },
+  "docs_tag_operation": "手術",
+  "@docs_tag_operation": {
+    "description": "Translation for docs_tag_operation"
+  },
+  "docs_tag_vaccination": "予防接種",
+  "@docs_tag_vaccination": {
+    "description": "Translation for docs_tag_vaccination"
+  },
+  "docs_tag_other": "他の",
+  "@docs_tag_other": {
+    "description": "Translation for docs_tag_other"
+  },
+  "season_pass": "シーズンパス",
+  "@season_pass": {
+    "description": "Translation for season_pass"
+  },
+  "level_label": "レベル{level}",
+  "@level_label": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for level_label"
+  },
+  "premium_reward": "プレミアム報酬",
+  "@premium_reward": {
+    "description": "Translation for premium_reward"
+  },
+  "free_reward": "無料報酬",
+  "@free_reward": {
+    "description": "Translation for free_reward"
+  },
+  "claim": "請求",
+  "@claim": {
+    "description": "Translation for claim"
+  },
+  "reward_doc_slots": "+{value} ドキュメント",
+  "@reward_doc_slots": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for reward_doc_slots"
+  },
+  "premium_unavailable_title": "このリリースではプレミアムは利用できません。",
+  "@premium_unavailable_title": {
+    "description": "Translation for premium_unavailable_title"
+  },
+  "premium_unavailable_desc": "VitaCase は現在、ローカル暗号化ストレージ、広告、オプションのリマインダーを備えた無料アプリとして出荷されています。",
+  "@premium_unavailable_desc": {
+    "description": "Translation for premium_unavailable_desc"
+  },
+  "btn_close": "近い",
+  "@btn_close": {
+    "description": "Translation for btn_close"
+  },
+  "accept": "受け入れる",
+  "@accept": {
+    "description": "Translation for accept"
+  },
+  "btn_save": "保存",
+  "@btn_save": {
+    "description": "Translation for btn_save"
+  },
+  "doctor_title_dr": "博士。",
+  "@doctor_title_dr": {
+    "description": "Translation for doctor_title_dr"
+  },
+  "doctor_title_uzm": "仕様博士。",
+  "@doctor_title_uzm": {
+    "description": "Translation for doctor_title_uzm"
+  },
+  "doctor_title_op": "Op.博士。",
+  "@doctor_title_op": {
+    "description": "Translation for doctor_title_op"
+  },
+  "doctor_title_prof": "教授、博士。",
+  "@doctor_title_prof": {
+    "description": "Translation for doctor_title_prof"
+  },
+  "doctor_title_doc": "准教授教授",
+  "@doctor_title_doc": {
+    "description": "Translation for doctor_title_doc"
+  },
+  "hint_doctor_name": "ジョン・ドゥ博士",
+  "@hint_doctor_name": {
+    "description": "Translation for hint_doctor_name"
+  },
+  "hint_specialty": "心臓病学",
+  "@hint_specialty": {
+    "description": "Translation for hint_specialty"
+  },
+  "hint_hospital": "市立病院",
+  "@hint_hospital": {
+    "description": "Translation for hint_hospital"
+  },
+  "hint_phone": "+1 (555) 000-0000",
+  "@hint_phone": {
+    "description": "Translation for hint_phone"
+  },
+  "hint_email": "john.doe@hospital.com",
+  "@hint_email": {
+    "description": "Translation for hint_email"
+  },
+  "hint_address": "メインストリートNo:12...",
+  "@hint_address": {
+    "description": "Translation for hint_address"
+  },
+  "hint_personal_notes": "医師についてのメモ...",
+  "@hint_personal_notes": {
+    "description": "Translation for hint_personal_notes"
+  },
+  "ad_reward_not_earned": "報酬は獲得できませんでした。続行するには広告を終了してください。",
+  "@ad_reward_not_earned": {
+    "description": "Translation for ad_reward_not_earned"
+  },
+  "ad_unavailable": "広告は利用できません。",
+  "@ad_unavailable": {
+    "description": "Translation for ad_unavailable"
+  },
+  "ad_failed": "リワード広告を表示できませんでした。もう一度試してください。",
+  "@ad_failed": {
+    "description": "Translation for ad_failed"
+  },
+  "ad_watch_btn": "無料で続ける (広告を見る)",
+  "@ad_watch_btn": {
+    "description": "Translation for ad_watch_btn"
+  },
+  "btn_not_now": "今じゃない",
+  "@btn_not_now": {
+    "description": "Translation for btn_not_now"
+  },
+  "theme_system": "システム",
+  "@theme_system": {
+    "description": "Translation for theme_system"
+  },
+  "theme_light": "ライト",
+  "@theme_light": {
+    "description": "Translation for theme_light"
+  },
+  "theme_dark": "暗い",
+  "@theme_dark": {
+    "description": "Translation for theme_dark"
+  },
+  "lock_timeout_1m": "1分",
+  "@lock_timeout_1m": {
+    "description": "Translation for lock_timeout_1m"
+  },
+  "lock_timeout_5m": "5分",
+  "@lock_timeout_5m": {
+    "description": "Translation for lock_timeout_5m"
+  },
+  "lock_timeout_15m": "15分",
+  "@lock_timeout_15m": {
+    "description": "Translation for lock_timeout_15m"
+  },
+  "error_title_required": "タイトルは必須です",
+  "@error_title_required": {
+    "description": "Translation for error_title_required"
+  },
+  "notif_app_created_title": "🎯 予約が作成されました",
+  "@notif_app_created_title": {
+    "description": "Translation for notif_app_created_title"
+  },
+  "notif_app_created_body": "{title} がスケジュールされました。",
+  "@notif_app_created_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_created_body"
+  },
+  "notif_app_reminder_title": "📅 予約リマインダー",
+  "@notif_app_reminder_title": {
+    "description": "Translation for notif_app_reminder_title"
+  },
+  "notif_app_reminder_body": "{title} の予約が近づいています。",
+  "@notif_app_reminder_body": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_app_reminder_body"
+  },
+  "no_appointments_found": "予定が見つかりませんでした",
+  "@no_appointments_found": {
+    "description": "Translation for no_appointments_found"
+  },
+  "empty_appointments_desc": "まだ予定を追加していません。 + ボタンをタップして追加します。",
+  "@empty_appointments_desc": {
+    "description": "Translation for empty_appointments_desc"
+  },
+  "empty_appointments_filter_desc": "このカテゴリでは予定が見つかりません。",
+  "@empty_appointments_filter_desc": {
+    "description": "Translation for empty_appointments_filter_desc"
+  },
+  "btn_add_appointment": "予約を追加",
+  "@btn_add_appointment": {
+    "description": "Translation for btn_add_appointment"
+  },
+  "btn_clear_filters": "クリアフィルター",
+  "@btn_clear_filters": {
+    "description": "Translation for btn_clear_filters"
+  },
+  "delete_confirm_appointment": "この予定を削除してもよろしいですか?",
+  "@delete_confirm_appointment": {
+    "description": "Translation for delete_confirm_appointment"
+  },
+  "create_today_plan": "今日の計画を作成する",
+  "@create_today_plan": {
+    "description": "Translation for create_today_plan"
+  },
+  "plan_time_desc": "健康スケジュールを簡単に管理できます。",
+  "@plan_time_desc": {
+    "description": "Translation for plan_time_desc"
+  },
+  "docs_add_short": "追加",
+  "@docs_add_short": {
+    "description": "Translation for docs_add_short"
+  },
+  "docs_open": "開ける",
+  "@docs_open": {
+    "description": "Translation for docs_open"
+  },
+  "docs_download": "デバイスにダウンロード",
+  "@docs_download": {
+    "description": "Translation for docs_download"
+  },
+  "docs_delete_perm": "完全に削除",
+  "@docs_delete_perm": {
+    "description": "Translation for docs_delete_perm"
+  },
+  "docs_date_added": "追加日",
+  "@docs_date_added": {
+    "description": "Translation for docs_date_added"
+  },
+  "docs_document_date": "文書の日付",
+  "@docs_document_date": {
+    "description": "Translation for docs_document_date"
+  },
+  "docs_save_success": "ドキュメントは正常に保存されました。",
+  "@docs_save_success": {
+    "description": "Translation for docs_save_success"
+  },
+  "docs_download_failed": "ダウンロードに失敗しました: {error}",
+  "@docs_download_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for docs_download_failed"
+  },
+  "season_pass_title": "シーズンパス",
+  "@season_pass_title": {
+    "description": "Translation for season_pass_title"
+  },
+  "season_level": "レベル{level}",
+  "@season_level": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for season_level"
+  },
+  "claim_reward": "請求",
+  "@claim_reward": {
+    "description": "Translation for claim_reward"
+  },
+  "confirm_agree": "同意します",
+  "@confirm_agree": {
+    "description": "Translation for confirm_agree"
+  },
+  "specialty_department_hint": "例えば心臓病学",
+  "@specialty_department_hint": {
+    "description": "Translation for specialty_department_hint"
+  },
+  "hospital_hint": "例えば市立病院",
+  "@hospital_hint": {
+    "description": "Translation for hospital_hint"
+  },
+  "address_hint": "通り、いいえ、建物...",
+  "@address_hint": {
+    "description": "Translation for address_hint"
+  },
+  "notes_hint": "医師についての個人的なメモ...",
+  "@notes_hint": {
+    "description": "Translation for notes_hint"
+  },
+  "standard_modes": "標準モード",
+  "@standard_modes": {
+    "description": "Translation for standard_modes"
+  },
+  "premium_palettes": "プレミアムパレット",
+  "@premium_palettes": {
+    "description": "Translation for premium_palettes"
+  },
+  "apply_theme": "テーマの適用",
+  "@apply_theme": {
+    "description": "Translation for apply_theme"
+  },
+  "theme_luxe_sanctuary": "リュクス サンクチュアリ",
+  "@theme_luxe_sanctuary": {
+    "description": "Translation for theme_luxe_sanctuary"
+  },
+  "theme_midnight_neon": "ミッドナイトネオン",
+  "@theme_midnight_neon": {
+    "description": "Translation for theme_midnight_neon"
+  },
+  "theme_amethyst_aura": "アメジストのオーラ",
+  "@theme_amethyst_aura": {
+    "description": "Translation for theme_amethyst_aura"
+  },
+  "theme_emerald_garden": "エメラルド ガーデン",
+  "@theme_emerald_garden": {
+    "description": "Translation for theme_emerald_garden"
+  },
+  "theme_ocean_serenity": "オーシャン セレニティ",
+  "@theme_ocean_serenity": {
+    "description": "Translation for theme_ocean_serenity"
+  },
+  "theme_amber_glow": "アンバーグロー",
+  "@theme_amber_glow": {
+    "description": "Translation for theme_amber_glow"
+  },
+  "db_recovery_title": "データエラー",
+  "@db_recovery_title": {
+    "description": "Translation for db_recovery_title"
+  },
+  "db_recovery_desc": "データにアクセスできませんでした。もう一度試してみますか?",
+  "@db_recovery_desc": {
+    "description": "Translation for db_recovery_desc"
+  },
+  "db_recovery_retry": "もう一度やり直してください",
+  "@db_recovery_retry": {
+    "description": "Translation for db_recovery_retry"
+  },
+  "db_recovery_reset": "リセット",
+  "@db_recovery_reset": {
+    "description": "Translation for db_recovery_reset"
+  },
+  "notif_streak_warning_title": "一日の計画を確認する",
+  "@notif_streak_warning_title": {
+    "description": "Translation for notif_streak_warning_title"
+  },
+  "notif_streak_warning_body": "VitaCase を開いて、今日のリマインダーと保存したアイテムを確認します。",
+  "@notif_streak_warning_body": {
+    "description": "Translation for notif_streak_warning_body"
+  },
+  "notif_mission_reminder_title": "🎯 デイリーミッションは保留中です",
+  "@notif_mission_reminder_title": {
+    "description": "Translation for notif_mission_reminder_title"
+  },
+  "notif_mission_reminder_body": "毎日の報酬をお見逃しなく！今すぐタスクを完了してください。",
+  "@notif_mission_reminder_body": {
+    "description": "Translation for notif_mission_reminder_body"
+  },
+  "notif_limit_reached_title": "🚀 制限に達しました",
+  "@notif_limit_reached_title": {
+    "description": "Translation for notif_limit_reached_title"
+  },
+  "notif_limit_reached_body": "無料制限に達しました。続行するにはリワード広告を視聴してください。",
+  "@notif_limit_reached_body": {
+    "description": "Translation for notif_limit_reached_body"
+  },
+  "notif_good_morning_title": "🌞おはようございます！",
+  "@notif_good_morning_title": {
+    "description": "Translation for notif_good_morning_title"
+  },
+  "notif_good_morning_body": "VitaCase で 1 日をスタートし、毎日のタスクを確認してください。",
+  "@notif_good_morning_body": {
+    "description": "Translation for notif_good_morning_body"
+  },
+  "notif_test_title": "テスト通知",
+  "@notif_test_title": {
+    "description": "Translation for notif_test_title"
+  },
+  "notif_test_body": "通知は完璧に機能しています。",
+  "@notif_test_body": {
+    "description": "Translation for notif_test_body"
+  },
+  "notif_appointment_reminder_title": "📅 予約リマインダー",
+  "@notif_appointment_reminder_title": {
+    "description": "Translation for notif_appointment_reminder_title"
+  },
+  "notif_appointment_reminder_body": "{doctor} の予約が近づいています。",
+  "@notif_appointment_reminder_body": {
+    "placeholders": {
+      "doctor": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for notif_appointment_reminder_body"
+  },
+  "get_directions": "道順を調べる",
+  "@get_directions": {
+    "description": "Translation for get_directions"
+  },
+  "view_details": "詳細を見る",
+  "@view_details": {
+    "description": "Translation for view_details"
+  },
+  "no_scheduled_meds_today": "今日は投薬予定はありません。",
+  "@no_scheduled_meds_today": {
+    "description": "Translation for no_scheduled_meds_today"
+  },
+  "add_document": "ドキュメントの追加",
+  "@add_document": {
+    "description": "Translation for add_document"
+  },
+  "ach_login_1_title": "始まり",
+  "@ach_login_1_title": {
+    "description": "Translation for ach_login_1_title"
+  },
+  "people_contacts": "人物と連絡先",
+  "@people_contacts": {
+    "description": "Translation for people_contacts"
+  },
+  "contacts_subtitle": "人、機関、および連絡先の記録",
+  "@contacts_subtitle": {
+    "description": "Translation for contacts_subtitle"
+  },
+  "add_contact_subtitle": "新しい人または機関を追加する",
+  "@add_contact_subtitle": {
+    "description": "Translation for add_contact_subtitle"
+  },
+  "add_contact": "人物/連絡先を追加",
+  "@add_contact": {
+    "description": "Translation for add_contact"
+  },
+  "no_doctor": "医者がいない",
+  "@no_doctor": {
+    "description": "Translation for no_doctor"
+  },
+  "no_institution": "機関なし",
+  "@no_institution": {
+    "description": "Translation for no_institution"
+  },
+  "edit_personal_info": "個人情報の編集",
+  "@edit_personal_info": {
+    "description": "Translation for edit_personal_info"
+  },
+  "personal_info_updated": "個人情報を更新しました。",
+  "@personal_info_updated": {
+    "description": "Translation for personal_info_updated"
+  },
+  "edit_important_info": "重要な情報を編集する",
+  "@edit_important_info": {
+    "description": "Translation for edit_important_info"
+  },
+  "hint_allergies": "カンマで区切る: 花粉、ペニシリン",
+  "@hint_allergies": {
+    "description": "Translation for hint_allergies"
+  },
+  "hint_medications": "カンマで区切る: アスピリン、ビタミン D",
+  "@hint_medications": {
+    "description": "Translation for hint_medications"
+  },
+  "relationship": "関係",
+  "@relationship": {
+    "description": "Translation for relationship"
+  },
+  "hint_relationship": "配偶者、母親、父親、兄弟...",
+  "@hint_relationship": {
+    "description": "Translation for hint_relationship"
+  },
+  "important_info_updated": "重要な情報が更新されました。",
+  "@important_info_updated": {
+    "description": "Translation for important_info_updated"
+  },
+  "reminder_troubleshooting": "リマインダーのトラブルシューティング",
+  "@reminder_troubleshooting": {
+    "description": "Translation for reminder_troubleshooting"
+  },
+  "reminder_troubleshooting_desc": "通知、正確なアラーム、バッテリー設定を確認する",
+  "@reminder_troubleshooting_desc": {
+    "description": "Translation for reminder_troubleshooting_desc"
+  },
+  "status_checking": "チェック中...",
+  "@status_checking": {
+    "description": "Translation for status_checking"
+  },
+  "status_enabled": "通知許可が有効になっています",
+  "@status_enabled": {
+    "description": "Translation for status_enabled"
+  },
+  "status_disabled": "通知許可が無効になっています",
+  "@status_disabled": {
+    "description": "Translation for status_disabled"
+  },
+  "why_no_reminders": "リマインダーが届かない場合がある理由",
+  "@why_no_reminders": {
+    "description": "Translation for why_no_reminders"
+  },
+  "why_no_reminders_desc": "通知許可、正確なアラーム許可、またはデバイスのバッテリー管理により、予約や薬のリマインダーがブロックされる場合があります。最初に権限を確認してください。バッテリーの最適化は、テストが失敗した場合の最後のステップとしてのみ検討してください。",
+  "@why_no_reminders_desc": {
+    "description": "Translation for why_no_reminders_desc"
+  },
+  "status_card_title": "通知ステータス",
+  "@status_card_title": {
+    "description": "Translation for status_card_title"
+  },
+  "check_notif_permission": "1. 通知許可を確認する",
+  "@check_notif_permission": {
+    "description": "Translation for check_notif_permission"
+  },
+  "check_notif_permission_desc": "インスタント通知が無効になっている場合、リマインダーは表示されません。",
+  "@check_notif_permission_desc": {
+    "description": "Translation for check_notif_permission_desc"
+  },
+  "req_notif_permission": "通知許可のリクエスト",
+  "@req_notif_permission": {
+    "description": "Translation for req_notif_permission"
+  },
+  "check_exact_alarm": "2.正確なアラーム許可を確認する",
+  "@check_exact_alarm": {
+    "description": "Translation for check_exact_alarm"
+  },
+  "check_exact_alarm_desc": "予約や薬のリマインダーを時間どおりに実行するために必要です。",
+  "@check_exact_alarm_desc": {
+    "description": "Translation for check_exact_alarm_desc"
+  },
+  "req_exact_alarm": "正確なアラーム許可を要求する",
+  "@req_exact_alarm": {
+    "description": "Translation for req_exact_alarm"
+  },
+  "resched_saved": "3. 保存したリマインダーのスケジュールを変更する",
+  "@resched_saved": {
+    "description": "Translation for resched_saved"
+  },
+  "resched_saved_desc": "権限を付与した後、保存した薬と予約のリマインダーを再度スケジュールします。",
+  "@resched_saved_desc": {
+    "description": "Translation for resched_saved_desc"
+  },
+  "resched_btn": "リマインダーのスケジュールを変更する",
+  "@resched_btn": {
+    "description": "Translation for resched_btn"
+  },
+  "sched_test": "4. 1 分間のテストリマインダーをスケジュールする",
+  "@sched_test": {
+    "description": "Translation for sched_test"
+  },
+  "sched_test_desc": "これが到着した場合は、リマインダーシステムが機能しています。",
+  "@sched_test_desc": {
+    "description": "Translation for sched_test_desc"
+  },
+  "sched_test_btn": "1 分間のテストをスケジュールする",
+  "@sched_test_btn": {
+    "description": "Translation for sched_test_btn"
+  },
+  "last_step_battery": "5. 最後のステップ: バッテリー設定を確認する",
+  "@last_step_battery": {
+    "description": "Translation for last_step_battery"
+  },
+  "last_step_battery_desc": "上記のテストが失敗した場合にのみ、デバイスが VitaCase のバッテリー使用を制限しているかどうかを確認してください。",
+  "@last_step_battery_desc": {
+    "description": "Translation for last_step_battery_desc"
+  },
+  "open_app_settings": "アプリ設定を開く",
+  "@open_app_settings": {
+    "description": "Translation for open_app_settings"
+  },
+  "snack_notif_checked": "通知許可がチェックされました。",
+  "@snack_notif_checked": {
+    "description": "Translation for snack_notif_checked"
+  },
+  "snack_exact_alarm_requested": "正確なアラーム許可が要求されました。デバイスの設定で許可する必要がある場合があります。",
+  "@snack_exact_alarm_requested": {
+    "description": "Translation for snack_exact_alarm_requested"
+  },
+  "test_notif_title": "⏰ VitaCase リマインダーテスト",
+  "@test_notif_title": {
+    "description": "Translation for test_notif_title"
+  },
+  "test_notif_body": "このテスト リマインダーは 1 分後にスケジュールされていました。",
+  "@test_notif_body": {
+    "description": "Translation for test_notif_body"
+  },
+  "snack_test_sched": "テストのリマインダーは 1 分後にスケジュールされます。",
+  "@snack_test_sched": {
+    "description": "Translation for snack_test_sched"
+  },
+  "snack_resched_completed": "保存された薬と予約のリマインダーが再スケジュールされました。",
+  "@snack_resched_completed": {
+    "description": "Translation for snack_resched_completed"
+  },
+  "choose_pdf_or_image": "PDFまたは画像を選択してください",
+  "@choose_pdf_or_image": {
+    "description": "Translation for choose_pdf_or_image"
+  },
+  "encrypted_local_file_info": "ファイルは暗号化され、このデバイスにローカルに保存されます。",
+  "@encrypted_local_file_info": {
+    "description": "Translation for encrypted_local_file_info"
+  },
+  "web_upload_info": "ファイルボルトのアップロードは、Android/iOS ビルドで利用できます。",
+  "@web_upload_info": {
+    "description": "Translation for web_upload_info"
+  },
+  "web_preview_no_upload": "Web プレビューでは、暗号化されたファイルは保存されません。ボールトのアップロードには Android/iOS を使用します。",
+  "@web_preview_no_upload": {
+    "description": "Translation for web_preview_no_upload"
+  },
+  "choose_file_first": "最初に PDF または画像を選択してください。",
+  "@choose_file_first": {
+    "description": "Translation for choose_file_first"
+  },
+  "document_saved": "ドキュメントは安全に保存されました。",
+  "@document_saved": {
+    "description": "Translation for document_saved"
+  },
+  "save_document_failed": "ドキュメントを保存できませんでした: {error}",
+  "@save_document_failed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for save_document_failed"
+  },
+  "save_securely": "安全に保存する",
+  "@save_securely": {
+    "description": "Translation for save_securely"
+  },
+  "saving": "保存中...",
+  "@saving": {
+    "description": "Translation for saving"
+  },
+  "local_organizer_disclaimer": "VitaCase はローカルのドキュメント オーガナイザーです。診断、分析、または医学的アドバイスを提供するものではありません。",
+  "@local_organizer_disclaimer": {
+    "description": "Translation for local_organizer_disclaimer"
+  },
+  "terms_and_legal_agreement": "私はプライバシー ポリシー、利用規約、および法的免責事項に同意します。",
+  "@terms_and_legal_agreement": {
+    "description": "Translation for terms_and_legal_agreement"
+  },
+  "free_themes": "無料のテーマ",
+  "@free_themes": {
+    "description": "Translation for free_themes"
+  },
+  "reward_themes": "報酬テーマ",
+  "@reward_themes": {
+    "description": "Translation for reward_themes"
+  },
+  "reward_themes_info": "リワード広告を 1 つ視聴すると、3 日間これらのテーマのロックを解除できます。広告を追加するごとに +1 日追加されます。",
+  "@reward_themes_info": {
+    "description": "Translation for reward_themes_info"
+  },
+  "watch_ad_to_unlock": "広告を見てロックを解除する",
+  "@watch_ad_to_unlock": {
+    "description": "Translation for watch_ad_to_unlock"
+  },
+  "tap_to_preview": "タップしてプレビューします",
+  "@tap_to_preview": {
+    "description": "Translation for tap_to_preview"
+  },
+  "add_one_day": "+1日追加",
+  "@add_one_day": {
+    "description": "Translation for add_one_day"
+  },
+  "one_day_added": "+1日追加されました。",
+  "@one_day_added": {
+    "description": "Translation for one_day_added"
+  },
+  "ad_unavailable_try_later": "広告は利用できません。後でもう一度試してください。",
+  "@ad_unavailable_try_later": {
+    "description": "Translation for ad_unavailable_try_later"
+  },
+  "theme_unlocked": "テーマのロックが解除されました。追加の広告ごとに +1 日追加されます。",
+  "@theme_unlocked": {
+    "description": "Translation for theme_unlocked"
+  },
+  "reward_themes_active": "{days} 日間有効な報酬テーマ。",
+  "@reward_themes_active": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for reward_themes_active"
+  },
+  "lock_use_pin": "PINを使用する",
+  "@lock_use_pin": {
+    "description": "Translation for lock_use_pin"
+  },
+  "pending": "保留中",
+  "@pending": {
+    "description": "Translation for pending"
+  },
+  "document_details_subtitle": "拡張されたドキュメントの詳細を確認します。",
+  "@document_details_subtitle": {
+    "description": "Translation for document_details_subtitle"
+  },
+  "document_name": "文書名",
+  "@document_name": {
+    "description": "Translation for document_name"
+  },
+  "document_name_hint": "例えば血液検査の結果",
+  "@document_name_hint": {
+    "description": "Translation for document_name_hint"
+  },
+  "daily_limit_reached_message": "今日の作成制限 ({limit}) に達しました。明日はさらに追加できます。",
+  "@daily_limit_reached_message": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    },
+    "description": "Translation for daily_limit_reached_message"
+  },
+  "document_updated": "ドキュメントが更新されました。",
+  "@document_updated": {
+    "description": "Translation for document_updated"
+  },
+  "document_update_failed": "ドキュメントを更新できませんでした。",
+  "@document_update_failed": {
+    "description": "Translation for document_update_failed"
+  },
+  "document_open_failed": "ドキュメントを開けませんでした。",
+  "@document_open_failed": {
+    "description": "Translation for document_open_failed"
+  },
+  "no_additional_notes": "追加のメモは提供されません。",
+  "@no_additional_notes": {
+    "description": "Translation for no_additional_notes"
+  },
+  "created_at_label": "作成日",
+  "@created_at_label": {
+    "description": "Translation for created_at_label"
+  },
+  "physician_label": "医師",
+  "@physician_label": {
+    "description": "Translation for physician_label"
+  },
+  "open": "開ける",
+  "@open": {
+    "description": "Translation for open"
+  },
+  "document_vault": "文書保管庫",
+  "@document_vault": {
+    "description": "Translation for document_vault"
+  },
+  "document_vault_view_subtitle": "拡張されたドキュメントの詳細を確認します。",
+  "@document_vault_view_subtitle": {
+    "description": "Translation for document_vault_view_subtitle"
+  },
+  "institution_hospital": "施設・病院",
+  "@institution_hospital": {
+    "description": "Translation for institution_hospital"
+  },
+  "doctor_related_person": "医師・関係者",
+  "@doctor_related_person": {
+    "description": "Translation for doctor_related_person"
+  },
+  "add_contact_title": "人物/連絡先を追加",
+  "@add_contact_title": {
+    "description": "Translation for add_contact_title"
+  },
+  "contact_info_title": "人物/連絡先情報",
+  "@contact_info_title": {
+    "description": "Translation for contact_info_title"
+  },
+  "contact_info_desc": "重要な人物、機関、連絡先の詳細を保存して、すぐにアクセスできるようにします。",
+  "@contact_info_desc": {
+    "description": "Translation for contact_info_desc"
+  },
+  "person_contact_label": "人物・連絡先",
+  "@person_contact_label": {
+    "description": "Translation for person_contact_label"
+  },
+  "category_area_label": "カテゴリー・エリア",
+  "@category_area_label": {
+    "description": "Translation for category_area_label"
+  },
+  "institution_source_label": "機関/情報源",
+  "@institution_source_label": {
+    "description": "Translation for institution_source_label"
+  },
+  "person_hint": "例えばスミス博士、アドバイザー、クリニック担当者",
+  "@person_hint": {
+    "description": "Translation for person_hint"
+  },
+  "category_hint": "例えば健康診断、歯科、治療、相談",
+  "@category_hint": {
+    "description": "Translation for category_hint"
+  },
+  "institution_hint": "例えばクリニック、研究室、オフィス、オンライン ソース",
+  "@institution_hint": {
+    "description": "Translation for institution_hint"
+  },
+  "required_contact_error": "担当者/連絡先、カテゴリ/地域情報を入力してください。",
+  "@required_contact_error": {
+    "description": "Translation for required_contact_error"
+  },
+  "contacts_title": "人物/連絡先",
+  "@contacts_title": {
+    "description": "Translation for contacts_title"
+  },
+  "contacts_search_hint": "人物、機関、カテゴリーを検索する",
+  "@contacts_search_hint": {
+    "description": "Translation for contacts_search_hint"
+  },
+  "no_contacts_found": "一致する連絡先が見つかりませんでした",
+  "@no_contacts_found": {
+    "description": "Translation for no_contacts_found"
+  },
+  "contact_detail_title": "人物/連絡先詳細",
+  "@contact_detail_title": {
+    "description": "Translation for contact_detail_title"
+  },
+  "institution_source": "機関/情報源",
+  "@institution_source": {
+    "description": "Translation for institution_source"
+  },
+  "category_area": "カテゴリー・エリア",
+  "@category_area": {
+    "description": "Translation for category_area"
+  },
+  "sub_area": "サブエリア",
+  "@sub_area": {
+    "description": "Translation for sub_area"
+  },
+  "privacy_policy_short": "プライバシーポリシー",
+  "@privacy_policy_short": {
+    "description": "Translation for privacy_policy_short"
+  },
+  "terms_short": "条項",
+  "@terms_short": {
+    "description": "Translation for terms_short"
+  },
+  "disclaimer_short": "免責事項",
+  "@disclaimer_short": {
+    "description": "Translation for disclaimer_short"
+  },
+  "debug_panel_taps_left": "デバッグパネル: {remaining} を左にタップします。",
+  "@debug_panel_taps_left": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for debug_panel_taps_left"
+  },
+  "delete_confirm_dialog_title": "文書を削除しますか?",
+  "@delete_confirm_dialog_title": {
+    "description": "Translation for delete_confirm_dialog_title"
+  },
+  "delete_confirm_dialog_desc": "この文書は保管庫から削除されます。この操作は元に戻すことができません。",
+  "@delete_confirm_dialog_desc": {
+    "description": "Translation for delete_confirm_dialog_desc"
+  },
+  "document_deleted_msg": "文書が削除されました。",
+  "@document_deleted_msg": {
+    "description": "Translation for document_deleted_msg"
+  },
+  "sort_newest_first": "新しい順",
+  "@sort_newest_first": {
+    "description": "Translation for sort_newest_first"
+  },
+  "sort_oldest_first": "古い順",
+  "@sort_oldest_first": {
+    "description": "Translation for sort_oldest_first"
+  },
+  "sort_a_z": "A-Z",
+  "@sort_a_z": {
+    "description": "Translation for sort_a_z"
+  },
+  "sort_label": "選別",
+  "@sort_label": {
+    "description": "Translation for sort_label"
+  },
+  "medication_reminder_past_note": "選択した時間がすでに今日を過ぎている場合、最初のリマインダーは次の適切な時間にスケジュールされます。",
+  "@medication_reminder_past_note": {
+    "description": "Translation for medication_reminder_past_note"
+  },
+  "appointment_reminder_past_note": "選択したリマインダー時刻がすでに過去の場合、VitaCase は最も近い適切な時刻を選択します。",
+  "@appointment_reminder_past_note": {
+    "description": "Translation for appointment_reminder_past_note"
+  },
+  "limit_unlock_token_title": "リミットアンロックトークン",
+  "@limit_unlock_token_title": {
+    "description": "Translation for limit_unlock_token_title"
+  },
+  "limit_unlock_status_active": "アクティブ",
+  "@limit_unlock_status_active": {
+    "description": "Translation for limit_unlock_status_active"
+  },
+  "limit_unlock_status_coming_soon": "{version} が到着します",
+  "@limit_unlock_status_coming_soon": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_status_coming_soon"
+  },
+  "limit_unlock_desc_active": "{xp} XP ごとに 1 つの制限解除トークンが付与されます。 1 日あたりの制限に達すると、自動的に使用されます。",
+  "@limit_unlock_desc_active": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_active"
+  },
+  "limit_unlock_desc_inactive": "V1 では無効になっています。 {version} では、{xp} XP ごとに 1 つの制限解除トークンが付与されます。",
+  "@limit_unlock_desc_inactive": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "String"
+      }
+    },
+    "description": "Translation for limit_unlock_desc_inactive"
+  },
+  "limit_unlock_stat_total_xp": "合計XP",
+  "@limit_unlock_stat_total_xp": {
+    "description": "Translation for limit_unlock_stat_total_xp"
+  },
+  "limit_unlock_stat_xp_left": "XPが残っています",
+  "@limit_unlock_stat_xp_left": {
+    "description": "Translation for limit_unlock_stat_xp_left"
+  },
+  "limit_unlock_stat_tokens": "トークン",
+  "@limit_unlock_stat_tokens": {
+    "description": "Translation for limit_unlock_stat_tokens"
+  },
+  "notes": "注意事項",
+  "@notes": {
+    "description": "Translation for notes"
+  },
+  "report_issue": "バグ、提案、リクエストを送信する",
   "@report_issue": {
-    "placeholders": {},
     "description": "Translation for report_issue"
   }
 }
