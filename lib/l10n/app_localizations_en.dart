@@ -2296,7 +2296,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Reward not earned. Please finish the ad to continue.';
 
   @override
-  String get ad_unavailable => 'Ad unavailable.';
+  String get ad_unavailable => 'Ad is not ready yet. Please try again shortly.';
 
   @override
   String get ad_failed =>
@@ -2727,7 +2727,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ad_unavailable_try_later =>
-      'Ad unavailable. Please try again later.';
+      'Ad is not ready yet. Please try again shortly.';
 
   @override
   String get theme_unlocked => 'Theme unlocked. Each extra ad adds +1 day.';
@@ -2921,4 +2921,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notes => 'Notes';
+
+  @override
+  String get privacy_guaranteed_title => 'Privacy Guaranteed';
+
+  @override
+  String get privacy_guaranteed_desc =>
+      'Your health data is encrypted and stored only on your device.';
+
+  @override
+  String get pin_not_set => 'PIN Not Set';
+
+  @override
+  String get pin_not_set_desc => 'Enable app lock (PIN) to secure your data.';
+
+  @override
+  String get create_btn => 'Create';
+
+  @override
+  String get enter_6_digit_pin => 'Please enter a 6-digit PIN.';
+
+  @override
+  String pin_save_failed(Object error) {
+    return 'Failed to save PIN: $error';
+  }
+
+  @override
+  String get create_new_pin => 'Create New PIN';
+
+  @override
+  String get confirm_pin_label => 'Confirm your PIN';
+
+  @override
+  String get enter_6_digit_pin_label => 'Enter 6-digit PIN';
+
+  @override
+  String get theme_forest_sanctuary => 'Forest Sanctuary';
+
+  @override
+  String get splashTagline => 'Your health, safely organized.';
+
+  @override
+  String get daily_reminders => 'Daily Reminders';
+
+  @override
+  String get daily_reminders_desc =>
+      'Receive a daily notification to review your plans, discover themes, and organize your vault.';
 }

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
@@ -88,7 +88,7 @@ class SeasonPassScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                context.l10n.levelLabel(level: progress.level.toString()),
+                context.l10n.levelLabel(progress.level),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,

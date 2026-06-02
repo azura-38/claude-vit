@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/date_formatter.dart';
@@ -406,7 +406,7 @@ class DocumentGridItem extends ConsumerWidget {
                                 children: [
                                   const Icon(Icons.edit_rounded, size: 18),
                                   const SizedBox(width: 8),
-                                  Text(ctx.l10n('edit')),
+                                  Text(ctx.l10n.edit),
                                 ],
                               ),
                             ),
@@ -421,7 +421,7 @@ class DocumentGridItem extends ConsumerWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    ctx.l10n('delete'),
+                                    ctx.l10n.delete,
                                     style: const TextStyle(
                                       color: AppColors.error,
                                     ),

@@ -3620,7 +3620,7 @@
     "description": "Translation for ad_reward_not_earned",
     "placeholders": {}
   },
-  "ad_unavailable": "Reklam kullanılamıyor.",
+  "ad_unavailable": "Reklam şu anda hazır değil. Lütfen biraz sonra tekrar deneyin.",
   "@ad_unavailable": {
     "description": "Translation for ad_unavailable",
     "placeholders": {}
@@ -4294,7 +4294,7 @@
     "placeholders": {},
     "description": "Translation for one_day_added"
   },
-  "ad_unavailable_try_later": "Reklam kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+  "ad_unavailable_try_later": "Reklam şu anda hazır değil. Lütfen biraz sonra tekrar deneyin.",
   "@ad_unavailable_try_later": {
     "placeholders": {},
     "description": "Translation for ad_unavailable_try_later"
@@ -4615,5 +4615,66 @@
   "@notes": {
     "placeholders": {},
     "description": "Translation for notes"
+  },
+  "privacy_guaranteed_title": "Gizlilik Garantisi",
+  "@privacy_guaranteed_title": {
+    "description": "Title for privacy guarantee card"
+  },
+  "privacy_guaranteed_desc": "Sağlık verileriniz şifrelenir ve sadece cihazınızda saklanır.",
+  "@privacy_guaranteed_desc": {
+    "description": "Description for privacy guarantee card"
+  },
+  "pin_not_set": "PIN Ayarlanmadı",
+  "@pin_not_set": {
+    "description": "Label for pin not set warning"
+  },
+  "pin_not_set_desc": "Güvenliğiniz için uygulama kilidini (PIN) aktif edin.",
+  "@pin_not_set_desc": {
+    "description": "Description for pin not set warning"
+  },
+  "create_btn": "Oluştur",
+  "@create_btn": {
+    "description": "Label for create button"
+  },
+  "enter_6_digit_pin": "Lütfen 6 haneli bir PIN girin.",
+  "@enter_6_digit_pin": {
+    "description": "Instruction to enter 6 digit pin"
+  },
+  "pin_save_failed": "PIN kaydedilemedi: {error}",
+  "@pin_save_failed": {
+    "description": "Error message when PIN save fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "create_new_pin": "Yeni PIN Oluştur",
+  "@create_new_pin": {
+    "description": "Title for creating a new PIN"
+  },
+  "confirm_pin_label": "PIN'i Doğrulayın",
+  "@confirm_pin_label": {
+    "description": "Label to confirm pin"
+  },
+  "enter_6_digit_pin_label": "6 Haneli PIN Girin",
+  "@enter_6_digit_pin_label": {
+    "description": "Label to enter 6-digit pin"
+  },
+  "theme_forest_sanctuary": "Orman Sığınağı",
+  "@theme_forest_sanctuary": {
+    "description": "Theme name for forest sanctuary"
+  },
+  "splashTagline": "Sağlığınız, güvenle düzenlendi.",
+  "@splashTagline": {
+    "description": "Tagline shown on splash screen"
+  },
+  "daily_reminders": "Günlük Hatırlatmalar",
+  "@daily_reminders": {
+    "description": "Settings label for daily reminders"
+  },
+  "daily_reminders_desc": "Planlarınızı gözden geçirmek, yeni temalar keşfetmek ve kasanızı düzenlemek için günlük bir bildirim alın.",
+  "@daily_reminders_desc": {
+    "description": "Settings description for daily reminders"
   }
 }

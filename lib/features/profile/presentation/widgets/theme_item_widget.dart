@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/providers/theme_unlock_provider.dart';
 import '../../../../core/theme/app_theme.dart';
@@ -91,7 +91,7 @@ class ThemeItemWidget extends ConsumerWidget {
                     ),
                     if (unlocked)
                       Text(
-                        context.l10n.remainingDays(days: days.toString()),
+                        context.l10n.remainingDays(days),
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.green,

@@ -1,9 +1,9 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_bootstrap_controller.dart';
 import '../constants/app_colors.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 /// Root entry widget for the app.
 /// 
@@ -31,7 +31,7 @@ class BootstrapScreen extends ConsumerWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Animated Splash Screen
+// Animated Splash Screen (Minimalist White Theme)
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _SplashLoadingScreen extends StatefulWidget {
@@ -42,166 +42,101 @@ class _SplashLoadingScreen extends StatefulWidget {
 }
 
 class _SplashLoadingScreenState extends State<_SplashLoadingScreen>
-    with TickerProviderStateMixin {
-  late final AnimationController _pulseController;
-  late final AnimationController _ringController;
+    with SingleTickerProviderStateMixin {
   late final AnimationController _fadeController;
-
-  late final Animation<double> _pulseAnim;
-  late final Animation<double> _ringAnim;
   late final Animation<double> _fadeAnim;
+  late final Animation<double> _slideAnim;
 
   @override
   void initState() {
     super.initState();
 
-    // Heartbeat pulse on the logo
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    )..repeat(reverse: true);
-
-    _pulseAnim = Tween<double>(begin: 0.92, end: 1.06).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
-
-    // Rotating ring
-    _ringController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2200),
-    )..repeat();
-
-    _ringAnim = Tween<double>(begin: 0, end: 2 * math.pi).animate(
-      CurvedAnimation(parent: _ringController, curve: Curves.linear),
-    );
-
-    // Fade-in of the whole splash
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 650),
     )..forward();
 
-    _fadeAnim = CurvedAnimation(parent: _fadeController, curve: Curves.easeOut);
+    _fadeAnim = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeOut,
+    );
+
+    _slideAnim = Tween<double>(begin: 12.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _fadeController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
   }
 
   @override
   void dispose() {
-    _pulseController.dispose();
-    _ringController.dispose();
     _fadeController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _fadeAnim,
-      child: Scaffold(
-        backgroundColor: const Color(0xFF0A0F1E),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Logo + ring stack
-              SizedBox(
-                width: 130,
-                height: 130,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Spinning gradient ring
-                    AnimatedBuilder(
-                      animation: _ringAnim,
-                      builder: (context, child) => Transform.rotate(
-                        angle: _ringAnim.value,
-                        child: CustomPaint(
-                          size: const Size(130, 130),
-                          painter: _GradientRingPainter(),
-                        ),
-                      ),
+    // Safely retrieve the localized tagline, falling back to English if missing.
+    final tagline = context.l10n.splashTagline;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFFFFFFF),
+      body: SafeArea(
+        child: Center(
+          child: FadeTransition(
+            opacity: _fadeAnim,
+            child: AnimatedBuilder(
+              animation: _slideAnim,
+              builder: (context, child) => Transform.translate(
+                offset: Offset(0, _slideAnim.value),
+                child: child,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  const Text(
+                    'VITACASE',
+                    style: TextStyle(
+                      color: Color(0xFF0F172A),
+                      fontSize: 34,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 4.5,
+                      fontFamily: 'Inter',
                     ),
-
-                    // Pulsing logo circle
-                    AnimatedBuilder(
-                      animation: _pulseAnim,
-                      builder: (context, child) => Transform.scale(
-                        scale: _pulseAnim.value,
-                        child: Container(
-                          width: 82,
-                          height: 82,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF6366F1), // indigo-500
-                                Color(0xFF818CF8), // indigo-400
-                              ],
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primaryIndigo.withValues(alpha: 0.4),
-                                blurRadius: 24,
-                                spreadRadius: 4,
-                              ),
-                            ],
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.favorite_rounded,
-                              color: Colors.white,
-                              size: 36,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 36),
-
-              // App name
-              const Text(
-                'VitaCase',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.5,
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              // Tagline
-              Text(
-                'Your health, secured.',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.5),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0.2,
-                ),
-              ),
-
-              const SizedBox(height: 56),
-
-              // Slim loading indicator
-              SizedBox(
-                width: 140,
-                child: LinearProgressIndicator(
-                  backgroundColor: Colors.white.withValues(alpha: 0.08),
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    Color(0xFF6366F1),
                   ),
-                  borderRadius: BorderRadius.circular(4),
-                  minHeight: 3,
-                ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Text(
+                      tagline,
+                      style: const TextStyle(
+                        color: Color(0xFF64748B),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.2,
+                        height: 1.4,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: 140,
+                    child: LinearProgressIndicator(
+                      backgroundColor: const Color(0xFFF1F5F9),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Color(0xFF0F172A),
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                      minHeight: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 36),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -210,45 +145,7 @@ class _SplashLoadingScreenState extends State<_SplashLoadingScreen>
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Gradient Ring Painter
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _GradientRingPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    const strokeWidth = 3.5;
-    final rect = Rect.fromLTWH(
-      strokeWidth / 2,
-      strokeWidth / 2,
-      size.width - strokeWidth,
-      size.height - strokeWidth,
-    );
-
-    final gradient = SweepGradient(
-      colors: [
-        Colors.transparent,
-        AppColors.primaryIndigo.withValues(alpha: 0.6),
-        AppColors.primaryViolet,
-        Colors.transparent,
-      ],
-      stops: const [0.0, 0.3, 0.7, 1.0],
-    );
-
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round
-      ..shader = gradient.createShader(rect);
-
-    canvas.drawArc(rect, 0, 2 * math.pi, false, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Startup Error Screen
+// Startup Error Screen (Matching Light Theme)
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _StartupErrorScreen extends StatelessWidget {
@@ -260,7 +157,7 @@ class _StartupErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0F1E),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(32),
@@ -273,7 +170,7 @@ class _StartupErrorScreen extends StatelessWidget {
                 height: 72,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.error.withValues(alpha: 0.15),
+                  color: AppColors.error.withValues(alpha: 0.1),
                 ),
                 child: const Icon(
                   Icons.error_outline_rounded,
@@ -285,7 +182,7 @@ class _StartupErrorScreen extends StatelessWidget {
               const Text(
                 'Startup Failed',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF0F172A),
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                 ),
@@ -296,7 +193,7 @@ class _StartupErrorScreen extends StatelessWidget {
                 'VitaCase encountered an issue while starting up.\n'
                 'Your data is safe.',
                 style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.6),
+                  color: Color(0xFF64748B),
                   fontSize: 14,
                   height: 1.5,
                 ),

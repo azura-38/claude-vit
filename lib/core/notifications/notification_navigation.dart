@@ -13,6 +13,10 @@ class PendingNotificationRouteNotifier extends Notifier<String?> {
 
   void setFromPayload(String payload) {
     final decoded = AppNotificationPayload.decode(payload);
+    if (decoded.type == NotificationType.engagement && decoded.route != null) {
+      state = decoded.route;
+      return;
+    }
     switch (decoded.type) {
       case NotificationType.medication:
         state = AppRoutes.medicines;

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../enums/common_enums.dart';
 
@@ -34,7 +34,7 @@ class Doctor {
 
   String localizedTitle(BuildContext context) {
     if (title.startsWith('doctor_title_')) {
-      return context.l10n(title);
+      return context.tr(title);
     }
     return title;
   }

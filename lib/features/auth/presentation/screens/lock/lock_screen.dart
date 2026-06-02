@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -121,10 +121,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            context.l10n.lockTooManyAttempts.replaceFirst(
-              '{seconds}',
-              '$remaining',
-            ),
+            context.l10n.lockTooManyAttempts(remaining),
           ),
         ),
       );
@@ -196,10 +193,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  context.l10n.lockTooManyAttempts.replaceFirst(
-                    '{seconds}',
-                    '${lockoutDuration.inSeconds}',
-                  ),
+                  context.l10n.lockTooManyAttempts(lockoutDuration.inSeconds),
                 ),
               ),
             );

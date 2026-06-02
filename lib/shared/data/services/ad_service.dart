@@ -56,14 +56,14 @@ class AdService {
   bool get _adsAvailable => !kIsWeb && AppConfig.hasAdConfig;
 
   void loadInterstitial() {
-    if (!_adsAvailable || AppConfig.interstitialAdId.isEmpty) return;
+    if (!_adsAvailable || AppConfig.rewardedInterstitialAdId.isEmpty) return;
     _loadRewardedInterstitial();
   }
 
   void _loadRewardedInterstitial() {
-    if (!_adsAvailable || AppConfig.interstitialAdId.isEmpty) return;
+    if (!_adsAvailable || AppConfig.rewardedInterstitialAdId.isEmpty) return;
     RewardedInterstitialAd.load(
-      adUnitId: AppConfig.interstitialAdId,
+      adUnitId: AppConfig.rewardedInterstitialAdId,
       request: const AdRequest(),
       rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
         onAdLoaded: (ad) => _rewardedInterstitialAd = ad,

@@ -3615,7 +3615,7 @@
     "description": "Translation for ad_reward_not_earned",
     "placeholders": {}
   },
-  "ad_unavailable": "Ad unavailable.",
+  "ad_unavailable": "Ad is not ready yet. Please try again shortly.",
   "@ad_unavailable": {
     "description": "Translation for ad_unavailable",
     "placeholders": {}
@@ -4294,7 +4294,7 @@
     "placeholders": {},
     "description": "Translation for one_day_added"
   },
-  "ad_unavailable_try_later": "Ad unavailable. Please try again later.",
+  "ad_unavailable_try_later": "Ad is not ready yet. Please try again shortly.",
   "@ad_unavailable_try_later": {
     "placeholders": {},
     "description": "Translation for ad_unavailable_try_later"
@@ -4615,5 +4615,66 @@
   "@notes": {
     "placeholders": {},
     "description": "Translation for notes"
+  },
+  "privacy_guaranteed_title": "Privacy Guaranteed",
+  "@privacy_guaranteed_title": {
+    "description": "Title for privacy guarantee card"
+  },
+  "privacy_guaranteed_desc": "Your health data is encrypted and stored only on your device.",
+  "@privacy_guaranteed_desc": {
+    "description": "Description for privacy guarantee card"
+  },
+  "pin_not_set": "PIN Not Set",
+  "@pin_not_set": {
+    "description": "Label for pin not set warning"
+  },
+  "pin_not_set_desc": "Enable app lock (PIN) to secure your data.",
+  "@pin_not_set_desc": {
+    "description": "Description for pin not set warning"
+  },
+  "create_btn": "Create",
+  "@create_btn": {
+    "description": "Label for create button"
+  },
+  "enter_6_digit_pin": "Please enter a 6-digit PIN.",
+  "@enter_6_digit_pin": {
+    "description": "Instruction to enter 6 digit pin"
+  },
+  "pin_save_failed": "Failed to save PIN: {error}",
+  "@pin_save_failed": {
+    "description": "Error message when PIN save fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "create_new_pin": "Create New PIN",
+  "@create_new_pin": {
+    "description": "Title for creating a new PIN"
+  },
+  "confirm_pin_label": "Confirm your PIN",
+  "@confirm_pin_label": {
+    "description": "Label to confirm pin"
+  },
+  "enter_6_digit_pin_label": "Enter 6-digit PIN",
+  "@enter_6_digit_pin_label": {
+    "description": "Label to enter 6-digit pin"
+  },
+  "theme_forest_sanctuary": "Forest Sanctuary",
+  "@theme_forest_sanctuary": {
+    "description": "Theme name for forest sanctuary"
+  },
+  "splashTagline": "Your health, safely organized.",
+  "@splashTagline": {
+    "description": "Tagline shown on splash screen"
+  },
+  "daily_reminders": "Daily Reminders",
+  "@daily_reminders": {
+    "description": "Settings label for daily reminders"
+  },
+  "daily_reminders_desc": "Receive a daily notification to review your plans, discover themes, and organize your vault.",
+  "@daily_reminders_desc": {
+    "description": "Settings description for daily reminders"
   }
 }

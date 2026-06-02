@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../../../../../shared/domain/entities/achievement.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
@@ -97,11 +97,11 @@ class _AchievementCardState extends State<AchievementCard>
 
     // Using localization keys or fallback to the key itself
     final displayTitle =
-        showHidden ? "???" : context.l10n(widget.achievement.title);
+        showHidden ? "???" : context.tr(widget.achievement.title);
     final displayDesc =
         showHidden
-            ? context.l10n("ach_hidden_desc")
-            : context.l10n(widget.achievement.description);
+            ? context.tr("ach_hidden_desc")
+            : context.tr(widget.achievement.description);
 
     return Container(
       decoration: BoxDecoration(
@@ -276,7 +276,7 @@ class _AchievementCardState extends State<AchievementCard>
                 children: [
                   _buildPill(
                     showHidden
-                        ? context.l10n("unknown")
+                        ? context.tr("unknown")
                         : widget.achievement.tier.name.toUpperCase(),
                     widget.isUnlocked ? _getBadgeColor() : Colors.grey,
                     isDark,
@@ -333,7 +333,7 @@ class _AchievementCardState extends State<AchievementCard>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.l10n("progress").toUpperCase(),
+                        context.tr("progress").toUpperCase(),
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 10,

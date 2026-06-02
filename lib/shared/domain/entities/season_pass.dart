@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class SeasonReward {
@@ -17,7 +17,7 @@ class SeasonReward {
   });
 
   String localizedTitle(BuildContext context) {
-    return context.l10n(titleKey, extra: {'value': value.toString()});
+    return context.tr(titleKey, extra: {'value': value.toString()});
   }
 }
 

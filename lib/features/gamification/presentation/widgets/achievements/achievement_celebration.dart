@@ -256,7 +256,7 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              context.l10n(widget.achievement.title),
+                              context.tr(widget.achievement.title),
                               style: TextStyle(
                                 fontSize: 14.5,
                                 fontWeight: FontWeight.bold,
@@ -266,7 +266,7 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              context.l10n(widget.achievement.description),
+                              context.tr(widget.achievement.description),
                               style: TextStyle(
                                 fontSize: 11.5,
                                 color: isDark ? Colors.white60 : Colors.black54,

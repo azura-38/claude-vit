@@ -19,4 +19,14 @@ class NotificationController {
       settings.notificationSettings.copyWith(showSensitiveDetails: !hide),
     );
   }
+
+  Future<void> setFullScreenRemindersEnabled(bool enabled) async {
+    final settings = ref.read(settingsControllerProvider);
+    await ref.read(settingsControllerProvider.notifier).updateNotificationSettings(
+      settings.notificationSettings.copyWith(fullScreenRemindersEnabled: enabled),
+    );
+    await NotificationEngine.setFullScreenRemindersEnabled(enabled);
+  }
+
+  Future<void> cancelEngagementNotifications() => NotificationEngine.cancelEngagementNotifications();
 }

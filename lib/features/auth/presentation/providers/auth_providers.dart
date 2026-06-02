@@ -21,18 +21,24 @@ final appLockStateProvider =
     );
 
 class AppLockStateNotifier extends Notifier<AppLockState> {
+  bool _initialized = false;
+
   @override
   AppLockState build() {
     final prefsAsync = ref.watch(userPreferencesControllerProvider);
 
-    // While preferences are still loading, we cannot know the lock state.
-    // Return [AppLockState.unknown] so the router shows the lock screen as
-    // a safe default (better than showing home to an unauthenticated user).
-    // Once prefs load, the provider rebuilds with the correct state.
     return prefsAsync.maybeWhen(
-      data: (prefs) =>
-          prefs.appLockEnabled ? AppLockState.locked : AppLockState.unlocked,
-      orElse: () => AppLockState.unknown,
+      data: (prefs) {
+        if (!_initialized) {
+          _initialized = true;
+          return prefs.appLockEnabled ? AppLockState.locked : AppLockState.unlocked;
+        }
+        return state;
+      },
+      orElse: () {
+        if (_initialized) return state;
+        return AppLockState.unknown;
+      },
     );
   }
 

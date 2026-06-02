@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/l10n/translations.dart';
+import '../../../../core/notifications/app_notification_payload.dart';
 import '../models/user_behavior.dart';
 
 class SmartMessageEngine {
@@ -19,6 +22,7 @@ class NotificationEngine {
   static SharedPreferences? _prefs;
   static bool _isInitialized = false;
   static const _enabledKey = 'notification_smart_enabled';
+  static const _fullScreenKey = 'notification_full_screen_intent';
   static const _lastEngagementKey = 'last_engagement_notif_time';
   static DateTime? _lastImmediateNotificationAt;
   static const Duration _immediateCooldown = Duration(seconds: 90);
@@ -113,8 +117,31 @@ class NotificationEngine {
 
   static Future<void> requestPermissions() async {
     final isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
     if (!isAllowed) {
-      await AwesomeNotifications().requestPermissionToSendNotifications();
+      if (useFullScreen) {
+        await AwesomeNotifications().requestPermissionToSendNotifications(
+          permissions: [
+            NotificationPermission.FullScreenIntent,
+            NotificationPermission.Alert,
+            NotificationPermission.Sound,
+            NotificationPermission.Vibration,
+            NotificationPermission.Light,
+          ],
+        );
+      } else {
+        await AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    } else if (useFullScreen) {
+      await AwesomeNotifications().requestPermissionToSendNotifications(
+        permissions: [
+          NotificationPermission.FullScreenIntent,
+          NotificationPermission.Alert,
+          NotificationPermission.Sound,
+          NotificationPermission.Vibration,
+          NotificationPermission.Light,
+        ],
+      );
     }
     debugPrint('[NotificationEngine] Permission allowed: ${await AwesomeNotifications().isNotificationAllowed()}');
   }
@@ -236,6 +263,7 @@ class NotificationEngine {
     await _ensureReady(requestPermission: true);
     if (scheduleTime.isBefore(DateTime.now())) return;
     final notifId = getStableId(id, scheduleTime);
+    final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
     await _createNotificationSafe(
       content: NotificationContent(
         id: notifId,
@@ -245,6 +273,7 @@ class NotificationEngine {
         payload: {'entityId': id, 'payload': payload ?? ''},
         category: NotificationCategory.Reminder,
         wakeUpScreen: true,
+        fullScreenIntent: useFullScreen,
       ),
       actionButtons: [
         NotificationActionButton(key: 'MARK_DONE', label: _label(tr: 'Aldım', en: 'Taken'), actionType: ActionType.Default),
@@ -264,6 +293,7 @@ class NotificationEngine {
     await _ensureReady(requestPermission: true);
     if (scheduleTime.isBefore(DateTime.now())) return;
     final notifId = getStableId(id, scheduleTime);
+    final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
     await _createNotificationSafe(
       content: NotificationContent(
         id: notifId,
@@ -273,6 +303,7 @@ class NotificationEngine {
         payload: {'entityId': id, 'payload': payload ?? ''},
         category: NotificationCategory.Event,
         wakeUpScreen: true,
+        fullScreenIntent: useFullScreen,
       ),
       actionButtons: [NotificationActionButton(key: 'OPEN_APPOINTMENT', label: _label(tr: 'Aç', en: 'Open'), actionType: ActionType.Default)],
       schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
@@ -337,6 +368,22 @@ class NotificationEngine {
     await _prefs?.setBool(_enabledKey, value);
   }
 
+  static Future<void> setFullScreenRemindersEnabled(bool value) async {
+    await _ensureReady();
+    await _prefs?.setBool(_fullScreenKey, value);
+    if (value) {
+      await AwesomeNotifications().requestPermissionToSendNotifications(
+        permissions: [
+          NotificationPermission.FullScreenIntent,
+          NotificationPermission.Alert,
+          NotificationPermission.Sound,
+          NotificationPermission.Vibration,
+          NotificationPermission.Light,
+        ],
+      );
+    }
+  }
+
   static bool _canShowEngagement() {
     final lastTime = _prefs?.getInt(_lastEngagementKey);
     if (lastTime == null) return true;
@@ -346,6 +393,268 @@ class NotificationEngine {
 
   static Future<void> _updateLastEngagement() async {
     await _prefs?.setInt(_lastEngagementKey, DateTime.now().millisecondsSinceEpoch);
+  }
+
+  static const int engagementNotificationId = 900100;
+  static const String _engagementEnabledKey = 'engagementNotificationsEnabled';
+  static const String _engagementCategoriesKey = 'last_engagement_categories';
+  static const String _engagementDayKey = 'last_scheduled_engagement_day';
+
+  static bool _isInQuietHours(int hour, int minute) {
+    final quietEnabled = _prefs?.getBool('quietHoursEnabled') ?? false;
+    if (!quietEnabled) {
+      return hour >= 21 || hour < 9;
+    }
+    final qStartHour = _prefs?.getInt('quietHoursStart') ?? 22;
+    final qStartMin = _prefs?.getInt('quietHoursStartMinute') ?? 0;
+    final qEndHour = _prefs?.getInt('quietHoursEnd') ?? 8;
+    final qEndMin = _prefs?.getInt('quietHoursEndMinute') ?? 0;
+
+    final pickedMinutes = hour * 60 + minute;
+    final startMinutes = qStartHour * 60 + qStartMin;
+    final endMinutes = qEndHour * 60 + qEndMin;
+
+    if (startMinutes < endMinutes) {
+      return pickedMinutes >= startMinutes && pickedMinutes <= endMinutes;
+    } else {
+      return pickedMinutes >= startMinutes || pickedMinutes <= endMinutes;
+    }
+  }
+
+  static Future<void> cancelEngagementNotifications() async {
+    await _ensureReady();
+    await AwesomeNotifications().cancel(engagementNotificationId);
+  }
+
+  static Future<void> scheduleDailyEngagementNotification() async {
+    await _ensureReady();
+
+    final isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!isAllowed) {
+      debugPrint('[NotificationEngine] Cannot schedule engagement: permissions not allowed.');
+      return;
+    }
+
+    final isEnabled = _prefs?.getBool(_engagementEnabledKey) ?? true;
+    if (!isEnabled) {
+      debugPrint('[NotificationEngine] Cannot schedule engagement: user disabled them.');
+      return;
+    }
+
+    final now = DateTime.now();
+    final tomorrow = now.add(const Duration(days: 1));
+    final tomorrowStr = "${tomorrow.year}-${tomorrow.month.toString().padLeft(2, '0')}-${tomorrow.day.toString().padLeft(2, '0')}";
+
+    final lastScheduledDay = _prefs?.getString(_engagementDayKey);
+    if (lastScheduledDay == tomorrowStr) {
+      debugPrint('[NotificationEngine] Engagement notification already scheduled for tomorrow ($tomorrowStr).');
+      return;
+    }
+
+    final List<String> lastCategories = _prefs?.getStringList(_engagementCategoriesKey) ?? [];
+    final categories = ['health_check', 'theme_discovery', 'vault_organization'];
+    final available = List<String>.from(categories);
+    if (lastCategories.length >= 2 && lastCategories[0] == lastCategories[1]) {
+      available.remove(lastCategories[0]);
+    }
+    
+    final rand = Random();
+    available.shuffle(rand);
+    final chosenCategory = available.first;
+
+    final newCategories = [chosenCategory, ...lastCategories];
+    if (newCategories.length > 5) {
+      newCategories.removeRange(5, newCategories.length);
+    }
+    await _prefs?.setStringList(_engagementCategoriesKey, newCategories);
+
+    final isTr = _isTurkish();
+    final title = 'VitaCase';
+    String body = '';
+    String route = '';
+
+    if (chosenCategory == 'health_check') {
+      route = AppRoutes.home;
+      final messagesTr = [
+        'Bugün sağlık planını kontrol ettin mi?',
+        'İlaçlarını, randevularını ve belgelerini hızlıca gözden geçir.',
+        'VitaCase seni bekliyor: Bugünkü sağlık notlarını kontrol et.',
+        'Randevuların ve ilaç hatırlatmaların güncel mi?'
+      ];
+      final messagesEn = [
+        'Have you checked your health plan today?',
+        'Review your medications, appointments, and documents.',
+        'VitaCase is ready: check today’s health notes.',
+        'Are your appointments and medication reminders up to date?'
+      ];
+      final list = isTr ? messagesTr : messagesEn;
+      body = list[rand.nextInt(list.length)];
+    } else if (chosenCategory == 'theme_discovery') {
+      route = AppRoutes.settingsTheme;
+      final messagesTr = [
+        'Bugün VitaCase görünümünü yenilemek ister misin?',
+        'Yeni bir tema ile sağlık kasanı kişiselleştir.',
+        'VitaCase tarzını değiştir: temaları keşfet.',
+        'Sana uygun sakin bir tema seçmeye ne dersin?'
+      ];
+      final messagesEn = [
+        'Want to refresh your VitaCase look today?',
+        'Personalize your health vault with a new theme.',
+        'Change your VitaCase style: explore themes.',
+        'How about choosing a calmer theme today?'
+      ];
+      final list = isTr ? messagesTr : messagesEn;
+      body = list[rand.nextInt(list.length)];
+    } else if (chosenCategory == 'vault_organization') {
+      route = AppRoutes.documents;
+      final messagesTr = [
+        'Önemli sağlık belgelerin düzenli mi?',
+        'Sağlık kasanı kısa bir kontrolle güncel tut.',
+        'Belgelerine hızlıca göz atmak ister misin?',
+        'Acil durumda ihtiyaç duyabileceğin bilgileri hazır tut.'
+      ];
+      final messagesEn = [
+        'Are your important health documents organized?',
+        'Keep your health vault up to date with a quick check.',
+        'Want to take a quick look at your documents?',
+        'Keep the information you may need in an emergency ready.'
+      ];
+      final list = isTr ? messagesTr : messagesEn;
+      body = list[rand.nextInt(list.length)];
+    }
+
+    int hour = 12;
+    int minute = 0;
+    for (int i = 0; i < 50; i++) {
+      final totalMinutes = 600 + rand.nextInt(630); // 10:00 is 600 minutes
+      final tempHour = totalMinutes ~/ 60;
+      final tempMin = totalMinutes % 60;
+      if (!_isInQuietHours(tempHour, tempMin)) {
+        hour = tempHour;
+        minute = tempMin;
+        break;
+      }
+    }
+
+    final scheduleTime = DateTime(tomorrow.year, tomorrow.month, tomorrow.day, hour, minute);
+
+    await _createNotificationSafe(
+      content: NotificationContent(
+        id: engagementNotificationId,
+        channelKey: _smartChannel,
+        title: title,
+        body: body,
+        category: NotificationCategory.Promo,
+        payload: {
+          'payload': AppNotificationPayload(
+            type: NotificationType.engagement,
+            entityId: chosenCategory,
+            route: route,
+            occurrenceAt: scheduleTime,
+          ).encode(),
+        },
+      ),
+      schedule: NotificationCalendar.fromDate(date: scheduleTime, allowWhileIdle: true, preciseAlarm: false),
+    );
+
+    await _prefs?.setString(_engagementDayKey, tomorrowStr);
+    debugPrint('[NotificationEngine] Scheduled engagement notification at $scheduleTime, category: $chosenCategory');
+  }
+
+  static Future<void> testScheduleEngagementIn1Minute() async {
+    await _ensureReady(requestPermission: true);
+    final now = DateTime.now();
+    final scheduleTime = now.add(const Duration(minutes: 1));
+    final categories = ['health_check', 'theme_discovery', 'vault_organization'];
+    final rand = Random();
+    final chosenCategory = categories[rand.nextInt(categories.length)];
+    final isTr = _isTurkish();
+    String body = '';
+    String route = '';
+
+    if (chosenCategory == 'health_check') {
+      route = AppRoutes.home;
+      body = isTr
+          ? 'VitaCase seni bekliyor: Bugünkü sağlık notlarını kontrol et.'
+          : 'VitaCase is ready: check today’s health notes.';
+    } else if (chosenCategory == 'theme_discovery') {
+      route = AppRoutes.settingsTheme;
+      body = isTr
+          ? 'VitaCase tarzını değiştir: temaları keşfet.'
+          : 'Change your VitaCase style: explore themes.';
+    } else {
+      route = AppRoutes.documents;
+      body = isTr
+          ? 'Acil durumda ihtiyaç duyabileceğin bilgileri hazır tut.'
+          : 'Keep the information you may need in an emergency ready.';
+    }
+
+    await _createNotificationSafe(
+      content: NotificationContent(
+        id: engagementNotificationId,
+        channelKey: _smartChannel,
+        title: 'VitaCase Test (1 min)',
+        body: body,
+        category: NotificationCategory.Promo,
+        payload: {
+          'payload': AppNotificationPayload(
+            type: NotificationType.engagement,
+            entityId: chosenCategory,
+            route: route,
+            occurrenceAt: scheduleTime,
+          ).encode(),
+        },
+      ),
+      schedule: NotificationCalendar.fromDate(date: scheduleTime, allowWhileIdle: true, preciseAlarm: false),
+    );
+    debugPrint('[NotificationEngine] Scheduled test engagement notification in 1 minute at $scheduleTime');
+  }
+
+  static Future<void> testSendEngagementNow() async {
+    await _ensureReady(requestPermission: true);
+    final now = DateTime.now();
+    final categories = ['health_check', 'theme_discovery', 'vault_organization'];
+    final rand = Random();
+    final chosenCategory = categories[rand.nextInt(categories.length)];
+    final isTr = _isTurkish();
+    String body = '';
+    String route = '';
+
+    if (chosenCategory == 'health_check') {
+      route = AppRoutes.home;
+      body = isTr
+          ? 'Bugün sağlık planını kontrol ettin mi?'
+          : 'Have you checked your health plan today?';
+    } else if (chosenCategory == 'theme_discovery') {
+      route = AppRoutes.settingsTheme;
+      body = isTr
+          ? 'Yeni bir tema ile sağlık kasanı kişiselleştir.'
+          : 'Personalize your health vault with a new theme.';
+    } else {
+      route = AppRoutes.documents;
+      body = isTr
+          ? 'Önemli sağlık belgelerin düzenli mi?'
+          : 'Are your important health documents organized?';
+    }
+
+    await _createNotificationSafe(
+      content: NotificationContent(
+        id: getStableId('test_now_${now.millisecondsSinceEpoch}'),
+        channelKey: _smartChannel,
+        title: 'VitaCase (Now)',
+        body: body,
+        category: NotificationCategory.Promo,
+        payload: {
+          'payload': AppNotificationPayload(
+            type: NotificationType.engagement,
+            entityId: chosenCategory,
+            route: route,
+            occurrenceAt: now,
+          ).encode(),
+        },
+      ),
+    );
+    debugPrint('[NotificationEngine] Dispatched test engagement notification immediately.');
   }
 
   static Future<void> cancel(String id, [DateTime? date]) async {

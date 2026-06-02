@@ -97,6 +97,33 @@ class DebugPanelScreen extends ConsumerWidget {
                   if (context.mounted) _snack(context, tr ? 'Randevu bildirimi 1 dakika sonrasına kuruldu.' : 'Appointment notification scheduled for 1 minute later.');
                 },
               ),
+              _DebugActionTile(
+                icon: Icons.schedule_send_rounded,
+                title: tr ? '1 dk sonrası engagement bildirimi kur' : 'Schedule engagement notification in 1 min',
+                subtitle: tr ? 'Rastgele bir kategori seçerek 1 dakika sonrasına kurar.' : 'Schedules a random engagement notification for 1 minute later.',
+                onTap: () async {
+                  await NotificationEngine.testScheduleEngagementIn1Minute();
+                  if (context.mounted) _snack(context, tr ? 'Engagement bildirimi 1 dakika sonrasına kuruldu.' : 'Engagement notification scheduled for 1 minute later.');
+                },
+              ),
+              _DebugActionTile(
+                icon: Icons.send_and_archive_rounded,
+                title: tr ? 'Rastgele engagement bildirimi gönder' : 'Send random engagement notification now',
+                subtitle: tr ? 'Hemen rastgele bir engagement bildirimi gönderir.' : 'Triggers a random engagement notification immediately.',
+                onTap: () async {
+                  await NotificationEngine.testSendEngagementNow();
+                  if (context.mounted) _snack(context, tr ? 'Engagement bildirimi tetiklendi.' : 'Engagement notification triggered.');
+                },
+              ),
+              _DebugActionTile(
+                icon: Icons.cancel_schedule_send_rounded,
+                title: tr ? 'Engagement bildirimlerini iptal et' : 'Cancel engagement notifications',
+                subtitle: tr ? 'Planlanmış engagement bildirimlerini temizler.' : 'Cancels scheduled engagement notifications.',
+                onTap: () async {
+                  await NotificationEngine.cancelEngagementNotifications();
+                  if (context.mounted) _snack(context, tr ? 'Engagement bildirimleri iptal edildi.' : 'Engagement notifications cancelled.');
+                },
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -117,7 +144,7 @@ class DebugPanelScreen extends ConsumerWidget {
               _DebugActionTile(
                 icon: Icons.ads_click_rounded,
                 title: tr ? 'Interstitial reklamı test et' : 'Test interstitial ad',
-                subtitle: AppConfig.interstitialAdId,
+                subtitle: AppConfig.rewardedInterstitialAdId,
                 onTap: () async {
                   await AdService.showInterstitial();
                   if (context.mounted) _snack(context, tr ? 'Interstitial reklam çağrıldı.' : 'Interstitial ad requested.');
@@ -262,7 +289,11 @@ Status: OK (No errors recorded)
             children: [
               _ConfigRow(label: 'Sentry', value: AppConfig.sentryDsn.isEmpty ? 'missing' : 'configured'),
               _ConfigRow(label: 'AdMob App ID', value: AppConfig.admobAppId),
+              _ConfigRow(label: 'App Open ID', value: AppConfig.appOpenAdId),
               _ConfigRow(label: 'Banner ID', value: AppConfig.bannerAdId),
+              _ConfigRow(label: 'Rewarded Interstitial ID', value: AppConfig.rewardedInterstitialAdId),
+              _ConfigRow(label: 'Interstitial ID', value: AppConfig.interstitialAdId),
+              _ConfigRow(label: 'Rewarded ID', value: AppConfig.rewardedAdId),
               _ConfigRow(label: 'Native ID', value: AppConfig.nativeAdId),
               _ConfigRow(label: 'Premium V1', value: AppConfig.premiumEnabled ? 'config true / provider disabled' : 'disabled'),
             ],

@@ -57,6 +57,26 @@ class AppLogicSection extends ConsumerWidget {
           isDark: isDark,
         ),
         SettingTile(
+          icon: Icons.today_rounded,
+          iconColor: Colors.teal,
+          title: context.tr('daily_reminders'),
+          subtitle: settings.notificationSettings.engagementNotificationsEnabled
+              ? '${context.l10n.active} 📅'
+              : context.l10n.inactive,
+          trailing: Switch(
+            value: settings.notificationSettings.engagementNotificationsEnabled,
+            onChanged: (value) async {
+              await controller.updateNotificationSettings(
+                settings.notificationSettings.copyWith(engagementNotificationsEnabled: value),
+              );
+              if (!value) {
+                await notificationController.cancelEngagementNotifications();
+              }
+            },
+          ),
+          isDark: isDark,
+        ),
+        SettingTile(
           icon: Icons.visibility_off_outlined,
           iconColor: Colors.deepOrange,
           title: context.l10n.showSensitiveDetails,
@@ -66,6 +86,19 @@ class AppLogicSection extends ConsumerWidget {
             onChanged: (value) async {
               await controller.updateNotificationSettings(settings.notificationSettings.copyWith(showSensitiveDetails: value));
               await notificationController.setHideSensitiveContent(!value);
+            },
+          ),
+          isDark: isDark,
+        ),
+        SettingTile(
+          icon: Icons.fullscreen_rounded,
+          iconColor: Colors.teal,
+          title: context.tr('full_screen_reminders'),
+          subtitle: settings.notificationSettings.fullScreenRemindersEnabled ? context.l10n.active : context.l10n.inactive,
+          trailing: Switch(
+            value: settings.notificationSettings.fullScreenRemindersEnabled,
+            onChanged: (value) async {
+              await notificationController.setFullScreenRemindersEnabled(value);
             },
           ),
           isDark: isDark,
@@ -103,10 +136,6 @@ class AppLogicSection extends ConsumerWidget {
   }
 
   void _showQuietHoursSelector(BuildContext context, WidgetRef ref, SettingsController controller) {
-    final currentSettings = ref.read(settingsControllerProvider).notificationSettings;
-    final startTime = _timeLabel(currentSettings.quietHoursStart, currentSettings.quietHoursStartMinute);
-    final endTime = _timeLabel(currentSettings.quietHoursEnd, currentSettings.quietHoursEndMinute);
-
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -116,34 +145,48 @@ class AppLogicSection extends ConsumerWidget {
           color: Theme.of(ctx).cardTheme.color ?? Theme.of(ctx).colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(context.l10n.quietHours, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
-            const SizedBox(height: 24),
-            ListTile(
-              title: Text(context.l10n.startTime),
-              subtitle: Text(startTime.format(context)),
-              onTap: () async {
-                final time = await showTimePicker(context: context, initialTime: startTime);
-                if (time != null) {
-                  controller.updateNotificationSettings(currentSettings.copyWith(quietHoursStart: time.hour, quietHoursStartMinute: time.minute));
-                }
-              },
-            ),
-            ListTile(
-              title: Text(context.l10n.endTime),
-              subtitle: Text(endTime.format(context)),
-              onTap: () async {
-                final time = await showTimePicker(context: context, initialTime: endTime);
-                if (time != null) {
-                  controller.updateNotificationSettings(currentSettings.copyWith(quietHoursEnd: time.hour, quietHoursEndMinute: time.minute));
-                }
-              },
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(onPressed: () => Navigator.pop(ctx), child: Text(context.l10n.ok)),
-          ],
+        child: Consumer(
+          builder: (context, ref, _) {
+            final currentSettings = ref.watch(settingsControllerProvider).notificationSettings;
+            final startTime = _timeLabel(currentSettings.quietHoursStart, currentSettings.quietHoursStartMinute);
+            final endTime = _timeLabel(currentSettings.quietHoursEnd, currentSettings.quietHoursEndMinute);
+
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(context.l10n.quietHours, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                const SizedBox(height: 24),
+                ListTile(
+                  title: Text(context.l10n.startTime),
+                  subtitle: Text(startTime.format(context)),
+                  onTap: () async {
+                    final time = await showTimePicker(context: context, initialTime: startTime);
+                    if (time != null) {
+                      controller.updateNotificationSettings(currentSettings.copyWith(
+                        quietHoursStart: time.hour,
+                        quietHoursStartMinute: time.minute,
+                      ));
+                    }
+                  },
+                ),
+                ListTile(
+                  title: Text(context.l10n.endTime),
+                  subtitle: Text(endTime.format(context)),
+                  onTap: () async {
+                    final time = await showTimePicker(context: context, initialTime: endTime);
+                    if (time != null) {
+                      controller.updateNotificationSettings(currentSettings.copyWith(
+                        quietHoursEnd: time.hour,
+                        quietHoursEndMinute: time.minute,
+                      ));
+                    }
+                  },
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(onPressed: () => Navigator.pop(ctx), child: Text(context.l10n.ok)),
+              ],
+            );
+          },
         ),
       ),
     );

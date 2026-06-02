@@ -33,7 +33,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
 
     if (remaining <= 3) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.debugPanelTapsLeft(remaining))),
+        SnackBar(content: Text(context.l10n.debugPanelTapsLeft(remaining.toString()))),
       );
     }
   }

@@ -14,6 +14,8 @@ class NotificationSettings {
   final int quietHoursEnd; // 0-23
   final int quietHoursEndMinute; // 0-59
   final bool showSensitiveDetails;
+  final bool fullScreenRemindersEnabled;
+  final bool engagementNotificationsEnabled;
 
   const NotificationSettings({
     this.smartNotificationsEnabled = true,
@@ -23,6 +25,8 @@ class NotificationSettings {
     this.quietHoursEnd = 8, // 8 AM
     this.quietHoursEndMinute = 0,
     this.showSensitiveDetails = false,
+    this.fullScreenRemindersEnabled = false,
+    this.engagementNotificationsEnabled = true,
   });
 
   NotificationSettings copyWith({
@@ -33,6 +37,8 @@ class NotificationSettings {
     int? quietHoursEnd,
     int? quietHoursEndMinute,
     bool? showSensitiveDetails,
+    bool? fullScreenRemindersEnabled,
+    bool? engagementNotificationsEnabled,
   }) {
     return NotificationSettings(
       smartNotificationsEnabled:
@@ -44,6 +50,10 @@ class NotificationSettings {
       quietHoursEnd: quietHoursEnd ?? this.quietHoursEnd,
       quietHoursEndMinute: quietHoursEndMinute ?? this.quietHoursEndMinute,
       showSensitiveDetails: showSensitiveDetails ?? this.showSensitiveDetails,
+      fullScreenRemindersEnabled:
+          fullScreenRemindersEnabled ?? this.fullScreenRemindersEnabled,
+      engagementNotificationsEnabled:
+          engagementNotificationsEnabled ?? this.engagementNotificationsEnabled,
     );
   }
 }

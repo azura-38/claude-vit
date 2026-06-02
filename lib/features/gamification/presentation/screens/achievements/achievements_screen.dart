@@ -48,7 +48,7 @@ class AchievementsScreen extends ConsumerWidget {
                 backgroundColor: isDark ? const Color(0xFF1E293B) : AppColors.medicalBlue,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
-                    context.l10n('medals_trophies'),
+                    context.tr('medals_trophies'),
                     style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
                   ),
                   centerTitle: true,
@@ -87,7 +87,7 @@ class AchievementsScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              '$unlockedCount / ${achievements.length} ${context.l10n('unlocked')}',
+                              '$unlockedCount / ${achievements.length} ${context.tr('unlocked')}',
                               style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontWeight: FontWeight.w600),
                             ),
                           ],
@@ -118,7 +118,7 @@ class AchievementsScreen extends ConsumerWidget {
                           Container(width: 4, height: 20, decoration: BoxDecoration(color: AppColors.medicalBlue, borderRadius: BorderRadius.circular(4))),
                           const SizedBox(width: 12),
                           Text(
-                            context.l10n('cat_${category.name}').toUpperCase(),
+                            context.tr('cat_${category.name}').toUpperCase(),
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: isDark ? Colors.white60 : Colors.blueGrey[800]),
                           ),
                         ],
@@ -165,8 +165,8 @@ class _LimitUnlockInfoCard extends StatelessWidget {
         ? context.l10n.limitUnlockStatusActive
         : context.l10n.limitUnlockStatusComingSoon(AppConfig.adSkipRewardsTargetVersion);
     final description = enabled
-        ? context.l10n.limitUnlockDescActive(AppConfig.xpPerAdSkipToken)
-        : context.l10n.limitUnlockDescInactive(AppConfig.adSkipRewardsTargetVersion, AppConfig.xpPerAdSkipToken);
+        ? context.l10n.limitUnlockDescActive(AppConfig.xpPerAdSkipToken.toString())
+        : context.l10n.limitUnlockDescInactive(AppConfig.adSkipRewardsTargetVersion, AppConfig.xpPerAdSkipToken.toString());
 
     return Container(
       padding: const EdgeInsets.all(16),

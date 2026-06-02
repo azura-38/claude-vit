@@ -11,5 +11,5 @@ enum LockTimeout {
   final String key;
   const LockTimeout(this.duration, this.key);
 
-  String localizedLabel(BuildContext context) => context.l10n(key);
+  String localizedLabel(BuildContext context) => context.tr(key);
 }

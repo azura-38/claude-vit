@@ -18,6 +18,8 @@ import '../../core/notifications/notification_navigation.dart';
 import '../../core/di/service_providers.dart';
 import '../../core/utils/uid_manager.dart';
 import '../../shared/providers/shared_prefs_provider.dart';
+import '../../shared/providers/onboarding_provider.dart';
+import '../../features/profile/presentation/providers/legacy_providers.dart';
 
 const _kLastRescheduleKey = 'last_notification_reschedule_ts';
 const _kRescheduleGapMinutes = 30;
@@ -212,6 +214,16 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
     _log('Deferred: Conditional reschedule...');
     await _safeRun('reschedule', _rescheduleNotifications(container));
+
+    final onboardingCompleted = container.read(onboardingCompletedProvider);
+    final profileCreated = container.read(profileCreatedProvider);
+    final legalAccepted = container.read(legalAcceptedProvider);
+    if (onboardingCompleted && profileCreated && legalAccepted) {
+      _log('Deferred: Scheduling daily engagement notification...');
+      await _safeRun('engagement_notif', NotificationEngine.scheduleDailyEngagementNotification());
+    } else {
+      _log('Deferred: Skipping engagement notification (onboarding=$onboardingCompleted, profile=$profileCreated, legal=$legalAccepted)');
+    }
   }
 
   Future<void> _setupNotificationListeners(ProviderContainer container) async {

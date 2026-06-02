@@ -42,6 +42,22 @@ class AppConfig {
     );
   }
 
+  static String get rewardedInterstitialAdId {
+    if (kDebugMode) {
+      if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/5354046379';
+      if (!kIsWeb && Platform.isIOS) return 'ca-app-pub-3940256099942544/6978759866';
+    }
+    return const String.fromEnvironment(
+      'ADMOB_REWARDED_INTERSTITIAL_ID',
+      defaultValue: 'ca-app-pub-5877011177866406/4940803235',
+    );
+  }
+
+  static const closedTestFallbackEnabled = bool.fromEnvironment(
+    'CLOSED_TEST_FALLBACK_ENABLED',
+    defaultValue: true,
+  );
+
   static String get rewardedAdId {
     if (kDebugMode) {
       if (!kIsWeb && Platform.isAndroid) return 'ca-app-pub-3940256099942544/5224354917';
@@ -60,7 +76,7 @@ class AppConfig {
     }
     return const String.fromEnvironment(
       'ADMOB_APP_OPEN_ID',
-      defaultValue: 'ca-app-pub-5877011177866406/323028539',
+      defaultValue: 'ca-app-pub-5877011177866406/3230238539',
     );
   }
 

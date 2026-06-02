@@ -4359,7 +4359,7 @@ abstract class AppLocalizations {
   /// Translation for ad_unavailable
   ///
   /// In en, this message translates to:
-  /// **'Ad unavailable.'**
+  /// **'Ad is not ready yet. Please try again shortly.'**
   String get ad_unavailable;
 
   /// Translation for ad_failed
@@ -5145,7 +5145,7 @@ abstract class AppLocalizations {
   /// Translation for ad_unavailable_try_later
   ///
   /// In en, this message translates to:
-  /// **'Ad unavailable. Please try again later.'**
+  /// **'Ad is not ready yet. Please try again shortly.'**
   String get ad_unavailable_try_later;
 
   /// Translation for theme_unlocked
@@ -5495,6 +5495,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notes'**
   String get notes;
+
+  /// No description provided for @privacy_guaranteed_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Guaranteed'**
+  String get privacy_guaranteed_title;
+
+  /// No description provided for @privacy_guaranteed_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your health data is encrypted and stored only on your device.'**
+  String get privacy_guaranteed_desc;
+
+  /// No description provided for @pin_not_set.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Not Set'**
+  String get pin_not_set;
+
+  /// No description provided for @pin_not_set_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable app lock (PIN) to secure your data.'**
+  String get pin_not_set_desc;
+
+  /// No description provided for @create_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create_btn;
+
+  /// No description provided for @enter_6_digit_pin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a 6-digit PIN.'**
+  String get enter_6_digit_pin;
+
+  /// No description provided for @pin_save_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save PIN: {error}'**
+  String pin_save_failed(Object error);
+
+  /// No description provided for @create_new_pin.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New PIN'**
+  String get create_new_pin;
+
+  /// No description provided for @confirm_pin_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your PIN'**
+  String get confirm_pin_label;
+
+  /// No description provided for @enter_6_digit_pin_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 6-digit PIN'**
+  String get enter_6_digit_pin_label;
+
+  /// No description provided for @theme_forest_sanctuary.
+  ///
+  /// In en, this message translates to:
+  /// **'Forest Sanctuary'**
+  String get theme_forest_sanctuary;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your health, safely organized.'**
+  String get splashTagline;
+
+  /// No description provided for @daily_reminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Reminders'**
+  String get daily_reminders;
+
+  /// No description provided for @daily_reminders_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive a daily notification to review your plans, discover themes, and organize your vault.'**
+  String get daily_reminders_desc;
 }
 
 class _AppLocalizationsDelegate

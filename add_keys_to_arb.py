@@ -125,7 +125,20 @@ en_keys = {
     "limit_unlock_stat_xp_left": "XP left",
     "limit_unlock_stat_tokens": "Tokens",
     "notes": "Notes",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "privacy_guaranteed_title": "Privacy Guaranteed",
+    "privacy_guaranteed_desc": "Your health data is encrypted and stored only on your device.",
+    "debug_panel_taps_left": "Debug panel: {remaining} taps left.",
+    "pin_not_set": "PIN Not Set",
+    "pin_not_set_desc": "Enable app lock (PIN) to secure your data.",
+    "create_btn": "Create",
+    "enter_6_digit_pin": "Please enter a 6-digit PIN.",
+    "pin_save_failed": "Failed to save PIN: {error}",
+    "create_new_pin": "Create New PIN",
+    "confirm_pin_label": "Confirm your PIN",
+    "enter_6_digit_pin_label": "Enter 6-digit PIN",
+    "theme_forest_sanctuary": "Forest Sanctuary",
+    "splashTagline": "Your health, safely organized."
 }
 
 tr_keys = {
@@ -252,7 +265,20 @@ tr_keys = {
     "limit_unlock_stat_xp_left": "Kalan XP",
     "limit_unlock_stat_tokens": "Hak",
     "notes": "Notlar",
-    "unknown": "Bilinmiyor"
+    "unknown": "Bilinmiyor",
+    "privacy_guaranteed_title": "Gizlilik Garantisi",
+    "privacy_guaranteed_desc": "Sağlık verileriniz şifrelenir ve sadece cihazınızda saklanır.",
+    "debug_panel_taps_left": "Debug panel için {remaining} dokunuş kaldı.",
+    "pin_not_set": "PIN Ayarlanmadı",
+    "pin_not_set_desc": "Güvenliğiniz için uygulama kilidini (PIN) aktif edin.",
+    "create_btn": "Oluştur",
+    "enter_6_digit_pin": "Lütfen 6 haneli bir PIN girin.",
+    "pin_save_failed": "PIN kaydedilemedi: {error}",
+    "create_new_pin": "Yeni PIN Oluştur",
+    "confirm_pin_label": "PIN'i Doğrulayın",
+    "enter_6_digit_pin_label": "6 Haneli PIN Girin",
+    "theme_forest_sanctuary": "Orman Sığınağı",
+    "splashTagline": "Sağlığınız, güvenle düzenlendi."
 }
 
 def update_arb(file_path, new_keys):

@@ -2,42 +2,37 @@ import 'package:flutter/widgets.dart';
 import 'package:vitacase/core/l10n/translations.dart';
 import 'package:vitacase/l10n/app_localizations.dart';
 
+export 'l10n_camelcase_extension.dart';
+
 extension L10nBuildContext on BuildContext {
-  dynamic get l10n => _L10nProxy(this);
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
 
   String tr(String key, {Map<String, String>? extra}) {
     return _lookupTranslation(this, key, extra: extra);
   }
 }
 
-class _L10nProxy {
-  const _L10nProxy(this._context);
+bool _isBrokenPseudoString(String value) {
+  final trimmed = value.trim();
+  if (trimmed.isEmpty) return true;
 
-  final BuildContext _context;
+  const badStrings = {
+    'nsi', 'pzi', 'fzi', 'nzi', 'gzi', 'hzi', 'cqb', 'ljh', 'jzi', 'kzi', 'ozi'
+  };
+  if (badStrings.contains(trimmed.toLowerCase())) return true;
 
-  String call(String key, {Map<String, String>? extra}) {
-    return _lookupTranslation(_context, key, extra: extra);
-  }
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    final name = _symbolName(invocation.memberName);
-    if (name.isEmpty) return '';
-
-    if (invocation.isGetter) {
-      return _lookupTranslation(_context, name);
-    }
-
-    if (invocation.isMethod) {
-      var value = _lookupTranslation(_context, name);
-      for (final argument in invocation.positionalArguments) {
-        value = value.replaceFirst(RegExp(r'\{[^}]+\}'), argument.toString());
+  final lower = trimmed.toLowerCase();
+  if (lower.length >= 2 && lower.length <= 4) {
+    final hasVowels = RegExp(r'[aeiouıöü]').hasMatch(lower);
+    if (!hasVowels) {
+      const allowedNoVowel = {'bpm', 'gg', 'aa', 'yy', 'xp', 'zip', 'pdf', 'btn'};
+      if (!allowedNoVowel.contains(lower)) {
+        return true;
       }
-      return value;
     }
-
-    return super.noSuchMethod(invocation);
   }
+
+  return false;
 }
 
 String _lookupTranslation(
@@ -46,21 +41,37 @@ String _lookupTranslation(
   Map<String, String>? extra,
 }) {
   final locale = AppLocalizations.of(context)?.localeName ?? Localizations.localeOf(context).languageCode;
+  return lookupTranslationWithLocale(locale, key, extra: extra);
+}
+
+String lookupTranslationWithLocale(
+  String locale,
+  String key, {
+  Map<String, String>? extra,
+}) {
   final languageCode = locale.split('_').first;
   final normalized = _normalizeTranslationKey(key);
 
-  var value = Translations.data[languageCode]?[normalized] ??
-      _dynamicFallbacks[languageCode]?[normalized] ??
-      Translations.data['en']?[normalized] ??
-      _dynamicFallbacks['en']?[normalized] ??
-      _humanizeMissingKey(normalized, languageCode);
+  String? value = Translations.data[languageCode]?[normalized] ??
+      _dynamicFallbacks[languageCode]?[normalized];
 
-  if (extra == null || extra.isEmpty) return value;
+  if (value == null || value.trim().isEmpty || _isBrokenPseudoString(value)) {
+    value = Translations.data['en']?[normalized] ??
+        _dynamicFallbacks['en']?[normalized];
+  }
+
+  if (value == null || value.trim().isEmpty || _isBrokenPseudoString(value)) {
+    value = _humanizeMissingKey(normalized, languageCode);
+  }
+
+  String valueStr = value;
+
+  if (extra == null || extra.isEmpty) return valueStr;
 
   for (final entry in extra.entries) {
-    value = value.replaceAll('{${entry.key}}', entry.value);
+    valueStr = valueStr.replaceAll('{${entry.key}}', entry.value);
   }
-  return value;
+  return valueStr;
 }
 
 String _normalizeTranslationKey(String key) {
@@ -105,13 +116,7 @@ bool _isDigit(String value) {
   return code >= 48 && code <= 57;
 }
 
-String _symbolName(Symbol symbol) {
-  final text = symbol.toString();
-  if (!text.startsWith('Symbol("') || !text.endsWith('")')) return '';
-  final value = text.substring(8, text.length - 2);
-  if (value.isEmpty) return '';
-  return value;
-}
+
 
 const Map<String, Map<String, String>> _missingKeyLabels = {
   'en': {
@@ -188,6 +193,8 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'skip': 'Skip',
     'skip_profile_note': 'You can complete your profile later from the Profile page.',
     'profile_incomplete_warning': 'You have not set up your profile yet. You can complete your profile anytime from the "Personal Info" section above.',
+    'full_screen_reminders': 'Full-screen Reminders',
+    'full_screen_reminders_desc': 'Show critical medicine and appointment reminders over other apps or on the lock screen.',
   },
   'tr': {
     'profile_photo': 'Profil fotoğrafı',
@@ -235,5 +242,7 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'skip': 'Atla',
     'skip_profile_note': 'Profilinizi daha sonra Profil sayfasından tamamlayabilirsiniz.',
     'profile_incomplete_warning': 'Profil bilgilerinizi henüz doldurmadınız. İstediğiniz zaman yukarıdaki "Kişisel Bilgiler" seçeneğinden tamamlayabilirsiniz.',
+    'full_screen_reminders': 'Tam Ekran Hatırlatıcılar',
+    'full_screen_reminders_desc': 'Kritik ilaç ve randevu hatırlatıcılarını diğer uygulamaların üzerinde veya kilit ekranında göster.',
   },
 };

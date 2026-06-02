@@ -80,7 +80,7 @@ class MedicationLockNotificationScreen extends StatelessWidget {
                                     const SizedBox(height: 8),
                                     Text(
                                       context.l10n.medReminderTimeForMed(
-                                        med: 'Lisinopril',
+                                        'Lisinopril',
                                       ),
                                       style: const TextStyle(
                                         fontSize: 20,
@@ -91,8 +91,8 @@ class MedicationLockNotificationScreen extends StatelessWidget {
                                     const SizedBox(height: 4),
                                     Text(
                                       context.l10n.medReminderDose(
-                                        dose: '10mg',
-                                        note: context.l10n.notificationDoseNote,
+                                        '10mg',
+                                        context.l10n.notificationDoseNote,
                                       ),
                                       style: const TextStyle(
                                         fontSize: 14,

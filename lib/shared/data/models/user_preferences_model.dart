@@ -63,6 +63,8 @@ class UserPreferencesModel {
       'quietHoursEnd': s.quietHoursEnd,
       'quietHoursEndMinute': s.quietHoursEndMinute,
       'showSensitiveDetails': s.showSensitiveDetails,
+      'fullScreenRemindersEnabled': s.fullScreenRemindersEnabled,
+      'engagementNotificationsEnabled': s.engagementNotificationsEnabled,
     };
   }
 
@@ -75,6 +77,8 @@ class UserPreferencesModel {
       quietHoursEnd: m['quietHoursEnd'] as int? ?? 8,
       quietHoursEndMinute: m['quietHoursEndMinute'] as int? ?? 0,
       showSensitiveDetails: m['showSensitiveDetails'] as bool? ?? false,
+      fullScreenRemindersEnabled: m['fullScreenRemindersEnabled'] as bool? ?? false,
+      engagementNotificationsEnabled: m['engagementNotificationsEnabled'] as bool? ?? true,
     );
   }
 

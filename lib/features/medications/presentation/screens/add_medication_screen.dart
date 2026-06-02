@@ -139,7 +139,7 @@ class AddMedicationScreen extends ConsumerWidget {
                         children: [
                           _SectionTitle(icon: Icons.notifications_active_outlined, title: context.l10n.reminderTimes),
                           Text(
-                            '${state.reminderTimes.length} ${context.l10n.times_a_day ?? "times a day"}',
+                            '${state.reminderTimes.length} ${context.l10n.timesADay}',
                             style: TextStyle(color: isDark ? Colors.white60 : AppColors.textSecondary, fontWeight: FontWeight.w700),
                           ),
                         ],

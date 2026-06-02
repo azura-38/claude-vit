@@ -302,7 +302,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
                     items: _titles.map((t) {
                       return DropdownMenuItem(
                         value: t,
-                        child: Text(context.l10n(t), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
+                        child: Text(context.tr(t), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
                       );
                     }).toList(),
                     onChanged: (val) {

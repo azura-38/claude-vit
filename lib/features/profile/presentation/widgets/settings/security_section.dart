@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../core/constants/app_routes.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../shared/data/services/analytics_service.dart';
 import '../../../../../shared/data/services/wipe_service.dart';
@@ -374,6 +376,9 @@ class SecuritySection extends ConsumerWidget {
                 Navigator.of(dialogContext).pop();
               }
               await WipeService.fullWipe();
+              if (context.mounted) {
+                context.go(AppRoutes.onboarding);
+              }
             },
             child: Text(dialogContext.l10n.wipeBtnFinal, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
           ),

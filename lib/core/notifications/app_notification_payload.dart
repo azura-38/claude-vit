@@ -15,12 +15,14 @@ class AppNotificationPayload {
     required this.entityId,
     this.action,
     this.occurrenceAt,
+    this.route,
   });
 
   final NotificationType type;
   final String entityId;
   final String? action;
   final DateTime? occurrenceAt;
+  final String? route;
 
   String encode() {
     return jsonEncode({
@@ -28,6 +30,7 @@ class AppNotificationPayload {
       'entityId': entityId,
       'action': action,
       'occurrenceAt': occurrenceAt?.toIso8601String(),
+      'route': route,
     });
   }
 
@@ -45,6 +48,7 @@ class AppNotificationPayload {
             map['occurrenceAt'] is String
                 ? DateTime.tryParse(map['occurrenceAt'] as String)
                 : null,
+        route: map['route'] as String?,
       );
     } catch (_) {
       if (raw.startsWith('medicine') || raw.startsWith('med_')) {

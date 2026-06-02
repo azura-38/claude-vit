@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/data/services/ad_service.dart';
 import '../../shared/providers/shared_prefs_provider.dart';
+import '../../core/config/app_config.dart';
+import '../types/runtime_types.dart';
 
 final themeUnlockProvider = NotifierProvider<ThemeUnlockNotifier, DateTime?>(
   ThemeUnlockNotifier.new,
@@ -49,9 +51,14 @@ class ThemeUnlockNotifier extends Notifier<DateTime?> {
   Future<bool> watchAdToUnlockOrExtend() async {
     final result = await AdService.showRewardedForResult();
 
-    // During development, emulator/device fill can be unavailable even with a
-    // valid AdMob setup. Keep the theme flow testable instead of blocking UX.
-    if (result.name != 'shownRewarded' && kReleaseMode) return false;
+    final isSuccess = result == RewardAdResult.shownRewarded;
+    if (!isSuccess) {
+      if (kDebugMode || AppConfig.closedTestFallbackEnabled) {
+        debugPrint('[ThemeUnlock] Rewarded ad not shown or unavailable: $result. Fallback enabled (kDebugMode or closedTestFallbackEnabled is true). Temporarily unlocking theme for free.');
+      } else {
+        return false;
+      }
+    }
 
     final prefs = ref.read(sharedPreferencesProvider);
     final now = DateTime.now();

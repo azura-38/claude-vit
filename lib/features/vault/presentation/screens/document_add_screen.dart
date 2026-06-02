@@ -111,7 +111,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
       if (e is UsageLimitExceededException) {
         _showSnack(_limitMessage(e.limit));
       } else {
-        _showSnack(context.l10n.saveDocumentFailed(e));
+        _showSnack(context.l10n.saveDocumentFailed(e.toString()));
       }
     } finally {
       if (mounted) setState(() => _isSaving = false);

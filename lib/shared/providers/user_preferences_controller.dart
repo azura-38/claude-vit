@@ -25,6 +25,12 @@ class UserPreferencesController extends AsyncNotifier<UserPreferences> {
       if (currentAppLocale != prefs.locale) {
         await sharedPrefs.setString('app_locale', prefs.locale);
       }
+      await sharedPrefs.setBool('engagementNotificationsEnabled', prefs.notificationSettings.engagementNotificationsEnabled);
+      await sharedPrefs.setBool('quietHoursEnabled', prefs.notificationSettings.quietHoursEnabled);
+      await sharedPrefs.setInt('quietHoursStart', prefs.notificationSettings.quietHoursStart);
+      await sharedPrefs.setInt('quietHoursStartMinute', prefs.notificationSettings.quietHoursStartMinute);
+      await sharedPrefs.setInt('quietHoursEnd', prefs.notificationSettings.quietHoursEnd);
+      await sharedPrefs.setInt('quietHoursEndMinute', prefs.notificationSettings.quietHoursEndMinute);
     } catch (_) {}
 
     return prefs;
@@ -84,6 +90,16 @@ class UserPreferencesController extends AsyncNotifier<UserPreferences> {
     final current = await _currentOrLoad();
     final updated = current.copyWith(notificationSettings: settings);
     await _save(updated);
+
+    try {
+      final sharedPrefs = ref.read(sharedPreferencesProvider);
+      await sharedPrefs.setBool('engagementNotificationsEnabled', settings.engagementNotificationsEnabled);
+      await sharedPrefs.setBool('quietHoursEnabled', settings.quietHoursEnabled);
+      await sharedPrefs.setInt('quietHoursStart', settings.quietHoursStart);
+      await sharedPrefs.setInt('quietHoursStartMinute', settings.quietHoursStartMinute);
+      await sharedPrefs.setInt('quietHoursEnd', settings.quietHoursEnd);
+      await sharedPrefs.setInt('quietHoursEndMinute', settings.quietHoursEndMinute);
+    } catch (_) {}
   }
 
   Future<void> toggleQuickActions(bool enabled) async {

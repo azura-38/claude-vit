@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 /// Document tag matching the React DOCUMENT_TAGS constant.
@@ -19,7 +19,7 @@ enum DocumentTag {
 
   String get label => id; // Fallback for UI that calls .label
 
-  String localizedLabel(BuildContext context) => context.l10n(key);
+  String localizedLabel(BuildContext context) => context.tr(key);
 
   static DocumentTag? fromId(String? id) {
     if (id == null) return null;

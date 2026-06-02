@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../constants/app_colors.dart';
 
 enum AppThemeType {
@@ -49,7 +50,32 @@ enum AppThemeType {
 
   bool get isRewardTheme => rewardThemes.contains(this);
 
-  String localizedLabel(BuildContext context) => label;
+  String localizedLabel(BuildContext context) {
+    switch (this) {
+      case AppThemeType.light:
+        return context.tr('theme_light');
+      case AppThemeType.dark:
+        return context.tr('theme_dark');
+      case AppThemeType.lavender:
+        return context.tr('theme_amethyst_aura');
+      case AppThemeType.ocean:
+        return context.tr('theme_ocean_serenity');
+      case AppThemeType.mint:
+        return context.tr('theme_emerald_garden');
+      case AppThemeType.peach:
+        return context.tr('theme_amber_glow');
+      case AppThemeType.rose:
+        return context.tr('theme_boutique');
+      case AppThemeType.slate:
+        return context.tr('theme_luxe_sanctuary');
+      case AppThemeType.sand:
+        return context.tr('theme_midnight_neon');
+      case AppThemeType.forest:
+        return context.tr('theme_forest_sanctuary');
+      case AppThemeType.system:
+        return context.tr('theme_system');
+    }
+  }
 
   String get label {
     switch (this) {

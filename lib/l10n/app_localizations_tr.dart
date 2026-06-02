@@ -2293,7 +2293,8 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ödül kazanılamadı. Devam etmek için lütfen reklamı bitirin.';
 
   @override
-  String get ad_unavailable => 'Reklam kullanılamıyor.';
+  String get ad_unavailable =>
+      'Reklam şu anda hazır değil. Lütfen biraz sonra tekrar deneyin.';
 
   @override
   String get ad_failed => 'Ödüllü reklam gösterilemedi. Lütfen tekrar deneyin.';
@@ -2723,7 +2724,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get ad_unavailable_try_later =>
-      'Reklam kullanılamıyor. Lütfen daha sonra tekrar deneyin.';
+      'Reklam şu anda hazır değil. Lütfen biraz sonra tekrar deneyin.';
 
   @override
   String get theme_unlocked => 'Tema açıldı. Her ek reklam +1 gün kazandırır.';
@@ -2918,4 +2919,51 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get notes => 'Notlar';
+
+  @override
+  String get privacy_guaranteed_title => 'Gizlilik Garantisi';
+
+  @override
+  String get privacy_guaranteed_desc =>
+      'Sağlık verileriniz şifrelenir ve sadece cihazınızda saklanır.';
+
+  @override
+  String get pin_not_set => 'PIN Ayarlanmadı';
+
+  @override
+  String get pin_not_set_desc =>
+      'Güvenliğiniz için uygulama kilidini (PIN) aktif edin.';
+
+  @override
+  String get create_btn => 'Oluştur';
+
+  @override
+  String get enter_6_digit_pin => 'Lütfen 6 haneli bir PIN girin.';
+
+  @override
+  String pin_save_failed(Object error) {
+    return 'PIN kaydedilemedi: $error';
+  }
+
+  @override
+  String get create_new_pin => 'Yeni PIN Oluştur';
+
+  @override
+  String get confirm_pin_label => 'PIN\'i Doğrulayın';
+
+  @override
+  String get enter_6_digit_pin_label => '6 Haneli PIN Girin';
+
+  @override
+  String get theme_forest_sanctuary => 'Orman Sığınağı';
+
+  @override
+  String get splashTagline => 'Sağlığınız, güvenle düzenlendi.';
+
+  @override
+  String get daily_reminders => 'Günlük Hatırlatmalar';
+
+  @override
+  String get daily_reminders_desc =>
+      'Planlarınızı gözden geçirmek, yeni temalar keşfetmek ve kasanızı düzenlemek için günlük bir bildirim alın.';
 }

@@ -82,7 +82,7 @@ class DashboardScreen extends ConsumerWidget {
         RewardDialog.show(
           context,
           title: context.l10n.congratulations.toUpperCase(),
-          description: context.l10n.levelUpDesc(level: next.level.toString()),
+          description: context.l10n.levelUpDesc(next.level),
           icon: Icons.auto_awesome_rounded,
         );
       }
