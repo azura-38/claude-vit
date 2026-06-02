@@ -5496,85 +5496,85 @@ abstract class AppLocalizations {
   /// **'Notes'**
   String get notes;
 
-  /// No description provided for @privacy_guaranteed_title.
+  /// Title for privacy guarantee card
   ///
   /// In en, this message translates to:
   /// **'Privacy Guaranteed'**
   String get privacy_guaranteed_title;
 
-  /// No description provided for @privacy_guaranteed_desc.
+  /// Description for privacy guarantee card
   ///
   /// In en, this message translates to:
   /// **'Your health data is encrypted and stored only on your device.'**
   String get privacy_guaranteed_desc;
 
-  /// No description provided for @pin_not_set.
+  /// Label for pin not set warning
   ///
   /// In en, this message translates to:
   /// **'PIN Not Set'**
   String get pin_not_set;
 
-  /// No description provided for @pin_not_set_desc.
+  /// Description for pin not set warning
   ///
   /// In en, this message translates to:
   /// **'Enable app lock (PIN) to secure your data.'**
   String get pin_not_set_desc;
 
-  /// No description provided for @create_btn.
+  /// Label for create button
   ///
   /// In en, this message translates to:
   /// **'Create'**
   String get create_btn;
 
-  /// No description provided for @enter_6_digit_pin.
+  /// Instruction to enter 6 digit pin
   ///
   /// In en, this message translates to:
   /// **'Please enter a 6-digit PIN.'**
   String get enter_6_digit_pin;
 
-  /// No description provided for @pin_save_failed.
+  /// Error message when PIN save fails
   ///
   /// In en, this message translates to:
   /// **'Failed to save PIN: {error}'**
-  String pin_save_failed(Object error);
+  String pin_save_failed(String error);
 
-  /// No description provided for @create_new_pin.
+  /// Title for creating a new PIN
   ///
   /// In en, this message translates to:
   /// **'Create New PIN'**
   String get create_new_pin;
 
-  /// No description provided for @confirm_pin_label.
+  /// Label to confirm pin
   ///
   /// In en, this message translates to:
   /// **'Confirm your PIN'**
   String get confirm_pin_label;
 
-  /// No description provided for @enter_6_digit_pin_label.
+  /// Label to enter 6-digit pin
   ///
   /// In en, this message translates to:
   /// **'Enter 6-digit PIN'**
   String get enter_6_digit_pin_label;
 
-  /// No description provided for @theme_forest_sanctuary.
+  /// Theme name for forest sanctuary
   ///
   /// In en, this message translates to:
   /// **'Forest Sanctuary'**
   String get theme_forest_sanctuary;
 
-  /// No description provided for @splashTagline.
+  /// Tagline shown on splash screen
   ///
   /// In en, this message translates to:
   /// **'Your health, safely organized.'**
   String get splashTagline;
 
-  /// No description provided for @daily_reminders.
+  /// Settings label for daily reminders
   ///
   /// In en, this message translates to:
   /// **'Daily Reminders'**
   String get daily_reminders;
 
-  /// No description provided for @daily_reminders_desc.
+  /// Settings description for daily reminders
   ///
   /// In en, this message translates to:
   /// **'Receive a daily notification to review your plans, discover themes, and organize your vault.'**

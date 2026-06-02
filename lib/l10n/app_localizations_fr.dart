@@ -2979,7 +2979,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get enter_6_digit_pin => 'Please enter a 6-digit PIN.';
 
   @override
-  String pin_save_failed(Object error) {
+  String pin_save_failed(String error) {
     return 'Failed to save PIN: $error';
   }
 

@@ -2941,7 +2941,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get enter_6_digit_pin => 'Lütfen 6 haneli bir PIN girin.';
 
   @override
-  String pin_save_failed(Object error) {
+  String pin_save_failed(String error) {
     return 'PIN kaydedilemedi: $error';
   }
 
