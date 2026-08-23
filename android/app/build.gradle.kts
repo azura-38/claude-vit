@@ -46,10 +46,10 @@ android {
         jvmTarget = "17"
     }
 
-    // Disable Crashlytics mapping file upload to avoid DNS errors when building offline
-    afterEvaluate {
-        tasks.matching { it.name.contains("uploadCrashlyticsMappingFile") }.configureEach { enabled = false }
-    }
+    // Enable Crashlytics mapping file upload for production. Commented out offline build workaround:
+    // afterEvaluate {
+    //     tasks.matching { it.name.contains("uploadCrashlyticsMappingFile") }.configureEach { enabled = false }
+    // }
 
     defaultConfig {
         applicationId = "com.limanex.vitacase"

@@ -39,7 +39,7 @@ class WipeService {
     // 3. Clear Secure Storage (Master Key, etc.)
     await _storage.deleteAll();
 
-    // 4. Delete Uploaded Documents
+    // 4. Delete Saved Documents
     try {
       final appDir = await getApplicationDocumentsDirectory();
       final docsDir = Directory(p.join(appDir.path, 'documents'));

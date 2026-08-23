@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'package:vitacase/core/extensions/l10n_extension.dart';
+
 import '../../core/ads/ad_visibility_policy.dart';
 import '../../core/config/app_config.dart';
+import '../data/services/ad_service.dart';
 
 class VitaCaseBannerAd extends ConsumerStatefulWidget {
   const VitaCaseBannerAd({
@@ -54,14 +57,30 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
     }
     if (_bannerAd != null) return;
 
+    // Check preloaded banner cache from AdService
+    final preloaded = AdService().claimPreloadedBanner();
+    if (preloaded != null) {
+      setState(() {
+        _bannerAd = preloaded;
+        _isLoaded = true;
+        _loadFailed = false;
+        _lastError = null;
+      });
+      return;
+    }
+
+    final stopwatch = Stopwatch()..start();
     final ad = BannerAd(
       adUnitId: AppConfig.bannerAdId,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (ad) {
+          stopwatch.stop();
           if (!mounted) return;
-          debugPrint('[VitaCaseBannerAd] loaded');
+          if (kDebugMode) {
+            debugPrint('[VitaCaseBannerAd] loaded in ${stopwatch.elapsedMilliseconds}ms');
+          }
           setState(() {
             _bannerAd = ad as BannerAd;
             _isLoaded = true;
@@ -70,9 +89,12 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
           });
         },
         onAdFailedToLoad: (ad, error) {
+          stopwatch.stop();
           ad.dispose();
           if (!mounted) return;
-          debugPrint('[VitaCaseBannerAd] failed: ${error.code} ${error.message}');
+          if (kDebugMode) {
+            debugPrint('[VitaCaseBannerAd] failed after ${stopwatch.elapsedMilliseconds}ms: ${error.code} ${error.message}');
+          }
           setState(() {
             _bannerAd = null;
             _isLoaded = false;
@@ -114,8 +136,8 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final text = _loadFailed
-        ? (widget.showFailureMessage ? 'Banner yüklenemedi${_lastError == null ? '' : ' • $_lastError'}' : 'Banner yüklenemedi')
-        : 'Banner yükleniyor...';
+        ? (widget.showFailureMessage ? '${context.l10n.bannerLoadFailed}${_lastError == null ? '' : ' • $_lastError'}' : context.l10n.bannerLoadFailed)
+        : context.l10n.bannerLoading;
 
     return SizedBox(
       width: double.infinity,

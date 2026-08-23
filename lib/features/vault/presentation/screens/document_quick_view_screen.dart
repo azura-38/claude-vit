@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
 
 import '../../../../shared/domain/entities/document.dart';
+import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
@@ -12,6 +13,7 @@ import '../providers/vault_controller.dart';
 import '../widgets/vault_action_button.dart';
 import '../widgets/vault_preview_overlay.dart';
 import '../widgets/vault_tag_chip.dart';
+import '../../../../core/utils/mime_type_helper.dart';
 
 class DocumentQuickViewScreen extends ConsumerStatefulWidget {
   const DocumentQuickViewScreen({super.key, required this.document});
@@ -111,10 +113,48 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
   }
 
   Future<void> _openDocument() async {
-    final result = await OpenFilex.open(_document.localPath);
-    if (!mounted) return;
-    if (result.type != ResultType.done) {
+    try {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.openingFile), duration: const Duration(seconds: 1)));
+      
+      final fileStorage = ref.read(fileStorageServiceProvider);
+      final decryptedFile = await fileStorage.getFile(_document.localPath);
+      final filePath = (decryptedFile as dynamic).path as String;
+      
+      final result = await OpenFilex.open(filePath);
+      if (!mounted) return;
+      if (result.type != ResultType.done) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+      }
+    } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+    }
+  }
+
+  Future<void> _downloadDocument() async {
+    try {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.downloadingFile), duration: const Duration(seconds: 1)));
+
+      final fileStorage = ref.read(fileStorageServiceProvider);
+      final mimeType = MimeTypeHelper.getMimeType(_document.fileName);
+
+      final result = await fileStorage.saveDecryptedCopyToDownloads(
+        relativePath: _document.localPath,
+        originalFileName: _document.fileName,
+        mimeType: mimeType,
+      );
+
+      if (!mounted) return;
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.fileSavedToDownloads)));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.fileDownloadFailed)));
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.fileDownloadFailed)));
     }
   }
 
@@ -180,17 +220,24 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                             children: [
                               Text(document.fileName, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.textPrimary)),
                               const SizedBox(height: 8),
-                              Text('${document.hospitalName ?? _unknownLabel} • ${document.category.name}', style: const TextStyle(color: AppColors.secondary)),
+                              Text('${document.hospitalName ?? _unknownLabel} • ${document.category.localizedLabel(context)}', style: const TextStyle(color: AppColors.secondary)),
                               const SizedBox(height: 12),
                               Wrap(
                                 spacing: 8,
                                 runSpacing: 8,
                                 children: [
-                                  VaultTagChip(
-                                    label: document.tagLabel ?? 'Lab',
-                                    bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
-                                    text: isDark ? AppColors.primaryIndigo : AppColors.primary,
-                                  ),
+                                  if (document.tags.isNotEmpty)
+                                    ...document.tags.map((tag) => VaultTagChip(
+                                      label: tag,
+                                      bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
+                                      text: isDark ? AppColors.primaryIndigo : AppColors.primary,
+                                    ))
+                                  else if (document.tagLabel != null)
+                                    VaultTagChip(
+                                      label: document.tagLabel!,
+                                      bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
+                                      text: isDark ? AppColors.primaryIndigo : AppColors.primary,
+                                    ),
                                   VaultTagChip(
                                     label: document.fileType.name.toUpperCase(),
                                     bg: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
@@ -232,7 +279,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
-                                  "Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.",
+                                  context.l10n.externalAppWarning,
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
@@ -262,6 +309,14 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                               bg: AppColors.primary,
                               text: Colors.white,
                               onTap: _openDocument,
+                            ),
+                            const SizedBox(width: 16),
+                            VaultActionButton(
+                              label: context.l10n.download,
+                              icon: Icons.file_download_rounded,
+                              bg: isDark ? Colors.white10 : const Color(0xFFE2F4ED),
+                              text: isDark ? Colors.green[300]! : Colors.green[700]!,
+                              onTap: _downloadDocument,
                             ),
                           ],
                         ),

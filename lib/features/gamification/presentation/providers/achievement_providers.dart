@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/router/app_router.dart';
-import '../widgets/achievements/achievement_celebration.dart';
 import '../../../../shared/data/repositories/achievement_repository_impl.dart';
 import '../../../../shared/domain/entities/achievement.dart';
 import '../../../../shared/domain/repositories/achievement_repository.dart';
@@ -13,7 +10,6 @@ import '../../../../shared/providers/premium_provider.dart';
 import '../../../../shared/providers/ad_skip_provider.dart';
 import '../../data/services/combo_engine.dart';
 import '../../../../shared/data/services/analytics_service.dart';
-import 'package:go_router/go_router.dart';
 
 final achievementRepositoryProvider = Provider<AchievementRepository>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
@@ -120,60 +116,12 @@ class AchievementNotifier extends AsyncNotifier<List<Achievement>> {
     }
   }
 
-  final List<Achievement> _notificationQueue = [];
-  bool _isShowingNotification = false;
-
-  void showPendingNotifications() {
-    _isShowingNotification = false;
-    _showNextNotification();
-  }
+  void showPendingNotifications() {}
 
   void _notifyUnlock(Achievement achievement) {
     AnalyticsService.log(AnalyticsService.achievementUnlocked, {
       'id': achievement.id,
       'tier': achievement.tier.name,
     });
-    _notificationQueue.add(achievement);
-    _showNextNotification();
-  }
-
-  void _showNextNotification() {
-    if (_isShowingNotification || _notificationQueue.isEmpty) return;
-
-    _isShowingNotification = true;
-    final achievement = _notificationQueue.removeAt(0);
-
-    final context = AppRouter.navigatorKey.currentContext;
-    if (context == null) {
-      _isShowingNotification = false;
-      _notificationQueue.insert(0, achievement);
-      return;
-    }
-
-    try {
-      final router = GoRouter.of(context);
-      final location = router.routerDelegate.currentConfiguration.uri.path;
-      if (location == '/profile-create' ||
-          location == '/onboarding' ||
-          location == '/lock') {
-        _isShowingNotification = false;
-        _notificationQueue.insert(0, achievement);
-        return;
-      }
-    } catch (_) {}
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      useSafeArea: false,
-      builder: (context) => AchievementCelebration(
-        achievement: achievement,
-        onClose: () {
-          context.pop();
-          _isShowingNotification = false;
-          Future.delayed(const Duration(milliseconds: 300), _showNextNotification);
-        },
-      ),
-    );
   }
 }

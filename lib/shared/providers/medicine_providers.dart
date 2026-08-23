@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/di/repository_providers.dart';
 import '../../core/di/service_providers.dart';
@@ -33,7 +34,33 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   Future<List<Medicine>> build() async {
     final useCase = ref.read(getMedicinesUseCaseProvider);
     final result = await useCase.call(NoParams());
-    return result.fold((l) => throw l, (r) => r);
+    
+    return result.fold(
+      (l) => throw l, 
+      (medicines) async {
+        final nowStr = DateTime.now().toIso8601String().substring(0, 10);
+        var changed = false;
+        
+        final updatedMedicines = medicines.map((m) {
+          if (m.isTaken && m.lastTakenDate != nowStr) {
+            changed = true;
+            return m.copyWith(isTaken: false);
+          }
+          return m;
+        }).toList();
+
+        if (changed) {
+          final repo = ref.read(medicineRepositoryProvider);
+          for (final m in updatedMedicines) {
+             if (!m.isTaken && medicines.firstWhere((x) => x.id == m.id).isTaken) {
+               await repo.update(m);
+             }
+          }
+        }
+        
+        return updatedMedicines;
+      },
+    );
   }
 
   Future<void> refresh() async {
@@ -83,20 +110,31 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   Future<void> markAsTaken(String id) async {
     final repo = ref.read(medicineRepositoryProvider);
     Medicine? updatedMedicine;
+    final nowStr = DateTime.now().toIso8601String().substring(0, 10);
 
     if (state.hasValue) {
       final currentList = state.value!;
       final updatedList = currentList.map((m) {
         if (m.id != id) return m;
-        updatedMedicine = m.copyWith(isTaken: true);
+        // currentStock azalt
+        final newStock = (m.currentStock != null && m.currentStock! > 0)
+            ? m.currentStock! - 1
+            : m.currentStock;
+        updatedMedicine = m.copyWith(
+          isTaken: true, 
+          currentStock: newStock,
+          lastTakenDate: nowStr,
+        );
         return updatedMedicine!;
       }).toList();
       state = AsyncData(updatedList);
     }
 
-    updatedMedicine ??= (await repo.getById(id))?.copyWith(isTaken: true);
+    updatedMedicine ??= (await repo.getById(id))?.copyWith(isTaken: true, lastTakenDate: nowStr);
     if (updatedMedicine != null) {
       await repo.update(updatedMedicine!);
+      // Stok azalınca uyarı
+      await _checkAndNotifyLowStock(updatedMedicine!);
     }
   }
 
@@ -144,6 +182,31 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     }
   }
 
+  /// Stok azalınca uyarı bildirimi gönder
+  Future<void> _checkAndNotifyLowStock(Medicine medicine) async {
+    final current = medicine.currentStock;
+    final total = medicine.totalStock;
+    if (current == null || total == null || total == 0) return;
+    final ratio = current / total;
+    if (ratio < 0.2) {
+      // %20'nin altına düştüyse 5 saniye sonra uyarı bildirimi zamanla
+      final isTr = (await _getLang()) == 'tr';
+      await NotificationEngine.scheduleMedicine(
+        id: 'low_stock_${medicine.id}',
+        title: isTr ? '⚠️ İlaç stoğu azalıyor' : '⚠️ Low medication stock',
+        body: isTr
+            ? '${medicine.name} için yalnızca $current adet kaldı. Yenilemeyi unutmayın!'
+            : 'Only $current ${medicine.name} left. Don\'t forget to refill!',
+        scheduleTime: DateTime.now().add(const Duration(seconds: 5)),
+      );
+    }
+  }
+
+  Future<String> _getLang() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('app_locale') ?? 'en';
+  }
+
   Future<void> rescheduleAllNotifications(List<Medicine> medicines) async {
     for (final medicine in medicines) {
       await _scheduleNotifications(medicine);
@@ -162,18 +225,23 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
       final minute = int.tryParse(timeParts[1]);
       if (hour == null || minute == null) continue;
 
-      if (medicine.frequency == 'weekly' && medicine.daysOfWeek != null) {
+      if (medicine.frequency == 'weekly' && medicine.daysOfWeek != null && medicine.daysOfWeek!.isNotEmpty) {
+        // Haftalık: her seçili gün için önümüzdeki 8 haftayı zamanla
         for (final day in medicine.daysOfWeek!) {
           var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
+          // Bu haftanın doğru gününe git
           while (scheduledDate.weekday != day) {
             scheduledDate = scheduledDate.add(const Duration(days: 1));
           }
           if (!scheduledDate.isAfter(now)) {
             scheduledDate = scheduledDate.add(const Duration(days: 7));
           }
-          dates.add(scheduledDate);
+          for (int w = 0; w < 8; w++) {
+            dates.add(scheduledDate.add(Duration(days: 7 * w)));
+          }
         }
       } else if (medicine.frequency == 'custom' && medicine.interval != null) {
+        // Custom: belirli aralıklarla 10 tekrar
         var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
         if (!scheduledDate.isAfter(now)) {
           scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
@@ -183,11 +251,14 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
           scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
         }
       } else {
-        var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
-        if (!scheduledDate.isAfter(now)) {
-          scheduledDate = scheduledDate.add(const Duration(days: 1));
+        // Daily: önümüzdeki 30 günü zamanla
+        for (int i = 0; i < 30; i++) {
+          final scheduledDate = DateTime(now.year, now.month, now.day, hour, minute)
+              .add(Duration(days: i));
+          if (scheduledDate.isAfter(now)) {
+            dates.add(scheduledDate);
+          }
         }
-        dates.add(scheduledDate);
       }
     }
 

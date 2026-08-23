@@ -689,11 +689,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get docs_sort_oldest => 'En eski';
 
   @override
-  String get docs_empty_title => 'Burası Henüz Boş';
+  String get docs_empty_title => 'Henüz belge yok';
 
   @override
-  String get docs_empty_subtitle =>
-      'İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.';
+  String get docs_empty_subtitle => 'İlk sağlık belgenizi ekleyin.';
 
   @override
   String get docs_category_health => 'Sağlık';
@@ -2343,11 +2342,11 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get no_appointments_found => 'Randevu bulunamadı';
+  String get no_appointments_found => 'Henüz randevu yok';
 
   @override
   String get empty_appointments_desc =>
-      'Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.';
+      'Gerektiğinde yeni bir randevu ekleyebilirsiniz.';
 
   @override
   String get empty_appointments_filter_desc =>
@@ -2510,7 +2509,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get view_details => 'Detayları Gör';
 
   @override
-  String get no_scheduled_meds_today => 'Bugün için planlanmış ilaç yok.';
+  String get no_scheduled_meds_today => 'Henüz ilaç yok';
+
+  @override
+  String get addMedicationSubtitle =>
+      'Takip etmek istediğiniz ilaçları ekleyebilirsiniz.';
 
   @override
   String get add_appointment => 'Randevu Ekle';
@@ -2894,9 +2897,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get limit_unlock_status_active => 'Aktif';
 
   @override
-  String limit_unlock_status_coming_soon(String version) {
-    return 'Yakında $version';
-  }
+  String get limit_unlock_status_coming_soon => 'Yakında';
 
   @override
   String limit_unlock_desc_active(String xp) {
@@ -2904,8 +2905,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String limit_unlock_desc_inactive(String version, String xp) {
-    return 'V1’de kapalı. $version sürümünde her $xp XP ile 1 Limit Açma Hakkı kazanılacak.';
+  String limit_unlock_desc_inactive(String xp) {
+    return 'Yakında aktif olacak. Her $xp XP ile 1 Limit Açma Hakkı kazanılacak.';
   }
 
   @override
@@ -2966,4 +2967,157 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Planlarınızı gözden geçirmek, yeni temalar keşfetmek ve kasanızı düzenlemek için günlük bir bildirim alın.';
+
+  @override
+  String get download => 'İndir';
+
+  @override
+  String get fileSavedToDownloads => 'Dosya İndirilenler klasörüne kaydedildi.';
+
+  @override
+  String get fileDownloadFailed => 'Dosya indirilemedi.';
+
+  @override
+  String get fileNotFound => 'Dosya bulunamadı.';
+
+  @override
+  String get fileOpenFailed => 'Dosya açılamadı.';
+
+  @override
+  String get noAppToOpenFile =>
+      'Bu dosyayı açabilecek bir uygulama bulunamadı.';
+
+  @override
+  String get openingFile => 'Dosya açılıyor...';
+
+  @override
+  String get downloadingFile => 'Dosya indiriliyor...';
+
+  @override
+  String get documentAddedSuccessfully => 'Dosya başarıyla eklendi.';
+
+  @override
+  String get documentAddFailed => 'Dosya eklenemedi.';
+
+  @override
+  String get externalAppWarning =>
+      'Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.';
+
+  @override
+  String get previewComingSoon => 'Önizleme yakında';
+
+  @override
+  String get previewComingSoonDesc =>
+      'Belge önizleme özelliği V1.2 güncellemesinde gelecek.';
+
+  @override
+  String get previewComingInV12 => 'Önizleme yakında gelecek.';
+
+  @override
+  String get privacyByDesign => 'Gizliliğiniz önceliğimizdir.';
+
+  @override
+  String get dataStaysOnDevice => 'Verileriniz cihazınızda kalır.';
+
+  @override
+  String get documentResponsibilityNotice =>
+      'Eklediğiniz belgelerin içeriği, doğruluğu, güncelliği ve yedeklenmesi sizin sorumluluğunuzdadır. Önemli belgeler için VitaCase\'i tek kaynak olarak kullanmayın.';
+
+  @override
+  String get protectYourVault => 'Kasanızı Koruyun';
+
+  @override
+  String get protectYourVaultDesc =>
+      'Sağlık belgelerinizi ve hassas verilerinizi en üst düzeyde korumak için bir güvenlik PIN\'i oluşturmanızı öneririz.';
+
+  @override
+  String get later => 'Daha Sonra';
+
+  @override
+  String get setPin => 'PIN Ayarla';
+
+  @override
+  String get pinNotSet => 'PIN Ayarlanmadı';
+
+  @override
+  String get pinNotSetDesc =>
+      'Güvenliğiniz için uygulama kilidini (PIN) aktif edin.';
+
+  @override
+  String get create => 'Oluştur';
+
+  @override
+  String get enter6DigitPin => 'Lütfen 6 haneli bir PIN girin.';
+
+  @override
+  String get createNewPin => 'Yeni PIN Oluştur';
+
+  @override
+  String get confirmPin => 'PIN\'i Doğrulayın';
+
+  @override
+  String get securitySetupIncomplete => 'Güvenlik Kurulumu Eksik';
+
+  @override
+  String get securitySetupIncompleteDesc =>
+      'Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.';
+
+  @override
+  String get setupNow => 'Şimdi Kurulum Yap';
+
+  @override
+  String get systemRecovery => 'Sistem Kurtarma';
+
+  @override
+  String get systemRecoveryDesc =>
+      'Veriler kurtarılamadı / uygulama güvenli başlatıldı';
+
+  @override
+  String get bannerLoadFailed => 'Banner yüklenemedi';
+
+  @override
+  String get bannerLoading => 'Banner yükleniyor...';
+
+  @override
+  String get medicationNotice =>
+      'VitaCase yalnızca ilaç takibine yardımcı olur; tıbbi tavsiye vermez. Doz, saat ve kullanım kararlarında doktor veya eczacı talimatlarını esas alın.';
+
+  @override
+  String get category_prescription => 'Reçete';
+
+  @override
+  String get category_blood_test => 'Kan Tahlili';
+
+  @override
+  String get category_medical_report => 'Tıbbi Rapor';
+
+  @override
+  String get category_appointment => 'Randevu';
+
+  @override
+  String get category_insurance => 'Sigorta';
+
+  @override
+  String get category_vaccination => 'Aşı';
+
+  @override
+  String get category_invoice => 'Fatura';
+
+  @override
+  String get docsSearchHint => 'Belgelerde ara...';
+
+  @override
+  String get addTag => 'Etiket Ekle';
+
+  @override
+  String get tags => 'Etiketler';
+
+  @override
+  String get customTagHint => 'Etiket adını girin...';
+
+  @override
+  String get filterAll => 'Tümü';
+
+  @override
+  String get noMatchingDocuments => 'Eşleşen belge bulunamadı.';
 }

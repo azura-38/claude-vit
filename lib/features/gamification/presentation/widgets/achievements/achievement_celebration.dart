@@ -217,7 +217,7 @@ class _AchievementCelebrationState extends State<AchievementCelebration> {
                             Row(
                               children: [
                                 Text(
-                                  "BAŞARI KAZANILDI",
+                                  Localizations.localeOf(context).languageCode == 'tr' ? "BAŞARI KAZANILDI" : "ACHIEVEMENT UNLOCKED",
                                   style: TextStyle(
                                     fontSize: 9,
                                     fontWeight: FontWeight.w900,

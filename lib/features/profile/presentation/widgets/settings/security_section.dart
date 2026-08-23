@@ -48,9 +48,9 @@ class SecuritySection extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'PIN Ayarlanmadı',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.pinNotSet,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w900,
                           color: Colors.orange,
@@ -58,7 +58,7 @@ class SecuritySection extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Güvenliğiniz için uygulama kilidini (PIN) aktif edin.',
+                        context.l10n.pinNotSetDesc,
                         style: TextStyle(
                           fontSize: 11,
                           color: isDark ? Colors.white70 : Colors.black54,
@@ -70,9 +70,9 @@ class SecuritySection extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () => _showPinSetupDialog(context, ref, controller),
-                  child: const Text(
-                    'Oluştur',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  child: Text(
+                    context.l10n.create,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -156,7 +156,7 @@ class SecuritySection extends ConsumerWidget {
               final confirmPin = confirmPinController.text.trim();
 
               if (newPin.length != 6 || confirmPin.length != 6) {
-                setState(() => errorText = 'Lütfen 6 haneli bir PIN girin.');
+                setState(() => errorText = context.l10n.enter6DigitPin);
                 return;
               }
 
@@ -187,25 +187,27 @@ class SecuritySection extends ConsumerWidget {
               } catch (e) {
                 setState(() {
                   isSaving = false;
-                  errorText = 'PIN kaydedilemedi: $e';
+                  errorText = e.toString();
                 });
               }
             }
 
             return AlertDialog(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-              title: const Text('Yeni PIN Oluştur', style: TextStyle(fontWeight: FontWeight.bold)),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _PinField(controller: newPinController, label: '6 Haneli PIN Girin', enabled: !isSaving),
-                  const SizedBox(height: 12),
-                  _PinField(controller: confirmPinController, label: 'PIN\'i Doğrulayın', enabled: !isSaving),
-                  if (errorText.isNotEmpty) ...[
+              title: Text(context.l10n.createNewPin, style: const TextStyle(fontWeight: FontWeight.bold)),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _PinField(controller: newPinController, label: context.l10n.enter6DigitPin, enabled: !isSaving),
                     const SizedBox(height: 12),
-                    Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+                    _PinField(controller: confirmPinController, label: context.l10n.confirmPin, enabled: !isSaving),
+                    if (errorText.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+                    ],
                   ],
-                ],
+                ),
               ),
               actions: [
                 TextButton(onPressed: isSaving ? null : () => Navigator.pop(dialogContext), child: Text(context.l10n.cancel)),
@@ -285,19 +287,21 @@ class SecuritySection extends ConsumerWidget {
 
             return AlertDialog(
               title: Text(context.l10n.changePin),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _PinField(controller: currentPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
-                  const SizedBox(height: 12),
-                  _PinField(controller: newPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
-                  const SizedBox(height: 12),
-                  _PinField(controller: confirmPinController, label: context.l10n.lockConfirmPin, enabled: !isSaving),
-                  if (errorText.isNotEmpty) ...[
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _PinField(controller: currentPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
                     const SizedBox(height: 12),
-                    Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700)),
+                    _PinField(controller: newPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
+                    const SizedBox(height: 12),
+                    _PinField(controller: confirmPinController, label: context.l10n.lockConfirmPin, enabled: !isSaving),
+                    if (errorText.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700)),
+                    ],
                   ],
-                ],
+                ),
               ),
               actions: [
                 TextButton(onPressed: isSaving ? null : () => Navigator.pop(dialogContext), child: Text(context.l10n.cancel)),

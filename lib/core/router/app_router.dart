@@ -64,7 +64,6 @@ Widget _withTopBanner(Widget child, {bool showBanner = true}) {
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  ref.watch(routeGuardStateProvider);
   final refreshNotifier = _RouterRefreshNotifier(ref);
   ref.onDispose(refreshNotifier.dispose);
 

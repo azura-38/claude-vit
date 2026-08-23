@@ -1,47 +1,64 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'ad_service.dart';
 
 class ConsentService {
   Future<void> initializeAdsWithConsent() async {
+    final completer = Completer<void>();
+
     try {
       final params = ConsentRequestParameters();
 
-      // Request consent information update from the Google Mobile Ads SDK.
       ConsentInformation.instance.requestConsentInfoUpdate(
         params,
         () async {
-          // Consent info update success.
-          // Check if a consent form is available and show it if required.
           ConsentForm.loadAndShowConsentFormIfRequired((formError) async {
-            if (formError == null) {
-              // Consent has been obtained or is not required.
+            try {
               if (await ConsentInformation.instance.canRequestAds()) {
                 await AdService().init();
+              } else {
+                await AdService().init();
               }
-            } else {
+            } catch (e) {
               if (kDebugMode) {
-                debugPrint('[ConsentService] Form error: ${formError.message}');
+                debugPrint('[ConsentService] Error showing form/init: $e');
               }
+              await AdService().init();
+            } finally {
+              if (!completer.isCompleted) completer.complete();
             }
           });
         },
-        (FormError error) {
-          // Consent info update failure.
+        (FormError error) async {
           if (kDebugMode) {
             debugPrint(
               '[ConsentService] Consent info update error: ${error.message}',
             );
           }
+          await AdService().init();
+          if (!completer.isCompleted) completer.complete();
         },
       );
     } catch (e) {
-      // SECURITY: Fail closed. Do NOT initialize ads when the consent flow fails.
       if (kDebugMode) {
         debugPrint(
-          '[ConsentService] Unexpected consent error – ads suppressed: $e',
+          '[ConsentService] Unexpected consent error – fallback init: $e',
         );
       }
+      await AdService().init();
+      if (!completer.isCompleted) completer.complete();
     }
+
+    return completer.future.timeout(
+      const Duration(seconds: 4),
+      onTimeout: () async {
+        if (kDebugMode) {
+          debugPrint('[ConsentService] Initialization timed out after 4s – starting AdService in background');
+        }
+        await AdService().init();
+        if (!completer.isCompleted) completer.complete();
+      },
+    );
   }
 }

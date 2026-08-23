@@ -63,6 +63,9 @@ class AppNotificationPayload {
           entityId: raw,
         );
       }
+      if (raw.startsWith('low_stock')) {
+        return AppNotificationPayload(type: NotificationType.refill, entityId: raw);
+      }
       if (raw.startsWith('refill')) {
         return AppNotificationPayload(type: NotificationType.refill, entityId: raw);
       }

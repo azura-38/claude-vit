@@ -1304,7 +1304,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get category_reminder => 'Erinnerung';
 
   @override
-  String get category_other => 'Andere';
+  String get category_other => 'Other';
 
   @override
   String get app_slogan => 'Digitales Heiligtum';
@@ -2539,6 +2539,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Für heute sind keine Medikamente vorgesehen.';
 
   @override
+  String get addMedicationSubtitle =>
+      'Add a medication if you\'d like to keep track of it.';
+
+  @override
   String get add_appointment => 'Termin hinzufügen';
 
   @override
@@ -2934,9 +2938,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get limit_unlock_status_active => 'Aktiv';
 
   @override
-  String limit_unlock_status_coming_soon(String version) {
-    return 'Kommt herein $version';
-  }
+  String get limit_unlock_status_coming_soon => 'Kommt herein null';
 
   @override
   String limit_unlock_desc_active(String xp) {
@@ -2944,7 +2946,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String limit_unlock_desc_inactive(String version, String xp) {
+  String limit_unlock_desc_inactive(String xp) {
     return 'In V1 deaktiviert. In $version gewährt jeder $xp XP 1 Limit-Freischalt-Token.';
   }
 
@@ -3005,4 +3007,155 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Receive a daily notification to review your plans, discover themes, and organize your vault.';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get fileSavedToDownloads => 'File saved to Downloads.';
+
+  @override
+  String get fileDownloadFailed => 'File could not be downloaded.';
+
+  @override
+  String get fileNotFound => 'File not found.';
+
+  @override
+  String get fileOpenFailed => 'File could not be opened.';
+
+  @override
+  String get noAppToOpenFile => 'No app found to open this file.';
+
+  @override
+  String get openingFile => 'Opening file...';
+
+  @override
+  String get downloadingFile => 'Downloading file...';
+
+  @override
+  String get documentAddedSuccessfully => 'Document added successfully.';
+
+  @override
+  String get documentAddFailed => 'Document could not be added.';
+
+  @override
+  String get externalAppWarning =>
+      'Files opened in external apps may be handled by those apps.';
+
+  @override
+  String get previewComingSoon => 'Preview coming soon';
+
+  @override
+  String get previewComingSoonDesc =>
+      'Document preview will arrive in the V1.2 update.';
+
+  @override
+  String get previewComingInV12 => 'Preview will arrive in the V1.2 update.';
+
+  @override
+  String get privacyByDesign => 'Private by design.';
+
+  @override
+  String get dataStaysOnDevice => 'Your data stays on your device.';
+
+  @override
+  String get documentResponsibilityNotice =>
+      'You are responsible for the content, accuracy, freshness, and backup of added documents. Do not use VitaCase as the only source for important files.';
+
+  @override
+  String get protectYourVault => 'Protect Your Vault';
+
+  @override
+  String get protectYourVaultDesc =>
+      'We recommend setting a security PIN to protect your health documents and sensitive data.';
+
+  @override
+  String get later => 'Later';
+
+  @override
+  String get setPin => 'Set PIN';
+
+  @override
+  String get pinNotSet => 'PIN Not Set';
+
+  @override
+  String get pinNotSetDesc => 'Enable app lock (PIN) for your security.';
+
+  @override
+  String get create => 'Create';
+
+  @override
+  String get enter6DigitPin => 'Please enter a 6-digit PIN.';
+
+  @override
+  String get createNewPin => 'Create New PIN';
+
+  @override
+  String get confirmPin => 'Confirm PIN';
+
+  @override
+  String get securitySetupIncomplete => 'Security Setup Incomplete';
+
+  @override
+  String get securitySetupIncompleteDesc =>
+      'Security setup is not complete. Keep your data safe by adding an app lock (PIN).';
+
+  @override
+  String get setupNow => 'Set Up Now';
+
+  @override
+  String get systemRecovery => 'System Recovery';
+
+  @override
+  String get systemRecoveryDesc =>
+      'Data could not be recovered / app started safely';
+
+  @override
+  String get bannerLoadFailed => 'Banner could not be loaded';
+
+  @override
+  String get bannerLoading => 'Loading banner...';
+
+  @override
+  String get medicationNotice =>
+      'VitaCase only helps with medication tracking; it does not provide medical advice. Base dosage and timing decisions on doctor or pharmacist instructions.';
+
+  @override
+  String get category_prescription => 'Prescription';
+
+  @override
+  String get category_blood_test => 'Blood Test';
+
+  @override
+  String get category_medical_report => 'Medical Report';
+
+  @override
+  String get category_appointment => 'Appointment';
+
+  @override
+  String get category_insurance => 'Insurance';
+
+  @override
+  String get category_vaccination => 'Vaccination';
+
+  @override
+  String get category_invoice => 'Invoice';
+
+  @override
+  String get docsSearchHint => 'Search documents...';
+
+  @override
+  String get addTag => 'Add Tag';
+
+  @override
+  String get tags => 'Tags';
+
+  @override
+  String get customTagHint => 'Enter tag name...';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get noMatchingDocuments => 'No matching documents found.';
 }

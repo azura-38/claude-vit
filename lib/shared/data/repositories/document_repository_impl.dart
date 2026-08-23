@@ -1,5 +1,6 @@
 import 'package:sembast/sembast.dart';
 import 'package:vitacase/shared/domain/entities/document.dart';
+import 'package:vitacase/shared/domain/enums/document_category.dart';
 import 'package:vitacase/shared/domain/repositories/document_repository.dart';
 import '../datasources/sembast_database.dart';
 import '../models/document_model.dart';
@@ -52,7 +53,7 @@ class DocumentRepositoryImpl implements DocumentRepository {
   @override
   Future<List<Document>> search(String queryStr) async {
     final db = await _db;
-    final q = queryStr.toLowerCase();
+    final q = queryStr.trim().toLowerCase();
     final records = await _store.find(
       db,
       finder: Finder(sortOrders: [SortOrder('createdAt', false)]),
@@ -60,11 +61,20 @@ class DocumentRepositoryImpl implements DocumentRepository {
     final result = <Document>[];
     for (var r in records) {
       final map = r.value;
-      final fileName = (map['fileName'] as String).toLowerCase();
-      final hospitalName =
-          (map['hospitalName'] as String?)?.toLowerCase() ?? '';
-      if (fileName.contains(q) || hospitalName.contains(q)) {
-        result.add(DocumentModel.fromMap(map).toEntity());
+      final doc = DocumentModel.fromMap(map).toEntity();
+      final tagsStr = doc.tags.join(' ');
+      final haystack = [
+        doc.fileName,
+        doc.category.name,
+        doc.category.defaultLabel,
+        tagsStr,
+        doc.hospitalName ?? '',
+        doc.doctorName ?? '',
+        doc.note ?? '',
+      ].join(' ').toLowerCase();
+
+      if (q.isEmpty || haystack.contains(q)) {
+        result.add(doc);
       }
     }
     return result;

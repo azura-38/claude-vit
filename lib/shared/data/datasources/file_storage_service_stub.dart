@@ -28,4 +28,12 @@ class FileStorageService {
   }
 
   Future<void> cleanupAllTempFiles() async {}
+
+  Future<String?> saveDecryptedCopyToDownloads({
+    required String relativePath,
+    required String originalFileName,
+    required String mimeType,
+  }) async {
+    return null;
+  }
 }

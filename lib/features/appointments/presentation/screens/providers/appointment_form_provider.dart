@@ -5,6 +5,7 @@ import '../models/appointment_form_model.dart';
 import '../../../../../shared/domain/enums/appointment_status.dart';
 import '../../../../../shared/domain/enums/common_enums.dart';
 import '../../../../../core/utils/uuid_generator.dart';
+
 import '../../../domain/entities/appointment.dart';
 import '../../providers/appointment_providers.dart';
 
@@ -97,7 +98,9 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
 
       await ref.read(appointmentListProvider.notifier).addAppointment(appointment);
       reset();
-    } catch (_) {
+    } catch (e, st) {
+      debugPrint('[AppointmentFormNotifier] Submit error: $e');
+      debugPrintStack(stackTrace: st);
       state = form.copyWith(isSubmitting: false);
       rethrow;
     }

@@ -1,7 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/foundation.dart';
 import '../../../core/l10n/translations.dart';
@@ -19,6 +19,7 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
   static bool _useFallbackIcon = false;
+  static bool _timezoneInitialized = false;
 
   static AndroidNotificationDetails get _androidDetails =>
       AndroidNotificationDetails(
@@ -65,19 +66,38 @@ class NotificationService {
 
   static NotificationService? get instance => _instance;
 
-  static Future<void> initCore() async {
-    if (_isInitialized) return;
-    _prefs ??= await SharedPreferences.getInstance();
+  static void ensureTimezoneInitialized() {
+    if (_timezoneInitialized) return;
+    try {
+      tz_data.initializeTimeZones();
+      _timezoneInitialized = true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Timezone init warning: $e');
+      }
+    }
+  }
 
-    tz.initializeTimeZones();
+  static Future<void> _configureLocalTimezone() async {
+    ensureTimezoneInitialized();
     try {
       final String name = await FlutterTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(name));
     } catch (e) {
-      tz.setLocalLocation(tz.getLocation('UTC'));
+      try {
+        tz.setLocalLocation(tz.getLocation('UTC'));
+      } catch (_) {
+        tz.setLocalLocation(tz.UTC);
+      }
     }
+  }
 
+  static Future<void> initCore() async {
+    if (_isInitialized) return;
     try {
+      _prefs ??= await SharedPreferences.getInstance();
+      await _configureLocalTimezone();
+
       const androidSettings = AndroidInitializationSettings(
         _androidNotificationIcon,
       );
@@ -90,6 +110,10 @@ class NotificationService {
         ),
         onDidReceiveNotificationResponse: _onTap,
       );
+      _isInitialized = true;
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Core initialized ✅');
+      }
     } catch (e) {
       if (kDebugMode) {
         debugPrint('[NotificationService] Failed to initialize with ic_notification, trying fallback: $e');
@@ -107,33 +131,35 @@ class NotificationService {
           ),
           onDidReceiveNotificationResponse: _onTap,
         );
+        _isInitialized = true;
       } catch (fallbackError) {
         if (kDebugMode) {
-          debugPrint('[NotificationService] Fallback initialization failed: $fallbackError');
+          debugPrint('[NotificationService] Fallback initialization error (non-fatal): $fallbackError');
         }
       }
-    }
-
-    _isInitialized = true;
-    if (kDebugMode) {
-      debugPrint('[NotificationService] Core initialized ✅ (no permissions requested)');
     }
   }
 
   static Future<void> requestStartupPermissions() async {
-    if (!_isInitialized) await initCore();
+    try {
+      if (!_isInitialized) await initCore();
 
-    final android =
-        _plugin
-            .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin
-            >();
+      final android =
+          _plugin
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >();
 
-    await android?.requestNotificationsPermission();
-    await android?.requestExactAlarmsPermission();
+      await android?.requestNotificationsPermission();
+      await android?.requestExactAlarmsPermission();
 
-    if (kDebugMode) {
-      debugPrint('[NotificationService] Permissions requested ✅');
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Permissions requested ✅');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Permission request non-fatal warning: $e');
+      }
     }
   }
 
@@ -171,16 +197,20 @@ class NotificationService {
   Future<NotificationPermissionState> requestPermissions({
     bool requestExactAlarm = false,
   }) async {
-    final android =
-        _plugin
-            .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin
-            >();
-    final granted = await android?.requestNotificationsPermission() ?? true;
-    if (requestExactAlarm) await android?.requestExactAlarmsPermission();
-    return granted
-        ? NotificationPermissionState.granted
-        : NotificationPermissionState.denied;
+    try {
+      final android =
+          _plugin
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >();
+      final granted = await android?.requestNotificationsPermission() ?? true;
+      if (requestExactAlarm) await android?.requestExactAlarmsPermission();
+      return granted
+          ? NotificationPermissionState.granted
+          : NotificationPermissionState.denied;
+    } catch (_) {
+      return NotificationPermissionState.denied;
+    }
   }
 
   static int getStableIdStatic(String uuid, [int offset = 0]) {
@@ -216,21 +246,28 @@ class NotificationService {
     AppNotificationPayload? payload,
   }) async {
     await init();
+    ensureTimezoneInitialized();
     if (kDebugMode) debugPrint("Scheduling notification at: $date");
 
     final notifId = id.contains('engagement')
         ? engagementId
         : getStableIdStatic(buildKey(id, date));
 
-    await _plugin.zonedSchedule(
-      id: notifId,
-      title: title,
-      body: safeText(body),
-      scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: NotificationDetails(android: _androidDetails),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: payload?.encode() ?? id,
-    );
+    try {
+      await _plugin.zonedSchedule(
+        id: notifId,
+        title: title,
+        body: safeText(body),
+        scheduledDate: tz.TZDateTime.from(date, tz.local),
+        notificationDetails: NotificationDetails(android: _androidDetails),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        payload: payload?.encode() ?? id,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Schedule failed non-fatally: $e');
+      }
+    }
   }
 
   static Future<void> scheduleMedication({
@@ -241,24 +278,33 @@ class NotificationService {
     AppNotificationPayload? payload,
   }) async {
     await init();
+    ensureTimezoneInitialized();
     if (kDebugMode) debugPrint("Scheduling medication notification at: $date");
     final notifId = getStableIdStatic(buildKey(id, date));
 
-    await _plugin.zonedSchedule(
-      id: notifId,
-      title: title,
-      body: safeMedicationBodyStatic(body),
-      scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: NotificationDetails(
-        android: _medicationAndroidDetails,
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: payload?.encode() ?? id,
-    );
+    try {
+      await _plugin.zonedSchedule(
+        id: notifId,
+        title: title,
+        body: safeMedicationBodyStatic(body),
+        scheduledDate: tz.TZDateTime.from(date, tz.local),
+        notificationDetails: NotificationDetails(
+          android: _medicationAndroidDetails,
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        payload: payload?.encode() ?? id,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Medication schedule failed non-fatally: $e');
+      }
+    }
   }
 
   static Future<void> cancel(String id) async {
-    await _plugin.cancel(id: getStableIdStatic(id));
+    try {
+      await _plugin.cancel(id: getStableIdStatic(id));
+    } catch (_) {}
   }
 
   static Future<void> cancelOccurrence({
@@ -267,28 +313,34 @@ class NotificationService {
   }) async {
     final key = buildKey(id, date);
     final notifId = getStableIdStatic(key);
-    await _plugin.cancel(id: notifId);
+    try {
+      await _plugin.cancel(id: notifId);
+    } catch (_) {}
   }
 
   Future<void> cancelNotification(int id) async {
-    await _plugin.cancel(id: id);
+    try {
+      await _plugin.cancel(id: id);
+    } catch (_) {}
   }
 
   static Future<void> cancelAll() async {
-    await _plugin.cancelAll();
+    try {
+      await _plugin.cancelAll();
+    } catch (_) {}
   }
 
   Future<void> showStreakWarning() async => showNotification(
     id: 9991,
-    title: 'Streak!',
-    body: 'Keep it up!',
+    title: 'VitaCase',
+    body: 'Your health records stay safely on your device.',
     channelId: 'engagement',
     channelName: 'Engagement',
   );
   Future<void> showMissionReminder() async => showNotification(
     id: 9992,
-    title: 'Mission!',
-    body: 'Daily tasks!',
+    title: 'VitaCase',
+    body: 'Check your health reminders and schedules.',
     channelId: 'engagement',
     channelName: 'Engagement',
   );
@@ -307,20 +359,26 @@ class NotificationService {
     required String channelId,
     required String channelName,
   }) async {
-    final android = AndroidNotificationDetails(
-      channelId,
-      channelName,
-      importance: Importance.max,
-      priority: Priority.high,
-      icon: _useFallbackIcon ? '@mipmap/ic_launcher' : _androidNotificationIcon,
-      visibility: NotificationVisibility.private,
-    );
-    await _plugin.show(
-      id: id,
-      title: title,
-      body: safeText(body),
-      notificationDetails: NotificationDetails(android: android),
-    );
+    try {
+      final android = AndroidNotificationDetails(
+        channelId,
+        channelName,
+        importance: Importance.max,
+        priority: Priority.high,
+        icon: _useFallbackIcon ? '@mipmap/ic_launcher' : _androidNotificationIcon,
+        visibility: NotificationVisibility.private,
+      );
+      await _plugin.show(
+        id: id,
+        title: title,
+        body: safeText(body),
+        notificationDetails: NotificationDetails(android: android),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Show notification failed non-fatally: $e');
+      }
+    }
   }
 
   static void _onTap(NotificationResponse response) {

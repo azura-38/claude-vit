@@ -11,6 +11,8 @@ import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
 import '../../../../shared/widgets/mini_responsibility_notice.dart';
 
+import '../widgets/tag_selector_widget.dart';
+
 class DocumentAddScreen extends ConsumerStatefulWidget {
   const DocumentAddScreen({super.key});
 
@@ -25,8 +27,9 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   final _noteController = TextEditingController();
 
   PlatformFile? _selectedFile;
-  DocumentCategory _category = DocumentCategory.healthReports;
+  DocumentCategory _category = DocumentCategory.medicalReport;
   DocumentSubcategory _subcategory = DocumentSubcategory.report;
+  List<String> _selectedTags = [];
   bool _isSaving = false;
 
   @override
@@ -79,6 +82,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   }
 
   Future<void> _save() async {
+    if (_isSaving) return;
     final file = _selectedFile;
     final sourcePath = file?.path;
     if (file == null || sourcePath == null || sourcePath.isEmpty) {
@@ -91,11 +95,12 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
     setState(() => _isSaving = true);
 
     try {
-      await ref.read(documentListProvider.notifier).uploadDocument(
+      await ref.read(documentListProvider.notifier).addDocument(
             file: sourcePath,
             fileName: displayName,
             fileType: _fileTypeFor(file.name),
             category: _category,
+            tags: _selectedTags,
             hospitalName: _emptyToNull(_hospitalController.text),
             doctorName: _emptyToNull(_doctorController.text),
             note: _emptyToNull(_noteController.text),
@@ -105,8 +110,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
           );
 
       if (!mounted) return;
-      _showSnack(context.l10n.documentSaved);
-      context.pop();
+      context.pop(true);
     } catch (e) {
       if (e is UsageLimitExceededException) {
         _showSnack(_limitMessage(e.limit));
@@ -140,14 +144,12 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
           children: [
-            _SecureUploadCard(selectedFile: _selectedFile, onPickFile: _pickFile, isDark: isDark),
+            _SecureDocumentCard(selectedFile: _selectedFile, onPickFile: _pickFile, isDark: isDark),
             const SizedBox(height: 14),
             MiniResponsibilityNotice(
               icon: Icons.privacy_tip_outlined,
               accentColor: AppColors.medicalBlue,
-              text: Localizations.localeOf(context).languageCode == 'tr'
-                  ? 'Yüklediğiniz belgelerin içeriği, doğruluğu, güncelliği ve yedeklenmesi sizin sorumluluğunuzdadır. Önemli belgeler için VitaCase\'i tek kaynak olarak kullanmayın.'
-                  : 'You are responsible for the content, accuracy, freshness, and backup of uploaded documents. Do not use VitaCase as the only source for important files.',
+              text: context.l10n.documentResponsibilityNotice,
             ),
             const SizedBox(height: 24),
             _SectionCard(
@@ -174,6 +176,11 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                       _subcategory = nextSubs.first;
                     });
                   },
+                ),
+                const SizedBox(height: 16),
+                TagSelectorWidget(
+                  selectedTags: _selectedTags,
+                  onTagsChanged: (tags) => setState(() => _selectedTags = tags),
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<DocumentSubcategory>(
@@ -213,18 +220,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   }
 
   String _localizedCategory(BuildContext context, DocumentCategory category) {
-    return switch (category) {
-      DocumentCategory.documents => context.tr('docs_title'),
-      DocumentCategory.healthPrescriptions => context.tr('docs_category_prescriptions'),
-      DocumentCategory.healthReports => context.tr('docs_category_reports'),
-      DocumentCategory.healthTestResults => context.tr('docs_category_test_results'),
-      DocumentCategory.healthImages => context.tr('docs_category_images'),
-      DocumentCategory.identity => context.tr('docs_category_identity'),
-      DocumentCategory.finance => context.tr('docs_category_finance'),
-      DocumentCategory.legal => context.tr('docs_category_legal'),
-      DocumentCategory.notes => context.tr('docs_category_notes'),
-      DocumentCategory.other => context.tr('docs_category_other'),
-    };
+    return category.localizedLabel(context);
   }
 
   String _localizedSubcategory(BuildContext context, DocumentSubcategory subcategory) {
@@ -247,8 +243,8 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   }
 }
 
-class _SecureUploadCard extends StatelessWidget {
-  const _SecureUploadCard({required this.selectedFile, required this.onPickFile, required this.isDark});
+class _SecureDocumentCard extends StatelessWidget {
+  const _SecureDocumentCard({required this.selectedFile, required this.onPickFile, required this.isDark});
 
   final PlatformFile? selectedFile;
   final VoidCallback onPickFile;
@@ -268,7 +264,7 @@ class _SecureUploadCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(selectedFile == null ? Icons.upload_file_rounded : Icons.verified_rounded, color: selectedFile == null ? AppColors.medicalBlue : Colors.green, size: 52),
+            Icon(selectedFile == null ? Icons.note_add_rounded : Icons.verified_rounded, color: selectedFile == null ? AppColors.medicalBlue : Colors.green, size: 52),
             const SizedBox(height: 16),
             Text(selectedFile?.name ?? context.l10n.choosePdfOrImage, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             const SizedBox(height: 8),

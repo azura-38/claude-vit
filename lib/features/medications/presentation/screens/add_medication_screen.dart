@@ -7,6 +7,7 @@ import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../shared/data/services/usage_limit_service.dart';
 import '../../../../shared/widgets/mini_responsibility_notice.dart';
+import 'models/medication_form_model.dart';
 import 'providers/medication_form_provider.dart';
 import 'widgets/animated_segmented_control.dart';
 import 'widgets/premium_card.dart';
@@ -23,8 +24,6 @@ class AddMedicationScreen extends ConsumerWidget {
     final value = '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
     ref.read(medicationFormProvider.notifier).addTime(value);
   }
-
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,11 +59,10 @@ class AddMedicationScreen extends ConsumerWidget {
                 MiniResponsibilityNotice(
                   icon: Icons.medical_information_outlined,
                   accentColor: const Color(0xFFF59E0B),
-                  text: Localizations.localeOf(context).languageCode == 'tr'
-                      ? 'VitaCase yalnızca ilaç takibine yardımcı olur; tıbbi tavsiye vermez. Doz, saat ve kullanım kararlarında doktor veya eczacı talimatlarını esas alın.'
-                      : 'VitaCase only helps with medication tracking and does not provide medical advice. Always follow your doctor or pharmacist instructions for dosage and timing.',
+                  text: context.l10n.medicationNotice,
                 ),
                 const SizedBox(height: 22),
+                // ── İlaç adı ──────────────────────────────────────
                 PremiumCard(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,6 +83,7 @@ class AddMedicationScreen extends ConsumerWidget {
                   ),
                 ).animate(delay: 80.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 18),
+                // ── Sıklık ────────────────────────────────────────
                 PremiumCard(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,10 +91,29 @@ class AddMedicationScreen extends ConsumerWidget {
                       _SectionTitle(icon: Icons.repeat_rounded, title: context.l10n.frequency),
                       const SizedBox(height: 14),
                       AnimatedSegmentedControl(selected: state.frequency, onChanged: notifier.updateFrequency),
+                      // Weekly: gün seçici
+                      if (state.frequency == MedicationFrequency.weekly) ...[
+                        const SizedBox(height: 18),
+                        _WeekdaySelector(
+                          selected: state.daysOfWeek,
+                          onToggle: notifier.toggleDay,
+                          isDark: isDark,
+                        ),
+                      ],
+                      // Custom: aralık seçici
+                      if (state.frequency == MedicationFrequency.custom) ...[
+                        const SizedBox(height: 18),
+                        _IntervalSelector(
+                          value: state.interval,
+                          onChanged: notifier.updateInterval,
+                          isDark: isDark,
+                        ),
+                      ],
                     ],
                   ),
                 ).animate(delay: 160.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 18),
+                // ── Stok ─────────────────────────────────────────
                 PremiumCard(
                   child: Column(
                     children: [
@@ -103,12 +121,18 @@ class AddMedicationScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           _SectionTitle(icon: Icons.inventory_2_outlined, title: context.l10n.currentStock),
-                          Text(context.l10n.lastsApproxDays(12), style: Theme.of(context).textTheme.bodyMedium),
+                          Text(
+                            Localizations.localeOf(context).languageCode == 'tr'
+                                ? '~${(state.totalStock / (state.reminderTimes.isEmpty ? 1 : state.reminderTimes.length)).floor()} gün yeter'
+                                : '~${(state.totalStock / (state.reminderTimes.isEmpty ? 1 : state.reminderTimes.length)).floor()} days left',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 20),
                       Row(
                         children: [
+                          // Doz miktarı (her seferinde kaç tablet)
                           QuantityStepper(value: state.quantity, onPlus: notifier.increaseQuantity, onMinus: notifier.decreaseQuantity),
                           const SizedBox(width: 12),
                           Expanded(
@@ -126,10 +150,18 @@ class AddMedicationScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 20),
+                      // Toplam stok seçici
+                      _StockSelector(
+                        value: state.totalStock,
+                        onChanged: notifier.updateTotalStock,
+                        isDark: isDark,
+                      ),
                     ],
                   ),
                 ).animate(delay: 240.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 18),
+                // ── Hatırlatma saatleri ───────────────────────────
                 PremiumCard(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,6 +202,7 @@ class AddMedicationScreen extends ConsumerWidget {
                 ),
               ],
             ),
+            // ── Kaydet butonu ─────────────────────────────────────
             Positioned(
               left: 20,
               right: 20,
@@ -206,6 +239,204 @@ class AddMedicationScreen extends ConsumerWidget {
     );
   }
 }
+
+// ── Weekly gün seçici ───────────────────────────────────────────────────────
+
+class _WeekdaySelector extends StatelessWidget {
+  const _WeekdaySelector({required this.selected, required this.onToggle, required this.isDark});
+
+  final List<int> selected;
+  final void Function(int) onToggle;
+  final bool isDark;
+
+  static const _labels = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+  static const _labelsEn = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  @override
+  Widget build(BuildContext context) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    final labels = isTr ? _labels : _labelsEn;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          isTr ? 'Hangi günler?' : 'Which days?',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: isDark ? Colors.white70 : AppColors.textSecondary),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: List.generate(7, (i) {
+            final day = i + 1; // 1=Mon … 7=Sun
+            final isActive = selected.contains(day);
+            return Expanded(
+              child: GestureDetector(
+                onTap: () => onToggle(day),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                    color: isActive ? AppColors.brandBlue : (isDark ? Colors.white.withValues(alpha: 0.06) : AppColors.brandMist),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Text(
+                      labels[i],
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        color: isActive ? Colors.white : (isDark ? Colors.white54 : AppColors.textSecondary),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Custom aralık seçici ────────────────────────────────────────────────────
+
+class _IntervalSelector extends StatelessWidget {
+  const _IntervalSelector({required this.value, required this.onChanged, required this.isDark});
+
+  final int value;
+  final void Function(int) onChanged;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          isTr ? 'Kaç günde bir?' : 'Every how many days?',
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: isDark ? Colors.white70 : AppColors.textSecondary),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            _IntervalBtn(icon: Icons.remove_rounded, onTap: () => onChanged(value - 1), enabled: value > 1, isDark: isDark),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.brandBlue.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Text(
+                    isTr ? 'Her $value günde bir' : 'Every $value days',
+                    style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.brandBlue, fontSize: 15),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 14),
+            _IntervalBtn(icon: Icons.add_rounded, onTap: () => onChanged(value + 1), enabled: value < 30, isDark: isDark),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _IntervalBtn extends StatelessWidget {
+  const _IntervalBtn({required this.icon, required this.onTap, required this.enabled, required this.isDark});
+
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool enabled;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: enabled ? onTap : null,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: enabled ? AppColors.brandBlue : (isDark ? Colors.white.withValues(alpha: 0.06) : AppColors.brandMist),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(icon, color: enabled ? Colors.white : Colors.blueGrey, size: 20),
+      ),
+    );
+  }
+}
+
+// ── Stok miktarı seçici ─────────────────────────────────────────────────────
+
+class _StockSelector extends StatelessWidget {
+  const _StockSelector({required this.value, required this.onChanged, required this.isDark});
+
+  final int value;
+  final void Function(int) onChanged;
+  final bool isDark;
+
+  static const _presets = [7, 14, 30, 60, 90];
+
+  @override
+  Widget build(BuildContext context) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              isTr ? 'Toplam stok (adet)' : 'Total stock (units)',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: isDark ? Colors.white70 : AppColors.textSecondary),
+            ),
+            Row(
+              children: [
+                _IntervalBtn(icon: Icons.remove_rounded, onTap: () => onChanged(value - 1), enabled: value > 0, isDark: isDark),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Text('$value', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.brandBlue)),
+                ),
+                _IntervalBtn(icon: Icons.add_rounded, onTap: () => onChanged(value + 1), enabled: value < 999, isDark: isDark),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          children: _presets.map((preset) {
+            final active = value == preset;
+            return GestureDetector(
+              onTap: () => onChanged(preset),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: active ? AppColors.brandBlue : (isDark ? Colors.white.withValues(alpha: 0.06) : AppColors.brandMist),
+                  borderRadius: BorderRadius.circular(999),
+                  border: Border.all(color: active ? AppColors.brandBlue : Colors.transparent),
+                ),
+                child: Text(
+                  '$preset',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: active ? Colors.white : (isDark ? Colors.white60 : AppColors.textSecondary)),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Ortak widget'lar ────────────────────────────────────────────────────────
 
 class _MedicationHero extends StatelessWidget {
   const _MedicationHero({required this.title, required this.description, required this.reminderCount});

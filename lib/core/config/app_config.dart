@@ -55,7 +55,7 @@ class AppConfig {
 
   static const closedTestFallbackEnabled = bool.fromEnvironment(
     'CLOSED_TEST_FALLBACK_ENABLED',
-    defaultValue: true,
+    defaultValue: false,
   );
 
   static String get rewardedAdId {

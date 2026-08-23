@@ -16,6 +16,7 @@ import '../../../../shared/domain/usecases/base_usecase.dart';
 import '../../../../shared/providers/daily_mission_providers.dart';
 import '../../../../shared/providers/season_providers.dart';
 import '../../domain/entities/appointment.dart';
+import '../../../../shared/providers/shared_prefs_provider.dart';
 
 enum CalendarViewType { monthly, weekly }
 
@@ -129,12 +130,15 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
     }
 
     final now = DateTime.now();
+    final prefs = ref.read(sharedPreferencesProvider);
+    final isTr = (prefs.getString('language') ?? 'en') == 'tr';
+
     for (final reminderDate in _generatedReminderDates(app, now: now)) {
       if (reminderDate.isAfter(now)) {
         await NotificationEngine.scheduleAppointment(
           id: app.id,
-          title: '📅 VitaCase Reminder',
-          body: 'Upcoming: ${app.title}',
+          title: isTr ? '📅 VitaCase Hatırlatıcı' : '📅 VitaCase Reminder',
+          body: isTr ? 'Yaklaşan: ${app.title}' : 'Upcoming: ${app.title}',
           scheduleTime: reminderDate,
           payload: AppNotificationPayload(
             type: NotificationType.appointment,

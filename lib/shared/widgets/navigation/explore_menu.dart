@@ -73,7 +73,7 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu> with TickerProviderSt
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: const Icon(Icons.explore_rounded, color: Colors.white, size: 22),
-                            ).animate(onPlay: (c) => c.repeat(reverse: true)).rotate(begin: -0.02, end: 0.02, duration: 2000.ms, curve: Curves.easeInOut),
+                            ),
                             const SizedBox(width: 12),
                             Text(
                               context.l10n.explore.toUpperCase(),
@@ -88,7 +88,7 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu> with TickerProviderSt
                             height: 40,
                             decoration: BoxDecoration(color: isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.05), shape: BoxShape.circle),
                             child: Icon(Icons.close_rounded, size: 22, color: isDark ? Colors.white70 : AppColors.textSecondary),
-                          ).animate().fadeIn(duration: 200.ms).rotate(begin: 0.25, end: 0, duration: 300.ms),
+                          ),
                         ),
                       ],
                     ).animate().fadeIn(duration: 300.ms).slideY(begin: -0.3, end: 0, duration: 400.ms, curve: Curves.easeOutCubic),
@@ -248,27 +248,7 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu> with TickerProviderSt
           ),
         ],
       ),
-      _SectionData(
-        icon: Icons.emoji_events_rounded,
-        title: context.l10n.medalsTrophies,
-        color: Colors.amber,
-        items: [
-          _MenuItem(
-            icon: Icons.military_tech_rounded,
-            label: context.l10n.medalsTrophies,
-            subtitle: context.l10n.progress,
-            color: Colors.amber,
-            onTap: () => _navigateAndClose(() => context.pushNamed('achievements')),
-          ),
-          _MenuItem(
-            icon: Icons.stars_rounded,
-            label: context.l10n.seasonPass,
-            subtitle: context.l10n.dailyMissions,
-            color: const Color(0xFFD97706),
-            onTap: () => _navigateAndClose(() => context.pushNamed('seasonPass')),
-          ),
-        ],
-      ),
+
       _SectionData(
         icon: Icons.person_rounded,
         title: context.l10n.profile,
@@ -424,7 +404,7 @@ class _AnimatedSectionIcon extends StatelessWidget {
         boxShadow: [BoxShadow(color: color.withValues(alpha: isExpanded ? 0.4 : 0.2), blurRadius: isExpanded ? 16 : 8, offset: const Offset(0, 3))],
       ),
       child: Icon(icon, color: Colors.white, size: isExpanded ? 22 : 20),
-    ).animate(target: isExpanded ? 1 : 0).scale(begin: const Offset(1, 1), end: const Offset(1.05, 1.05), duration: 300.ms, curve: Curves.easeOutBack);
+    ).animate(target: isExpanded ? 1 : 0).scale(begin: const Offset(1, 1), end: const Offset(1.03, 1.03), duration: 200.ms, curve: Curves.easeOutCubic);
   }
 }
 
@@ -442,7 +422,7 @@ class _AnimatedMenuIcon extends StatelessWidget {
       height: 36,
       decoration: BoxDecoration(color: color.withValues(alpha: isDark ? 0.2 : 0.1), borderRadius: BorderRadius.circular(10)),
       child: Icon(icon, color: color, size: 18),
-    ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(begin: const Offset(1.0, 1.0), end: const Offset(1.06, 1.06), duration: 2500.ms, curve: Curves.easeInOut);
+    );
   }
 }
 

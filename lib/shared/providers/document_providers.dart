@@ -31,11 +31,12 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     state = await AsyncValue.guard(() => ref.read(documentRepositoryProvider).getAll());
   }
 
-  Future<Document> uploadDocument({
+  Future<Document> addDocument({
     required Object file,
     required String fileName,
     required DocumentFileType fileType,
     required DocumentCategory category,
+    List<String> tags = const [],
     String? hospitalName,
     String? doctorName,
     String? documentDate,
@@ -63,6 +64,7 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
       fileType: fileType,
       localPath: localPath,
       category: category,
+      tags: tags,
       hospitalName: hospitalName,
       doctorName: doctorName,
       documentDate: documentDate,
@@ -98,6 +100,7 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     for (final id in const ['doc_1', 'doc_5', 'doc_10', 'doc_25', 'doc_50', 'doc_100', 'doc_250', 'doc_500']) {
       await achievement.track(id, setAbsolute: count);
     }
+    // Legacy key kept for backward-compatibility with existing users
     await achievement.track('first_upload', setAbsolute: count > 0 ? 1 : 0);
   }
 

@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../firebase_options.dart';
 import '../../shared/providers/document_providers.dart';
-import '../../shared/data/services/ad_service.dart';
+import '../../shared/data/services/consent_service.dart';
 import '../../shared/data/services/notification_engine.dart';
 import '../../shared/data/services/notification_service.dart';
 import '../../shared/providers/medicine_providers.dart';
@@ -97,7 +97,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
 
     _log('Phase 3: Ads + notification core init...');
     await Future.wait([
-      _safeRun('ads_init', AdService().init()),
+      _safeRun('ads_init', ConsentService().initializeAdsWithConsent()),
       _safeRun('notif_service_core', NotificationService.initCore()),
       _safeRun('notif_engine_core', NotificationEngine.initializeCore()),
     ]);

@@ -13,6 +13,7 @@ class Document {
   final String? tagLabel;
   final String? note;
   final DocumentCategory category;
+  final List<String> tags;
   final DateTime createdAt;
   final bool pending;
 
@@ -22,6 +23,7 @@ class Document {
     required this.fileType,
     required this.localPath,
     required this.category,
+    this.tags = const [],
     this.hospitalName,
     this.doctorName,
     this.documentDate,
@@ -38,6 +40,7 @@ class Document {
     DocumentFileType? fileType,
     String? localPath,
     DocumentCategory? category,
+    List<String>? tags,
     String? hospitalName,
     String? doctorName,
     String? documentDate,
@@ -53,6 +56,7 @@ class Document {
       fileType: fileType ?? this.fileType,
       localPath: localPath ?? this.localPath,
       category: category ?? this.category,
+      tags: tags ?? this.tags,
       hospitalName: hospitalName ?? this.hospitalName,
       doctorName: doctorName ?? this.doctorName,
       documentDate: documentDate ?? this.documentDate,

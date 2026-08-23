@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -29,6 +30,9 @@ void main() async {
     appRunner: () async {
       // ── Step 1: Flutter engine binding ─────────────────────────────────────
       WidgetsFlutterBinding.ensureInitialized();
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]);
 
       // ── Step 2: SharedPreferences (fast, sync-accessible post-load) ────────
       // Must be loaded before ProviderContainer so the override is available

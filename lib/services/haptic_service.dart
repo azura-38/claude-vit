@@ -25,7 +25,7 @@ class HapticService {
     }
   }
 
-  /// Joyful and rewarding feedback for saving, uploading, or marking complete.
+  /// Joyful and rewarding feedback for saving or marking complete.
   static Future<void> success() async {
     final canVibrate = await Haptics.canVibrate();
     if (canVibrate) {

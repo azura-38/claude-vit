@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../shared/domain/entities/document.dart';
+import '../../../../shared/domain/enums/document_category.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'vault_tag_chip.dart';
@@ -12,6 +13,8 @@ class VaultSwipeCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback? onDelete;
   final VoidCallback? onEdit;
+  final VoidCallback? onOpen;
+  final VoidCallback? onDownload;
 
   const VaultSwipeCard({
     super.key,
@@ -19,6 +22,8 @@ class VaultSwipeCard extends StatelessWidget {
     required this.onTap,
     this.onDelete,
     this.onEdit,
+    this.onOpen,
+    this.onDownload,
   });
 
   @override
@@ -32,8 +37,22 @@ class VaultSwipeCard extends StatelessWidget {
     return Slidable(
       endActionPane: ActionPane(
         motion: const BehindMotion(),
-        extentRatio: .45,
+        extentRatio: .75,
         children: [
+          SlidableAction(
+            onPressed: (_) => onOpen?.call(),
+            backgroundColor: AppColors.primary,
+            foregroundColor: Colors.white,
+            icon: Icons.open_in_new_rounded,
+            label: context.tr('open'),
+          ),
+          SlidableAction(
+            onPressed: (_) => onDownload?.call(),
+            backgroundColor: isDark ? Colors.white10 : const Color(0xFFE2F4ED),
+            foregroundColor: isDark ? Colors.green[300]! : Colors.green[700]!,
+            icon: Icons.file_download_rounded,
+            label: context.l10n.download,
+          ),
           SlidableAction(
             onPressed: (_) => onEdit?.call(),
             backgroundColor: isDark ? Colors.white10 : const Color(0xFFE9EDF5),
@@ -101,10 +120,19 @@ class VaultSwipeCard extends StatelessWidget {
                     Row(
                       children: [
                         VaultTagChip(
-                          label: document.category.name.toUpperCase(),
+                          label: document.category.localizedLabel(context).toUpperCase(),
                           bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
                           text: isDark ? AppColors.primaryIndigo : AppColors.primary,
                         ),
+                        if (document.tags.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: VaultTagChip(
+                              label: document.tags.first,
+                              bg: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
+                              text: isDark ? Colors.white70 : AppColors.secondary,
+                            ),
+                          ),
                         if (document.pending)
                           Padding(
                             padding: const EdgeInsets.only(left: 8),

@@ -1,59 +1,51 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:vitacase/core/extensions/l10n_extension.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 
 class VaultPreviewOverlay extends StatelessWidget {
   const VaultPreviewOverlay({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(22),
-          child: Image.network(
-            "https://images.unsplash.com/photo-1581595219315-a187dd40c322",
-            height: 220,
-            width: double.infinity,
-            fit: BoxFit.cover,
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.brandMist,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: isDark ? Colors.white10 : AppColors.cardBorderLight),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.visibility_off_rounded,
+            size: 48,
+            color: isDark ? Colors.white38 : AppColors.secondary,
           ),
-        ),
-
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(22),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-              child: Container(color: Colors.black.withValues(alpha: .06)),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.previewComingSoon,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: isDark ? Colors.white70 : AppColors.textPrimary,
             ),
           ),
-        ),
-
-        Positioned.fill(
-          child: Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: .85),
-                borderRadius: BorderRadius.circular(999),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.visibility),
-
-                  SizedBox(width: 10),
-
-                  Text(
-                    "Tap to preview",
-                    style: TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                ],
-              ),
+          const SizedBox(height: 8),
+          Text(
+            context.l10n.previewComingSoonDesc,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.4,
+              color: isDark ? Colors.white54 : AppColors.textSecondary,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -13,11 +13,8 @@ import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_visuals.dart';
 import '../../../../core/utils/external_launcher.dart';
-import '../../../../shared/providers/daily_mission_providers.dart';
 import '../../../../shared/providers/health_providers.dart';
 import '../../../../shared/providers/navigation_provider.dart';
-import '../../../../shared/providers/season_providers.dart';
-import '../../../../shared/widgets/dialogs/reward_dialog.dart';
 import '../../../../shared/widgets/misc/app_empty_state.dart';
 import '../../../appointments/domain/entities/appointment.dart';
 import '../../../appointments/presentation/providers/appointment_providers.dart';
@@ -48,17 +45,17 @@ class DashboardScreen extends ConsumerWidget {
                 children: [
                   const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
                   const SizedBox(width: 8),
-                  const Text('Sistem Kurtarma', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(context.l10n.systemRecovery, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ],
               ),
-              content: const Text(
-                'Veriler kurtarılamadı / uygulama güvenli başlatıldı',
-                style: TextStyle(fontSize: 14, height: 1.4),
+              content: Text(
+                context.l10n.systemRecoveryDesc,
+                style: const TextStyle(fontSize: 14, height: 1.4),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Tamam', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(context.l10n.ok, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -75,18 +72,7 @@ class DashboardScreen extends ConsumerWidget {
     final prefs = ref.watch(sharedPreferencesProvider);
     final onboardingSkipped = prefs.getBool('profile_creation_skipped') ?? false;
 
-    ref.listen(seasonProvider, (previousAsync, nextAsync) {
-      final previous = previousAsync?.asData?.value;
-      final next = nextAsync.asData?.value;
-      if (previous != null && next != null && next.level > previous.level) {
-        RewardDialog.show(
-          context,
-          title: context.l10n.congratulations.toUpperCase(),
-          description: context.l10n.levelUpDesc(next.level),
-          icon: Icons.auto_awesome_rounded,
-        );
-      }
-    });
+
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -108,10 +94,7 @@ class DashboardScreen extends ConsumerWidget {
             const _CtaFeatureCard(),
             const SizedBox(height: 24),
             const _MetricsGrid(),
-            const SizedBox(height: 32),
-            const _SeasonProgressSection(),
-            const SizedBox(height: 32),
-            const _DailyMissionsSection(),
+
             const SizedBox(height: 32),
             const _ConditionalQuickAccess(),
             const _UpcomingAppointments(),
@@ -496,10 +479,7 @@ class _MetricCard extends StatelessWidget {
             Positioned(
               right: -20,
               bottom: -20,
-              child: Icon(icon, size: 100, color: Colors.white.withValues(alpha: 0.15))
-                  .animate(onPlay: (controller) => controller.repeat(reverse: true))
-                  .scale(begin: const Offset(1, 1), end: const Offset(1.2, 1.2), duration: 2.seconds)
-                  .rotate(begin: 0, end: 0.05, duration: 2.seconds),
+              child: Icon(icon, size: 100, color: Colors.white.withValues(alpha: 0.15)),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -676,8 +656,8 @@ class _UpcomingAppointments extends ConsumerWidget {
             if (upcoming.isEmpty) {
               return AppEmptyState(
                 icon: Icons.calendar_today_rounded,
-                title: context.l10n.noMoreAppointments,
-                subtitle: context.l10n.noMoreAppointments,
+                title: context.l10n.noAppointmentsFound,
+                subtitle: context.l10n.emptyAppointmentsDesc,
                 actionLabel: context.l10n.addNewAppointment,
                 onAction: () => ref.read(navigationProvider.notifier).setIndex(3),
               );
@@ -751,134 +731,7 @@ class _AppointmentCard extends ConsumerWidget {
   }
 }
 
-class _SeasonProgressSection extends ConsumerWidget {
-  const _SeasonProgressSection();
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final progressAsync = ref.watch(seasonProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
-
-    return progressAsync.when(
-      data: (progress) {
-        final progressInLevel = (progress.xp % 100) / 100;
-        return GestureDetector(
-          onTap: () => context.pushNamed('achievements'),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: isDark ? AppColors.surfaceDark : Colors.white,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [if (!isDark) BoxShadow(color: visuals.primary.withValues(alpha: 0.08), blurRadius: 10, offset: const Offset(0, 4))],
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(children: [const Icon(Icons.stars_rounded, color: Colors.amber, size: 20), const SizedBox(width: 8), Text('Level ${progress.level}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16))]),
-                    Text('${progress.xp % 100} / 100 XP', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: LinearProgressIndicator(
-                    value: progressInLevel.clamp(0.0, 1.0),
-                    minHeight: 10,
-                    backgroundColor: isDark ? Colors.white10 : Colors.grey[100],
-                    valueColor: AlwaysStoppedAnimation<Color>(visuals.primary),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ).animate().fadeIn(delay: 750.ms).slideX(begin: 0.1);
-      },
-      loading: () => const SizedBox.shrink(),
-      error: (_, _) => const SizedBox.shrink(),
-    );
-  }
-}
-
-class _DailyMissionsSection extends ConsumerWidget {
-  const _DailyMissionsSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final missionsAsync = ref.watch(dailyMissionProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return missionsAsync.when(
-      data: (missions) {
-        if (missions.isEmpty) return const SizedBox.shrink();
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.l10n.dailyMissions.toUpperCase(),
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: isDark ? Colors.white38 : Colors.black38, letterSpacing: 1.5),
-            ).animate().fadeIn(delay: 800.ms),
-            const SizedBox(height: 16),
-            ...missions.map((m) => _MissionCard(m, isDark)),
-          ],
-        );
-      },
-      loading: () => const SizedBox.shrink(),
-      error: (_, _) => const SizedBox.shrink(),
-    );
-  }
-}
-
-class _MissionCard extends ConsumerWidget {
-  const _MissionCard(this.mission, this.isDark);
-
-  final dynamic mission;
-  final bool isDark;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final progress = mission.progress / mission.target;
-    final visuals = ThemeVisuals.of(ref.watch(themeTypeProvider));
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: isDark ? AppColors.surfaceDark : Colors.white, borderRadius: BorderRadius.circular(20)),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: (mission.isCompleted ? Colors.green : visuals.primary).withValues(alpha: 0.10), shape: BoxShape.circle),
-            child: Icon(mission.isCompleted ? Icons.check_circle_rounded : Icons.task_alt_rounded, color: mission.isCompleted ? Colors.green : visuals.primary, size: 20),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(context.tr(mission.title.toString()), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                const SizedBox(height: 4),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(3),
-                  child: LinearProgressIndicator(
-                    value: progress.clamp(0.0, 1.0),
-                    minHeight: 4,
-                    backgroundColor: isDark ? Colors.white10 : Colors.grey[100],
-                    valueColor: AlwaysStoppedAnimation<Color>(mission.isCompleted ? Colors.green : visuals.primary),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 16),
-          Text('${mission.progress}/${mission.target}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textSecondary)),
-        ],
-      ),
-    ).animate().fadeIn().slideX(begin: 0.05);
-  }
-}
 
 void _showQuickActionsMenu(BuildContext context, WidgetRef ref) {
   final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -909,7 +762,7 @@ void _showQuickActionsMenu(BuildContext context, WidgetRef ref) {
               _MenuActionItem(label: context.l10n.addMedicine, icon: Icons.medication_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.medicineAdd); }),
               _MenuActionItem(label: context.l10n.addAppointment, icon: Icons.calendar_today_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.appointmentAdd); }),
               _MenuActionItem(label: context.l10n.addDoctor, icon: Icons.person_add_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.doctorAdd); }),
-              _MenuActionItem(label: context.l10n.addDocument, icon: Icons.upload_file_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.documentAdd); }),
+              _MenuActionItem(label: context.l10n.addDocument, icon: Icons.note_add_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.documentAdd); }),
               _MenuActionItem(label: context.l10n.addData, icon: Icons.analytics_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.healthDataAdd); }),
               _MenuActionItem(label: context.l10n.settings, icon: Icons.settings_rounded, visuals: visuals, onTap: () { Navigator.pop(ctx); context.push(AppRoutes.settings); }),
             ],
@@ -1001,9 +854,9 @@ class _SecuritySetupWarningBanner extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Güvenlik Kurulumu Eksik',
-                  style: TextStyle(
+                Text(
+                  context.l10n.securitySetupIncomplete,
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w900,
                     color: Colors.orange,
@@ -1011,7 +864,7 @@ class _SecuritySetupWarningBanner extends ConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.',
+                  context.l10n.securitySetupIncompleteDesc,
                   style: TextStyle(
                     fontSize: 12,
                     color: isDark ? Colors.white70 : AppColors.textSecondary,
@@ -1026,7 +879,7 @@ class _SecuritySetupWarningBanner extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Şimdi Kurulum Yap',
+                        context.l10n.setupNow,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w800,

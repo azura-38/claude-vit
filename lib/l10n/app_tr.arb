@@ -5,6 +5,7 @@
     "description": "Translation for app_name",
     "placeholders": {}
   },
+
   "skip": "Atla",
   "@skip": {
     "description": "Translation for skip",
@@ -1149,12 +1150,12 @@
     "description": "Translation for docs_sort_oldest",
     "placeholders": {}
   },
-  "docs_empty_title": "Burası Henüz Boş",
+  "docs_empty_title": "Henüz belge yok",
   "@docs_empty_title": {
     "description": "Translation for docs_empty_title",
     "placeholders": {}
   },
-  "docs_empty_subtitle": "İlk belgenizi ekleyerek kasanızı düzenlemeye başlayın.",
+  "docs_empty_subtitle": "İlk sağlık belgenizi ekleyin.",
   "@docs_empty_subtitle": {
     "description": "Translation for docs_empty_subtitle",
     "placeholders": {}
@@ -3670,12 +3671,12 @@
     "description": "Translation for lock_timeout_15m",
     "placeholders": {}
   },
-  "no_appointments_found": "Randevu bulunamadı",
+  "no_appointments_found": "Henüz randevu yok",
   "@no_appointments_found": {
     "description": "Translation for no_appointments_found",
     "placeholders": {}
   },
-  "empty_appointments_desc": "Henüz bir randevu eklemediniz. Sağ üstteki + butonuna basarak ilk randevunuzu ekleyebilirsiniz.",
+  "empty_appointments_desc": "Gerektiğinde yeni bir randevu ekleyebilirsiniz.",
   "@empty_appointments_desc": {
     "description": "Translation for empty_appointments_desc",
     "placeholders": {}
@@ -3970,10 +3971,14 @@
     "description": "Translation for view_details",
     "placeholders": {}
   },
-  "no_scheduled_meds_today": "Bugün için planlanmış ilaç yok.",
+  "no_scheduled_meds_today": "Henüz ilaç yok",
   "@no_scheduled_meds_today": {
     "description": "Translation for no_scheduled_meds_today",
     "placeholders": {}
+  },
+  "addMedicationSubtitle": "Takip etmek istediğiniz ilaçları ekleyebilirsiniz.",
+  "@addMedicationSubtitle": {
+    "description": "Subtitle shown on medications empty state"
   },
   "add_appointment": "Randevu Ekle",
   "@add_appointment": {
@@ -4566,13 +4571,9 @@
     "placeholders": {},
     "description": "Translation for limit_unlock_status_active"
   },
-  "limit_unlock_status_coming_soon": "Yakında {version}",
+  "limit_unlock_status_coming_soon": "Yakında",
   "@limit_unlock_status_coming_soon": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    },
+    "placeholders": {},
     "description": "Translation for limit_unlock_status_coming_soon"
   },
   "limit_unlock_desc_active": "Her {xp} XP, 1 Limit Açma Hakkı kazandırır. Günlük limit dolarsa otomatik kullanılır.",
@@ -4584,12 +4585,9 @@
     },
     "description": "Translation for limit_unlock_desc_active"
   },
-  "limit_unlock_desc_inactive": "V1’de kapalı. {version} sürümünde her {xp} XP ile 1 Limit Açma Hakkı kazanılacak.",
+  "limit_unlock_desc_inactive": "Yakında aktif olacak. Her {xp} XP ile 1 Limit Açma Hakkı kazanılacak.",
   "@limit_unlock_desc_inactive": {
     "placeholders": {
-      "version": {
-        "type": "String"
-      },
       "xp": {
         "type": "String"
       }
@@ -4676,5 +4674,108 @@
   "daily_reminders_desc": "Planlarınızı gözden geçirmek, yeni temalar keşfetmek ve kasanızı düzenlemek için günlük bir bildirim alın.",
   "@daily_reminders_desc": {
     "description": "Settings description for daily reminders"
-  }
+  },
+  "download": "İndir",
+  "@download": {},
+  "fileSavedToDownloads": "Dosya İndirilenler klasörüne kaydedildi.",
+  "@fileSavedToDownloads": {},
+  "fileDownloadFailed": "Dosya indirilemedi.",
+  "@fileDownloadFailed": {},
+  "fileNotFound": "Dosya bulunamadı.",
+  "@fileNotFound": {},
+  "fileOpenFailed": "Dosya açılamadı.",
+  "@fileOpenFailed": {},
+  "noAppToOpenFile": "Bu dosyayı açabilecek bir uygulama bulunamadı.",
+  "@noAppToOpenFile": {},
+  "openingFile": "Dosya açılıyor...",
+  "@openingFile": {},
+  "downloadingFile": "Dosya indiriliyor...",
+  "@downloadingFile": {},
+  "documentAddedSuccessfully": "Dosya başarıyla eklendi.",
+  "@documentAddedSuccessfully": {},
+  "documentAddFailed": "Dosya eklenemedi.",
+  "@documentAddFailed": {},
+  "externalAppWarning": "Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.",
+  "@externalAppWarning": {},
+  "previewComingSoon": "Önizleme yakında",
+  "@previewComingSoon": {},
+  "previewComingSoonDesc": "Belge önizleme özelliği V1.2 güncellemesinde gelecek.",
+  "@previewComingSoonDesc": {},
+  "previewComingInV12": "Önizleme yakında gelecek.",
+  "@previewComingInV12": {},
+
+  "privacyByDesign": "Gizliliğiniz önceliğimizdir.",
+  "@privacyByDesign": {
+    "description": "Privacy badge headline shown in onboarding and settings"
+  },
+  "dataStaysOnDevice": "Verileriniz cihazınızda kalır.",
+  "@dataStaysOnDevice": {
+    "description": "Privacy message reinforcing local-only storage"
+  },
+  "documentResponsibilityNotice": "Eklediğiniz belgelerin içeriği, doğruluğu, güncelliği ve yedeklenmesi sizin sorumluluğunuzdadır. Önemli belgeler için VitaCase'i tek kaynak olarak kullanmayın.",
+  "@documentResponsibilityNotice": {
+    "description": "Responsibility notice shown when adding documents to the vault"
+  },
+  "protectYourVault": "Kasanızı Koruyun",
+  "@protectYourVault": {},
+  "protectYourVaultDesc": "Sağlık belgelerinizi ve hassas verilerinizi en üst düzeyde korumak için bir güvenlik PIN'i oluşturmanızı öneririz.",
+  "@protectYourVaultDesc": {},
+  "later": "Daha Sonra",
+  "@later": {},
+  "setPin": "PIN Ayarla",
+  "@setPin": {},
+  "pinNotSet": "PIN Ayarlanmadı",
+  "@pinNotSet": {},
+  "pinNotSetDesc": "Güvenliğiniz için uygulama kilidini (PIN) aktif edin.",
+  "@pinNotSetDesc": {},
+  "create": "Oluştur",
+  "@create": {},
+  "enter6DigitPin": "Lütfen 6 haneli bir PIN girin.",
+  "@enter6DigitPin": {},
+  "createNewPin": "Yeni PIN Oluştur",
+  "@createNewPin": {},
+  "confirmPin": "PIN'i Doğrulayın",
+  "@confirmPin": {},
+  "securitySetupIncomplete": "Güvenlik Kurulumu Eksik",
+  "@securitySetupIncomplete": {},
+  "securitySetupIncompleteDesc": "Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.",
+  "@securitySetupIncompleteDesc": {},
+  "setupNow": "Şimdi Kurulum Yap",
+  "@setupNow": {},
+  "systemRecovery": "Sistem Kurtarma",
+  "@systemRecovery": {},
+  "systemRecoveryDesc": "Veriler kurtarılamadı / uygulama güvenli başlatıldı",
+  "@systemRecoveryDesc": {},
+  "bannerLoadFailed": "Banner yüklenemedi",
+  "@bannerLoadFailed": {},
+  "bannerLoading": "Banner yükleniyor...",
+  "@bannerLoading": {},
+  "medicationNotice": "VitaCase yalnızca ilaç takibine yardımcı olur; tıbbi tavsiye vermez. Doz, saat ve kullanım kararlarında doktor veya eczacı talimatlarını esas alın.",
+  "@medicationNotice": {},
+  "category_prescription": "Reçete",
+  "@category_prescription": {},
+  "category_blood_test": "Kan Tahlili",
+  "@category_blood_test": {},
+  "category_medical_report": "Tıbbi Rapor",
+  "@category_medical_report": {},
+  "category_appointment": "Randevu",
+  "@category_appointment": {},
+  "category_insurance": "Sigorta",
+  "@category_insurance": {},
+  "category_vaccination": "Aşı",
+  "@category_vaccination": {},
+  "category_invoice": "Fatura",
+  "@category_invoice": {},
+  "docsSearchHint": "Belgelerde ara...",
+  "@docsSearchHint": {},
+  "addTag": "Etiket Ekle",
+  "@addTag": {},
+  "tags": "Etiketler",
+  "@tags": {},
+  "customTagHint": "Etiket adını girin...",
+  "@customTagHint": {},
+  "filterAll": "Tümü",
+  "@filterAll": {},
+  "noMatchingDocuments": "Eşleşen belge bulunamadı.",
+  "@noMatchingDocuments": {}
 }

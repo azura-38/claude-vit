@@ -1,9 +1,9 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:go_router/go_router.dart';
+
 import '../../../../../core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../../core/utils/date_formatter.dart';
@@ -59,7 +59,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final prefs = ref.watch(sharedPreferencesProvider);
-    final hasUploadedBefore = prefs.getBool('has_uploaded_before') ?? false;
+    final hasUploadedBefore = prefs.getBool('has_added_document_before') ?? prefs.getBool('has_uploaded_before') ?? false;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -222,7 +222,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
         if (showWarning) _buildPrivacyWarning(isDark),
         if (showWarning) const SizedBox(height: 20),
         PickerButton(
-          icon: Icons.upload_file_rounded,
+          icon: Icons.note_add_rounded,
           label: context.l10n.docsAddPick,
           color: AppColors.medicalBlue,
           bgColor:
@@ -586,28 +586,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
   }
 
   String _getCategoryName(DocumentCategory category) {
-    switch (category) {
-      case DocumentCategory.documents:
-        return context.l10n.docsTitle;
-      case DocumentCategory.healthPrescriptions:
-        return context.l10n.docsCategoryPrescriptions;
-      case DocumentCategory.healthReports:
-        return context.l10n.docsCategoryReports;
-      case DocumentCategory.healthTestResults:
-        return context.l10n.docsCategoryTestResults;
-      case DocumentCategory.healthImages:
-        return context.l10n.docsCategoryImages;
-      case DocumentCategory.identity:
-        return context.l10n.docsCategoryIdentity;
-      case DocumentCategory.finance:
-        return context.l10n.docsCategoryFinance;
-      case DocumentCategory.legal:
-        return context.l10n.docsCategoryLegal;
-      case DocumentCategory.notes:
-        return context.l10n.docsCategoryNotes;
-      case DocumentCategory.other:
-        return context.l10n.docsCategoryOther;
-    }
+    return category.localizedLabel(context);
   }
 
   Future<void> _pickFile() async {
@@ -639,6 +618,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
   }
 
   Future<void> _handleUpload() async {
+    if (_isUploading) return;
     if (_fileNameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(
         context,
@@ -685,7 +665,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
       } else {
         resultDoc = await ref
             .read(documentListProvider.notifier)
-            .uploadDocument(
+            .addDocument(
               file: _selectedFile!,
               fileName: finalFileName,
               fileType: _fileType,
@@ -705,10 +685,10 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
             );
       }
       if (mounted) {
-        // Track first upload
+        // Track first document added
         ref
             .read(sharedPreferencesProvider)
-            .setBool('has_uploaded_before', true);
+            .setBool('has_added_document_before', true);
 
         // AI Ad Engine: Track action
 
@@ -717,10 +697,10 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
         // Mission: Track document
         ref.read(dailyMissionProvider.notifier).track("doc_daily");
 
-        context.pop(resultDoc);
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(context.l10n.docsSuccess)));
+        Navigator.of(context).pop(resultDoc);
         _triggerReviewengangement();
       }
     } catch (e) {

@@ -163,10 +163,10 @@ class _LimitUnlockInfoCard extends StatelessWidget {
     final title = context.l10n.limitUnlockTokenTitle;
     final status = enabled
         ? context.l10n.limitUnlockStatusActive
-        : context.l10n.limitUnlockStatusComingSoon(AppConfig.adSkipRewardsTargetVersion);
+        : context.l10n.limitUnlockStatusComingSoon;
     final description = enabled
         ? context.l10n.limitUnlockDescActive(AppConfig.xpPerAdSkipToken.toString())
-        : context.l10n.limitUnlockDescInactive(AppConfig.adSkipRewardsTargetVersion, AppConfig.xpPerAdSkipToken.toString());
+        : context.l10n.limitUnlockDescInactive(AppConfig.xpPerAdSkipToken.toString());
 
     return Container(
       padding: const EdgeInsets.all(16),

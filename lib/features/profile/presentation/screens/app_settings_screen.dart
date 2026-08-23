@@ -117,7 +117,7 @@ class _AppSettingsScreenState extends ConsumerState<AppSettingsScreen> {
           child: Column(
             children: [
               Text(
-                'VitaCase ${appInfo?.version ?? '1.0.0'} (${appInfo?.buildNumber ?? '1'})',
+                'VitaCase ${appInfo?.version ?? '1.1.0'} (${appInfo?.buildNumber ?? '33'})',
                 style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textTertiary),
               ),
               const SizedBox(height: 4),

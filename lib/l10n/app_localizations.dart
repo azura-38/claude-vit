@@ -1407,13 +1407,13 @@ abstract class AppLocalizations {
   /// Translation for docs_empty_title
   ///
   /// In en, this message translates to:
-  /// **'It\'s Empty Here'**
+  /// **'No documents yet'**
   String get docs_empty_title;
 
   /// Translation for docs_empty_subtitle
   ///
   /// In en, this message translates to:
-  /// **'Start organizing your vault by adding your first document.'**
+  /// **'Add your first health document.'**
   String get docs_empty_subtitle;
 
   /// Translation for docs_category_health
@@ -4449,13 +4449,13 @@ abstract class AppLocalizations {
   /// Translation for no_appointments_found
   ///
   /// In en, this message translates to:
-  /// **'No appointments found'**
+  /// **'No appointments yet'**
   String get no_appointments_found;
 
   /// Translation for empty_appointments_desc
   ///
   /// In en, this message translates to:
-  /// **'You haven\'t added any appointments yet. Tap the + button to add one.'**
+  /// **'Add an appointment when you need one.'**
   String get empty_appointments_desc;
 
   /// Translation for empty_appointments_filter_desc
@@ -4755,8 +4755,14 @@ abstract class AppLocalizations {
   /// Translation for no_scheduled_meds_today
   ///
   /// In en, this message translates to:
-  /// **'No medications scheduled for today.'**
+  /// **'No medications yet'**
   String get no_scheduled_meds_today;
+
+  /// Subtitle shown on medications empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Add a medication if you\'d like to keep track of it.'**
+  String get addMedicationSubtitle;
 
   /// Translation for add_appointment
   ///
@@ -5457,8 +5463,8 @@ abstract class AppLocalizations {
   /// Translation for limit_unlock_status_coming_soon
   ///
   /// In en, this message translates to:
-  /// **'Coming in {version}'**
-  String limit_unlock_status_coming_soon(String version);
+  /// **'Coming Soon'**
+  String get limit_unlock_status_coming_soon;
 
   /// Translation for limit_unlock_desc_active
   ///
@@ -5469,8 +5475,8 @@ abstract class AppLocalizations {
   /// Translation for limit_unlock_desc_inactive
   ///
   /// In en, this message translates to:
-  /// **'Disabled in V1. In {version}, every {xp} XP will grant 1 Limit Unlock Token.'**
-  String limit_unlock_desc_inactive(String version, String xp);
+  /// **'Coming soon. Every {xp} XP will grant 1 Limit Unlock Token.'**
+  String limit_unlock_desc_inactive(String xp);
 
   /// Translation for limit_unlock_stat_total_xp
   ///
@@ -5579,6 +5585,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Receive a daily notification to review your plans, discover themes, and organize your vault.'**
   String get daily_reminders_desc;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @fileSavedToDownloads.
+  ///
+  /// In en, this message translates to:
+  /// **'File saved to Downloads.'**
+  String get fileSavedToDownloads;
+
+  /// No description provided for @fileDownloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'File could not be downloaded.'**
+  String get fileDownloadFailed;
+
+  /// No description provided for @fileNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'File not found.'**
+  String get fileNotFound;
+
+  /// No description provided for @fileOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'File could not be opened.'**
+  String get fileOpenFailed;
+
+  /// No description provided for @noAppToOpenFile.
+  ///
+  /// In en, this message translates to:
+  /// **'No app found to open this file.'**
+  String get noAppToOpenFile;
+
+  /// No description provided for @openingFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening file...'**
+  String get openingFile;
+
+  /// No description provided for @downloadingFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading file...'**
+  String get downloadingFile;
+
+  /// No description provided for @documentAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Document added successfully.'**
+  String get documentAddedSuccessfully;
+
+  /// No description provided for @documentAddFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Document could not be added.'**
+  String get documentAddFailed;
+
+  /// No description provided for @externalAppWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Files opened in external apps may be handled by those apps.'**
+  String get externalAppWarning;
+
+  /// No description provided for @previewComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview coming soon'**
+  String get previewComingSoon;
+
+  /// No description provided for @previewComingSoonDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Document preview will arrive in the V1.2 update.'**
+  String get previewComingSoonDesc;
+
+  /// No description provided for @previewComingInV12.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview will be available soon.'**
+  String get previewComingInV12;
+
+  /// Privacy badge headline shown in onboarding and settings
+  ///
+  /// In en, this message translates to:
+  /// **'Private by design.'**
+  String get privacyByDesign;
+
+  /// Privacy message reinforcing local-only storage
+  ///
+  /// In en, this message translates to:
+  /// **'Your data stays on your device.'**
+  String get dataStaysOnDevice;
+
+  /// Responsibility notice shown when adding documents to the vault
+  ///
+  /// In en, this message translates to:
+  /// **'You are responsible for the content, accuracy, freshness, and backup of added documents. Do not use VitaCase as the only source for important files.'**
+  String get documentResponsibilityNotice;
+
+  /// No description provided for @protectYourVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect Your Vault'**
+  String get protectYourVault;
+
+  /// No description provided for @protectYourVaultDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'We recommend setting a security PIN to protect your health documents and sensitive data.'**
+  String get protectYourVaultDesc;
+
+  /// No description provided for @later.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get later;
+
+  /// No description provided for @setPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Set PIN'**
+  String get setPin;
+
+  /// No description provided for @pinNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Not Set'**
+  String get pinNotSet;
+
+  /// No description provided for @pinNotSetDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable app lock (PIN) for your security.'**
+  String get pinNotSetDesc;
+
+  /// No description provided for @create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
+  /// No description provided for @enter6DigitPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a 6-digit PIN.'**
+  String get enter6DigitPin;
+
+  /// No description provided for @createNewPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New PIN'**
+  String get createNewPin;
+
+  /// No description provided for @confirmPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm PIN'**
+  String get confirmPin;
+
+  /// No description provided for @securitySetupIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Security Setup Incomplete'**
+  String get securitySetupIncomplete;
+
+  /// No description provided for @securitySetupIncompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Security setup is not complete. Keep your data safe by adding an app lock (PIN).'**
+  String get securitySetupIncompleteDesc;
+
+  /// No description provided for @setupNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Up Now'**
+  String get setupNow;
+
+  /// No description provided for @systemRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'System Recovery'**
+  String get systemRecovery;
+
+  /// No description provided for @systemRecoveryDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Data could not be recovered / app started safely'**
+  String get systemRecoveryDesc;
+
+  /// No description provided for @bannerLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Banner could not be loaded'**
+  String get bannerLoadFailed;
+
+  /// No description provided for @bannerLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading banner...'**
+  String get bannerLoading;
+
+  /// No description provided for @medicationNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'VitaCase only helps with medication tracking; it does not provide medical advice. Base dosage and timing decisions on doctor or pharmacist instructions.'**
+  String get medicationNotice;
+
+  /// No description provided for @category_prescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Prescription'**
+  String get category_prescription;
+
+  /// No description provided for @category_blood_test.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood Test'**
+  String get category_blood_test;
+
+  /// No description provided for @category_medical_report.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Report'**
+  String get category_medical_report;
+
+  /// No description provided for @category_appointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment'**
+  String get category_appointment;
+
+  /// No description provided for @category_insurance.
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance'**
+  String get category_insurance;
+
+  /// No description provided for @category_vaccination.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccination'**
+  String get category_vaccination;
+
+  /// No description provided for @category_invoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice'**
+  String get category_invoice;
+
+  /// No description provided for @docsSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search documents...'**
+  String get docsSearchHint;
+
+  /// No description provided for @addTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Tag'**
+  String get addTag;
+
+  /// No description provided for @tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tags;
+
+  /// No description provided for @customTagHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter tag name...'**
+  String get customTagHint;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @noMatchingDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching documents found.'**
+  String get noMatchingDocuments;
 }
 
 class _AppLocalizationsDelegate

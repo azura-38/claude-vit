@@ -16,6 +16,7 @@ class Medicine {
   final int? interval;
   final DateTime createdAt;
   final bool isTaken;
+  final String? lastTakenDate;
 
   const Medicine({
     required this.id,
@@ -32,6 +33,7 @@ class Medicine {
     this.interval,
     required this.createdAt,
     this.isTaken = false,
+    this.lastTakenDate,
   });
 
   DateTime get nextReminderTime {
@@ -77,6 +79,7 @@ class Medicine {
     int? interval,
     DateTime? createdAt,
     bool? isTaken,
+    String? lastTakenDate,
   }) {
     return Medicine(
       id: id ?? this.id,
@@ -93,6 +96,7 @@ class Medicine {
       interval: interval ?? this.interval,
       createdAt: createdAt ?? this.createdAt,
       isTaken: isTaken ?? this.isTaken,
+      lastTakenDate: lastTakenDate ?? this.lastTakenDate,
     );
   }
 }

@@ -48,6 +48,30 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
     state = state.copyWith(reminderTimes: updated);
   }
 
+  /// Weekly: gün seç/kaldır (1=Pazartesi … 7=Pazar)
+  void toggleDay(int weekday) {
+    final current = List<int>.from(state.daysOfWeek);
+    if (current.contains(weekday)) {
+      current.remove(weekday);
+    } else {
+      current.add(weekday);
+      current.sort();
+    }
+    state = state.copyWith(daysOfWeek: current);
+  }
+
+  /// Custom: kaç günde bir tekrarlansın
+  void updateInterval(int days) {
+    if (days < 1) return;
+    state = state.copyWith(interval: days);
+  }
+
+  /// Stok miktarını güncelle
+  void updateTotalStock(int stock) {
+    if (stock < 0) return;
+    state = state.copyWith(totalStock: stock);
+  }
+
   Future<void> submit() async {
     final medicine = Medicine(
       id: generateUuid(),
@@ -57,6 +81,15 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
       frequency: state.frequency.name,
       hungerStatus: HungerStatus.farketmez,
       reminderTimes: state.reminderTimes,
+      // weekly için seçilen günler, boşsa [] döner
+      daysOfWeek: state.frequency == MedicationFrequency.weekly
+          ? (state.daysOfWeek.isNotEmpty ? state.daysOfWeek : null)
+          : null,
+      // custom için aralık
+      interval: state.frequency == MedicationFrequency.custom ? state.interval : null,
+      // stok
+      totalStock: state.totalStock,
+      currentStock: state.totalStock,
       createdAt: DateTime.now(),
     );
 

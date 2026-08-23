@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:go_router/go_router.dart';
 
 class RewardDialog extends StatefulWidget {
   final String title;
@@ -44,22 +43,34 @@ class RewardDialog extends StatefulWidget {
 }
 
 class _RewardDialogState extends State<RewardDialog> {
-  Timer? _dismissTimer;
+  Timer? _autoCloseTimer;
+  bool _isClosing = false;
 
   @override
   void initState() {
     super.initState();
     // Auto-dismiss after 4.5 seconds to keep level ups frictionless
-    _dismissTimer = Timer(const Duration(milliseconds: 4500), () {
-      if (mounted) {
-        context.pop();
-      }
+    _autoCloseTimer = Timer(const Duration(milliseconds: 4500), () {
+      _closeDialogSafely();
     });
+  }
+
+  void _closeDialogSafely() {
+    if (!mounted || _isClosing) return;
+    _isClosing = true;
+    _autoCloseTimer?.cancel();
+    _autoCloseTimer = null;
+
+    final navigator = Navigator.of(context, rootNavigator: true);
+    if (navigator.canPop()) {
+      navigator.pop();
+    }
   }
 
   @override
   void dispose() {
-    _dismissTimer?.cancel();
+    _autoCloseTimer?.cancel();
+    _autoCloseTimer = null;
     super.dispose();
   }
 
@@ -74,7 +85,7 @@ class _RewardDialogState extends State<RewardDialog> {
         children: [
           // Background Light Blur & Dim (Non-intrusive)
           GestureDetector(
-            onTap: () => context.pop(),
+            onTap: _closeDialogSafely,
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
               child: Container(
@@ -89,7 +100,7 @@ class _RewardDialogState extends State<RewardDialog> {
             child: Padding(
               padding: EdgeInsets.only(top: topSafeArea + 16, left: 16, right: 16),
               child: GestureDetector(
-                onTap: () => context.pop(),
+                onTap: _closeDialogSafely,
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 350),
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -219,7 +230,7 @@ class _RewardDialogState extends State<RewardDialog> {
 
                       // Tiny Close Icon
                       IconButton(
-                        onPressed: () => context.pop(),
+                        onPressed: _closeDialogSafely,
                         icon: const Icon(Icons.close_rounded, size: 16),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),

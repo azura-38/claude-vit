@@ -5,6 +5,7 @@
     "description": "Translation for app_name",
     "placeholders": {}
   },
+
   "skip": "Skip",
   "@skip": {
     "description": "Translation for skip",
@@ -1099,12 +1100,12 @@
     "description": "Translation for docs_sort_oldest",
     "placeholders": {}
   },
-  "docs_empty_title": "It's Empty Here",
+  "docs_empty_title": "No documents yet",
   "@docs_empty_title": {
     "description": "Translation for docs_empty_title",
     "placeholders": {}
   },
-  "docs_empty_subtitle": "Start organizing your vault by adding your first document.",
+  "docs_empty_subtitle": "Add your first health document.",
   "@docs_empty_subtitle": {
     "description": "Translation for docs_empty_subtitle",
     "placeholders": {}
@@ -3698,12 +3699,12 @@
     },
     "description": "Translation for notif_app_reminder_body"
   },
-  "no_appointments_found": "No appointments found",
+  "no_appointments_found": "No appointments yet",
   "@no_appointments_found": {
     "description": "Translation for no_appointments_found",
     "placeholders": {}
   },
-  "empty_appointments_desc": "You haven't added any appointments yet. Tap the + button to add one.",
+  "empty_appointments_desc": "Add an appointment when you need one.",
   "@empty_appointments_desc": {
     "description": "Translation for empty_appointments_desc",
     "placeholders": {}
@@ -3965,10 +3966,14 @@
     "description": "Translation for view_details",
     "placeholders": {}
   },
-  "no_scheduled_meds_today": "No medications scheduled for today.",
+  "no_scheduled_meds_today": "No medications yet",
   "@no_scheduled_meds_today": {
     "description": "Translation for no_scheduled_meds_today",
     "placeholders": {}
+  },
+  "addMedicationSubtitle": "Add a medication if you'd like to keep track of it.",
+  "@addMedicationSubtitle": {
+    "description": "Subtitle shown on medications empty state"
   },
   "add_appointment": "Add Appointment",
   "@add_appointment": {
@@ -4566,13 +4571,9 @@
     "placeholders": {},
     "description": "Translation for limit_unlock_status_active"
   },
-  "limit_unlock_status_coming_soon": "Coming in {version}",
+  "limit_unlock_status_coming_soon": "Coming Soon",
   "@limit_unlock_status_coming_soon": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    },
+    "placeholders": {},
     "description": "Translation for limit_unlock_status_coming_soon"
   },
   "limit_unlock_desc_active": "Every {xp} XP grants 1 Limit Unlock Token. It is used automatically when the daily limit is reached.",
@@ -4584,12 +4585,9 @@
     },
     "description": "Translation for limit_unlock_desc_active"
   },
-  "limit_unlock_desc_inactive": "Disabled in V1. In {version}, every {xp} XP will grant 1 Limit Unlock Token.",
+  "limit_unlock_desc_inactive": "Coming soon. Every {xp} XP will grant 1 Limit Unlock Token.",
   "@limit_unlock_desc_inactive": {
     "placeholders": {
-      "version": {
-        "type": "String"
-      },
       "xp": {
         "type": "String"
       }
@@ -4676,5 +4674,108 @@
   "daily_reminders_desc": "Receive a daily notification to review your plans, discover themes, and organize your vault.",
   "@daily_reminders_desc": {
     "description": "Settings description for daily reminders"
-  }
+  },
+  "download": "Download",
+  "@download": {},
+  "fileSavedToDownloads": "File saved to Downloads.",
+  "@fileSavedToDownloads": {},
+  "fileDownloadFailed": "File could not be downloaded.",
+  "@fileDownloadFailed": {},
+  "fileNotFound": "File not found.",
+  "@fileNotFound": {},
+  "fileOpenFailed": "File could not be opened.",
+  "@fileOpenFailed": {},
+  "noAppToOpenFile": "No app found to open this file.",
+  "@noAppToOpenFile": {},
+  "openingFile": "Opening file...",
+  "@openingFile": {},
+  "downloadingFile": "Downloading file...",
+  "@downloadingFile": {},
+  "documentAddedSuccessfully": "Document added successfully.",
+  "@documentAddedSuccessfully": {},
+  "documentAddFailed": "Document could not be added.",
+  "@documentAddFailed": {},
+  "externalAppWarning": "Files opened in external apps may be handled by those apps.",
+  "@externalAppWarning": {},
+  "previewComingSoon": "Preview coming soon",
+  "@previewComingSoon": {},
+  "previewComingSoonDesc": "Document preview will arrive in the V1.2 update.",
+  "@previewComingSoonDesc": {},
+  "previewComingInV12": "Preview will be available soon.",
+  "@previewComingInV12": {},
+
+  "privacyByDesign": "Private by design.",
+  "@privacyByDesign": {
+    "description": "Privacy badge headline shown in onboarding and settings"
+  },
+  "dataStaysOnDevice": "Your data stays on your device.",
+  "@dataStaysOnDevice": {
+    "description": "Privacy message reinforcing local-only storage"
+  },
+  "documentResponsibilityNotice": "You are responsible for the content, accuracy, freshness, and backup of added documents. Do not use VitaCase as the only source for important files.",
+  "@documentResponsibilityNotice": {
+    "description": "Responsibility notice shown when adding documents to the vault"
+  },
+  "protectYourVault": "Protect Your Vault",
+  "@protectYourVault": {},
+  "protectYourVaultDesc": "We recommend setting a security PIN to protect your health documents and sensitive data.",
+  "@protectYourVaultDesc": {},
+  "later": "Later",
+  "@later": {},
+  "setPin": "Set PIN",
+  "@setPin": {},
+  "pinNotSet": "PIN Not Set",
+  "@pinNotSet": {},
+  "pinNotSetDesc": "Enable app lock (PIN) for your security.",
+  "@pinNotSetDesc": {},
+  "create": "Create",
+  "@create": {},
+  "enter6DigitPin": "Please enter a 6-digit PIN.",
+  "@enter6DigitPin": {},
+  "createNewPin": "Create New PIN",
+  "@createNewPin": {},
+  "confirmPin": "Confirm PIN",
+  "@confirmPin": {},
+  "securitySetupIncomplete": "Security Setup Incomplete",
+  "@securitySetupIncomplete": {},
+  "securitySetupIncompleteDesc": "Security setup is not complete. Keep your data safe by adding an app lock (PIN).",
+  "@securitySetupIncompleteDesc": {},
+  "setupNow": "Set Up Now",
+  "@setupNow": {},
+  "systemRecovery": "System Recovery",
+  "@systemRecovery": {},
+  "systemRecoveryDesc": "Data could not be recovered / app started safely",
+  "@systemRecoveryDesc": {},
+  "bannerLoadFailed": "Banner could not be loaded",
+  "@bannerLoadFailed": {},
+  "bannerLoading": "Loading banner...",
+  "@bannerLoading": {},
+  "medicationNotice": "VitaCase only helps with medication tracking; it does not provide medical advice. Base dosage and timing decisions on doctor or pharmacist instructions.",
+  "@medicationNotice": {},
+  "category_prescription": "Prescription",
+  "@category_prescription": {},
+  "category_blood_test": "Blood Test",
+  "@category_blood_test": {},
+  "category_medical_report": "Medical Report",
+  "@category_medical_report": {},
+  "category_appointment": "Appointment",
+  "@category_appointment": {},
+  "category_insurance": "Insurance",
+  "@category_insurance": {},
+  "category_vaccination": "Vaccination",
+  "@category_vaccination": {},
+  "category_invoice": "Invoice",
+  "@category_invoice": {},
+  "docsSearchHint": "Search documents...",
+  "@docsSearchHint": {},
+  "addTag": "Add Tag",
+  "@addTag": {},
+  "tags": "Tags",
+  "@tags": {},
+  "customTagHint": "Enter tag name...",
+  "@customTagHint": {},
+  "filterAll": "All",
+  "@filterAll": {},
+  "noMatchingDocuments": "No matching documents found.",
+  "@noMatchingDocuments": {}
 }

@@ -7,6 +7,7 @@ class DocumentModel {
   String fileType;
   String localPath;
   String category;
+  List<String> tags;
   String? hospitalName;
   String? doctorName;
   String? documentDate;
@@ -22,6 +23,7 @@ class DocumentModel {
     required this.fileType,
     required this.localPath,
     required this.category,
+    this.tags = const [],
     this.hospitalName,
     this.doctorName,
     this.documentDate,
@@ -39,6 +41,7 @@ class DocumentModel {
       fileType: entity.fileType.name,
       localPath: entity.localPath,
       category: entity.category.name,
+      tags: entity.tags,
       hospitalName: entity.hospitalName,
       doctorName: entity.doctorName,
       documentDate: entity.documentDate,
@@ -59,10 +62,8 @@ class DocumentModel {
         orElse: () => DocumentFileType.image,
       ),
       localPath: localPath,
-      category: DocumentCategory.values.firstWhere(
-        (e) => e.name == category,
-        orElse: () => DocumentCategory.other,
-      ),
+      category: DocumentCategory.parse(category),
+      tags: tags,
       hospitalName: hospitalName,
       doctorName: doctorName,
       documentDate: documentDate,
@@ -81,6 +82,7 @@ class DocumentModel {
       'fileType': fileType,
       'localPath': localPath,
       'category': category,
+      'tags': tags,
       'hospitalName': hospitalName,
       'doctorName': doctorName,
       'documentDate': documentDate,
@@ -93,19 +95,27 @@ class DocumentModel {
   }
 
   factory DocumentModel.fromMap(Map<String, dynamic> map) {
+    List<String> parsedTags = [];
+    if (map['tags'] != null && map['tags'] is List) {
+      parsedTags = (map['tags'] as List).map((e) => e.toString()).toList();
+    } else if (map['tagLabel'] != null && (map['tagLabel'] as String).trim().isNotEmpty) {
+      parsedTags = [(map['tagLabel'] as String).trim()];
+    }
+
     return DocumentModel(
-      id: map['id'],
-      fileName: map['fileName'],
-      fileType: map['fileType'],
-      localPath: map['localPath'],
-      category: map['category'] ?? DocumentCategory.other.name,
+      id: map['id'] ?? '',
+      fileName: map['fileName'] ?? '',
+      fileType: map['fileType'] ?? 'image',
+      localPath: map['localPath'] ?? '',
+      category: map['category'] as String? ?? DocumentCategory.other.name,
+      tags: parsedTags,
       hospitalName: map['hospitalName'],
       doctorName: map['doctorName'],
       documentDate: map['documentDate'],
       tagId: map['tagId'],
       tagLabel: map['tagLabel'],
       note: map['note'],
-      createdAt: DateTime.parse(map['createdAt']),
+      createdAt: map['createdAt'] != null ? DateTime.parse(map['createdAt']) : DateTime.now(),
       pending: map['pending'] ?? false,
     );
   }

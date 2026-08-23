@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'app_bootstrap_controller.dart';
 import '../constants/app_colors.dart';
@@ -31,7 +33,7 @@ class BootstrapScreen extends ConsumerWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Animated Splash Screen (Minimalist White Theme)
+// Premium Animated Splash Screen
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _SplashLoadingScreen extends StatefulWidget {
@@ -42,101 +44,173 @@ class _SplashLoadingScreen extends StatefulWidget {
 }
 
 class _SplashLoadingScreenState extends State<_SplashLoadingScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _fadeController;
-  late final Animation<double> _fadeAnim;
-  late final Animation<double> _slideAnim;
+    with TickerProviderStateMixin {
+  late final AnimationController _brandController;
+  late final AnimationController _detailController;
+
+  late final Animation<double> _brandScale;
+  late final Animation<double> _brandOpacity;
+  late final Animation<double> _dividerWidth;
+  late final Animation<double> _taglineOpacity;
+  late final Animation<Offset> _taglineSlide;
+  late final Animation<double> _loaderOpacity;
 
   @override
   void initState() {
     super.initState();
 
-    _fadeController = AnimationController(
+    // ── Brand entrance (VitaCase text) ──────────────────────────────────────
+    _brandController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 650),
-    )..forward();
-
-    _fadeAnim = CurvedAnimation(
-      parent: _fadeController,
-      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 900),
     );
 
-    _slideAnim = Tween<double>(begin: 12.0, end: 0.0).animate(
+    _brandScale = Tween<double>(begin: 0.82, end: 1.0).animate(
       CurvedAnimation(
-        parent: _fadeController,
-        curve: Curves.easeOutCubic,
+        parent: _brandController,
+        curve: Curves.easeOutBack,
       ),
     );
+
+    _brandOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _brandController,
+        curve: const Interval(0.0, 0.55, curve: Curves.easeOut),
+      ),
+    );
+
+    // ── Detail entrance (divider, tagline, loader) ──────────────────────────
+    _detailController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    _dividerWidth = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _detailController,
+        curve: const Interval(0.0, 0.45, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _taglineOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _detailController,
+        curve: const Interval(0.15, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _taglineSlide = Tween<Offset>(
+      begin: const Offset(0, 0.25),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _detailController,
+        curve: const Interval(0.15, 0.6, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _loaderOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _detailController,
+        curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
+      ),
+    );
+
+    // ── Staggered start ────────────────────────────────────────────────────
+    _brandController.forward();
+    Future.delayed(const Duration(milliseconds: 450), () {
+      if (mounted) _detailController.forward();
+    });
   }
 
   @override
   void dispose() {
-    _fadeController.dispose();
+    _brandController.dispose();
+    _detailController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Safely retrieve the localized tagline, falling back to English if missing.
     final tagline = context.l10n.splashTagline;
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
         child: Center(
-          child: FadeTransition(
-            opacity: _fadeAnim,
-            child: AnimatedBuilder(
-              animation: _slideAnim,
-              builder: (context, child) => Transform.translate(
-                offset: Offset(0, _slideAnim.value),
-                child: child,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  const Text(
-                    'VITACASE',
-                    style: TextStyle(
-                      color: Color(0xFF0F172A),
-                      fontSize: 34,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 4.5,
-                      fontFamily: 'Inter',
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ── Brand Text ─────────────────────────────────────────────
+              ScaleTransition(
+                scale: _brandScale,
+                child: FadeTransition(
+                  opacity: _brandOpacity,
+                  child: Text(
+                    'VitaCase',
+                    style: GoogleFonts.plusJakartaSans(
+                      color: const Color(0xFF071D49),
+                      fontSize: 44,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.8,
+                      height: 1.1,
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Padding(
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              // ── Gradient Accent Line ───────────────────────────────────
+              AnimatedBuilder(
+                animation: _dividerWidth,
+                builder: (context, _) => Container(
+                  width: 44 * _dividerWidth.value,
+                  height: 2.5,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF6366F1), Color(0xFF818CF8)],
+                    ),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // ── Tagline ────────────────────────────────────────────────
+              SlideTransition(
+                position: _taglineSlide,
+                child: FadeTransition(
+                  opacity: _taglineOpacity,
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Text(
                       tagline,
-                      style: const TextStyle(
-                        color: Color(0xFF64748B),
-                        fontSize: 14,
+                      style: GoogleFonts.inter(
+                        color: const Color(0xFF94A3B8),
+                        fontSize: 14.5,
                         fontWeight: FontWeight.w400,
-                        letterSpacing: 0.2,
+                        letterSpacing: 0.15,
                         height: 1.4,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 140,
-                    child: LinearProgressIndicator(
-                      backgroundColor: const Color(0xFFF1F5F9),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Color(0xFF0F172A),
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                      minHeight: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 36),
-                ],
+                ),
               ),
-            ),
+
+              const SizedBox(height: 56),
+
+              // ── Loader ─────────────────────────────────────────────────
+              FadeTransition(
+                opacity: _loaderOpacity,
+                child: const _ThreeDotLoader(
+                  color: Color(0xFF6366F1),
+                  size: 8,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -226,6 +300,81 @@ class _StartupErrorScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Three-Dot Pulsing Loader
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _ThreeDotLoader extends StatefulWidget {
+  final Color color;
+  final double size;
+
+  const _ThreeDotLoader({
+    this.color = const Color(0xFF6366F1),
+    this.size = 8,
+  });
+
+  @override
+  State<_ThreeDotLoader> createState() => _ThreeDotLoaderState();
+}
+
+class _ThreeDotLoaderState extends State<_ThreeDotLoader>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1400),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(3, (index) {
+            // Stagger each dot by 0.15 phase offset
+            final phase = (_controller.value + index * 0.15) % 1.0;
+            // Smooth sine-wave pulse for natural feel
+            final pulse = sin(phase * pi).clamp(0.0, 1.0);
+            final scale = 0.5 + 0.5 * pulse;
+            final opacity = 0.3 + 0.7 * pulse;
+
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: widget.size * 0.6),
+              child: Transform.scale(
+                scale: scale,
+                child: Opacity(
+                  opacity: opacity,
+                  child: Container(
+                    width: widget.size,
+                    height: widget.size,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.color,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        );
+      },
     );
   }
 }

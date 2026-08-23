@@ -284,6 +284,31 @@ Status: OK (No errors recorded)
           ),
           const SizedBox(height: 16),
           _DebugSection(
+            title: tr ? 'AdMob Preload & Performance' : 'AdMob Preload & Performance',
+            isDark: isDark,
+            children: [
+              _ConfigRow(
+                label: 'Banner State',
+                value: '${AdService().bannerStatus.name.toUpperCase()}${AdService().bannerLoadTimeMs != null ? ' (${AdService().bannerLoadTimeMs}ms)' : ''}',
+              ),
+              if (AdService().lastBannerError != null)
+                _ConfigRow(label: 'Banner Error', value: AdService().lastBannerError!),
+              _ConfigRow(
+                label: 'Rewarded State',
+                value: '${AdService().rewardedStatus.name.toUpperCase()}${AdService().rewardedLoadTimeMs != null ? ' (${AdService().rewardedLoadTimeMs}ms)' : ''}',
+              ),
+              if (AdService().lastRewardedError != null)
+                _ConfigRow(label: 'Rewarded Error', value: AdService().lastRewardedError!),
+              _ConfigRow(
+                label: 'App Open State',
+                value: '${AdService().appOpenStatus.name.toUpperCase()}${AdService().appOpenLoadTimeMs != null ? ' (${AdService().appOpenLoadTimeMs}ms)' : ''}',
+              ),
+              if (AdService().lastAppOpenError != null)
+                _ConfigRow(label: 'App Open Error', value: AdService().lastAppOpenError!),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _DebugSection(
             title: tr ? 'Config' : 'Config',
             isDark: isDark,
             children: [

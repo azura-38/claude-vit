@@ -58,7 +58,7 @@ VitaCase is a free mobile app for storing personal health-related documents and 
 
 1. WHAT STAYS ON DEVICE
 - Documents, notes, medicine reminders, appointments, and profile data are stored locally on your device.
-- Uploaded files are encrypted locally before being written to app storage.
+- Added files are encrypted locally before being written to app storage.
 - We do not operate a consumer cloud backup for your document vault in this release.
 
 2. WHAT MAY LEAVE THE DEVICE

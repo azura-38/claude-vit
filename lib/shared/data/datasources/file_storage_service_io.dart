@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
 
 import '../services/encryption_service.dart';
 
@@ -140,5 +141,27 @@ class FileStorageService {
         }
       }
     } catch (_) {}
+  }
+
+  Future<String?> saveDecryptedCopyToDownloads({
+    required String relativePath,
+    required String originalFileName,
+    required String mimeType,
+  }) async {
+    if (!Platform.isAndroid) return null;
+    
+    final tempDecryptedFile = await getFile(relativePath);
+    
+    try {
+      const channel = MethodChannel('vitacase/downloads');
+      final result = await channel.invokeMethod<String>('saveToDownloads', {
+        'tempPath': tempDecryptedFile.path,
+        'displayName': originalFileName,
+        'mimeType': mimeType,
+      });
+      return result;
+    } catch (e) {
+      throw FileSystemException('Could not save file to downloads: $e');
+    }
   }
 }

@@ -16,6 +16,7 @@ class MedicineModel {
   int? interval;
   DateTime createdAt;
   bool isTaken;
+  String? lastTakenDate;
 
   MedicineModel({
     required this.id,
@@ -32,6 +33,7 @@ class MedicineModel {
     this.interval,
     required this.createdAt,
     this.isTaken = false,
+    this.lastTakenDate,
   });
 
   factory MedicineModel.fromEntity(Medicine entity) {
@@ -50,6 +52,7 @@ class MedicineModel {
       interval: entity.interval,
       createdAt: entity.createdAt,
       isTaken: entity.isTaken,
+      lastTakenDate: entity.lastTakenDate,
     );
   }
 
@@ -72,6 +75,7 @@ class MedicineModel {
       interval: interval,
       createdAt: createdAt,
       isTaken: isTaken,
+      lastTakenDate: lastTakenDate,
     );
   }
 
@@ -91,6 +95,7 @@ class MedicineModel {
       'interval': interval,
       'createdAt': createdAt.toIso8601String(),
       'isTaken': isTaken,
+      'lastTakenDate': lastTakenDate,
     };
   }
 
@@ -111,6 +116,7 @@ class MedicineModel {
       interval: map['interval'],
       createdAt: DateTime.parse(map['createdAt']),
       isTaken: map['isTaken'] ?? false,
+      lastTakenDate: map['lastTakenDate'],
     );
   }
 }

@@ -64,8 +64,8 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
                       if (medicines.isEmpty)
                         AppEmptyState(
                           icon: Icons.medication_rounded,
-                          title: context.tr('my_medicines'),
-                          subtitle: context.tr('no_scheduled_meds_today'),
+                          title: context.tr('no_scheduled_meds_today'),
+                          subtitle: context.tr('addMedicationSubtitle'),
                           actionLabel: context.tr('add_medicine'),
                           onAction: () => _showAddMedicine(context),
                         )
@@ -269,8 +269,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       final isToday = med.frequency == 'daily'
           ? true
           : med.frequency == 'weekly'
-              ? now.weekday == med.createdAt.weekday
-              : DateFormatter.formatIso(now) == DateFormatter.formatIso(med.createdAt);
+              ? (med.daysOfWeek?.contains(now.weekday) ?? false)
+              : (med.frequency == 'custom' 
+                  ? now.difference(med.createdAt).inDays % (med.interval ?? 1) == 0
+                  : DateFormatter.formatIso(now) == DateFormatter.formatIso(med.createdAt));
       if (!isToday) continue;
       todayTotal += med.reminderTimes.length;
       if (med.isTaken) todayTaken += med.reminderTimes.length;
@@ -512,8 +514,10 @@ class _MedicinesScreenState extends ConsumerState<MedicinesScreen> {
       final isToday = med.frequency == 'daily'
           ? true
           : med.frequency == 'weekly'
-              ? now.weekday == med.createdAt.weekday
-              : DateFormatter.formatIso(now) == DateFormatter.formatIso(med.createdAt);
+              ? (med.daysOfWeek?.contains(now.weekday) ?? false)
+              : (med.frequency == 'custom' 
+                  ? now.difference(med.createdAt).inDays % (med.interval ?? 1) == 0
+                  : DateFormatter.formatIso(now) == DateFormatter.formatIso(med.createdAt));
       if (!isToday) continue;
       for (final time in med.reminderTimes) {
         final hour = int.tryParse(time.split(':').first) ?? 0;

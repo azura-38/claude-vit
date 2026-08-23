@@ -84,7 +84,7 @@ class AppEmptyState extends ConsumerWidget {
                   size: 46,
                   color: Colors.white,
                 ),
-              ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
+              ).animate().fadeIn(duration: 250.ms),
               const SizedBox(height: 24),
               Text(
                 title,
@@ -94,7 +94,7 @@ class AppEmptyState extends ConsumerWidget {
                   fontWeight: FontWeight.w900,
                   color: isDark ? Colors.white : AppColors.textPrimary,
                 ),
-              ).animate().fadeIn(delay: 200.ms),
+              ).animate().fadeIn(duration: 250.ms),
               const SizedBox(height: 12),
               Text(
                 subtitle,
@@ -105,7 +105,7 @@ class AppEmptyState extends ConsumerWidget {
                   fontWeight: FontWeight.w500,
                   height: 1.5,
                 ),
-              ).animate().fadeIn(delay: 400.ms),
+              ).animate().fadeIn(duration: 250.ms),
               if (actionLabel != null && onAction != null) ...[
                 const SizedBox(height: 32),
                 SizedBox(
@@ -127,7 +127,7 @@ class AppEmptyState extends ConsumerWidget {
                       elevation: 0,
                     ),
                   ),
-                ).animate().fadeIn(delay: 600.ms).slideY(begin: 0.2),
+                ).animate().fadeIn(duration: 250.ms),
               ],
               if (shortcuts != null && shortcuts!.isNotEmpty) ...[
                 const SizedBox(height: 40),

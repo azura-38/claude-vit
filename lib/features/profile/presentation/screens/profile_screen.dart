@@ -82,9 +82,9 @@ class ProfileScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Güvenlik Kurulumu Eksik',
-                              style: TextStyle(
+                            Text(
+                              context.l10n.securitySetupIncomplete,
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w900,
                                 color: Colors.orange,
@@ -92,7 +92,7 @@ class ProfileScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.',
+                              context.l10n.securitySetupIncompleteDesc,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: isDark ? Colors.white70 : AppColors.textSecondary,
@@ -107,7 +107,7 @@ class ProfileScreen extends ConsumerWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    'Şimdi Kurulum Yap',
+                                    context.l10n.setupNow,
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w800,
@@ -183,13 +183,7 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () => context.push(AppRoutes.medicalInfo),
                 isDark: isDark,
               ),
-              _buildNavigationItem(
-                context,
-                icon: Icons.emoji_events_outlined,
-                title: context.l10n.medalsTrophies,
-                onTap: () => context.push(AppRoutes.achievements),
-                isDark: isDark,
-              ),
+
               const SizedBox(height: 40),
               _buildSectionTitle(context.l10n.accountSettings, isDark),
               const SizedBox(height: 16),

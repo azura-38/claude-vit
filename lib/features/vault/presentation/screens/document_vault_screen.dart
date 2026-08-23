@@ -16,6 +16,10 @@ import '../widgets/secure_banner.dart';
 import 'document_quick_view_screen.dart';
 import '../../../../shared/providers/shared_prefs_provider.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../../shared/providers/tags_provider.dart';
+import '../../../../shared/providers/document_providers.dart';
+import '../../../../core/utils/mime_type_helper.dart';
+import 'package:open_filex/open_filex.dart';
 
 enum _VaultSortMode { newest, oldest, nameAZ }
 
@@ -30,6 +34,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
   final _searchController = TextEditingController();
   String _query = '';
   DocumentCategory? _selectedCategory;
+  String? _selectedTag;
   _VaultSortMode _sortMode = _VaultSortMode.newest;
 
   @override
@@ -81,13 +86,13 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
               size: 40,
             ),
           ),
-          title: const Text(
-            'Kasanızı Koruyun',
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+          title: Text(
+            context.l10n.protectYourVault,
+            style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
             textAlign: TextAlign.center,
           ),
           content: Text(
-            'Sağlık belgelerinizi ve hassas verilerinizi en üst düzeyde korumak için bir güvenlik PIN\'i oluşturmanızı öneririz.',
+            context.l10n.protectYourVaultDesc,
             style: TextStyle(
               fontSize: 14,
               height: 1.5,
@@ -100,7 +105,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
               child: Text(
-                'Daha Sonra',
+                context.l10n.later,
                 style: TextStyle(
                   color: isDark ? Colors.white60 : AppColors.textSecondary,
                   fontWeight: FontWeight.bold,
@@ -117,9 +122,9 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
-              child: const Text(
-                'PIN Ayarla',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              child: Text(
+                context.l10n.setPin,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -130,6 +135,15 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
 
   void _openQuickView(BuildContext context, Document doc) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => DocumentQuickViewScreen(document: doc)));
+  }
+
+  Future<void> _navigateToAddDocument(BuildContext context) async {
+    final result = await context.push<bool>(AppRoutes.documentAdd);
+    if (result == true && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.documentAddedSuccessfully)),
+      );
+    }
   }
 
   Future<void> _confirmDelete(BuildContext context, Document doc) async {
@@ -151,19 +165,86 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.documentDeletedMsg)));
   }
 
+  Future<void> _openDocument(Document doc) async {
+    try {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.openingFile), duration: const Duration(seconds: 1)),
+      );
+      final fileStorage = ref.read(fileStorageServiceProvider);
+      final decryptedFile = await fileStorage.getFile(doc.localPath);
+      final filePath = (decryptedFile as dynamic).path as String;
+      final result = await OpenFilex.open(filePath);
+      if (!mounted) return;
+      if (result.type != ResultType.done) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.tr('open_failed'))),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.tr('open_failed'))),
+      );
+    }
+  }
+
+  Future<void> _downloadDocument(Document doc) async {
+    try {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.downloadingFile), duration: const Duration(seconds: 1)),
+      );
+
+      final fileStorage = ref.read(fileStorageServiceProvider);
+      final mimeType = MimeTypeHelper.getMimeType(doc.fileName);
+
+      final result = await fileStorage.saveDecryptedCopyToDownloads(
+        relativePath: doc.localPath,
+        originalFileName: doc.fileName,
+        mimeType: mimeType,
+      );
+
+      if (!mounted) return;
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.l10n.fileSavedToDownloads)),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.l10n.fileDownloadFailed)),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.fileDownloadFailed)),
+      );
+    }
+  }
+
   List<Document> _visibleDocuments(List<Document> documents) {
     final normalizedQuery = _query.trim().toLowerCase();
     var result = documents.where((doc) {
       final matchesCategory = _selectedCategory == null || doc.category == _selectedCategory;
       if (!matchesCategory) return false;
+
+      if (_selectedTag != null && !doc.tags.any((t) => t.toLowerCase() == _selectedTag!.toLowerCase())) {
+        return false;
+      }
+
       if (normalizedQuery.isEmpty) return true;
 
+      final tagsStr = doc.tags.join(' ');
       final haystack = [
         doc.fileName,
         doc.hospitalName ?? '',
         doc.doctorName ?? '',
         doc.note ?? '',
         doc.tagLabel ?? '',
+        tagsStr,
+        doc.category.localizedLabel(context),
+        doc.category.defaultLabel,
         doc.category.name,
       ].join(' ').toLowerCase();
       return haystack.contains(normalizedQuery);
@@ -205,7 +286,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
             children: [
-              _VaultHeader(isDark: isDark),
+              _VaultHeader(isDark: isDark, onAdd: (ctx) => _navigateToAddDocument(ctx)),
               const SizedBox(height: 20),
               const SecureBanner(),
               const SizedBox(height: 32),
@@ -222,7 +303,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       floatingActionButton: FloatingActionButton.extended(
         heroTag: 'documentVaultFab',
-        onPressed: () => context.push(AppRoutes.documentAdd),
+        onPressed: () => _navigateToAddDocument(context),
         icon: const Icon(Icons.add_rounded),
         label: Text(context.l10n.add),
         backgroundColor: ThemeVisuals.of(selectedTheme).primary,
@@ -232,7 +313,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
           children: [
-            _VaultHeader(isDark: isDark),
+            _VaultHeader(isDark: isDark, onAdd: (ctx) => _navigateToAddDocument(ctx)),
             const SizedBox(height: 12),
             Text(
               context.l10n.docsInfoSecure,
@@ -254,7 +335,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      "Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.",
+                      context.l10n.externalAppWarning,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -271,18 +352,21 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
               controller: _searchController,
               query: _query,
               selectedCategory: _selectedCategory,
+              selectedTag: _selectedTag,
               sortMode: _sortMode,
               allLabel: _allLabel(context),
               sortLabel: (mode) => _sortLabel(context, mode),
               categoryLabel: (category) => _localizedCategory(context, category),
               onSearchChanged: (value) => setState(() => _query = value),
               onCategoryChanged: (value) => setState(() => _selectedCategory = value),
+              onTagChanged: (value) => setState(() => _selectedTag = value),
               onSortChanged: (value) => setState(() => _sortMode = value),
               onClear: () {
                 setState(() {
                   _query = '';
                   _searchController.clear();
                   _selectedCategory = null;
+                  _selectedTag = null;
                   _sortMode = _VaultSortMode.newest;
                 });
               },
@@ -292,7 +376,7 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
               data: (documents) {
                 final visibleDocuments = _visibleDocuments(documents);
                 if (documents.isEmpty) {
-                  return _EmptyVaultState(isDark: isDark, selectedTheme: selectedTheme, onAdd: () => context.push(AppRoutes.documentAdd));
+                  return _EmptyVaultState(isDark: isDark, selectedTheme: selectedTheme, onAdd: () => _navigateToAddDocument(context));
                 }
                 if (visibleDocuments.isEmpty) {
                   return _NoMatchingDocumentsState(isDark: isDark, onClear: () {
@@ -313,6 +397,8 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
                             document: doc,
                             onDelete: () => _confirmDelete(context, doc),
                             onEdit: () => _openQuickView(context, doc),
+                            onOpen: () => _openDocument(doc),
+                            onDownload: () => _downloadDocument(doc),
                             onTap: () => _openQuickView(context, doc),
                           ),
                         ),
@@ -342,33 +428,24 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
   }
 
   String _localizedCategory(BuildContext context, DocumentCategory category) {
-    return switch (category) {
-      DocumentCategory.documents => context.tr('docs_title'),
-      DocumentCategory.healthPrescriptions => context.tr('docs_category_prescriptions'),
-      DocumentCategory.healthReports => context.tr('docs_category_reports'),
-      DocumentCategory.healthTestResults => context.tr('docs_category_test_results'),
-      DocumentCategory.healthImages => context.tr('docs_category_images'),
-      DocumentCategory.identity => context.tr('docs_category_identity'),
-      DocumentCategory.finance => context.tr('docs_category_finance'),
-      DocumentCategory.legal => context.tr('docs_category_legal'),
-      DocumentCategory.notes => context.tr('docs_category_notes'),
-      DocumentCategory.other => context.tr('docs_category_other'),
-    };
+    return category.localizedLabel(context);
   }
 }
 
-class _VaultControls extends StatelessWidget {
+class _VaultControls extends ConsumerWidget {
   const _VaultControls({
     required this.isDark,
     required this.controller,
     required this.query,
     required this.selectedCategory,
+    required this.selectedTag,
     required this.sortMode,
     required this.allLabel,
     required this.sortLabel,
     required this.categoryLabel,
     required this.onSearchChanged,
     required this.onCategoryChanged,
+    required this.onTagChanged,
     required this.onSortChanged,
     required this.onClear,
   });
@@ -377,19 +454,24 @@ class _VaultControls extends StatelessWidget {
   final TextEditingController controller;
   final String query;
   final DocumentCategory? selectedCategory;
+  final String? selectedTag;
   final _VaultSortMode sortMode;
   final String allLabel;
   final String Function(_VaultSortMode mode) sortLabel;
   final String Function(DocumentCategory category) categoryLabel;
   final ValueChanged<String> onSearchChanged;
   final ValueChanged<DocumentCategory?> onCategoryChanged;
+  final ValueChanged<String?> onTagChanged;
   final ValueChanged<_VaultSortMode> onSortChanged;
   final VoidCallback onClear;
 
-  bool get _hasActiveFilter => query.trim().isNotEmpty || selectedCategory != null || sortMode != _VaultSortMode.newest;
+  bool get _hasActiveFilter =>
+      query.trim().isNotEmpty || selectedCategory != null || selectedTag != null || sortMode != _VaultSortMode.newest;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final availableTags = ref.watch(tagsProvider);
+
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -398,12 +480,13 @@ class _VaultControls extends StatelessWidget {
         border: Border.all(color: isDark ? AppColors.cardBorderDark : AppColors.cardBorderLight),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
             controller: controller,
             onChanged: onSearchChanged,
             decoration: InputDecoration(
-              hintText: context.l10n.docsSearchHint,
+              hintText: context.tr('docsSearchHint'),
               prefixIcon: const Icon(Icons.search_rounded),
               suffixIcon: query.trim().isEmpty
                   ? null
@@ -420,25 +503,55 @@ class _VaultControls extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            child: Row(
+              children: [
+                ChoiceChip(
+                  label: Text(context.tr('filterAll')),
+                  selected: selectedCategory == null && selectedTag == null,
+                  onSelected: (_) {
+                    onCategoryChanged(null);
+                    onTagChanged(null);
+                  },
+                ),
+                const SizedBox(width: 6),
+                ...DocumentCategory.values.map((cat) {
+                  final isSelected = selectedCategory == cat;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: ChoiceChip(
+                      label: Text(cat.localizedLabel(context)),
+                      selected: isSelected,
+                      onSelected: (val) {
+                        onCategoryChanged(val ? cat : null);
+                        onTagChanged(null);
+                      },
+                    ),
+                  );
+                }),
+                ...availableTags.map((tag) {
+                  final isSelected = selectedTag == tag;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: ChoiceChip(
+                      avatar: const Icon(Icons.label_outline_rounded, size: 14),
+                      label: Text(tag),
+                      selected: isSelected,
+                      onSelected: (val) {
+                        onTagChanged(val ? tag : null);
+                        onCategoryChanged(null);
+                      },
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(
-                child: DropdownButtonFormField<DocumentCategory?>(
-                  initialValue: selectedCategory,
-                  decoration: InputDecoration(
-                    labelText: context.l10n.category,
-                    filled: true,
-                    fillColor: isDark ? Colors.white.withValues(alpha: 0.05) : AppColors.brandMist,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide.none),
-                  ),
-                  items: [
-                    DropdownMenuItem<DocumentCategory?>(value: null, child: Text(allLabel)),
-                    ...DocumentCategory.values.map((category) => DropdownMenuItem<DocumentCategory?>(value: category, child: Text(categoryLabel(category)))),
-                  ],
-                  onChanged: onCategoryChanged,
-                ),
-              ),
-              const SizedBox(width: 12),
               Expanded(
                 child: DropdownButtonFormField<_VaultSortMode>(
                   initialValue: sortMode,
@@ -454,19 +567,16 @@ class _VaultControls extends StatelessWidget {
                   },
                 ),
               ),
+              if (_hasActiveFilter) ...[
+                const SizedBox(width: 10),
+                TextButton.icon(
+                  onPressed: onClear,
+                  icon: const Icon(Icons.filter_alt_off_rounded, size: 18),
+                  label: Text(context.tr('clear_filters')),
+                ),
+              ],
             ],
           ),
-          if (_hasActiveFilter) ...[
-            const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton.icon(
-                onPressed: onClear,
-                icon: const Icon(Icons.filter_alt_off_rounded, size: 18),
-                label: Text(context.tr('clear_filters')),
-              ),
-            ),
-          ],
         ],
       ),
     );
@@ -474,9 +584,10 @@ class _VaultControls extends StatelessWidget {
 }
 
 class _VaultHeader extends StatelessWidget {
-  const _VaultHeader({required this.isDark});
+  const _VaultHeader({required this.isDark, required this.onAdd});
 
   final bool isDark;
+  final void Function(BuildContext context) onAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -500,7 +611,7 @@ class _VaultHeader extends StatelessWidget {
         const SizedBox(width: 14),
         Expanded(child: Text(context.l10n.docsTitle, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900))),
         IconButton.filledTonal(
-          onPressed: () => context.push(AppRoutes.documentAdd),
+          onPressed: () => onAdd(context),
           icon: const Icon(Icons.add_rounded),
           tooltip: context.l10n.addDocument,
         ),
