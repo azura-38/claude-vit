@@ -1,3 +1,4 @@
+import '../../../../shared/data/services/notification_engine.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -6,9 +7,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/onboarding_provider.dart';
-import '../../../../core/di/service_providers.dart';
 import '../../../../shared/data/services/analytics_service.dart';
-import '../../../../core/types/runtime_types.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -179,13 +178,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 onPressed: kIsWeb
                     ? () => setState(() => _notificationsGranted = true)
                     : () async {
-                        final status = await ref
-                            .read(notificationServiceProvider)
-                            .requestPermissions(requestExactAlarm: true);
+                        await NotificationEngine.requestPermissions();
                         if (!mounted) return;
-                        if (status == NotificationPermissionState.granted) {
-                          setState(() => _notificationsGranted = true);
-                        }
+                        setState(() => _notificationsGranted = true);
                       },
                 icon: const Icon(Icons.notifications_active_rounded),
                 label: Text(

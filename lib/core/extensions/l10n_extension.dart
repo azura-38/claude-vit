@@ -149,6 +149,7 @@ const Map<String, Map<String, String>> _missingKeyLabels = {
 
 const Map<String, Map<String, String>> _dynamicFallbacks = {
   'en': {
+    'physical_metrics': 'Physical Metrics',
     'profile_photo': 'Profile photo',
     'profile_photo_add_desc': 'Add a photo to personalize your profile.',
     'profile_photo_selected': 'Photo selected. It will be saved with your profile.',
@@ -197,6 +198,7 @@ const Map<String, Map<String, String>> _dynamicFallbacks = {
     'full_screen_reminders_desc': 'Show critical medicine and appointment reminders over other apps or on the lock screen.',
   },
   'tr': {
+    'physical_metrics': 'Fiziksel Ölçümler',
     'profile_photo': 'Profil fotoğrafı',
     'profile_photo_add_desc': 'Profilini kişiselleştirmek için fotoğraf ekle.',
     'profile_photo_selected': 'Fotoğraf seçildi. Profilinle birlikte kaydedilecek.',

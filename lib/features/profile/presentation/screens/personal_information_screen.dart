@@ -373,7 +373,7 @@ class PersonalInformationScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.tr('physical_metrics') != 'Physical Metrics' ? context.tr('physical_metrics') : 'Fiziksel Ölçümler',
+                  context.tr('physical_metrics'),
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, fontFamily: 'Manrope'),
                 ),
                 IconButton.filledTonal(

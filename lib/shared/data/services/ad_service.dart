@@ -19,6 +19,7 @@ class AdService {
   RewardedInterstitialAd? _rewardedInterstitialAd;
 
   AdLoadStatus bannerStatus = AdLoadStatus.idle;
+  final ValueNotifier<AdLoadStatus> bannerStatusNotifier = ValueNotifier<AdLoadStatus>(AdLoadStatus.idle);
   AdLoadStatus rewardedStatus = AdLoadStatus.idle;
   AdLoadStatus appOpenStatus = AdLoadStatus.idle;
 
@@ -90,6 +91,7 @@ class AdService {
 
     _isBannerLoading = true;
     bannerStatus = AdLoadStatus.loading;
+    bannerStatusNotifier.value = AdLoadStatus.loading;
     final stopwatch = Stopwatch()..start();
 
     final ad = BannerAd(
@@ -101,6 +103,7 @@ class AdService {
           stopwatch.stop();
           bannerLoadTimeMs = stopwatch.elapsedMilliseconds;
           bannerStatus = AdLoadStatus.loaded;
+          bannerStatusNotifier.value = AdLoadStatus.loaded;
           lastBannerError = null;
           _isBannerLoading = false;
           _bannerRetryCount = 0;
@@ -115,6 +118,7 @@ class AdService {
           _preloadedBannerAd = null;
           _isBannerLoading = false;
           bannerStatus = AdLoadStatus.failed;
+          bannerStatusNotifier.value = AdLoadStatus.failed;
           lastBannerError = '${error.code}: ${error.message}';
           if (kDebugMode) {
             debugPrint('[AdService] Banner load failed after ${stopwatch.elapsedMilliseconds}ms: $lastBannerError');
@@ -122,7 +126,7 @@ class AdService {
 
           if (_bannerRetryCount < 5) {
             _bannerRetryCount++;
-            final delaySeconds = (1 << _bannerRetryCount).clamp(2, 30);
+            final delaySeconds = (1 << _bannerRetryCount).clamp(2, 10);
             Future.delayed(Duration(seconds: delaySeconds), () {
               preloadBannerAd();
             });
@@ -139,6 +143,7 @@ class AdService {
       final claimedAd = _preloadedBannerAd;
       _preloadedBannerAd = null;
       bannerStatus = AdLoadStatus.idle;
+      bannerStatusNotifier.value = AdLoadStatus.idle;
       Future.microtask(() => preloadBannerAd());
       return claimedAd;
     }
@@ -175,10 +180,9 @@ class AdService {
           if (kDebugMode) {
             debugPrint('[AdService] Rewarded loaded in ${rewardedLoadTimeMs}ms ✅');
           }
-
-          final c = _rewardedLoadCompleter;
-          _rewardedLoadCompleter = null;
-          if (c != null && !c.isCompleted) c.complete(ad);
+          if (_rewardedLoadCompleter != null && !_rewardedLoadCompleter!.isCompleted) {
+            _rewardedLoadCompleter!.complete(ad);
+          }
         },
         onAdFailedToLoad: (error) {
           stopwatch.stop();
@@ -189,14 +193,13 @@ class AdService {
           if (kDebugMode) {
             debugPrint('[AdService] Rewarded load failed after ${stopwatch.elapsedMilliseconds}ms: $lastRewardedError');
           }
-
-          final c = _rewardedLoadCompleter;
-          _rewardedLoadCompleter = null;
-          if (c != null && !c.isCompleted) c.complete(null);
+          if (_rewardedLoadCompleter != null && !_rewardedLoadCompleter!.isCompleted) {
+            _rewardedLoadCompleter!.complete(null);
+          }
 
           if (_rewardedRetryCount < 5) {
             _rewardedRetryCount++;
-            final delaySeconds = (1 << _rewardedRetryCount).clamp(2, 30);
+            final delaySeconds = (1 << _rewardedRetryCount).clamp(2, 10);
             Future.delayed(Duration(seconds: delaySeconds), () {
               preloadRewardedAd();
             });
@@ -208,9 +211,7 @@ class AdService {
     return _rewardedLoadCompleter!.future;
   }
 
-  Future<RewardedAd?> loadRewarded() => preloadRewardedAd();
-
-  // ── APP OPEN PRELOAD & SHOW ──────────────────────────────────────────────
+  // ── APP OPEN AD ──────────────────────────────────────────────────────────
   void preloadAppOpenAd() {
     if (!_adsAvailable || AppConfig.appOpenAdId.isEmpty) return;
     if (_isAppOpenLoading || appOpenStatus == AdLoadStatus.loaded) return;
@@ -247,7 +248,7 @@ class AdService {
 
           if (_appOpenRetryCount < 5) {
             _appOpenRetryCount++;
-            final delaySeconds = (1 << _appOpenRetryCount).clamp(2, 30);
+            final delaySeconds = (1 << _appOpenRetryCount).clamp(2, 10);
             Future.delayed(Duration(seconds: delaySeconds), () {
               preloadAppOpenAd();
             });

@@ -1,3 +1,4 @@
+import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'dart:ui';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -193,7 +194,7 @@ class _RewardDialogState extends State<RewardDialog> {
                           children: [
                             // Upper tag label
                             Text(
-                              "SEVİYE ATLADIN!",
+                              context.tr("achievement_unlocked").toUpperCase(),
                               style: TextStyle(
                                 fontSize: 9,
                                 fontWeight: FontWeight.w900,

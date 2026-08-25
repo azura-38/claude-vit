@@ -36,6 +36,13 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
   bool _isLoaded = false;
   bool _loadFailed = false;
   String? _lastError;
+  bool _listeningToPreload = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _attachPreloadListener();
+  }
 
   @override
   void didChangeDependencies() {
@@ -43,8 +50,44 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
     _loadBannerIfNeeded();
   }
 
+  void _attachPreloadListener() {
+    if (!_listeningToPreload) {
+      AdService().bannerStatusNotifier.addListener(_onPreloadStatusChanged);
+      _listeningToPreload = true;
+    }
+  }
+
+  void _detachPreloadListener() {
+    if (_listeningToPreload) {
+      AdService().bannerStatusNotifier.removeListener(_onPreloadStatusChanged);
+      _listeningToPreload = false;
+    }
+  }
+
+  void _onPreloadStatusChanged() {
+    if (!mounted || _bannerAd != null) return;
+
+    if (AdService().bannerStatus == AdLoadStatus.loaded) {
+      final preloaded = AdService().claimPreloadedBanner();
+      if (preloaded != null) {
+        setState(() {
+          _bannerAd = preloaded;
+          _isLoaded = true;
+          _loadFailed = false;
+          _lastError = null;
+        });
+      }
+    } else if (AdService().bannerStatus == AdLoadStatus.failed) {
+      setState(() {
+        _loadFailed = true;
+        _lastError = AdService().lastBannerError;
+      });
+    }
+  }
+
   @override
   void dispose() {
+    _detachPreloadListener();
     _bannerAd?.dispose();
     super.dispose();
   }
@@ -57,7 +100,7 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
     }
     if (_bannerAd != null) return;
 
-    // Check preloaded banner cache from AdService
+    // 1. Check preloaded banner cache from AdService
     final preloaded = AdService().claimPreloadedBanner();
     if (preloaded != null) {
       setState(() {
@@ -69,44 +112,13 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
       return;
     }
 
-    final stopwatch = Stopwatch()..start();
-    final ad = BannerAd(
-      adUnitId: AppConfig.bannerAdId,
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          stopwatch.stop();
-          if (!mounted) return;
-          if (kDebugMode) {
-            debugPrint('[VitaCaseBannerAd] loaded in ${stopwatch.elapsedMilliseconds}ms');
-          }
-          setState(() {
-            _bannerAd = ad as BannerAd;
-            _isLoaded = true;
-            _loadFailed = false;
-            _lastError = null;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          stopwatch.stop();
-          ad.dispose();
-          if (!mounted) return;
-          if (kDebugMode) {
-            debugPrint('[VitaCaseBannerAd] failed after ${stopwatch.elapsedMilliseconds}ms: ${error.code} ${error.message}');
-          }
-          setState(() {
-            _bannerAd = null;
-            _isLoaded = false;
-            _loadFailed = true;
-            _lastError = '${error.code}: ${error.message}';
-          });
-        },
-      ),
-    );
+    // 2. If AdService is actively loading in the background, wait for its completion via listener
+    if (AdService().bannerStatus == AdLoadStatus.loading) {
+      return;
+    }
 
-    _bannerAd = ad;
-    ad.load();
+    // 3. Otherwise, trigger AdService preload
+    AdService().preloadBannerAd();
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'dart:async';
 import 'dart:math';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -48,6 +49,16 @@ class NotificationEngine {
     if (requestPermission) {
       await requestPermissions();
     }
+  }
+
+  
+  static bool _timezoneInitialized = false;
+  static void ensureTimezoneInitialized() {
+    if (_timezoneInitialized) return;
+    try {
+      tz.initializeTimeZones();
+      _timezoneInitialized = true;
+    } catch (_) {}
   }
 
   static Future<void> initializeCore() async {

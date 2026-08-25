@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/di/repository_providers.dart';
-import '../../core/di/service_providers.dart';
 import '../../core/notifications/app_notification_payload.dart';
-import '../../core/types/runtime_types.dart';
 import '../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../../features/medications/domain/entities/medicine.dart';
 import '../data/services/analytics_service.dart';
@@ -160,12 +158,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   }
 
   Future<void> _scheduleNotifications(Medicine medicine) async {
-    final notifier = ref.read(notificationServiceProvider);
-    final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
-    if (permissionState != NotificationPermissionState.granted) {
-      AnalyticsService.log(AnalyticsService.medicineReminderPermissionDenied);
-      return;
-    }
+    await NotificationEngine.requestPermissions();
 
     for (final date in _generatedDates(medicine)) {
       await NotificationEngine.scheduleMedicine(

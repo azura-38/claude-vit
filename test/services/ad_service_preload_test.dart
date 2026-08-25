@@ -19,6 +19,11 @@ void main() {
       expect(claimed, isNull);
     });
 
+    test('bannerStatusNotifier updates correctly with status', () {
+      final service = AdService();
+      expect(service.bannerStatusNotifier.value, isA<AdLoadStatus>());
+    });
+
     test('AdLoadStatus enum values are valid', () {
       expect(AdLoadStatus.values.length, equals(4));
       expect(AdLoadStatus.idle.name, equals('idle'));

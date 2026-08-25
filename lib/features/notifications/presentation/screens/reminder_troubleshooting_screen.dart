@@ -6,7 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/bootstrap/app_bootstrap_controller.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/di/service_providers.dart';
 import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
 import '../../../../shared/data/services/notification_engine.dart';
@@ -51,7 +50,6 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
   Future<void> _requestNotificationPermission() async {
     final msg = context.l10n.snackNotifChecked;
     await _runBusy(() async {
-      await ref.read(notificationServiceProvider).requestPermissions();
       await NotificationEngine.requestPermissions();
       await _refreshStatus();
       _snack(msg);
@@ -61,7 +59,6 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
   Future<void> _requestExactAlarmPermission() async {
     final msg = context.l10n.snackExactAlarmRequested;
     await _runBusy(() async {
-      await ref.read(notificationServiceProvider).requestPermissions(requestExactAlarm: true);
       await NotificationEngine.requestPermissions();
       await _refreshStatus();
       _snack(msg);

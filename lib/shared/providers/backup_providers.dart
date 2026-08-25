@@ -27,7 +27,7 @@ class BackupActionNotifier extends AsyncNotifier<void> {
         1,
       ); // vitacase_backup.zip
       final result = await FilePicker.saveFile(
-        dialogTitle: 'Yedeği Kaydet',
+        dialogTitle: 'Export Backup',
         fileName: fileName,
         allowedExtensions: ['zip'],
         type: FileType.custom,

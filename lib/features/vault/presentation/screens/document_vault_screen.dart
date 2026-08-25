@@ -166,13 +166,14 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
   }
 
   Future<void> _openDocument(Document doc) async {
+    dynamic decryptedFile;
+    final fileStorage = ref.read(fileStorageServiceProvider);
     try {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(context.l10n.openingFile), duration: const Duration(seconds: 1)),
       );
-      final fileStorage = ref.read(fileStorageServiceProvider);
-      final decryptedFile = await fileStorage.getFile(doc.localPath);
+      decryptedFile = await fileStorage.getFile(doc.localPath);
       final filePath = (decryptedFile as dynamic).path as String;
       final result = await OpenFilex.open(filePath);
       if (!mounted) return;
@@ -186,6 +187,11 @@ class _DocumentVaultScreenState extends ConsumerState<DocumentVaultScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(context.tr('open_failed'))),
       );
+    } finally {
+      if (decryptedFile != null) {
+        final filePath = (decryptedFile as dynamic).path as String;
+        await fileStorage.cleanupTempFile(filePath);
+      }
     }
   }
 

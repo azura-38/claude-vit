@@ -1,17 +1,14 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../firebase_options.dart';
 import '../../shared/providers/document_providers.dart';
 import '../../shared/data/services/consent_service.dart';
 import '../../shared/data/services/notification_engine.dart';
-import '../../shared/data/services/notification_service.dart';
 import '../../shared/providers/medicine_providers.dart';
 import '../../features/appointments/presentation/providers/appointment_providers.dart';
 import '../../core/notifications/notification_navigation.dart';
@@ -20,6 +17,7 @@ import '../../core/utils/uid_manager.dart';
 import '../../shared/providers/shared_prefs_provider.dart';
 import '../../shared/providers/onboarding_provider.dart';
 import '../../features/profile/presentation/providers/legacy_providers.dart';
+import '../error/global_error_handler.dart';
 
 const _kLastRescheduleKey = 'last_notification_reschedule_ts';
 const _kRescheduleGapMinutes = 30;
@@ -39,7 +37,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
       await _executeAllPhases(container);
       state = const AsyncData(null);
     } catch (e, st) {
-      debugPrint('[Bootstrap] Fatal error: $e');
+      debugPrint('[Bootstrap] Fatal error: ');
       debugPrintStack(stackTrace: st);
       try {
         await Sentry.captureException(e, stackTrace: st);
@@ -54,8 +52,8 @@ class AppBootstrapController extends AsyncNotifier<void> {
   }
 
   Future<void> _executeAllPhases(ProviderContainer container) async {
-    _setupErrorHandlers();
-    _log('Phase 0: Error handlers installed');
+    GlobalErrorHandler.initialize();
+    _log('Phase 0: Centralized error handler installed');
 
     if (kIsWeb) {
       _log('Web preview detected — skipping mobile-only bootstrap phases ✅');
@@ -70,7 +68,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
     try {
       await sembastDb.init(encryptionService);
     } catch (e, st) {
-      debugPrint('[Bootstrap][sembast_init] FATAL DB error: $e');
+      debugPrint('[Bootstrap][sembast_init] FATAL DB error: ');
       debugPrintStack(stackTrace: st);
       try {
         await Sentry.captureException(e, stackTrace: st);
@@ -84,7 +82,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
     try {
       await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     } catch (e, st) {
-      debugPrint('[Bootstrap][firebase] FATAL Firebase error: $e');
+      debugPrint('[Bootstrap][firebase] FATAL Firebase error: ');
       debugPrintStack(stackTrace: st);
       try {
         await Sentry.captureException(e, stackTrace: st);
@@ -98,7 +96,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
     _log('Phase 3: Ads + notification core init...');
     await Future.wait([
       _safeRun('ads_init', ConsentService().initializeAdsWithConsent()),
-      _safeRun('notif_service_core', NotificationService.initCore()),
       _safeRun('notif_engine_core', NotificationEngine.initializeCore()),
     ]);
     _log('Phase 3: Ads + notification core ✅');
@@ -107,16 +104,12 @@ class AppBootstrapController extends AsyncNotifier<void> {
     await _safeRun('file_storage', container.read(fileStorageServiceProvider).init());
     _log('Phase 4: File storage ✅');
 
-    _log('Phase 5: Crashlytics...');
-    await _safeRun('crashlytics', _setupCrashlytics());
-    _log('Phase 5: Crashlytics ✅');
-
-    _log('Phase 6: Identity...');
+    _log('Phase 5: Identity...');
     await _safeRun('identity', _configureIdentity());
-    _log('Phase 6: Identity ✅');
+    _log('Phase 5: Identity ✅');
 
     _schedulePostFrameWork(container);
-    _log('Phase 7: Deferred work scheduled ✅');
+    _log('Phase 6: Deferred work scheduled ✅');
   }
 
   Future<void> _initializeLocalizationOnly() {
@@ -132,61 +125,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
       _safeRun('date_ja', initializeDateFormatting('ja_JP', null)),
       _safeRun('date_zh', initializeDateFormatting('zh_CN', null)),
     ]);
-  }
-
-  static Future<void> persistError(String message, String stack) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('last_error_message', message);
-      await prefs.setString('last_error_stack', stack);
-      await prefs.setInt('last_error_ts', DateTime.now().millisecondsSinceEpoch);
-    } catch (e) {
-      debugPrint('[Bootstrap] Failed to locally persist error: $e');
-    }
-  }
-
-  void _setupErrorHandlers() {
-    FlutterError.onError = (details) {
-      debugPrint('[FlutterError] ${details.exceptionAsString()}');
-      if (details.stack != null) {
-        debugPrintStack(stackTrace: details.stack, label: '[FlutterError stack]');
-      }
-      persistError(details.exceptionAsString(), details.stack?.toString() ?? '');
-      if (!kIsWeb) {
-        try {
-          if (Firebase.apps.isNotEmpty) {
-            FirebaseCrashlytics.instance.recordFlutterError(details);
-          }
-        } catch (_) {}
-      }
-    };
-
-    PlatformDispatcher.instance.onError = (error, stack) {
-      debugPrint('[PlatformError] $error');
-      debugPrintStack(stackTrace: stack, label: '[PlatformError stack]');
-      persistError(error.toString(), stack.toString());
-      if (!kIsWeb) {
-        try {
-          if (Firebase.apps.isNotEmpty) {
-            FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-          }
-        } catch (_) {}
-      }
-      return true;
-    };
-  }
-
-  Future<void> _setupCrashlytics() async {
-    if (kIsWeb) return;
-    final originalOnError = FlutterError.onError;
-    FlutterError.onError = (details) {
-      try {
-        FirebaseCrashlytics.instance.recordFlutterError(details);
-      } catch (_) {}
-      if (originalOnError != null) {
-        originalOnError(details);
-      }
-    };
   }
 
   Future<void> _configureIdentity() async {
@@ -206,7 +144,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
     if (kIsWeb) return;
 
     _log('Deferred: Requesting notification permissions...');
-    await _safeRun('notif_permissions', NotificationService.requestStartupPermissions());
     await _safeRun('engine_permissions', NotificationEngine.requestPermissions());
 
     _log('Deferred: Starting notification listeners...');
@@ -222,7 +159,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
       _log('Deferred: Scheduling daily engagement notification...');
       await _safeRun('engagement_notif', NotificationEngine.scheduleDailyEngagementNotification());
     } else {
-      _log('Deferred: Skipping engagement notification (onboarding=$onboardingCompleted, profile=$profileCreated, legal=$legalAccepted)');
+      _log('Deferred: Skipping engagement notification (onboarding=, profile=, legal=)');
     }
   }
 
@@ -233,7 +170,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
         try {
           container.read(pendingNotificationRouteProvider.notifier).setFromPayload(payload);
         } catch (e) {
-          debugPrint('[Bootstrap] Failed to set notification route: $e');
+          debugPrint('[Bootstrap] Failed to set notification route: ');
         }
       }
 
@@ -258,11 +195,11 @@ class AppBootstrapController extends AsyncNotifier<void> {
     final gapMinutes = DateTime.now().difference(lastReschedule).inMinutes;
 
     if (!force && gapMinutes < _kRescheduleGapMinutes) {
-      _log('Skipping reschedule — last ran ${gapMinutes}m ago (gate: ${_kRescheduleGapMinutes}m)');
+      _log('Skipping reschedule — last ran m ago (gate: m)');
       return;
     }
 
-    _log('Running notification reschedule from ref (force: $force, gap: ${gapMinutes}m)...');
+    _log('Running notification reschedule from ref (force: , gap: m)...');
     final meds = await ref.read(medicineListProvider.future);
     final appts = await ref.read(appointmentListProvider.future);
 
@@ -280,11 +217,11 @@ class AppBootstrapController extends AsyncNotifier<void> {
     final gapMinutes = DateTime.now().difference(lastReschedule).inMinutes;
 
     if (!force && gapMinutes < _kRescheduleGapMinutes) {
-      _log('Skipping reschedule — last ran ${gapMinutes}m ago (gate: ${_kRescheduleGapMinutes}m)');
+      _log('Skipping reschedule — last ran m ago (gate: m)');
       return;
     }
 
-    _log('Running notification reschedule (force: $force, gap: ${gapMinutes}m)...');
+    _log('Running notification reschedule (force: , gap: m)...');
     final meds = await container.read(medicineListProvider.future);
     final appts = await container.read(appointmentListProvider.future);
 
@@ -299,8 +236,8 @@ class AppBootstrapController extends AsyncNotifier<void> {
     try {
       await future;
     } catch (e, st) {
-      debugPrint('[Bootstrap][$tag] Non-fatal error: $e');
-      debugPrintStack(stackTrace: st, label: '[Bootstrap][$tag] stack');
+      debugPrint('[Bootstrap][] Non-fatal error: ');
+      debugPrintStack(stackTrace: st, label: '[Bootstrap][] stack');
       try {
         await Sentry.captureException(e, stackTrace: st);
       } catch (_) {}
@@ -308,6 +245,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
   }
 
   void _log(String message) {
-    if (kDebugMode) debugPrint('[Bootstrap] $message');
+    if (kDebugMode) debugPrint('[Bootstrap] ');
   }
 }

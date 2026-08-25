@@ -2,9 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/di/repository_providers.dart';
-import '../../../../core/di/service_providers.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
-import '../../../../core/types/runtime_types.dart';
 import '../../../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../../../../shared/data/services/analytics_service.dart';
 import '../../../../shared/data/services/notification_engine.dart';
@@ -122,12 +120,7 @@ class AppointmentListNotifier extends AsyncNotifier<List<Appointment>> {
   }
 
   Future<void> _scheduleReminders(Appointment app) async {
-    final notifier = ref.read(notificationServiceProvider);
-    final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
-    if (permissionState != NotificationPermissionState.granted) {
-      AnalyticsService.log(AnalyticsService.appointmentReminderPermissionDenied);
-      return;
-    }
+    await NotificationEngine.requestPermissions();
 
     final now = DateTime.now();
     final prefs = ref.read(sharedPreferencesProvider);

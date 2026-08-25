@@ -103,14 +103,21 @@ class FileStorageService {
   }
 
   Future<void> cleanupTempFile(String path) async {
-    if (!p.basename(path).startsWith('decrypted_')) return;
-    final tempDir = await getTemporaryDirectory();
-    if (!path.startsWith(tempDir.path)) return;
-    final file = File(path);
-    if (await file.exists()) {
-      try {
+    try {
+      final base = p.basename(path);
+      if (!base.startsWith('decrypted_')) return;
+      final tempDir = await getTemporaryDirectory();
+      final canonicalTemp = p.canonicalize(tempDir.path);
+      final canonicalPath = p.canonicalize(path);
+      if (!p.isWithin(canonicalTemp, canonicalPath) && canonicalTemp != p.dirname(canonicalPath)) {
+        return;
+      }
+      final file = File(canonicalPath);
+      if (await file.exists()) {
         await file.delete();
-      } catch (_) {}
+      }
+    } catch (e) {
+      // Non-fatal cleanup failure
     }
   }
 
@@ -150,9 +157,9 @@ class FileStorageService {
   }) async {
     if (!Platform.isAndroid) return null;
     
-    final tempDecryptedFile = await getFile(relativePath);
-    
+    File? tempDecryptedFile;
     try {
+      tempDecryptedFile = await getFile(relativePath);
       const channel = MethodChannel('vitacase/downloads');
       final result = await channel.invokeMethod<String>('saveToDownloads', {
         'tempPath': tempDecryptedFile.path,
@@ -162,6 +169,10 @@ class FileStorageService {
       return result;
     } catch (e) {
       throw FileSystemException('Could not save file to downloads: $e');
+    } finally {
+      if (tempDecryptedFile != null) {
+        await cleanupTempFile(tempDecryptedFile.path);
+      }
     }
   }
 }

@@ -113,12 +113,13 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
   }
 
   Future<void> _openDocument() async {
+    dynamic decryptedFile;
+    final fileStorage = ref.read(fileStorageServiceProvider);
     try {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.openingFile), duration: const Duration(seconds: 1)));
       
-      final fileStorage = ref.read(fileStorageServiceProvider);
-      final decryptedFile = await fileStorage.getFile(_document.localPath);
+      decryptedFile = await fileStorage.getFile(_document.localPath);
       final filePath = (decryptedFile as dynamic).path as String;
       
       final result = await OpenFilex.open(filePath);
@@ -129,6 +130,11 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+    } finally {
+      if (decryptedFile != null) {
+        final filePath = (decryptedFile as dynamic).path as String;
+        await fileStorage.cleanupTempFile(filePath);
+      }
     }
   }
 
