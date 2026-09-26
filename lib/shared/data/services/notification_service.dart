@@ -1,12 +1,191 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/foundation.dart';
 import '../../../core/l10n/translations.dart';
 import '../../../core/notifications/app_notification_payload.dart';
+import '../../../core/notifications/notification_id_manager.dart';
 import '../../../core/types/runtime_types.dart';
+
+/// Platform-level adapter interface for notifications.
+///
+/// Isolates platform-channel dependencies so that the core logic, timezone
+/// safety, idempotency, and error handling can be tested reliably without
+/// an Android device or emulator.
+abstract class NotificationPlatformAdapter {
+  Future<bool> initialize({
+    required void Function(NotificationResponse) onDidReceiveNotificationResponse,
+    bool useFallbackIcon = false,
+  });
+
+  Future<NotificationPermissionState> requestPermissions({
+    bool requestExactAlarm = false,
+  });
+
+  Future<void> show({
+    required int id,
+    required String title,
+    required String body,
+    required String channelId,
+    required String channelName,
+    String? payload,
+    bool useFallbackIcon = false,
+  });
+
+  Future<void> zonedSchedule({
+    required int id,
+    required String title,
+    required String body,
+    required tz.TZDateTime scheduledDate,
+    required String channelId,
+    required String channelName,
+    String? payload,
+    bool useFallbackIcon = false,
+    bool isMedication = false,
+  });
+
+  Future<void> cancel({required int id});
+
+  Future<void> cancelAll();
+
+  Future<List<PendingNotificationRequest>> getPendingNotificationRequests() async => const [];
+}
+
+/// Default implementation delegating to [FlutterLocalNotificationsPlugin].
+class DefaultNotificationPlatformAdapter implements NotificationPlatformAdapter {
+  final FlutterLocalNotificationsPlugin _plugin = FlutterLocalNotificationsPlugin();
+
+  @override
+  Future<bool> initialize({
+    required void Function(NotificationResponse) onDidReceiveNotificationResponse,
+    bool useFallbackIcon = false,
+  }) async {
+    final androidSettings = AndroidInitializationSettings(
+      useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_notification',
+    );
+    const ios = DarwinInitializationSettings();
+
+    final result = await _plugin.initialize(
+      settings: InitializationSettings(
+        android: androidSettings,
+        iOS: ios,
+      ),
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
+    return result ?? true;
+  }
+
+  @override
+  Future<NotificationPermissionState> requestPermissions({
+    bool requestExactAlarm = false,
+  }) async {
+    final android = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    final granted = await android?.requestNotificationsPermission() ?? true;
+    if (requestExactAlarm) {
+      await android?.requestExactAlarmsPermission();
+    }
+    return granted
+        ? NotificationPermissionState.granted
+        : NotificationPermissionState.denied;
+  }
+
+  @override
+  Future<void> show({
+    required int id,
+    required String title,
+    required String body,
+    required String channelId,
+    required String channelName,
+    String? payload,
+    bool useFallbackIcon = false,
+  }) async {
+    final android = AndroidNotificationDetails(
+      channelId,
+      channelName,
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_notification',
+      visibility: NotificationVisibility.private,
+    );
+    await _plugin.show(
+      id: id,
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(android: android),
+      payload: payload,
+    );
+  }
+
+  @override
+  Future<void> zonedSchedule({
+    required int id,
+    required String title,
+    required String body,
+    required tz.TZDateTime scheduledDate,
+    required String channelId,
+    required String channelName,
+    String? payload,
+    bool useFallbackIcon = false,
+    bool isMedication = false,
+  }) async {
+    final androidDetails = isMedication
+        ? AndroidNotificationDetails(
+            'med_channel',
+            'Medication',
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_medication_notification',
+            visibility: NotificationVisibility.private,
+            actions: const [
+              AndroidNotificationAction('TAKEN', 'Taken'),
+              AndroidNotificationAction('SKIPPED', 'Skipped'),
+            ],
+          )
+        : AndroidNotificationDetails(
+            channelId,
+            channelName,
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_appointment_notification',
+            visibility: NotificationVisibility.private,
+          );
+
+    await _plugin.zonedSchedule(
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: scheduledDate,
+      notificationDetails: NotificationDetails(android: androidDetails),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      payload: payload,
+    );
+  }
+
+  @override
+  Future<void> cancel({required int id}) async {
+    await _plugin.cancel(id: id);
+  }
+
+  @override
+  Future<void> cancelAll() async {
+    await _plugin.cancelAll();
+  }
+
+  @override
+  Future<List<PendingNotificationRequest>> getPendingNotificationRequests() async {
+    try {
+      return await _plugin.pendingNotificationRequests();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] pendingNotificationRequests error: $e');
+      }
+      return const [];
+    }
+  }
+}
 
 class NotificationService {
   static NotificationService? _instance;
@@ -15,41 +194,36 @@ class NotificationService {
   static Future<void> Function(String id)? _onMedicineSkipped;
   static void Function(String payload)? _onNotificationRoute;
   static const int engagementId = 9999;
-  static const String _androidNotificationIcon = 'ic_notification';
-  static final FlutterLocalNotificationsPlugin _plugin =
-      FlutterLocalNotificationsPlugin();
   static bool _useFallbackIcon = false;
-
-  static AndroidNotificationDetails get _androidDetails =>
-      AndroidNotificationDetails(
-        'vitacase_channel',
-        'VitaCase Notifications',
-        importance: Importance.max,
-        priority: Priority.high,
-        icon: _useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_appointment_notification',
-        visibility: NotificationVisibility.private,
-      );
-
-  static AndroidNotificationDetails get _medicationAndroidDetails =>
-      AndroidNotificationDetails(
-        'med_channel',
-        'Medication',
-        importance: Importance.max,
-        priority: Priority.high,
-        icon: _useFallbackIcon ? '@mipmap/ic_launcher' : 'ic_medication_notification',
-        visibility: NotificationVisibility.private,
-        actions: const [
-          AndroidNotificationAction('TAKEN', 'Taken'),
-          AndroidNotificationAction('SKIPPED', 'Skipped'),
-        ],
-      );
-
   static bool _isInitialized = false;
+  static bool _permissionsRequested = false;
+  static Future<void>? _initCoreFuture;
+
+  static NotificationPlatformAdapter _adapter = DefaultNotificationPlatformAdapter();
+
+  @visibleForTesting
+  static void setAdapterForTesting(NotificationPlatformAdapter adapter) {
+    _adapter = adapter;
+  }
+
+  @visibleForTesting
+  static void resetForTesting() {
+    _isInitialized = false;
+    _initCoreFuture = null;
+    _permissionsRequested = false;
+    _useFallbackIcon = false;
+    _adapter = DefaultNotificationPlatformAdapter();
+    _instance = null;
+    _prefs = null;
+  }
 
   NotificationService(SharedPreferences prefs) {
     _prefs = prefs;
     _instance = this;
   }
+
+  static bool get isInitialized => _isInitialized;
+  bool get initialized => _isInitialized;
 
   static void setMedicineActionHandlers({
     required Future<void> Function(String id) onTaken,
@@ -65,30 +239,62 @@ class NotificationService {
 
   static NotificationService? get instance => _instance;
 
+  /// Ensures timezone data is loaded and local location is set safely.
+  ///
+  /// Never throws [LocationNotFoundException]. Uses [tz.UTC] if local lookup fails.
+  static void ensureTimezoneInitialized() {
+    try {
+      tz.initializeTimeZones();
+    } catch (_) {}
+    try {
+      // Accessing tz.local verifies it is valid
+      final _ = tz.local;
+    } catch (_) {
+      tz.setLocalLocation(tz.UTC);
+    }
+  }
+
+  /// Safe, idempotent initialization of core notification resources.
+  ///
+  /// Calling multiple times does not recreate state or crash the app.
+  /// Does NOT block or prompt the user for permissions.
   static Future<void> initCore() async {
     if (_isInitialized) return;
-    _prefs ??= await SharedPreferences.getInstance();
+    if (_initCoreFuture != null) {
+      await _initCoreFuture;
+      return;
+    }
 
-    tz.initializeTimeZones();
+    _initCoreFuture = _performInitCore();
+    try {
+      await _initCoreFuture;
+    } finally {
+      _initCoreFuture = null;
+    }
+  }
+
+  static Future<void> _performInitCore() async {
+    try {
+      _prefs ??= await SharedPreferences.getInstance();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] SharedPreferences init warning: $e');
+      }
+    }
+
+    ensureTimezoneInitialized();
     try {
       final String name = await FlutterTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(name));
-    } catch (e) {
-      tz.setLocalLocation(tz.getLocation('UTC'));
+    } catch (_) {
+      // Safe fallback: NEVER use tz.getLocation('UTC')
+      tz.setLocalLocation(tz.UTC);
     }
 
     try {
-      const androidSettings = AndroidInitializationSettings(
-        _androidNotificationIcon,
-      );
-      const ios = DarwinInitializationSettings();
-
-      await _plugin.initialize(
-        settings: const InitializationSettings(
-          android: androidSettings,
-          iOS: ios,
-        ),
+      await _adapter.initialize(
         onDidReceiveNotificationResponse: _onTap,
+        useFallbackIcon: false,
       );
     } catch (e) {
       if (kDebugMode) {
@@ -96,16 +302,9 @@ class NotificationService {
       }
       try {
         _useFallbackIcon = true;
-        const androidSettingsFallback = AndroidInitializationSettings(
-          '@mipmap/ic_launcher',
-        );
-        const ios = DarwinInitializationSettings();
-        await _plugin.initialize(
-          settings: const InitializationSettings(
-            android: androidSettingsFallback,
-            iOS: ios,
-          ),
+        await _adapter.initialize(
           onDidReceiveNotificationResponse: _onTap,
+          useFallbackIcon: true,
         );
       } catch (fallbackError) {
         if (kDebugMode) {
@@ -120,20 +319,23 @@ class NotificationService {
     }
   }
 
+  /// Non-blocking, safe permission request at startup.
+  ///
+  /// Idempotent: will not spam the user on repeated calls.
   static Future<void> requestStartupPermissions() async {
-    if (!_isInitialized) await initCore();
+    if (_permissionsRequested) return;
+    _permissionsRequested = true;
 
-    final android =
-        _plugin
-            .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin
-            >();
-
-    await android?.requestNotificationsPermission();
-    await android?.requestExactAlarmsPermission();
-
-    if (kDebugMode) {
-      debugPrint('[NotificationService] Permissions requested ✅');
+    try {
+      if (!_isInitialized) await initCore();
+      await _adapter.requestPermissions();
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Permissions requested ✅');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Startup permission request warning: $e');
+      }
     }
   }
 
@@ -171,26 +373,21 @@ class NotificationService {
   Future<NotificationPermissionState> requestPermissions({
     bool requestExactAlarm = false,
   }) async {
-    final android =
-        _plugin
-            .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin
-            >();
-    final granted = await android?.requestNotificationsPermission() ?? true;
-    if (requestExactAlarm) await android?.requestExactAlarmsPermission();
-    return granted
-        ? NotificationPermissionState.granted
-        : NotificationPermissionState.denied;
+    try {
+      if (!_isInitialized) await initCore();
+      return await _adapter.requestPermissions(
+        requestExactAlarm: requestExactAlarm,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Permission request warning: $e');
+      }
+      return NotificationPermissionState.denied;
+    }
   }
 
   static int getStableIdStatic(String uuid, [int offset = 0]) {
-    int hash = 0x811c9dc5;
-    for (int i = 0; i < uuid.length; i++) {
-      hash ^= uuid.codeUnitAt(i);
-      hash *= 0x01000193;
-      hash &= 0xFFFFFFFF;
-    }
-    return ((hash.abs() ^ (offset * 0x01000193)) & 0x7FFFFFFF);
+    return NotificationIdManager.getStableIdLegacy(uuid, offset);
   }
 
   static String safeMedicationBodyStatic(String name) {
@@ -205,77 +402,216 @@ class NotificationService {
   }
 
   static String buildKey(String id, DateTime date) {
-    return "${id}_${date.millisecondsSinceEpoch}";
+    return NotificationIdManager.buildKey(id, date);
   }
 
-  static Future<void> schedule({
+  /// Core scheduling method.
+  ///
+  /// Guarantees timezone initialization, safe input handling, error containment,
+  /// and non-colliding deterministic notification IDs.
+  static Future<bool> schedule({
     required String id,
     required String title,
     required String body,
     required DateTime date,
     AppNotificationPayload? payload,
+    NotificationType? type,
   }) async {
-    await init();
-    if (kDebugMode) debugPrint("Scheduling notification at: $date");
+    try {
+      if (!_isInitialized) {
+        await initCore();
+      } else {
+        ensureTimezoneInitialized();
+      }
 
-    final notifId = id.contains('engagement')
-        ? engagementId
-        : getStableIdStatic(buildKey(id, date));
+      // Safe date validation: Reject dates before epoch or invalid timestamps
+      if (date.millisecondsSinceEpoch <= 0) {
+        if (kDebugMode) {
+          debugPrint('[NotificationService] Scheduling rejected: invalid timestamp');
+        }
+        return false;
+      }
 
-    await _plugin.zonedSchedule(
-      id: notifId,
-      title: title,
-      body: safeText(body),
-      scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: NotificationDetails(android: _androidDetails),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: payload?.encode() ?? id,
-    );
+      final resolvedType = type ?? payload?.type ?? NotificationType.unknown;
+      final notifId = id.contains('engagement')
+          ? engagementId
+          : NotificationIdManager.getId(
+              key: NotificationIdManager.buildKey(id, date),
+              type: resolvedType,
+            );
+
+      final scheduledDate = tz.TZDateTime.from(date, tz.local);
+
+      await _adapter.zonedSchedule(
+        id: notifId,
+        title: title,
+        body: safeText(body),
+        scheduledDate: scheduledDate,
+        channelId: 'vitacase_channel',
+        channelName: 'VitaCase Notifications',
+        payload: payload?.encode() ?? id,
+        useFallbackIcon: _useFallbackIcon,
+        isMedication: false,
+      );
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Scheduling failed safely: $e');
+      }
+      return false;
+    }
   }
 
-  static Future<void> scheduleMedication({
+  static Future<bool> scheduleMedication({
     required String id,
     required String title,
     required String body,
     required DateTime date,
     AppNotificationPayload? payload,
+    int? explicitId,
   }) async {
-    await init();
-    if (kDebugMode) debugPrint("Scheduling medication notification at: $date");
-    final notifId = getStableIdStatic(buildKey(id, date));
+    try {
+      if (!_isInitialized) {
+        await initCore();
+      } else {
+        ensureTimezoneInitialized();
+      }
 
-    await _plugin.zonedSchedule(
-      id: notifId,
-      title: title,
-      body: safeMedicationBodyStatic(body),
-      scheduledDate: tz.TZDateTime.from(date, tz.local),
-      notificationDetails: NotificationDetails(
-        android: _medicationAndroidDetails,
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: payload?.encode() ?? id,
-    );
+      if (date.millisecondsSinceEpoch <= 0) {
+        return false;
+      }
+
+      final notifId = explicitId ??
+          NotificationIdManager.getId(
+            key: NotificationIdManager.buildKey(id, date),
+            type: NotificationType.medication,
+          );
+
+      final scheduledDate = tz.TZDateTime.from(date, tz.local);
+
+      await _adapter.zonedSchedule(
+        id: notifId,
+        title: title,
+        body: safeMedicationBodyStatic(body),
+        scheduledDate: scheduledDate,
+        channelId: 'med_channel',
+        channelName: 'Medication',
+        payload: payload?.encode() ?? id,
+        useFallbackIcon: _useFallbackIcon,
+        isMedication: true,
+      );
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Medication scheduling failed safely: $e');
+      }
+      return false;
+    }
   }
 
-  static Future<void> cancel(String id) async {
-    await _plugin.cancel(id: getStableIdStatic(id));
+  static Future<bool> scheduleAppointment({
+    required String id,
+    required String title,
+    required String body,
+    required DateTime date,
+    AppNotificationPayload? payload,
+    int? explicitId,
+  }) async {
+    try {
+      if (!_isInitialized) {
+        await initCore();
+      } else {
+        ensureTimezoneInitialized();
+      }
+
+      if (date.millisecondsSinceEpoch <= 0) {
+        return false;
+      }
+
+      final notifId = explicitId ??
+          NotificationIdManager.getId(
+            key: NotificationIdManager.buildKey(id, date),
+            type: NotificationType.appointment,
+          );
+
+      final scheduledDate = tz.TZDateTime.from(date, tz.local);
+
+      await _adapter.zonedSchedule(
+        id: notifId,
+        title: title,
+        body: safeText(body),
+        scheduledDate: scheduledDate,
+        channelId: 'vitacase_channel',
+        channelName: 'VitaCase Notifications',
+        payload: payload?.encode() ?? id,
+        useFallbackIcon: _useFallbackIcon,
+        isMedication: false,
+      );
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Appointment scheduling failed safely: $e');
+      }
+      return false;
+    }
   }
 
-  static Future<void> cancelOccurrence({
+  static Future<bool> cancel(String id) async {
+    try {
+      final notifId = getStableIdStatic(id);
+      await _adapter.cancel(id: notifId);
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Cancel failed safely: $e');
+      }
+      return false;
+    }
+  }
+
+  static Future<bool> cancelById(int id) async {
+    try {
+      await _adapter.cancel(id: id);
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] CancelById failed safely: $e');
+      }
+      return false;
+    }
+  }
+
+  static Future<bool> cancelOccurrence({
     required String id,
     required DateTime date,
   }) async {
-    final key = buildKey(id, date);
-    final notifId = getStableIdStatic(key);
-    await _plugin.cancel(id: notifId);
+    try {
+      final key = buildKey(id, date);
+      final notifId = getStableIdStatic(key);
+      await _adapter.cancel(id: notifId);
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] CancelOccurrence failed safely: $e');
+      }
+      return false;
+    }
   }
 
   Future<void> cancelNotification(int id) async {
-    await _plugin.cancel(id: id);
+    await cancelById(id);
   }
 
-  static Future<void> cancelAll() async {
-    await _plugin.cancelAll();
+  static Future<bool> cancelAll() async {
+    try {
+      await _adapter.cancelAll();
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] CancelAll failed safely: $e');
+      }
+      return false;
+    }
   }
 
   Future<void> showStreakWarning() async => showNotification(
@@ -285,6 +621,7 @@ class NotificationService {
     channelId: 'engagement',
     channelName: 'Engagement',
   );
+
   Future<void> showMissionReminder() async => showNotification(
     id: 9992,
     title: 'Mission!',
@@ -292,6 +629,7 @@ class NotificationService {
     channelId: 'engagement',
     channelName: 'Engagement',
   );
+
   Future<void> showLimitReachedPush() async => showNotification(
     id: 9993,
     title: 'Limit!',
@@ -300,6 +638,36 @@ class NotificationService {
     channelName: 'Engagement',
   );
 
+  static Future<bool> show({
+    required int id,
+    required String title,
+    required String body,
+    String channelId = 'vitacase_channel',
+    String channelName = 'VitaCase Notifications',
+    String? payload,
+  }) async {
+    try {
+      if (!_isInitialized) {
+        await initCore();
+      }
+      await _adapter.show(
+        id: id,
+        title: title,
+        body: safeText(body),
+        channelId: channelId,
+        channelName: channelName,
+        payload: payload,
+        useFallbackIcon: _useFallbackIcon,
+      );
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Show notification failed safely: $e');
+      }
+      return false;
+    }
+  }
+
   Future<void> showNotification({
     required int id,
     required String title,
@@ -307,40 +675,66 @@ class NotificationService {
     required String channelId,
     required String channelName,
   }) async {
-    final android = AndroidNotificationDetails(
-      channelId,
-      channelName,
-      importance: Importance.max,
-      priority: Priority.high,
-      icon: _useFallbackIcon ? '@mipmap/ic_launcher' : _androidNotificationIcon,
-      visibility: NotificationVisibility.private,
-    );
-    await _plugin.show(
+    await show(
       id: id,
       title: title,
-      body: safeText(body),
-      notificationDetails: NotificationDetails(android: android),
+      body: body,
+      channelId: channelId,
+      channelName: channelName,
     );
   }
 
+  /// Retrieves all currently pending notification requests.
+  static Future<List<PendingNotificationRequest>> getPendingNotificationRequests() async {
+    try {
+      if (!_isInitialized) {
+        await initCore();
+      }
+      return await _adapter.getPendingNotificationRequests();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Failed to get pending notifications: $e');
+      }
+      return const [];
+    }
+  }
+
+  /// Checks if a notification with [id] is already pending.
+  static Future<bool> isNotificationPending(int id) async {
+    final pending = await getPendingNotificationRequests();
+    return pending.any((p) => p.id == id);
+  }
+
   static void _onTap(NotificationResponse response) {
-    final payload = response.payload;
-    if (payload == null || payload.isEmpty) return;
-    final decoded = AppNotificationPayload.decode(payload);
-    final entityId = decoded.entityId.isEmpty ? payload : decoded.entityId;
+    try {
+      final payload = response.payload;
+      if (payload == null || payload.isEmpty) return;
+      final decoded = AppNotificationPayload.decode(payload);
+      final entityId = decoded.entityId.isEmpty ? payload : decoded.entityId;
 
-    if (response.actionId == 'TAKEN') {
-      _onMedicineTaken?.call(entityId);
-      return;
+      if (response.actionId == 'TAKEN') {
+        _onMedicineTaken?.call(entityId).catchError((e) {
+          if (kDebugMode) {
+            debugPrint('[NotificationService] _onMedicineTaken callback error: $e');
+          }
+        });
+        return;
+      }
+
+      if (response.actionId == 'SKIPPED') {
+        _onMedicineSkipped?.call(entityId).catchError((e) {
+          if (kDebugMode) {
+            debugPrint('[NotificationService] _onMedicineSkipped callback error: $e');
+          }
+        });
+        return;
+      }
+
+      _onNotificationRoute?.call(payload);
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[NotificationService] Safe error in _onTap handler: $e');
+      }
     }
-
-    if (response.actionId == 'SKIPPED') {
-      _onMedicineSkipped?.call(entityId);
-      return;
-    }
-
-    if (response.actionId == 'TAKEN') return;
-
-    _onNotificationRoute?.call(payload);
   }
 }

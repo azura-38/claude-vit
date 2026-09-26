@@ -38,95 +38,98 @@ class AppBottomNav extends StatelessWidget {
       ),
       child: SafeArea(
         top: false,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 8,
-            bottom: 8,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _NavItem(
-                icon: Icons.home_rounded,
-                label: context.l10n.home,
-                isActive: currentIndex == 0,
-                onTap: () => onTap(0),
-              ),
-              _NavItem(
-                icon: Icons.description_rounded,
-                label: context.l10n.vault,
-                isActive: currentIndex == 1,
-                onTap: () => onTap(1),
-              ),
-              // Center Keşfet FAB
-              GestureDetector(
-                onTap: onExploreTap,
-                child: Transform.translate(
-                  offset: const Offset(0, -20),
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          AppColors.exploreFabStart,
-                          AppColors.exploreFabEnd,
+        child: SizedBox(
+          height: 64,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 8,
+              bottom: 8,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _NavItem(
+                  icon: Icons.home_rounded,
+                  label: context.l10n.home,
+                  isActive: currentIndex == 0,
+                  onTap: () => onTap(0),
+                ),
+                _NavItem(
+                  icon: Icons.description_rounded,
+                  label: context.l10n.vault,
+                  isActive: currentIndex == 1,
+                  onTap: () => onTap(1),
+                ),
+                // Center Keşfet FAB
+                GestureDetector(
+                  onTap: onExploreTap,
+                  child: Transform.translate(
+                    offset: const Offset(0, -20),
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppColors.exploreFabStart,
+                            AppColors.exploreFabEnd,
+                          ],
+                        ),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isDark ? AppColors.bgDark : AppColors.bgLight,
+                          width: 4,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primaryIndigo.withValues(
+                              alpha: 0.25,
+                            ),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
                         ],
                       ),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isDark ? AppColors.bgDark : AppColors.bgLight,
-                        width: 4,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primaryIndigo.withValues(
-                            alpha: 0.25,
-                          ),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.explore_rounded,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                        Text(
-                          context.l10n.explore.toUpperCase(),
-                          style: const TextStyle(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.explore_rounded,
                             color: Colors.white,
-                            fontSize: 7,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.2,
+                            size: 24,
                           ),
-                        ),
-                      ],
+                          Text(
+                            context.l10n.explore.toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 7,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              _NavItem(
-                icon: Icons.calendar_today_rounded,
-                label: context.l10n.appointments,
-                isActive: currentIndex == 3,
-                onTap: () => onTap(3),
-              ),
-              _NavItem(
-                icon: Icons.person_outline_rounded,
-                label: context.l10n.profile,
-                isActive: currentIndex == 4,
-                onTap: () => onTap(4),
-              ),
-            ],
+                _NavItem(
+                  icon: Icons.calendar_today_rounded,
+                  label: context.l10n.appointments,
+                  isActive: currentIndex == 3,
+                  onTap: () => onTap(3),
+                ),
+                _NavItem(
+                  icon: Icons.person_outline_rounded,
+                  label: context.l10n.profile,
+                  isActive: currentIndex == 4,
+                  onTap: () => onTap(4),
+                ),
+              ],
+            ),
           ),
         ),
       ),

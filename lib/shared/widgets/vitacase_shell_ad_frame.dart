@@ -22,7 +22,13 @@ class VitaCaseShellAdFrame extends StatelessWidget {
           color: Theme.of(context).scaffoldBackgroundColor,
           child: const VitaCaseBannerAd(),
         ),
-        Expanded(child: child),
+        Expanded(
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: child,
+          ),
+        ),
       ],
     );
   }

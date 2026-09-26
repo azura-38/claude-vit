@@ -9,6 +9,7 @@ import '../../../../../shared/data/services/analytics_service.dart';
 import '../../../../../shared/data/services/wipe_service.dart';
 import '../../../../../shared/domain/entities/lock_timeout.dart';
 import '../../../../auth/presentation/providers/auth_providers.dart';
+import '../../../../../shared/data/services/pin_service.dart';
 import '../../providers/settings_controller.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'setting_tile.dart';
@@ -133,190 +134,50 @@ class SecuritySection extends ConsumerWidget {
         AnalyticsService.log(AnalyticsService.appLockEnabled);
       }
     } else {
-      await controller.toggleLock(false);
-      await controller.toggleBiometric(false);
-      AnalyticsService.log(AnalyticsService.appLockDisabled);
+      final pinService = ref.read(pinServiceProvider);
+      final hasPin = await pinService.hasPin();
+      if (hasPin) {
+        if (context.mounted) {
+          _showPinDisableDialog(context, ref, controller);
+        }
+      } else {
+        await controller.toggleLock(false);
+        await controller.toggleBiometric(false);
+        AnalyticsService.log(AnalyticsService.appLockDisabled);
+      }
     }
   }
 
   void _showPinSetupDialog(BuildContext rootContext, WidgetRef ref, SettingsController controller) {
-    final newPinController = TextEditingController();
-    final confirmPinController = TextEditingController();
-    var isSaving = false;
-    var errorText = '';
-
     showDialog<void>(
       context: rootContext,
-      barrierDismissible: !isSaving,
-      builder: (dialogContext) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            Future<void> save() async {
-              final newPin = newPinController.text.trim();
-              final confirmPin = confirmPinController.text.trim();
-
-              if (newPin.length != 6 || confirmPin.length != 6) {
-                setState(() => errorText = 'Lütfen 6 haneli bir PIN girin.');
-                return;
-              }
-
-              if (newPin != confirmPin) {
-                setState(() => errorText = context.l10n.lockPinMismatch);
-                return;
-              }
-
-              setState(() {
-                isSaving = true;
-                errorText = '';
-              });
-
-              try {
-                final pinService = ref.read(pinServiceProvider);
-                await pinService.setPin(newPin);
-                await controller.toggleLock(true);
-                ref.invalidate(hasPinProvider); // Refresh hasPin provider status
-                HapticFeedback.mediumImpact();
-
-                if (!dialogContext.mounted) return;
-                Navigator.pop(dialogContext);
-                if (rootContext.mounted) {
-                  ScaffoldMessenger.of(rootContext).showSnackBar(
-                    SnackBar(content: Text(rootContext.l10n.success)),
-                  );
-                }
-              } catch (e) {
-                setState(() {
-                  isSaving = false;
-                  errorText = 'PIN kaydedilemedi: $e';
-                });
-              }
-            }
-
-            return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-              title: const Text('Yeni PIN Oluştur', style: TextStyle(fontWeight: FontWeight.bold)),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _PinField(controller: newPinController, label: '6 Haneli PIN Girin', enabled: !isSaving),
-                  const SizedBox(height: 12),
-                  _PinField(controller: confirmPinController, label: 'PIN\'i Doğrulayın', enabled: !isSaving),
-                  if (errorText.isNotEmpty) ...[
-                    const SizedBox(height: 12),
-                    Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
-                  ],
-                ],
-              ),
-              actions: [
-                TextButton(onPressed: isSaving ? null : () => Navigator.pop(dialogContext), child: Text(context.l10n.cancel)),
-                FilledButton(
-                  onPressed: isSaving ? null : save,
-                  child: isSaving
-                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                      : Text(context.l10n.save),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    ).whenComplete(() {
-      newPinController.dispose();
-      confirmPinController.dispose();
-    });
+      builder: (dialogContext) => _PinSetupDialog(
+        ref: ref,
+        controller: controller,
+        rootContext: rootContext,
+      ),
+    );
   }
 
-
-
-  void _showPinChangeDialog(BuildContext rootContext, WidgetRef ref) {
-    final currentPinController = TextEditingController();
-    final newPinController = TextEditingController();
-    final confirmPinController = TextEditingController();
-    var isSaving = false;
-    var errorText = '';
-
+  void _showPinDisableDialog(BuildContext rootContext, WidgetRef ref, SettingsController controller) {
     showDialog<void>(
       context: rootContext,
-      barrierDismissible: !isSaving,
-      builder: (dialogContext) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            Future<void> save() async {
-              final currentPin = currentPinController.text.trim();
-              final newPin = newPinController.text.trim();
-              final confirmPin = confirmPinController.text.trim();
+      builder: (dialogContext) => _PinDisableDialog(
+        ref: ref,
+        controller: controller,
+        rootContext: rootContext,
+      ),
+    );
+  }
 
-              if (currentPin.length != 6 || newPin.length != 6 || confirmPin.length != 6) {
-                setState(() => errorText = context.l10n.lockPinMismatch);
-                return;
-              }
-
-              if (newPin != confirmPin) {
-                setState(() => errorText = context.l10n.lockPinMismatch);
-                return;
-              }
-
-              setState(() {
-                isSaving = true;
-                errorText = '';
-              });
-
-              final pinService = ref.read(pinServiceProvider);
-              final verified = await pinService.verifyPin(currentPin);
-              if (!verified) {
-                setState(() {
-                  isSaving = false;
-                  errorText = context.l10n.lockPinIncorrect;
-                });
-                return;
-              }
-
-              await pinService.setPin(newPin);
-              HapticFeedback.mediumImpact();
-
-              if (!dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-              if (rootContext.mounted) {
-                ScaffoldMessenger.of(rootContext).showSnackBar(
-                  SnackBar(content: Text(rootContext.l10n.success)),
-                );
-              }
-            }
-
-            return AlertDialog(
-              title: Text(context.l10n.changePin),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _PinField(controller: currentPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
-                  const SizedBox(height: 12),
-                  _PinField(controller: newPinController, label: context.l10n.lockSetPin, enabled: !isSaving),
-                  const SizedBox(height: 12),
-                  _PinField(controller: confirmPinController, label: context.l10n.lockConfirmPin, enabled: !isSaving),
-                  if (errorText.isNotEmpty) ...[
-                    const SizedBox(height: 12),
-                    Text(errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700)),
-                  ],
-                ],
-              ),
-              actions: [
-                TextButton(onPressed: isSaving ? null : () => Navigator.pop(dialogContext), child: Text(context.l10n.cancel)),
-                FilledButton(
-                  onPressed: isSaving ? null : save,
-                  child: isSaving
-                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                      : Text(context.l10n.save),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    ).whenComplete(() {
-      currentPinController.dispose();
-      newPinController.dispose();
-      confirmPinController.dispose();
-    });
+  void _showPinChangeDialog(BuildContext rootContext, WidgetRef ref) {
+    showDialog<void>(
+      context: rootContext,
+      builder: (dialogContext) => _PinChangeDialog(
+        ref: ref,
+        rootContext: rootContext,
+      ),
+    );
   }
 
   void _showTimeoutSelector(BuildContext context, WidgetRef ref, SettingsController controller) {
@@ -405,6 +266,360 @@ class _PinField extends StatelessWidget {
       maxLength: 6,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(labelText: label, counterText: '', border: const OutlineInputBorder()),
+    );
+  }
+}
+
+class _PinSetupDialog extends StatefulWidget {
+  const _PinSetupDialog({
+    required this.ref,
+    required this.controller,
+    required this.rootContext,
+  });
+
+  final WidgetRef ref;
+  final SettingsController controller;
+  final BuildContext rootContext;
+
+  @override
+  State<_PinSetupDialog> createState() => _PinSetupDialogState();
+}
+
+class _PinSetupDialogState extends State<_PinSetupDialog> {
+  late final TextEditingController _newPinController;
+  late final TextEditingController _confirmPinController;
+  bool _isSaving = false;
+  String _errorText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _newPinController = TextEditingController();
+    _confirmPinController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _newPinController.dispose();
+    _confirmPinController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final newPin = _newPinController.text.trim();
+    final confirmPin = _confirmPinController.text.trim();
+
+    if (!PinService.isValidPinFormat(newPin) || !PinService.isValidPinFormat(confirmPin)) {
+      setState(() => _errorText = 'Lütfen 6 haneli bir PIN girin.');
+      return;
+    }
+
+    if (newPin != confirmPin) {
+      setState(() => _errorText = context.l10n.lockPinMismatch);
+      return;
+    }
+
+    setState(() {
+      _isSaving = true;
+      _errorText = '';
+    });
+
+    try {
+      final pinService = widget.ref.read(pinServiceProvider);
+      await pinService.setPin(newPin);
+      await widget.controller.toggleLock(true);
+      widget.ref.invalidate(hasPinProvider);
+      HapticFeedback.mediumImpact();
+
+      if (!mounted) return;
+      Navigator.pop(context);
+      if (widget.rootContext.mounted) {
+        ScaffoldMessenger.of(widget.rootContext).showSnackBar(
+          SnackBar(content: Text(widget.rootContext.l10n.success)),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+          _errorText = 'PIN kaydedilemedi: $e';
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      title: const Text('Yeni PIN Oluştur', style: TextStyle(fontWeight: FontWeight.bold)),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _PinField(controller: _newPinController, label: '6 Haneli PIN Girin', enabled: !_isSaving),
+            const SizedBox(height: 12),
+            _PinField(controller: _confirmPinController, label: 'PIN\'i Doğrulayın', enabled: !_isSaving),
+            if (_errorText.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              Text(_errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: _isSaving ? null : () => Navigator.pop(context), child: Text(context.l10n.cancel)),
+        FilledButton(
+          onPressed: _isSaving ? null : _save,
+          child: _isSaving
+              ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+              : Text(context.l10n.save),
+        ),
+      ],
+    );
+  }
+}
+
+class _PinDisableDialog extends StatefulWidget {
+  const _PinDisableDialog({
+    required this.ref,
+    required this.controller,
+    required this.rootContext,
+  });
+
+  final WidgetRef ref;
+  final SettingsController controller;
+  final BuildContext rootContext;
+
+  @override
+  State<_PinDisableDialog> createState() => _PinDisableDialogState();
+}
+
+class _PinDisableDialogState extends State<_PinDisableDialog> {
+  late final TextEditingController _pinController;
+  bool _isVerifying = false;
+  String _errorText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _pinController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _pinController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _confirmDisable() async {
+    final pin = _pinController.text.trim();
+    if (!PinService.isValidPinFormat(pin)) {
+      setState(() => _errorText = context.l10n.lockPinIncorrect);
+      return;
+    }
+
+    setState(() {
+      _isVerifying = true;
+      _errorText = '';
+    });
+
+    try {
+      final pinService = widget.ref.read(pinServiceProvider);
+      final verified = await pinService.verifyPin(pin);
+      if (!verified) {
+        if (mounted) {
+          setState(() {
+            _isVerifying = false;
+            _errorText = context.l10n.lockPinIncorrect;
+          });
+        }
+        return;
+      }
+
+      await widget.controller.toggleLock(false);
+      await widget.controller.toggleBiometric(false);
+      AnalyticsService.log(AnalyticsService.appLockDisabled);
+      HapticFeedback.mediumImpact();
+
+      if (!mounted) return;
+      Navigator.pop(context);
+      if (widget.rootContext.mounted) {
+        ScaffoldMessenger.of(widget.rootContext).showSnackBar(
+          SnackBar(content: Text(widget.rootContext.l10n.success)),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isVerifying = false;
+          _errorText = context.l10n.lockPinIncorrect;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      title: Text(context.l10n.appLock, style: const TextStyle(fontWeight: FontWeight.bold)),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Uygulama kilidini devre dışı bırakmak için lütfen mevcut PIN kodunuzu girin.',
+              style: TextStyle(
+                fontSize: 13,
+                color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PinField(controller: _pinController, label: context.l10n.lockSetPin, enabled: !_isVerifying),
+            if (_errorText.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              Text(_errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _isVerifying ? null : () => Navigator.pop(context),
+          child: Text(context.l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _isVerifying ? null : _confirmDisable,
+          style: FilledButton.styleFrom(backgroundColor: AppColors.error),
+          child: _isVerifying
+              ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+              : const Text('Devre Dışı Bırak'),
+        ),
+      ],
+    );
+  }
+}
+
+class _PinChangeDialog extends StatefulWidget {
+  const _PinChangeDialog({
+    required this.ref,
+    required this.rootContext,
+  });
+
+  final WidgetRef ref;
+  final BuildContext rootContext;
+
+  @override
+  State<_PinChangeDialog> createState() => _PinChangeDialogState();
+}
+
+class _PinChangeDialogState extends State<_PinChangeDialog> {
+  late final TextEditingController _currentPinController;
+  late final TextEditingController _newPinController;
+  late final TextEditingController _confirmPinController;
+  bool _isSaving = false;
+  String _errorText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPinController = TextEditingController();
+    _newPinController = TextEditingController();
+    _confirmPinController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _currentPinController.dispose();
+    _newPinController.dispose();
+    _confirmPinController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final currentPin = _currentPinController.text.trim();
+    final newPin = _newPinController.text.trim();
+    final confirmPin = _confirmPinController.text.trim();
+
+    if (currentPin.length != 6 || newPin.length != 6 || confirmPin.length != 6) {
+      setState(() => _errorText = context.l10n.lockPinMismatch);
+      return;
+    }
+
+    if (newPin != confirmPin) {
+      setState(() => _errorText = context.l10n.lockPinMismatch);
+      return;
+    }
+
+    setState(() {
+      _isSaving = true;
+      _errorText = '';
+    });
+
+    try {
+      final pinService = widget.ref.read(pinServiceProvider);
+      final verified = await pinService.verifyPin(currentPin);
+      if (!verified) {
+        if (mounted) {
+          setState(() {
+            _isSaving = false;
+            _errorText = context.l10n.lockPinIncorrect;
+          });
+        }
+        return;
+      }
+
+      await pinService.setPin(newPin);
+      HapticFeedback.mediumImpact();
+
+      if (!mounted) return;
+      Navigator.pop(context);
+      if (widget.rootContext.mounted) {
+        ScaffoldMessenger.of(widget.rootContext).showSnackBar(
+          SnackBar(content: Text(widget.rootContext.l10n.success)),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+          _errorText = context.l10n.lockPinIncorrect;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(context.l10n.changePin),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _PinField(controller: _currentPinController, label: context.l10n.lockSetPin, enabled: !_isSaving),
+            const SizedBox(height: 12),
+            _PinField(controller: _newPinController, label: context.l10n.lockSetPin, enabled: !_isSaving),
+            const SizedBox(height: 12),
+            _PinField(controller: _confirmPinController, label: context.l10n.lockConfirmPin, enabled: !_isSaving),
+            if (_errorText.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              Text(_errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w700)),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: _isSaving ? null : () => Navigator.pop(context), child: Text(context.l10n.cancel)),
+        FilledButton(
+          onPressed: _isSaving ? null : _save,
+          child: _isSaving
+              ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+              : Text(context.l10n.save),
+        ),
+      ],
     );
   }
 }

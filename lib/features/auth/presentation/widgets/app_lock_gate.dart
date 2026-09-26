@@ -43,12 +43,13 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
 
     setState(() => _isAuthenticating = true);
     final success = await ref.read(appLockServiceProvider).authenticate();
-    if (success && mounted) {
+    if (!mounted) return;
+    if (success) {
       ref.read(appLockStateProvider.notifier).setUnlocked();
-    } else if (mounted) {
+    } else {
       _goToPinScreen();
     }
-    if (mounted) setState(() => _isAuthenticating = false);
+    setState(() => _isAuthenticating = false);
   }
 
   void _goToPinScreen() {

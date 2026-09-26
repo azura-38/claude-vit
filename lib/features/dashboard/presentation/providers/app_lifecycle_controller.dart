@@ -62,6 +62,7 @@ class AppLifecycleController extends Notifier<bool> {
     _lastPausedTime = DateTime.now();
     _sessionLockService.markPaused();
     NotificationTriggers.onAppClose();
+    unawaited(ref.read(fileStorageServiceProvider).cleanupAllTempFiles());
   }
 
   void _handleResumed(bool lockEnabled) {

@@ -18,6 +18,7 @@ class LockScreen extends ConsumerStatefulWidget {
 class _LockScreenState extends ConsumerState<LockScreen>
     with SingleTickerProviderStateMixin {
   bool _isAuthenticating = false;
+  bool _isSubmitting = false;
   String _enteredPin = "";
   bool _isSetupMode = false;
   String _setupPin = "";
@@ -93,7 +94,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
   }
 
   Future<void> _authenticateBiometrics() async {
-    if (_isAuthenticating) return;
+    if (_isAuthenticating || _isSubmitting) return;
     final biometricEnabled = ref.read(biometricEnabledProvider);
     if (!biometricEnabled) return;
 
@@ -128,7 +129,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
       return;
     }
 
-    if (_enteredPin.length >= 6) return;
+    if (_isSubmitting || _enteredPin.length >= 6) return;
 
     HapticFeedback.lightImpact();
     setState(() {
@@ -137,71 +138,98 @@ class _LockScreenState extends ConsumerState<LockScreen>
     });
 
     if (_enteredPin.length == 6) {
-      if (_isSetupMode) {
-        if (_setupPin.isEmpty) {
-          _setupPin = _enteredPin;
-          setState(() => _enteredPin = "");
-          if (!mounted) return;
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(context.l10n.lockConfirmPin)));
+      setState(() => _isSubmitting = true);
+      try {
+        if (_isSetupMode) {
+          if (_setupPin.isEmpty) {
+            _setupPin = _enteredPin;
+            setState(() {
+              _enteredPin = "";
+              _isSubmitting = false;
+            });
+            if (!mounted) return;
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(context.l10n.lockConfirmPin)));
+          } else {
+            if (_setupPin == _enteredPin) {
+              await ref.read(pinServiceProvider).setPin(_enteredPin);
+              await ref.read(appLockEnabledProvider.notifier).setEnabled(true);
+              ref.invalidate(hasPinProvider);
+              _setupPin = "";
+              _enteredPin = "";
+              if (!mounted) return;
+              setState(() => _isSubmitting = false);
+              ref.read(appLockStateProvider.notifier).setUnlocked();
+            } else {
+              _shakeController.forward(from: 0);
+              setState(() {
+                _enteredPin = "";
+                _setupPin = "";
+                _hasError = true;
+                _isSubmitting = false;
+              });
+              if (!mounted) return;
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(context.l10n.lockPinMismatch)),
+              );
+            }
+          }
         } else {
-          if (_setupPin == _enteredPin) {
-            await ref.read(pinServiceProvider).setPin(_enteredPin);
+          final success = await ref
+              .read(pinServiceProvider)
+              .verifyPin(_enteredPin);
+          if (!mounted) return;
+          if (success) {
+            _failedAttempts = 0;
+            _lockoutUntil = null;
+            _persistBruteForceState();
+            _enteredPin = "";
+            setState(() => _isSubmitting = false);
             ref.read(appLockStateProvider.notifier).setUnlocked();
           } else {
+            _failedAttempts++;
+            AnalyticsService.log(AnalyticsService.appLockAuthFail, {
+              'attempts': _failedAttempts,
+            });
+            final lockoutDuration = _getLockoutDuration();
+            if (lockoutDuration > Duration.zero) {
+              _lockoutUntil = DateTime.now().add(lockoutDuration);
+            }
+            _persistBruteForceState();
+
             _shakeController.forward(from: 0);
             setState(() {
               _enteredPin = "";
-              _setupPin = "";
               _hasError = true;
+              _isSubmitting = false;
             });
             if (!mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n.lockPinMismatch)),
-            );
+
+            if (_lockoutUntil != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    context.l10n.lockTooManyAttempts(lockoutDuration.inSeconds),
+                  ),
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(context.l10n.lockPinIncorrect)),
+              );
+            }
           }
         }
-      } else {
-        final success = await ref
-            .read(pinServiceProvider)
-            .verifyPin(_enteredPin);
-        if (success) {
-          _failedAttempts = 0;
-          _lockoutUntil = null;
-          _persistBruteForceState();
-          ref.read(appLockStateProvider.notifier).setUnlocked();
-        } else {
-          _failedAttempts++;
-          AnalyticsService.log(AnalyticsService.appLockAuthFail, {
-            'attempts': _failedAttempts,
-          });
-          final lockoutDuration = _getLockoutDuration();
-          if (lockoutDuration > Duration.zero) {
-            _lockoutUntil = DateTime.now().add(lockoutDuration);
-          }
-          _persistBruteForceState();
-
-          _shakeController.forward(from: 0);
+      } catch (_) {
+        if (mounted) {
           setState(() {
             _enteredPin = "";
+            _isSubmitting = false;
             _hasError = true;
           });
-          if (!mounted) return;
-
-          if (_lockoutUntil != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  context.l10n.lockTooManyAttempts(lockoutDuration.inSeconds),
-                ),
-              ),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n.lockPinIncorrect)),
-            );
-          }
         }
       }
     }
@@ -225,147 +253,170 @@ class _LockScreenState extends ConsumerState<LockScreen>
           ),
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 48),
-              // Lock icon with glow
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.white.withValues(alpha: 0.08),
-                      blurRadius: 40,
-                      spreadRadius: 10,
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  _isSetupMode ? Icons.security_rounded : Icons.lock_rounded,
-                  size: 48,
-                  color: Colors.white,
-                ),
-              ).animate().scale(
-                begin: const Offset(0.8, 0.8),
-                end: const Offset(1, 1),
-                duration: 500.ms,
-                curve: Curves.easeOutBack,
-              ),
-              const SizedBox(height: 24),
-              // Title
-              Text(
-                _isSetupMode
-                    ? (_setupPin.isEmpty
-                        ? context.l10n.lockSetPin
-                        : context.l10n.lockConfirmPin)
-                    : context.l10n.lockTitle,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  fontFamily: 'Manrope',
-                  letterSpacing: -0.5,
-                ),
-              ).animate().fadeIn(delay: 200.ms),
-              if (_isSetupMode) ...[
-                const SizedBox(height: 8),
-                Text(
-                  '6 ${context.l10n.digits}',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white.withValues(alpha: 0.6),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-              const SizedBox(height: 36),
-              // PIN dots with shake animation
-              AnimatedBuilder(
-                animation: _shakeController,
-                builder: (context, child) {
-                  final shake =
-                      _shakeController.isAnimating
-                          ? 12.0 *
-                              (0.5 - _shakeController.value).abs() *
-                              (_shakeController.value < 0.5 ? 1 : -1)
-                          : 0.0;
-                  return Transform.translate(
-                    offset: Offset(shake, 0),
-                    child: child,
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(6, (index) {
-                    final isFilled = index < _enteredPin.length;
-                    return AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeOutCubic,
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      width: isFilled ? 18 : 14,
-                      height: isFilled ? 18 : 14,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color:
-                            _hasError
-                                ? AppColors.error
-                                : (isFilled
-                                    ? Colors.white
-                                    : Colors.white.withValues(alpha: 0.2)),
-                        border: Border.all(
-                          color:
-                              _hasError
-                                  ? AppColors.error.withValues(alpha: 0.6)
-                                  : Colors.white.withValues(alpha: 0.4),
-                          width: 2,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 36),
+                        // Lock icon with glow
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white.withValues(alpha: 0.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withValues(alpha: 0.08),
+                                blurRadius: 40,
+                                spreadRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Icon(
+                            _isSetupMode ? Icons.security_rounded : Icons.lock_rounded,
+                            size: 48,
+                            color: Colors.white,
+                          ),
+                        ).animate().scale(
+                          begin: const Offset(0.8, 0.8),
+                          end: const Offset(1, 1),
+                          duration: 500.ms,
+                          curve: Curves.easeOutBack,
                         ),
-                        boxShadow:
-                            isFilled
-                                ? [
-                                  BoxShadow(
-                                    color: Colors.white.withValues(alpha: 0.3),
-                                    blurRadius: 8,
-                                    spreadRadius: 1,
+                        const SizedBox(height: 20),
+                        // Title
+                        Text(
+                          _isSetupMode
+                              ? (_setupPin.isEmpty
+                                  ? context.l10n.lockSetPin
+                                  : context.l10n.lockConfirmPin)
+                              : context.l10n.lockTitle,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                            fontFamily: 'Manrope',
+                            letterSpacing: -0.5,
+                          ),
+                        ).animate().fadeIn(delay: 200.ms),
+                        if (_isSetupMode) ...[
+                          const SizedBox(height: 8),
+                          Text(
+                            '6 ${context.l10n.digits}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                        const SizedBox(height: 28),
+                        // PIN dots with shake animation
+                        AnimatedBuilder(
+                          animation: _shakeController,
+                          builder: (context, child) {
+                            final shake =
+                                _shakeController.isAnimating
+                                    ? 12.0 *
+                                        (0.5 - _shakeController.value).abs() *
+                                        (_shakeController.value < 0.5 ? 1 : -1)
+                                    : 0.0;
+                            return Transform.translate(
+                              offset: Offset(shake, 0),
+                              child: child,
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(6, (index) {
+                              final isFilled = index < _enteredPin.length;
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                curve: Curves.easeOutCubic,
+                                margin: const EdgeInsets.symmetric(horizontal: 8),
+                                width: isFilled ? 18 : 14,
+                                height: isFilled ? 18 : 14,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color:
+                                      _hasError
+                                          ? AppColors.error
+                                          : (isFilled
+                                              ? Colors.white
+                                              : Colors.white.withValues(alpha: 0.2)),
+                                  border: Border.all(
+                                    color:
+                                        _hasError
+                                            ? AppColors.error.withValues(alpha: 0.6)
+                                            : Colors.white.withValues(alpha: 0.4),
+                                    width: 2,
                                   ),
-                                ]
-                                : null,
-                      ),
-                    );
-                  }),
+                                  boxShadow:
+                                      isFilled
+                                          ? [
+                                            BoxShadow(
+                                              color: Colors.white.withValues(alpha: 0.3),
+                                              blurRadius: 8,
+                                              spreadRadius: 1,
+                                            ),
+                                          ]
+                                          : null,
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                        if (_isSubmitting) ...[
+                          const SizedBox(height: 16),
+                          const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          ),
+                        ],
+                        const Spacer(),
+                        // Keypad
+                        _buildKeypad(),
+                        const SizedBox(height: 12),
+                        // Biometric button
+                        if (!_isSetupMode && biometricEnabled)
+                          TextButton.icon(
+                            onPressed: _authenticateBiometrics,
+                            icon: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: const Icon(
+                                Icons.fingerprint_rounded,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                            label: Text(
+                              context.l10n.lockUseBiometrics,
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.8),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ).animate().fadeIn(delay: 400.ms),
+                        const SizedBox(height: 24),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              // Keypad
-              _buildKeypad(),
-              const SizedBox(height: 16),
-              // Biometric button
-              if (!_isSetupMode && biometricEnabled)
-                TextButton.icon(
-                  onPressed: _authenticateBiometrics,
-                  icon: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: const Icon(
-                      Icons.fingerprint_rounded,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
-                  label: Text(
-                    context.l10n.lockUseBiometrics,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ).animate().fadeIn(delay: 400.ms),
-              const SizedBox(height: 32),
-            ],
+              );
+            },
           ),
         ),
       ),
@@ -391,7 +442,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
                         .map(
                           (key) => _KeyButton(
                             val: key,
-                            onTap: () => _handleKeyPress(key),
+                            onTap: _isSubmitting ? null : () => _handleKeyPress(key),
                           ),
                         )
                         .toList(),
@@ -403,20 +454,25 @@ class _LockScreenState extends ConsumerState<LockScreen>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const SizedBox(width: 76, height: 76),
-                _KeyButton(val: '0', onTap: () => _handleKeyPress('0')),
+                _KeyButton(
+                  val: '0',
+                  onTap: _isSubmitting ? null : () => _handleKeyPress('0'),
+                ),
                 _BackspaceButton(
-                  onTap: () {
-                    if (_enteredPin.isNotEmpty) {
-                      HapticFeedback.lightImpact();
-                      setState(() {
-                        _enteredPin = _enteredPin.substring(
-                          0,
-                          _enteredPin.length - 1,
-                        );
-                        _hasError = false;
-                      });
-                    }
-                  },
+                  onTap: _isSubmitting
+                      ? null
+                      : () {
+                          if (_enteredPin.isNotEmpty) {
+                            HapticFeedback.lightImpact();
+                            setState(() {
+                              _enteredPin = _enteredPin.substring(
+                                0,
+                                _enteredPin.length - 1,
+                              );
+                              _hasError = false;
+                            });
+                          }
+                        },
                 ),
               ],
             ),
@@ -429,7 +485,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
 
 class _KeyButton extends StatelessWidget {
   final String val;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   const _KeyButton({required this.val, required this.onTap});
 
   @override
@@ -469,7 +525,7 @@ class _KeyButton extends StatelessWidget {
 }
 
 class _BackspaceButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   const _BackspaceButton({required this.onTap});
 
   @override

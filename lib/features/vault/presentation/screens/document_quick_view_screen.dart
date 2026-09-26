@@ -110,11 +110,46 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
     }
   }
 
+  bool _isDownloading = false;
+
   Future<void> _openDocument() async {
-    final result = await OpenFilex.open(_document.localPath);
-    if (!mounted) return;
-    if (result.type != ResultType.done) {
+    try {
+      final storage = ref.read(fileStorageServiceProvider);
+      final decryptedPath = await storage.getAbsolutePath(_document.localPath);
+      final result = await storage.openAndCleanFile(decryptedPath);
+      if (!mounted) return;
+      if (result.type != ResultType.done) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+      }
+    } catch (_) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+    }
+  }
+
+  Future<void> _downloadDocument() async {
+    if (_isDownloading) return;
+    setState(() => _isDownloading = true);
+
+    try {
+      final storage = ref.read(fileStorageServiceProvider);
+      await storage.downloadDocument(
+        relativePath: _document.localPath,
+        originalFileName: _document.fileName,
+      );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.success_doc_saved)),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.error_failed_download(e.toString()))),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isDownloading = false);
+      }
     }
   }
 
@@ -139,6 +174,14 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
               children: [
                 IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                 Expanded(child: Text(_title, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800))),
+                IconButton.filledTonal(
+                  onPressed: _isDownloading ? null : _downloadDocument,
+                  icon: _isDownloading
+                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                      : const Icon(Icons.download_rounded),
+                  tooltip: context.l10n.download_to_device,
+                ),
+                const SizedBox(width: 8),
                 IconButton.filledTonal(onPressed: _showEditDialog, icon: const Icon(Icons.edit_rounded), tooltip: _editLabel),
               ],
             ),
@@ -255,7 +298,15 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                               text: isDark ? Colors.white70 : AppColors.secondary,
                               onTap: _showEditDialog,
                             ),
-                            const SizedBox(width: 16),
+                            const SizedBox(width: 12),
+                            VaultActionButton(
+                              label: context.l10n.docs_download,
+                              icon: Icons.download_rounded,
+                              bg: isDark ? Colors.white10 : const Color(0xFFF1F4FA),
+                              text: isDark ? Colors.white70 : AppColors.secondary,
+                              onTap: _isDownloading ? () {} : _downloadDocument,
+                            ),
+                            const SizedBox(width: 12),
                             VaultActionButton(
                               label: _openLabel,
                               icon: Icons.open_in_new_rounded,

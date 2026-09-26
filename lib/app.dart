@@ -60,7 +60,8 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp> with WidgetsBindingOb
       routerConfig: router,
       builder: (context, child) {
         final appBody = Stack(
-          alignment: Alignment.center,
+          fit: StackFit.expand,
+          alignment: Alignment.topLeft,
           children: [
             if (child != null) child,
             if (obscureScreen)

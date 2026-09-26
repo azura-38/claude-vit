@@ -658,8 +658,12 @@ class NotificationEngine {
   }
 
   static Future<void> cancel(String id, [DateTime? date]) async {
-    await _ensureReady();
-    await AwesomeNotifications().cancel(getStableId(id, date));
+    try {
+      await _ensureReady();
+      await AwesomeNotifications().cancel(getStableId(id, date));
+    } catch (e) {
+      debugPrint('[NotificationEngine] Safe cancel error: $e');
+    }
   }
 
   static Future<void> cancelAll() async {

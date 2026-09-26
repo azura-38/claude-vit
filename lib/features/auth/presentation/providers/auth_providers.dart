@@ -22,6 +22,7 @@ final appLockStateProvider =
 
 class AppLockStateNotifier extends Notifier<AppLockState> {
   bool _initialized = false;
+  AppLockState _current = AppLockState.unknown;
 
   @override
   AppLockState build() {
@@ -31,26 +32,31 @@ class AppLockStateNotifier extends Notifier<AppLockState> {
       data: (prefs) {
         if (!_initialized) {
           _initialized = true;
-          return prefs.appLockEnabled ? AppLockState.locked : AppLockState.unlocked;
+          _current = prefs.appLockEnabled ? AppLockState.locked : AppLockState.unlocked;
+          return _current;
         }
-        return state;
+        return _current;
       },
       orElse: () {
-        if (_initialized) return state;
-        return AppLockState.unknown;
+        if (_initialized) return _current;
+        _current = AppLockState.unknown;
+        return _current;
       },
     );
   }
 
   void setLocked() {
+    _current = AppLockState.locked;
     state = AppLockState.locked;
   }
 
   void setUnlocked() {
+    _current = AppLockState.unlocked;
     state = AppLockState.unlocked;
   }
 
   void setUnknown() {
+    _current = AppLockState.unknown;
     state = AppLockState.unknown;
   }
 }
@@ -70,10 +76,9 @@ class AppLockEnabledNotifier extends Notifier<bool> {
   }
 
   Future<void> setEnabled(bool enabled) async {
-    await ref
-        .read(userPreferencesControllerProvider.notifier)
-        .updateSecurity(appLockEnabled: enabled);
+    final prefsNotifier = ref.read(userPreferencesControllerProvider.notifier);
     final lockState = ref.read(appLockStateProvider.notifier);
+    await prefsNotifier.updateSecurity(appLockEnabled: enabled);
     if (enabled) {
       lockState.setLocked();
     } else {

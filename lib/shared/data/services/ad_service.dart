@@ -301,7 +301,7 @@ class AdService {
           });
         },
       );
-      return completer.future;
+      return await completer.future;
     } catch (_) {
       if (!completer.isCompleted) completer.complete(RewardAdResult.failed);
       AnalyticsService.log(AnalyticsService.rewardAdFailed);

@@ -24,7 +24,7 @@ class DailyMissionEngine {
     try {
       final List<dynamic> list = jsonDecode(jsonStr);
       final loaded = list.map((e) => DailyMission.fromMap(e)).toList();
-      return _ensureCurrentMissionSet(loaded, today);
+      return await _ensureCurrentMissionSet(loaded, today);
     } catch (_) {
       return _generateNewMissions(today);
     }

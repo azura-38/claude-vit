@@ -43,6 +43,7 @@ import '../../features/notifications/presentation/screens/refill_banner_notifica
 
 // Core
 import '../../features/auth/presentation/widgets/app_lock_gate.dart';
+// ignore: unused_import
 import '../../shared/widgets/vitacase_shell_ad_frame.dart';
 import '../constants/app_routes.dart';
 import '../security/secure_screen_guard.dart';
@@ -59,12 +60,12 @@ class _RouterRefreshNotifier extends ChangeNotifier {
   }
 }
 
+// ignore: unused_element_parameter
 Widget _withTopBanner(Widget child, {bool showBanner = true}) {
-  return VitaCaseShellAdFrame(showBanner: showBanner, child: child);
+  return child;
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  ref.watch(routeGuardStateProvider);
   final refreshNotifier = _RouterRefreshNotifier(ref);
   ref.onDispose(refreshNotifier.dispose);
 

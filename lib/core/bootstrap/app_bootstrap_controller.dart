@@ -227,6 +227,25 @@ class AppBootstrapController extends AsyncNotifier<void> {
   }
 
   Future<void> _setupNotificationListeners(ProviderContainer container) async {
+    NotificationService.setMedicineActionHandlers(
+      onTaken: (id) async {
+        await _safeRun('medicine_taken_service', container.read(medicineListProvider.notifier).markAsTaken(id));
+      },
+      onSkipped: (id) async {
+        await _safeRun('medicine_skipped_service', container.read(medicineListProvider.notifier).markAsSkipped(id));
+      },
+    );
+
+    NotificationService.setRouteHandler((payload) {
+      if (payload.isNotEmpty) {
+        try {
+          container.read(pendingNotificationRouteProvider.notifier).setFromPayload(payload);
+        } catch (e) {
+          debugPrint('[Bootstrap] Failed to set notification route from service: $e');
+        }
+      }
+    });
+
     await NotificationEngine.startListening((receivedAction) async {
       final payload = receivedAction.payload?['payload'];
       if (payload != null && payload.isNotEmpty) {

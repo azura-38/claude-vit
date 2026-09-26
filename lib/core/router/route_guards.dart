@@ -133,11 +133,20 @@ String? lockRedirect(GoRouterState state, RouteGuardState guard) {
   }
 
   if (guard.isLockEnabled && guard.lockState != AppLockState.unlocked) {
-    return isGoingToLock ? null : AppRoutes.lock;
+    if (isGoingToLock) return null;
+    final currentLoc = state.matchedLocation;
+    if (currentLoc.isNotEmpty && currentLoc != AppRoutes.lock && currentLoc != AppRoutes.home) {
+      return '${AppRoutes.lock}?from=${Uri.encodeComponent(currentLoc)}';
+    }
+    return AppRoutes.lock;
   }
 
   if (isGoingToLock &&
       (!guard.isLockEnabled || guard.lockState == AppLockState.unlocked)) {
+    final from = state.uri.queryParameters['from'];
+    if (from != null && from.isNotEmpty && from != AppRoutes.lock) {
+      return Uri.decodeComponent(from);
+    }
     return AppRoutes.home;
   }
 

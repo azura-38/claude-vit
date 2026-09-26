@@ -58,7 +58,7 @@ class HomeScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      extendBody: true,
+      extendBody: false,
       body: HeroMode(
         // StatefulShellRoute.indexedStack keeps inactive branches alive.
         // Disabling Hero collection here prevents duplicate default FAB hero

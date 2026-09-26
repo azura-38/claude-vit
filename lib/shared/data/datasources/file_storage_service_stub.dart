@@ -1,3 +1,5 @@
+import 'package:open_filex/open_filex.dart';
+
 /// Web-safe stub implementation used when dart:io is unavailable.
 ///
 /// VitaCase V1 intentionally exposes the document vault as a preview on web,
@@ -11,7 +13,7 @@ class FileStorageService {
 
   Future<void> deleteFile(String relativePath) async {}
 
-  Future<Object> getFile(String relativePath) {
+  Future<dynamic> getFile(String relativePath) {
     throw UnsupportedError('Encrypted local document storage is not available on web.');
   }
 
@@ -21,9 +23,23 @@ class FileStorageService {
     throw UnsupportedError('Encrypted local document storage is not available on web.');
   }
 
+  static String sanitizeFileName(String input) => input;
+
+  static String resolveMimeType(String fileName) => 'application/octet-stream';
+
   Future<void> cleanupTempFile(String path) async {}
 
-  Future<void> openAndCleanFile(String path) {
+  Future<OpenResult> openAndCleanFile(
+    String path, {
+    Duration cleanupDelay = const Duration(seconds: 15),
+  }) {
+    throw UnsupportedError('Encrypted local document storage is not available on web.');
+  }
+
+  Future<String> downloadDocument({
+    required String relativePath,
+    required String originalFileName,
+  }) {
     throw UnsupportedError('Encrypted local document storage is not available on web.');
   }
 

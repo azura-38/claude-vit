@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../datasources/sembast_database.dart';
 import 'notification_engine.dart';
+import 'encryption_service.dart';
 
 class WipeService {
   static const _storage = FlutterSecureStorage();
@@ -38,6 +39,7 @@ class WipeService {
 
     // 3. Clear Secure Storage (Master Key, etc.)
     await _storage.deleteAll();
+    EncryptionService.clearCache();
 
     // 4. Delete Uploaded Documents
     try {
