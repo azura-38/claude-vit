@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../shared/domain/entities/document.dart';
+import '../../../../shared/domain/enums/document_tag.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'vault_tag_chip.dart';
@@ -97,22 +98,29 @@ class VaultSwipeCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary, fontSize: 13),
                     ),
-                    const SizedBox(height: 12),
-                    Row(
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
                       children: [
                         VaultTagChip(
                           label: document.category.name.toUpperCase(),
                           bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
                           text: isDark ? AppColors.primaryIndigo : AppColors.primary,
                         ),
+                        ...document.tags.take(3).map((tagId) {
+                          final quickTag = DocumentTag.fromId(tagId);
+                          return VaultTagChip(
+                            label: quickTag?.localizedLabel(context) ?? tagId,
+                            icon: quickTag?.icon,
+                            bg: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
+                            text: isDark ? Colors.white70 : AppColors.secondary,
+                          );
+                        }),
                         if (document.pending)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: VaultTagChip(
-                              label: context.tr('pending'),
-                              bg: const Color(0xFFFFF2D8),
-                              text: const Color(0xFFA06900),
-                            ),
+                          VaultTagChip(
+                            label: context.tr('pending'),
+                            bg: const Color(0xFFFFF2D8),
+                            text: const Color(0xFFA06900),
                           ),
                       ],
                     ),

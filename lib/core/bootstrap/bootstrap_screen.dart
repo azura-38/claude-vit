@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_bootstrap_controller.dart';
 import '../constants/app_colors.dart';
-import 'package:vitacase/core/extensions/l10n_extension.dart';
+import '../splash/cyber_radar_splash.dart';
+import '../theme/app_theme.dart';
+import '../theme/theme_provider.dart';
 
 /// Root entry widget for the app.
 /// 
@@ -31,116 +33,22 @@ class BootstrapScreen extends ConsumerWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Animated Splash Screen (Minimalist White Theme)
+// Animated Splash Screen (Cyber Radar Light / Dark)
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _SplashLoadingScreen extends StatefulWidget {
+class _SplashLoadingScreen extends ConsumerWidget {
   const _SplashLoadingScreen();
 
   @override
-  State<_SplashLoadingScreen> createState() => _SplashLoadingScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeType = ref.watch(themeTypeProvider);
+    final isDark = switch (themeType) {
+      AppThemeType.dark => true,
+      AppThemeType.system => MediaQuery.platformBrightnessOf(context) == Brightness.dark,
+      _ => false,
+    };
 
-class _SplashLoadingScreenState extends State<_SplashLoadingScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _fadeController;
-  late final Animation<double> _fadeAnim;
-  late final Animation<double> _slideAnim;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _fadeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 650),
-    )..forward();
-
-    _fadeAnim = CurvedAnimation(
-      parent: _fadeController,
-      curve: Curves.easeOut,
-    );
-
-    _slideAnim = Tween<double>(begin: 12.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _fadeController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // Safely retrieve the localized tagline, falling back to English if missing.
-    final tagline = context.l10n.splashTagline;
-
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: SafeArea(
-        child: Center(
-          child: FadeTransition(
-            opacity: _fadeAnim,
-            child: AnimatedBuilder(
-              animation: _slideAnim,
-              builder: (context, child) => Transform.translate(
-                offset: Offset(0, _slideAnim.value),
-                child: child,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  const Text(
-                    'VITACASE',
-                    style: TextStyle(
-                      color: Color(0xFF0F172A),
-                      fontSize: 34,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 4.5,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Text(
-                      tagline,
-                      style: const TextStyle(
-                        color: Color(0xFF64748B),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0.2,
-                        height: 1.4,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 140,
-                    child: LinearProgressIndicator(
-                      backgroundColor: const Color(0xFFF1F5F9),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Color(0xFF0F172A),
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                      minHeight: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 36),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+    return CyberRadarSplash(isDarkMode: isDark);
   }
 }
 

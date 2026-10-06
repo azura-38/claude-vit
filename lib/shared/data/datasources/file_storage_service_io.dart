@@ -9,6 +9,12 @@ import 'package:path_provider/path_provider.dart';
 
 import '../services/encryption_service.dart';
 
+typedef FileOpenerCallback = Future<OpenResult> Function(
+  String path, {
+  String? type,
+  String? uti,
+});
+
 /// Mobile/desktop implementation for copying, deleting, opening, retrieving,
 /// and downloading encrypted files with secure transient lifecycle management.
 class FileStorageService {
@@ -19,7 +25,7 @@ class FileStorageService {
   final Future<Directory> Function() _tempDirProvider;
   final Future<Directory> Function() _downloadsDirProvider;
   final EncryptionService _encryptionService;
-  final Future<OpenResult> Function(String path) _fileOpener;
+  final FileOpenerCallback _fileOpener;
   final Future<String> Function({
     required Uint8List bytes,
     required String fileName,
@@ -31,7 +37,7 @@ class FileStorageService {
     Future<Directory> Function()? tempDirProvider,
     Future<Directory> Function()? downloadsDirProvider,
     EncryptionService? encryptionService,
-    Future<OpenResult> Function(String path)? fileOpener,
+    Function? fileOpener,
     Future<String> Function({
       required Uint8List bytes,
       required String fileName,
@@ -41,8 +47,38 @@ class FileStorageService {
         _tempDirProvider = tempDirProvider ?? getTemporaryDirectory,
         _downloadsDirProvider = downloadsDirProvider ?? _defaultDownloadsDirProvider,
         _encryptionService = encryptionService ?? EncryptionService(),
-        _fileOpener = fileOpener ?? OpenFilex.open,
+        _fileOpener = _wrapFileOpener(fileOpener),
         _downloadsWriter = downloadsWriter;
+
+  static FileOpenerCallback _wrapFileOpener(Function? opener) {
+    if (opener == null) {
+      return (String path, {String? type, String? uti}) =>
+          OpenFilex.open(path, type: type, uti: uti);
+    }
+    if (opener is FileOpenerCallback) {
+      return opener;
+    }
+    if (opener is Future<OpenResult> Function(String path)) {
+      return (String path, {String? type, String? uti}) => opener(path);
+    }
+    return (String path, {String? type, String? uti}) {
+      try {
+        final dynamic res = Function.apply(
+          opener,
+          [path],
+          {
+            if (type != null) #type: type,
+            if (uti != null) #uti: uti,
+          },
+        );
+        if (res is Future<OpenResult>) return res;
+      } catch (_) {
+        final dynamic res = Function.apply(opener, [path]);
+        if (res is Future<OpenResult>) return res;
+      }
+      return Future.value(OpenResult(type: ResultType.error, message: 'Invalid opener'));
+    };
+  }
 
   static Future<Directory> _defaultDownloadsDirProvider() async {
     try {
@@ -262,6 +298,27 @@ class FileStorageService {
     }
   }
 
+  /// Decrypts and returns the document bytes purely in memory without creating temporary files.
+  Future<Uint8List> readDecryptedBytes(String relativePath) async {
+    final appDir = await _documentsDirProvider();
+    final safeRelPath = relativePath.replaceAll('\\', '/');
+    final encryptedFile = File(p.join(appDir.path, safeRelPath));
+
+    if (!await encryptedFile.exists()) {
+      throw FileSystemException('File not found', relativePath);
+    }
+
+    final bytes = await encryptedFile.readAsBytes();
+    try {
+      return await _encryptionService.decryptBytes(bytes);
+    } catch (e) {
+      if (_looksLikeLegacyPlaintext(bytes)) {
+        return Uint8List.fromList(bytes);
+      }
+      rethrow;
+    }
+  }
+
   Future<bool> fileExists(String relativePath) async {
     final appDir = await _documentsDirProvider();
     final safeRelPath = relativePath.replaceAll('\\', '/');
@@ -307,6 +364,7 @@ class FileStorageService {
   /// Opens a decrypted document with the platform viewer and guarantees cleanup.
   Future<OpenResult> openAndCleanFile(
     String path, {
+    String? mimeType,
     Duration cleanupDelay = const Duration(seconds: 15),
   }) async {
     bool openedSuccessfully = false;
@@ -315,7 +373,8 @@ class FileStorageService {
         throw const FileSystemException('Invalid or unauthorized temporary file path');
       }
 
-      final result = await _fileOpener(path);
+      final resolvedMime = mimeType ?? resolveMimeType(path);
+      final result = await _fileOpener(path, type: resolvedMime);
       openedSuccessfully = (result.type == ResultType.done);
       return result;
     } catch (e) {
@@ -331,6 +390,84 @@ class FileStorageService {
           await cleanupTempFile(path);
         });
       }
+    }
+  }
+
+  /// Securely decrypts an encrypted document into a transient private sandbox temp file,
+  /// opens it in an external app with the appropriate MIME type (e.g. application/pdf),
+  /// and ensures bounded lifecycle cleanup.
+  /// If the opening fails, the file is empty, or decryption fails, cleans up immediately and throws.
+  Future<OpenResult> openSecureDocument(
+    String relativePath, {
+    String? mimeType,
+    Duration cleanupDelay = const Duration(seconds: 25),
+  }) async {
+    File? tempFile;
+    try {
+      final appDir = await _documentsDirProvider();
+      final safeRelPath = relativePath.replaceAll('\\', '/');
+      final encryptedFile = File(p.join(appDir.path, safeRelPath));
+
+      if (!await encryptedFile.exists()) {
+        throw FileSystemException('Document not found', relativePath);
+      }
+
+      final encryptedBytes = await encryptedFile.readAsBytes();
+      if (encryptedBytes.isEmpty) {
+        throw FileSystemException('Document is empty or corrupted', relativePath);
+      }
+
+      // Decrypt
+      Uint8List decryptedBytes;
+      try {
+        decryptedBytes = await _encryptionService.decryptBytes(encryptedBytes);
+      } catch (e) {
+        if (_looksLikeLegacyPlaintext(encryptedBytes)) {
+          decryptedBytes = Uint8List.fromList(encryptedBytes);
+        } else {
+          throw FileSystemException('Decryption failed', relativePath);
+        }
+      }
+
+      if (decryptedBytes.isEmpty) {
+        throw FileSystemException('Decrypted document is empty', relativePath);
+      }
+
+      // Write to secure private temporary directory
+      final tempDir = await _getTempDir();
+      final safeName = _generateDecryptedFileName(p.basename(relativePath));
+      final tempFilePath = p.join(tempDir.path, safeName);
+
+      if (!await _isPathInsideTemp(tempFilePath)) {
+        throw FileSystemException('Security violation: path resolves outside temporary sandbox', tempFilePath);
+      }
+
+      tempFile = File(tempFilePath);
+      await tempFile.writeAsBytes(decryptedBytes, flush: true);
+
+      // Determine MIME type
+      final resolvedMime = mimeType ?? resolveMimeType(relativePath);
+
+      // Open via platform opener
+      final result = await _fileOpener(tempFile.path, type: resolvedMime);
+
+      if (result.type == ResultType.done) {
+        // Successful opening - schedule bounded cleanup
+        final pathToClean = tempFile.path;
+        Timer(cleanupDelay, () async {
+          await cleanupTempFile(pathToClean);
+        });
+      } else {
+        // Failed opening or no app installed - clean up immediately
+        await cleanupTempFile(tempFile.path);
+      }
+
+      return result;
+    } catch (e) {
+      if (tempFile != null) {
+        await cleanupTempFile(tempFile.path);
+      }
+      rethrow;
     }
   }
 

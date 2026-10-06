@@ -1,6 +1,7 @@
 # VITACASE – PRIVACY POLICY
 
-**Last updated: May 26, 2026**
+**Last updated: October 5, 2026**
+**Version: 1.1.7-2026-10 (App Version: 1.1.7+27)**
 
 This Privacy Policy describes how Limanex Software ("we", "us", or "our") collects, uses, stores, and protects your information when you use the VitaCase mobile application ("App", "Service").
 
@@ -8,215 +9,166 @@ This Privacy Policy describes how Limanex Software ("we", "us", or "our") collec
 
 ## 1. 📱 ABOUT THE APPLICATION
 
-VitaCase is a personal document management application designed to allow users to:
+VitaCase is a private, offline-first personal health and document organization application designed to help you organize your personal records on your device:
 
-* Store and organize documents (including health records, prescriptions, invoices, and personal files)
-* Track medications and appointments
-* Manage personal notes and important information
+* **Encrypted Document Vault**: Store and organize personal documents, prescriptions, lab results, insurance files, and reports using on-device AES-256-GCM encryption.
+* **Medication & Stock Tracking**: Log medications, dosages, inventory counts, schedules, and local reminders.
+* **Appointment Management**: Keep track of upcoming doctor visits, lab appointments, and consultation schedules with local notifications.
+* **Health Metrics & BMI**: Record physical statistics, vital metrics, and personal health logs locally.
+* **Emergency & Important Information**: Keep blood type, emergency contacts, allergy lists, and key notes readily accessible on your device.
 
-⚠️ Important Notice:
-VitaCase is not a medical or healthcare provider and does not provide medical advice, diagnosis, or treatment.
-
----
-
-## 2. 📊 INFORMATION WE COLLECT
-
-### A. Information You Provide
-
-We may process information that you voluntarily provide, including:
-
-* Documents and files uploaded by you
-* Health-related records (if you choose to store them)
-* Notes, medications, and appointments
-
-👉 Important:
-We do not access, read, analyze, or interpret your documents. All content remains under your control.
-
-### B. Automatically Collected Information
-
-We may automatically collect limited technical data such as:
-
-* Device information (model, OS, device ID)
-* IP address
-* Usage data (interactions within the app)
-* Crash logs and diagnostic data
-
-### C. Information We Do NOT Collect
-
-We do not intentionally collect:
-
-* Personal data from third parties
-* Biometric data (face ID, fingerprint, etc.)
-* Financial/payment information
-* Social media data
+⚠️ **Important Medical Notice**:
+VitaCase is an organizational utility tool only. VitaCase is **not** a healthcare provider, medical device, diagnostic system, or treatment advisor. The App does not provide medical advice, diagnosis, dosage recommendations, or healthcare services.
 
 ---
 
-## 3. 🧠 SENSITIVE INFORMATION
+## 2. 📊 INFORMATION ARCHITECTURE & DATA COLLECTION
 
-The App may store sensitive data provided by users, including:
+### A. Local Storage Only — No Cloud Accounts or Remote Document Storage
+VitaCase operates on a **local-first** security model:
+* **No Remote Accounts**: There are no cloud user accounts, remote registrations, or central logins.
+* **No Cloud Sync**: Your documents, notes, appointments, medications, health measurements, and profile data are stored **strictly on your terminal device**. We have no access to your documents or files.
+* **End-to-End Local Encryption**: Files and sensitive database records stored in the VitaCase vault are encrypted on-device using industry-standard **AES-256-GCM** encryption.
 
-* Health-related information
-* Personal documents and files
+### B. Biometric Authentication & Device Security
+* VitaCase allows you to secure the App using a 6-digit PIN and optional biometric authentication (fingerprint or facial recognition).
+* Biometric authentication is executed entirely by your device operating system via local platform security APIs (`local_auth`).
+* **VitaCase never collects, receives, reads, accesses, or transmits your biometric data**. The operating system only returns a local cryptographic confirmation of authentication success or failure.
+
+### C. Information You Enter
+All information within the app is entered voluntarily by you, including:
+* Uploaded files, PDFs, and document images
+* Medication schedules, dosages, and notes
+* Appointment times, doctor names, and clinic locations
+* Emergency contact numbers and profile details
+
+We do not inspect, analyze, validate, or process your files or notes. Everything remains under your direct, physical control on your device.
+
+### D. Automatically Collected Technical Data
+To ensure stability, security, and app improvement, the App and its third-party developer SDKs may automatically collect limited technical and diagnostic data:
+* **Device & Operating System Details**: Device model, manufacturer, OS version, app version, language, and system locale.
+* **Diagnostic & Crash Logs**: Crash traces, memory events, and performance logs to identify and resolve software errors (processed via Google Firebase Crashlytics and Sentry).
+* **Usage & Event Metrics**: Aggregated, non-personally identifiable app interaction metrics (such as screen visits and feature usage counts) via Google Firebase Analytics to improve user experience.
+* **Network & Identifiers**: Device IP address and advertising/instance identifiers processed automatically by SDKs for network connectivity, crash reporting, and ad delivery.
 
 ---
 
-## 3A. Medication, Appointment and Reminder Data
+## 3. 🧠 SENSITIVE HEALTH DATA DISCLAIMER
 
-VitaCase may allow users to save medication names, schedules, appointment details, reminder times, notes, and related personal records.
-
-This information is entered and controlled by the user. VitaCase does not verify, validate, analyze, interpret, or medically review medication, appointment, or health-related information.
-
-Users are responsible for ensuring that saved medication schedules, appointment details, reminders, and related records are accurate, current, and properly backed up.
-
-VitaCase notifications and reminders are provided only as a convenience feature and may be delayed, blocked, silenced, or fail to appear due to device settings, operating system restrictions, battery optimization, permission changes, app updates, or technical issues.
-
-👉 However:
-This data is user-provided only. We do not process, analyze, or interpret this data. We do not use this data for profiling or decision-making.
+VitaCase enables you to store health records, medications, and medical appointment details:
+* This data is stored **only on your device** in encrypted local storage.
+* We do not transmit, analyze, profile, monetize, or share your health records or personal files with any party.
+* You are the sole custodian of your health information.
 
 ---
 
-## 4. ⚙️ HOW WE USE INFORMATION
+## 4. ⏰ NOTIFICATIONS & REMINDERS
 
-We process information only to:
-
-* Provide and maintain app functionality
-* Enable document storage and organization
-* Improve app performance and stability
-* Detect and fix technical issues
-* Ensure security and prevent misuse
+VitaCase provides on-device medication and appointment reminders:
+* Reminders are scheduled locally on your device via the operating system's notification system (`flutter_local_notifications`).
+* Reminders are provided solely as an informational convenience.
+* Delivery of notifications may be delayed, silenced, suppressed, or prevented by operating system battery optimizations, Do Not Disturb modes, background restrictions, permission revocations, or device power states.
+* **Never rely solely on VitaCase for life-critical medications or emergency appointments.**
 
 ---
 
 ## 5. 🚫 WHAT WE DO NOT DO
 
-We explicitly do not:
-
-* Sell personal data
-* Access or review user documents
-* Use data for profiling or behavioral analysis
-* Use personal data for targeted advertising
-
-👉 We do not use user data for advertising profiling purposes.
+Limanex Software is committed to your privacy:
+* ❌ We do **NOT** sell, rent, or trade your personal data.
+* ❌ We do **NOT** access, view, or read your stored documents or photos.
+* ❌ We do **NOT** use your health data for advertising, profiling, or behavioral targeting.
+* ❌ We do **NOT** operate a central cloud database storing your records.
+* ❌ We do **NOT** use artificial intelligence or automated decision-making on your medical records.
 
 ---
 
-## 6. 📢 DATA SHARING AND THIRD PARTIES
+## 6. 📢 THIRD-PARTY SERVICES, DIAGNOSTICS & ADVERTISING
 
-We may share limited technical data with trusted third-party service providers:
+While your health records and vault files never leave your device, the App integrates vetted third-party software development kits (SDKs) strictly for error monitoring, performance diagnostics, aggregated analytics, and advertising:
 
-Examples:
+* **Google AdMob (Google LLC)**: Displays in-app banner, interstitial, rewarded, and app-open advertisements to support the free tier of the App. AdMob processes device identifiers (such as the Google Advertising ID), coarse location, and interaction events. In jurisdictions requiring consent (such as the European Economic Area, UK, and Switzerland), user consent is gathered through the Google User Messaging Platform (UMP).
+* **Google Firebase Analytics (Google LLC)**: Collects pseudonymous, aggregated usage statistics (such as screen transitions and feature usage counts) to help us understand app adoption. No health data, file names, or medication details are ever logged to Firebase Analytics.
+* **Google Firebase Crashlytics (Google LLC)**: Collects diagnostic crash reports and device operating states when an unexpected software failure occurs, allowing us to debug and patch errors.
+* **Sentry (Functional Software, Inc.)**: Captures real-time application exceptions and stack traces for software reliability and performance monitoring. Sentry receives an anonymized, randomly generated installation UUID (`app_user_uid`) to correlate crashes without identifying you personally.
 
-* Advertising services (e.g., AdMob)
-* Crash reporting and analytics tools (e.g., Sentry)
+### Cross-Border & International Data Transfers
+These third-party service providers (Google LLC and Functional Software, Inc.) maintain infrastructure in the United States and globally. Data collected by their SDKs is transferred using recognized international transfer mechanisms, such as the EU-U.S. Data Privacy Framework and Standard Contractual Clauses (SCCs), ensuring an adequate level of data protection.
 
-👉 Important:
-No personal documents are shared. No health data is shared. No sensitive content is transmitted.
-
----
-
-## 7. 🍪 COOKIES AND TRACKING TECHNOLOGIES
-
-VitaCase does not use cookies.
-
-We may use limited tracking technologies only for:
-
-* App performance monitoring
-* Error tracking and diagnostics
+### Legal Bases for Processing (Under GDPR & International Regimes)
+Where applicable under the EU General Data Protection Regulation (GDPR) or similar laws:
+* **Legitimate Interests (Art. 6(1)(f) GDPR)**: Operating, maintaining, securing, and debugging the App via crash reporting (Crashlytics, Sentry) and aggregated product telemetry.
+* **Consent (Art. 6(1)(a) GDPR)**: Displaying personalized advertising via Google AdMob (managed through Google UMP consent preferences).
+* **Explicit Consent for Local Health Data (Art. 9(2)(a) GDPR)**: You provide explicit consent by voluntarily entering health and medical information into the local encrypted vault on your device.
 
 ---
 
-## 8. 🌍 INTERNATIONAL DATA TRANSFERS
+## 7. ⏳ DATA RETENTION, BACKUP & DELETION
 
-Your information may be processed in countries outside your residence.
+### Complete User Control Over Local Data
+* **Manual Deletion**: You can delete individual documents, medications, appointments, or profile data at any time from within the App.
+* **In-App Complete Data Wipe**: Selecting "Wipe All Data" / "Verileri Temizle" in Settings permanently erases the local Sembast database, encrypted file vault, cryptographic master keys from Secure Storage, and cancels all local notification schedules.
+* **App Uninstallation**: Uninstalling VitaCase permanently purges the application's isolated private data storage sandbox.
+* **Backup Responsibility**: Because VitaCase operates offline without cloud synchronization, we cannot restore lost records. You are solely responsible for keeping independent, secure backups of your critical documents.
 
-We ensure:
-
-* Appropriate safeguards
-* Industry-standard protection measures
-* Compliance with applicable data protection laws
-
----
-
-## 9. ⏳ DATA RETENTION
-
-We retain data:
-
-👉 For as long as the user continues to use the app
-
-Users can:
-
-* Delete their files at any time
-* Remove stored information manually
-
-Technical data (e.g., crash logs) may be retained for a limited period for performance and security purposes.
+### Third-Party Retention Periods
+Technical diagnostic logs and aggregated telemetry transmitted to third-party SDKs are retained under the respective providers' retention policies:
+* Firebase Analytics: Typically retained for 2 to 14 months (Google configurable standard).
+* Firebase Crashlytics: Crash reports typically retained for 90 days.
+* Sentry: Error logs typically retained for 30 to 90 days.
 
 ---
 
-## 10. 🔐 DATA SECURITY
+## 8. 🔐 DATA SECURITY & ENCRYPTION
 
-We implement appropriate technical and organizational measures, including:
+We enforce robust, defense-in-depth security measures on your device:
+* **AES-256-GCM Encryption**: All documents, PDFs, images, and sensitive database records in the vault are encrypted at rest on your device using authenticated AES-256-GCM.
+* **Hardware-Backed Key Derivation**: Encryption keys are derived using PBKDF2/cryptographic salts and stored in hardware-backed storage (`FlutterSecureStorage` / Android Keystore) where supported by the operating system.
+* **PIN & Biometric Lock**: An optional 6-digit PIN and operating system biometric authentication gate prevent unauthorized physical access to the App.
 
-* Secure storage mechanisms
-* Access control systems
-* Industry-standard security practices
-
-⚠️ However, no system is completely secure.
-
----
-
-## 11. 👶 CHILDREN'S PRIVACY
-
-The App is not intended for children under 13. We do not knowingly collect personal data from children.
+*Limitation*: While local encryption protects your stored data from unauthorized apps, overall security also depends on keeping your device operating system updated and your device lock screen protected.
 
 ---
 
-## 12. 📩 YOUR PRIVACY RIGHTS
+## 9. 👶 CHILDREN'S PRIVACY
 
-Depending on your location, you may have the right to:
-
-* Access your data
-* Request deletion
-* Request correction
-* Object to certain processing
-
-You may contact us to exercise these rights.
+VitaCase is designed for general audiences and is not directed at children under the age of 13 (or under 16 in the European Union / EEA). We do not knowingly collect personal data from children. If you become aware that a child has provided us with personal information, please contact us so we can take appropriate steps.
 
 ---
 
-## 13. 📬 CONTACT INFORMATION
+## 10. 🌍 REGIONAL DATA PROTECTION RIGHTS & COMPLIANCE
 
-For any privacy-related inquiries:
+### A. European Economic Area (EEA), UK & Swiss Users (GDPR / UK GDPR)
+If you reside in the EEA, UK, or Switzerland, you have the following rights regarding data processed by us or our processors:
+* Right to access the personal/technical data held about you.
+* Right to rectification or erasure of your data.
+* Right to restrict or object to processing.
+* Right to withdraw consent at any time (e.g., for advertising preferences via Google UMP).
+* Right to lodge a complaint with your local data protection supervisory authority.
 
-📧 limanexsoftware@outlook.com
+### B. California & United States Residents (CCPA / CPRA)
+Under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):
+* **No Sale of Personal Information**: VitaCase does not sell, rent, or monetize your personal or health information to data brokers or third parties.
+* **No Sharing of Health Data for Cross-Context Behavioral Advertising**: Your health data and vault files are never shared for advertising.
+* You have the right to know what categories of technical data are collected and to request deletion of any personal telemetry.
 
----
-
-## 14. ⚠️ MEDICAL DISCLAIMER
-
-VitaCase is not a healthcare provider.
-
-* The App does not provide medical advice
-* It does not diagnose or treat medical conditions
-* It should not be used as a substitute for professional healthcare
-
-Users should always consult qualified healthcare professionals.
-
----
-
-## 15. 📄 DATA RESPONSIBILITY
-
-Users are solely responsible for:
-
-* The content they upload
-* The accuracy of their information
-
-We do not verify, validate, or interpret user data.
-
-Users are responsible for keeping independent backups of important documents, medication records, appointment details, and health-related information. VitaCase should not be used as the only source or only backup for critical records.
+### C. Türkiye Residents (KVKK Notice)
+For users located in the Republic of Turkey, the processing of personal data is governed by the Turkish Personal Data Protection Law No. 6698 (KVKK). Please consult our dedicated, Türkiye-specific **KVKK Aydınlatma Metni** ([assets/legal/kvkk.md](file:///c:/Users/olum3/OneDrive/Masa%C3%BCst%C3%BC/vit-case-recovery/assets/legal/kvkk.md)), which is also accessible directly within the application settings for full statutory disclosures and formal application procedures.
 
 ---
 
-## 16. 🔄 POLICY UPDATES
+## 11. 📬 CONTACT INFORMATION & DATA CONTROLLER
 
-We may update this Privacy Policy from time to time. Users are encouraged to review this page periodically.
+If you have questions, feedback, or privacy-related requests, please contact:
+
+**Limanex Software**
+* 📧 **Email**: limanexsoftware@outlook.com
+* 🌐 **Application**: VitaCase (Android / iOS)
+* 🏢 **Registered Address**: [TODO: Registered Business Address — To be provided upon corporate incorporation]
+* 👤 **Legal Representative**: [TODO: Legal Representative — If corporate entity appointed]
+
+---
+
+## 12. 🔄 CHANGES TO THIS POLICY
+
+We may update this Privacy Policy periodically to reflect app updates, legal requirements, or service improvements. When material changes occur, the "Last Updated" date will be updated, and existing users will be presented with a one-time update notice and consent screen within the App before continued access.

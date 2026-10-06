@@ -2762,7 +2762,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get document_update_failed => 'Belge güncellenemedi.';
 
   @override
-  String get document_open_failed => 'Belge açılamadı.';
+  String get document_open_failed => 'Belge açılamadı';
 
   @override
   String get no_additional_notes => 'Ek not yok.';
@@ -2966,4 +2966,59 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Planlarınızı gözden geçirmek, yeni temalar keşfetmek ve kasanızı düzenlemek için günlük bir bildirim alın.';
+
+  @override
+  String get quick_tags => 'Hızlı Etiketler';
+
+  @override
+  String get custom_tags => 'Özel Etiketler';
+
+  @override
+  String get add_tag => 'Etiket Ekle';
+
+  @override
+  String get create_tag => 'Etiket Oluştur';
+
+  @override
+  String get remove_tag => 'Etiketi Kaldır';
+
+  @override
+  String get filter_by_tag => 'Etikete Göre Filtrele';
+
+  @override
+  String get clear_tags => 'Etiketleri Temizle';
+
+  @override
+  String get no_tags => 'Etiket Yok';
+
+  @override
+  String get add_custom_tag => 'Özel Etiket Ekle';
+
+  @override
+  String get tag_name_hint => 'ör., Kardiyoloji, 2026 Kontrolü';
+
+  @override
+  String get tag_name_empty => 'Etiket adı boş olamaz';
+
+  @override
+  String get tag_already_exists => 'Bu etiket zaten var';
+
+  @override
+  String get tag_too_long => 'Etiket 30 karakterden uzun olamaz';
+
+  @override
+  String get docs_tag_insurance => 'Sigorta';
+
+  @override
+  String get docs_tag_invoice => 'Fatura';
+
+  @override
+  String get open_pdf => 'PDF\'i Aç';
+
+  @override
+  String get pdf_viewer_not_found =>
+      'Cihazda PDF görüntüleyici uygulama bulunamadı';
+
+  @override
+  String get pdf_open_failed => 'PDF dosyası açılamadı';
 }

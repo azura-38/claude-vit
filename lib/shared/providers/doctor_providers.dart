@@ -32,6 +32,12 @@ class DoctorListNotifier extends AsyncNotifier<List<Doctor>> {
     await refresh();
   }
 
+  Future<void> updateDoctor(Doctor doctor) async {
+    final repo = ref.read(doctorRepositoryProvider);
+    await repo.save(doctor);
+    await refresh();
+  }
+
   Future<void> deleteDoctor(String id) async {
     final repo = ref.read(doctorRepositoryProvider);
     await repo.delete(id);

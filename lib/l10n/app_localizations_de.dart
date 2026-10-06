@@ -2800,7 +2800,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Dokument konnte nicht aktualisiert werden.';
 
   @override
-  String get document_open_failed => 'Dokument konnte nicht geöffnet werden.';
+  String get document_open_failed => 'Dokument konnte nicht geöffnet werden';
 
   @override
   String get no_additional_notes =>
@@ -3005,4 +3005,59 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Receive a daily notification to review your plans, discover themes, and organize your vault.';
+
+  @override
+  String get quick_tags => 'Schnell-Tags';
+
+  @override
+  String get custom_tags => 'Benutzerdefinierte Tags';
+
+  @override
+  String get add_tag => 'Tag hinzufügen';
+
+  @override
+  String get create_tag => 'Tag erstellen';
+
+  @override
+  String get remove_tag => 'Tag entfernen';
+
+  @override
+  String get filter_by_tag => 'Nach Tag filtern';
+
+  @override
+  String get clear_tags => 'Tags löschen';
+
+  @override
+  String get no_tags => 'Keine Tags';
+
+  @override
+  String get add_custom_tag => 'Benutzerdefinierten Tag hinzufügen';
+
+  @override
+  String get tag_name_hint => 'z.B. Kardiologie, Check-up 2026';
+
+  @override
+  String get tag_name_empty => 'Tag-Name darf nicht leer sein';
+
+  @override
+  String get tag_already_exists => 'Dieser Tag existiert bereits';
+
+  @override
+  String get tag_too_long => 'Tag darf 30 Zeichen nicht überschreiten';
+
+  @override
+  String get docs_tag_insurance => 'Versicherung';
+
+  @override
+  String get docs_tag_invoice => 'Rechnung';
+
+  @override
+  String get open_pdf => 'PDF öffnen';
+
+  @override
+  String get pdf_viewer_not_found =>
+      'Keine PDF-Viewer-App auf dem Gerät gefunden';
+
+  @override
+  String get pdf_open_failed => 'PDF-Datei konnte nicht geöffnet werden';
 }

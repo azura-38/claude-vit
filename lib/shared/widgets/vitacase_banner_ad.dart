@@ -12,6 +12,7 @@ class VitaCaseBannerAd extends ConsumerStatefulWidget {
     this.ignoreVisibilityPolicy = false,
     this.showPlaceholderWhenLoading = false,
     this.showFailureMessage = false,
+    this.onLoadedStateChanged,
   });
 
   /// Used by the debug panel so the banner test can run even if the normal
@@ -23,6 +24,8 @@ class VitaCaseBannerAd extends ConsumerStatefulWidget {
   final bool showPlaceholderWhenLoading;
 
   final bool showFailureMessage;
+
+  final ValueChanged<bool>? onLoadedStateChanged;
 
   @override
   ConsumerState<VitaCaseBannerAd> createState() => _VitaCaseBannerAdState();
@@ -41,6 +44,14 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
   }
 
   @override
+  void didUpdateWidget(VitaCaseBannerAd oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.onLoadedStateChanged != widget.onLoadedStateChanged) {
+      widget.onLoadedStateChanged?.call(_isLoaded);
+    }
+  }
+
+  @override
   void dispose() {
     _bannerAd?.dispose();
     super.dispose();
@@ -50,9 +61,15 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
     if (kIsWeb || !AppConfig.hasAdConfig || AppConfig.bannerAdId.isEmpty) {
       _loadFailed = true;
       _lastError = kIsWeb ? 'Web desteklenmiyor' : 'AdMob banner config eksik';
+      widget.onLoadedStateChanged?.call(false);
       return;
     }
-    if (_bannerAd != null) return;
+    if (_bannerAd != null) {
+      if (_isLoaded) {
+        widget.onLoadedStateChanged?.call(true);
+      }
+      return;
+    }
 
     final ad = BannerAd(
       adUnitId: AppConfig.bannerAdId,
@@ -68,6 +85,7 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
             _loadFailed = false;
             _lastError = null;
           });
+          widget.onLoadedStateChanged?.call(true);
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
@@ -79,6 +97,7 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
             _loadFailed = true;
             _lastError = '${error.code}: ${error.message}';
           });
+          widget.onLoadedStateChanged?.call(false);
         },
       ),
     );

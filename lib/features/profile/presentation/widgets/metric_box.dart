@@ -19,7 +19,7 @@ class MetricBox extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
         decoration: BoxDecoration(
           color: boxBgColor,
           borderRadius: BorderRadius.circular(20),
@@ -29,33 +29,46 @@ class MetricBox extends StatelessWidget {
           children: [
             Text(
               title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 12,
-                letterSpacing: 1,
+                letterSpacing: 0.5,
                 color: isDark ? Colors.white70 : const Color(0xFF6B7280),
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w700,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
 
-                const SizedBox(width: 4),
+                  const SizedBox(width: 4),
 
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(unit),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Text(
+                      unit,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: isDark ? Colors.white70 : const Color(0xFF6B7280),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

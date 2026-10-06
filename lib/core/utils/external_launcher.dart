@@ -68,6 +68,28 @@ class ExternalLauncher {
     }
   }
 
+  static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.limanex.vitacase';
+  static const String playStoreMarketUri = 'market://details?id=com.limanex.vitacase';
+
+  static Future<bool> openPlayStore({String url = playStoreUrl}) async {
+    try {
+      final marketUri = Uri.parse(playStoreMarketUri);
+      if (await canLaunchUrl(marketUri)) {
+        return await launchUrl(marketUri, mode: LaunchMode.externalApplication);
+      }
+    } catch (_) {}
+
+    try {
+      final webUri = Uri.parse(url);
+      if (await canLaunchUrl(webUri)) {
+        return await launchUrl(webUri, mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      // Silent fail
+    }
+    return false;
+  }
+
   static String? _encodeQueryParameters(Map<String, String> params) {
     return params.entries
         .map(

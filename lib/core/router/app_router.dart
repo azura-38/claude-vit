@@ -12,6 +12,11 @@ import '../../features/debug/presentation/screens/debug_panel_screen.dart';
 import '../../features/doctors/presentation/screens/doctor_add_screen.dart';
 import '../../features/doctors/presentation/screens/doctors_screen.dart';
 import '../../features/vault/presentation/screens/document_add_screen.dart';
+import '../../shared/domain/entities/document.dart';
+import '../../features/appointments/domain/entities/appointment.dart';
+import '../../features/medications/domain/entities/medicine.dart';
+import '../../shared/domain/entities/doctor.dart';
+import '../../features/vault/presentation/screens/document_quick_view_screen.dart';
 import '../../features/vault/presentation/screens/document_vault_screen.dart';
 import '../../features/health_stats/presentation/screens/health_data_add_screen.dart';
 import '../../features/health_stats/presentation/screens/health_stats_screen.dart';
@@ -27,14 +32,12 @@ import '../../features/profile/presentation/screens/important_information_screen
 import '../../features/profile/presentation/screens/profile_create_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/profile/presentation/screens/personal_information_screen.dart';
-import '../../features/onboarding/presentation/screens/legal/disclaimer_screen.dart';
-import '../../features/onboarding/presentation/screens/legal/privacy_policy_screen.dart';
-import '../../features/onboarding/presentation/screens/legal/terms_conditions_screen.dart';
 import '../../features/profile/presentation/screens/theme_selection_screen.dart';
 import '../error/presentation/screens/error_screen.dart';
 import '../../features/doctors/presentation/screens/doctor_detail_screen.dart';
-import '../../features/gamification/presentation/screens/achievements/achievements_screen.dart';
-import '../../features/gamification/presentation/screens/season_pass/season_pass_screen.dart';
+import '../../features/explore/presentation/screens/coming_soon_screen.dart';
+import '../../features/legal/presentation/screens/legal_update_screen.dart';
+import '../../features/legal/presentation/screens/terms_and_privacy_screen.dart';
 
 // Notifications
 import '../../features/notifications/presentation/screens/medication_lock_notification.dart';
@@ -102,19 +105,51 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ProfileCreateScreen(),
       ),
       GoRoute(
+        path: AppRoutes.legalUpdate,
+        name: 'legalUpdate',
+        builder: (context, state) => const LegalUpdateScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.settingsTermsAndPrivacy,
+        name: 'settingsTermsAndPrivacy',
+        builder: (context, state) => TermsAndPrivacyScreen(
+          initialSection: state.extra as LegalSectionType?,
+        ),
+      ),
+      GoRoute(
         path: AppRoutes.settingsTerms,
         name: 'settingsTerms',
-        builder: (context, state) => const TermsConditionsScreen(),
+        builder: (context, state) => const TermsAndPrivacyScreen(
+          initialSection: LegalSectionType.terms,
+        ),
       ),
       GoRoute(
         path: AppRoutes.settingsPrivacy,
         name: 'settingsPrivacy',
-        builder: (context, state) => const PrivacyPolicyScreen(),
+        builder: (context, state) => const TermsAndPrivacyScreen(
+          initialSection: LegalSectionType.privacy,
+        ),
       ),
       GoRoute(
         path: AppRoutes.settingsDisclaimer,
         name: 'settingsDisclaimer',
-        builder: (context, state) => const DisclaimerScreen(),
+        builder: (context, state) => const TermsAndPrivacyScreen(
+          initialSection: LegalSectionType.disclaimer,
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.settingsKvkk,
+        name: 'settingsKvkk',
+        builder: (context, state) => const TermsAndPrivacyScreen(
+          initialSection: LegalSectionType.kvkk,
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.settingsDataDeletion,
+        name: 'settingsDataDeletion',
+        builder: (context, state) => const TermsAndPrivacyScreen(
+          initialSection: LegalSectionType.dataDeletion,
+        ),
       ),
       GoRoute(
         path: '/notification/medication',
@@ -157,7 +192,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: '/explore',
                     name: 'explore',
-                    builder: (context, state) => _withTopBanner(const AchievementsScreen()),
+                    builder: (context, state) => _withTopBanner(const ComingSoonScreen()),
                   ),
                 ],
               ),
@@ -171,7 +206,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       GoRoute(
                         path: 'add',
                         name: 'appointmentAdd',
-                        builder: (context, state) => const CreateAppointmentScreen(),
+                        builder: (context, state) => CreateAppointmentScreen(
+                          initialAppointment: state.extra as Appointment?,
+                        ),
                       ),
                     ],
                   ),
@@ -196,19 +233,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
           GoRoute(
-            path: AppRoutes.seasonPass,
-            name: 'seasonPass',
-            builder: (context, state) => _withTopBanner(const SeasonPassScreen()),
-          ),
-          GoRoute(
-            path: AppRoutes.achievements,
-            name: 'achievements',
-            builder: (context, state) => _withTopBanner(const AchievementsScreen()),
-          ),
-          GoRoute(
             path: AppRoutes.documentAdd,
             name: 'documentAdd',
             builder: (context, state) => const SecureScreenGuard(child: DocumentAddScreen()),
+          ),
+          GoRoute(
+            path: AppRoutes.documentQuickView,
+            name: 'documentQuickView',
+            builder: (context, state) {
+              final doc = state.extra as Document?;
+              if (doc == null) {
+                return const Scaffold(body: Center(child: Text('Document not found')));
+              }
+              return SecureScreenGuard(child: DocumentQuickViewScreen(document: doc));
+            },
           ),
           GoRoute(
             path: AppRoutes.medicines,
@@ -218,7 +256,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'add',
                 name: 'medicineAdd',
-                builder: (context, state) => const AddMedicationScreen(),
+                builder: (context, state) => AddMedicationScreen(
+                  initialMedicine: state.extra as Medicine?,
+                ),
               ),
             ],
           ),
@@ -242,7 +282,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'add',
                 name: 'doctorAdd',
-                builder: (context, state) => const DoctorAddScreen(),
+                builder: (context, state) => DoctorAddScreen(
+                  initialDoctor: state.extra as Doctor?,
+                ),
               ),
               GoRoute(
                 path: ':id',

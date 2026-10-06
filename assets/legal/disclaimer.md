@@ -1,150 +1,102 @@
 # DISCLAIMER
 
-_Last updated: May 20, 2026_
+**Last updated: October 5, 2026**
+**Version: 1.1.7-2026-10 (App Version: 1.1.7+27)**
 
-This Disclaimer applies to the VitaCase mobile application operated by **Limanex Software** ("Company", "we", "us", or "our").
-
----
-
-## GENERAL DISCLAIMER
-
-The information provided by us on the VitaCase mobile application is for general informational purposes only. All information within the application is provided in good faith; however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information.
-
-Under no circumstances shall we have any liability to you for any loss or damage incurred as a result of the use of the application or reliance on any information stored or accessed through the app. Your use of the app and your reliance on any information is solely at your own risk.
+This Disclaimer applies to the VitaCase mobile application ("App", "Service") developed and operated by **Limanex Software** ("Company", "we", "us", or "our").
 
 ---
 
-## PROFESSIONAL DISCLAIMER
+## 1. GENERAL DISCLAIMER
 
-VitaCase does not provide medical, healthcare, legal, financial, or any other professional advice.
+The information and organizational tools provided by VitaCase are for general personal informational and organizational purposes only. All features, tools, and content within the application are provided in good faith on an "as-is" and "as-available" basis.
 
-All data and documents stored within the app are user-generated and are not reviewed, analyzed, or verified by us.
+We make no representation, warranty, or guarantee of any kind, express or implied, regarding the accuracy, completeness, validity, reliability, availability, or suitability of any information stored, organized, calculated, or displayed through the App.
 
-The app is not intended for diagnosing, treating, curing, or preventing any condition and must not be used as a substitute for professional services.
-
-You should consult qualified professionals before making any decisions based on your stored data.
-
-We disclaim any liability for decisions or actions taken based on information stored within the app.
+Your use of the App and your reliance on any information or reminder provided by it is solely at your own risk.
 
 ---
 
-## USER-GENERATED CONTENT DISCLAIMER
+## 2. MEDICAL & HEALTHCARE DISCLAIMER
 
-All content stored in VitaCase is uploaded and controlled by users.
+**VITACASE DOES NOT PROVIDE MEDICAL ADVICE, DIAGNOSIS, OR TREATMENT.**
 
-We:
-
-* Do not access or monitor user content
-* Do not verify accuracy
-* Do not take responsibility for legality
-
-Users are solely responsible for their data and how it is used.
+* **Not a Medical Device**: VitaCase is not certified as a medical device, diagnostic software, clinical monitoring tool, or therapeutic product.
+* **No Professional Consultation**: The App is not a substitute for professional medical advice, clinical diagnosis, specialized medical opinions, or professional treatment.
+* **Always Consult Physicians**: Always consult a qualified physician, medical specialist, pharmacist, or licensed healthcare provider regarding any medical questions, symptoms, treatments, or medication changes.
+* **Never Ignore Medical Advice**: Never ignore, delay seeking, or disregard professional medical advice because of something you have recorded, stored, calculated, or read within VitaCase.
 
 ---
 
-## MEDICATION DISCLAIMER
+## 3. MEDICATION & PRESCRIPTION DISCLAIMER
 
-VitaCase may help users save medication names, schedules, stock information, and reminder times. However, the App does not provide medical advice, does not determine medication dosage, does not verify medication correctness, and does not guarantee that reminders will appear on time or at all.
+VitaCase allows users to record medication names, dosage instructions, stock quantities, and schedule reminder times.
 
-Medication use, dosage, timing, changes, and discontinuation must always be based on instructions from a qualified doctor, pharmacist, or healthcare provider.
-
-Users are solely responsible for independently tracking their medications and should not rely only on VitaCase notifications or records.
-
----
-
-## APPOINTMENT DISCLAIMER
-
-VitaCase may help users save and organize appointment information. However, the App is not an official appointment system and does not replace notifications or confirmations from hospitals, clinics, doctors, healthcare providers, insurance companies, or other institutions.
-
-Users are solely responsible for verifying appointment dates, times, locations, preparation requirements, cancellations, and changes from official sources.
-
-VitaCase is not responsible for missed appointments, delayed reminders, incorrect user-entered information, or notification failures.
+* **No Prescription Verification**: VitaCase does not verify, validate, review, or assess the clinical safety, dosage accuracy, or potential drug interactions of medications entered by users.
+* **Sole User Responsibility**: You are solely responsible for verifying all medication names, dosages, frequencies, and instructions against the official prescriptions provided by your physician and packaging provided by your pharmacist.
+* **Medication Decisions**: Decisions to start, pause, change dosage, or discontinue any medication must be made exclusively under the direction of your licensed healthcare provider.
 
 ---
 
-## NOTIFICATION DISCLAIMER
+## 4. APPOINTMENT DISCLAIMER
 
-VitaCase reminders and notifications are provided only as a convenience feature.
+VitaCase includes an appointment calendar designed to help you organize upcoming doctor visits and tests.
 
-Notifications may be delayed, blocked, silenced, or fail to appear due to device settings, notification permissions, operating system restrictions, battery optimization, date and time settings, app updates, app termination, storage issues, or other technical reasons.
-
-Users should not rely solely on VitaCase notifications for medication, appointments, emergencies, or other important actions.
-
----
-
-## EMERGENCY DISCLAIMER
-
-VitaCase is not an emergency service.
-
-In case of a medical emergency, severe symptom, medication side effect, accident, or life-threatening situation, users must contact local emergency services, a doctor, or a qualified healthcare provider immediately.
-
-Users should not rely on VitaCase as a source of emergency assistance or urgent medical decision-making.
+* **Unofficial Organizer**: VitaCase is not connected to any hospital, medical center, clinic, or healthcare appointment booking system.
+* **User Verification Required**: Users are solely responsible for independently confirming appointment dates, times, locations, physician availability, cancellations, and preparatory requirements (such as fasting or lab prep) with the clinic or hospital directly.
+* **No Liability for Missed Appointments**: Limanex Software shall not be held liable for any missed appointments, scheduling conflicts, delays, or associated costs.
 
 ---
 
-## SENSITIVE DATA DISCLAIMER
+## 5. NOTIFICATION & REMINDER RELIABILITY DISCLAIMER
 
-VitaCase is not designed for storing highly sensitive personal data.
+VitaCase offers local on-device notifications for medication schedules and appointments.
 
-Users are strongly discouraged from storing sensitive information such as:
-
-* Biometric data
-* Genetic data
-* Government identification numbers
-* Financial credentials
-* Highly confidential medical records
-
-If users choose to store such data:
-
-* They do so at their own risk
-* They assume full responsibility
-* VitaCase shall not be liable for any data loss, breach, or misuse
-
-The app is not a regulated secure system (e.g., HIPAA-compliant).
+* **Convenience Feature Only**: Notifications are an informational convenience tool and are **NOT guaranteed** to fire under all operating conditions.
+* **Operating System Influences**: Timely delivery of notifications depends heavily on device hardware, battery optimization settings, power saver modes, background process limits, Focus/Do Not Disturb settings, system updates, and operating system permission states.
+* **Critical Reliance Prohibited**: You must never rely solely on VitaCase notifications for critical medications, insulin timing, cardiac drugs, or emergency appointments. Always maintain primary alarm or reminder systems.
 
 ---
 
-## EXTERNAL SERVICES DISCLAIMER
+## 6. EMERGENCY SITUATIONS DISCLAIMER
 
-The app may use third-party services such as:
+**VITACASE IS NOT EQUIPPED TO HANDLE EMERGENCIES.**
 
-* Advertising services (e.g., AdMob)
-* Error tracking tools (e.g., Sentry)
-
-These services may collect limited technical or usage data according to their own privacy policies.
-
-We are not responsible for third-party services.
+If you believe you have a medical emergency, severe reaction, difficulty breathing, acute chest pain, or life-threatening situation:
+* Immediately call your local emergency phone number (such as **112**, **911**, **999**, or your national emergency operator).
+* Contact a hospital emergency department immediately.
+* Do not attempt to log symptoms, wait for reminders, or look for emergency medical advice within VitaCase.
 
 ---
 
-## TECHNICAL DISCLAIMER
+## 7. LOCAL STORAGE & DATA LOSS DISCLAIMER
 
-We do not guarantee that:
-
-* The app will always be available
-* The app will be error-free
-* Data will never be lost or corrupted
-
-Users are responsible for backing up their important data.
+VitaCase operates on an **offline-first, local-storage** architecture:
+* **No Cloud Copy**: All user data, vault documents, medication records, appointments, and personal health logs are encrypted (AES-256-GCM) and saved solely on your physical device. Limanex Software has no access to or copies of your files.
+* **Backup Responsibility**: You are solely responsible for backing up your critical documents, prescriptions, and health records in an independent, secure location.
+* **No Recovery for Lost Devices or Forgotten PINs**: If your device is lost, stolen, damaged, reset to factory settings, or if you forget your 6-digit PIN, Limanex Software cannot restore your encrypted data.
 
 ---
 
-## USE AT YOUR OWN RISK
+## 8. BIOMETRICS & DEVICE ACCESS DISCLAIMER
 
-All use of VitaCase is at your own risk.
-
-You agree that:
-
-* You are fully responsible for your actions
-* You understand the limitations of the app
-* You will not hold Limanex Software liable for any damages
+* VitaCase relies on your operating system's built-in biometric authentication (`local_auth`) for optional screen locking.
+* VitaCase does not capture, store, or process biometric data.
+* You are solely responsible for maintaining device lock screen protection and preventing unauthorized physical access to your device.
 
 ---
 
-## CONTACT
+## 9. THIRD-PARTY SERVICES & ADVERTISING DISCLAIMER
 
-If you have any questions regarding this Disclaimer:
-
-📧 <limanexsoftware@outlook.com>
+The App utilizes third-party software development kits (SDKs), including Google AdMob, Google Firebase, and Sentry:
+* Limanex Software does not endorse, verify, or guarantee the content of third-party advertisements displayed via Google AdMob.
+* Interactions with advertisements or external links are strictly between you and the respective third party.
 
 ---
+
+## 10. ASSUMPTION OF RISK & LIMITATION OF LIABILITY
+
+By using VitaCase, you explicitly acknowledge and agree that:
+* You understand the limitations of the App as described in this Disclaimer.
+* You use the App and its tools entirely at your own risk.
+* Limanex Software and its developers shall not be liable for any claims, injuries, losses, damages, or complications arising directly or indirectly from your use of or reliance upon VitaCase.

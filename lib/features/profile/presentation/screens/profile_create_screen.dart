@@ -44,12 +44,11 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   bool _pinSetupComplete = false;
   bool _isLoading = false;
 
-  bool get _profileValid => _nameController.text.trim().isNotEmpty && _acceptedLegal;
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       final name = ref.read(profileNameProvider);
       final gender = ref.read(profileGenderProvider);
       final birthDate = ref.read(profileBirthDateProvider);
@@ -152,11 +151,6 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
   }
 
   void _goToSecurityStep() {
-    if (_nameController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('please_enter_name'))));
-      return;
-    }
-
     if (!_acceptedLegal) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('must_agree'))));
       return;
@@ -180,17 +174,24 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
 
       await legalNotifier.accept();
 
-      profileNotifier.updateName(_nameController.text.trim());
+      final enteredName = _nameController.text.trim();
+      if (enteredName.isNotEmpty) {
+        profileNotifier.updateName(enteredName);
+      } else {
+        final prefs = ref.read(sharedPreferencesProvider);
+        await prefs.setBool('profile_creation_skipped', true);
+      }
       if (_birthDate != null) profileNotifier.updateBirthDate(_birthDate!);
-      profileNotifier.updateGender(_genderFromSelection(_selectedGender));
+      if (_selectedGender != null) profileNotifier.updateGender(_genderFromSelection(_selectedGender));
       final photoValue = _selectedPhotoValue();
       if (photoValue != null) profileNotifier.updatePhotoPath(photoValue);
       await profileNotifier.saveToDatabase();
+      await ref.read(profileCreatedProvider.notifier).markCompleted();
 
       if (!mounted) return;
       context.go(AppRoutes.home);
-    } catch (e) {
-      debugPrint('[ProfileCreateScreen] Error saving profile: $e');
+    } catch (e, stack) {
+      debugPrint('[ProfileCreateScreen] Error saving profile: $e\n$stack');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(context.tr('error'))),
@@ -208,8 +209,7 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final prefs = ref.read(sharedPreferencesProvider);
-      await prefs.setBool('profile_creation_skipped', true);
+      await ref.read(profileCreatedProvider.notifier).markCompleted();
       await ref.read(legalAcceptedProvider.notifier).accept();
 
       if (!mounted) return;
@@ -294,10 +294,9 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
 
       setState(() => _pinSetupComplete = true);
       await Future.delayed(const Duration(milliseconds: 450));
+      if (!mounted) return;
       
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
+      setState(() => _isLoading = false);
       await _saveAndFinish();
     } catch (e) {
       debugPrint('[ProfileCreateScreen] PIN setup failed: $e');
@@ -398,12 +397,20 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                           child: SizedBox(
                             height: 50,
                             child: OutlinedButton(
-                              onPressed: _acceptedLegal ? _skipProfileSetup : null,
+                              onPressed: () {
+                                if (!_acceptedLegal) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(context.tr('must_agree'))),
+                                  );
+                                  return;
+                                }
+                                _skipProfileSetup();
+                              },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(
                                   color: _acceptedLegal
                                       ? AppColors.brandBlue
-                                      : Colors.grey.withValues(alpha: 0.25),
+                                      : Colors.grey.withValues(alpha: 0.35),
                                 ),
                               ),
                               child: Text(context.tr('skip')),
@@ -415,7 +422,15 @@ class _ProfileCreateScreenState extends ConsumerState<ProfileCreateScreen> {
                           child: SizedBox(
                             height: 50,
                             child: FilledButton.icon(
-                              onPressed: _profileValid ? _goToSecurityStep : null,
+                              onPressed: () {
+                                if (!_acceptedLegal) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(context.tr('must_agree'))),
+                                  );
+                                  return;
+                                }
+                                _goToSecurityStep();
+                              },
                               icon: const Icon(Icons.arrow_forward_rounded, size: 18),
                               label: Text(context.tr('continue_btn')),
                             ),
@@ -694,14 +709,19 @@ class _LegalAgreementCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CheckboxListTile(value: value, onChanged: onChanged, contentPadding: EdgeInsets.zero, controlAffinity: ListTileControlAffinity.leading, title: Text(context.l10n.termsAndLegalAgreement)),
-          Wrap(
-            spacing: 10,
-            children: [
-              _LegalLink(label: context.l10n.privacyPolicyShort, routeName: 'settingsPrivacy'),
-              _LegalLink(label: context.l10n.termsShort, routeName: 'settingsTerms'),
-              _LegalLink(label: context.l10n.disclaimerShort, routeName: 'settingsDisclaimer'),
-            ],
+          CheckboxListTile(
+            value: value,
+            onChanged: onChanged,
+            contentPadding: EdgeInsets.zero,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: Text(context.tr('terms_and_legal_agreement')),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 4.0),
+            child: _LegalLink(
+              label: context.tr('terms_and_privacy'),
+              routeName: 'settingsTermsAndPrivacy',
+            ),
           ),
         ],
       ),

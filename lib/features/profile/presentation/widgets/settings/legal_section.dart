@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vitacase/core/constants/app_colors.dart';
 import 'setting_tile.dart';
 import 'settings_section_card.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
@@ -16,24 +17,10 @@ class LegalSection extends ConsumerWidget {
       isDark: isDark,
       children: [
         SettingTile(
-          icon: Icons.article_outlined,
-          iconColor: Colors.grey,
-          title: context.l10n.privacyPolicy,
-          onTap: () => context.pushNamed('settingsPrivacy'),
-          isDark: isDark,
-        ),
-        SettingTile(
-          icon: Icons.gavel_rounded,
-          iconColor: Colors.grey,
-          title: context.l10n.termsConditions,
-          onTap: () => context.pushNamed('settingsTerms'),
-          isDark: isDark,
-        ),
-        SettingTile(
-          icon: Icons.info_outline_rounded,
-          iconColor: Colors.grey,
-          title: context.l10n.legalDisclaimer,
-          onTap: () => context.pushNamed('settingsDisclaimer'),
+          icon: Icons.policy_rounded,
+          iconColor: AppColors.brandBlue,
+          title: context.tr('terms_and_privacy'),
+          onTap: () => context.pushNamed('settingsTermsAndPrivacy'),
           isDark: isDark,
           isLast: true,
         ),
@@ -41,3 +28,4 @@ class LegalSection extends ConsumerWidget {
     );
   }
 }
+

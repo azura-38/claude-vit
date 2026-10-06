@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/utils/external_launcher.dart';
+import '../../../../shared/data/services/review_service.dart';
 import '../../../../shared/data/services/wipe_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
@@ -82,9 +83,9 @@ class ProfileScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Güvenlik Kurulumu Eksik',
-                              style: TextStyle(
+                            Text(
+                              context.l10n.dataSecurity,
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w900,
                                 color: Colors.orange,
@@ -92,7 +93,7 @@ class ProfileScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Güvenlik kurulumu tamamlanmadı. Uygulama kilidi (PIN) ekleyerek verilerinizi güvende tutun.',
+                              context.tr('pin_not_set_desc'),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: isDark ? Colors.white70 : AppColors.textSecondary,
@@ -107,7 +108,7 @@ class ProfileScreen extends ConsumerWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    'Şimdi Kurulum Yap',
+                                    context.l10n.settings,
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w800,
@@ -183,13 +184,6 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () => context.push(AppRoutes.medicalInfo),
                 isDark: isDark,
               ),
-              _buildNavigationItem(
-                context,
-                icon: Icons.emoji_events_outlined,
-                title: context.l10n.medalsTrophies,
-                onTap: () => context.push(AppRoutes.achievements),
-                isDark: isDark,
-              ),
               const SizedBox(height: 40),
               _buildSectionTitle(context.l10n.accountSettings, isDark),
               const SizedBox(height: 16),
@@ -209,6 +203,13 @@ class ProfileScreen extends ConsumerWidget {
                   subject: 'VitaCase Feedback & Support',
                   body: '\n\n---\nDevice info: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
                 ),
+                isDark: isDark,
+              ),
+              _buildNavigationItem(
+                context,
+                icon: Icons.star_rate_rounded,
+                title: context.tr('review_prompt_action'),
+                onTap: () => ref.read(reviewServiceProvider).requestReviewOrOpenStore(),
                 isDark: isDark,
               ),
               _buildNavigationItem(

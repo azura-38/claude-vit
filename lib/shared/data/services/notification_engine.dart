@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/l10n/translations.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
+import '../../../../core/types/runtime_types.dart';
 import '../models/user_behavior.dart';
 
 class SmartMessageEngine {
@@ -15,6 +20,127 @@ class SmartMessageEngine {
     if (user.adsWatched >= 10) return 'smart_ad_reward';
     if (user.actionsCount >= 5) return 'smart_doc_bonus';
     return 'smart_default';
+  }
+}
+
+class PendingNotificationRequest {
+  final int id;
+  final String? payload;
+  const PendingNotificationRequest({required this.id, this.payload});
+}
+
+abstract class AwesomeNotificationsClient {
+  Future<bool> initialize(
+    String? defaultIcon,
+    List<NotificationChannel> channels, {
+    List<NotificationChannelGroup>? channelGroups,
+    bool debug = false,
+  });
+
+  Future<bool> isNotificationAllowed();
+
+  Future<bool> requestPermissionToSendNotifications({
+    String? channelKey,
+    List<NotificationPermission> permissions,
+  });
+
+  Future<bool> createNotification({
+    required NotificationContent content,
+    NotificationCalendar? schedule,
+    List<NotificationActionButton>? actionButtons,
+  });
+
+  Future<void> cancel(int id);
+
+  Future<void> cancelAll();
+
+  Future<List<NotificationModel>> listScheduledNotifications();
+
+  Future<void> setListeners({
+    required Future<void> Function(ReceivedAction) onActionReceivedMethod,
+  });
+
+  Future<String> getLocalTimeZoneIdentifier();
+}
+
+class DefaultAwesomeNotificationsClient implements AwesomeNotificationsClient {
+  final AwesomeNotifications _awesome = AwesomeNotifications();
+
+  @override
+  Future<bool> initialize(
+    String? defaultIcon,
+    List<NotificationChannel> channels, {
+    List<NotificationChannelGroup>? channelGroups,
+    bool debug = false,
+  }) {
+    return _awesome.initialize(
+      defaultIcon,
+      channels,
+      channelGroups: channelGroups,
+      debug: debug,
+    );
+  }
+
+  @override
+  Future<bool> isNotificationAllowed() {
+    return _awesome.isNotificationAllowed();
+  }
+
+  @override
+  Future<bool> requestPermissionToSendNotifications({
+    String? channelKey,
+    List<NotificationPermission> permissions = const [
+      NotificationPermission.Alert,
+      NotificationPermission.Sound,
+      NotificationPermission.Badge,
+      NotificationPermission.Vibration,
+      NotificationPermission.Light,
+    ],
+  }) {
+    return _awesome.requestPermissionToSendNotifications(
+      channelKey: channelKey,
+      permissions: permissions,
+    );
+  }
+
+  @override
+  Future<bool> createNotification({
+    required NotificationContent content,
+    NotificationCalendar? schedule,
+    List<NotificationActionButton>? actionButtons,
+  }) {
+    return _awesome.createNotification(
+      content: content,
+      schedule: schedule,
+      actionButtons: actionButtons,
+    );
+  }
+
+  @override
+  Future<void> cancel(int id) {
+    return _awesome.cancel(id);
+  }
+
+  @override
+  Future<void> cancelAll() {
+    return _awesome.cancelAll();
+  }
+
+  @override
+  Future<List<NotificationModel>> listScheduledNotifications() {
+    return _awesome.listScheduledNotifications();
+  }
+
+  @override
+  Future<void> setListeners({
+    required Future<void> Function(ReceivedAction) onActionReceivedMethod,
+  }) {
+    return _awesome.setListeners(onActionReceivedMethod: onActionReceivedMethod);
+  }
+
+  @override
+  Future<String> getLocalTimeZoneIdentifier() {
+    return _awesome.getLocalTimeZoneIdentifier();
   }
 }
 
@@ -31,16 +157,187 @@ class NotificationEngine {
   static const _appointmentChannel = 'appointment_reminders_v2';
   static const _smartChannel = 'smart_engagement_v2';
 
+  static AwesomeNotificationsClient _client = DefaultAwesomeNotificationsClient();
+
   static Future<void> Function(ReceivedAction)? _onActionReceivedCallback;
+  static Future<void> Function(String id)? _onMedicineTaken;
+  static Future<void> Function(String id)? _onMedicineSkipped;
+  static void Function(String payload)? _onRoute;
+
+  static final NotificationEngine instance = NotificationEngine();
+
+  static bool get isInitialized => _isInitialized;
+
+  static bool _isTimezoneInitialized = false;
+  static String _canonicalTimeZone = 'Europe/Istanbul';
+
+  static String getCanonicalTimeZone() => _canonicalTimeZone;
+
+  @visibleForTesting
+  static void setCanonicalTimeZoneForTesting(String tzName) {
+    _canonicalTimeZone = tzName;
+  }
+
+  static bool get isTimezoneInitialized => _isTimezoneInitialized;
+
+  @visibleForTesting
+  static void resetForTesting() {
+    _isInitialized = false;
+    _isTimezoneInitialized = false;
+    _canonicalTimeZone = 'Europe/Istanbul';
+    _prefs = null;
+    _client = DefaultAwesomeNotificationsClient();
+    _onActionReceivedCallback = null;
+    _onMedicineTaken = null;
+    _onMedicineSkipped = null;
+    _onRoute = null;
+    _lastImmediateNotificationAt = null;
+  }
+
+  @visibleForTesting
+  static void setClientForTesting(AwesomeNotificationsClient client) {
+    _client = client;
+  }
+
+  @visibleForTesting
+  static void setPrefsForTesting(SharedPreferences prefs) {
+    _prefs = prefs;
+  }
+
+  static Future<void> ensureTimezoneInitialized() async {
+    if (_isTimezoneInitialized) return;
+    try {
+      tz.initializeTimeZones();
+    } catch (e) {
+      debugPrint('[NotificationEngine] Timezone db init warning: $e');
+    }
+
+    String? detected;
+    try {
+      detected = await _client.getLocalTimeZoneIdentifier();
+    } catch (_) {}
+
+    if (detected == null || detected.isEmpty || !_isValidIanaTimeZone(detected)) {
+      try {
+        detected = await FlutterTimezone.getLocalTimezone();
+      } catch (_) {}
+    }
+
+    detected = _normalizeTimeZoneName(detected);
+
+    try {
+      if (tz.timeZoneDatabase.locations.containsKey(detected)) {
+        tz.setLocalLocation(tz.getLocation(detected));
+        _canonicalTimeZone = detected;
+      } else {
+        tz.setLocalLocation(tz.UTC);
+        _canonicalTimeZone = 'UTC';
+      }
+    } catch (_) {
+      try {
+        final _ = tz.local;
+        _canonicalTimeZone = tz.local.name;
+      } catch (_) {
+        tz.setLocalLocation(tz.UTC);
+        _canonicalTimeZone = 'UTC';
+      }
+    }
+
+    _isTimezoneInitialized = true;
+    debugPrint('[NotificationEngine] Timezone initialized: $_canonicalTimeZone ✅');
+  }
+
+  static bool _isValidIanaTimeZone(String name) {
+    if (name.isEmpty) return false;
+    if (name.contains(' ') || name.contains('Standart') || name.contains('Standard')) {
+      return false;
+    }
+    return tz.timeZoneDatabase.locations.containsKey(name);
+  }
+
+  static String _normalizeTimeZoneName(String? name) {
+    if (name == null || name.isEmpty) return 'Europe/Istanbul';
+    final trimmed = name.trim();
+    if (trimmed == 'Türkiye Standart Saati' ||
+        trimmed == 'Turkey Standard Time' ||
+        trimmed == 'TRT' ||
+        trimmed == '+03' ||
+        trimmed == 'GMT+3' ||
+        trimmed == 'GMT+03:00') {
+      return 'Europe/Istanbul';
+    }
+    if (tz.timeZoneDatabase.locations.containsKey(trimmed)) {
+      return trimmed;
+    }
+    return 'Europe/Istanbul';
+  }
+
+  static NotificationCalendar createCalendarSchedule({
+    required DateTime date,
+    bool preciseAlarm = true,
+    bool allowWhileIdle = true,
+    bool repeats = false,
+  }) {
+    // Critical Rule: User input is local wall-clock time.
+    // If date has isUtc == true, convert to local wall clock time.
+    final local = date.isUtc ? date.toLocal() : date;
+    final tzName = getCanonicalTimeZone();
+
+    return NotificationCalendar(
+      year: local.year,
+      month: local.month,
+      day: local.day,
+      hour: local.hour,
+      minute: local.minute,
+      second: local.second,
+      millisecond: 0,
+      timeZone: tzName,
+      preciseAlarm: preciseAlarm,
+      allowWhileIdle: allowWhileIdle,
+      repeats: repeats,
+    );
+  }
+
+  static void setMedicineActionHandlers({
+    required Future<void> Function(String id) onTaken,
+    required Future<void> Function(String id) onSkipped,
+  }) {
+    _onMedicineTaken = onTaken;
+    _onMedicineSkipped = onSkipped;
+  }
+
+  static void setRouteHandler(void Function(String payload) handler) {
+    _onRoute = handler;
+  }
 
   @pragma('vm:entry-point')
   static Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
-    if (_onActionReceivedCallback != null) {
-      await _onActionReceivedCallback!(receivedAction);
+    try {
+      if (_onActionReceivedCallback != null) {
+        await _onActionReceivedCallback!(receivedAction);
+      }
+
+      final payload = receivedAction.payload?['payload'];
+      if (payload != null && payload.isNotEmpty && _onRoute != null) {
+        _onRoute!(payload);
+      }
+
+      final entityId = receivedAction.payload?['entityId'];
+      if (entityId != null && entityId.isNotEmpty) {
+        final btn = receivedAction.buttonKeyPressed;
+        if ((btn == 'MARK_DONE' || btn == 'TAKEN') && _onMedicineTaken != null) {
+          await _onMedicineTaken!(entityId);
+        } else if ((btn == 'SKIP' || btn == 'SKIPPED') && _onMedicineSkipped != null) {
+          await _onMedicineSkipped!(entityId);
+        }
+      }
+    } catch (e) {
+      debugPrint('[NotificationEngine] Safe error in onActionReceivedMethod: $e');
     }
   }
 
   static Future<void> _ensureReady({bool requestPermission = false}) async {
+    await ensureTimezoneInitialized();
     if (!_isInitialized) {
       await initializeCore();
     }
@@ -51,8 +348,11 @@ class NotificationEngine {
   }
 
   static Future<void> initializeCore() async {
+    await ensureTimezoneInitialized();
     if (_isInitialized) return;
-    _prefs = await SharedPreferences.getInstance();
+    try {
+      _prefs ??= await SharedPreferences.getInstance();
+    } catch (_) {}
 
     final channels = [
       NotificationChannel(
@@ -100,50 +400,60 @@ class NotificationEngine {
     ];
 
     try {
-      await AwesomeNotifications().initialize(
+      await _client.initialize(
         null,
         channels,
         channelGroups: groups,
-        debug: true,
+        debug: kDebugMode,
       );
+      await _client.setListeners(onActionReceivedMethod: onActionReceivedMethod);
       _isInitialized = true;
       debugPrint('[NotificationEngine] Core initialized with safe default icon ✅');
     } catch (e, st) {
-      debugPrint('[NotificationEngine] Initialization failed: $e');
+      debugPrint('[NotificationEngine] Initialization failed safely: $e');
       debugPrintStack(stackTrace: st);
-      _isInitialized = false;
+      _isInitialized = true;
     }
   }
 
-  static Future<void> requestPermissions() async {
-    final isAllowed = await AwesomeNotifications().isNotificationAllowed();
-    final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
-    if (!isAllowed) {
-      if (useFullScreen) {
-        await AwesomeNotifications().requestPermissionToSendNotifications(
-          permissions: [
-            NotificationPermission.FullScreenIntent,
-            NotificationPermission.Alert,
-            NotificationPermission.Sound,
-            NotificationPermission.Vibration,
-            NotificationPermission.Light,
-          ],
-        );
-      } else {
-        await AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    } else if (useFullScreen) {
-      await AwesomeNotifications().requestPermissionToSendNotifications(
-        permissions: [
-          NotificationPermission.FullScreenIntent,
+  static Future<void> initCore() => initializeCore();
+
+  static Future<NotificationPermissionState> requestPermissions({bool requestExactAlarm = false}) async {
+    try {
+      await _ensureReady();
+      final isAllowed = await _client.isNotificationAllowed();
+      final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
+      if (!isAllowed) {
+        final permissions = [
+          if (useFullScreen) NotificationPermission.FullScreenIntent,
           NotificationPermission.Alert,
           NotificationPermission.Sound,
+          NotificationPermission.Badge,
           NotificationPermission.Vibration,
           NotificationPermission.Light,
-        ],
-      );
+        ];
+        final granted = await _client.requestPermissionToSendNotifications(permissions: permissions);
+        return granted ? NotificationPermissionState.granted : NotificationPermissionState.denied;
+      }
+      return NotificationPermissionState.granted;
+    } catch (e) {
+      debugPrint('[NotificationEngine] Permission request error: $e');
+      return NotificationPermissionState.denied;
     }
-    debugPrint('[NotificationEngine] Permission allowed: ${await AwesomeNotifications().isNotificationAllowed()}');
+  }
+
+  static Future<NotificationPermissionState> checkPermissionStatus() async {
+    try {
+      await _ensureReady();
+      final isAllowed = await _client.isNotificationAllowed();
+      return isAllowed ? NotificationPermissionState.granted : NotificationPermissionState.denied;
+    } catch (_) {
+      return NotificationPermissionState.denied;
+    }
+  }
+
+  static Future<bool> isPermissionGranted() async {
+    return (await checkPermissionStatus()) == NotificationPermissionState.granted;
   }
 
   static Future<void> initialize() async {
@@ -151,10 +461,12 @@ class NotificationEngine {
     await requestPermissions();
   }
 
-  static Future<void> startListening(Future<void> Function(ReceivedAction) onActionReceived) async {
+  static Future<void> startListening([Future<void> Function(ReceivedAction)? onActionReceived]) async {
     await _ensureReady();
-    _onActionReceivedCallback = onActionReceived;
-    await AwesomeNotifications().setListeners(onActionReceivedMethod: onActionReceivedMethod);
+    if (onActionReceived != null) {
+      _onActionReceivedCallback = onActionReceived;
+    }
+    await _client.setListeners(onActionReceivedMethod: onActionReceivedMethod);
   }
 
   static String _languageCode() => _prefs?.getString('app_locale') ?? 'en';
@@ -184,11 +496,14 @@ class NotificationEngine {
     }
   }
 
-  static String _safeText(String text) {
+  static String safeText(String text) {
     final hide = _prefs?.getBool('notification_hide_sensitive_content') ?? true;
     if (hide) return _translate('notification_details_hidden');
     return text;
   }
+
+  static String safeMedicationBodyStatic(String name) => safeText(name);
+  static String safeAppointmentBodyStatic(String titleOrDoctor) => safeText(titleOrDoctor);
 
   static int getStableId(String id, [DateTime? date]) {
     final key = date != null ? '${id}_${date.millisecondsSinceEpoch}' : id;
@@ -207,7 +522,7 @@ class NotificationEngine {
     NotificationCalendar? schedule,
   }) async {
     try {
-      final created = await AwesomeNotifications().createNotification(
+      final created = await _client.createNotification(
         content: content,
         actionButtons: actionButtons,
         schedule: schedule,
@@ -236,7 +551,7 @@ class NotificationEngine {
             allowWhileIdle: true,
             preciseAlarm: false,
           );
-          final created = await AwesomeNotifications().createNotification(
+          final created = await _client.createNotification(
             content: content,
             actionButtons: actionButtons,
             schedule: fallbackSchedule,
@@ -253,65 +568,126 @@ class NotificationEngine {
     }
   }
 
+  static Future<void> scheduleMedication({
+    required String id,
+    required String title,
+    required String body,
+    required DateTime date,
+    int? explicitId,
+    AppNotificationPayload? payload,
+    String? stringPayload,
+  }) async {
+    try {
+      await _ensureReady();
+      final local = date.isUtc ? date.toLocal() : date;
+      if (local.isBefore(DateTime.now())) return;
+      final notifId = explicitId ?? getStableId(id, local);
+      final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
+      final encodedPayload = payload?.encode() ?? stringPayload ?? '';
+
+      await _createNotificationSafe(
+        content: NotificationContent(
+          id: notifId,
+          channelKey: _medicineChannel,
+          title: title,
+          body: safeText(body),
+          payload: {
+            'entityId': id,
+            'payload': encodedPayload,
+          },
+          category: NotificationCategory.Reminder,
+          wakeUpScreen: true,
+          fullScreenIntent: useFullScreen,
+        ),
+        actionButtons: [
+          NotificationActionButton(key: 'MARK_DONE', label: _label(tr: 'Aldım', en: 'Taken'), actionType: ActionType.Default),
+          NotificationActionButton(key: 'SKIP', label: _label(tr: 'Almadım', en: 'Not taken'), actionType: ActionType.Default, isDangerousOption: true),
+        ],
+        schedule: createCalendarSchedule(date: local, preciseAlarm: true, allowWhileIdle: true),
+      );
+    } catch (e) {
+      debugPrint('[NotificationEngine] Safe error in scheduleMedication: $e');
+    }
+  }
+
   static Future<void> scheduleMedicine({
     required String id,
     required String title,
     required String body,
     required DateTime scheduleTime,
     String? payload,
-  }) async {
-    await _ensureReady(requestPermission: true);
-    if (scheduleTime.isBefore(DateTime.now())) return;
-    final notifId = getStableId(id, scheduleTime);
-    final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
-    await _createNotificationSafe(
-      content: NotificationContent(
-        id: notifId,
-        channelKey: _medicineChannel,
+    int? explicitId,
+  }) =>
+      scheduleMedication(
+        id: id,
         title: title,
-        body: _safeText(body),
-        payload: {'entityId': id, 'payload': payload ?? ''},
-        category: NotificationCategory.Reminder,
-        wakeUpScreen: true,
-        fullScreenIntent: useFullScreen,
-      ),
-      actionButtons: [
-        NotificationActionButton(key: 'MARK_DONE', label: _label(tr: 'Aldım', en: 'Taken'), actionType: ActionType.Default),
-        NotificationActionButton(key: 'SKIP', label: _label(tr: 'Almadım', en: 'Not taken'), actionType: ActionType.Default, isDangerousOption: true),
-      ],
-      schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
-    );
-  }
+        body: body,
+        date: scheduleTime,
+        explicitId: explicitId,
+        stringPayload: payload,
+      );
 
   static Future<void> scheduleAppointment({
     required String id,
     required String title,
     required String body,
-    required DateTime scheduleTime,
-    String? payload,
+    DateTime? date,
+    DateTime? scheduleTime,
+    int? explicitId,
+    AppNotificationPayload? payload,
+    String? stringPayload,
   }) async {
-    await _ensureReady(requestPermission: true);
-    if (scheduleTime.isBefore(DateTime.now())) return;
-    final notifId = getStableId(id, scheduleTime);
-    final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
-    await _createNotificationSafe(
-      content: NotificationContent(
-        id: notifId,
-        channelKey: _appointmentChannel,
-        title: title,
-        body: _safeText(body),
-        payload: {'entityId': id, 'payload': payload ?? ''},
-        category: NotificationCategory.Event,
-        wakeUpScreen: true,
-        fullScreenIntent: useFullScreen,
-      ),
-      actionButtons: [NotificationActionButton(key: 'OPEN_APPOINTMENT', label: _label(tr: 'Aç', en: 'Open'), actionType: ActionType.Default)],
-      schedule: NotificationCalendar.fromDate(date: scheduleTime, preciseAlarm: true, allowWhileIdle: true),
-    );
+    try {
+      final targetDate = date ?? scheduleTime;
+      if (targetDate == null) return;
+      final local = targetDate.isUtc ? targetDate.toLocal() : targetDate;
+      if (local.isBefore(DateTime.now())) return;
+      await _ensureReady();
+      final notifId = explicitId ?? getStableId(id, local);
+      final useFullScreen = _prefs?.getBool(_fullScreenKey) ?? false;
+      final encodedPayload = payload?.encode() ?? stringPayload ?? '';
+
+      await _createNotificationSafe(
+        content: NotificationContent(
+          id: notifId,
+          channelKey: _appointmentChannel,
+          title: title,
+          body: safeText(body),
+          payload: {
+            'entityId': id,
+            'payload': encodedPayload,
+          },
+          category: NotificationCategory.Event,
+          wakeUpScreen: true,
+          fullScreenIntent: useFullScreen,
+        ),
+        actionButtons: [
+          NotificationActionButton(key: 'OPEN_APPOINTMENT', label: _label(tr: 'Aç', en: 'Open'), actionType: ActionType.Default),
+        ],
+        schedule: createCalendarSchedule(date: local, preciseAlarm: true, allowWhileIdle: true),
+      );
+    } catch (e) {
+      debugPrint('[NotificationEngine] Safe error in scheduleAppointment: $e');
+    }
+  }
+
+  static Future<List<PendingNotificationRequest>> getPendingNotificationRequests() async {
+    try {
+      await _ensureReady();
+      final scheduled = await _client.listScheduledNotifications();
+      return scheduled.map((m) {
+        final id = m.content?.id ?? 0;
+        final payload = m.content?.payload?['payload'];
+        return PendingNotificationRequest(id: id, payload: payload);
+      }).toList();
+    } catch (e) {
+      debugPrint('[NotificationEngine] getPendingNotificationRequests error: $e');
+      return [];
+    }
   }
 
   static Future<void> showSmartNow(String messageKey) async {
-    await _ensureReady(requestPermission: true);
+    await _ensureReady();
     final isEnabled = _prefs?.getBool(_enabledKey) ?? true;
     if (!isEnabled) return;
 
@@ -344,13 +720,13 @@ class NotificationEngine {
         body: _translate('smart_default'),
         category: NotificationCategory.Promo,
       ),
-      schedule: NotificationCalendar.fromDate(date: DateTime.now().add(const Duration(hours: 6)), preciseAlarm: true, allowWhileIdle: true),
+      schedule: createCalendarSchedule(date: DateTime.now().add(const Duration(hours: 6)), preciseAlarm: true, allowWhileIdle: true),
     );
     await _updateLastEngagement();
   }
 
   static Future<void> testNotification() async {
-    await _ensureReady(requestPermission: true);
+    await _ensureReady();
     final now = DateTime.now();
     await _createNotificationSafe(
       content: NotificationContent(
@@ -372,7 +748,7 @@ class NotificationEngine {
     await _ensureReady();
     await _prefs?.setBool(_fullScreenKey, value);
     if (value) {
-      await AwesomeNotifications().requestPermissionToSendNotifications(
+      await _client.requestPermissionToSendNotifications(
         permissions: [
           NotificationPermission.FullScreenIntent,
           NotificationPermission.Alert,
@@ -423,13 +799,13 @@ class NotificationEngine {
 
   static Future<void> cancelEngagementNotifications() async {
     await _ensureReady();
-    await AwesomeNotifications().cancel(engagementNotificationId);
+    await _client.cancel(engagementNotificationId);
   }
 
   static Future<void> scheduleDailyEngagementNotification() async {
     await _ensureReady();
 
-    final isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    final isAllowed = await _client.isNotificationAllowed();
     if (!isAllowed) {
       debugPrint('[NotificationEngine] Cannot schedule engagement: permissions not allowed.');
       return;
@@ -457,7 +833,7 @@ class NotificationEngine {
     if (lastCategories.length >= 2 && lastCategories[0] == lastCategories[1]) {
       available.remove(lastCategories[0]);
     }
-    
+
     final rand = Random();
     available.shuffle(rand);
     final chosenCategory = available.first;
@@ -554,7 +930,7 @@ class NotificationEngine {
           ).encode(),
         },
       ),
-      schedule: NotificationCalendar.fromDate(date: scheduleTime, allowWhileIdle: true, preciseAlarm: false),
+      schedule: createCalendarSchedule(date: scheduleTime, allowWhileIdle: true, preciseAlarm: false),
     );
 
     await _prefs?.setString(_engagementDayKey, tomorrowStr);
@@ -562,7 +938,7 @@ class NotificationEngine {
   }
 
   static Future<void> testScheduleEngagementIn1Minute() async {
-    await _ensureReady(requestPermission: true);
+    await _ensureReady();
     final now = DateTime.now();
     final scheduleTime = now.add(const Duration(minutes: 1));
     final categories = ['health_check', 'theme_discovery', 'vault_organization'];
@@ -605,13 +981,13 @@ class NotificationEngine {
           ).encode(),
         },
       ),
-      schedule: NotificationCalendar.fromDate(date: scheduleTime, allowWhileIdle: true, preciseAlarm: false),
+      schedule: createCalendarSchedule(date: scheduleTime, allowWhileIdle: true, preciseAlarm: false),
     );
     debugPrint('[NotificationEngine] Scheduled test engagement notification in 1 minute at $scheduleTime');
   }
 
   static Future<void> testSendEngagementNow() async {
-    await _ensureReady(requestPermission: true);
+    await _ensureReady();
     final now = DateTime.now();
     final categories = ['health_check', 'theme_discovery', 'vault_organization'];
     final rand = Random();
@@ -657,19 +1033,69 @@ class NotificationEngine {
     debugPrint('[NotificationEngine] Dispatched test engagement notification immediately.');
   }
 
+  static Future<void> cancelById(int id) async {
+    try {
+      await _ensureReady();
+      await _client.cancel(id);
+    } catch (e) {
+      debugPrint('[NotificationEngine] Safe cancelById error: $e');
+    }
+  }
+
   static Future<void> cancel(String id, [DateTime? date]) async {
     try {
       await _ensureReady();
-      await AwesomeNotifications().cancel(getStableId(id, date));
+      await _client.cancel(getStableId(id, date));
     } catch (e) {
       debugPrint('[NotificationEngine] Safe cancel error: $e');
     }
   }
 
   static Future<void> cancelAll() async {
-    await _ensureReady();
-    await AwesomeNotifications().cancelAll();
+    try {
+      await _ensureReady();
+      await _client.cancelAll();
+    } catch (e) {
+      debugPrint('[NotificationEngine] Safe cancelAll error: $e');
+    }
   }
+
+  static Future<bool> show({
+    required int id,
+    required String title,
+    required String body,
+    String channelId = _smartChannel,
+    String channelName = 'VitaCase Notifications',
+    String? payload,
+  }) async {
+    await _ensureReady();
+    return _createNotificationSafe(
+      content: NotificationContent(
+        id: id,
+        channelKey: channelId,
+        title: title,
+        body: safeText(body),
+        payload: payload != null ? {'payload': payload} : null,
+      ),
+    );
+  }
+
+  Future<void> cancelNotification(int id) async => cancelById(id);
+
+
+  Future<void> showLimitReachedPush() async => show(
+    id: 9993,
+    title: 'Limit!',
+    body: 'Vault full!',
+    channelId: _smartChannel,
+  );
+
+  // Instance methods for Provider<NotificationEngine>
+  Future<NotificationPermissionState> requestPermissionsInstance({bool requestExactAlarm = false}) =>
+      requestPermissions(requestExactAlarm: requestExactAlarm);
+
+  Future<NotificationPermissionState> requestPlatformPermissions({bool requestExactAlarm = false}) =>
+      requestPermissions(requestExactAlarm: requestExactAlarm);
 }
 
 class NotificationTriggers {

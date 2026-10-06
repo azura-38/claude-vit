@@ -243,6 +243,9 @@ extension AppLocalizationsCamelCase on AppLocalizations {
   String get obFeature3Title => lookupTranslationWithLocale(localeName, 'ob_feature3_title');
   String get oneDayAdded => one_day_added;
   String get openAppSettings => open_app_settings;
+  String get openPdf => open_pdf;
+  String get pdfViewerNotFound => pdf_viewer_not_found;
+  String get pdfOpenFailed => pdf_open_failed;
   String get pageNotFound => page_not_found;
   String get personContactLabel => person_contact_label;
   String get personHint => person_hint;
@@ -384,4 +387,7 @@ extension AppLocalizationsCamelCase on AppLocalizations {
   String remainingDays(int days) => remaining_days(days);
   String saveDocumentFailed(String error) => save_document_failed(error);
   String lockTooManyAttempts(int seconds) => lock_too_many_attempts(seconds);
+  String get reviewPromptTitle => lookupTranslationWithLocale(localeName, 'review_prompt_title');
+  String get reviewPromptDesc => lookupTranslationWithLocale(localeName, 'review_prompt_desc');
+  String get reviewPromptAction => lookupTranslationWithLocale(localeName, 'review_prompt_action');
 }

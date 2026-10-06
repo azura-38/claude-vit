@@ -2,14 +2,16 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/extensions/l10n_extension.dart';
+import '../../../../core/utils/ui_utils.dart';
 import '../../../../shared/data/services/usage_limit_service.dart';
 import '../../../../shared/domain/enums/document_category.dart';
 import '../../../../shared/providers/document_providers.dart';
 import '../../../../shared/widgets/mini_responsibility_notice.dart';
+import '../widgets/vault_tag_selector.dart';
 
 class DocumentAddScreen extends ConsumerStatefulWidget {
   const DocumentAddScreen({super.key});
@@ -27,6 +29,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
   PlatformFile? _selectedFile;
   DocumentCategory _category = DocumentCategory.healthReports;
   DocumentSubcategory _subcategory = DocumentSubcategory.report;
+  List<String> _selectedTags = [];
   bool _isSaving = false;
 
   @override
@@ -100,13 +103,14 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             doctorName: _emptyToNull(_doctorController.text),
             note: _emptyToNull(_noteController.text),
             documentDate: DateTime.now().toIso8601String(),
-            tagId: _subcategory.name,
-            tagLabel: _subcategory.name,
+            tagId: _selectedTags.isNotEmpty ? _selectedTags.first : _subcategory.name,
+            tagLabel: _selectedTags.isNotEmpty ? _selectedTags.first : _subcategory.name,
+            tags: _selectedTags,
           );
 
       if (!mounted) return;
       _showSnack(context.l10n.documentSaved);
-      context.pop();
+      context.safePop(fallbackRoute: AppRoutes.documents);
     } catch (e) {
       if (e is UsageLimitExceededException) {
         _showSnack(_limitMessage(e.limit));
@@ -145,9 +149,7 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
             MiniResponsibilityNotice(
               icon: Icons.privacy_tip_outlined,
               accentColor: AppColors.medicalBlue,
-              text: Localizations.localeOf(context).languageCode == 'tr'
-                  ? 'Yüklediğiniz belgelerin içeriği, doğruluğu, güncelliği ve yedeklenmesi sizin sorumluluğunuzdadır. Önemli belgeler için VitaCase\'i tek kaynak olarak kullanmayın.'
-                  : 'You are responsible for the content, accuracy, freshness, and backup of uploaded documents. Do not use VitaCase as the only source for important files.',
+              text: context.tr('notice_document_responsibility'),
             ),
             const SizedBox(height: 24),
             _SectionCard(
@@ -190,6 +192,12 @@ class _DocumentAddScreenState extends ConsumerState<DocumentAddScreen> {
                 TextField(controller: _doctorController, decoration: InputDecoration(labelText: context.l10n.doctorContact)),
                 const SizedBox(height: 16),
                 TextField(controller: _noteController, maxLines: 4, decoration: InputDecoration(labelText: context.l10n.notes, alignLabelWithHint: true)),
+                const SizedBox(height: 20),
+                VaultTagSelector(
+                  initialSelectedTags: _selectedTags,
+                  onTagsChanged: (tags) => setState(() => _selectedTags = tags),
+                  isDark: isDark,
+                ),
               ],
             ),
           ],

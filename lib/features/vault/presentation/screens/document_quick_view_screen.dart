@@ -3,15 +3,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 
 import '../../../../shared/domain/entities/document.dart';
+import '../../../../shared/domain/enums/document_category.dart';
+import '../../../../shared/domain/enums/document_tag.dart';
 import '../../../../shared/providers/document_providers.dart';
+import '../../../../shared/data/datasources/file_storage_service.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../providers/vault_controller.dart';
 import '../widgets/vault_action_button.dart';
 import '../widgets/vault_preview_overlay.dart';
 import '../widgets/vault_tag_chip.dart';
+import '../widgets/vault_tag_selector.dart';
 
 class DocumentQuickViewScreen extends ConsumerStatefulWidget {
   const DocumentQuickViewScreen({super.key, required this.document});
@@ -52,6 +58,8 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
     final hospitalController = TextEditingController(text: _document.hospitalName ?? '');
     final doctorController = TextEditingController(text: _document.doctorName ?? '');
     final noteController = TextEditingController(text: _document.note ?? '');
+    List<String> editTags = List<String>.from(_document.tags);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final result = await showDialog<Document>(
       context: context,
@@ -61,6 +69,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextField(controller: nameController, decoration: InputDecoration(labelText: _nameLabel)),
                 const SizedBox(height: 12),
@@ -69,11 +78,17 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                 TextField(controller: doctorController, decoration: InputDecoration(labelText: _personLabel)),
                 const SizedBox(height: 12),
                 TextField(controller: noteController, maxLines: 4, decoration: InputDecoration(labelText: _notesLabel, alignLabelWithHint: true)),
+                const SizedBox(height: 16),
+                VaultTagSelector(
+                  initialSelectedTags: editTags,
+                  onTagsChanged: (tags) => editTags = List<String>.from(tags),
+                  isDark: isDark,
+                ),
               ],
             ),
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(dialogContext), child: Text(_cancelLabel)),
+            TextButton(onPressed: () => dialogContext.pop(), child: Text(_cancelLabel)),
             FilledButton(
               onPressed: () {
                 final updated = _document.copyWith(
@@ -81,8 +96,11 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                   hospitalName: _emptyToNull(hospitalController.text),
                   doctorName: _emptyToNull(doctorController.text),
                   note: _emptyToNull(noteController.text),
+                  tags: editTags,
+                  tagId: editTags.isNotEmpty ? editTags.first : null,
+                  tagLabel: editTags.isNotEmpty ? editTags.first : null,
                 );
-                Navigator.pop(dialogContext, updated);
+                dialogContext.pop(updated);
               },
               child: Text(_saveLabel),
             ),
@@ -112,18 +130,33 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
 
   bool _isDownloading = false;
 
+  bool get _isPdf =>
+      _document.fileType == DocumentFileType.pdf ||
+      _document.fileName.toLowerCase().endsWith('.pdf') ||
+      _document.localPath.toLowerCase().endsWith('.pdf');
+
   Future<void> _openDocument() async {
     try {
       final storage = ref.read(fileStorageServiceProvider);
-      final decryptedPath = await storage.getAbsolutePath(_document.localPath);
-      final result = await storage.openAndCleanFile(decryptedPath);
+      final isPdf = _isPdf;
+      final mimeType = isPdf ? 'application/pdf' : FileStorageService.resolveMimeType(_document.fileName);
+
+      final result = await storage.openSecureDocument(
+        _document.localPath,
+        mimeType: mimeType,
+      );
       if (!mounted) return;
-      if (result.type != ResultType.done) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+      if (result.type == ResultType.noAppToOpen) {
+        final msg = isPdf ? context.l10n.pdfViewerNotFound : _openFailedLabel;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+      } else if (result.type != ResultType.done) {
+        final msg = isPdf ? context.l10n.pdfOpenFailed : _openFailedLabel;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
       }
     } catch (_) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(_openFailedLabel)));
+      final msg = _isPdf ? context.l10n.pdfOpenFailed : _openFailedLabel;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
     }
   }
 
@@ -172,7 +205,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
           children: [
             Row(
               children: [
-                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                IconButton(onPressed: () => context.safePop(fallbackRoute: AppRoutes.documents), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                 Expanded(child: Text(_title, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800))),
                 IconButton.filledTonal(
                   onPressed: _isDownloading ? null : _downloadDocument,
@@ -208,12 +241,18 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                             color: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
                             borderRadius: BorderRadius.circular(18),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(month, style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary)),
-                              Text(date.day.toString(), style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.primary)),
-                            ],
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(month, style: TextStyle(color: isDark ? Colors.white54 : AppColors.secondary)),
+                                  Text(date.day.toString(), style: TextStyle(fontSize: 34, fontWeight: FontWeight.w700, color: isDark ? Colors.white : AppColors.primary)),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 18),
@@ -229,11 +268,23 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                                 spacing: 8,
                                 runSpacing: 8,
                                 children: [
-                                  VaultTagChip(
-                                    label: document.tagLabel ?? 'Lab',
-                                    bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
-                                    text: isDark ? AppColors.primaryIndigo : AppColors.primary,
-                                  ),
+                                  if (document.tags.isNotEmpty)
+                                    ...document.tags.map((t) {
+                                      final quickTag = DocumentTag.fromId(t);
+                                      final label = quickTag != null ? quickTag.localizedLabel(context) : t;
+                                      return VaultTagChip(
+                                        label: label,
+                                        icon: quickTag?.icon,
+                                        bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
+                                        text: isDark ? AppColors.primaryIndigo : AppColors.primary,
+                                      );
+                                    })
+                                  else if (document.tagLabel != null)
+                                    VaultTagChip(
+                                      label: document.tagLabel!,
+                                      bg: isDark ? AppColors.primaryIndigo.withValues(alpha: 0.2) : AppColors.chipBlue,
+                                      text: isDark ? AppColors.primaryIndigo : AppColors.primary,
+                                    ),
                                   VaultTagChip(
                                     label: document.fileType.name.toUpperCase(),
                                     bg: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F4FA),
@@ -275,7 +326,7 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
-                                  "Harici uygulamada açılan dosyalar o uygulamanın kontrolüne geçebilir.",
+                                  context.tr('vault_external_app_warning'),
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
@@ -287,7 +338,10 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                           ),
                         ),
                         const SizedBox(height: 28),
-                        const VaultPreviewOverlay(),
+                        VaultPreviewOverlay(
+                          document: _document,
+                          onTap: _openDocument,
+                        ),
                         const SizedBox(height: 24),
                         Row(
                           children: [
@@ -308,8 +362,8 @@ class _DocumentQuickViewScreenState extends ConsumerState<DocumentQuickViewScree
                             ),
                             const SizedBox(width: 12),
                             VaultActionButton(
-                              label: _openLabel,
-                              icon: Icons.open_in_new_rounded,
+                              label: _isPdf ? context.l10n.openPdf : _openLabel,
+                              icon: _isPdf ? Icons.picture_as_pdf_rounded : Icons.open_in_new_rounded,
                               bg: AppColors.primary,
                               text: Colors.white,
                               onTap: _openDocument,

@@ -21,6 +21,7 @@ class RouteGuardState {
     required this.profileCreated,
     required this.profileName,
     required this.legalAccepted,
+    this.legalNeedsUpdate = false,
   });
 
   final bool isBootstrapped;
@@ -31,6 +32,7 @@ class RouteGuardState {
   final bool profileCreated;
   final String? profileName;
   final bool legalAccepted;
+  final bool legalNeedsUpdate;
 }
 
 final routeGuardStateProvider = Provider<RouteGuardState>((ref) {
@@ -47,13 +49,15 @@ final routeGuardStateProvider = Provider<RouteGuardState>((ref) {
     profileCreated: ref.watch(profileCreatedProvider),
     profileName: ref.watch(profileNameProvider),
     legalAccepted: ref.watch(legalAcceptedProvider),
+    legalNeedsUpdate: ref.watch(legalNeedsUpdateProvider),
   );
 
   if (kDebugMode) {
     debugPrint(
       '[RouteGuard] boot=${guard.isBootstrapped} onboarding=${guard.onboardingCompleted} '
       'profile=${guard.profileCreated} legal=${guard.legalAccepted} '
-      'lockEnabled=${guard.isLockEnabled} lockState=${guard.lockState}',
+      'lockEnabled=${guard.isLockEnabled} lockState=${guard.lockState} '
+      'legalNeedsUpdate=${guard.legalNeedsUpdate}',
     );
   }
 
@@ -113,8 +117,18 @@ String? legalRedirect(GoRouterState state, RouteGuardState guard) {
   if (guard.legalAccepted) return null;
 
   final isGoingToProfileCreate = state.matchedLocation == AppRoutes.profileCreate;
+  final isGoingToLegalUpdate = state.matchedLocation == AppRoutes.legalUpdate;
   final isGoingToLegal = _isLegalRoute(state);
 
+  // Existing user with outdated legal version → show update consent screen
+  if (guard.legalNeedsUpdate) {
+    if (!isGoingToLegalUpdate && !isGoingToLegal) {
+      return AppRoutes.legalUpdate;
+    }
+    return null;
+  }
+
+  // New user who never accepted → profile create (existing behavior)
   if (!isGoingToLegal && !isGoingToProfileCreate) {
     return AppRoutes.profileCreate;
   }
@@ -156,8 +170,9 @@ String? lockRedirect(GoRouterState state, RouteGuardState guard) {
 String? completedEntryRedirect(GoRouterState state, RouteGuardState guard) {
   final isGoingToOnboarding = state.matchedLocation == AppRoutes.onboarding;
   final isGoingToProfileCreate = state.matchedLocation == AppRoutes.profileCreate;
+  final isGoingToLegalUpdate = state.matchedLocation == AppRoutes.legalUpdate;
 
-  if (!isGoingToOnboarding && !isGoingToProfileCreate) return null;
+  if (!isGoingToOnboarding && !isGoingToProfileCreate && !isGoingToLegalUpdate) return null;
 
   final isFullySetUp =
       guard.onboardingCompleted && guard.profileCreated && guard.legalAccepted;
@@ -168,5 +183,8 @@ bool _isLegalRoute(GoRouterState state) {
   final location = state.matchedLocation;
   return location.contains('terms') ||
       location.contains('privacy') ||
-      location.contains('disclaimer');
+      location.contains('disclaimer') ||
+      location.contains('kvkk') ||
+      location.contains('data-deletion') ||
+      location.contains('legal-update');
 }

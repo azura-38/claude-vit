@@ -356,7 +356,6 @@ class _UnlockStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isTr = Localizations.localeOf(context).languageCode == 'tr';
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -373,7 +372,7 @@ class _UnlockStatusCard extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  isUnlocked ? (isTr ? 'Ödüllü temalar aktif' : 'Reward themes active') : (isTr ? 'Ödüllü temalar kilitli' : 'Reward themes locked'),
+                  isUnlocked ? context.tr('reward_themes_active') : context.tr('reward_themes_locked'),
                   style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
                 ),
               ),
@@ -382,8 +381,8 @@ class _UnlockStatusCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             isUnlocked
-                ? (isTr ? 'Kalan süre: $remainingText' : 'Time left: $remainingText')
-                : (isTr ? 'Reklam izleyerek 3 gün açabilirsin.' : 'Watch an ad to unlock for 3 days.'),
+                ? context.tr('reward_themes_time_left', extra: {'time': remainingText})
+                : context.tr('reward_themes_unlock_prompt'),
             style: const TextStyle(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 14),
@@ -394,7 +393,7 @@ class _UnlockStatusCard extends StatelessWidget {
               icon: loading
                   ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                   : const Icon(Icons.add_alarm_rounded),
-              label: Text(isTr ? '+1 Gün Ekle' : 'Add +1 Day'),
+              label: Text(context.tr('reward_themes_add_day')),
             ),
           ),
         ],

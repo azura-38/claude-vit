@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 
 class ExpandableNotes extends StatefulWidget {
   final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
+  final String? initialText;
 
-  const ExpandableNotes({super.key, this.onChanged});
+  const ExpandableNotes({
+    super.key,
+    this.onChanged,
+    this.controller,
+    this.initialText,
+  });
 
   @override
   State<ExpandableNotes> createState() => _ExpandableNotesState();
 }
 
 class _ExpandableNotesState extends State<ExpandableNotes> {
-  bool expanded = false;
+  late bool expanded = (widget.initialText != null && widget.initialText!.isNotEmpty) ||
+      (widget.controller != null && widget.controller!.text.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,7 @@ class _ExpandableNotesState extends State<ExpandableNotes> {
             secondChild: Padding(
               padding: const EdgeInsets.only(top: 18),
               child: TextField(
+                controller: widget.controller,
                 maxLines: 5,
                 onChanged: widget.onChanged,
                 decoration: InputDecoration(

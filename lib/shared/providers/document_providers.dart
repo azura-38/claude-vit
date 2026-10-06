@@ -2,15 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/di/repository_providers.dart';
 import '../../core/utils/uuid_generator.dart';
-import '../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../data/datasources/file_storage_service.dart';
 import '../data/services/ad_controller.dart';
 import '../data/services/analytics_service.dart';
 import '../data/services/usage_limit_service.dart';
 import '../domain/entities/document.dart';
 import '../domain/enums/document_category.dart';
-import 'daily_mission_providers.dart';
-import 'season_providers.dart';
 
 final fileStorageServiceProvider = Provider<FileStorageService>((ref) {
   return FileStorageService();
@@ -42,6 +39,7 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     String? tagId,
     String? tagLabel,
     String? note,
+    List<String> tags = const [],
   }) async {
     final limit = await ref.read(usageLimitServiceProvider).consumeCreate();
     if (!limit.allowed) {
@@ -66,10 +64,11 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
       hospitalName: hospitalName,
       doctorName: doctorName,
       documentDate: documentDate,
-      tagId: tagId,
+      tagId: tagId ?? (tags.isNotEmpty ? tags.first : null),
       tagLabel: tagLabel,
       note: note,
       createdAt: DateTime.now(),
+      tags: tags,
     );
 
     if (state.hasValue) {
@@ -80,9 +79,6 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     try {
       await repo.save(document);
       ref.read(adControllerProvider).onActionTriggered();
-      await ref.read(dailyMissionProvider.notifier).track('doc_daily');
-      await _trackDocumentAchievements();
-      await ref.read(seasonProvider.notifier).addXP(10);
       AnalyticsService.log(AnalyticsService.documentAdded);
     } catch (e) {
       await refresh();
@@ -90,15 +86,6 @@ class DocumentListNotifier extends AsyncNotifier<List<Document>> {
     }
 
     return document;
-  }
-
-  Future<void> _trackDocumentAchievements() async {
-    final count = state.valueOrNull?.length ?? (await ref.read(documentRepositoryProvider).getAll()).length;
-    final achievement = ref.read(achievementProvider.notifier);
-    for (final id in const ['doc_1', 'doc_5', 'doc_10', 'doc_25', 'doc_50', 'doc_100', 'doc_250', 'doc_500']) {
-      await achievement.track(id, setAbsolute: count);
-    }
-    await achievement.track('first_upload', setAbsolute: count > 0 ? 1 : 0);
   }
 
   Future<void> updateDocument(Document document) async {

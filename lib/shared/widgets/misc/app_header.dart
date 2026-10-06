@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/ui_utils.dart';
 
 /// Reusable header matching the React <Header> component.
 class AppHeader extends StatelessWidget {
@@ -37,7 +37,7 @@ class AppHeader extends StatelessWidget {
           children: [
             if (showBack)
               GestureDetector(
-                onTap: () => context.pop(),
+                onTap: () => context.safePop(fallbackRoute: '/home'),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 12),
                   child: Icon(

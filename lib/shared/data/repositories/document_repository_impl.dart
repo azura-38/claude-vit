@@ -63,7 +63,15 @@ class DocumentRepositoryImpl implements DocumentRepository {
       final fileName = (map['fileName'] as String).toLowerCase();
       final hospitalName =
           (map['hospitalName'] as String?)?.toLowerCase() ?? '';
-      if (fileName.contains(q) || hospitalName.contains(q)) {
+      final tagLabel = (map['tagLabel'] as String?)?.toLowerCase() ?? '';
+      final tags = (map['tags'] as List<dynamic>?)
+              ?.map((e) => e.toString().toLowerCase())
+              .toList() ??
+          <String>[];
+      if (fileName.contains(q) ||
+          hospitalName.contains(q) ||
+          tagLabel.contains(q) ||
+          tags.any((t) => t.contains(q))) {
         result.add(DocumentModel.fromMap(map).toEntity());
       }
     }

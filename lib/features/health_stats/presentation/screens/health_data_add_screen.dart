@@ -1,18 +1,15 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/legal_data.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 import '../../../../core/utils/uuid_generator.dart';
 import '../../../../shared/domain/entities/health_metric.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/providers/health_providers.dart';
-
-import '../../../gamification/presentation/providers/achievement_providers.dart';
-import '../../../../shared/providers/daily_mission_providers.dart';
-import '../../../../shared/providers/season_providers.dart';
-
 class HealthDataAddScreen extends ConsumerStatefulWidget {
   const HealthDataAddScreen({super.key});
 
@@ -73,28 +70,9 @@ class _HealthDataAddScreenState extends ConsumerState<HealthDataAddScreen> {
       await ref.read(healthListProvider.notifier).addMetric(m);
     }
 
-    await _trackHealthAchievements(existingMetrics.length + newMetrics.length);
-    await ref.read(dailyMissionProvider.notifier).track('health_daily');
-    await ref.read(seasonProvider.notifier).addXP(10);
-
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.dataSavedSuccess)));
-      context.pop();
-    }
-  }
-
-  Future<void> _trackHealthAchievements(int totalMetricCount) async {
-    final achievement = ref.read(achievementProvider.notifier);
-    for (final id in const ['health_1', 'health_5', 'health_10', 'health_20', 'health_50']) {
-      await achievement.track(id, setAbsolute: totalMetricCount);
-    }
-    final progress = ref.read(dailyHealthProgressProvider);
-    final hasWater = (progress['water'] ?? 0) > 0 || _waterController.text.trim().isNotEmpty;
-    final hasSleep = (progress['sleep'] ?? 0) > 0 || _sleepController.text.trim().isNotEmpty;
-    final hasHeart = (progress['heartRate'] ?? 0) > 0 || _heartRateController.text.trim().isNotEmpty;
-    final hasSteps = (progress['steps'] ?? 0) > 0 || _stepsController.text.trim().isNotEmpty;
-    if (hasWater && hasSleep && hasHeart && hasSteps) {
-      await achievement.track('health_master', setAbsolute: 1);
+      context.safePop(fallbackRoute: AppRoutes.home);
     }
   }
 

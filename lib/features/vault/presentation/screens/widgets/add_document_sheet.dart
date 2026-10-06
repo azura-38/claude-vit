@@ -1,19 +1,17 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../../core/constants/app_colors.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../../core/utils/date_formatter.dart';
+import '../../../../../core/utils/ui_utils.dart';
 import '../../../../../shared/domain/entities/document.dart';
 import '../../../../../shared/domain/enums/document_category.dart';
 import '../../../../../shared/domain/enums/document_tag.dart';
 import '../../../../../shared/providers/document_providers.dart';
 import '../../../../../shared/providers/shared_prefs_provider.dart';
-import '../../../../gamification/presentation/providers/achievement_providers.dart';
-import '../../../../../shared/providers/daily_mission_providers.dart';
 
 class AddDocumentSheet extends ConsumerStatefulWidget {
   final DocumentCategory? initialCategory;
@@ -712,12 +710,7 @@ class _AddDocumentSheetState extends ConsumerState<AddDocumentSheet> {
 
         // AI Ad Engine: Track action
 
-        // Achievement: Track document added
-        ref.read(achievementProvider.notifier).track("doc_added", value: 1);
-        // Mission: Track document
-        ref.read(dailyMissionProvider.notifier).track("doc_daily");
-
-        context.pop(resultDoc);
+        context.safePop(result: resultDoc);
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(context.l10n.docsSuccess)));

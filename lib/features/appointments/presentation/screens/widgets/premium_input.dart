@@ -5,6 +5,7 @@ class PremiumInput extends StatelessWidget {
   final String hint;
   final IconData icon;
   final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
 
   const PremiumInput({
     super.key,
@@ -12,6 +13,7 @@ class PremiumInput extends StatelessWidget {
     required this.hint,
     required this.icon,
     this.onChanged,
+    this.controller,
   });
 
   @override
@@ -22,6 +24,7 @@ class PremiumInput extends StatelessWidget {
         Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
         const SizedBox(height: 12),
         TextField(
+          controller: controller,
           onChanged: onChanged,
           decoration: InputDecoration(
             hintText: hint,

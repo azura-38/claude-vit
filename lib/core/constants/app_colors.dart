@@ -118,6 +118,10 @@ class AppColors {
   static const Color tagOperationText = Color(0xFFB91C1C);
   static const Color tagVaccinationBg = Color(0xFFECFDF5);
   static const Color tagVaccinationText = Color(0xFF047857);
+  static const Color tagInsuranceBg = Color(0xFFE0F2FE);
+  static const Color tagInsuranceText = Color(0xFF0369A1);
+  static const Color tagInvoiceBg = Color(0xFFFEF3C7);
+  static const Color tagInvoiceText = Color(0xFF92400E);
   static const Color tagOtherBg = Color(0xFFF9FAFB);
   static const Color tagOtherText = Color(0xFF374151);
 

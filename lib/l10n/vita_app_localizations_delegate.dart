@@ -3,17 +3,21 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'app_localizations.dart';
+import 'app_localizations_de.dart';
+import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
 import 'app_localizations_hi.dart';
+import 'app_localizations_it.dart';
 import 'app_localizations_ja.dart';
+import 'app_localizations_pt.dart';
+import 'app_localizations_tr.dart';
 import 'app_localizations_zh.dart';
 
 /// V1-safe localization delegate.
 ///
-/// The generated `app_localizations.dart` file currently knows the original
-/// generated locales. Hindi, Japanese, and Chinese are provided by seed
-/// fallback classes until the full `flutter gen-l10n` output is regenerated.
-/// This delegate prevents unsupported-locale gaps without overwriting the large
-/// generated file by hand.
+/// Supports all 10 official VitaCase languages with safe English fallback
+/// on unsupported or missing locales.
 class VitaAppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const VitaAppLocalizationsDelegate();
 
@@ -50,14 +54,27 @@ class VitaAppLocalizationsDelegate extends LocalizationsDelegate<AppLocalization
 
   AppLocalizations _lookup(Locale locale) {
     switch (locale.languageCode) {
+      case 'de':
+        return AppLocalizationsDe();
+      case 'es':
+        return AppLocalizationsEs();
+      case 'fr':
+        return AppLocalizationsFr();
       case 'hi':
         return AppLocalizationsHi();
+      case 'it':
+        return AppLocalizationsIt();
       case 'ja':
         return AppLocalizationsJa();
+      case 'pt':
+        return AppLocalizationsPt();
+      case 'tr':
+        return AppLocalizationsTr();
       case 'zh':
         return AppLocalizationsZh();
+      case 'en':
       default:
-        return lookupAppLocalizations(locale);
+        return AppLocalizationsEn();
     }
   }
 }

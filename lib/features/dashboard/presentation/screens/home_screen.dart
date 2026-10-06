@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../shared/widgets/navigation/app_bottom_nav.dart';
 import '../../../../shared/widgets/navigation/explore_menu.dart';
+import '../../../../shared/widgets/vitacase_shell_ad_frame.dart';
 import '../../../../shared/providers/navigation_provider.dart';
 import '../../../../shared/providers/behavior_notifier.dart';
 
@@ -59,12 +60,15 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       extendBody: false,
-      body: HeroMode(
-        // StatefulShellRoute.indexedStack keeps inactive branches alive.
-        // Disabling Hero collection here prevents duplicate default FAB hero
-        // tag crashes across hidden tabs.
-        enabled: false,
-        child: navigationShell,
+      body: VitaCaseShellAdFrame(
+        showBanner: true,
+        child: HeroMode(
+          // StatefulShellRoute.indexedStack keeps inactive branches alive.
+          // Disabling Hero collection here prevents duplicate default FAB hero
+          // tag crashes across hidden tabs.
+          enabled: false,
+          child: navigationShell,
+        ),
       ),
       bottomNavigationBar: AppBottomNav(
         currentIndex: currentIndex,

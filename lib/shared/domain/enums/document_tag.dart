@@ -7,6 +7,8 @@ enum DocumentTag {
   radiology('radiology', 'docs_tag_radiology', '🩻'),
   prescription('prescription', 'docs_tag_prescription', '💊'),
   report('report', 'docs_tag_report', '📄'),
+  insurance('insurance', 'docs_tag_insurance', '🛡️'),
+  invoice('invoice', 'docs_tag_invoice', '🧾'),
   operation('operation', 'docs_tag_operation', '🏥'),
   vaccination('vaccination', 'docs_tag_vaccination', '💉'),
   other('other', 'docs_tag_other', '📁');

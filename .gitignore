@@ -10,6 +10,8 @@ build/
 android/.gradle/
 android/app/build/
 android/local.properties
+android/key.properties
+key.properties
 
 # iOS
 ios/Pods/

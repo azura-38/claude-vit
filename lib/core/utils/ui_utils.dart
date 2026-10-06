@@ -35,10 +35,38 @@ class UiUtils {
   /// Uses rootNavigator to escape bottom sheets if needed
   static void safePop([dynamic result]) {
     final context = navigatorKey.currentContext;
-    if (context != null) {
-      if (context.canPop()) {
+    if (context != null && context.mounted) {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop(result);
+      } else if (context.canPop()) {
         context.pop(result);
       }
     }
   }
 }
+
+/// Extension providing lifecycle-guarded safe navigation and pop methods
+extension SafeNavigationContext on BuildContext {
+  /// Safely pops the nearest navigator, dialog, or bottom sheet if and only if
+  /// the context is mounted and an active route exists to pop.
+  /// If the navigator cannot pop and [fallbackRoute] is provided, navigates to [fallbackRoute].
+  /// Returns true if a navigation/pop action occurred, false otherwise without throwing.
+  bool safePop<T extends Object?>({T? result, String? fallbackRoute}) {
+    if (!mounted) return false;
+    final nav = Navigator.maybeOf(this);
+    if (nav != null && nav.canPop()) {
+      nav.pop(result);
+      return true;
+    }
+    final router = GoRouter.maybeOf(this);
+    if (router != null && router.canPop()) {
+      router.pop(result);
+      return true;
+    } else if (router != null && fallbackRoute != null) {
+      router.go(fallbackRoute);
+      return true;
+    }
+    return false;
+  }
+}
+

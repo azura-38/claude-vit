@@ -183,7 +183,7 @@ class AppLogicSection extends ConsumerWidget {
                   },
                 ),
                 const SizedBox(height: 32),
-                ElevatedButton(onPressed: () => Navigator.pop(ctx), child: Text(context.l10n.ok)),
+                ElevatedButton(onPressed: () => ctx.pop(), child: Text(context.l10n.ok)),
               ],
             );
           },

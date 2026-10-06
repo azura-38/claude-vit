@@ -1,236 +1,147 @@
-TERMS AND CONDITIONS
+# TERMS AND CONDITIONS
 
-Last Updated: May 26, 2026
+**Last Updated: October 5, 2026**
+**Version: 1.1.7-2026-10 (App Version: 1.1.7+27)**
 
-1. AGREEMENT TO TERMS
+## 1. AGREEMENT TO TERMS
 
-These Terms and Conditions constitute a legally binding agreement made between you ("User", "you") and Limanex Software ("Company", "we", "us", or "our"), concerning your access to and use of the VitaCase mobile application (the "App").
+These Terms and Conditions ("Terms") constitute a legally binding agreement made between you ("User", "you") and **Limanex Software** ("Company", "we", "us", or "our"), concerning your access to and use of the VitaCase mobile application (the "App", "Service").
 
-By accessing or using the App, you agree that you have read, understood, and agree to be bound by all of these Terms. If you do not agree, you must discontinue use immediately.
-
----
-
-2. DESCRIPTION OF SERVICE
-
-VitaCase is a personal document storage and organization application that allows users to upload, store, and manage various types of files, including but not limited to:
-
-- Health-related documents
-- Prescriptions and medical records
-- Invoices and financial documents
-- Personal notes and records
-
-The App functions solely as a storage and organization tool.
+By downloading, installing, accessing, or using the App, you agree that you have read, understood, and agree to be bound by all of these Terms. If you do not agree with all of these Terms, you must immediately discontinue use and uninstall the App.
 
 ---
 
-3. NO PROFESSIONAL ADVICE
+## 2. DESCRIPTION OF SERVICE
 
-VitaCase does not provide medical, legal, financial, or any other professional advice.
+VitaCase is a private, offline-first personal organization application that operates on your mobile device. Key features include:
 
-Any information stored within the App:
+* **Encrypted Document Vault**: On-device storage and organization of personal files, medical documents, prescriptions, lab results, and invoices using local AES-256-GCM encryption.
+* **Medication & Inventory Tracking**: Personal medication records, dosage schedules, stock counts, and local reminders.
+* **Appointment Scheduling**: Local calendar tracking for doctor visits, examinations, and medical follow-ups.
+* **Health & Physical Metrics**: Local tracking of height, weight, BMI, and vital health logs.
+* **Emergency & Critical Info**: Quick access to blood type, emergency contact numbers, and important health notes.
 
-- Is user-provided
-- Is not reviewed or verified by us
-- Must not be considered as professional advice
-
-You agree that you will consult qualified professionals when needed.
-
-## 3A. MEDICATION AND APPOINTMENT RESPONSIBILITY
-
-## Medication and Appointment Responsibility
-
-VitaCase may help users organize medication information, appointment details, and reminders. However, the App does not provide medical advice, medication instructions, dosage recommendations, treatment guidance, or official appointment notices.
-
-Users are solely responsible for:
-
-* Following instructions from doctors, pharmacists, healthcare providers, clinics, hospitals, and other official sources
-* Checking medication dosage, timing, changes, and discontinuation instructions
-* Verifying appointment dates, times, locations, preparation requirements, cancellations, and changes
-* Maintaining independent records and backups of important information
-
-VitaCase reminders and notifications are not guaranteed. Notifications may be delayed, blocked, silenced, or fail to appear due to device settings, operating system limitations, battery optimization, app permissions, updates, technical issues, or user actions.
-
-You agree not to rely solely on VitaCase for medication use, appointment attendance, emergency decisions, or critical health-related actions.
-
+VitaCase functions strictly as a **personal organization and local storage tool**.
 
 ---
 
-4. USER CONTENT & RESPONSIBILITY
+## 3. NO MEDICAL OR PROFESSIONAL HEALTHCARE ADVICE
 
-You retain full ownership of all content you upload.
+VitaCase is **NOT** a medical provider, diagnostic tool, clinical decision-support system, or licensed healthcare service.
 
-You agree that:
-
-- You are solely responsible for your data
-- Your content does not violate laws or third-party rights
-- Your data is accurate and lawful
-
-We do not access, monitor, or analyze user content.
+* **No Medical Advice**: The App does not offer medical advice, medical opinions, diagnosis, treatment plans, clinical guidance, or prescription management.
+* **No Doctor-Patient Relationship**: Your use of the App does not create a doctor-patient, confidential medical, or healthcare provider relationship between you and Limanex Software.
+* **Consult Professionals**: Always seek the advice of a qualified physician, specialist, pharmacist, or other licensed healthcare professional with any questions regarding medical conditions, symptoms, medications, or treatment.
+* **Never Disregard Professional Advice**: Never disregard professional medical advice or delay seeking it because of information stored in or organized by VitaCase.
 
 ---
 
-5. DATA STORAGE DISCLAIMER
+## 4. MEDICATION, APPOINTMENT & REMINDER RESPONSIBILITIES
 
-While we implement reasonable security measures, we do not guarantee:
+VitaCase provides on-device scheduling and notification features solely for personal convenience.
 
-- Data will never be lost
-- Data will always be accessible
-- Data will remain error-free
+### A. Medication Responsibility
+* You are solely responsible for ensuring that all medication names, dosages, intervals, refill counts, and notes entered into the App match the exact instructions provided by your prescribing physician or pharmacist.
+* VitaCase does not verify or validate whether medication combinations, dosages, or schedules are safe, accurate, or medically appropriate.
 
-Users are responsible for keeping backups of important information.
+### B. Appointment Responsibility
+* You are solely responsible for verifying appointment dates, times, clinic locations, and preparation requirements directly with your healthcare providers.
+* VitaCase is not an official booking system and does not synchronize with hospital or clinic databases.
 
----
-
-6. ACCEPTABLE USE
-
-You agree NOT to use the App for:
-
-- Illegal activities
-- Storing harmful or unlawful content
-- Violating intellectual property rights
-- Uploading malicious software
+### C. Notification Reliability Disclaimer
+* Local reminders and notifications may fail to appear, be delayed, or be silenced due to device operating system restrictions, battery optimization software, Do Not Disturb / Focus modes, notification permission changes, device restarts, or low-memory states.
+* **You agree not to rely solely on VitaCase for time-sensitive, life-critical medications, emergency treatments, or critical appointments.**
 
 ---
 
-7. THIRD-PARTY SERVICES
+## 5. EMERGENCY SITUATIONS
 
-The App may use third-party services, including but not limited to:
+**VITACASE IS NOT AN EMERGENCY DISPATCH OR MONITORING SYSTEM.**
 
-- Advertising services (e.g., AdMob)
-- Error monitoring tools (e.g., Sentry)
-
-These services may collect limited data according to their own privacy policies.
-
----
-
-8. SERVICE AVAILABILITY
-
-We do not guarantee uninterrupted or error-free service.
-
-We reserve the right to:
-
-- Modify or discontinue features
-- Suspend or terminate the App
-- Update the service at any time
+If you are experiencing a medical emergency, severe allergic reaction, acute chest pain, trauma, or life-threatening condition:
+* Call your local emergency services immediately (such as 112, 911, 999, or your local emergency hotline).
+* Proceed immediately to the nearest hospital emergency department.
+* Do not rely on VitaCase for emergency communication or assistance.
 
 ---
 
-9. ACCOUNT & SECURITY
+## 6. USER CONTENT & LOCAL CUSTODIANSHIP
 
-You are responsible for:
-
-- Securing your device
-- Preventing unauthorized access
-- Maintaining your own data security
-
-We are not responsible for access caused by user negligence.
+* **Ownership**: You retain full, exclusive ownership of all documents, photos, files, and notes that you import or enter into VitaCase.
+* **Local Control**: VitaCase does not transmit your files to cloud servers. All user data is encrypted and stored locally on your device.
+* **User Responsibility**: You are solely responsible for ensuring that any content you store complies with applicable laws and does not infringe third-party rights.
+* **No Content Monitoring**: We do not access, monitor, screen, or verify user content stored on your device.
 
 ---
 
-10. INTELLECTUAL PROPERTY
+## 7. BACKUPS & DATA LOSS DISCLAIMER
 
-All content, branding, and software within the App are owned by or licensed to us.
-
-You may not:
-
-- Copy or distribute the App
-- Reverse engineer the system
-- Use our branding without permission
+Because VitaCase operates offline without cloud synchronization:
+* **Limanex Software does not possess a copy of your files, documents, or keys.**
+* If your device is damaged, lost, stolen, wiped, or experiences operating system failure, your data cannot be recovered by Limanex Software.
+* **You are solely responsible for creating and maintaining independent, secure backups** of all critical documents, prescriptions, and health records in a separate, secure location.
 
 ---
 
-11. LIMITATION OF LIABILITY
+## 8. DEVICE SECURITY, PIN & PASSCODE
 
-To the maximum extent permitted by law:
-
-We shall not be liable for:
-
-- Data loss
-- Indirect or consequential damages
-- Decisions made based on stored information
-* Missed medication reminders
-* Missed appointments
-* Delayed, blocked, or failed notifications
-* User-entered incorrect medication, appointment, or document information
-
-Our total liability is limited to:
-
-👉 the lesser of:
-
-- The amount paid by the user, OR
-- 100 USD
+* **Security Controls**: VitaCase offers an optional 6-digit PIN and device biometric lock to restrict unauthorized access to the App on your device.
+* **Forgotten PIN**: Because VitaCase uses local cryptographic key derivation with no cloud bypass or server backdoor, **Limanex Software cannot reset, bypass, or recover a forgotten PIN**.
+* **Device Protection**: You are solely responsible for keeping your device secure, updating its operating system, and safeguarding your device unlock credentials and PIN.
 
 ---
 
-12. DISCLAIMER OF WARRANTIES
+## 9. THIRD-PARTY SERVICES & ADVERTISING
 
-The App is provided "AS IS" and "AS AVAILABLE".
-
-We make no warranties regarding:
-
-- Accuracy
-- Reliability
-- Availability
+* The App may integrate third-party services including Google AdMob (for advertisements), Google Firebase (for diagnostics and analytics), and Sentry (for crash reporting).
+* These third-party services operate under their own terms and privacy policies. Limanex Software is not responsible for third-party practices or content.
 
 ---
 
-13. DISPUTE RESOLUTION
+## 10. ACCEPTABLE USE RESTRICTIONS
 
-Before initiating any legal action:
-
-- Parties agree to attempt informal resolution for 30 days
-- If unresolved → arbitration will be used
-
-Arbitration Location: Turkey
-Governing Law: Turkey
+You agree not to use VitaCase to:
+* Violate any applicable local, national, or international law or regulation.
+* Store illegal, infringing, fraudulent, or harmful materials.
+* Reverse-engineer, decompile, disassemble, or attempt to extract source code from the App, except where permitted by applicable law.
+* Distribute modified, tampered, or pirated copies of the App.
 
 ---
 
-14. GLOBAL USE
+## 11. DISCLAIMER OF WARRANTIES
 
-Users accessing the App from outside their country are responsible for compliance with local laws.
+THE APP IS PROVIDED ON AN "AS-IS" AND "AS-AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, LIMANEX SOFTWARE DISCLAIMS ALL WARRANTIES, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, ACCURACY, AND NON-INFRINGEMENT.
 
----
-
-15. TERMINATION
-
-We may suspend or terminate access if:
-
-- Terms are violated
-- Abuse or misuse is detected
+WE DO NOT WARRANT THAT THE APP WILL OPERATE UNINTERRUPTED OR ERROR-FREE, THAT DEFECTS WILL BE IMMEDIATELY CORRECTED, OR THAT NOTIFICATIONS WILL BE DELIVERED WITHOUT DELAY.
 
 ---
 
-16. MODIFICATIONS
+## 12. LIMITATION OF LIABILITY
 
-We may update these Terms at any time.
-
-Continued use of the App means acceptance of updated Terms.
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LIMANEX SOFTWARE, ITS DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF DATA, DEVICE DAMAGE, MISSED APPOINTMENTS, MEDICATION ERRORS, OR PERSONAL INJURY ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OR INABILITY TO USE THE APP.
 
 ---
 
-17. PRIVACY POLICY
+## 13. TERMINATION & DATA ERASURE
 
-Use of the App is also governed by our Privacy Policy.
+You may terminate this agreement at any time by:
+* Permanently wiping your data using the in-app "Wipe All Data" / "Verileri Temizle" feature in Settings.
+* Uninstalling the App from your device.
 
----
-
-18. CONTACT
-
-For any questions regarding these Terms:
-
-📧 Email: limanexsoftware@outlook.com
+Upon uninstallation, all locally stored encrypted files, vault databases, and settings will be permanently deleted from your device sandbox.
 
 ---
 
-19. FINAL DISCLAIMER
+## 14. GOVERNING LAW & JURISDICTION
 
-VitaCase is a neutral storage tool.
+These Terms shall be governed by and construed in accordance with the laws of the Republic of Turkey, without regard to conflict of law principles. Any dispute arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Istanbul, Turkey.
 
-We:
+---
 
-- Do not interpret user data
-- Do not provide decisions
-- Do not assume responsibility for user actions
+## 15. CONTACT US
 
-All responsibility remains with the user.
+For questions or inquiries regarding these Terms:
+
+**Limanex Software**
+📧 **Email**: limanexsoftware@outlook.com
+🌐 **Application**: VitaCase

@@ -288,7 +288,7 @@ void main() {
           child: MaterialApp(
             localizationsDelegates: VitaAppLocalizationsDelegate.localizationsDelegates,
             supportedLocales: VitaAppLocalizationsDelegate.supportedLocales,
-            locale: const Locale('en'),
+            locale: const Locale('tr'),
             home: const Scaffold(
               body: SecuritySection(isDark: false),
             ),
@@ -317,7 +317,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Error shown, dialog remains open
-      expect(find.text('Incorrect PIN'), findsOneWidget);
+      expect(find.text('Hatalı PIN'), findsOneWidget);
       expect(find.text('Devre Dışı Bırak'), findsOneWidget);
 
       // Enter correct PIN: 123456
@@ -351,7 +351,7 @@ void main() {
           child: MaterialApp(
             localizationsDelegates: VitaAppLocalizationsDelegate.localizationsDelegates,
             supportedLocales: VitaAppLocalizationsDelegate.supportedLocales,
-            locale: const Locale('en'),
+            locale: const Locale('tr'),
             home: const Scaffold(
               body: SecuritySection(isDark: false),
             ),

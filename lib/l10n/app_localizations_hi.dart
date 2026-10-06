@@ -2767,7 +2767,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get document_update_failed => 'दस्तावेज़ अद्यतन नहीं किया जा सका.';
 
   @override
-  String get document_open_failed => 'दस्तावेज़ नहीं खोला जा सका.';
+  String get document_open_failed => 'दस्तावेज़ खोलने में असमर्थ';
 
   @override
   String get no_additional_notes => 'कोई अतिरिक्त नोट उपलब्ध नहीं कराया गया.';
@@ -2969,4 +2969,58 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Receive a daily notification to review your plans, discover themes, and organize your vault.';
+
+  @override
+  String get quick_tags => 'त्वरित टैग';
+
+  @override
+  String get custom_tags => 'कस्टम टैग';
+
+  @override
+  String get add_tag => 'टैग जोड़ें';
+
+  @override
+  String get create_tag => 'टैग बनाएं';
+
+  @override
+  String get remove_tag => 'टैग हटाएं';
+
+  @override
+  String get filter_by_tag => 'टैग द्वारा फ़िल्टर करें';
+
+  @override
+  String get clear_tags => 'टैग साफ़ करें';
+
+  @override
+  String get no_tags => 'कोई टैग नहीं';
+
+  @override
+  String get add_custom_tag => 'कस्टम टैग जोड़ें';
+
+  @override
+  String get tag_name_hint => 'उदा., कार्डियोलॉजी, 2026 चेकअप';
+
+  @override
+  String get tag_name_empty => 'टैग का नाम खाली नहीं हो सकता';
+
+  @override
+  String get tag_already_exists => 'यह टैग पहले से मौजूद है';
+
+  @override
+  String get tag_too_long => 'टैग 30 अक्षरों से अधिक नहीं हो सकता';
+
+  @override
+  String get docs_tag_insurance => 'बीमा';
+
+  @override
+  String get docs_tag_invoice => 'चालान';
+
+  @override
+  String get open_pdf => 'पीडीएफ खोलें';
+
+  @override
+  String get pdf_viewer_not_found => 'डिवाइस पर कोई पीडीएफ व्यूअर ऐप नहीं मिला';
+
+  @override
+  String get pdf_open_failed => 'पीडीएफ फ़ाइल खोलने में असमर्थ';
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../shared/domain/entities/doctor.dart';
 import '../../../../shared/providers/doctor_providers.dart';
@@ -34,7 +36,19 @@ class DoctorDetailScreen extends ConsumerWidget {
             bottom: false,
             child: Column(
               children: [
-                AppHeader(title: context.l10n.contactDetailTitle, showBack: true),
+                AppHeader(
+                  title: context.l10n.contactDetailTitle,
+                  showBack: true,
+                  action: IconButton(
+                    icon: const Icon(Icons.edit_rounded, color: AppColors.primaryIndigo, size: 20),
+                    tooltip: context.l10n.edit,
+                    onPressed: () {
+                      context.push(AppRoutes.doctorAdd, extra: contact).then((_) {
+                        ref.read(doctorListProvider.notifier).refresh();
+                      });
+                    },
+                  ),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(24),

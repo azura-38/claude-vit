@@ -251,11 +251,17 @@ class _ContactCard extends StatelessWidget {
                               builder: (context, ref, _) => PopupMenuButton<String>(
                                 icon: const Icon(Icons.more_vert_rounded, size: 20, color: AppColors.textTertiary),
                                 onSelected: (val) {
-                                  if (val == 'delete') {
+                                  if (val == 'edit') {
+                                    context.push(AppRoutes.doctorAdd, extra: contact).then((_) => ref.read(doctorListProvider.notifier).refresh());
+                                  } else if (val == 'delete') {
                                     ref.read(doctorListProvider.notifier).deleteDoctor(contact.id);
                                   }
                                 },
                                 itemBuilder: (ctx) => [
+                                  PopupMenuItem(
+                                    value: 'edit',
+                                    child: Text(context.l10n.edit),
+                                  ),
                                   PopupMenuItem(
                                     value: 'delete',
                                     child: Text(context.l10n.delete, style: const TextStyle(color: AppColors.error)),

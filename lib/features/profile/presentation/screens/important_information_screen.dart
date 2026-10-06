@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../shared/widgets/vitacase_bottom_nav.dart';
@@ -11,10 +13,11 @@ import '../providers/profile_provider.dart';
 import '../widgets/detail_section_card.dart';
 import '../widgets/security_banner.dart';
 
+import '../../../../shared/widgets/inputs/phone_number_input.dart';
+import '../../../../shared/widgets/inputs/blood_group_selector.dart';
+
 class ImportantInformationScreen extends ConsumerWidget {
   const ImportantInformationScreen({super.key});
-
-
 
   List<String> _splitList(String value) {
     return value
@@ -25,82 +28,100 @@ class ImportantInformationScreen extends ConsumerWidget {
   }
 
   Future<void> _showEditDialog(BuildContext context, WidgetRef ref, UserProfile profile) async {
-
-    final bloodController = TextEditingController(text: profile.bloodType);
+    String selectedBlood = profile.bloodType;
     final allergiesController = TextEditingController(text: profile.allergies.join(', '));
     final medsController = TextEditingController(text: profile.medications.join(', '));
     final emergencyNameController = TextEditingController(text: profile.emergencyName);
-    final emergencyPhoneController = TextEditingController(text: profile.emergencyPhone);
+    
+    final parsedPhone = PhoneCountryCodes.parse(profile.emergencyPhone);
+    String selectedCountryCode = parsedPhone.countryCode;
+    final emergencyPhoneController = TextEditingController(text: parsedPhone.localNumber);
     final emergencyRelationController = TextEditingController(text: profile.emergencyRelation);
+
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final result = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
-        return AlertDialog(
-          title: Text(context.tr('edit_important_info')),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: bloodController,
-                  decoration: InputDecoration(labelText: context.tr('blood_type'), hintText: 'A+, B-, 0+'),
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return AlertDialog(
+              backgroundColor: isDark ? AppColors.surfaceDark : Colors.white,
+              title: Text(context.tr('edit_important_info')),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BloodGroupSelector(
+                      selectedGroup: selectedBlood,
+                      onChanged: (val) => setModalState(() => selectedBlood = val),
+                      isDark: isDark,
+                      label: context.tr('blood_type'),
+                    ),
+                    const SizedBox(height: 14),
+                    TextField(
+                      controller: allergiesController,
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                        labelText: context.tr('allergies'),
+                        hintText: context.tr('hint_allergies'),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    TextField(
+                      controller: medsController,
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                        labelText: context.tr('medicines'),
+                        hintText: context.tr('hint_medications'),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    TextField(
+                      controller: emergencyNameController,
+                      decoration: InputDecoration(labelText: context.tr('emergency_contact_name')),
+                    ),
+                    const SizedBox(height: 14),
+                    VitaPhoneInput(
+                      countryCode: selectedCountryCode,
+                      controller: emergencyPhoneController,
+                      onCountryCodeChanged: (val) => setModalState(() => selectedCountryCode = val),
+                      label: context.tr('phone_number'),
+                      isDark: isDark,
+                    ),
+                    const SizedBox(height: 14),
+                    TextField(
+                      controller: emergencyRelationController,
+                      decoration: InputDecoration(
+                        labelText: context.tr('relationship'),
+                        hintText: context.tr('hint_relationship'),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: allergiesController,
-                  maxLines: 2,
-                  decoration: InputDecoration(
-                    labelText: context.tr('allergies'),
-                    hintText: context.tr('hint_allergies'),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: medsController,
-                  maxLines: 2,
-                  decoration: InputDecoration(
-                    labelText: context.tr('medicines'),
-                    hintText: context.tr('hint_medications'),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: emergencyNameController,
-                  decoration: InputDecoration(labelText: context.tr('emergency_contact_name')),
-                ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: emergencyPhoneController,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(labelText: context.tr('phone_number')),
-                ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: emergencyRelationController,
-                  decoration: InputDecoration(
-                    labelText: context.tr('relationship'),
-                    hintText: context.tr('hint_relationship'),
-                  ),
-                ),
+              ),
+              actions: [
+                TextButton(onPressed: () => dialogContext.pop(false), child: Text(context.tr('cancel'))),
+                FilledButton(onPressed: () => dialogContext.pop(true), child: Text(context.tr('save'))),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: Text(context.tr('cancel'))),
-            FilledButton(onPressed: () => Navigator.pop(dialogContext, true), child: Text(context.tr('save'))),
-          ],
+            );
+          },
         );
       },
     );
 
     if (result == true) {
       final notifier = ref.read(profileProvider.notifier);
-      notifier.updateBlood(bloodController.text.trim());
+      notifier.updateBlood(selectedBlood.trim());
       notifier.updateAllergies(_splitList(allergiesController.text));
       notifier.updateMedications(_splitList(medsController.text));
       notifier.updateEmergencyName(emergencyNameController.text.trim());
-      notifier.updateEmergencyPhone(emergencyPhoneController.text.trim());
+
+      final localPhone = emergencyPhoneController.text.trim();
+      final fullPhone = localPhone.isEmpty ? '' : '$selectedCountryCode $localPhone';
+      notifier.updateEmergencyPhone(fullPhone);
+
       notifier.updateEmergencyRelation(emergencyRelationController.text.trim());
       await notifier.saveToDatabase();
 
@@ -111,7 +132,6 @@ class ImportantInformationScreen extends ConsumerWidget {
       }
     }
 
-    bloodController.dispose();
     allergiesController.dispose();
     medsController.dispose();
     emergencyNameController.dispose();
@@ -133,7 +153,7 @@ class ImportantInformationScreen extends ConsumerWidget {
           children: [
             Row(
               children: [
-                IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                IconButton(onPressed: () => context.safePop(fallbackRoute: AppRoutes.profile), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                 Expanded(
                   child: Text(context.tr('important_info'), style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900)),
                 ),

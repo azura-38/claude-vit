@@ -380,5 +380,20 @@ void main() {
 
       await storageService.cleanupTempFile(sampleFile.path);
     });
+
+    test('25. readDecryptedBytes decrypts in memory without creating temporary files on disk', () async {
+      final sampleContent = Uint8List.fromList(utf8.encode('Top Secret Medical Data'));
+      final sourceFile = File(p.join(testAppDir.path, 'in_memory_test.pdf'));
+      await sourceFile.writeAsBytes(sampleContent);
+
+      final relPath = await storageService.copyFileToAppDir(sourceFile, 'in_memory_test.pdf');
+
+      final tempFilesBefore = testTempDir.listSync();
+      final decryptedBytes = await storageService.readDecryptedBytes(relPath);
+      final tempFilesAfter = testTempDir.listSync();
+
+      expect(decryptedBytes, equals(sampleContent));
+      expect(tempFilesAfter.length, equals(tempFilesBefore.length));
+    });
   });
 }

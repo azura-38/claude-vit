@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/theme/theme_visuals.dart';
 import '../../../../core/utils/uuid_generator.dart';
@@ -585,6 +586,6 @@ class _AddHealthMetricSheetState extends ConsumerState<_AddHealthMetricSheet> {
     );
 
     await ref.read(healthListProvider.notifier).addMetric(metric);
-    if (mounted) context.pop();
+    if (mounted) context.safePop(fallbackRoute: AppRoutes.home);
   }
 }

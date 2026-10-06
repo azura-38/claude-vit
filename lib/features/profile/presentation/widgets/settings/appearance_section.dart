@@ -83,7 +83,7 @@ class AppearanceSection extends ConsumerWidget {
                   trailing: currentLocale == language.code ? const Icon(Icons.check_circle_rounded, color: AppColors.primaryIndigo) : null,
                   onTap: () {
                     controller.setLocale(language.code);
-                    Navigator.pop(ctx);
+                    ctx.pop();
                   },
                 );
               }),

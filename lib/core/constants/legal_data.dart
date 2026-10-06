@@ -18,6 +18,8 @@ class LegalData {
     'es': _privacyPolicyEs,
     'fr': _privacyPolicyFr,
     'pt': _privacyPolicyPt,
+    'it': _privacyPolicyIt,
+    'hi': _privacyPolicyHi,
     'ar': _privacyPolicyAr,
     'zh': _privacyPolicyZh,
     'ja': _privacyPolicyJa,
@@ -31,6 +33,8 @@ class LegalData {
     'es': _termsEs,
     'fr': _termsFr,
     'pt': _termsPt,
+    'it': _termsIt,
+    'hi': _termsHi,
     'ar': _termsAr,
     'zh': _termsZh,
     'ja': _termsJa,
@@ -44,6 +48,8 @@ class LegalData {
     'es': _disclaimerEs,
     'fr': _disclaimerFr,
     'pt': _disclaimerPt,
+    'it': _disclaimerIt,
+    'hi': _disclaimerHi,
     'ar': _disclaimerAr,
     'zh': _disclaimerZh,
     'ja': _disclaimerJa,
@@ -52,7 +58,7 @@ class LegalData {
 
   static const String _privacyPolicyEn = """
 PRIVACY POLICY
-Last updated: May 26, 2026
+Last updated: October 5, 2026
 
 VitaCase is a free mobile app for storing personal health-related documents and reminders on your device.
 
@@ -81,7 +87,7 @@ VitaCase is not a medical device and does not provide diagnosis, treatment, or c
 
   static const String _privacyPolicyTr = """
 GİZLİLİK POLİTİKASI
-Son güncelleme: 26 Mayıs 2026
+Son güncelleme: 5 Ekim 2026
 
 VitaCase, kişisel sağlıkla ilgili belgeleri ve hatırlatıcıları cihazınızda saklamak için sunulan ücretsiz bir mobil uygulamadır.
 
@@ -276,7 +282,7 @@ VitaCase는 의료 기기가 아니며 진단이나 치료를 제공하지 않�
 
   static const String _termsEn = """
 TERMS AND CONDITIONS
-Last Updated: May 26, 2026
+Last Updated: October 5, 2026
 1. VitaCase is a free app supported by ads.
 2. You are responsible for the security of your device and backups.
 3. The app uses Firebase, Sentry, and AdMob for operations.
@@ -288,7 +294,7 @@ Last Updated: May 26, 2026
 
   static const String _termsTr = """
 KULLANIM KOŞULLARI
-Son güncelleme: 26 Mayıs 2026
+Son güncelleme: 5 Ekim 2026
 1. VitaCase reklam destekli ücretsiz bir uygulamadır.
 2. Cihaz güvenliği ve yedekleme sorumluluğu size aittir.
 3. Uygulama Firebase, Sentry ve AdMob kullanmaktadır.
@@ -298,18 +304,105 @@ Son güncelleme: 26 Mayıs 2026
 7. İlaç kullanımı, randevular veya acil durumlar için yalnızca VitaCase'e güvenmemeyi kabul edersiniz.
 """;
 
-  static const String _termsDe = "NUTZUNGSBEDINGUNGEN...";
-  static const String _termsEs = "TÉRMINOS Y CONDICIONES...";
-  static const String _termsFr = "CONDITIONS D'UTILISATION...";
-  static const String _termsPt = "TERMOS E CONDIÇÕES...";
-  static const String _termsAr = "الشروط والأحكام...";
-  static const String _termsZh = "使用条款...";
-  static const String _termsJa = "利用規約...";
-  static const String _termsKo = "이용 약관...";
+  static const String _termsDe = """
+NUTZUNGSBEDINGUNGEN
+Zuletzt aktualisiert: 5. Oktober 2026
+1. VitaCase ist eine kostenlose, werbefinanzierte App.
+2. Sie sind für die Sicherheit Ihres Geräts und Ihrer Backups selbst verantwortlich.
+3. Die App nutzt Firebase, Sentry und AdMob für den Betrieb.
+4. VitaCase ist kein medizinischer Dienst.
+5. VitaCase bietet keine Medikamentenanweisungen, Dosierungsempfehlungen oder offizielle Terminerinnerungen.
+6. Benachrichtigungen können sich aufgrund von Geräteeinstellungen oder technischen Gründen verzögern, blockiert werden oder ausbleiben.
+7. Sie erklären sich damit einverstanden, sich bei Medikamenteneinnahme, Terminen oder Notfallentscheidungen nicht ausschließlich auf VitaCase zu verlassen.
+""";
+
+  static const String _termsEs = """
+TÉRMINOS Y CONDICIONES
+Última actualización: 5 de octubre de 2026
+1. VitaCase es una aplicación gratuita financiada con anuncios.
+2. Usted es responsable de la seguridad de su dispositivo y de sus copias de seguridad.
+3. La aplicación utiliza Firebase, Sentry y AdMob para su funcionamiento.
+4. VitaCase no es un servicio médico.
+5. VitaCase no proporciona instrucciones sobre medicamentos, recomendaciones de dosificación ni avisos oficiales de citas.
+6. Las notificaciones pueden retrasarse, bloquearse o fallar debido a la configuración del dispositivo o razones técnicas.
+7. Usted acepta no depender exclusivamente de VitaCase para la toma de medicamentos, citas o decisiones de emergencia.
+""";
+
+  static const String _termsFr = """
+CONDITIONS D'UTILISATION
+Dernière mise à jour : 5 octobre 2026
+1. VitaCase est une application gratuite financée par la publicité.
+2. Vous êtes responsable de la sécurité de votre appareil et de vos sauvegardes.
+3. L'application utilise Firebase, Sentry et AdMob pour son fonctionnement.
+4. VitaCase n'est pas un service médical.
+5. VitaCase ne fournit pas d'instructions sur les médicaments, de posologie ou de rappels de rendez-vous officiels.
+6. Les notifications peuvent être retardées, bloquées ou échouer en raison des paramètres de l'appareil ou de raisons techniques.
+7. Vous acceptez de ne pas vous fier uniquement à VitaCase pour les médicaments, les rendez-vous ou les décisions d'urgence.
+""";
+
+  static const String _termsPt = """
+TERMOS E CONDIÇÕES
+Última atualização: 5 de outubro de 2026
+1. O VitaCase é um aplicativo gratuito financiado por anúncios.
+2. Você é responsável pela segurança do seu dispositivo e pelas cópias de segurança.
+3. O aplicativo utiliza Firebase, Sentry e AdMob para suas operações.
+4. O VitaCase não é um serviço médico.
+5. O VitaCase não fornece instruções sobre medicamentos, dosagens ou notificações oficiais de consultas.
+6. As notificações podem sofrer atrasos, bloqueios ou falhar devido às configurações do dispositivo ou motivos técnicos.
+7. Você concorda em não confiar exclusivamente no VitaCase para medicamentos, consultas ou decisões de emergência.
+""";
+
+  static const String _termsAr = """
+الشروط والأحكام
+آخر تحديث: 5 أكتوبر 2026
+1. تطبيق VitaCase مجاني مدعوم بالإعلانات.
+2. أنت المسؤول الوحيد عن أمان جهازك والنسخ الاحتياطية.
+3. يستخدم التطبيق خدمات Firebase و Sentry و AdMob للتشغيل.
+4. VitaCase ليس خدمة طبية ولا يقدم استشارات علاجية.
+5. لا يقدم التطبيق إرشادات دوائية أو جرعات محددة أو إشعارات مواعيد رسمية.
+6. قد تتأخر الإشعارات أو يتم حظرها أو تفشل لأسباب تقنية أو إعدادات النظام.
+7. توافق على عدم الاعتماد فقط على التطبيق في تناول الأدوية أو المواعيد أو حالات الطوارئ.
+""";
+
+  static const String _termsZh = """
+条款与条件
+最后更新：2026年10月5日
+1. VitaCase 是一款包含广告支持的免费应用程序。
+2. 您需自行对设备安全及本地数据备份负责。
+3. 本应用使用 Firebase、Sentry 和 AdMob 提供运营支持。
+4. VitaCase 不是医疗服务机构。
+5. VitaCase 不提供用药指导、剂量建议或医院官方就诊通知。
+6. 由于设备系统设置或技术原因，提醒通知可能会延迟、受阻或无法发送。
+7. 您同意不单独依赖 VitaCase 进行用药安排、就医安排或紧急健康决策。
+""";
+
+  static const String _termsJa = """
+利用規約
+最終更新日：2026年10月5日
+1. VitaCaseは広告によって支えられている無料アプリです。
+2. 端末のセキュリティおよびバックアップはお客様自身の責任となります。
+3. アプリの運用にはFirebase、Sentry、AdMobを使用しています。
+4. VitaCaseは医療サービスを提供するものではありません。
+5. VitaCaseは服薬指示、用法用量の提案、または公式な予約通知を提供するものではありません。
+6. 通知は端末の設定や技術的な要因により遅延、ブロック、または失敗する場合があります。
+7. 服薬、通院予約、緊急時の判断をVitaCaseのみに依存しないことに同意するものとします。
+""";
+
+  static const String _termsKo = """
+이용 약관
+마지막 업데이트: 2026년 10월 5일
+1. VitaCase는 광고로 지원되는 무료 모바일 애플리케이션입니다.
+2. 기기 보안 및 데이터 백업의 책임은 사용자 본인에게 있습니다.
+3. 본 앱은 원활한 운영을 위해 Firebase, Sentry 및 AdMob을 사용합니다.
+4. VitaCase는 의료 서비스를 제공하지 않습니다.
+5. VitaCase는 약물 복용 지침, 용량 권장 또는 공식 진료 예약을 제공하지 않습니다.
+6. 기기 설정이나 기술적 요인으로 인해 알림이 지연되거나 차단되거나 실패할 수 있습니다.
+7. 약물 복용, 진료 일정 또는 응급 상황 결정 시 VitaCase에만 의존하지 않는 것에 동의합니다.
+""";
 
   static const String _disclaimerEn = """
 DISCLAIMER
-Last updated: May 20, 2026
+Last updated: October 5, 2026
 VitaCase is for organization only. It is not a medical device.
 Medication use, dosage, and timing must always be based on instructions from qualified healthcare providers.
 VitaCase is not an official appointment system and does not replace notifications from hospitals or clinics.
@@ -319,7 +412,7 @@ VitaCase is not an emergency service. In emergencies, contact local emergency se
 
   static const String _disclaimerTr = """
 SORUMLULUK REDDİ
-Son güncelleme: 20 Mayıs 2026
+Son güncelleme: 5 Ekim 2026
 VitaCase sadece düzenleme amaçlıdır. Tıbbi cihaz değildir.
 İlaç kullanımı, dozajı ve zamanlaması her zaman nitelikli sağlık uzmanlarının talimatlarına dayanmalıdır.
 VitaCase resmi bir randevu sistemi değildir ve hastane veya klinik bildirimlerinin yerini almaz.
@@ -327,12 +420,183 @@ Bildirimler cihaz ayarları, işletim sistemi kısıtlamaları veya pil optimiza
 VitaCase bir acil durum hizmeti değildir. Acil durumlarda derhal yerel acil servislerle iletişime geçin.
 """;
 
-  static const String _disclaimerDe = "HAFTUNGSAUSSCHLUSS...";
-  static const String _disclaimerEs = "AVISO LEGAL...";
-  static const String _disclaimerFr = "MENTIONS LÉGALES...";
-  static const String _disclaimerPt = "AVISO LEGAL...";
-  static const String _disclaimerAr = "إخلاء المسؤولية...";
-  static const String _disclaimerZh = "免责声明...";
-  static const String _disclaimerJa = "免責事項...";
-  static const String _disclaimerKo = "면책 조항...";
+  static const String _disclaimerDe = """
+HAFTUNGSAUSSCHLUSS
+Zuletzt aktualisiert: 5. Oktober 2026
+VitaCase dient ausschließlich der Organisation. Es ist kein Medizinprodukt.
+Die Anwendung, Dosierung und der Zeitpunkt von Medikamenten müssen stets auf den Anweisungen qualifizierter medizinischer Fachkräfte basieren.
+VitaCase ist kein offizielles Terminsystem und ersetzt keine Benachrichtigungen von Krankenhäusern oder Praxen.
+Benachrichtigungen können sich aufgrund von Geräteeinstellungen, Betriebssystemeinschränkungen oder Batterieoptimierungen verzögern oder ausfallen.
+VitaCase ist kein Notfalldienst. Wenden Sie sich in Notfällen sofort an die örtlichen Notdienste.
+""";
+
+  static const String _disclaimerEs = """
+AVISO LEGAL Y DE RESPONSABILIDAD
+Última actualización: 5 de octubre de 2026
+VitaCase es solo para fines organizativos. No es un dispositivo médico.
+El uso, la dosis y el horario de los medicamentos siempre deben basarse en las instrucciones de profesionales de la salud calificados.
+VitaCase no es un sistema oficial de gestión de citas ni reemplaza los avisos de clínicas u hospitales.
+Las notificaciones pueden retrasarse, bloquearse o fallar debido a la configuración del sistema, restricciones del SO o ahorro de batería.
+VitaCase no es un servicio de emergencias. En caso de emergencia médica, comuníquese de inmediato con los servicios de urgencias locales.
+""";
+
+  static const String _disclaimerFr = """
+AVERTISSEMENT LÉGAL ET MÉDICAL
+Dernière mise à jour : 5 octobre 2026
+VitaCase est uniquement un outil d'organisation. Ce n'est pas un dispositif médical.
+L'utilisation, le dosage et l'horaire des médicaments doivent toujours être conformes aux instructions de professionnels de santé qualifiés.
+VitaCase n'est pas un système officiel de prise de rendez-vous et ne remplace pas les notifications des hôpitaux ou cliniques.
+Les notifications peuvent être retardées, bloquées ou ne pas s'afficher en raison des réglages de l'appareil ou de l'optimisation de la batterie.
+VitaCase n'est pas un service d'urgence. En cas d'urgence, contactez immédiatement les services de secours locaux.
+""";
+
+  static const String _disclaimerPt = """
+AVISO LEGAL E MÉDICO
+Última atualização: 5 de outubro de 2026
+O VitaCase é apenas para fins de organização. Não é um dispositivo médico.
+O uso, a dosagem e o horário dos medicamentos devem sempre seguir as instruções de profissionais de saúde qualificados.
+O VitaCase não é um sistema oficial de consultas e não substitui os avisos de hospitais ou clínicas.
+As notificações podem atrasar, ser bloqueadas ou falhar devido às configurações do sistema operacional ou economia de bateria.
+O VitaCase não é um serviço de emergência. Em emergências, contate imediatamente os serviços de resgate locais.
+""";
+
+  static const String _disclaimerAr = """
+إخلاء المسؤولية الطبية
+آخر تحديث: 5 أكتوبر 2026
+تطبيق VitaCase مخصص لأغراض التنظيم الشخصي فقط وليس جهازاً طبياً.
+يجب أن يستند استخدام الأدوية وجرعاتها وتوقيتها دائماً إلى تعليمات مقدمي الرعاية الصحية المؤهلين.
+VitaCase ليس نظاماً رسمياً للمواعيد ولا يحل محل إشعارات المستشفيات أو العيادات.
+قد تتأخر الإشعارات أو تفشل بسبب إعدادات الجهاز أو قيود نظام التشغيل أو تحسين البطارية.
+VitaCase ليس خدمة طوارئ. في حالات الطوارئ، اتصل فوراً بخدمات الإسعاف والطوارئ المحلية.
+""";
+
+  static const String _disclaimerZh = """
+免责声明
+最后更新：2026年10月5日
+VitaCase 仅用于个人健康资料整理，不属于医疗器械。
+任何药物的使用、剂量和服用时间必须始终遵循执业医生的医嘱。
+VitaCase 不是官方预约系统，不能替代医院或诊所的正式通知。
+由于设备系统设置、系统限制或电池优化，通知可能会延迟或无法送达。
+VitaCase 不提供急救服务。遇到紧急医疗情况，请立即拨打当地急救电话。
+""";
+
+  static const String _disclaimerJa = """
+免責事項
+最終更新日：2026年10月5日
+VitaCaseは個人の情報整理のみを目的としており、医療機器ではありません。
+医薬品の使用、用量、および服用時間は、必ず資格を持つ医師や医療従事者の指示に従ってください。
+VitaCaseは公的な予約システムではなく、病院やクリニックからの公式な通知に代わるものではありません。
+通知は端末の設定、OSの制限、バッテリー最適化などにより遅延または届かない場合があります。
+VitaCaseは緊急通報サービスではありません。緊急の場合は、直ちに現地の救急通報を行ってください。
+""";
+
+  static const String _disclaimerKo = """
+의료 면책 조항
+마지막 업데이트: 2026년 10월 5일
+VitaCase는 개인 건강 기록 정리용 앱이며, 의료 기기가 아닙니다.
+약물 복용, 용량 및 시기는 반드시 자격을 갖춘 의료 전문가의 지침을 따라야 합니다.
+VitaCase는 공식 예약 시스템이 아니며 병원이나 클리닉의 공식 통지를 대신할 수 없습니다.
+알림은 기기 설정, OS 제한 또는 배터리 최적화로 인해 지연되거나 실패할 수 있습니다.
+VitaCase는 응급 서비스가 아닙니다. 응급 상황 시 즉시 현지 응급 의료 기관에 연락하십시오.
+""";
+
+  static const String _privacyPolicyIt = """
+INFORMATIVA SULLA PRIVACY
+Ultimo aggiornamento: 5 ottobre 2026
+
+VitaCase è un'applicazione mobile gratuita per organizzare documenti personali e promemoria sanitari sul tuo dispositivo.
+
+1. DATI CHE RIMANGONO SUL DISPOSITIVO
+- Documenti, note, promemoria farmaci, appuntamenti e dati del profilo sono memorizzati localmente sul dispositivo.
+- I file caricati vengono crittografati localmente (AES-256-GCM).
+- Non archiviamo né sincronizziamo i tuoi documenti sanitari su server cloud remoti.
+
+2. DATI TECNICI ED ESTERNI
+- Firebase, Crashlytics e Sentry possono ricevere diagnostica tecnica e rapporti sugli errori.
+- Google AdMob può ricevere identificatori pubblicitari e dati a livello di dispositivo.
+
+3. COSA NON VIENE TRASMESSO
+- Nessun nome di documento, nota medica, nome di medico o nome di farmaco viene inviato come payload di analisi.
+
+4. ESCLUSIONE DI RESPONSABILITÀ MEDICA
+VitaCase non è un dispositivo medico e non fornisce diagnosi, trattamenti o consulenza clinica.
+""";
+
+  static const String _privacyPolicyHi = """
+गोपनीयता नीति
+अंतिम अपडेट: 5 अक्टूबर 2026
+
+VitaCase आपके डिवाइस पर व्यक्तिगत स्वास्थ्य संबंधी दस्तावेज़ों और अनुस्मारकों को व्यवस्थित करने के लिए एक निःशुल्क मोबाइल ऐप है।
+
+1. डिवाइस पर क्या रहता है
+- दस्तावेज़, नोट्स, दवा अनुस्मारक, अपॉइंटमेंट और प्रोफ़ाइल डेटा आपके डिवाइस पर स्थानीय रूप से संग्रहीत होते हैं।
+- अपलोड की गई फ़ाइलें स्थानीय रूप से एन्क्रिप्ट की जाती हैं (AES-256-GCM)।
+- हम आपके दस्तावेज़ों के लिए किसी रिमोट क्लाउड बैकअप का संचालन नहीं करते हैं।
+
+2. डिवाइस से क्या तकनीकी डेटा जा सकता है
+- Firebase Analytics और Crashlytics तकनीकी उपयोग और क्रैश रिपोर्ट प्राप्त कर सकते हैं।
+- Sentry तकनीकी त्रुटि संदर्भ प्राप्त कर सकता है।
+- AdMob विज्ञापन अनुरोध और डिवाइस-स्तरीय विज्ञापन पहचानकर्ता प्राप्त कर सकता है।
+
+3. टेलीमेट्री में क्या शामिल नहीं है
+- विश्लेषण पेलोड के रूप में कोई दस्तावेज़ नाम, मेडिकल नोट्स या दवाओं के नाम नहीं भेजे जाते हैं।
+
+4. चिकित्सा अस्वीकरण
+VitaCase कोई चिकित्सा उपकरण नहीं है और यह निदान, उपचार या नैदानिक सहायता प्रदान नहीं करता है।
+""";
+
+  static const String _termsIt = """
+TERMINI E CONDIZIONI
+Ultimo aggiornamento: 5 ottobre 2026
+
+1. ACCETTAZIONE DEI TERMINI
+Scaricando o utilizzando VitaCase, accetti i presenti Termini e Condizioni forniti da Limanex Software.
+
+2. FINALITÀ DEL SERVIZIO
+VitaCase è un'applicazione di organizzazione personale e archiviazione locale. Non è un fornitore di assistenza sanitaria né un dispositivo medico.
+
+3. RESPONSABILITÀ SUI FARMACI E APPUNTAMENTI
+L'utente è l'unico responsabile della verifica di dosaggi, orari e istruzioni con il proprio medico curante o farmacista. I promemoria locali possono subire ritardi a causa delle impostazioni di sistema o ottimizzazioni della batteria.
+
+4. NON PER EMERGENZE
+In caso di emergenza medica, contatta immediatamente il numero di soccorso locale (es. 112).
+""";
+
+  static const String _termsHi = """
+नियम एवं शर्तें
+अंतिम अपडेट: 5 अक्टूबर 2026
+
+1. शर्तों की स्वीकृति
+VitaCase डाउनलोड या उपयोग करके, आप Limanex Software द्वारा प्रदान किए गए इन नियमों और शर्तों से बाध्य होने के लिए सहमत होते हैं।
+
+2. सेवा का विवरण
+VitaCase एक व्यक्तिगत संगठन और स्थानीय भंडारण उपयोगिता है। यह कोई स्वास्थ्य सेवा प्रदाता या प्रमाणित चिकित्सा उपकरण नहीं है।
+
+3. दवा और अपॉइंटमेंट की जिम्मेदारी
+उपयोगकर्ता अपने चिकित्सक या फार्मासिस्ट के साथ दवा के नाम, खुराक और समय की पुष्टि करने के लिए पूरी तरह जिम्मेदार हैं। ऑपरेटिंग सिस्टम बैटरी अनुकूलन या अनुमतियों के कारण स्थानीय सूचनाएं विलंबित हो सकती हैं।
+
+4. आपातकालीन स्थितियों के लिए नहीं
+आपातकालीन स्थिति में तुरंत स्थानीय आपातकालीन सेवाओं (जैसे 112) से संपर्क करें।
+""";
+
+  static const String _disclaimerIt = """
+ESCLUSIONE DI RESPONSABILITÀ MEDICA
+Ultimo aggiornamento: 5 ottobre 2026
+VitaCase è destinato esclusivamente a scopi organizzativi personali e non costituisce un dispositivo medico.
+L'assunzione, il dosaggio e gli orari dei farmaci devono sempre basarsi sulle indicazioni di operatori sanitari qualificati.
+VitaCase non è un sistema di prenotazione ufficiale e non sostituisce gli avvisi formali di ospedali o cliniche.
+I promemoria possono subire ritardi, essere bloccati o non comparire a causa delle impostazioni del dispositivo, limitazioni del sistema operativo o ottimizzazioni della batteria.
+VitaCase non è un servizio di emergenza. In caso di emergenza, contatta immediatamente il pronto soccorso locale (112).
+""";
+
+  static const String _disclaimerHi = """
+चिकित्सा अस्वीकरण
+अंतिम अपडेट: 5 अक्टूबर 2026
+VitaCase केवल व्यक्तिगत संगठन के उद्देश्यों के लिए है और यह कोई चिकित्सा उपकरण नहीं है।
+दवा का उपयोग, खुराक और समय हमेशा योग्य स्वास्थ्य पेशेवरों के निर्देशों पर आधारित होना चाहिए।
+VitaCase कोई आधिकारिक बुकिंग प्रणाली नहीं है और यह अस्पतालों या क्लीनिकों की आधिकारिक सूचनाओं का स्थान नहीं लेता है।
+डिवाइस सेटिंग्स, ऑपरेटिंग सिस्टम प्रतिबंधों या बैटरी अनुकूलन के कारण अनुस्मारक सूचनाएं विलंबित या विफल हो सकती हैं।
+VitaCase कोई आपातकालीन सेवा नहीं है। आपात स्थिति में तुरंत अपनी स्थानीय आपातकालीन सेवा से संपर्क करें।
+""";
 }
+

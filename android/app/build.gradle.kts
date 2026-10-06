@@ -10,6 +10,8 @@ plugins {
 import java.util.Base64
 import java.util.Properties
 import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.nio.charset.StandardCharsets
 
 val dartDefinesString = project.findProperty("dart-defines") as String?
 val dartDefines = mutableMapOf<String, String>()
@@ -29,7 +31,7 @@ if (dartDefinesString != null) {
 
 android {
     namespace = "com.limanex.vitacase"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     sourceSets {
@@ -54,7 +56,7 @@ android {
     defaultConfig {
         applicationId = "com.limanex.vitacase"
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
@@ -65,7 +67,7 @@ android {
     val keystorePropertiesFile = rootProject.file("key.properties")
     val keystoreProperties = Properties()
     if (keystorePropertiesFile.exists()) {
-        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+        keystoreProperties.load(InputStreamReader(FileInputStream(keystorePropertiesFile), StandardCharsets.UTF_8))
     }
 
     signingConfigs {

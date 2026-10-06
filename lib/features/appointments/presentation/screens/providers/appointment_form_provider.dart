@@ -62,6 +62,70 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
     );
   }
 
+  void initForEdit(Appointment appointment) {
+    AppointmentType resolvedType = AppointmentType.medical;
+    for (final t in AppointmentType.values) {
+      if (appointment.type != null && t.name.toLowerCase() == appointment.type!.toLowerCase()) {
+        resolvedType = t;
+        break;
+      }
+    }
+
+    final subcategories = subcategoriesForAppointmentType(resolvedType);
+    AppointmentSubcategory resolvedSub = subcategories.first;
+    for (final s in subcategories) {
+      if (appointment.person != null && s.name.toLowerCase() == appointment.person!.toLowerCase()) {
+        resolvedSub = s;
+        break;
+      }
+    }
+
+    AppointmentPriority priority = AppointmentPriority.normal;
+    if (appointment.importance == ImportanceLevel.high) {
+      priority = AppointmentPriority.high;
+    } else if (appointment.importance == ImportanceLevel.low) {
+      priority = AppointmentPriority.low;
+    }
+
+    AppointmentReminder reminder = AppointmentReminder.oneHour;
+    for (final r in AppointmentReminder.values) {
+      if (r.key == appointment.reminderTime) {
+        reminder = r;
+        break;
+      }
+    }
+
+    DateTime parsedDate = DateTime.now();
+    try {
+      final dateParts = appointment.date.split('-');
+      if (dateParts.length == 3) {
+        int year = int.parse(dateParts[0]);
+        int month = int.parse(dateParts[1]);
+        int day = int.parse(dateParts[2]);
+        int hour = 9;
+        int minute = 0;
+        final timeParts = appointment.time.split(':');
+        if (timeParts.length >= 2) {
+          hour = int.tryParse(timeParts[0]) ?? 9;
+          minute = int.tryParse(timeParts[1]) ?? 0;
+        }
+        parsedDate = DateTime(year, month, day, hour, minute);
+      }
+    } catch (_) {}
+
+    state = AppointmentFormModel(
+      editingId: appointment.id,
+      title: appointment.title ?? appointment.department,
+      type: resolvedType,
+      subcategory: resolvedSub,
+      priority: priority,
+      date: parsedDate,
+      location: appointment.location ?? appointment.hospital,
+      reminder: reminder,
+      notes: appointment.notes ?? '',
+    );
+  }
+
   Future<void> submit() async {
     if (!state.isValid || state.isSubmitting) return;
 
@@ -76,8 +140,10 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
     try {
       final title = form.title.trim();
       final location = form.location.trim();
+      final isEdit = form.editingId != null;
+
       final appointment = Appointment(
-        id: generateUuid(),
+        id: isEdit ? form.editingId! : generateUuid(),
         title: title,
         doctor: title,
         department: title,
@@ -95,7 +161,11 @@ class AppointmentFormNotifier extends StateNotifier<AppointmentFormModel> {
         createdAt: DateTime.now(),
       );
 
-      await ref.read(appointmentListProvider.notifier).addAppointment(appointment);
+      if (isEdit) {
+        await ref.read(appointmentListProvider.notifier).updateAppointment(appointment);
+      } else {
+        await ref.read(appointmentListProvider.notifier).addAppointment(appointment);
+      }
       reset();
     } catch (_) {
       state = form.copyWith(isSubmitting: false);

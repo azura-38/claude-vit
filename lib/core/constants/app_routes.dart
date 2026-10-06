@@ -7,6 +7,7 @@ class AppRoutes {
   static const String onboarding = '/onboarding';
   static const String profileCreate = '/profile-create';
   static const String lock = '/lock';
+  static const String legalUpdate = '/legal-update';
 
   // Main features (Navigation Branches)
   static const String dashboard = '/dashboard';
@@ -21,6 +22,7 @@ class AppRoutes {
 
   // Adding/Editing
   static const String documentAdd = '/documents/add';
+  static const String documentQuickView = '/documents/view';
   static const String appointmentAdd = '/appointments/add';
   static const String medicineAdd = '/medicines/add';
   static const String doctorAdd = '/doctors/add';
@@ -35,11 +37,12 @@ class AppRoutes {
 
   static const String settings = '/settings';
   static const String settingsTheme = '/settings/theme';
+  static const String settingsTermsAndPrivacy = '/settings/terms-and-privacy';
   static const String settingsTerms = '/settings/terms';
   static const String settingsPrivacy = '/settings/privacy';
   static const String settingsDisclaimer = '/settings/disclaimer';
+  static const String settingsKvkk = '/settings/kvkk';
+  static const String settingsDataDeletion = '/settings/data-deletion';
   static const String reminderTroubleshooting = '/settings/reminder-help';
   static const String diagnosticsPanel = '/settings/diagnostics';
-  static const String achievements = '/achievements';
-  static const String seasonPass = '/season-pass';
 }

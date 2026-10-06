@@ -16,6 +16,8 @@ class Document {
   final DateTime createdAt;
   final bool pending;
 
+  final List<String> tags;
+
   const Document({
     required this.id,
     required this.fileName,
@@ -30,6 +32,7 @@ class Document {
     this.note,
     required this.createdAt,
     this.pending = false,
+    this.tags = const [],
   });
 
   Document copyWith({
@@ -46,6 +49,7 @@ class Document {
     String? note,
     DateTime? createdAt,
     bool? pending,
+    List<String>? tags,
   }) {
     return Document(
       id: id ?? this.id,
@@ -61,6 +65,7 @@ class Document {
       note: note ?? this.note,
       createdAt: createdAt ?? this.createdAt,
       pending: pending ?? this.pending,
+      tags: tags ?? this.tags,
     );
   }
 }

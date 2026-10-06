@@ -46,6 +46,7 @@ class BmiCard extends StatelessWidget {
           const SizedBox(height: 28),
 
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,20 +69,24 @@ class BmiCard extends StatelessWidget {
                 ],
               ),
 
-              const Spacer(),
+              const SizedBox(width: 8),
 
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                child: Text(
-                  context.tr(profile.bmiStatus),
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+              Flexible(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.softBlue,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    context.tr(profile.bmiStatus),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ],

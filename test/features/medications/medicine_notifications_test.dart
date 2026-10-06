@@ -1,135 +1,17 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/timezone.dart' as tz;
 import 'package:vitacase/core/di/repository_providers.dart';
 import 'package:vitacase/core/notifications/notification_id_manager.dart';
-import 'package:vitacase/core/types/runtime_types.dart';
 import 'package:vitacase/features/medications/domain/entities/medicine.dart';
-import 'package:vitacase/shared/data/services/notification_service.dart';
+import 'package:vitacase/shared/data/services/notification_engine.dart';
 import 'package:vitacase/shared/data/services/usage_limit_service.dart';
 import 'package:vitacase/shared/domain/enums/common_enums.dart';
 import 'package:vitacase/shared/domain/repositories/medicine_repository.dart';
 import 'package:vitacase/shared/providers/medicine_providers.dart';
 import 'package:vitacase/shared/providers/shared_prefs_provider.dart';
 
-class FakeNotificationPlatformAdapter implements NotificationPlatformAdapter {
-  int initializeCallCount = 0;
-  int cancelCallCount = 0;
-  int cancelAllCallCount = 0;
-  int showCallCount = 0;
-  int zonedScheduleCallCount = 0;
-
-  bool shouldThrowOnInitialize = false;
-  bool shouldThrowOnSchedule = false;
-  bool shouldThrowOnShow = false;
-  bool shouldThrowOnCancel = false;
-  NotificationPermissionState permissionToReturn = NotificationPermissionState.granted;
-
-  final List<Map<String, dynamic>> scheduledNotifications = [];
-  final List<Map<String, dynamic>> shownNotifications = [];
-  final List<int> cancelledIds = [];
-
-  @override
-  Future<bool> initialize({
-    required void Function(NotificationResponse) onDidReceiveNotificationResponse,
-    bool useFallbackIcon = false,
-  }) async {
-    initializeCallCount++;
-    if (shouldThrowOnInitialize) {
-      throw Exception('Simulated platform initialization failure');
-    }
-    return true;
-  }
-
-  @override
-  Future<NotificationPermissionState> requestPermissions({
-    bool requestExactAlarm = false,
-  }) async {
-    return permissionToReturn;
-  }
-
-  @override
-  Future<void> show({
-    required int id,
-    required String title,
-    required String body,
-    required String channelId,
-    required String channelName,
-    String? payload,
-    bool useFallbackIcon = false,
-  }) async {
-    showCallCount++;
-    if (shouldThrowOnShow) {
-      throw Exception('Simulated platform show failure');
-    }
-    shownNotifications.add({
-      'id': id,
-      'title': title,
-      'body': body,
-      'channelId': channelId,
-      'channelName': channelName,
-      'payload': payload,
-    });
-  }
-
-  @override
-  Future<void> zonedSchedule({
-    required int id,
-    required String title,
-    required String body,
-    required tz.TZDateTime scheduledDate,
-    required String channelId,
-    required String channelName,
-    String? payload,
-    bool useFallbackIcon = false,
-    bool isMedication = false,
-  }) async {
-    zonedScheduleCallCount++;
-    if (shouldThrowOnSchedule) {
-      throw Exception('Simulated platform zonedSchedule failure');
-    }
-    scheduledNotifications.add({
-      'id': id,
-      'title': title,
-      'body': body,
-      'scheduledDate': scheduledDate,
-      'channelId': channelId,
-      'channelName': channelName,
-      'payload': payload,
-      'isMedication': isMedication,
-    });
-  }
-
-  @override
-  Future<void> cancel({required int id}) async {
-    cancelCallCount++;
-    if (shouldThrowOnCancel) {
-      throw Exception('Simulated platform cancel failure');
-    }
-    cancelledIds.add(id);
-  }
-
-  @override
-  Future<void> cancelAll() async {
-    cancelAllCallCount++;
-    if (shouldThrowOnCancel) {
-      throw Exception('Simulated platform cancelAll failure');
-    }
-    cancelledIds.clear();
-  }
-
-  @override
-  Future<List<PendingNotificationRequest>> getPendingNotificationRequests() async {
-    return scheduledNotifications.map((s) => PendingNotificationRequest(
-      s['id'] as int,
-      s['title'] as String?,
-      s['body'] as String?,
-      s['payload'] as String?,
-    )).toList();
-  }
-}
+import '../notifications/fake_awesome_notifications_client.dart';
 
 class InMemoryMedicineRepository implements MedicineRepository {
   final Map<String, Medicine> _store = {};
@@ -168,7 +50,7 @@ class FakeUsageLimitService extends Fake implements UsageLimitService {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late FakeNotificationPlatformAdapter fakeAdapter;
+  late FakeAwesomeNotificationsClient fakeClient;
   late InMemoryMedicineRepository fakeRepo;
   late SharedPreferences fakePrefs;
   late ProviderContainer container;
@@ -180,10 +62,10 @@ void main() {
     });
     fakePrefs = await SharedPreferences.getInstance();
 
-    NotificationService.resetForTesting();
-    fakeAdapter = FakeNotificationPlatformAdapter();
-    NotificationService.setAdapterForTesting(fakeAdapter);
-    await NotificationService.initCore();
+    NotificationEngine.resetForTesting();
+    fakeClient = FakeAwesomeNotificationsClient();
+    NotificationEngine.setClientForTesting(fakeClient);
+    await NotificationEngine.initCore();
 
     fakeRepo = InMemoryMedicineRepository();
 
@@ -198,7 +80,7 @@ void main() {
 
   tearDown(() {
     container.dispose();
-    NotificationService.resetForTesting();
+    NotificationEngine.resetForTesting();
   });
 
   Medicine createTestMedicine({
@@ -224,13 +106,12 @@ void main() {
       final med = createTestMedicine();
       await container.read(medicineListProvider.notifier).addMedicine(med);
 
-      expect(fakeAdapter.zonedScheduleCallCount, 1);
-      final record = fakeAdapter.scheduledNotifications.first;
+      expect(fakeClient.createNotificationCallCount, 1);
+      final record = fakeClient.scheduledNotifications.first;
 
-      expect(record['isMedication'], isTrue);
-      expect(record['channelId'], 'med_channel');
+      expect(record['channelKey'], 'medicine_reminders_v2');
       // Body is masked because hide_sensitive_content is true
-      expect(record['body'], 'Details hidden');
+      expect(record['body'], 'Reminder details are hidden.');
 
       final expectedId = NotificationIdManager.getMedicineReminderId(
         medicineId: med.id,
@@ -285,21 +166,21 @@ void main() {
         medicineId: initialMed.id,
         reminderTime: '08:00',
       );
-      expect(fakeAdapter.scheduledNotifications.any((n) => n['id'] == oldId), isTrue);
+      expect(fakeClient.scheduledNotifications.any((n) => n['id'] == oldId), isTrue);
 
       // Update medicine reminder from 08:00 to 14:00
       final updatedMed = initialMed.copyWith(reminderTimes: ['14:00']);
       await container.read(medicineListProvider.notifier).updateMedicine(updatedMed);
 
       // Old reminder ID must have been cancelled
-      expect(fakeAdapter.cancelledIds, contains(oldId));
+      expect(fakeClient.cancelledIds, contains(oldId));
 
       // New reminder ID must have been scheduled
       final newId = NotificationIdManager.getMedicineReminderId(
         medicineId: initialMed.id,
         reminderTime: '14:00',
       );
-      expect(fakeAdapter.scheduledNotifications.any((n) => n['id'] == newId), isTrue);
+      expect(fakeClient.scheduledNotifications.any((n) => n['id'] == newId), isTrue);
     });
 
     test('7. delete cancels all medicine notifications and removes from repository', () async {
@@ -311,8 +192,8 @@ void main() {
 
       await container.read(medicineListProvider.notifier).deleteMedicine(med.id);
 
-      expect(fakeAdapter.cancelledIds, contains(id1));
-      expect(fakeAdapter.cancelledIds, contains(id2));
+      expect(fakeClient.cancelledIds, contains(id1));
+      expect(fakeClient.cancelledIds, contains(id2));
       expect(await fakeRepo.getById(med.id), isNull);
     });
 
@@ -321,16 +202,16 @@ void main() {
       await container.read(medicineListProvider.notifier).addMedicine(med);
 
       final id = NotificationIdManager.getMedicineReminderId(medicineId: med.id, reminderTime: '08:00');
-      final scheduleCountBefore = fakeAdapter.zonedScheduleCallCount;
+      final scheduleCountBefore = fakeClient.createNotificationCallCount;
 
       // Disable reminders by setting reminderTimes to empty
       final disabledMed = med.copyWith(reminderTimes: []);
       await container.read(medicineListProvider.notifier).updateMedicine(disabledMed);
 
       // Old notification must be cancelled
-      expect(fakeAdapter.cancelledIds, contains(id));
+      expect(fakeClient.cancelledIds, contains(id));
       // No new schedule call
-      expect(fakeAdapter.zonedScheduleCallCount, scheduleCountBefore);
+      expect(fakeClient.createNotificationCallCount, scheduleCountBefore);
       // Medicine must still exist in repo
       expect(await fakeRepo.getById(med.id), isNotNull);
     });
@@ -338,18 +219,18 @@ void main() {
     test('9. re-enabling reminder schedules notification again', () async {
       final medWithoutReminders = createTestMedicine(reminderTimes: []);
       await container.read(medicineListProvider.notifier).addMedicine(medWithoutReminders);
-      expect(fakeAdapter.zonedScheduleCallCount, 0);
+      expect(fakeClient.createNotificationCallCount, 0);
 
       // Re-enable reminder
       final enabledMed = medWithoutReminders.copyWith(reminderTimes: ['09:00']);
       await container.read(medicineListProvider.notifier).updateMedicine(enabledMed);
 
       final id = NotificationIdManager.getMedicineReminderId(medicineId: enabledMed.id, reminderTime: '09:00');
-      expect(fakeAdapter.scheduledNotifications.any((n) => n['id'] == id), isTrue);
+      expect(fakeClient.scheduledNotifications.any((n) => n['id'] == id), isTrue);
     });
 
     test('10. scheduling failure does not crash medicine CRUD', () async {
-      fakeAdapter.shouldThrowOnSchedule = true;
+      fakeClient.shouldThrowOnSchedule = true;
 
       final med = createTestMedicine();
       // Should not throw
@@ -365,7 +246,7 @@ void main() {
       final med = createTestMedicine();
       await container.read(medicineListProvider.notifier).addMedicine(med);
 
-      fakeAdapter.shouldThrowOnCancel = true;
+      fakeClient.shouldThrowOnCancel = true;
       // Should not throw
       await container.read(medicineListProvider.notifier).deleteMedicine(med.id);
 
@@ -377,18 +258,18 @@ void main() {
     test('12. sensitive medicine information is masked by default', () async {
       await fakePrefs.setBool('notification_hide_sensitive_content', true);
 
-      final safeBody = NotificationService.safeMedicationBodyStatic('Secret Oncology 100mg');
-      expect(safeBody, 'Details hidden');
+      final safeBody = NotificationEngine.safeMedicationBodyStatic('Secret Oncology 100mg');
+      expect(safeBody, 'Reminder details are hidden.');
       expect(safeBody.contains('Secret'), isFalse);
       expect(safeBody.contains('Oncology'), isFalse);
 
-      final safeText = NotificationService.safeText('Take Secret Oncology 100mg');
-      expect(safeText, 'You have a reminder');
+      final safeText = NotificationEngine.safeText('Take Secret Oncology 100mg');
+      expect(safeText, 'Reminder details are hidden.');
       expect(safeText.contains('Secret'), isFalse);
     });
 
     test('13. notification callback/action failure is contained', () async {
-      NotificationService.setMedicineActionHandlers(
+      NotificationEngine.setMedicineActionHandlers(
         onTaken: (id) async {
           throw Exception('Simulated action error');
         },
@@ -397,7 +278,7 @@ void main() {
 
       // Simulating action response must not throw unhandled error
       expect(
-        () => NotificationService.instance, // verify service intact
+        () => NotificationEngine.instance, // verify service intact
         returnsNormally,
       );
 
@@ -416,7 +297,7 @@ void main() {
         completes,
       );
 
-      expect(fakeAdapter.scheduledNotifications.length, 3);
+      expect(fakeClient.scheduledNotifications.length, 3);
       final list = await container.read(medicineListProvider.future);
       expect(list.length, 1);
       expect(list.first.id, med.id);

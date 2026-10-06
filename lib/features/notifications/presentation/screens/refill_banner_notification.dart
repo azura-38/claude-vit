@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../widgets/notification_glass_card.dart';
@@ -85,7 +86,7 @@ class RefillBannerNotificationScreen extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () => context.pop(),
+                          onPressed: () => context.safePop(fallbackRoute: AppRoutes.home),
                           icon: const Icon(Icons.close_rounded),
                         ),
                       ],

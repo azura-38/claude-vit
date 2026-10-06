@@ -3,9 +3,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/constants/app_routes.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+import 'package:vitacase/core/utils/ui_utils.dart';
 
 import '../../../../shared/data/services/usage_limit_service.dart';
+import '../../../../shared/widgets/dialogs/notification_rationale_sheet.dart';
 import '../../../../shared/widgets/mini_responsibility_notice.dart';
 import 'providers/medication_form_provider.dart';
 import 'widgets/animated_segmented_control.dart';
@@ -14,8 +17,39 @@ import 'widgets/quantity_stepper.dart';
 import 'widgets/reminder_chip.dart';
 import 'widgets/smart_info_banner.dart';
 
-class AddMedicationScreen extends ConsumerWidget {
-  const AddMedicationScreen({super.key});
+import '../../domain/entities/medicine.dart';
+
+class AddMedicationScreen extends ConsumerStatefulWidget {
+  final Medicine? initialMedicine;
+
+  const AddMedicationScreen({super.key, this.initialMedicine});
+
+  @override
+  ConsumerState<AddMedicationScreen> createState() => _AddMedicationScreenState();
+}
+
+class _AddMedicationScreenState extends ConsumerState<AddMedicationScreen> {
+  late final TextEditingController _nameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.initialMedicine?.name ?? '');
+
+    if (widget.initialMedicine != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          ref.read(medicationFormProvider.notifier).initForEdit(widget.initialMedicine!);
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickReminderTime(BuildContext context, WidgetRef ref) async {
     final picked = await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -24,13 +58,12 @@ class AddMedicationScreen extends ConsumerWidget {
     ref.read(medicationFormProvider.notifier).addTime(value);
   }
 
-
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final state = ref.watch(medicationFormProvider);
     final notifier = ref.read(medicationFormProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isEditing = state.isEditing;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
@@ -52,7 +85,7 @@ class AddMedicationScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 22),
                 _MedicationHero(
-                  title: context.l10n.addMedication,
+                  title: isEditing ? context.tr('edit_medication') : context.l10n.addMedication,
                   description: context.l10n.stayConsistentDesc,
                   reminderCount: state.reminderTimes.length,
                 ).animate().fadeIn().slideY(begin: .12),
@@ -60,9 +93,7 @@ class AddMedicationScreen extends ConsumerWidget {
                 MiniResponsibilityNotice(
                   icon: Icons.medical_information_outlined,
                   accentColor: const Color(0xFFF59E0B),
-                  text: Localizations.localeOf(context).languageCode == 'tr'
-                      ? 'VitaCase yalnızca ilaç takibine yardımcı olur; tıbbi tavsiye vermez. Doz, saat ve kullanım kararlarında doktor veya eczacı talimatlarını esas alın.'
-                      : 'VitaCase only helps with medication tracking and does not provide medical advice. Always follow your doctor or pharmacist instructions for dosage and timing.',
+                  text: context.tr('notice_medication_responsibility'),
                 ),
                 const SizedBox(height: 22),
                 PremiumCard(
@@ -72,6 +103,7 @@ class AddMedicationScreen extends ConsumerWidget {
                       _SectionTitle(icon: Icons.medication_outlined, title: context.l10n.medicineName),
                       const SizedBox(height: 14),
                       TextField(
+                        controller: _nameController,
                         onChanged: notifier.updateName,
                         decoration: InputDecoration(
                           hintText: context.l10n.searchMedHint,
@@ -178,8 +210,23 @@ class AddMedicationScreen extends ConsumerWidget {
                 child: GestureDetector(
                   onTap: () async {
                     try {
+                      final wasEditing = isEditing;
+                      if (state.reminderTimes.isNotEmpty) {
+                        await NotificationRationaleSheet.showIfNeeded(context);
+                      }
                       await notifier.submit();
-                      if (context.mounted) context.pop();
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              wasEditing
+                                  ? (context.tr('medication_updated') != 'medication_updated' ? context.tr('medication_updated') : 'Medication updated')
+                                  : context.l10n.addMedication,
+                            ),
+                          ),
+                        );
+                        context.safePop(fallbackRoute: AppRoutes.medicines);
+                      }
                     } catch (e) {
                       if (!context.mounted) return;
                       final message = e is UsageLimitExceededException ? context.l10n.dailyLimitReachedMessage(e.limit) : context.l10n.failedAddMedication;
@@ -194,7 +241,10 @@ class AddMedicationScreen extends ConsumerWidget {
                       boxShadow: [BoxShadow(color: AppColors.brandBlue.withValues(alpha: 0.24), blurRadius: 24, offset: const Offset(0, 12))],
                     ),
                     child: Center(
-                      child: Text(context.l10n.addMedication, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800)),
+                      child: Text(
+                        isEditing ? context.tr('save') : context.l10n.addMedication,
+                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
+                      ),
                     ),
                   ),
                 ).animate().fadeIn(delay: 520.ms).slideY(begin: 1),

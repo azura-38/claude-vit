@@ -2787,7 +2787,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get document_update_failed => 'No se pudo actualizar el documento.';
 
   @override
-  String get document_open_failed => 'No se pudo abrir el documento.';
+  String get document_open_failed => 'No se pudo abrir el documento';
 
   @override
   String get no_additional_notes => 'No se proporcionan notas adicionales.';
@@ -2990,4 +2990,59 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Receive a daily notification to review your plans, discover themes, and organize your vault.';
+
+  @override
+  String get quick_tags => 'Etiquetas rápidas';
+
+  @override
+  String get custom_tags => 'Etiquetas personalizadas';
+
+  @override
+  String get add_tag => 'Añadir etiqueta';
+
+  @override
+  String get create_tag => 'Crear etiqueta';
+
+  @override
+  String get remove_tag => 'Eliminar etiqueta';
+
+  @override
+  String get filter_by_tag => 'Filtrar por etiqueta';
+
+  @override
+  String get clear_tags => 'Borrar etiquetas';
+
+  @override
+  String get no_tags => 'Sin etiquetas';
+
+  @override
+  String get add_custom_tag => 'Añadir etiqueta personalizada';
+
+  @override
+  String get tag_name_hint => 'ej., Cardiología, Chequeo 2026';
+
+  @override
+  String get tag_name_empty => 'El nombre de la etiqueta no puede estar vacío';
+
+  @override
+  String get tag_already_exists => 'Esta etiqueta ya existe';
+
+  @override
+  String get tag_too_long => 'La etiqueta no puede superar los 30 caracteres';
+
+  @override
+  String get docs_tag_insurance => 'Seguro';
+
+  @override
+  String get docs_tag_invoice => 'Factura';
+
+  @override
+  String get open_pdf => 'Abrir PDF';
+
+  @override
+  String get pdf_viewer_not_found =>
+      'No se encontró ninguna aplicación para ver PDF en el dispositivo';
+
+  @override
+  String get pdf_open_failed => 'No se pudo abrir el archivo PDF';
 }

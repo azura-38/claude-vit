@@ -11,7 +11,8 @@ import '../widgets/health_condition_chips.dart';
 import '../widgets/privacy_toggle_tile.dart';
 import '../widgets/save_profile_button.dart';
 import '../widgets/security_info_card.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
@@ -41,14 +42,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        context.pop();
+                        context.safePop(fallbackRoute: AppRoutes.profile);
                       },
                       icon: const Icon(Icons.arrow_back_ios_new_rounded),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'Your Health Profile',
-                        style: TextStyle(
+                        context.tr('health_profile'),
+                        style: const TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.w700,
                         ),
@@ -75,12 +76,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
                 const SizedBox(height: 8),
 
-                Text('${(profile.completion * 100).toInt()}% Completed'),
+                Text('${(profile.completion * 100).toInt()}% ${context.tr('profile_completion_status')}'),
 
                 const SizedBox(height: 28),
 
                 CollapsibleProfileSection(
-                  title: 'Metrics',
+                  title: context.tr('physical_metrics'),
                   expanded: expanded == 0,
                   onTap: () {
                     setState(() {
@@ -90,7 +91,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   child: Column(
                     children: [
                       FloatingInputField(
-                        label: 'Height',
+                        label: context.l10n.heightLabel,
                         hint: '170',
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -99,7 +100,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       ),
                       const SizedBox(height: 14),
                       FloatingInputField(
-                        label: 'Weight',
+                        label: context.tr('current_weight'),
                         hint: '65',
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -111,7 +112,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ),
 
                 CollapsibleProfileSection(
-                  title: 'Personal',
+                  title: context.l10n.personalInfo,
                   expanded: expanded == 1,
                   onTap: () {
                     setState(() {
@@ -121,7 +122,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   child: Column(
                     children: [
                       FloatingInputField(
-                        label: 'Full Name',
+                        label: context.l10n.fullName,
                         hint: 'Sarah Jenkins',
                         onChanged: notifier.updateName,
                       ),
@@ -135,7 +136,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ),
 
                 CollapsibleProfileSection(
-                  title: 'Contact',
+                  title: context.l10n.contactInfoTitle,
                   expanded: expanded == 2,
                   onTap: () {
                     setState(() {
@@ -145,14 +146,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   child: Column(
                     children: [
                       FloatingInputField(
-                        label: 'Email',
+                        label: context.l10n.emailAddress,
                         hint: 'example@email.com',
                         keyboardType: TextInputType.emailAddress,
                         onChanged: notifier.updateEmail,
                       ),
                       const SizedBox(height: 14),
                       FloatingInputField(
-                        label: 'Phone',
+                        label: context.l10n.phoneNumber,
                         hint: '+1 555 000',
                         keyboardType: TextInputType.phone,
                         onChanged: notifier.updatePhone,
@@ -162,7 +163,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ),
 
                 CollapsibleProfileSection(
-                  title: 'Health Conditions',
+                  title: context.tr('health_conditions'),
                   expanded: expanded == 3,
                   onTap: () {
                     setState(() {
@@ -176,7 +177,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ),
 
                 CollapsibleProfileSection(
-                  title: 'Privacy',
+                  title: context.l10n.dataSecurity,
                   expanded: expanded == 4,
                   onTap: () {
                     setState(() {
@@ -186,17 +187,17 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   child: Column(
                     children: [
                       PrivacyToggleTile(
-                        title: 'Hide sensitive notifications',
+                        title: context.tr('hide_sensitive_notifications'),
                         value: profile.privacyMode,
                         onChanged: notifier.togglePrivacy,
                       ),
                       PrivacyToggleTile(
-                        title: 'Biometric profile lock',
+                        title: context.l10n.lockUseBiometrics,
                         value: profile.biometricLock,
                         onChanged: notifier.toggleBiometric,
                       ),
                       PrivacyToggleTile(
-                        title: 'Silent notification mode',
+                        title: context.tr('silent_notification_mode'),
                         value: profile.silentNotifications,
                         onChanged: notifier.toggleSilent,
                       ),
@@ -222,7 +223,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(context.l10n.profileUpdated)),
                       );
-                      context.pop();
+                      context.safePop(fallbackRoute: AppRoutes.profile);
                     }
                   },
                 ),

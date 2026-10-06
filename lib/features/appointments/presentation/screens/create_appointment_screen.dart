@@ -4,9 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+import 'package:vitacase/core/constants/app_routes.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
+import 'package:vitacase/core/utils/ui_utils.dart';
 
 import '../../../../shared/data/services/usage_limit_service.dart';
+import '../../../../shared/widgets/dialogs/notification_rationale_sheet.dart';
 import '../../../../shared/widgets/mini_responsibility_notice.dart';
 import 'models/appointment_form_model.dart';
 import 'providers/appointment_form_provider.dart';
@@ -17,11 +20,50 @@ import 'widgets/premium_input.dart';
 import 'widgets/priority_selector.dart';
 import 'widgets/smart_summary_card.dart';
 
-class CreateAppointmentScreen extends ConsumerWidget {
-  const CreateAppointmentScreen({super.key});
+import '../../domain/entities/appointment.dart';
+
+class CreateAppointmentScreen extends ConsumerStatefulWidget {
+  final Appointment? initialAppointment;
+
+  const CreateAppointmentScreen({super.key, this.initialAppointment});
+
+  @override
+  ConsumerState<CreateAppointmentScreen> createState() => _CreateAppointmentScreenState();
+}
+
+class _CreateAppointmentScreenState extends ConsumerState<CreateAppointmentScreen> {
+  late final TextEditingController _titleController;
+  late final TextEditingController _locationController;
+  late final TextEditingController _notesController;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.initialAppointment?.title ?? '');
+    _locationController = TextEditingController(
+      text: widget.initialAppointment?.location ?? widget.initialAppointment?.hospital ?? '',
+    );
+    _notesController = TextEditingController(text: widget.initialAppointment?.notes ?? '');
+
+    if (widget.initialAppointment != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          ref.read(appointmentFormProvider.notifier).initForEdit(widget.initialAppointment!);
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _locationController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickDate(BuildContext context, AppointmentFormNotifier notifier, DateTime current) async {
-    final picked = await showDatePicker(context: context, initialDate: current, firstDate: DateTime.now(), lastDate: DateTime(2035));
+    final picked = await showDatePicker(context: context, initialDate: current, firstDate: DateTime.now().subtract(const Duration(days: 365)), lastDate: DateTime(2035));
     if (picked == null) return;
     notifier.updateDate(DateTime(picked.year, picked.month, picked.day, current.hour, current.minute));
   }
@@ -31,10 +73,8 @@ class CreateAppointmentScreen extends ConsumerWidget {
     if (picked != null) notifier.updateTime(picked);
   }
 
-
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final state = ref.watch(appointmentFormProvider);
     final notifier = ref.read(appointmentFormProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -64,9 +104,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                 MiniResponsibilityNotice(
                   icon: Icons.event_note_outlined,
                   accentColor: AppColors.brandBlue,
-                  text: Localizations.localeOf(context).languageCode == 'tr'
-                      ? 'VitaCase yalnızca randevu hatırlatmaya yardımcı olur; resmi kurum bildirimi yerine geçmez. Tarih, saat, konum ve değişiklikleri ayrıca kendiniz kontrol edin.'
-                      : 'VitaCase only helps remind you of appointments and does not replace official notices. Please check the date, time, location, and changes yourself.',
+                  text: context.tr('notice_appointment_responsibility'),
                 ),
                 const SizedBox(height: 24),
                 _card(
@@ -74,6 +112,7 @@ class CreateAppointmentScreen extends ConsumerWidget {
                     label: context.tr('appointment_title'),
                     hint: context.tr('hint_title'),
                     icon: Icons.edit_calendar_rounded,
+                    controller: _titleController,
                     onChanged: notifier.updateTitle,
                   ),
                 ).animate(delay: 120.ms).fadeIn().slideY(begin: .15),
@@ -167,7 +206,13 @@ class CreateAppointmentScreen extends ConsumerWidget {
                 ).animate(delay: 320.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
                 _card(
-                  child: PremiumInput(label: context.tr('location'), hint: context.tr('hint_location'), icon: Icons.location_on_outlined, onChanged: notifier.updateLocation),
+                  child: PremiumInput(
+                    label: context.tr('location'),
+                    hint: context.tr('hint_location'),
+                    icon: Icons.location_on_outlined,
+                    controller: _locationController,
+                    onChanged: notifier.updateLocation,
+                  ),
                 ).animate(delay: 420.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
                 _card(
@@ -195,7 +240,11 @@ class CreateAppointmentScreen extends ConsumerWidget {
                   ),
                 ).animate(delay: 520.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
-                ExpandableNotes(onChanged: notifier.updateNotes).animate(delay: 620.ms).fadeIn().slideY(begin: .15),
+                ExpandableNotes(
+                  controller: _notesController,
+                  initialText: widget.initialAppointment?.notes,
+                  onChanged: notifier.updateNotes,
+                ).animate(delay: 620.ms).fadeIn().slideY(begin: .15),
                 const SizedBox(height: 24),
                 Container(
                   padding: const EdgeInsets.all(18),
@@ -224,10 +273,20 @@ class CreateAppointmentScreen extends ConsumerWidget {
                   onTap: state.isValid
                       ? () async {
                           try {
+                            final wasEditing = state.isEditing;
+                            await NotificationRationaleSheet.showIfNeeded(context);
                             await notifier.submit();
                             if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr('appointment_created_success'))));
-                              context.pop();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    wasEditing
+                                        ? context.tr('saved')
+                                        : context.tr('appointment_created_success'),
+                                  ),
+                                ),
+                              );
+                              context.safePop(fallbackRoute: AppRoutes.appointments);
                             }
                           } catch (e) {
                             if (!context.mounted) return;

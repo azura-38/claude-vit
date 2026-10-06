@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/user_profile.dart';
-import '../../../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../../../../shared/providers/user_preferences_controller.dart';
 
 final profileProvider = NotifierProvider<ProfileNotifier, UserProfile>(() {
@@ -18,40 +17,8 @@ class ProfileNotifier extends Notifier<UserProfile> {
   }
 
   Future<void> saveToDatabase() async {
-    await ref.read(userPreferencesControllerProvider.notifier).updateProfile(state);
-    await _trackProfileAchievements(state);
-  }
-
-  Future<void> _trackProfileAchievements(UserProfile profile) async {
-    final achievement = ref.read(achievementProvider.notifier);
-
-    final hasName = profile.fullName.trim().isNotEmpty;
-    final hasBirthDate = profile.birthDate != null;
-    final hasPhoto = profile.photoPath?.trim().startsWith('data:image/') == true;
-    final hasBlood = profile.bloodType.trim().isNotEmpty;
-    final hasAllergies = profile.allergies.isNotEmpty;
-    final hasMedications = profile.medications.isNotEmpty;
-    final hasEmergencyName = profile.emergencyName.trim().isNotEmpty;
-    final hasEmergencyPhone = profile.emergencyPhone.trim().isNotEmpty;
-    final hasEmergencyRelation = profile.emergencyRelation.trim().isNotEmpty;
-    final hasEmergencyAny = hasEmergencyName || hasEmergencyPhone || hasEmergencyRelation;
-    final hasEmergencyCore = hasEmergencyName && hasEmergencyPhone;
-    final hasEmergencyFull = hasEmergencyCore && hasEmergencyRelation;
-    final hasMedicalContext = hasBlood || hasAllergies || hasMedications;
-
-    if (hasName) await achievement.track('profile_created', setAbsolute: 1);
-    if (hasName && hasBirthDate) await achievement.track('profile_completed', setAbsolute: 1);
-    if (hasName) await achievement.track('profile_updated', setAbsolute: 1);
-    if (hasPhoto) await achievement.track('profile_with_photo', setAbsolute: 1);
-    if (hasName && hasBirthDate && hasPhoto && hasEmergencyFull) {
-      await achievement.track('profile_master', setAbsolute: 1);
-    }
-
-    if (hasEmergencyAny) await achievement.track('emergency_added', setAbsolute: 1);
-    if (hasEmergencyCore) await achievement.track('emergency_contact', setAbsolute: 1);
-    if (hasEmergencyCore) await achievement.track('emergency_complete', setAbsolute: 1);
-    if (hasEmergencyFull) await achievement.track('emergency_ready', setAbsolute: 1);
-    if (hasEmergencyFull && hasMedicalContext) await achievement.track('emergency_master', setAbsolute: 1);
+    final userPrefs = ref.read(userPreferencesControllerProvider.notifier);
+    await userPrefs.updateProfile(state);
   }
 
   void updateName(String value) {

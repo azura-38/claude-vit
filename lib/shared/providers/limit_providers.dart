@@ -3,11 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'premium_provider.dart';
 import '../../core/di/service_providers.dart';
 import '../data/services/limit_service.dart';
-import '../../features/gamification/presentation/providers/achievement_providers.dart';
-import 'daily_mission_providers.dart';
-import 'season_providers.dart';
 import '../data/services/analytics_service.dart';
-import 'shared_prefs_provider.dart';
 
 class LimitData {
   final int extraDocs;
@@ -44,7 +40,6 @@ final limitProvider = NotifierProvider<LimitNotifier, LimitData>(LimitNotifier.n
 class LimitNotifier extends Notifier<LimitData> {
   final _store = StoreRef<String, dynamic>.main();
   static const String _limitKey = 'app_limits_data';
-  static const String _rewardCollectorKey = 'achievement_reward_collector_count';
 
   @override
   LimitData build() {
@@ -63,38 +58,22 @@ class LimitNotifier extends Notifier<LimitData> {
   Future<void> increaseExtraDocs(int amount) async {
     state = state.copyWith(extraDocs: state.extraDocs + amount);
     await _save();
-    await _trackRewardCollected();
   }
 
   Future<void> increaseExtraMedicine(int amount) async {
     state = state.copyWith(extraMedicine: state.extraMedicine + amount);
     await _save();
-    await _trackRewardCollected();
   }
 
   Future<void> increaseExtraAppointment(int amount) async {
     state = state.copyWith(extraAppointment: state.extraAppointment + amount);
     await _save();
-    await _trackRewardCollected();
   }
 
-  Future<void> onRewardedAdCompleted() async {
-    await ref.read(achievementProvider.notifier).track('ads_1', value: 1);
-    await ref.read(dailyMissionProvider.notifier).track('ad_daily');
-    await ref.read(seasonProvider.notifier).addXP(5);
-    await _trackRewardCollected();
-  }
+  Future<void> onRewardedAdCompleted() async {}
 
-  Future<void> _trackRewardCollected() async {
-    final prefs = ref.read(sharedPreferencesProvider);
-    final nextCount = (prefs.getInt(_rewardCollectorKey) ?? 0) + 1;
-    await prefs.setInt(_rewardCollectorKey, nextCount);
-    await ref.read(achievementProvider.notifier).track('reward_collector', setAbsolute: nextCount);
-  }
-
-  Future<void> _trackLimitBreaker(String type) async {
+  void _trackLimitBreaker(String type) {
     AnalyticsService.log(AnalyticsService.limitReached, {'type': type});
-    await ref.read(achievementProvider.notifier).track('limit_breaker', setAbsolute: 1);
   }
 
   Future<void> _save() async {

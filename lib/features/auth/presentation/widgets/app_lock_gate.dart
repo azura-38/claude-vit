@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_routes.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/security/secure_screen_guard.dart';
 import '../../../../core/types/runtime_types.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
@@ -25,6 +25,7 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       _checkAndAuth();
     });
   }
@@ -49,14 +50,17 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
     } else {
       _goToPinScreen();
     }
-    setState(() => _isAuthenticating = false);
+    if (mounted) {
+      setState(() => _isAuthenticating = false);
+    }
   }
 
   void _goToPinScreen() {
     if (!mounted) return;
-    final location = GoRouterState.of(context).matchedLocation;
+    final router = ref.read(appRouterProvider);
+    final location = router.routerDelegate.currentConfiguration.uri.toString();
     if (location != AppRoutes.lock) {
-      context.go(AppRoutes.lock);
+      router.go(AppRoutes.lock);
     }
   }
 

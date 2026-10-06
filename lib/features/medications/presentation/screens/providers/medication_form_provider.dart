@@ -48,9 +48,42 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
     state = state.copyWith(reminderTimes: updated);
   }
 
+  void initForEdit(Medicine medicine) {
+    MedicationFrequency freq = MedicationFrequency.daily;
+    for (final f in MedicationFrequency.values) {
+      if (f.name.toLowerCase() == medicine.frequency.toLowerCase()) {
+        freq = f;
+        break;
+      }
+    }
+
+    int qty = medicine.currentStock ?? 1;
+    String unit = 'tablet';
+    final parts = medicine.dosage.split(' ');
+    if (parts.isNotEmpty) {
+      final parsed = int.tryParse(parts[0]);
+      if (medicine.currentStock == null && parsed != null) {
+        qty = parsed;
+      }
+      if (parts.length > 1) {
+        unit = parts.sublist(1).join(' ');
+      }
+    }
+
+    state = MedicationFormModel(
+      editingId: medicine.id,
+      medicineName: medicine.name,
+      frequency: freq,
+      quantity: qty > 0 ? qty : 1,
+      unit: unit,
+      reminderTimes: medicine.reminderTimes,
+    );
+  }
+
   Future<void> submit() async {
+    final isEdit = state.editingId != null;
     final medicine = Medicine(
-      id: generateUuid(),
+      id: isEdit ? state.editingId! : generateUuid(),
       name: state.medicineName.trim().isEmpty ? 'New Medication' : state.medicineName.trim(),
       dosage: '${state.quantity} ${state.unit}',
       startDate: DateTime.now().toIso8601String().substring(0, 10),
@@ -60,7 +93,11 @@ class MedicationFormNotifier extends StateNotifier<MedicationFormModel> {
       createdAt: DateTime.now(),
     );
 
-    await ref.read(medicineListProvider.notifier).addMedicine(medicine);
+    if (isEdit) {
+      await ref.read(medicineListProvider.notifier).updateMedicine(medicine);
+    } else {
+      await ref.read(medicineListProvider.notifier).addMedicine(medicine);
+    }
     reset();
   }
 }

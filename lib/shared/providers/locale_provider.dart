@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'shared_prefs_provider.dart';
 import 'user_preferences_controller.dart';
 
 final localeProvider = NotifierProvider<LocaleNotifier, Locale>(
@@ -37,7 +38,14 @@ class LocaleNotifier extends Notifier<Locale> {
     final prefs = ref.watch(userPreferencesControllerProvider);
     final code = prefs.maybeWhen(
       data: (p) => p.locale,
-      orElse: () => null,
+      orElse: () {
+        try {
+          final sp = ref.watch(sharedPreferencesProvider);
+          return sp.getString('app_locale');
+        } catch (_) {
+          return null;
+        }
+      },
     );
 
     if (code != null && _supportedLocales.contains(code)) {

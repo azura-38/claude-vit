@@ -24,6 +24,7 @@ class _VitaCaseAppState extends ConsumerState<VitaCaseApp> with WidgetsBindingOb
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       ref.read(appLifecycleProvider.notifier).init();
     });
   }

@@ -5208,10 +5208,10 @@ abstract class AppLocalizations {
   /// **'Could not update document.'**
   String get document_update_failed;
 
-  /// Error message when document fails to open
+  /// Generic message shown when document fails to open
   ///
   /// In en, this message translates to:
-  /// **'Could not open document.'**
+  /// **'Could not open document'**
   String get document_open_failed;
 
   /// Placeholder for empty notes
@@ -5579,6 +5579,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Receive a daily notification to review your plans, discover themes, and organize your vault.'**
   String get daily_reminders_desc;
+
+  /// Quick tags label
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Tags'**
+  String get quick_tags;
+
+  /// Custom tags label
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Tags'**
+  String get custom_tags;
+
+  /// Add tag label
+  ///
+  /// In en, this message translates to:
+  /// **'Add Tag'**
+  String get add_tag;
+
+  /// Create tag label
+  ///
+  /// In en, this message translates to:
+  /// **'Create Tag'**
+  String get create_tag;
+
+  /// Remove tag label
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Tag'**
+  String get remove_tag;
+
+  /// Filter by tag label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Tag'**
+  String get filter_by_tag;
+
+  /// Clear tags label
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Tags'**
+  String get clear_tags;
+
+  /// No tags label
+  ///
+  /// In en, this message translates to:
+  /// **'No Tags'**
+  String get no_tags;
+
+  /// Add custom tag button
+  ///
+  /// In en, this message translates to:
+  /// **'Add Custom Tag'**
+  String get add_custom_tag;
+
+  /// Hint for custom tag name
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Cardiology, 2026 Checkup'**
+  String get tag_name_hint;
+
+  /// Validation error for empty tag
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name cannot be empty'**
+  String get tag_name_empty;
+
+  /// Validation error for duplicate tag
+  ///
+  /// In en, this message translates to:
+  /// **'This tag already exists'**
+  String get tag_already_exists;
+
+  /// Validation error for tag too long
+  ///
+  /// In en, this message translates to:
+  /// **'Tag cannot exceed 30 characters'**
+  String get tag_too_long;
+
+  /// Document tag for insurance
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance'**
+  String get docs_tag_insurance;
+
+  /// Document tag for invoice
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice'**
+  String get docs_tag_invoice;
+
+  /// Action button to open PDF in external viewer
+  ///
+  /// In en, this message translates to:
+  /// **'Open PDF'**
+  String get open_pdf;
+
+  /// Message shown when device lacks PDF viewer
+  ///
+  /// In en, this message translates to:
+  /// **'No PDF viewer application found on device'**
+  String get pdf_viewer_not_found;
+
+  /// Message shown when PDF file fails to open
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open PDF file'**
+  String get pdf_open_failed;
 }
 
 class _AppLocalizationsDelegate

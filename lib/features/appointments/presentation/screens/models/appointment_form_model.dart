@@ -151,6 +151,7 @@ enum AppointmentReminder {
 enum AppointmentPriority { low, normal, high }
 
 class AppointmentFormModel {
+  final String? editingId;
   final String title;
   final AppointmentType type;
   final AppointmentSubcategory subcategory;
@@ -162,6 +163,7 @@ class AppointmentFormModel {
   final bool isSubmitting;
 
   const AppointmentFormModel({
+    this.editingId,
     this.title = '',
     this.type = AppointmentType.medical,
     this.subcategory = AppointmentSubcategory.doctorVisit,
@@ -173,9 +175,13 @@ class AppointmentFormModel {
     this.isSubmitting = false,
   });
 
+  bool get isEditing => editingId != null;
+
   bool get isValid => title.trim().isNotEmpty && location.trim().isNotEmpty;
 
   AppointmentFormModel copyWith({
+    String? editingId,
+    bool clearEditingId = false,
     String? title,
     AppointmentType? type,
     AppointmentSubcategory? subcategory,
@@ -187,6 +193,7 @@ class AppointmentFormModel {
     bool? isSubmitting,
   }) {
     return AppointmentFormModel(
+      editingId: clearEditingId ? null : (editingId ?? this.editingId),
       title: title ?? this.title,
       type: type ?? this.type,
       subcategory: subcategory ?? this.subcategory,

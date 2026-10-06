@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 
 import '../../../../shared/widgets/premium_appbar.dart';
@@ -12,6 +13,8 @@ import '../widgets/bmi_card.dart';
 import '../widgets/detail_section_card.dart';
 import '../widgets/security_banner.dart';
 import 'package:vitacase/core/constants/app_colors.dart';
+
+import '../../../../shared/widgets/inputs/phone_number_input.dart';
 
 class PersonalInformationScreen extends ConsumerWidget {
   const PersonalInformationScreen({super.key});
@@ -24,7 +27,9 @@ class PersonalInformationScreen extends ConsumerWidget {
   Future<void> _showEditDialog(BuildContext context, WidgetRef ref, UserProfile profile) async {
     final nameController = TextEditingController(text: profile.fullName);
     final emailController = TextEditingController(text: profile.email);
-    final phoneController = TextEditingController(text: profile.phone);
+    final parsedPhone = PhoneCountryCodes.parse(profile.phone);
+    String selectedCountryCode = parsedPhone.countryCode;
+    final phoneController = TextEditingController(text: parsedPhone.localNumber);
     final heightController = TextEditingController(text: profile.height > 0 ? profile.height.toStringAsFixed(0) : '');
     final weightController = TextEditingController(text: profile.weight > 0 ? profile.weight.toStringAsFixed(0) : '');
     DateTime? selectedBirthDate = profile.birthDate;
@@ -110,7 +115,7 @@ class PersonalInformationScreen extends ConsumerWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => Navigator.pop(dialogContext, false),
+                            onPressed: () => dialogContext.pop(false),
                             icon: const Icon(Icons.close_rounded),
                             style: IconButton.styleFrom(
                               backgroundColor: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05),
@@ -135,11 +140,12 @@ class PersonalInformationScreen extends ConsumerWidget {
                         decoration: buildInputDecoration(context.l10n.emailAddress, Icons.email_rounded),
                       ),
                       const SizedBox(height: 16),
-                      TextField(
+                      VitaPhoneInput(
+                        countryCode: selectedCountryCode,
                         controller: phoneController,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                        keyboardType: TextInputType.phone,
-                        decoration: buildInputDecoration(context.l10n.phoneNumber, Icons.phone_rounded),
+                        onCountryCodeChanged: (val) => setDialogState(() => selectedCountryCode = val),
+                        label: context.l10n.phoneNumber,
+                        isDark: isDark,
                       ),
                       const SizedBox(height: 16),
                       Row(
@@ -211,7 +217,7 @@ class PersonalInformationScreen extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () => Navigator.pop(dialogContext, false),
+                              onPressed: () => dialogContext.pop(false),
                               style: OutlinedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -220,7 +226,7 @@ class PersonalInformationScreen extends ConsumerWidget {
                               child: Text(
                                 context.l10n.cancel,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                   fontWeight: FontWeight.bold,
                                   color: isDark ? Colors.white70 : Colors.black87,
                                 ),
                               ),
@@ -229,7 +235,7 @@ class PersonalInformationScreen extends ConsumerWidget {
                           const SizedBox(width: 16),
                           Expanded(
                             child: FilledButton(
-                              onPressed: () => Navigator.pop(dialogContext, true),
+                              onPressed: () => dialogContext.pop(true),
                               style: FilledButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -259,7 +265,9 @@ class PersonalInformationScreen extends ConsumerWidget {
       final notifier = ref.read(profileProvider.notifier);
       notifier.updateName(nameController.text.trim());
       notifier.updateEmail(emailController.text.trim());
-      notifier.updatePhone(phoneController.text.trim());
+      final localP = phoneController.text.trim();
+      final fullP = localP.isEmpty ? '' : '$selectedCountryCode $localP';
+      notifier.updatePhone(fullP);
       final height = double.tryParse(heightController.text.trim().replaceAll(',', '.')) ?? 0;
       final weight = double.tryParse(weightController.text.trim().replaceAll(',', '.')) ?? 0;
       notifier.updateHeight(height);
@@ -373,7 +381,7 @@ class PersonalInformationScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.tr('physical_metrics') != 'Physical Metrics' ? context.tr('physical_metrics') : 'Fiziksel Ölçümler',
+                  context.tr('physical_metrics'),
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, fontFamily: 'Manrope'),
                 ),
                 IconButton.filledTonal(

@@ -1,12 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 
 import '../../../../core/bootstrap/app_bootstrap_controller.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/di/service_providers.dart';
 import '../../../../core/extensions/l10n_extension.dart';
 import '../../../../core/notifications/app_notification_payload.dart';
 import '../../../../shared/data/services/notification_engine.dart';
@@ -51,7 +51,6 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
   Future<void> _requestNotificationPermission() async {
     final msg = context.l10n.snackNotifChecked;
     await _runBusy(() async {
-      await ref.read(notificationServiceProvider).requestPermissions();
       await NotificationEngine.requestPermissions();
       await _refreshStatus();
       _snack(msg);
@@ -61,8 +60,7 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
   Future<void> _requestExactAlarmPermission() async {
     final msg = context.l10n.snackExactAlarmRequested;
     await _runBusy(() async {
-      await ref.read(notificationServiceProvider).requestPermissions(requestExactAlarm: true);
-      await NotificationEngine.requestPermissions();
+      await NotificationEngine.requestPermissions(requestExactAlarm: true);
       await _refreshStatus();
       _snack(msg);
     });
@@ -83,7 +81,7 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
           type: NotificationType.appointment,
           entityId: 'troubleshooting_test',
           occurrenceAt: when,
-        ).encode(),
+        ),
       );
       _snack(msg);
     });
@@ -113,7 +111,7 @@ class _ReminderTroubleshootingScreenState extends ConsumerState<ReminderTroubles
     return Scaffold(
       backgroundColor: isDark ? AppColors.bgDark : const Color(0xFFF8FAFC),
       appBar: AppBar(
-        leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+        leading: IconButton(onPressed: () => context.safePop(fallbackRoute: AppRoutes.home), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         title: Text(context.l10n.reminderTroubleshooting),
         centerTitle: true,
       ),

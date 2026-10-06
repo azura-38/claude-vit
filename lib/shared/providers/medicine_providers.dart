@@ -2,20 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/di/repository_providers.dart';
-import '../../core/di/service_providers.dart';
 import '../../core/notifications/app_notification_payload.dart';
 import '../../core/notifications/notification_id_manager.dart';
 import '../../core/types/runtime_types.dart';
-import '../../features/gamification/presentation/providers/achievement_providers.dart';
 import '../../features/medications/domain/entities/medicine.dart';
 import '../data/services/analytics_service.dart';
-import '../data/services/notification_service.dart';
+import '../data/services/notification_engine.dart';
 import '../data/services/usage_limit_service.dart';
 import '../domain/usecases/base_usecase.dart';
 import '../domain/usecases/medicines/add_medicine_usecase.dart';
 import '../domain/usecases/medicines/get_medicines_usecase.dart';
-import 'daily_mission_providers.dart';
-import 'season_providers.dart';
 
 class _MedicineReminderScheduleItem {
   final int notificationId;
@@ -55,11 +51,8 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
   }
 
   Future<void> addMedicine(Medicine medicine) async {
-    // Capture dependencies synchronously before awaiting
     final limitService = ref.read(usageLimitServiceProvider);
     final useCase = ref.read(addMedicineUseCaseProvider);
-    final dailyMissionNotifier = ref.read(dailyMissionProvider.notifier);
-    final seasonNotifier = ref.read(seasonProvider.notifier);
 
     final limit = await limitService.consumeCreate();
     if (!limit.allowed) {
@@ -79,21 +72,9 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
       return;
     }
 
-    await dailyMissionNotifier.track('med_daily');
-    await _trackMedicineAchievements();
-    await seasonNotifier.addXP(15);
     AnalyticsService.log(AnalyticsService.medicineAdded);
 
     await _scheduleNotifications(medicine);
-  }
-
-  Future<void> _trackMedicineAchievements() async {
-    final repo = ref.read(medicineRepositoryProvider);
-    final count = state.valueOrNull?.length ?? (await repo.getAll()).length;
-    final achievement = ref.read(achievementProvider.notifier);
-    for (final id in const ['med_1', 'med_3', 'med_5', 'med_10', 'med_25', 'med_50']) {
-      await achievement.track(id, setAbsolute: count);
-    }
   }
 
   Future<void> markAsTaken(String id) async {
@@ -155,8 +136,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
     try {
       if (medicine.reminderTimes.isEmpty) return;
 
-      final notifier = ref.read(notificationServiceProvider);
-      final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
+      final permissionState = await NotificationEngine.requestPermissions(requestExactAlarm: true);
       if (permissionState != NotificationPermissionState.granted) {
         AnalyticsService.log(AnalyticsService.medicineReminderPermissionDenied);
         return;
@@ -164,7 +144,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
       final items = _getReminderItems(medicine);
       for (final item in items) {
-        await NotificationService.scheduleMedication(
+        await NotificationEngine.scheduleMedication(
           id: medicine.id,
           title: '💊 VitaCase Reminder',
           body: medicine.name,
@@ -186,14 +166,13 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
 
   Future<void> rescheduleAllNotifications(List<Medicine> medicines) async {
     try {
-      final notifier = ref.read(notificationServiceProvider);
-      final permissionState = await notifier.requestPermissions(requestExactAlarm: true);
+      final permissionState = await NotificationEngine.requestPermissions(requestExactAlarm: true);
       if (permissionState != NotificationPermissionState.granted) {
         AnalyticsService.log(AnalyticsService.medicineReminderPermissionDenied);
         return;
       }
 
-      final pending = await NotificationService.getPendingNotificationRequests();
+      final pending = await NotificationEngine.getPendingNotificationRequests();
       final pendingMap = {for (final p in pending) p.id: p};
       final activeIds = <int>{};
 
@@ -214,7 +193,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
             continue;
           }
 
-          await NotificationService.scheduleMedication(
+          await NotificationEngine.scheduleMedication(
             id: medicine.id,
             title: '💊 VitaCase Reminder',
             body: medicine.name,
@@ -232,7 +211,7 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
       // Stale cleanup: Clean up orphaned medicine notifications that are no longer active
       for (final p in pending) {
         if (NotificationIdManager.isMedicineId(p.id) && !activeIds.contains(p.id)) {
-          await NotificationService.cancelById(p.id);
+          await NotificationEngine.cancelById(p.id);
         }
       }
     } catch (e) {
@@ -258,10 +237,10 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
         for (final day in medicine.daysOfWeek!) {
           var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
           while (scheduledDate.weekday != day) {
-            scheduledDate = scheduledDate.add(const Duration(days: 1));
+            scheduledDate = DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day + 1, hour, minute);
           }
           if (!scheduledDate.isAfter(now)) {
-            scheduledDate = scheduledDate.add(const Duration(days: 7));
+            scheduledDate = DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day + 7, hour, minute);
           }
           final notifId = NotificationIdManager.getMedicineReminderId(
             medicineId: medicine.id,
@@ -274,9 +253,10 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
           ));
         }
       } else if (medicine.frequency == 'custom' && medicine.interval != null) {
+        final interval = medicine.interval!;
         var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
         if (!scheduledDate.isAfter(now)) {
-          scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
+          scheduledDate = DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day + interval, hour, minute);
         }
         for (int i = 0; i < 10; i++) {
           final notifId = NotificationIdManager.getMedicineReminderId(
@@ -288,12 +268,12 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
             notificationId: notifId,
             scheduledDate: scheduledDate,
           ));
-          scheduledDate = scheduledDate.add(Duration(days: medicine.interval!));
+          scheduledDate = DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day + interval, hour, minute);
         }
       } else {
         var scheduledDate = DateTime(now.year, now.month, now.day, hour, minute);
         if (!scheduledDate.isAfter(now)) {
-          scheduledDate = scheduledDate.add(const Duration(days: 1));
+          scheduledDate = DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day + 1, hour, minute);
         }
         final notifId = NotificationIdManager.getMedicineReminderId(
           medicineId: medicine.id,
@@ -367,10 +347,10 @@ class MedicineListNotifier extends AsyncNotifier<List<Medicine>> {
       );
 
       for (final id in ids) {
-        await NotificationService.cancelById(id);
+        await NotificationEngine.cancelById(id);
       }
 
-      await NotificationService.cancel(medicine.id);
+      await NotificationEngine.cancel(medicine.id);
     } catch (e) {
       if (kDebugMode) {
         debugPrint('[MedicineListNotifier] Safe error cancelling notifications: $e');

@@ -11,7 +11,7 @@ import '../../../../core/constants/app_routes.dart';
 import '../providers/appointment_providers.dart';
 import '../../../../shared/domain/enums/appointment_category.dart';
 import '../../../../shared/providers/limit_providers.dart';
-import '../../../gamification/presentation/widgets/limits/limit_dialog.dart';
+import '../../../../shared/widgets/dialogs/limit_dialog.dart';
 import '../../../../shared/data/services/limit_service.dart';
 import '../../../../shared/providers/premium_provider.dart';
 import '../../../../shared/widgets/misc/app_empty_state.dart';
@@ -103,9 +103,17 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen> {
             backgroundImage: (photo != null && photo.startsWith('http')) ? NetworkImage(photo) : null,
             child: (photo == null || !photo.startsWith('http')) ? const Icon(Icons.person, size: 20, color: Colors.blueGrey) : null,
           ),
-          Text(
-            context.l10n.appSlogan,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.medicalBlue),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                context.l10n.appSlogan,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.medicalBlue),
+              ),
+            ),
           ),
           Stack(
             children: [
@@ -385,26 +393,57 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen> {
   }
 
   Widget _buildAppointmentsHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isNarrow = constraints.maxWidth < 360;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(context.l10n.myAppointments, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      context.l10n.myAppointments,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: isNarrow ? 18 : 20,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  IconButton(
+                    padding: const EdgeInsets.all(4),
+                    constraints: const BoxConstraints(),
+                    onPressed: () => _handleAddNewAppointment(),
+                    icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.medicalBlue),
+                    tooltip: context.l10n.addNewAppointment,
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(width: 8),
-            IconButton(
-              onPressed: () => _handleAddNewAppointment(),
-              icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.medicalBlue),
-              tooltip: context.l10n.addNewAppointment,
+            Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Colors.blueGrey.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildViewTypeToggle('weekly', context.l10n.weekly, compact: isNarrow),
+                  _buildViewTypeToggle('monthly', context.l10n.monthly, compact: isNarrow),
+                ],
+              ),
             ),
           ],
-        ),
-        Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(color: Colors.blueGrey.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(12)),
-          child: Row(children: [_buildViewTypeToggle('weekly', context.l10n.weekly), _buildViewTypeToggle('monthly', context.l10n.monthly)]),
-        ),
-      ],
+        );
+      },
     );
   }
 
@@ -433,19 +472,27 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen> {
     context.push(AppRoutes.appointmentAdd).then((_) => ref.read(appointmentListProvider.notifier).refresh());
   }
 
-  Widget _buildViewTypeToggle(String key, String label) {
+  Widget _buildViewTypeToggle(String key, String label, {bool compact = false}) {
     final active = _viewType == key;
     return GestureDetector(
       onTap: () => setState(() => _viewType = key),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: compact ? 10 : 14, vertical: 6),
         decoration: BoxDecoration(
           color: active ? AppColors.medicalBlue : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [if (active) BoxShadow(color: AppColors.medicalBlue.withValues(alpha: 0.2), blurRadius: 8, offset: const Offset(0, 2))],
         ),
-        child: Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: active ? Colors.white : Colors.blueGrey, letterSpacing: 0.5)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: compact ? 10 : 11,
+            fontWeight: FontWeight.w900,
+            color: active ? Colors.white : Colors.blueGrey,
+            letterSpacing: 0.3,
+          ),
+        ),
       ),
     );
   }

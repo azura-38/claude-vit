@@ -2612,7 +2612,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get document_update_failed => '无法更新文档。';
 
   @override
-  String get document_open_failed => '无法打开文档。';
+  String get document_open_failed => '无法打开文档';
 
   @override
   String get no_additional_notes => '没有提供额外的注释。';
@@ -2809,4 +2809,58 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Receive a daily notification to review your plans, discover themes, and organize your vault.';
+
+  @override
+  String get quick_tags => '快速标签';
+
+  @override
+  String get custom_tags => '自定义标签';
+
+  @override
+  String get add_tag => '添加标签';
+
+  @override
+  String get create_tag => '创建标签';
+
+  @override
+  String get remove_tag => '删除标签';
+
+  @override
+  String get filter_by_tag => '按标签筛选';
+
+  @override
+  String get clear_tags => '清除标签';
+
+  @override
+  String get no_tags => '无标签';
+
+  @override
+  String get add_custom_tag => '添加自定义标签';
+
+  @override
+  String get tag_name_hint => '例如：心脏科、2026体检';
+
+  @override
+  String get tag_name_empty => '标签名称不能为空';
+
+  @override
+  String get tag_already_exists => '该标签已存在';
+
+  @override
+  String get tag_too_long => '标签不能超过30个字符';
+
+  @override
+  String get docs_tag_insurance => '保险';
+
+  @override
+  String get docs_tag_invoice => '发票';
+
+  @override
+  String get open_pdf => '打开PDF';
+
+  @override
+  String get pdf_viewer_not_found => '未找到可用于打开PDF文件的应用';
+
+  @override
+  String get pdf_open_failed => '无法打开PDF';
 }

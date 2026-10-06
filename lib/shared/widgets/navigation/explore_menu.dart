@@ -249,27 +249,6 @@ class _ExploreMenuState extends ConsumerState<ExploreMenu> with TickerProviderSt
         ],
       ),
       _SectionData(
-        icon: Icons.emoji_events_rounded,
-        title: context.l10n.medalsTrophies,
-        color: Colors.amber,
-        items: [
-          _MenuItem(
-            icon: Icons.military_tech_rounded,
-            label: context.l10n.medalsTrophies,
-            subtitle: context.l10n.progress,
-            color: Colors.amber,
-            onTap: () => _navigateAndClose(() => context.pushNamed('achievements')),
-          ),
-          _MenuItem(
-            icon: Icons.stars_rounded,
-            label: context.l10n.seasonPass,
-            subtitle: context.l10n.dailyMissions,
-            color: const Color(0xFFD97706),
-            onTap: () => _navigateAndClose(() => context.pushNamed('seasonPass')),
-          ),
-        ],
-      ),
-      _SectionData(
         icon: Icons.person_rounded,
         title: context.l10n.profile,
         color: AppColors.primaryIndigo,

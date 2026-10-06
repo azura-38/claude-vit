@@ -31,12 +31,14 @@ class VaultActionButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, color: text),
-
-              const SizedBox(width: 10),
-
-              Text(
-                label,
-                style: TextStyle(color: text, fontWeight: FontWeight.w700),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: text, fontWeight: FontWeight.w700),
+                ),
               ),
             ],
           ),

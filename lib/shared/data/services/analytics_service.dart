@@ -40,6 +40,7 @@ class AnalyticsService {
   static const String termsAccepted = 'terms_accepted';
   static const String disclaimerAccepted = 'disclaimer_accepted';
   static const String privacyAccepted = 'privacy_accepted';
+  static const String legalUpdateAccepted = 'legal_update_accepted';
 
   // Feature Events
   static const String seasonLevelUp = 'season_level_up';
@@ -74,14 +75,6 @@ class AnalyticsService {
   static const String documentDecrypted = 'document_decrypted';
   static const String medicineAdded = 'medicine_added';
   static const String appointmentAdded = 'appointment_added';
-
-  // Gamification Events
-  static const String achievementUnlocked = 'achievement_unlocked';
-  static const String comboUnlocked = 'combo_unlocked';
-  static const String streakDay = 'streak_day';
-  static const String streakMilestone = 'streak_milestone';
-  static const String streakRecoveredWithAd = 'streak_recovered_with_ad';
-
   // Monetization Funnel
   static const String premiumPageView = 'premium_page_view';
   static const String limitReached = 'limit_reached';

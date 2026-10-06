@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/utils/ui_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vitacase/core/extensions/l10n_extension.dart';
 import '../../../../core/utils/uuid_generator.dart';
@@ -8,10 +10,12 @@ import '../../../../shared/domain/entities/doctor.dart';
 import '../../../../shared/domain/enums/common_enums.dart';
 import '../../../../shared/providers/doctor_providers.dart';
 import '../../../../shared/providers/locale_provider.dart';
-import '../../../profile/presentation/widgets/phone_prefix_picker.dart';
+import '../../../../shared/widgets/inputs/phone_number_input.dart';
 
 class DoctorAddScreen extends ConsumerStatefulWidget {
-  const DoctorAddScreen({super.key});
+  final Doctor? initialDoctor;
+
+  const DoctorAddScreen({super.key, this.initialDoctor});
 
   @override
   ConsumerState<DoctorAddScreen> createState() => _DoctorAddScreenState();
@@ -35,17 +39,34 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
     'doctor_title_doc',
   ];
   Gender _selectedGender = Gender.male;
-  String _phonePrefix = '+1';
+  String _phonePrefix = '+90';
+
+  bool get _isEditing => widget.initialDoctor != null;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final lang = ref.read(localeProvider).languageCode;
-      setState(() {
-        _phonePrefix = PhonePrefixPicker.getDefaultPrefix(lang);
+    if (widget.initialDoctor != null) {
+      final doc = widget.initialDoctor!;
+      _nameController.text = doc.name;
+      _specialtyController.text = doc.department;
+      _hospitalController.text = doc.hospital == 'unknown' ? '' : doc.hospital;
+      _emailController.text = doc.email ?? '';
+      _notesController.text = doc.notes ?? '';
+      _selectedTitle = doc.title;
+      _selectedGender = doc.gender;
+      final parsed = PhoneCountryCodes.parse(doc.phone);
+      _phonePrefix = parsed.countryCode;
+      _phoneController.text = parsed.localNumber;
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        final lang = ref.read(localeProvider).languageCode;
+        setState(() {
+          _phonePrefix = PhoneCountryCodes.getDefaultPrefix(lang);
+        });
       });
-    });
+    }
   }
 
   @override
@@ -67,7 +88,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
     }
 
     final doctor = Doctor(
-      id: generateUuid(),
+      id: _isEditing ? widget.initialDoctor!.id : generateUuid(),
       title: _selectedTitle,
       name: _nameController.text.trim(),
       department: _specialtyController.text.trim(),
@@ -76,12 +97,16 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
       email: _emailController.text.trim().isEmpty ? null : _emailController.text.trim(),
       gender: _selectedGender,
       notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),
-      isVerified: true,
-      createdAt: DateTime.now(),
+      isVerified: _isEditing ? widget.initialDoctor!.isVerified : true,
+      createdAt: _isEditing ? widget.initialDoctor!.createdAt : DateTime.now(),
     );
 
-    await ref.read(doctorListProvider.notifier).addDoctor(doctor);
-    if (mounted) context.pop();
+    if (_isEditing) {
+      await ref.read(doctorListProvider.notifier).updateDoctor(doctor);
+    } else {
+      await ref.read(doctorListProvider.notifier).addDoctor(doctor);
+    }
+    if (mounted) context.safePop(fallbackRoute: AppRoutes.home);
   }
 
   @override
@@ -99,7 +124,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          context.l10n.addContactTitle,
+          _isEditing ? context.tr('edit_contact_title') : context.l10n.addContactTitle,
           style: TextStyle(
             color: isDark ? Colors.white : const Color(0xFF001C39),
             fontWeight: FontWeight.w800,
@@ -149,14 +174,13 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               children: [
                 _buildField(context.l10n.institutionSourceLabel, _hospitalController, context.l10n.institutionHint, isDark),
                 const SizedBox(height: 20),
-                _buildField(
-                  context.l10n.phoneNumber,
-                  _phoneController,
-                  context.l10n.hintPhone,
-                  isDark,
-                  keyboardType: TextInputType.phone,
-                  phonePrefix: _phonePrefix,
-                  onPrefixChanged: (val) => setState(() => _phonePrefix = val),
+                VitaPhoneInput(
+                  countryCode: _phonePrefix,
+                  controller: _phoneController,
+                  onCountryCodeChanged: (val) => setState(() => _phonePrefix = val),
+                  label: context.l10n.phoneNumber,
+                  hintText: context.l10n.hintPhone,
+                  isDark: isDark,
                 ),
                 const SizedBox(height: 20),
                 _buildField(context.l10n.emailAddress, _emailController, context.l10n.hintEmail, isDark, keyboardType: TextInputType.emailAddress),
@@ -215,7 +239,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  context.l10n.newRecord.toUpperCase(),
+                  (_isEditing ? (context.tr('edit_record') != 'edit_record' ? context.tr('edit_record') : 'EDIT RECORD') : context.l10n.newRecord).toUpperCase(),
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.6),
                     fontSize: 10,
@@ -364,8 +388,6 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
     String hint,
     bool isDark, {
     TextInputType? keyboardType,
-    String? phonePrefix,
-    ValueChanged<String>? onPrefixChanged,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,9 +401,6 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.w400, fontSize: 13),
-            prefixIcon: phonePrefix != null
-                ? PhonePrefixPicker(selectedCode: phonePrefix, onChanged: onPrefixChanged!, isDark: isDark)
-                : null,
             filled: true,
             fillColor: isDark ? Colors.white.withValues(alpha: 0.05) : const Color(0xFFF1F5F9),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
@@ -450,7 +469,7 @@ class _DoctorAddScreenState extends ConsumerState<DoctorAddScreen> {
             const Icon(Icons.save_rounded, size: 20),
             const SizedBox(width: 12),
             Text(
-              context.l10n.saveAndList,
+              _isEditing ? context.l10n.save : context.l10n.saveAndList,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
             ),
           ],

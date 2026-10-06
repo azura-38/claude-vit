@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../shared/providers/theme_unlock_provider.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/data/services/ad_service.dart';
@@ -180,7 +181,7 @@ class ThemeItemWidget extends ConsumerWidget {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () async {
-                    Navigator.pop(ctx);
+                    ctx.pop();
                     final ok = await AdService.showRewardedAd();
                     if (ok) {
                       notifier.unlock(type, days: 5);
@@ -189,7 +190,7 @@ class ThemeItemWidget extends ConsumerWidget {
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 64),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                       borderRadius: BorderRadius.circular(16),
                     ),
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
@@ -199,7 +200,7 @@ class ThemeItemWidget extends ConsumerWidget {
                 const SizedBox(height: 12),
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(ctx);
+                    ctx.pop();
                     onPreview(type);
                   },
                   child: Text(

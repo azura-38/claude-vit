@@ -2645,7 +2645,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get document_update_failed => 'ドキュメントを更新できませんでした。';
 
   @override
-  String get document_open_failed => 'ドキュメントを開けませんでした。';
+  String get document_open_failed => 'ドキュメントを開けませんでした';
 
   @override
   String get no_additional_notes => '追加のメモは提供されません。';
@@ -2844,4 +2844,58 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get daily_reminders_desc =>
       'Receive a daily notification to review your plans, discover themes, and organize your vault.';
+
+  @override
+  String get quick_tags => 'クイックタグ';
+
+  @override
+  String get custom_tags => 'カスタムタグ';
+
+  @override
+  String get add_tag => 'タグを追加';
+
+  @override
+  String get create_tag => 'タグを作成';
+
+  @override
+  String get remove_tag => 'タグを削除';
+
+  @override
+  String get filter_by_tag => 'タグで絞り込み';
+
+  @override
+  String get clear_tags => 'タグをクリア';
+
+  @override
+  String get no_tags => 'タグなし';
+
+  @override
+  String get add_custom_tag => 'カスタムタグを追加';
+
+  @override
+  String get tag_name_hint => '例：心臓病学、2026年定期健診';
+
+  @override
+  String get tag_name_empty => 'タグ名を空にすることはできません';
+
+  @override
+  String get tag_already_exists => 'このタグは既に存在します';
+
+  @override
+  String get tag_too_long => 'タグは30文字以内で指定してください';
+
+  @override
+  String get docs_tag_insurance => '保険';
+
+  @override
+  String get docs_tag_invoice => '請求書';
+
+  @override
+  String get open_pdf => 'PDFを開く';
+
+  @override
+  String get pdf_viewer_not_found => 'PDFを表示できるアプリが見つかりません';
+
+  @override
+  String get pdf_open_failed => 'PDFを開けませんでした';
 }

@@ -180,8 +180,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     ? () => setState(() => _notificationsGranted = true)
                     : () async {
                         final status = await ref
-                            .read(notificationServiceProvider)
-                            .requestPermissions(requestExactAlarm: true);
+                            .read(notificationEngineProvider)
+                            .requestPermissionsInstance(requestExactAlarm: true);
                         if (!mounted) return;
                         if (status == NotificationPermissionState.granted) {
                           setState(() => _notificationsGranted = true);

@@ -15,6 +15,15 @@ import 'package:vitacase/core/extensions/l10n_extension.dart';
 import 'setting_tile.dart';
 import 'settings_section_card.dart';
 
+void _popDialog(BuildContext ctx) {
+  try {
+    ctx.pop();
+  } catch (_) {
+    final nav = Navigator.maybeOf(ctx);
+    nav?.pop();
+  }
+}
+
 class SecuritySection extends ConsumerWidget {
   const SecuritySection({super.key, required this.isDark});
 
@@ -49,9 +58,9 @@ class SecuritySection extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'PIN Ayarlanmadı',
-                        style: TextStyle(
+                      Text(
+                        context.tr('pin_not_set'),
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w900,
                           color: Colors.orange,
@@ -59,7 +68,7 @@ class SecuritySection extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Güvenliğiniz için uygulama kilidini (PIN) aktif edin.',
+                        context.tr('pin_not_set_desc'),
                         style: TextStyle(
                           fontSize: 11,
                           color: isDark ? Colors.white70 : Colors.black54,
@@ -71,9 +80,9 @@ class SecuritySection extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () => _showPinSetupDialog(context, ref, controller),
-                  child: const Text(
-                    'Oluştur',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  child: Text(
+                    context.tr('btn_create'),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -204,7 +213,7 @@ class SecuritySection extends ConsumerWidget {
                   trailing: isSelected ? const Icon(Icons.check_circle_rounded, color: AppColors.primaryIndigo) : null,
                   onTap: () {
                     controller.setTimeout(timeout);
-                    Navigator.pop(ctx);
+                    ctx.pop();
                   },
                 );
               }),
@@ -224,18 +233,12 @@ class SecuritySection extends ConsumerWidget {
         content: Text(dialogContext.l10n.wipeConfirm1),
         actions: [
           TextButton(
-            onPressed: () {
-              if (Navigator.of(dialogContext).canPop()) {
-                Navigator.of(dialogContext).pop();
-              }
-            },
+            onPressed: () => _popDialog(dialogContext),
             child: Text(dialogContext.l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
-              if (Navigator.of(dialogContext).canPop()) {
-                Navigator.of(dialogContext).pop();
-              }
+              _popDialog(dialogContext);
               await WipeService.fullWipe();
               if (context.mounted) {
                 context.go(AppRoutes.onboarding);
@@ -310,7 +313,7 @@ class _PinSetupDialogState extends State<_PinSetupDialog> {
     final confirmPin = _confirmPinController.text.trim();
 
     if (!PinService.isValidPinFormat(newPin) || !PinService.isValidPinFormat(confirmPin)) {
-      setState(() => _errorText = 'Lütfen 6 haneli bir PIN girin.');
+      setState(() => _errorText = context.tr('enter_6_digit_pin'));
       return;
     }
 
@@ -332,7 +335,7 @@ class _PinSetupDialogState extends State<_PinSetupDialog> {
       HapticFeedback.mediumImpact();
 
       if (!mounted) return;
-      Navigator.pop(context);
+      _popDialog(context);
       if (widget.rootContext.mounted) {
         ScaffoldMessenger.of(widget.rootContext).showSnackBar(
           SnackBar(content: Text(widget.rootContext.l10n.success)),
@@ -352,14 +355,14 @@ class _PinSetupDialogState extends State<_PinSetupDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      title: const Text('Yeni PIN Oluştur', style: TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(context.tr('create_new_pin'), style: const TextStyle(fontWeight: FontWeight.bold)),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _PinField(controller: _newPinController, label: '6 Haneli PIN Girin', enabled: !_isSaving),
+            _PinField(controller: _newPinController, label: context.l10n.lockSetPin, enabled: !_isSaving),
             const SizedBox(height: 12),
-            _PinField(controller: _confirmPinController, label: 'PIN\'i Doğrulayın', enabled: !_isSaving),
+            _PinField(controller: _confirmPinController, label: context.l10n.lockConfirmPin, enabled: !_isSaving),
             if (_errorText.isNotEmpty) ...[
               const SizedBox(height: 12),
               Text(_errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
@@ -368,7 +371,7 @@ class _PinSetupDialogState extends State<_PinSetupDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: _isSaving ? null : () => Navigator.pop(context), child: Text(context.l10n.cancel)),
+        TextButton(onPressed: _isSaving ? null : () => _popDialog(context), child: Text(context.l10n.cancel)),
         FilledButton(
           onPressed: _isSaving ? null : _save,
           child: _isSaving
@@ -443,7 +446,7 @@ class _PinDisableDialogState extends State<_PinDisableDialog> {
       HapticFeedback.mediumImpact();
 
       if (!mounted) return;
-      Navigator.pop(context);
+      _popDialog(context);
       if (widget.rootContext.mounted) {
         ScaffoldMessenger.of(widget.rootContext).showSnackBar(
           SnackBar(content: Text(widget.rootContext.l10n.success)),
@@ -470,14 +473,14 @@ class _PinDisableDialogState extends State<_PinDisableDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Uygulama kilidini devre dışı bırakmak için lütfen mevcut PIN kodunuzu girin.',
+              context.tr('pin_disable_desc'),
               style: TextStyle(
                 fontSize: 13,
                 color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 16),
-            _PinField(controller: _pinController, label: context.l10n.lockSetPin, enabled: !_isVerifying),
+            _PinField(controller: _pinController, label: context.tr('current_pin'), enabled: !_isVerifying),
             if (_errorText.isNotEmpty) ...[
               const SizedBox(height: 12),
               Text(_errorText, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
@@ -487,7 +490,7 @@ class _PinDisableDialogState extends State<_PinDisableDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: _isVerifying ? null : () => Navigator.pop(context),
+          onPressed: _isVerifying ? null : () => _popDialog(context),
           child: Text(context.l10n.cancel),
         ),
         FilledButton(
@@ -495,7 +498,7 @@ class _PinDisableDialogState extends State<_PinDisableDialog> {
           style: FilledButton.styleFrom(backgroundColor: AppColors.error),
           child: _isVerifying
               ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-              : const Text('Devre Dışı Bırak'),
+              : Text(context.tr('btn_disable')),
         ),
       ],
     );
@@ -575,7 +578,7 @@ class _PinChangeDialogState extends State<_PinChangeDialog> {
       HapticFeedback.mediumImpact();
 
       if (!mounted) return;
-      Navigator.pop(context);
+      _popDialog(context);
       if (widget.rootContext.mounted) {
         ScaffoldMessenger.of(widget.rootContext).showSnackBar(
           SnackBar(content: Text(widget.rootContext.l10n.success)),
@@ -599,9 +602,9 @@ class _PinChangeDialogState extends State<_PinChangeDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _PinField(controller: _currentPinController, label: context.l10n.lockSetPin, enabled: !_isSaving),
+            _PinField(controller: _currentPinController, label: context.tr('current_pin'), enabled: !_isSaving),
             const SizedBox(height: 12),
-            _PinField(controller: _newPinController, label: context.l10n.lockSetPin, enabled: !_isSaving),
+            _PinField(controller: _newPinController, label: context.tr('new_pin'), enabled: !_isSaving),
             const SizedBox(height: 12),
             _PinField(controller: _confirmPinController, label: context.l10n.lockConfirmPin, enabled: !_isSaving),
             if (_errorText.isNotEmpty) ...[
@@ -612,7 +615,7 @@ class _PinChangeDialogState extends State<_PinChangeDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: _isSaving ? null : () => Navigator.pop(context), child: Text(context.l10n.cancel)),
+        TextButton(onPressed: _isSaving ? null : () => _popDialog(context), child: Text(context.l10n.cancel)),
         FilledButton(
           onPressed: _isSaving ? null : _save,
           child: _isSaving

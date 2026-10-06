@@ -15,6 +15,7 @@ class DocumentModel {
   String? note;
   DateTime createdAt;
   bool pending;
+  List<String> tags;
 
   DocumentModel({
     required this.id,
@@ -30,6 +31,7 @@ class DocumentModel {
     this.note,
     required this.createdAt,
     this.pending = false,
+    this.tags = const [],
   });
 
   factory DocumentModel.fromEntity(Document entity) {
@@ -47,6 +49,7 @@ class DocumentModel {
       note: entity.note,
       createdAt: entity.createdAt,
       pending: entity.pending,
+      tags: entity.tags,
     );
   }
 
@@ -71,6 +74,7 @@ class DocumentModel {
       note: note,
       createdAt: createdAt,
       pending: pending,
+      tags: tags,
     );
   }
 
@@ -89,6 +93,7 @@ class DocumentModel {
       'note': note,
       'createdAt': createdAt.toIso8601String(),
       'pending': pending,
+      'tags': tags,
     };
   }
 
@@ -97,7 +102,7 @@ class DocumentModel {
       id: map['id'],
       fileName: map['fileName'],
       fileType: map['fileType'],
-      localPath: map['localPath'],
+      localPath: map['localPath'] ?? map['filePath'] ?? '',
       category: map['category'] ?? DocumentCategory.other.name,
       hospitalName: map['hospitalName'],
       doctorName: map['doctorName'],
@@ -107,6 +112,12 @@ class DocumentModel {
       note: map['note'],
       createdAt: DateTime.parse(map['createdAt']),
       pending: map['pending'] ?? false,
+      tags: (map['tags'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          (map['tagId'] != null && (map['tagId'] as String).isNotEmpty
+              ? [map['tagId'] as String]
+              : const <String>[]),
     );
   }
 }

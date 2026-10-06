@@ -11,7 +11,6 @@ import '../../firebase_options.dart';
 import '../../shared/providers/document_providers.dart';
 import '../../shared/data/services/ad_service.dart';
 import '../../shared/data/services/notification_engine.dart';
-import '../../shared/data/services/notification_service.dart';
 import '../../shared/providers/medicine_providers.dart';
 import '../../features/appointments/presentation/providers/appointment_providers.dart';
 import '../../core/notifications/notification_navigation.dart';
@@ -98,7 +97,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
     _log('Phase 3: Ads + notification core init...');
     await Future.wait([
       _safeRun('ads_init', AdService().init()),
-      _safeRun('notif_service_core', NotificationService.initCore()),
       _safeRun('notif_engine_core', NotificationEngine.initializeCore()),
     ]);
     _log('Phase 3: Ads + notification core ✅');
@@ -114,6 +112,11 @@ class AppBootstrapController extends AsyncNotifier<void> {
     _log('Phase 6: Identity...');
     await _safeRun('identity', _configureIdentity());
     _log('Phase 6: Identity ✅');
+
+    final prefs = container.read(sharedPreferencesProvider);
+    final count = (prefs.getInt('app_launch_count') ?? 0) + 1;
+    await prefs.setInt('app_launch_count', count);
+    _log('App launch count: $count');
 
     _schedulePostFrameWork(container);
     _log('Phase 7: Deferred work scheduled ✅');
@@ -205,10 +208,6 @@ class AppBootstrapController extends AsyncNotifier<void> {
   Future<void> _runDeferredWork(ProviderContainer container) async {
     if (kIsWeb) return;
 
-    _log('Deferred: Requesting notification permissions...');
-    await _safeRun('notif_permissions', NotificationService.requestStartupPermissions());
-    await _safeRun('engine_permissions', NotificationEngine.requestPermissions());
-
     _log('Deferred: Starting notification listeners...');
     await _safeRun('notif_listeners', _setupNotificationListeners(container));
 
@@ -227,7 +226,7 @@ class AppBootstrapController extends AsyncNotifier<void> {
   }
 
   Future<void> _setupNotificationListeners(ProviderContainer container) async {
-    NotificationService.setMedicineActionHandlers(
+    NotificationEngine.setMedicineActionHandlers(
       onTaken: (id) async {
         await _safeRun('medicine_taken_service', container.read(medicineListProvider.notifier).markAsTaken(id));
       },
@@ -236,38 +235,17 @@ class AppBootstrapController extends AsyncNotifier<void> {
       },
     );
 
-    NotificationService.setRouteHandler((payload) {
+    NotificationEngine.setRouteHandler((payload) {
       if (payload.isNotEmpty) {
-        try {
-          container.read(pendingNotificationRouteProvider.notifier).setFromPayload(payload);
-        } catch (e) {
-          debugPrint('[Bootstrap] Failed to set notification route from service: $e');
-        }
-      }
-    });
-
-    await NotificationEngine.startListening((receivedAction) async {
-      final payload = receivedAction.payload?['payload'];
-      if (payload != null && payload.isNotEmpty) {
         try {
           container.read(pendingNotificationRouteProvider.notifier).setFromPayload(payload);
         } catch (e) {
           debugPrint('[Bootstrap] Failed to set notification route: $e');
         }
       }
-
-      if (receivedAction.buttonKeyPressed == 'MARK_DONE') {
-        final entityId = receivedAction.payload?['entityId'];
-        if (entityId != null) {
-          await _safeRun('medicine_taken', container.read(medicineListProvider.notifier).markAsTaken(entityId));
-        }
-      } else if (receivedAction.buttonKeyPressed == 'SKIP') {
-        final entityId = receivedAction.payload?['entityId'];
-        if (entityId != null) {
-          await _safeRun('medicine_skipped', container.read(medicineListProvider.notifier).markAsSkipped(entityId));
-        }
-      }
     });
+
+    await NotificationEngine.startListening();
   }
 
   Future<void> _rescheduleNotificationsFromRef({bool force = false}) async {

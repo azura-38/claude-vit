@@ -289,6 +289,10 @@ class DocumentCard extends StatelessWidget {
         return AppColors.tagOperationBg;
       case DocumentTag.vaccination:
         return AppColors.tagVaccinationBg;
+      case DocumentTag.insurance:
+        return AppColors.tagInsuranceBg;
+      case DocumentTag.invoice:
+        return AppColors.tagInvoiceBg;
       case DocumentTag.other:
         return AppColors.tagOtherBg;
     }
@@ -308,6 +312,10 @@ class DocumentCard extends StatelessWidget {
         return AppColors.tagOperationText;
       case DocumentTag.vaccination:
         return AppColors.tagVaccinationText;
+      case DocumentTag.insurance:
+        return AppColors.tagInsuranceText;
+      case DocumentTag.invoice:
+        return AppColors.tagInvoiceText;
       case DocumentTag.other:
         return AppColors.tagOtherText;
     }

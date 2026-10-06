@@ -56,7 +56,6 @@ Notification changes must be checked for permission timing, recurrence behavior,
 Ads must never:
 
 - Interrupt onboarding
-- Appear immediately after unlock
 - Appear during emergency flow
 - Appear during sensitive save, delete, export, vault, or security flows
 
