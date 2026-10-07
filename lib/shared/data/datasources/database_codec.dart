@@ -91,8 +91,9 @@ class _AesDecoder extends Converter<String, Object?> {
         return jsonDecode(decrypted);
       }
     } catch (e) {
-      // If decryption fails, it could be due to a wrong key or corrupted data.
-      return null;
+      // If decryption fails due to a wrong key or corrupted data, throw FormatException
+      // so Sembast openDatabase detects the failure instead of silently yielding null records.
+      throw FormatException('Failed to decrypt database record: invalid key or corrupted data ($e)');
     }
   }
 }

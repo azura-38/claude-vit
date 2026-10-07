@@ -22,7 +22,7 @@ class SembastDatabase {
   Database? _db;
 
   /// Completer that resolves once [init] finishes successfully.
-  final Completer<Database> _completer = Completer<Database>();
+  Completer<Database> _completer = Completer<Database>();
 
   /// Synchronous getter – only safe to call after [init] has completed.
   Database get db {
@@ -43,16 +43,22 @@ class SembastDatabase {
 
   SembastDatabase._internal();
 
+  /// Resets internal instance state (for wipe and isolated testing).
+  void reset() {
+    _db = null;
+    if (_completer.isCompleted) {
+      _completer = Completer<Database>();
+    }
+  }
+
   Future<void> init(EncryptionService encryptionService) async {
     final docsDir = await getApplicationDocumentsDirectory();
     final dbPath = p.join(docsDir.path, "vitacase.db");
-
-    final masterKey = await encryptionService.getMasterKey();
-    final codec = DatabaseEncryptionCodec(masterKey);
-
     final databaseFactory = databaseFactoryIo;
 
     try {
+      final masterKey = await encryptionService.getMasterKey();
+      final codec = DatabaseEncryptionCodec(masterKey);
       _db = await databaseFactory.openDatabase(dbPath, codec: codec);
       if (!_completer.isCompleted) _completer.complete(_db!);
     } catch (e, stackTrace) {
@@ -61,54 +67,52 @@ class SembastDatabase {
         await Sentry.captureException(e, stackTrace: stackTrace);
       } catch (_) {}
 
-      // Set recovery trigger flag in SharedPreferences
+      // Record database open error state in SharedPreferences
       try {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('db_corruption_recovery_triggered', true);
       } catch (_) {}
 
-      // Self-healing database recovery block
-      try {
-        final dbFile = File(dbPath);
-        if (await dbFile.exists()) {
-          // Keep a backup before deleting
-          try {
-            await dbFile.copy('$dbPath.bak');
-          } catch (_) {}
-          await dbFile.delete();
-        }
-        
-        final userDocsDir = Directory(p.join(docsDir.path, "documents"));
-        if (await userDocsDir.exists()) {
-          await userDocsDir.delete(recursive: true);
-        }
-      } catch (_) {}
-
-      // Retry opening fresh database
-      try {
-        _db = await databaseFactory.openDatabase(dbPath, codec: codec);
-        if (!_completer.isCompleted) _completer.complete(_db!);
-      } catch (retryError) {
-        if (!_completer.isCompleted) _completer.completeError(retryError, stackTrace);
-        throw DatabaseRecoveryRequiredException(retryError, stackTrace);
+      // CRITICAL PRE-RELEASE FIX:
+      // Never delete user database or documents/ folder automatically on open failure.
+      // Doing so risks irreversible data loss if keys fail temporarily or codec misbehaves.
+      // Propagate error to caller safely.
+      if (!_completer.isCompleted) {
+        _completer.completeError(e, stackTrace);
+        _completer.future.ignore();
       }
+      throw DatabaseRecoveryRequiredException(e, stackTrace);
     }
   }
 
   Future<void> close() async {
-    await db.close();
+    if (_db != null) {
+      await _db!.close();
+      _db = null;
+    }
+    if (_completer.isCompleted) {
+      _completer = Completer<Database>();
+    }
   }
 
   Future<void> deleteDatabaseFile() async {
     try {
-      await db.close();
+      await _db?.close();
     } catch (_) {}
+    _db = null;
+    _completer = Completer<Database>();
 
     final docsDir = await getApplicationDocumentsDirectory();
     final dbPath = p.join(docsDir.path, "vitacase.db");
     final file = File(dbPath);
     if (await file.exists()) {
       await file.delete();
+    }
+
+    // Also clean up any recovery backup copy when the user explicitly triggers a wipe
+    final bakFile = File('$dbPath.bak');
+    if (await bakFile.exists()) {
+      await bakFile.delete();
     }
   }
 }

@@ -19,10 +19,13 @@ class AppConfig {
 
   // Production AdMob IDs (Scheduled for activation in Phase 20)
   static const String prodAdmobAppId = 'ca-app-pub-5877011177866406~6901208048';
-  static const String prodBannerAdId = 'ca-app-pub-5877011177866406/4230356792';
-  static const String prodInterstitialAdId = 'ca-app-pub-5877011177866406/4940803235';
+  /// Officially verified Banner ID from latest Google AdMob placement document.
+  static const String prodBannerAdId = 'ca-app-pub-5877011177866406/8010224598';
+  /// Officially verified Interstitial ID from latest Google AdMob placement document.
+  static const String prodInterstitialAdId = 'ca-app-pub-5877011177866406/9281662404';
   static const String prodRewardedAdId = 'ca-app-pub-5877011177866406/8638855182';
   static const String prodAppOpenAdId = 'ca-app-pub-5877011177866406/3230238539';
+  /// Officially verified Rewarded Interstitial ID from Google AdMob placement document.
   static const String prodRewardedInterstitialAdId = 'ca-app-pub-5877011177866406/4940803235';
   static const String prodNativeAdId = 'ca-app-pub-5877011177866406/4587929537';
 
@@ -67,15 +70,24 @@ class AppConfig {
     );
   }
 
+  /// Whether a distinct, verified production Interstitial ID is configured.
+  static bool get isProductionInterstitialVerified =>
+      prodInterstitialAdId.isNotEmpty &&
+      prodInterstitialAdId != prodRewardedInterstitialAdId;
+
   static String get interstitialAdId {
     if (!isProductionAdsActive || kDebugMode) {
       if (!kIsWeb && Platform.isIOS) return testIosInterstitialId;
       return testAndroidInterstitialId;
     }
-    return const String.fromEnvironment(
+    const envId = String.fromEnvironment(
       'ADMOB_INTERSTITIAL_ID',
       defaultValue: prodInterstitialAdId,
     );
+    if (envId.isEmpty || envId == prodRewardedInterstitialAdId) {
+      return '';
+    }
+    return envId;
   }
 
   static String get rewardedInterstitialAdId {

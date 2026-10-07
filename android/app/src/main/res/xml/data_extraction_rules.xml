@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Exclude local encrypted database and documents from unmanaged cloud backup -->
+        <!-- Hardware-backed Android Keystore keys cannot be exported to cloud backups -->
+        <!-- In path_provider_android, getApplicationDocumentsDirectory uses context.getDir("flutter"), located at root/app_flutter -->
+        <exclude domain="root" path="app_flutter/vitacase.db" />
+        <exclude domain="root" path="app_flutter/documents" />
+        <exclude domain="root" path="app_flutter" />
+        <exclude domain="file" path="app_flutter/vitacase.db" />
+        <exclude domain="file" path="vitacase.db" />
+        <exclude domain="file" path="app_flutter/documents" />
+        <exclude domain="file" path="documents" />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureStorage" />
+    </cloud-backup>
+    <device-transfer>
+        <!-- Exclude database, documents and secure storage from direct device transfer to prevent orphan ciphertext without hardware keystore keys -->
+        <exclude domain="root" path="app_flutter/vitacase.db" />
+        <exclude domain="root" path="app_flutter/documents" />
+        <exclude domain="root" path="app_flutter" />
+        <exclude domain="file" path="app_flutter/vitacase.db" />
+        <exclude domain="file" path="vitacase.db" />
+        <exclude domain="file" path="app_flutter/documents" />
+        <exclude domain="file" path="documents" />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureStorage" />
+    </device-transfer>
+</data-extraction-rules>

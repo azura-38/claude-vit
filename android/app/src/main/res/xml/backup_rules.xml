@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude database and vault documents from cloud backup -->
+    <!-- In path_provider_android, getApplicationDocumentsDirectory uses context.getDir("flutter"), located at root/app_flutter -->
+    <exclude domain="root" path="app_flutter/vitacase.db" />
+    <exclude domain="root" path="app_flutter/documents" />
+    <exclude domain="root" path="app_flutter" />
+    <exclude domain="file" path="app_flutter/vitacase.db" />
+    <exclude domain="file" path="vitacase.db" />
+    <exclude domain="file" path="app_flutter/documents" />
+    <exclude domain="file" path="documents" />
+    <exclude domain="database" path="." />
+    <!-- Exclude FlutterSecureStorage preferences to prevent orphan keystore references on restore -->
+    <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+    <exclude domain="sharedpref" path="FlutterSecureStorage" />
+</full-backup-content>

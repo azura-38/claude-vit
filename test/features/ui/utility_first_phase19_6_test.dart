@@ -1,4 +1,4 @@
-﻿// Phase 19.6 — Utility-First UI Cleanup & Legacy UX Audit Tests
+// Phase 19.6 — Utility-First UI Cleanup & Legacy UX Audit Tests
 // Coverage: Dashboard, ReviewCard, Vault, Navigation, Profile, Ads, Gamification Guards
 // Minimum required: 20 scenarios | Actual: 25 scenarios
 
@@ -83,6 +83,7 @@ void main() {
       expect(AppConfig.prodAdmobAppId, isNotEmpty);
       expect(AppConfig.prodBannerAdId, isNotEmpty);
       expect(AppConfig.prodInterstitialAdId, isNotEmpty);
+      expect(AppConfig.prodRewardedInterstitialAdId, isNotEmpty);
       expect(AppConfig.isProductionAdsActive, isFalse);
     });
   });

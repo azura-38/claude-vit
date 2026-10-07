@@ -5,6 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../core/ads/ad_visibility_policy.dart';
 import '../../core/config/app_config.dart';
+import '../data/services/consent_service.dart';
 
 class VitaCaseBannerAd extends ConsumerStatefulWidget {
   const VitaCaseBannerAd({
@@ -57,13 +58,35 @@ class _VitaCaseBannerAdState extends ConsumerState<VitaCaseBannerAd> {
     super.dispose();
   }
 
-  void _loadBannerIfNeeded() {
+  Future<void> _loadBannerIfNeeded() async {
     if (kIsWeb || !AppConfig.hasAdConfig || AppConfig.bannerAdId.isEmpty) {
       _loadFailed = true;
       _lastError = kIsWeb ? 'Web desteklenmiyor' : 'AdMob banner config eksik';
       widget.onLoadedStateChanged?.call(false);
       return;
     }
+
+    if (!widget.ignoreVisibilityPolicy) {
+      final policy = ref.read(adVisibilityPolicyProvider);
+      if (!policy.canShowBanner) {
+        return;
+      }
+    }
+
+    // UMP Consent Check: Ad requests cannot be sent before UMP consent is verified.
+    final canRequest = await ConsentService.canRequestAds();
+    if (!canRequest) {
+      if (mounted) {
+        setState(() {
+          _loadFailed = true;
+          _lastError = 'UMP consent not granted';
+        });
+      }
+      widget.onLoadedStateChanged?.call(false);
+      return;
+    }
+
+    if (!mounted) return;
     if (_bannerAd != null) {
       if (_isLoaded) {
         widget.onLoadedStateChanged?.call(true);

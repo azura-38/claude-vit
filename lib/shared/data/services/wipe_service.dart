@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../datasources/sembast_database.dart';
 import 'notification_engine.dart';
 import 'encryption_service.dart';
+import 'backup_service.dart';
 
 class WipeService {
   static const _storage = FlutterSecureStorage();
@@ -41,12 +42,27 @@ class WipeService {
     await _storage.deleteAll();
     EncryptionService.clearCache();
 
-    // 4. Delete Uploaded Documents
+    // 4. Delete Uploaded Documents & Recovery Artifacts
     try {
       final appDir = await getApplicationDocumentsDirectory();
       final docsDir = Directory(p.join(appDir.path, 'documents'));
       if (await docsDir.exists()) {
         await docsDir.delete(recursive: true);
+      }
+      // Also delete any recovery/backup artifacts in app documents dir
+      final entities = appDir.listSync();
+      for (final entity in entities) {
+        if (entity is File) {
+          final filename = p.basename(entity.path);
+          if (filename.endsWith('.bak') ||
+              filename.endsWith('.old') ||
+              filename.endsWith('.tmp') ||
+              filename == BackupService.backupFileName) {
+            try {
+              await entity.delete();
+            } catch (_) {}
+          }
+        }
       }
     } catch (_) {}
 
@@ -62,5 +78,8 @@ class WipeService {
         }
       }
     } catch (_) {}
+
+    // 6. Ensure SembastDatabase instance is reset cleanly for next initialization
+    SembastDatabase().reset();
   }
 }

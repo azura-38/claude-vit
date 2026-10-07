@@ -5,6 +5,7 @@ import '../../../core/config/app_config.dart';
 import '../../../core/ads/ad_visibility_policy.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../data/services/consent_service.dart';
 
 class BannerAdContainer extends ConsumerStatefulWidget {
   const BannerAdContainer({super.key});
@@ -36,6 +37,16 @@ class _BannerAdContainerState extends ConsumerState<BannerAdContainer> {
 
   Future<void> _initAd() async {
     try {
+      if (!await ConsentService.canRequestAds()) {
+        if (!mounted) return;
+        setState(() {
+          _bannerAd = null;
+          _isLoaded = false;
+          _hasFailed = true;
+        });
+        return;
+      }
+
       final mediaQuery = MediaQuery.of(context);
       final adWidth = mediaQuery.size.width.truncate();
       final orientation = mediaQuery.orientation;

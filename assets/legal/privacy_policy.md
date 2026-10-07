@@ -28,7 +28,7 @@ VitaCase is an organizational utility tool only. VitaCase is **not** a healthcar
 VitaCase operates on a **local-first** security model:
 * **No Remote Accounts**: There are no cloud user accounts, remote registrations, or central logins.
 * **No Cloud Sync**: Your documents, notes, appointments, medications, health measurements, and profile data are stored **strictly on your terminal device**. We have no access to your documents or files.
-* **End-to-End Local Encryption**: Files and sensitive database records stored in the VitaCase vault are encrypted on-device using industry-standard **AES-256-GCM** encryption.
+* **Authenticated Local Encryption at Rest**: Files and sensitive database records stored in the VitaCase vault are encrypted on-device using industry-standard authenticated **AES-256-GCM** encryption.
 
 ### B. Biometric Authentication & Device Security
 * VitaCase allows you to secure the App using a 6-digit PIN and optional biometric authentication (fingerprint or facial recognition).
@@ -123,7 +123,7 @@ Technical diagnostic logs and aggregated telemetry transmitted to third-party SD
 
 We enforce robust, defense-in-depth security measures on your device:
 * **AES-256-GCM Encryption**: All documents, PDFs, images, and sensitive database records in the vault are encrypted at rest on your device using authenticated AES-256-GCM.
-* **Hardware-Backed Key Derivation**: Encryption keys are derived using PBKDF2/cryptographic salts and stored in hardware-backed storage (`FlutterSecureStorage` / Android Keystore) where supported by the operating system.
+* **Hardware-Backed Key Storage**: Cryptographic 256-bit master keys are generated via cryptographically secure random bytes and stored in hardware-backed secure storage (`FlutterSecureStorage` / Android Keystore / iOS Keychain).
 * **PIN & Biometric Lock**: An optional 6-digit PIN and operating system biometric authentication gate prevent unauthorized physical access to the App.
 
 *Limitation*: While local encryption protects your stored data from unauthorized apps, overall security also depends on keeping your device operating system updated and your device lock screen protected.

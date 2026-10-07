@@ -7,6 +7,7 @@ import '../../../core/config/app_config.dart';
 import '../../../core/constants/legal_version.dart';
 import '../../../core/types/runtime_types.dart';
 import 'analytics_service.dart';
+import 'consent_service.dart';
 
 class AdService {
   static final AdService _instance = AdService._internal();
@@ -103,6 +104,7 @@ class AdService {
     _instance.lastAppOpenShown = null;
 
     legalAcceptedOverrideForTesting = null;
+    ConsentService.canRequestAdsOverrideForTesting = null;
     _instance._initCompleter = null;
     _instance._prefs = null;
   }
@@ -162,6 +164,20 @@ class AdService {
       _interstitialState = InterstitialAdState.idle;
       return null;
     }
+
+    // UMP Consent Check: Ad requests cannot be sent before UMP consent is verified.
+    // In unit tests with mock delegates, bypass unless explicitly overridden.
+    final isMockDelegate = _interstitialDelegate is! DefaultInterstitialAdDelegate;
+    final canRequest = isMockDelegate
+        ? (ConsentService.canRequestAdsOverrideForTesting ?? true)
+        : await ConsentService.canRequestAds();
+
+    if (!canRequest) {
+      debugPrint('[AdService] Interstitial ad request suppressed: UMP consent not granted.');
+      _interstitialState = InterstitialAdState.idle;
+      return null;
+    }
+
     if (_interstitialHandle != null) {
       _interstitialState = InterstitialAdState.loaded;
       return _interstitialHandle;
@@ -202,6 +218,19 @@ class AdService {
       _rewardedState = RewardedAdState.idle;
       return null;
     }
+
+    // UMP Consent Check: Ad requests cannot be sent before UMP consent is verified.
+    final isMockDelegate = _rewardedDelegate is! DefaultRewardedAdDelegate;
+    final canRequest = isMockDelegate
+        ? (ConsentService.canRequestAdsOverrideForTesting ?? true)
+        : await ConsentService.canRequestAds();
+
+    if (!canRequest) {
+      debugPrint('[AdService] Rewarded ad request suppressed: UMP consent not granted.');
+      _rewardedState = RewardedAdState.idle;
+      return null;
+    }
+
     if (_rewardedHandle != null) {
       _rewardedState = RewardedAdState.loaded;
       return _rewardedHandle;
@@ -240,6 +269,19 @@ class AdService {
       _appOpenState = AppOpenAdState.idle;
       return null;
     }
+
+    // UMP Consent Check: Ad requests cannot be sent before UMP consent is verified.
+    final isMockDelegate = _appOpenDelegate is! DefaultAppOpenAdDelegate;
+    final canRequest = isMockDelegate
+        ? (ConsentService.canRequestAdsOverrideForTesting ?? true)
+        : await ConsentService.canRequestAds();
+
+    if (!canRequest) {
+      debugPrint('[AdService] AppOpen ad request suppressed: UMP consent not granted.');
+      _appOpenState = AppOpenAdState.idle;
+      return null;
+    }
+
     if (_appOpenHandle != null) {
       _appOpenState = AppOpenAdState.loaded;
       return _appOpenHandle;

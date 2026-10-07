@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:isolate';
 
 import '../../../core/utils/uid_manager.dart';
+import '../datasources/sembast_database.dart';
 
 class BackupManifest {
   final int version;
@@ -78,14 +79,24 @@ class BackupService {
     final docsDir = await getApplicationDocumentsDirectory();
     final uid = await UIDManager.getUID();
 
+    // Close any active database connection before modifying DB on disk
+    try {
+      await SembastDatabase().close();
+    } catch (_) {}
+
     final data = _RestoreTaskData(
       zipPath: zipPath,
       targetDocsPath: docsDir.path,
       currentDeviceUid: uid,
     );
 
-    // Run the heavy lifting in a background isolate
-    await Isolate.run(() => _importTask(data));
+    try {
+      // Run the heavy lifting in a background isolate
+      await Isolate.run(() => _importTask(data));
+    } finally {
+      // Reset the database singleton completer so the next init will bind to the new file cleanly
+      SembastDatabase().reset();
+    }
   }
 }
 
@@ -125,7 +136,7 @@ void _exportTask(_BackupTaskData data) {
   // 1. Add Database file
   final dbFile = File(data.dbPath);
   if (dbFile.existsSync()) {
-    encoder.addFile(dbFile, "vitacase.db");
+    encoder.addFileSync(dbFile, "vitacase.db");
   }
 
   // 2. Add Documents directory recursively
@@ -146,16 +157,68 @@ void _exportTask(_BackupTaskData data) {
 /// Top-level function for background import
 void _importTask(_RestoreTaskData data) {
   final zipFile = File(data.zipPath);
-  final bytes = zipFile.readAsBytesSync();
-  final archive = ZipDecoder().decodeBytes(bytes);
-  final manifestEntry = archive.findFile('vitacase_manifest.json');
-  if (manifestEntry == null || !manifestEntry.isFile) {
-    throw const FileSystemException('Backup manifest is missing.');
+  if (!zipFile.existsSync()) {
+    throw const FileSystemException('Backup archive file not found.');
   }
 
-  // Note: manifest validation is currently disabled to allow cross-device restore (MVP).
+  final List<int> bytes;
+  try {
+    bytes = zipFile.readAsBytesSync();
+  } catch (e) {
+    throw FileSystemException('Failed to read backup archive: $e');
+  }
 
-  // 1. Prepare temp directory
+  final Archive archive;
+  try {
+    archive = ZipDecoder().decodeBytes(bytes);
+  } catch (e) {
+    throw const FormatException('Invalid or corrupted ZIP archive format.');
+  }
+
+  // 1. Verify manifest existence and structure
+  final manifestEntry = archive.findFile('vitacase_manifest.json');
+  if (manifestEntry == null || !manifestEntry.isFile) {
+    throw const FormatException('Backup manifest is missing or invalid.');
+  }
+
+  final String manifestRaw;
+  try {
+    manifestRaw = utf8.decode(manifestEntry.content as List<int>);
+  } catch (e) {
+    throw const FormatException('Corrupted backup manifest content.');
+  }
+
+  final Map<String, dynamic> manifestJson;
+  try {
+    manifestJson = jsonDecode(manifestRaw) as Map<String, dynamic>;
+  } catch (e) {
+    throw FormatException('Invalid JSON in backup manifest: $e');
+  }
+
+  final manifest = BackupManifest.fromJson(manifestJson);
+
+  // Validate version
+  if (manifest.version > 1) {
+    throw FormatException('Unsupported backup version (${manifest.version}). Please update VitaCase.');
+  }
+
+  // Validate scope and encryption key compatibility
+  if (manifest.scope == 'same_device_only' &&
+      manifest.deviceUid.isNotEmpty &&
+      data.currentDeviceUid.isNotEmpty &&
+      manifest.deviceUid != data.currentDeviceUid) {
+    throw const FormatException(
+      'Cross-device restore blocked: This backup was created on a different device and requires the original hardware encryption key.',
+    );
+  }
+
+  // Validate mandatory files inside archive
+  final dbEntry = archive.findFile('vitacase.db');
+  if (dbEntry == null || !dbEntry.isFile) {
+    throw const FormatException('Corrupt backup: vitacase.db is missing from archive.');
+  }
+
+  // 2. Prepare temp directory for safe extraction
   final tempDirPath = p.join(data.targetDocsPath, "restore_temp");
   final tempDir = Directory(tempDirPath);
   if (tempDir.existsSync()) {
@@ -163,62 +226,86 @@ void _importTask(_RestoreTaskData data) {
   }
   tempDir.createSync();
 
-  // 2. Extract files – guard against path traversal attacks
-  for (final file in archive) {
-    final normalized = p.normalize(file.name).replaceAll('\\', '/');
+  try {
+    // 3. Extract files – guard against path traversal attacks
+    for (final file in archive) {
+      final normalized = p.normalize(file.name).replaceAll('\\', '/');
 
-    // SECURITY: Reject entries that escape the target directory.
-    if (p.isAbsolute(normalized) ||
-        normalized.contains('../') ||
-        normalized.startsWith('..')) {
-      continue;
-    }
-
-    if (file.isFile) {
-      if (normalized == 'vitacase_manifest.json') {
+      // SECURITY: Reject entries that escape the target directory.
+      if (p.isAbsolute(normalized) ||
+          normalized.contains('../') ||
+          normalized.startsWith('..')) {
         continue;
       }
-      final fileData = file.content as List<int>;
-      final outPath = p.join(tempDirPath, normalized);
-      final outFile = File(outPath);
-      outFile.createSync(recursive: true);
-      outFile.writeAsBytesSync(fileData);
-    } else {
-      Directory(p.join(tempDirPath, normalized)).createSync(recursive: true);
+
+      if (file.isFile) {
+        if (normalized == 'vitacase_manifest.json') {
+          continue;
+        }
+        final fileData = file.content as List<int>;
+        final outPath = p.join(tempDirPath, normalized);
+        final outFile = File(outPath);
+        outFile.createSync(recursive: true);
+        outFile.writeAsBytesSync(fileData);
+      } else {
+        Directory(p.join(tempDirPath, normalized)).createSync(recursive: true);
+      }
+    }
+
+    final newDbPath = p.join(tempDirPath, "vitacase.db");
+    if (!File(newDbPath).existsSync() || File(newDbPath).lengthSync() == 0) {
+      throw const FormatException('Extracted database file is missing or empty.');
+    }
+
+    // 4. Atomically replace old content with rollback protection
+    final dbPath = p.join(data.targetDocsPath, "vitacase.db");
+    final oldDbPath = p.join(data.targetDocsPath, "vitacase.db.old");
+
+    final docsPath = p.join(data.targetDocsPath, "documents");
+    final oldDocsPath = p.join(data.targetDocsPath, "documents_old");
+    final newDocsPath = p.join(tempDirPath, "documents");
+
+    bool renamedDb = false;
+    bool renamedDocs = false;
+
+    try {
+      if (File(dbPath).existsSync()) {
+        File(dbPath).renameSync(oldDbPath);
+        renamedDb = true;
+      }
+      if (Directory(docsPath).existsSync()) {
+        Directory(docsPath).renameSync(oldDocsPath);
+        renamedDocs = true;
+      }
+
+      File(newDbPath).renameSync(dbPath);
+      if (Directory(newDocsPath).existsSync()) {
+        Directory(newDocsPath).renameSync(docsPath);
+      }
+
+      // Cleanup old files ONLY after swap completes successfully
+      if (File(oldDbPath).existsSync()) {
+        try { File(oldDbPath).deleteSync(); } catch (_) {}
+      }
+      if (Directory(oldDocsPath).existsSync()) {
+        try { Directory(oldDocsPath).deleteSync(recursive: true); } catch (_) {}
+      }
+    } catch (swapError) {
+      // ROLLBACK: Restore previous data if swap failed
+      if (renamedDb && File(oldDbPath).existsSync() && !File(dbPath).existsSync()) {
+        try { File(oldDbPath).renameSync(dbPath); } catch (_) {}
+      }
+      if (renamedDocs && Directory(oldDocsPath).existsSync() && !Directory(docsPath).existsSync()) {
+        try { Directory(oldDocsPath).renameSync(docsPath); } catch (_) {}
+      }
+      throw FileSystemException('Atomic restore swap failed: $swapError');
+    }
+  } finally {
+    // 5. Cleanup temp directory
+    if (tempDir.existsSync()) {
+      try { tempDir.deleteSync(recursive: true); } catch (_) {}
     }
   }
-
-  // 3. Atomically replace old content
-  final dbPath = p.join(data.targetDocsPath, "vitacase.db");
-  final oldDbPath = p.join(data.targetDocsPath, "vitacase.db.old");
-  final newDbPath = p.join(tempDirPath, "vitacase.db");
-
-  final docsPath = p.join(data.targetDocsPath, "documents");
-  final oldDocsPath = p.join(data.targetDocsPath, "documents_old");
-  final newDocsPath = p.join(tempDirPath, "documents");
-
-  if (File(dbPath).existsSync()) {
-    File(dbPath).renameSync(oldDbPath);
-  }
-  if (Directory(docsPath).existsSync()) {
-    Directory(docsPath).renameSync(oldDocsPath);
-  }
-
-  if (File(newDbPath).existsSync()) {
-    File(newDbPath).renameSync(dbPath);
-  }
-  if (Directory(newDocsPath).existsSync()) {
-    Directory(newDocsPath).renameSync(docsPath);
-  }
-
-  // 4. Cleanup
-  if (File(oldDbPath).existsSync()) {
-    File(oldDbPath).deleteSync();
-  }
-  if (Directory(oldDocsPath).existsSync()) {
-    Directory(oldDocsPath).deleteSync(recursive: true);
-  }
-  if (tempDir.existsSync()) tempDir.deleteSync(recursive: true);
 }
 
 /// Synchronous directory adding for use in isolates
@@ -231,7 +318,7 @@ void _addDirectoryToZipSync(
   for (final entity in entities) {
     final String name = p.basename(entity.path);
     if (entity is File) {
-      encoder.addFile(entity, p.join(zipPath, name));
+      encoder.addFileSync(entity, p.join(zipPath, name));
     } else if (entity is Directory) {
       _addDirectoryToZipSync(encoder, entity, p.join(zipPath, name));
     }

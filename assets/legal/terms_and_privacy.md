@@ -130,7 +130,7 @@ While your documents and personal records never leave your device, the App integ
    * **Purpose**: Identifying and resolving software stability issues.
 3. **Sentry (Functional Software, Inc.)**:
    * **Collected Data**: Real-time application exceptions, error stack traces, and performance events.
-   * **User Identifier**: Sentry and Crashlytics receive a randomly generated, installation-specific UUID (`app_user_uid`) stored in secure storage to correlate error occurrences without personal identity.
+   * **User Identifier**: Sentry receives a randomly generated, installation-specific pseudonymous UUID (`app_user_uid`) stored in secure storage to correlate error occurrences without personal identity. Firebase Crashlytics collects system diagnostic crash traces without receiving this identifier.
 4. **Google AdMob & Google User Messaging Platform (UMP) (Google LLC)**:
    * **Collected Data**: Mobile advertising identifiers (e.g., Google Advertising ID), coarse location, device identifiers, and ad interaction events to deliver in-app advertisements.
    * **Consent Handling**: In jurisdictions requiring consent (such as the EEA, UK, and Switzerland), consent preferences for personalized advertising are collected via the Google User Messaging Platform (UMP). Advertising consent through UMP is specific to advertising and does not conflate with diagnostic or local processing.
@@ -142,8 +142,8 @@ Third-party service providers (Google LLC and Functional Software, Inc.) maintai
 Where the General Data Protection Regulation (GDPR) or similar frameworks apply:
 * **Contractual Necessity (Art. 6(1)(b) GDPR)**: Operating core application features requested by the user.
 * **Legitimate Interests (Art. 6(1)(f) GDPR)**: Maintaining app security, debugging crashes (Firebase Crashlytics, Sentry), and analyzing aggregated product performance.
-* **Consent (Art. 6(1)(a) GDPR)**: Delivering personalized advertising via Google AdMob (managed through Google UMP preferences).
-* **Explicit Consent for Health Data (Art. 9(2)(a) GDPR)**: Provided by the user through voluntary on-device entry and encryption of health-related information into the local vault.
+* **Consent (Art. 6(1)(a) GDPR)**: Delivering advertising via Google AdMob (managed through Google UMP preferences).
+* **On-Device Health Data Custody**: Special category health data is entered voluntarily and retained solely on-device under your exclusive local custody. LIMANEX does not collect, receive, or host your health data on external servers.
 
 ### 2.7 Third-Party Retention Periods
 * **Third-Party Telemetry**: Google Firebase (Analytics & Crashlytics) and Sentry retain diagnostic error logs and aggregated event statistics in accordance with their standard developer retention schedules and platform privacy policies.
@@ -151,8 +151,8 @@ Where the General Data Protection Regulation (GDPR) or similar frameworks apply:
 
 ### 2.8 Data Security Measures & Limitations
 We implement layered technical security measures:
-* Local authenticated encryption with AES-256-GCM.
-* Cryptographic master keys derived via PBKDF2 and isolated in secure hardware storage.
+* Local authenticated encryption with AES-256-GCM for data at rest.
+* Cryptographic 256-bit master keys generated via secure random bytes and isolated in hardware-backed secure storage (`FlutterSecureStorage` / Android Keystore / iOS Keychain).
 * Local application PIN and biometric protection.
 
 *Limitation*: While local encryption protects data at rest against unauthorized apps, overall security also depends on keeping your device operating system updated and your lock screen credentials confidential. No software can guarantee absolute invulnerability against all possible hardware or operating-system compromise.
@@ -193,7 +193,7 @@ Bu bölüm, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") m. 10 ve
 * **Başvuru Usulü**: Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ uyarınca, elektronik posta adresi üzerinden yapılacak başvurular kabul edilmektedir.
 
 ### 3.2 Yerel Depolama Mimarisi ve Kullanıcı Verilerinin Durumu
-VitaCase uygulaması, **cihaz üzerinde yerel depolama (offline-first)** ve **uçtan uca yerel şifreleme (AES-256-GCM)** prensibiyle çalışmaktadır:
+VitaCase uygulaması, **cihaz üzerinde yerel depolama (offline-first)** ve **cihaz üzerinde bekleyen verilerin şifrelenmesi (AES-256-GCM)** prensibiyle çalışmaktadır:
 * **Sağlık ve Belge Verileri**: Uygulamaya kaydettiğiniz belgeler, tahlil sonuçları, reçeteler, ilaç listeleri, randevu notları, boy/kilo ve sağlık istatistikleri **LIMANEX sunucularına iletilmez, depolanmaz ve tarafımızca erişilemez**.
 * Bu veriler doğrudan kullanıcının kendi mobil cihazının korumalı uygulama alanında (sandbox) şifrelenmiş olarak saklanır. Bu verilerin zilyetliği ve denetimi tamamen kullanıcının kendisindedir.
 * **Biyometrik Veriler**: Uygulama içi kilit açma amacıyla kullanılan parmak izi veya yüz tanıma verileri doğrudan cihaz işletim sistemi (`local_auth`) tarafından yerel olarak işlenir; VitaCase biyometrik verilerinizi asla toplamaz, kaydetmez veya harici sunuculara göndermez.
@@ -317,7 +317,7 @@ VitaCase gives you complete autonomy to delete your information at any time:
 
 ### 5.3 Limitations: Third-Party Telemetry & Technical Logs
 While the in-app "Wipe All Data" feature and app uninstallation completely purge all local user data and documents from your device, **they do not automatically delete telemetry and technical logs that may have been transmitted to third-party services**:
-* **Google Firebase (Analytics & Crashlytics)**: Aggregated usage statistics and anonymized crash traces transmitted to Google servers are retained in accordance with Google's standard retention cycles (typically 2 to 14 months for analytics, 90 days for crash logs). The in-app wipe cannot reach or delete records residing on Google servers.
+* **Google Firebase (Analytics & Crashlytics)**: Aggregated usage statistics and diagnostic crash traces transmitted to Google servers are retained in accordance with Google's standard retention cycles (typically 2 to 14 months for analytics, 90 days for crash logs). The in-app wipe cannot reach or delete records residing on Google servers.
 * **Sentry**: Real-time error diagnostic logs sent to Sentry are retained in accordance with Sentry's data retention policy (typically 30 to 90 days) and are not automatically erased by a local device wipe.
 * **Google AdMob**: Device-level advertising interactions and frequency capping records managed by Google Mobile Ads SDK follow Google's advertising policies. Users can reset their Advertising Identifier or revoke consent via device system settings or in-app consent options.
 

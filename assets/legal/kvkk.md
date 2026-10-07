@@ -22,7 +22,7 @@ Bu Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK"
 
 ## 2. YEREL DEPOLAMA MİMARİSİ VE KULLANICI VERİLERİNİN DURUMU
 
-VitaCase uygulaması, **cihaz üzerinde yerel depolama (offline-first)** ve **uçtan uca yerel şifreleme (AES-256-GCM)** prensibiyle çalışmaktadır.
+VitaCase uygulaması, **cihaz üzerinde yerel depolama (offline-first)** ve **cihaz üzerinde bekleyen verilerin şifrelenmesi (AES-256-GCM)** prensibiyle çalışmaktadır.
 
 * **Sağlık ve Belge Verileri**: Uygulamaya kaydettiğiniz belgeler, tahlil sonuçları, reçeteler, ilaç listeleri, randevu notları, boy/kilo ve sağlık istatistikleri **Limanex Software sunucularına iletilmez, depolanmaz ve tarafımızca erişilemez**.
 * Bu veriler doğrudan kullanıcının kendi mobil cihazının korumalı uygulama alanında (sandbox) şifrelenmiş olarak saklanır. Bu verilerin zilyetliği ve denetimi tamamen kullanıcının kendisindedir.

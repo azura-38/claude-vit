@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../firebase_options.dart';
 import '../../shared/providers/document_providers.dart';
 import '../../shared/data/services/ad_service.dart';
+import '../../shared/data/services/consent_service.dart';
 import '../../shared/data/services/notification_engine.dart';
 import '../../shared/providers/medicine_providers.dart';
 import '../../features/appointments/presentation/providers/appointment_providers.dart';
@@ -217,6 +218,10 @@ class AppBootstrapController extends AsyncNotifier<void> {
     final onboardingCompleted = container.read(onboardingCompletedProvider);
     final profileCreated = container.read(profileCreatedProvider);
     final legalAccepted = container.read(legalAcceptedProvider);
+    if (legalAccepted) {
+      _log('Deferred: Checking ad consent via ConsentService...');
+      await _safeRun('consent_service', ConsentService().initializeAdsWithConsent());
+    }
     if (onboardingCompleted && profileCreated && legalAccepted) {
       _log('Deferred: Scheduling daily engagement notification...');
       await _safeRun('engagement_notif', NotificationEngine.scheduleDailyEngagementNotification());

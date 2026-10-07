@@ -1,9 +1,36 @@
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../../core/config/app_config.dart';
 import 'ad_service.dart';
 
 class ConsentService {
+  static final ConsentService _instance = ConsentService._internal();
+  factory ConsentService() => _instance;
+  ConsentService._internal();
+
+  @visibleForTesting
+  static bool? canRequestAdsOverrideForTesting;
+
+  /// Checks whether UMP consent allows ad requests.
+  /// Fails closed (returns false) if error occurs or ads are not configured.
+  /// Legal terms acceptance is NOT treated as UMP consent.
+  static Future<bool> canRequestAds() async {
+    if (canRequestAdsOverrideForTesting != null) {
+      return canRequestAdsOverrideForTesting!;
+    }
+    if (kIsWeb || !AppConfig.hasAdConfig) return false;
+    try {
+      return await ConsentInformation.instance.canRequestAds();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('[ConsentService] canRequestAds check error: $e');
+      }
+      return false;
+    }
+  }
+
   Future<void> initializeAdsWithConsent() async {
+    if (kIsWeb || !AppConfig.hasAdConfig) return;
     try {
       final params = ConsentRequestParameters();
 
@@ -14,16 +41,11 @@ class ConsentService {
           // Consent info update success.
           // Check if a consent form is available and show it if required.
           ConsentForm.loadAndShowConsentFormIfRequired((formError) async {
-            if (formError == null) {
-              // Consent has been obtained or is not required.
-              if (await ConsentInformation.instance.canRequestAds()) {
-                await AdService().init();
-              }
-            } else {
-              if (kDebugMode) {
-                debugPrint('[ConsentService] Form error: ${formError.message}');
-              }
+            if (formError != null && kDebugMode) {
+              debugPrint('[ConsentService] Form error: ${formError.message}');
             }
+            // NOTE: AdService().init() is handled exclusively in Phase 3 of bootstrap.
+            // We do not re-run AdService().init() here to avoid duplicate SDK initialization paths.
           });
         },
         (FormError error) {

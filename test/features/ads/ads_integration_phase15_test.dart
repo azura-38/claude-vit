@@ -481,9 +481,10 @@ void main() {
       expect(AppConfig.rewardedAdId, contains('3940256099942544'));
       expect(AppConfig.appOpenAdId, contains('3940256099942544'));
 
-      // 3. Verify production ad units are preserved for Phase 20 activation
-      expect(AppConfig.prodBannerAdId, equals('ca-app-pub-5877011177866406/4230356792'));
-      expect(AppConfig.prodInterstitialAdId, equals('ca-app-pub-5877011177866406/4940803235'));
+      expect(AppConfig.prodBannerAdId, equals('ca-app-pub-5877011177866406/8010224598'));
+      expect(AppConfig.prodInterstitialAdId, equals('ca-app-pub-5877011177866406/9281662404'));
+      expect(AppConfig.prodRewardedInterstitialAdId, equals('ca-app-pub-5877011177866406/4940803235'));
+      expect(AppConfig.prodInterstitialAdId, isNot(equals(AppConfig.prodRewardedInterstitialAdId)));
       expect(AppConfig.prodRewardedAdId, equals('ca-app-pub-5877011177866406/8638855182'));
       expect(AppConfig.prodAppOpenAdId, equals('ca-app-pub-5877011177866406/3230238539'));
       expect(AppConfig.prodAdmobAppId, equals('ca-app-pub-5877011177866406~6901208048'));
